@@ -18,27 +18,27 @@
 @prefix foaf:          <http://xmlns.com/foaf/0.1/> .
 @prefix dcat:  <http://www.w3.org/ns/dcat#> .
 
-omg_ont:luchtzuiveringssysteem-ap-constraints
+omg_ont:rie-iepr-ap-constraints
     a               owl:Ontology ;
     rdfs:comment
-                    "Specifieert hoe de data in de codelijst van luchtzuiveringssystemen te encoderen in RDF (i.e. RDF termen, kardinaliteiten,...)."@en ;
+                    "Specifieert hoe de data in de codelijst van systemen te encoderen in RDF (i.e. RDF termen, kardinaliteiten,...)."@en ;
     rdfs:label      "Matrix AP Constraints"@en ;
-    dct:abstract    "Het luchtzuiveringssysteem applicatieprofiel specifieert de RDF termen (klassen en properties) en bijhorende constraints die gebruikt worden voor het beschrijven van luchtzuiveringssystemen. Het maakt hierbij zoveel mogelijk gebruik van bestaande termen (klassen en properties) uit bestaande , skos, dbo, dbp en een minimale set van nieuwe termen gedefinieerd in het Matrix Vocabularium."@en ;
+    dct:abstract    "Het rie-iepr applicatieprofiel specifieert de RDF termen (klassen en properties) en bijhorende constraints die gebruikt worden voor het beschrijven van systemen. Het maakt hierbij zoveel mogelijk gebruik van bestaande termen (klassen en properties) uit bestaande , skos, dbo, dbp en een minimale set van nieuwe termen gedefinieerd in het Matrix Vocabularium."@en ;
     dct:alternative "Matrix AP Shapes"@en ;
     dct:creator     omg_ag_cl:creator ;
-    dct:description "Dit is de SHACL encodering van het applicatieprofiel van een luchtzuiveringssysteem."@en ;
+    dct:description "Dit is de SHACL encodering van het applicatieprofiel van een rie-iepr."@en ;
     dct:issued      "2022-10-03"^^xsd:date ;
     dct:title       "Matrix AP Constraints"@en ;
-    xkos:belongsTo  omg_dataset:codelijst-luchtzuiveringssysteem ;
-    xhv:last        omg_voc:luchtzuiveringssysteem-ap-constraints ;
-    owl:sameAs      omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    xkos:belongsTo  omg_dataset:codelijst-rie-iepr ;
+    xhv:last        omg_voc:rie-iepr-ap-constraints ;
+    owl:sameAs      omg_voc:rie-iepr-ap-constraints ;
     owl:versionInfo "Versie 1.0.0  oktober 2023"@en .
 
 
-omg_voc:luchtzuiveringssysteem-ap-constraints
+omg_voc:rie-iepr-ap-constraints
     a          owl:Ontology ;
     rdfs:label "Matrix AP Constraints"@en ;
-    owl:sameAs omg_ont:luchtzuiveringssysteem-ap-constraints .
+    owl:sameAs omg_ont:rie-iepr-ap-constraints .
 
 omg_ag_cl:creator
     rdfs:label "Ontwikkelaar codelijst"@en ;
@@ -51,10 +51,10 @@ omg_ag_cl:creator
 # Node Shapes
 ons:schema
     a                sh:NodeShape ;
-    rdfs:label       "conceptschema van luchtzuiveringssystemen"@en ;
-    sh:name          "conceptschema van luchtzuiveringssystemen"@en ;
-    sh:description   "Het schema waarbinnen de luchtzuiveringssystemen gedefinieerd zijn"@en ;
-    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    rdfs:label       "conceptschema van systemen"@en ;
+    sh:name          "conceptschema van systemen"@en ;
+    sh:description   "Het schema waarbinnen de systemen gedefinieerd zijn"@en ;
+    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:property      omg_ps:conceptscheme_prefLabel, omg_ps:schema_hasTopConcept,
                      omg_ps:definition, omg_ps:rdf_type;
 
@@ -66,8 +66,8 @@ ons:collection
     a                sh:NodeShape ;
     rdfs:label       "verzameling"@en ;
     sh:name          "verzameling"@en ;
-    sh:description   "Verzamelingen bundelen luchtzuiveringssystemen met gelijkaardige eigenschappen, analysemethoden of luchtzuiveringssystemen waarin ze gemeten worden."@en ;
-    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    sh:description   "Verzamelingen bundelen systemen met gelijkaardige eigenschappen, analysemethoden of systemen waarin ze gemeten worden."@en ;
+    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:property      omg_ps:prefLabel, omg_ps:collection_member,
                      omg_ps:inScheme, omg_ps:rdf_type;
 
@@ -75,13 +75,13 @@ ons:collection
 
 
 
-ons:luchtzuiveringssysteem
+ons:rie-iepr
     a                sh:NodeShape ;
-    rdfs:label       "luchtzuiveringssysteem"@en ;
-    sh:name          "luchtzuiveringssysteem"@en ;
+    rdfs:label       "rie-iepr"@en ;
+    sh:name          "rie-iepr"@en ;
     sh:description   "analysemethodes"@en ;
     rdfs:comment     ""@en ;
-    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:property      omg_ps:notation, omg_ps:inScheme,
                      omg_ps:references, omg_ps:definition,
                      omg_ps:prefLabel, omg_ps:theme,
@@ -99,7 +99,7 @@ omg_ps:rdf_type
     rdfs:label       "rdf type"@en ;
     sh:name          "rdf type"@en ;
     sh:description   "Aanduiding dat een bron een instantie van een bepaalde klasse is."@en ;
-    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
 
     sh:minCount      1 ;
     sh:nodeKind      sh:IRI ;
@@ -111,7 +111,7 @@ omg_ps:topConceptOf
     rdfs:label       "topconcept van"@en ;
     sh:name          "topconcept van"@en ;
     sh:description   "De relatie tussen een concept en het schema, waarvan het een topconcept is."@en ;
-    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:class         skos:ConceptScheme ;
     sh:maxCount      1 ;
     sh:nodeKind      sh:IRI ;
@@ -123,7 +123,7 @@ omg_ps:theme
     rdfs:label       "thema"@en ;
     sh:name          "thema"@en ;
     sh:description   "De relatie naar een europees thema"@en ;
-    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:nodeKind      sh:IRI ;
     sh:path          dcat:theme .
 
@@ -132,7 +132,7 @@ omg_ps:theme
 #    rdfs:label       "specifieker concept"@en ;
 #    sh:name          "specifieker concept"@en ;
 #    sh:description   "De relatie tussen een concept en een nauwer, specifieker concept binnen hetzelfde schema."@en ;
-#    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+#    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
 #    sh:class         skos:Concept ;
 #    sh:nodeKind      sh:IRI ;
 #    sh:path          skos:narrower .
@@ -142,7 +142,7 @@ omg_ps:theme
 #    rdfs:label       "breder concept"@en ;
 #    sh:name          "breder concept"@en ;
 #    sh:description   "De relatie tussen een concept en een breder, minder specifiek concept binnen hetzelfde schema."@en ;
-#    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+#    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
 #    sh:class         skos:Concept ;
 #    sh:maxCount      1 ;
 #    sh:nodeKind      sh:IRI ;
@@ -153,7 +153,7 @@ omg_ps:topConceptOf
     rdfs:label       "topconcept van"@en ;
     sh:name          "topconcept van"@en ;
     sh:description   "De relatie tussen een concept en het schema, waarvan het een topconcept is."@en ;
-    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:class         skos:ConceptScheme ;
     sh:maxCount      1 ;
     sh:nodeKind      sh:IRI ;
@@ -164,7 +164,7 @@ omg_ps:altLabel
     rdfs:label       "alternatief label"@en ;
     sh:name          "alternatief label"@en ;
     sh:description   "Een alternatief lexicaal label voor een bepaalde bron."@en ;
-    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:datatype      rdf:langString ;
     sh:languageIn    ( "nl" "en" ) ;
     sh:nodeKind      sh:Literal ;
@@ -175,7 +175,7 @@ omg_ps:collection_member
     rdfs:label       "onderdeel"@en ;
     sh:name          "onderdeel"@en ;
     sh:description   "Een collectie heeft minstens 1 onderdeel."@en ;
-    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:class         skos:Concept ;
     sh:minCount      1 ;
     sh:nodeKind      sh:IRI ;
@@ -188,7 +188,7 @@ omg_ps:collection_member
 #    rdfs:label       "heeft exacte overeenkomst"@en ;
 #    sh:name          "heeft exacte overeenkomst"@en ;
 #    sh:description   "skos:exactMatch wordt gebruikt om twee concepten te koppelen, wat aangeeft dat er een hoge mate van vertrouwen bestaat dat de concepten onderling uitwisselbaar kunnen worden gebruikt in een breed scala aan toepassingen voor het ophalen van informatie. skos:exactMatch is een transitieve eigenschap en is een subeigenschap van skos:closeMatch"@en ;
-#    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+#    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
 #    sh:nodeKind      sh:IRI ;
 #    sh:path          skos:exactMatch .
 
@@ -196,8 +196,8 @@ omg_ps:notation
     a                sh:PropertyShape ;
     rdfs:label       "notatie"@en ;
     sh:name          "notatie"@en ;
-    sh:description   "Een notatie, ook wel classificatiecode genoemd, is een reeks tekens zoals \"PCB151\" of \"EtFOSA\" die wordt gebruikt om een luchtzuiveringssysteem op unieke wijze te identificeren binnen de context van dit schema."@en ;
-    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    sh:description   "Een notatie, ook wel classificatiecode genoemd, is een reeks tekens zoals \"PCB151\" of \"EtFOSA\" die wordt gebruikt om een rie-iepr op unieke wijze te identificeren binnen de context van dit schema."@en ;
+    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:datatype      xsd:string ;
     sh:nodeKind      sh:Literal ;
     sh:property      omg_ps:unique_notation ;
@@ -207,8 +207,8 @@ omg_ps:unique_notation
     a                  sh:PropertyShape ;
     rdfs:label         "unieke notatie"@en ;
     sh:name            "unieke notatie"@en ;
-    sh:description     "Een notatie, ook wel classificatiecode genoemd, is een reeks tekens zoals \"PCB151\" of \"EtFOSA\" die wordt gebruikt om een luchtzuiveringssysteem op unieke wijze te identificeren binnen de context van dit schema. Er kan vanuit verschillende classificatiesystemen, met meerdere notaties verwezen worden naar een luchtzuiveringssysteem, maar een notatie is uniek voor een luchtzuiveringssysteem, ttz. vanuit 1 notatie kan slechts naar 1 luchtzuiveringssysteem worden verwezen."@en ;
-    rdfs:isDefinedBy   omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    sh:description     "Een notatie, ook wel classificatiecode genoemd, is een reeks tekens zoals \"PCB151\" of \"EtFOSA\" die wordt gebruikt om een rie-iepr op unieke wijze te identificeren binnen de context van dit schema. Er kan vanuit verschillende classificatiesystemen, met meerdere notaties verwezen worden naar een rie-iepr, maar een notatie is uniek voor een rie-iepr, ttz. vanuit 1 notatie kan slechts naar 1 rie-iepr worden verwezen."@en ;
+    rdfs:isDefinedBy   omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:nodeKind        sh:IRI ;
     sh:targetObjectsOf skos:notation ;
     sh:path            [ sh:inversePath skos:notation ] ;
@@ -220,7 +220,7 @@ omg_ps:schema_hasTopConcept
     rdfs:label       "heeft topconcept"@en ;
     sh:name          "heeft topconcept"@en ;
     sh:description   "Verbindt een conceptschema met een concept dat bovenaan in een 'broader/narrower' hierarchie staat en voorziet aldus een ingang tot die hierarchie."@en ;
-    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:class         skos:Concept ; #dbo:ChemicalCompound, dbo:ChemicalSubstance,
     sh:minCount      1 ;
     sh:nodeKind      sh:IRI ;
@@ -231,8 +231,8 @@ omg_ps:references
     a                sh:PropertyShape ;
     rdfs:label       "wordt vermeld in"@en ;
     sh:name          "wordt vermeld in"@en ;
-    sh:description   "Binnen dit schema wordt dct:references gebruikt om de relatie tussen analysemethodes en wat geanalyseerd wordt te leggen, die betrekking hebben op de luchtzuiveringssysteem."@en ;
-    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    sh:description   "Binnen dit schema wordt dct:references gebruikt om de relatie tussen analysemethodes en wat geanalyseerd wordt te leggen, die betrekking hebben op de rie-iepr."@en ;
+    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:nodeKind      sh:IRI ;
     sh:path          dct:references .
 
@@ -241,7 +241,7 @@ omg_ps:definition
     rdfs:label       "definitie"@en ;
     sh:name          "definitie"@en ;
     sh:description   "Een uitspraak over de betekenis van het concept, de collectie of het schema."@en ;
-    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:datatype      rdf:langString ;
     sh:languageIn    ( "nl" "en" ) ;
     sh:maxCount      2 ;
@@ -253,7 +253,7 @@ omg_ps:note
     rdfs:label       "note"@en ;
     sh:name          "note"@en ;
     sh:description   "Een uitspraak over de betekenis van het concept, de collectie of het schema."@en ;
-    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:datatype      rdf:langString ;
     sh:languageIn    ( "nl" "en" ) ;
     sh:nodeKind      sh:Literal ;
@@ -264,7 +264,7 @@ omg_ps:prefLabel
     rdfs:label       "voorkeurslabel"@en ;
     sh:name          "voorkeurslabel"@en ;
     sh:description   "Het voorkeurslabel in de Nederlandse taal. Slechts 1 voorkeurslabel is toegelaten."@en ;
-    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:datatype      rdf:langString ;
     sh:languageIn    ( "nl" ) ;
     sh:maxCount      1 ;
@@ -278,7 +278,7 @@ omg_ps:conceptscheme_prefLabel
     rdfs:label       "voorkeurslabel"@en ;
     sh:name          "voorkeurslabel"@en ;
     sh:description   "Het voorkeurslabel."@en ;
-    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:datatype      rdf:langString ;
     sh:languageIn    ( "en" "nl" ) ;
     sh:uniqueLang true ;
@@ -292,7 +292,7 @@ omg_ps:inScheme
     rdfs:label       "is in schema"@en ;
     sh:name          "is in schema"@en ;
     sh:description   "Drukt de relatie uit tussen een 'resource' en het schema dat het bevat."@en ;
-    rdfs:isDefinedBy omg_ont:luchtzuiveringssysteem-ap-constraints, omg_voc:luchtzuiveringssysteem-ap-constraints ;
+    rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:class         skos:ConceptScheme ;
     sh:maxCount      1 ;
     sh:minCount      1 ;
