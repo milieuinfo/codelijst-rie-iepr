@@ -267,7 +267,7 @@ const frame_skos_no_prefixes = {
         "@embed": "@never",
         "@omitDefault": true
     },
-    "relevantLZS":  {
+    "relevantriepr":  {
         "@embed": "@never",
         "@omitDefault": true
     },

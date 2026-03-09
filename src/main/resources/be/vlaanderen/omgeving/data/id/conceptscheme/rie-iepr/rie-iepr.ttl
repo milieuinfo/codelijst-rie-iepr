@@ -30,14 +30,16 @@
 @prefix locn: <http://www.w3.org/ns/locn#>.
 @prefix riepr-bandbreedte: <https://data.omgeving.vlaanderen.be/id/concept/riepr/norm_bandbreedte/>.
 @prefix riepr: <https://data.riepr.omgeving.vlaanderen.be/id/installation/>.
-@prefix riepr-medium: <https://data.omgeving.vlaanderen.be/id/concept/riepr/medium/>.
-@prefix riepr-param: <https://data.omgeving.vlaanderen.be/id/concept/riepr/parameter/>.
-@prefix riepr-param-norm: <https://data.omgeving.vlaanderen.be/id/concept/riepr/parameter_norm/>.
-@prefix riepr-stalbezetting: <https://data.omgeving.vlaanderen.be/id/concept/riepr/stalbezetting/>.
-@prefix riepr-status: <https://data.omgeving.vlaanderen.be/id/concept/riepr/status/>.
-@prefix riepr-type: <https://data.omgeving.vlaanderen.be/id/concept/riepr/type/>.
-@prefix riepr-dl-status: <https://data.omgeving.vlaanderen.be/id/concept/riepr/dataleverancierstatus/>.
-@prefix riepr-systeemopstelling: <https://data.omgeving.vlaanderen.be/id/concept/riepr/systeemopstelling/>.
+@prefix riepr-emissiepunt-attr: <https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-attribuut/>.
+@prefix riepr-emissiepunt-type: <https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/>.
+@prefix riepr-procedure-type: <https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/>.
+@prefix riepr-procesvariabele-type: <https://data.omgeving.vlaanderen.be/id/concept/riepr/procesvariabele-type/>.
+@prefix riepr-meetpunt-type: <https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/>.
+@prefix riepr-onttrekkingspunt-type: <https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunt-type/>.
+@prefix riepr-rubriek-type: <https://data.omgeving.vlaanderen.be/id/concept/riepr/rubriek-type/>.
+@prefix riepr-filter-type: <https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/>.
+@prefix riepr-installatie-type: <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/>.
+@prefix riepr-meetinstrument-type: <https://data.omgeving.vlaanderen.be/id/concept/riepr/meetinstrument-type/>.
 @prefix riepr-vocab: <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#>.
 @prefix metadata: <https://data.omgeving.vlaanderen.be/ns/metadata#>.
 @prefix observatie: <https://data.riepr.omgeving.vlaanderen.be/id/observation/>.
@@ -117,6 +119,159 @@ unit:PH a qudt:Unit;
     skos:altLabel "Ph"@nl.
 unit:TON-PER-YR a qudt:Unit;
     skos:altLabel "Ton per jaar"@nl.
+riepr-emissiepunt-attr:schouw-diameter qudt:relevantUnit unit:M;
+    a skos:Concept;
+    skos:inScheme conceptscheme:emissiepunt_attributen;
+    skos:notation "diameter";
+    skos:prefLabel "Diameter van de schouw"@nl;
+    skos:topConceptOf conceptscheme:emissiepunt_attributen;
+    riepr-vocab:relevantDataType xsd:decimal;
+    riepr-vocab:relevantProperty dbo:diameter;
+    riepr-vocab:relevantriepr riepr-emissiepunt-type:schouw.
+riepr-emissiepunt-attr:schouw-hoogte qudt:relevantUnit unit:M;
+    a skos:Concept;
+    skos:inScheme conceptscheme:emissiepunt_attributen;
+    skos:notation "hoogte";
+    skos:prefLabel "Hoogte van de schouw"@nl;
+    skos:topConceptOf conceptscheme:emissiepunt_attributen;
+    riepr-vocab:relevantDataType xsd:decimal;
+    riepr-vocab:relevantProperty dbo:height;
+    riepr-vocab:relevantriepr riepr-emissiepunt-type:schouw.
+riepr-emissiepunt-type:emissiepunt a skos:Concept;
+    skos:inScheme conceptscheme:emissiepunt_type;
+    skos:notation "emissiepunt";
+    skos:prefLabel "Emissiepunt"@nl;
+    skos:topConceptOf conceptscheme:emissiepunt_type.
+riepr-emissiepunt-type:fakkel a skos:Concept;
+    skos:inScheme conceptscheme:emissiepunt_type;
+    skos:notation "fakkel";
+    skos:prefLabel "Fakkel"@nl;
+    skos:topConceptOf conceptscheme:emissiepunt_type.
+riepr-emissiepunt-type:lozingspunt a skos:Concept;
+    skos:inScheme conceptscheme:emissiepunt_type;
+    skos:notation "lozingspunt";
+    skos:prefLabel "Lozingspunt"@nl;
+    skos:topConceptOf conceptscheme:emissiepunt_type.
+riepr-emissiepunt-type:schouw a skos:Concept;
+    skos:inScheme conceptscheme:emissiepunt_type;
+    skos:notation "schouw";
+    skos:prefLabel "Schouw"@nl;
+    skos:topConceptOf conceptscheme:emissiepunt_type.
+riepr-filter-type:peilfilter a skos:Concept;
+    skos:definition "Filter voor het meten van het grondwaterpeil."@nl;
+    skos:inScheme conceptscheme:filter_type;
+    skos:notation "peilfilter";
+    skos:note "Filter voor het meten van het grondwaterpeil."@nl;
+    skos:prefLabel "Peilfilter"@nl;
+    skos:topConceptOf conceptscheme:filter_type.
+riepr-installatie-type:gpbv a skos:Concept;
+    skos:definition "Installatie die valt onder de richtlijn industriële emissies (IED/GPBV)."@nl;
+    skos:inScheme conceptscheme:installatie_type;
+    skos:notation "GPBV";
+    skos:note "Installatie die valt onder de richtlijn industriële emissies (IED/GPBV)."@nl;
+    skos:prefLabel "GPBV installatie"@nl;
+    skos:topConceptOf conceptscheme:installatie_type.
+riepr-installatie-type:iepr a skos:Concept;
+    skos:definition "Installatie in het kader van IEPR rapportering."@nl;
+    skos:inScheme conceptscheme:installatie_type;
+    skos:notation "IEPR";
+    skos:note "Installatie in het kader van IEPR rapportering."@nl;
+    skos:prefLabel "IEPR installatie"@nl;
+    skos:topConceptOf conceptscheme:installatie_type.
+riepr-installatie-type:oven a skos:Concept;
+    skos:inScheme conceptscheme:installatie_type;
+    skos:notation "oven";
+    skos:prefLabel "Oven"@nl;
+    skos:topConceptOf conceptscheme:installatie_type.
+riepr-installatie-type:zuiveringsinstallatie a skos:Concept;
+    skos:inScheme conceptscheme:installatie_type;
+    skos:notation "zuiveringsinstallatie";
+    skos:prefLabel "Zuiveringsinstallatie"@nl;
+    skos:topConceptOf conceptscheme:installatie_type.
+riepr-meetinstrument-type:debietmeter a skos:Concept;
+    skos:inScheme conceptscheme:meetinstrument_type;
+    skos:notation "debietmeter";
+    skos:prefLabel "Debietmeter"@nl;
+    skos:topConceptOf conceptscheme:meetinstrument_type.
+riepr-meetpunt-type:controle-inrichting a skos:Concept;
+    skos:inScheme conceptscheme:meetpunt_type;
+    skos:notation "controle_inrichting";
+    skos:prefLabel "Controle inrichting"@nl;
+    skos:topConceptOf conceptscheme:meetpunt_type.
+riepr-meetpunt-type:meetput a skos:Concept;
+    skos:inScheme conceptscheme:meetpunt_type;
+    skos:notation "meetput";
+    skos:prefLabel "Meetput"@nl;
+    skos:topConceptOf conceptscheme:meetpunt_type.
+riepr-onttrekkingspunt-type:grondwaterput a skos:Concept;
+    skos:definition "Een put voor de onttrekking van grondwater."@nl;
+    skos:inScheme conceptscheme:onttrekkingspunt_type;
+    skos:notation "grondwaterput";
+    skos:note "Een put voor de onttrekking van grondwater."@nl;
+    skos:prefLabel "Grondwaterput"@nl;
+    skos:topConceptOf conceptscheme:onttrekkingspunt_type.
+riepr-procedure-type:emissie a rdfs:Resource, skos:Concept;
+    skos:inScheme conceptscheme:procedure_type;
+    skos:notation "EMISSIE";
+    skos:prefLabel "Emissie"@nl;
+    skos:topConceptOf conceptscheme:procedure_type.
+riepr-procedure-type:meet a skos:Concept;
+    skos:inScheme conceptscheme:procedure_type;
+    skos:notation "MEET";
+    skos:prefLabel "Meet"@nl;
+    skos:topConceptOf conceptscheme:procedure_type.
+riepr-procedure-type:overbrenging a skos:Concept;
+    skos:inScheme conceptscheme:procedure_type;
+    skos:notation "OVERBRENGING";
+    skos:prefLabel "Overbrenging"@nl;
+    skos:topConceptOf conceptscheme:procedure_type.
+riepr-procedure-type:verbruik a rdfs:Resource, skos:Concept;
+    skos:inScheme conceptscheme:procedure_type;
+    skos:notation "VERBRUIK";
+    skos:prefLabel "Verbruik"@nl;
+    skos:topConceptOf conceptscheme:procedure_type.
+riepr-procedure-type:verwerking a rdfs:Resource, skos:Concept;
+    skos:inScheme conceptscheme:procedure_type;
+    skos:notation "VERWERKING";
+    skos:prefLabel "Verwerking"@nl;
+    skos:topConceptOf conceptscheme:procedure_type.
+riepr-procesvariabele-type:aardgas dcterms:subject riepr-procedure-type:verbruik;
+    qudt:relevantUnit unit:TON-PER-YR;
+    a skos:Concept;
+    skos:inScheme conceptscheme:procesvariabele_type;
+    skos:notation "aardgas";
+    skos:prefLabel "Aardgas"@nl;
+    skos:topConceptOf conceptscheme:procesvariabele_type;
+    riepr-vocab:relevantDataType xsd:decimal.
+riepr-procesvariabele-type:co2 dcterms:subject riepr-procedure-type:emissie;
+    a skos:Concept;
+    skos:inScheme conceptscheme:procesvariabele_type;
+    skos:notation "co2";
+    skos:prefLabel "CO2"@nl;
+    skos:topConceptOf conceptscheme:procesvariabele_type;
+    riepr-vocab:relevantriepr <https://data.omgeving.vlaanderen.be/id/concept/stof/co2>.
+riepr-procesvariabele-type:grondstof dcterms:subject riepr-procedure-type:verwerking;
+    a skos:Concept;
+    skos:definition "Grondstof met vrije invoer subtypering."@nl;
+    skos:inScheme conceptscheme:procesvariabele_type;
+    skos:notation "grondstof";
+    skos:note "Grondstof met vrije invoer subtypering."@nl;
+    skos:prefLabel "Grondstof"@nl;
+    skos:topConceptOf conceptscheme:procesvariabele_type.
+riepr-rubriek-type:egw a skos:Concept;
+    skos:definition "EGW rubriektype."@nl;
+    skos:inScheme conceptscheme:rubriek_type;
+    skos:notation "EGW";
+    skos:note "EGW rubriektype."@nl;
+    skos:prefLabel "EGW"@nl;
+    skos:topConceptOf conceptscheme:rubriek_type.
+riepr-rubriek-type:vlarem a skos:Concept;
+    skos:definition "VLAREM rubriektype."@nl;
+    skos:inScheme conceptscheme:rubriek_type;
+    skos:notation "VLAREM";
+    skos:note "VLAREM rubriektype."@nl;
+    skos:prefLabel "VLAREM"@nl;
+    skos:topConceptOf conceptscheme:rubriek_type.
 vlarem-klasse:k1 a skos:Concept;
     skos:altLabel "VLAREM klasse 1"@nl;
     skos:definition "Indelingsklasse voor inrichtingen met de grootste milieu-impact. Voor deze activiteiten geldt een omgevingsvergunning klasse 1 (zwaarste procedure)."@nl;
@@ -144,12 +299,12 @@ conceptscheme:datatypes a skos:ConceptScheme;
     skos:prefLabel "Externe identificatoren"@nl.
 conceptscheme:emissiepunt_attributen a skos:ConceptScheme;
     skos:definition "Een lijst die een koppeling maakt tussen soorten emissiepunten en de attributen die van toepassing zijn."@nl;
-    skos:hasTopConcept <riepr-emissiepunt-attr:schouw-diameter>, <riepr-emissiepunt-attr:schouw-hoogte>;
+    skos:hasTopConcept riepr-emissiepunt-attr:schouw-diameter, riepr-emissiepunt-attr:schouw-hoogte;
     skos:note "Een lijst die een koppeling maakt tussen soorten emissiepunten en de attributen die van toepassing zijn."@nl;
     skos:prefLabel "Emissiepunt attributen"@nl.
 conceptscheme:emissiepunt_type a skos:ConceptScheme;
     skos:definition "Een lijst van verschillende soorten emissiepunten met mogelijke opsplitsing in subtyperingen."@nl;
-    skos:hasTopConcept <riepr-emissiepunt-type:emissiepunt>, <riepr-emissiepunt-type:fakkel>, <riepr-emissiepunt-type:lozingspunt>, <riepr-emissiepunt-type:schouw>;
+    skos:hasTopConcept riepr-emissiepunt-type:emissiepunt, riepr-emissiepunt-type:fakkel, riepr-emissiepunt-type:lozingspunt, riepr-emissiepunt-type:schouw;
     skos:note "Een lijst van verschillende soorten emissiepunten met mogelijke opsplitsing in subtyperingen."@nl;
     skos:prefLabel "Emissiepunt types"@nl.
 conceptscheme:filter_attributen a skos:ConceptScheme;
@@ -158,7 +313,7 @@ conceptscheme:filter_attributen a skos:ConceptScheme;
     skos:prefLabel "Filter attributen"@nl.
 conceptscheme:filter_type a skos:ConceptScheme;
     skos:definition "Een lijst van verschillende types van filters en de objecten waarop van toepassing."@nl;
-    skos:hasTopConcept <riepr-filter-type:peilfilter>;
+    skos:hasTopConcept riepr-filter-type:peilfilter;
     skos:note "Een lijst van verschillende types van filters en de objecten waarop van toepassing."@nl;
     skos:prefLabel "Filter types"@nl.
 conceptscheme:installatie_eigenschappen_type a skos:ConceptScheme;
@@ -167,189 +322,38 @@ conceptscheme:installatie_eigenschappen_type a skos:ConceptScheme;
     skos:prefLabel "Installatie eigenschappen types"@nl.
 conceptscheme:installatie_type a skos:ConceptScheme;
     skos:definition "Een lijst van verschillende types van installaties met eventueel subtyperingen."@nl;
-    skos:hasTopConcept <riepr-installatie-type:gpbv>, <riepr-installatie-type:iepr>, <riepr-installatie-type:oven>, <riepr-installatie-type:zuiveringsinstallatie>;
+    skos:hasTopConcept riepr-installatie-type:gpbv, riepr-installatie-type:iepr, riepr-installatie-type:oven, riepr-installatie-type:zuiveringsinstallatie;
     skos:note "Een lijst van verschillende types van installaties met eventueel subtyperingen."@nl;
     skos:prefLabel "Installatie types"@nl.
 conceptscheme:meetinstrument_type a skos:ConceptScheme;
     skos:definition "Een lijst van verschillende soorten meetinstrumenten."@nl;
-    skos:hasTopConcept <riepr-meetinstrument-type:debietmeter>;
+    skos:hasTopConcept riepr-meetinstrument-type:debietmeter;
     skos:note "Een lijst van verschillende soorten meetinstrumenten."@nl;
     skos:prefLabel "Meetinstrument types"@nl.
 conceptscheme:meetpunt_type a skos:ConceptScheme;
     skos:definition "Een lijst van verschillende soorten meetpunten."@nl;
-    skos:hasTopConcept <riepr-meetpunt-type:controle-inrichting>, <riepr-meetpunt-type:meetput>;
+    skos:hasTopConcept riepr-meetpunt-type:controle-inrichting, riepr-meetpunt-type:meetput;
     skos:note "Een lijst van verschillende soorten meetpunten."@nl;
     skos:prefLabel "Meetpunt types"@nl.
 conceptscheme:onttrekkingspunt_type a skos:ConceptScheme;
     skos:definition "Een lijst van verschillende soorten onttrekkingspunten met mogelijke opsplitsing in subtyperingen."@nl;
-    skos:hasTopConcept <riepr-onttrekkingspunt-type:grondwaterput>;
+    skos:hasTopConcept riepr-onttrekkingspunt-type:grondwaterput;
     skos:note "Een lijst van verschillende soorten onttrekkingspunten met mogelijke opsplitsing in subtyperingen."@nl;
     skos:prefLabel "Onttrekkingspunt types"@nl.
 conceptscheme:procedure_type a skos:ConceptScheme;
     skos:definition "Een lijst van verschillende hoofdtyperingen van procedures in een procesplan."@nl;
-    skos:hasTopConcept <riepr-procedure-type:emissie>, <riepr-procedure-type:meet>, <riepr-procedure-type:overbrenging>, <riepr-procedure-type:verbruik>, <riepr-procedure-type:verwerking>;
+    skos:hasTopConcept riepr-procedure-type:emissie, riepr-procedure-type:meet, riepr-procedure-type:overbrenging, riepr-procedure-type:verbruik, riepr-procedure-type:verwerking;
     skos:note "Een lijst van verschillende hoofdtyperingen van procedures in een procesplan."@nl;
     skos:prefLabel "Procedure types"@nl.
 conceptscheme:procesvariabele_type a skos:ConceptScheme;
     skos:definition "Een lijst die verschillende types geeft voor stoffen die aangeduid mogen worden bij bepaalde procedure types."@nl;
-    skos:hasTopConcept <riepr-procesvariabele-type:aardgas>, <riepr-procesvariabele-type:co2>, <riepr-procesvariabele-type:grondstof>;
+    skos:hasTopConcept riepr-procesvariabele-type:aardgas, riepr-procesvariabele-type:co2, riepr-procesvariabele-type:grondstof;
     skos:note "Een lijst die verschillende types geeft voor stoffen die aangeduid mogen worden bij bepaalde procedure types."@nl;
     skos:prefLabel "Proces variabele types"@nl.
 conceptscheme:rubriek_type a skos:ConceptScheme;
     skos:definition "Een typering van verschillende rubrieken (VLAREM rubriektype EGW ...)."@nl;
-    skos:hasTopConcept <riepr-rubriek-type:egw>, <riepr-rubriek-type:vlarem>;
+    skos:hasTopConcept riepr-rubriek-type:egw, riepr-rubriek-type:vlarem;
     skos:note "Een typering van verschillende rubrieken (VLAREM rubriektype EGW ...)."@nl;
     skos:prefLabel "Rubriek types"@nl.
 conceptscheme-alg:vlarem-klasse a skos:ConceptScheme;
     skos:hasTopConcept vlarem-klasse:k1, vlarem-klasse:k2, vlarem-klasse:k3.
-<riepr-emissiepunt-attr:schouw-diameter> qudt:relevantUnit unit:M;
-    a skos:Concept;
-    skos:inScheme conceptscheme:emissiepunt_attributen;
-    skos:notation "diameter";
-    skos:prefLabel "Diameter van de schouw"@nl;
-    skos:topConceptOf conceptscheme:emissiepunt_attributen;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> dbo:diameter.
-<riepr-emissiepunt-attr:schouw-hoogte> qudt:relevantUnit unit:M;
-    a skos:Concept;
-    skos:inScheme conceptscheme:emissiepunt_attributen;
-    skos:notation "hoogte";
-    skos:prefLabel "Hoogte van de schouw"@nl;
-    skos:topConceptOf conceptscheme:emissiepunt_attributen;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> dbo:height.
-<riepr-emissiepunt-type:emissiepunt> a skos:Concept;
-    skos:inScheme conceptscheme:emissiepunt_type;
-    skos:notation "emissiepunt";
-    skos:prefLabel "Emissiepunt"@nl;
-    skos:topConceptOf conceptscheme:emissiepunt_type.
-<riepr-emissiepunt-type:fakkel> a skos:Concept;
-    skos:inScheme conceptscheme:emissiepunt_type;
-    skos:notation "fakkel";
-    skos:prefLabel "Fakkel"@nl;
-    skos:topConceptOf conceptscheme:emissiepunt_type.
-<riepr-emissiepunt-type:lozingspunt> a skos:Concept;
-    skos:inScheme conceptscheme:emissiepunt_type;
-    skos:notation "lozingspunt";
-    skos:prefLabel "Lozingspunt"@nl;
-    skos:topConceptOf conceptscheme:emissiepunt_type.
-<riepr-emissiepunt-type:schouw> a skos:Concept;
-    skos:inScheme conceptscheme:emissiepunt_type;
-    skos:notation "schouw";
-    skos:prefLabel "Schouw"@nl;
-    skos:topConceptOf conceptscheme:emissiepunt_type.
-<riepr-filter-type:peilfilter> a skos:Concept;
-    skos:definition "Filter voor het meten van het grondwaterpeil."@nl;
-    skos:inScheme conceptscheme:filter_type;
-    skos:notation "peilfilter";
-    skos:note "Filter voor het meten van het grondwaterpeil."@nl;
-    skos:prefLabel "Peilfilter"@nl;
-    skos:topConceptOf conceptscheme:filter_type.
-<riepr-installatie-type:gpbv> a skos:Concept;
-    skos:definition "Installatie die valt onder de richtlijn industriële emissies (IED/GPBV)."@nl;
-    skos:inScheme conceptscheme:installatie_type;
-    skos:notation "GPBV";
-    skos:note "Installatie die valt onder de richtlijn industriële emissies (IED/GPBV)."@nl;
-    skos:prefLabel "GPBV installatie"@nl;
-    skos:topConceptOf conceptscheme:installatie_type.
-<riepr-installatie-type:iepr> a skos:Concept;
-    skos:definition "Installatie in het kader van IEPR rapportering."@nl;
-    skos:inScheme conceptscheme:installatie_type;
-    skos:notation "IEPR";
-    skos:note "Installatie in het kader van IEPR rapportering."@nl;
-    skos:prefLabel "IEPR installatie"@nl;
-    skos:topConceptOf conceptscheme:installatie_type.
-<riepr-installatie-type:oven> a skos:Concept;
-    skos:inScheme conceptscheme:installatie_type;
-    skos:notation "oven";
-    skos:prefLabel "Oven"@nl;
-    skos:topConceptOf conceptscheme:installatie_type.
-<riepr-installatie-type:zuiveringsinstallatie> a skos:Concept;
-    skos:inScheme conceptscheme:installatie_type;
-    skos:notation "zuiveringsinstallatie";
-    skos:prefLabel "Zuiveringsinstallatie"@nl;
-    skos:topConceptOf conceptscheme:installatie_type.
-<riepr-meetinstrument-type:debietmeter> a skos:Concept;
-    skos:inScheme conceptscheme:meetinstrument_type;
-    skos:notation "debietmeter";
-    skos:prefLabel "Debietmeter"@nl;
-    skos:topConceptOf conceptscheme:meetinstrument_type.
-<riepr-meetpunt-type:controle-inrichting> a skos:Concept;
-    skos:inScheme conceptscheme:meetpunt_type;
-    skos:notation "controle_inrichting";
-    skos:prefLabel "Controle inrichting"@nl;
-    skos:topConceptOf conceptscheme:meetpunt_type.
-<riepr-meetpunt-type:meetput> a skos:Concept;
-    skos:inScheme conceptscheme:meetpunt_type;
-    skos:notation "meetput";
-    skos:prefLabel "Meetput"@nl;
-    skos:topConceptOf conceptscheme:meetpunt_type.
-<riepr-onttrekkingspunt-type:grondwaterput> a skos:Concept;
-    skos:definition "Een put voor de onttrekking van grondwater."@nl;
-    skos:inScheme conceptscheme:onttrekkingspunt_type;
-    skos:notation "grondwaterput";
-    skos:note "Een put voor de onttrekking van grondwater."@nl;
-    skos:prefLabel "Grondwaterput"@nl;
-    skos:topConceptOf conceptscheme:onttrekkingspunt_type.
-<riepr-procedure-type:emissie> a rdfs:Resource, skos:Concept;
-    skos:inScheme conceptscheme:procedure_type;
-    skos:notation "EMISSIE";
-    skos:prefLabel "Emissie"@nl;
-    skos:topConceptOf conceptscheme:procedure_type.
-<riepr-procedure-type:meet> a skos:Concept;
-    skos:inScheme conceptscheme:procedure_type;
-    skos:notation "MEET";
-    skos:prefLabel "Meet"@nl;
-    skos:topConceptOf conceptscheme:procedure_type.
-<riepr-procedure-type:overbrenging> a skos:Concept;
-    skos:inScheme conceptscheme:procedure_type;
-    skos:notation "OVERBRENGING";
-    skos:prefLabel "Overbrenging"@nl;
-    skos:topConceptOf conceptscheme:procedure_type.
-<riepr-procedure-type:verbruik> a rdfs:Resource, skos:Concept;
-    skos:inScheme conceptscheme:procedure_type;
-    skos:notation "VERBRUIK";
-    skos:prefLabel "Verbruik"@nl;
-    skos:topConceptOf conceptscheme:procedure_type.
-<riepr-procedure-type:verwerking> a rdfs:Resource, skos:Concept;
-    skos:inScheme conceptscheme:procedure_type;
-    skos:notation "VERWERKING";
-    skos:prefLabel "Verwerking"@nl;
-    skos:topConceptOf conceptscheme:procedure_type.
-<riepr-procesvariabele-type:aardgas> dcterms:subject <riepr-procedure-type:verbruik>;
-    qudt:relevantUnit unit:TON-PER-YR;
-    a skos:Concept;
-    skos:inScheme conceptscheme:procesvariabele_type;
-    skos:notation "aardgas";
-    skos:prefLabel "Aardgas"@nl;
-    skos:topConceptOf conceptscheme:procesvariabele_type;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantCodeList> <https://data.omgeving.vlaanderen.be/id/concept/stof/aardgas>;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal.
-<riepr-procesvariabele-type:co2> dcterms:subject <riepr-procedure-type:emissie>;
-    a skos:Concept;
-    skos:inScheme conceptscheme:procesvariabele_type;
-    skos:notation "co2";
-    skos:prefLabel "CO2"@nl;
-    skos:topConceptOf conceptscheme:procesvariabele_type.
-<riepr-procesvariabele-type:grondstof> dcterms:subject <riepr-procedure-type:verwerking>;
-    a skos:Concept;
-    skos:definition "Grondstof met vrije invoer subtypering."@nl;
-    skos:inScheme conceptscheme:procesvariabele_type;
-    skos:notation "grondstof";
-    skos:note "Grondstof met vrije invoer subtypering."@nl;
-    skos:prefLabel "Grondstof"@nl;
-    skos:topConceptOf conceptscheme:procesvariabele_type.
-<riepr-rubriek-type:egw> a skos:Concept;
-    skos:definition "EGW rubriektype."@nl;
-    skos:inScheme conceptscheme:rubriek_type;
-    skos:notation "EGW";
-    skos:note "EGW rubriektype."@nl;
-    skos:prefLabel "EGW"@nl;
-    skos:topConceptOf conceptscheme:rubriek_type.
-<riepr-rubriek-type:vlarem> a skos:Concept;
-    skos:definition "VLAREM rubriektype."@nl;
-    skos:inScheme conceptscheme:rubriek_type;
-    skos:notation "VLAREM";
-    skos:note "VLAREM rubriektype."@nl;
-    skos:prefLabel "VLAREM"@nl;
-    skos:topConceptOf conceptscheme:rubriek_type.

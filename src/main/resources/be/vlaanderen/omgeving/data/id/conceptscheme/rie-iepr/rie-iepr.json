@@ -1,5 +1,284 @@
 [
     {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-attribuut/schouw-diameter",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_attributen",
+        "code": "diameter",
+        "prefLabel": "Diameter van de schouw",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_attributen",
+        "relevantriepr": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schouw"
+        ]
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-attribuut/schouw-hoogte",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_attributen",
+        "code": "hoogte",
+        "prefLabel": "Hoogte van de schouw",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_attributen",
+        "relevantriepr": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schouw"
+        ]
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/emissiepunt",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type",
+        "code": "emissiepunt",
+        "prefLabel": "Emissiepunt",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/fakkel",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type",
+        "code": "fakkel",
+        "prefLabel": "Fakkel",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/lozingspunt",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type",
+        "code": "lozingspunt",
+        "prefLabel": "Lozingspunt",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schouw",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type",
+        "code": "schouw",
+        "prefLabel": "Schouw",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/peilfilter",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "definition": "Filter voor het meten van het grondwaterpeil.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/filter_type",
+        "code": "peilfilter",
+        "note": "Filter voor het meten van het grondwaterpeil.",
+        "prefLabel": "Peilfilter",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/filter_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/gpbv",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "definition": "Installatie die valt onder de richtlijn industriële emissies (IED/GPBV).",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type",
+        "code": "GPBV",
+        "note": "Installatie die valt onder de richtlijn industriële emissies (IED/GPBV).",
+        "prefLabel": "GPBV installatie",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/iepr",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "definition": "Installatie in het kader van IEPR rapportering.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type",
+        "code": "IEPR",
+        "note": "Installatie in het kader van IEPR rapportering.",
+        "prefLabel": "IEPR installatie",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/oven",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type",
+        "code": "oven",
+        "prefLabel": "Oven",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/zuiveringsinstallatie",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type",
+        "code": "zuiveringsinstallatie",
+        "prefLabel": "Zuiveringsinstallatie",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetinstrument-type/debietmeter",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/meetinstrument_type",
+        "code": "debietmeter",
+        "prefLabel": "Debietmeter",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/meetinstrument_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/controle-inrichting",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/meetpunt_type",
+        "code": "controle_inrichting",
+        "prefLabel": "Controle inrichting",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/meetpunt_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/meetput",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/meetpunt_type",
+        "code": "meetput",
+        "prefLabel": "Meetput",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/meetpunt_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunt-type/grondwaterput",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "definition": "Een put voor de onttrekking van grondwater.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/onttrekkingspunt_type",
+        "code": "grondwaterput",
+        "note": "Een put voor de onttrekking van grondwater.",
+        "prefLabel": "Grondwaterput",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/onttrekkingspunt_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/emissie",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept",
+            "http://www.w3.org/2000/01/rdf-schema#Resource"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type",
+        "code": "EMISSIE",
+        "prefLabel": "Emissie",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/meet",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type",
+        "code": "MEET",
+        "prefLabel": "Meet",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/overbrenging",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type",
+        "code": "OVERBRENGING",
+        "prefLabel": "Overbrenging",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/verbruik",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept",
+            "http://www.w3.org/2000/01/rdf-schema#Resource"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type",
+        "code": "VERBRUIK",
+        "prefLabel": "Verbruik",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/verwerking",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept",
+            "http://www.w3.org/2000/01/rdf-schema#Resource"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type",
+        "code": "VERWERKING",
+        "prefLabel": "Verwerking",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/procesvariabele-type/aardgas",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "subject": "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/verbruik",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procesvariabele_type",
+        "code": "aardgas",
+        "prefLabel": "Aardgas",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procesvariabele_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/procesvariabele-type/co2",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "subject": "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/emissie",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procesvariabele_type",
+        "code": "co2",
+        "prefLabel": "CO2",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procesvariabele_type",
+        "relevantriepr": [
+            "https://data.omgeving.vlaanderen.be/id/concept/stof/co2"
+        ]
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/procesvariabele-type/grondstof",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "subject": "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/verwerking",
+        "definition": "Grondstof met vrije invoer subtypering.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procesvariabele_type",
+        "code": "grondstof",
+        "note": "Grondstof met vrije invoer subtypering.",
+        "prefLabel": "Grondstof",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procesvariabele_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/rubriek-type/egw",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "definition": "EGW rubriektype.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/rubriek_type",
+        "code": "EGW",
+        "note": "EGW rubriektype.",
+        "prefLabel": "EGW",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/rubriek_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/rubriek-type/vlarem",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "definition": "VLAREM rubriektype.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/rubriek_type",
+        "code": "VLAREM",
+        "note": "VLAREM rubriektype.",
+        "prefLabel": "VLAREM",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/rubriek_type"
+    },
+    {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/vlarem-klasse/k1",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
@@ -42,8 +321,8 @@
         ],
         "definition": "Een lijst die een koppeling maakt tussen soorten emissiepunten en de attributen die van toepassing zijn.",
         "hasTopConcept": [
-            "riepr-emissiepunt-attr:schouw-diameter",
-            "riepr-emissiepunt-attr:schouw-hoogte"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-attribuut/schouw-diameter",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-attribuut/schouw-hoogte"
         ],
         "note": "Een lijst die een koppeling maakt tussen soorten emissiepunten en de attributen die van toepassing zijn.",
         "prefLabel": "Emissiepunt attributen"
@@ -55,10 +334,10 @@
         ],
         "definition": "Een lijst van verschillende soorten emissiepunten met mogelijke opsplitsing in subtyperingen.",
         "hasTopConcept": [
-            "riepr-emissiepunt-type:emissiepunt",
-            "riepr-emissiepunt-type:fakkel",
-            "riepr-emissiepunt-type:lozingspunt",
-            "riepr-emissiepunt-type:schouw"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schouw",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/emissiepunt",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/fakkel",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/lozingspunt"
         ],
         "note": "Een lijst van verschillende soorten emissiepunten met mogelijke opsplitsing in subtyperingen.",
         "prefLabel": "Emissiepunt types"
@@ -70,7 +349,7 @@
         ],
         "definition": "Een lijst van verschillende types van filters en de objecten waarop van toepassing.",
         "hasTopConcept": [
-            "riepr-filter-type:peilfilter"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/peilfilter"
         ],
         "note": "Een lijst van verschillende types van filters en de objecten waarop van toepassing.",
         "prefLabel": "Filter types"
@@ -82,10 +361,10 @@
         ],
         "definition": "Een lijst van verschillende types van installaties met eventueel subtyperingen.",
         "hasTopConcept": [
-            "riepr-installatie-type:gpbv",
-            "riepr-installatie-type:iepr",
-            "riepr-installatie-type:oven",
-            "riepr-installatie-type:zuiveringsinstallatie"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/gpbv",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/iepr",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/oven",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/zuiveringsinstallatie"
         ],
         "note": "Een lijst van verschillende types van installaties met eventueel subtyperingen.",
         "prefLabel": "Installatie types"
@@ -97,7 +376,7 @@
         ],
         "definition": "Een lijst van verschillende soorten meetinstrumenten.",
         "hasTopConcept": [
-            "riepr-meetinstrument-type:debietmeter"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetinstrument-type/debietmeter"
         ],
         "note": "Een lijst van verschillende soorten meetinstrumenten.",
         "prefLabel": "Meetinstrument types"
@@ -109,8 +388,8 @@
         ],
         "definition": "Een lijst van verschillende soorten meetpunten.",
         "hasTopConcept": [
-            "riepr-meetpunt-type:controle-inrichting",
-            "riepr-meetpunt-type:meetput"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/controle-inrichting",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/meetput"
         ],
         "note": "Een lijst van verschillende soorten meetpunten.",
         "prefLabel": "Meetpunt types"
@@ -122,7 +401,7 @@
         ],
         "definition": "Een lijst van verschillende soorten onttrekkingspunten met mogelijke opsplitsing in subtyperingen.",
         "hasTopConcept": [
-            "riepr-onttrekkingspunt-type:grondwaterput"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunt-type/grondwaterput"
         ],
         "note": "Een lijst van verschillende soorten onttrekkingspunten met mogelijke opsplitsing in subtyperingen.",
         "prefLabel": "Onttrekkingspunt types"
@@ -134,11 +413,11 @@
         ],
         "definition": "Een lijst van verschillende hoofdtyperingen van procedures in een procesplan.",
         "hasTopConcept": [
-            "riepr-procedure-type:emissie",
-            "riepr-procedure-type:meet",
-            "riepr-procedure-type:overbrenging",
-            "riepr-procedure-type:verbruik",
-            "riepr-procedure-type:verwerking"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/emissie",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/meet",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/overbrenging",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/verbruik",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/verwerking"
         ],
         "note": "Een lijst van verschillende hoofdtyperingen van procedures in een procesplan.",
         "prefLabel": "Procedure types"
@@ -150,9 +429,9 @@
         ],
         "definition": "Een lijst die verschillende types geeft voor stoffen die aangeduid mogen worden bij bepaalde procedure types.",
         "hasTopConcept": [
-            "riepr-procesvariabele-type:aardgas",
-            "riepr-procesvariabele-type:co2",
-            "riepr-procesvariabele-type:grondstof"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/procesvariabele-type/aardgas",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/procesvariabele-type/co2",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/procesvariabele-type/grondstof"
         ],
         "note": "Een lijst die verschillende types geeft voor stoffen die aangeduid mogen worden bij bepaalde procedure types.",
         "prefLabel": "Proces variabele types"
@@ -164,8 +443,8 @@
         ],
         "definition": "Een typering van verschillende rubrieken (VLAREM rubriektype EGW ...).",
         "hasTopConcept": [
-            "riepr-rubriek-type:egw",
-            "riepr-rubriek-type:vlarem"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/rubriek-type/egw",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/rubriek-type/vlarem"
         ],
         "note": "Een typering van verschillende rubrieken (VLAREM rubriektype EGW ...).",
         "prefLabel": "Rubriek types"
@@ -180,278 +459,5 @@
             "https://data.omgeving.vlaanderen.be/id/concept/vlarem-klasse/k2",
             "https://data.omgeving.vlaanderen.be/id/concept/vlarem-klasse/k3"
         ]
-    },
-    {
-        "id": "riepr-emissiepunt-attr:schouw-diameter",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_attributen",
-        "code": "diameter",
-        "prefLabel": "Diameter van de schouw",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_attributen"
-    },
-    {
-        "id": "riepr-emissiepunt-attr:schouw-hoogte",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_attributen",
-        "code": "hoogte",
-        "prefLabel": "Hoogte van de schouw",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_attributen"
-    },
-    {
-        "id": "riepr-emissiepunt-type:emissiepunt",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type",
-        "code": "emissiepunt",
-        "prefLabel": "Emissiepunt",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type"
-    },
-    {
-        "id": "riepr-emissiepunt-type:fakkel",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type",
-        "code": "fakkel",
-        "prefLabel": "Fakkel",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type"
-    },
-    {
-        "id": "riepr-emissiepunt-type:lozingspunt",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type",
-        "code": "lozingspunt",
-        "prefLabel": "Lozingspunt",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type"
-    },
-    {
-        "id": "riepr-emissiepunt-type:schouw",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type",
-        "code": "schouw",
-        "prefLabel": "Schouw",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type"
-    },
-    {
-        "id": "riepr-filter-type:peilfilter",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "definition": "Filter voor het meten van het grondwaterpeil.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/filter_type",
-        "code": "peilfilter",
-        "note": "Filter voor het meten van het grondwaterpeil.",
-        "prefLabel": "Peilfilter",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/filter_type"
-    },
-    {
-        "id": "riepr-installatie-type:gpbv",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "definition": "Installatie die valt onder de richtlijn industriële emissies (IED/GPBV).",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type",
-        "code": "GPBV",
-        "note": "Installatie die valt onder de richtlijn industriële emissies (IED/GPBV).",
-        "prefLabel": "GPBV installatie",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type"
-    },
-    {
-        "id": "riepr-installatie-type:iepr",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "definition": "Installatie in het kader van IEPR rapportering.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type",
-        "code": "IEPR",
-        "note": "Installatie in het kader van IEPR rapportering.",
-        "prefLabel": "IEPR installatie",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type"
-    },
-    {
-        "id": "riepr-installatie-type:oven",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type",
-        "code": "oven",
-        "prefLabel": "Oven",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type"
-    },
-    {
-        "id": "riepr-installatie-type:zuiveringsinstallatie",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type",
-        "code": "zuiveringsinstallatie",
-        "prefLabel": "Zuiveringsinstallatie",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type"
-    },
-    {
-        "id": "riepr-meetinstrument-type:debietmeter",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/meetinstrument_type",
-        "code": "debietmeter",
-        "prefLabel": "Debietmeter",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/meetinstrument_type"
-    },
-    {
-        "id": "riepr-meetpunt-type:controle-inrichting",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/meetpunt_type",
-        "code": "controle_inrichting",
-        "prefLabel": "Controle inrichting",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/meetpunt_type"
-    },
-    {
-        "id": "riepr-meetpunt-type:meetput",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/meetpunt_type",
-        "code": "meetput",
-        "prefLabel": "Meetput",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/meetpunt_type"
-    },
-    {
-        "id": "riepr-onttrekkingspunt-type:grondwaterput",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "definition": "Een put voor de onttrekking van grondwater.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/onttrekkingspunt_type",
-        "code": "grondwaterput",
-        "note": "Een put voor de onttrekking van grondwater.",
-        "prefLabel": "Grondwaterput",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/onttrekkingspunt_type"
-    },
-    {
-        "id": "riepr-procedure-type:emissie",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept",
-            "http://www.w3.org/2000/01/rdf-schema#Resource"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type",
-        "code": "EMISSIE",
-        "prefLabel": "Emissie",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type"
-    },
-    {
-        "id": "riepr-procedure-type:meet",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type",
-        "code": "MEET",
-        "prefLabel": "Meet",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type"
-    },
-    {
-        "id": "riepr-procedure-type:overbrenging",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type",
-        "code": "OVERBRENGING",
-        "prefLabel": "Overbrenging",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type"
-    },
-    {
-        "id": "riepr-procedure-type:verbruik",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept",
-            "http://www.w3.org/2000/01/rdf-schema#Resource"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type",
-        "code": "VERBRUIK",
-        "prefLabel": "Verbruik",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type"
-    },
-    {
-        "id": "riepr-procedure-type:verwerking",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept",
-            "http://www.w3.org/2000/01/rdf-schema#Resource"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type",
-        "code": "VERWERKING",
-        "prefLabel": "Verwerking",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type"
-    },
-    {
-        "id": "riepr-procesvariabele-type:aardgas",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "subject": "riepr-procedure-type:verbruik",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procesvariabele_type",
-        "code": "aardgas",
-        "prefLabel": "Aardgas",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procesvariabele_type",
-        "relevantCodeList": [
-            "https://data.omgeving.vlaanderen.be/id/concept/stof/aardgas"
-        ]
-    },
-    {
-        "id": "riepr-procesvariabele-type:co2",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "subject": "riepr-procedure-type:emissie",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procesvariabele_type",
-        "code": "co2",
-        "prefLabel": "CO2",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procesvariabele_type"
-    },
-    {
-        "id": "riepr-procesvariabele-type:grondstof",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "subject": "riepr-procedure-type:verwerking",
-        "definition": "Grondstof met vrije invoer subtypering.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procesvariabele_type",
-        "code": "grondstof",
-        "note": "Grondstof met vrije invoer subtypering.",
-        "prefLabel": "Grondstof",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procesvariabele_type"
-    },
-    {
-        "id": "riepr-rubriek-type:egw",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "definition": "EGW rubriektype.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/rubriek_type",
-        "code": "EGW",
-        "note": "EGW rubriektype.",
-        "prefLabel": "EGW",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/rubriek_type"
-    },
-    {
-        "id": "riepr-rubriek-type:vlarem",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "definition": "VLAREM rubriektype.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/rubriek_type",
-        "code": "VLAREM",
-        "note": "VLAREM rubriektype.",
-        "prefLabel": "VLAREM",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/rubriek_type"
     }
 ]
