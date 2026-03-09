@@ -826,1353 +826,6 @@
     },
     "graph": [
         {
-            "id": "quantitykind:Acidity",
-            "_type": [
-                "qudt:QuantityKind"
-            ],
-            "applicableUnit": {
-                "id": "unit:PH",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Ph"
-            },
-            "altLabel": "Zuurtegraad"
-        },
-        {
-            "id": "quantitykind:Conductivity",
-            "_type": [
-                "qudt:QuantityKind"
-            ],
-            "applicableUnit": {
-                "id": "unit:MilliS-PER-CentiM",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Millisiemens per centimeter"
-            },
-            "altLabel": "Geleidbaarheid"
-        },
-        {
-            "id": "quantitykind:Count",
-            "_type": [
-                "qudt:QuantityKind"
-            ],
-            "applicableUnit": {
-                "id": "unit:NUM",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Getal"
-            },
-            "altLabel": "Aantal"
-        },
-        {
-            "id": "quantitykind:Energy",
-            "_type": [
-                "qudt:QuantityKind"
-            ],
-            "applicableUnit": {
-                "id": "unit:KiloW-HR",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kilowattuur"
-            },
-            "altLabel": "Vermogen"
-        },
-        {
-            "id": "quantitykind:VaporPressure",
-            "_type": [
-                "qudt:QuantityKind"
-            ],
-            "applicableUnit": {
-                "id": "unit:PA",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Pascal"
-            },
-            "altLabel": "Dampdruk"
-        },
-        {
-            "id": "quantitykind:Volume",
-            "_type": [
-                "qudt:QuantityKind"
-            ],
-            "applicableUnit": {
-                "id": "unit:M3",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kubieke meter"
-            },
-            "altLabel": "Volume"
-        },
-        {
-            "id": "quantitykind:VolumeFlowRate",
-            "_type": [
-                "qudt:QuantityKind"
-            ],
-            "applicableUnit": {
-                "id": "unit:M3-PER-HR",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kubieke meter per uur"
-            },
-            "altLabel": "Volume per tijdseenheid"
-        },
-        {
-            "id": "riepr-dl-status:gevalideerd",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:dataleverancierstatus",
-            "code": "gevalideerd",
-            "prefLabel": "Gevalideerd",
-            "topConceptOf": "conceptscheme:dataleverancierstatus"
-        },
-        {
-            "id": "riepr-dl-status:geweigerd",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:dataleverancierstatus",
-            "code": "geweigerd",
-            "prefLabel": "Geweigerd",
-            "topConceptOf": "conceptscheme:dataleverancierstatus"
-        },
-        {
-            "id": "riepr-dl-status:ingetrokken",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:dataleverancierstatus",
-            "code": "ingetrokken",
-            "prefLabel": "Ingetrokken",
-            "topConceptOf": "conceptscheme:dataleverancierstatus"
-        },
-        {
-            "id": "riepr-dl-status:nietgevalideerd",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:dataleverancierstatus",
-            "code": "nietgevalideerd",
-            "prefLabel": "Niet gevalideerd",
-            "topConceptOf": "conceptscheme:dataleverancierstatus"
-        },
-        {
-            "id": "riepr-medium:hetelektronischmonitoringssysteem",
-            "_type": [
-                "skos:Concept",
-                "rdfs:Resource"
-            ],
-            "inScheme": "conceptscheme:medium",
-            "prefLabel": "Het elektronisch monitoringssysteem",
-            "topConceptOf": "conceptscheme:medium"
-        },
-        {
-            "id": "riepr-medium:lucht",
-            "_type": [
-                "skos:Concept",
-                "rdfs:Resource"
-            ],
-            "inScheme": "conceptscheme:medium",
-            "prefLabel": "Lucht",
-            "topConceptOf": "conceptscheme:medium"
-        },
-        {
-            "id": "riepr-medium:spuiwater",
-            "_type": [
-                "skos:Concept",
-                "rdfs:Resource"
-            ],
-            "inScheme": "conceptscheme:medium",
-            "prefLabel": "Spuiwater",
-            "topConceptOf": "conceptscheme:medium"
-        },
-        {
-            "id": "riepr-medium:stal",
-            "_type": [
-                "skos:Concept",
-                "rdfs:Resource"
-            ],
-            "inScheme": "conceptscheme:medium",
-            "prefLabel": "Stal",
-            "topConceptOf": "conceptscheme:medium"
-        },
-        {
-            "id": "riepr-medium:waswater",
-            "_type": [
-                "skos:Concept",
-                "rdfs:Resource"
-            ],
-            "inScheme": "conceptscheme:medium",
-            "prefLabel": "Waswater",
-            "topConceptOf": "conceptscheme:medium"
-        },
-        {
-            "id": "riepr-bandbreedte:_1",
-            "_type": [
-                "skos:Concept"
-            ],
-            "dc_type": "Onder minimum grenswaarde",
-            "definition": "De zuurtegraad van het waswater is kleiner dan 6",
-            "inScheme": "conceptscheme:norm-bandbreedte",
-            "note": [
-                "De zuurtegraad van het waswater is kleiner dan 6",
-                "< 6"
-            ],
-            "prefLabel": "Zuurtegraad waswater < 6 (S1 systeem)",
-            "scopeNote": "< 6",
-            "topConceptOf": "conceptscheme:norm-bandbreedte",
-            "relevantProperty": "riepr-param:zuurtegraadwaswater",
-            "maxValue": "6"
-        },
-        {
-            "id": "riepr-bandbreedte:_10",
-            "_type": [
-                "skos:Concept"
-            ],
-            "dc_type": "Onder minimum grenswaarde",
-            "definition": "Het waswaterdebiet wijkt meer dan 20% naar beneden af van de operationele waarde die op de technische fiche vermeld staat.",
-            "inScheme": "conceptscheme:norm-bandbreedte",
-            "note": [
-                "Het waswaterdebiet wijkt meer dan 20% naar beneden af van de operationele waarde die op de technische fiche vermeld staat.",
-                "< 0,8 x waarde technische fiche (afwijking > 20%)"
-            ],
-            "prefLabel": "Waswaterdebiet afwijking naar beneden > 20% (S2 systeem)",
-            "scopeNote": "< 0,8 x waarde technische fiche (afwijking > 20%)",
-            "topConceptOf": "conceptscheme:norm-bandbreedte",
-            "operatie": "product",
-            "relevantProperty": "riepr-param:waswaterdebiet",
-            "maxValue": "0.8"
-        },
-        {
-            "id": "riepr-bandbreedte:_11",
-            "_type": [
-                "skos:Concept"
-            ],
-            "dc_type": "Onder minimum grenswaarde",
-            "definition": "Het spuiwaterdebiet wijkt meer dan 10% naar beneden af van de operationele waarde die op de technische fiche vermeld staat.",
-            "inScheme": "conceptscheme:norm-bandbreedte",
-            "note": [
-                "Het spuiwaterdebiet wijkt meer dan 10% naar beneden af van de operationele waarde die op de technische fiche vermeld staat.",
-                "< 0,9 x waarde technische fiche (afwijking > 10%)"
-            ],
-            "prefLabel": "Spuiwaterdebiet afwijking naar beneden > 10% (S2 systeem)",
-            "scopeNote": "< 0,9 x waarde technische fiche (afwijking > 10%)",
-            "topConceptOf": "conceptscheme:norm-bandbreedte",
-            "operatie": "product",
-            "relevantProperty": "riepr-param:spuiwaterproductie",
-            "maxValue": "0.9"
-        },
-        {
-            "id": "riepr-bandbreedte:_12",
-            "_type": [
-                "skos:Concept"
-            ],
-            "dc_type": "Onder minimum grenswaarde",
-            "definition": "De drukval wijkt meer dan 40% naar beneden af van de operationele waarde die op de technische fiche vermeld staat.",
-            "inScheme": "conceptscheme:norm-bandbreedte",
-            "note": [
-                "De drukval wijkt meer dan 40% naar beneden af van de operationele waarde die op de technische fiche vermeld staat.",
-                "< 0,6 x waarde technische fiche (afwijking > 40%)"
-            ],
-            "prefLabel": "Drukval afwijking naar beneden > 40% (S2 systeem)",
-            "scopeNote": "< 0,6 x waarde technische fiche (afwijking > 40%)",
-            "topConceptOf": "conceptscheme:norm-bandbreedte",
-            "operatie": "product",
-            "relevantProperty": "riepr-param:drukvaloverhetsysteem",
-            "maxValue": "0.6"
-        },
-        {
-            "id": "riepr-bandbreedte:_13",
-            "_type": [
-                "skos:Concept"
-            ],
-            "dc_type": "Boven maximum grenswaarde",
-            "definition": "De drukval wijkt meer dan 40% naar boven af van de operationele waarde die op de technische fiche vermeld staat.",
-            "inScheme": "conceptscheme:norm-bandbreedte",
-            "note": [
-                "De drukval wijkt meer dan 40% naar boven af van de operationele waarde die op de technische fiche vermeld staat.",
-                "> 1,4 x waarde technische fiche (afwijking > 40%)"
-            ],
-            "prefLabel": "Drukval afwijking naar boven > 40% (S2 systeem)",
-            "scopeNote": "> 1,4 x waarde technische fiche (afwijking > 40%)",
-            "topConceptOf": "conceptscheme:norm-bandbreedte",
-            "operatie": "product",
-            "relevantProperty": "riepr-param:drukvaloverhetsysteem",
-            "minValue": "1.4"
-        },
-        {
-            "id": "riepr-bandbreedte:_14",
-            "_type": [
-                "skos:Concept"
-            ],
-            "dc_type": "Onder minimum grenswaarde",
-            "definition": "Het waswaterdebiet van de voorbevochtiging wijkt meer dan 20% naar beneden af van de operationele waarde die op de technische fiche vermeld staat.",
-            "inScheme": "conceptscheme:norm-bandbreedte",
-            "note": [
-                "< 0,8 x waarde technische fiche (afwijking > 20%)",
-                "Het waswaterdebiet van de voorbevochtiging wijkt meer dan 20% naar beneden af van de operationele waarde die op de technische fiche vermeld staat."
-            ],
-            "prefLabel": "Waswaterdebiet voorbevochtiging afwijking naar beneden > 20% (S3 systeem)",
-            "scopeNote": "< 0,8 x waarde technische fiche (afwijking > 20%)",
-            "topConceptOf": "conceptscheme:norm-bandbreedte",
-            "operatie": "product",
-            "relevantProperty": "riepr-param:waswaterdebietvoorbevochtiging",
-            "maxValue": "0.8"
-        },
-        {
-            "id": "riepr-bandbreedte:_15",
-            "_type": [
-                "skos:Concept"
-            ],
-            "dc_type": "Onder minimum grenswaarde",
-            "definition": "Het waswaterdebiet van de bevloeiing wijkt meer dan 20% naar beneden af van de operationele waarde die op de technische fiche vermeld staat.",
-            "inScheme": "conceptscheme:norm-bandbreedte",
-            "note": [
-                "< 0,8 x waarde technische fiche (afwijking > 20%)",
-                "Het waswaterdebiet van de bevloeiing wijkt meer dan 20% naar beneden af van de operationele waarde die op de technische fiche vermeld staat."
-            ],
-            "prefLabel": "Waswaterdebiet bevloeiing afwijking naar beneden > 20% (S3 systeem)",
-            "scopeNote": "< 0,8 x waarde technische fiche (afwijking > 20%)",
-            "topConceptOf": "conceptscheme:norm-bandbreedte",
-            "operatie": "product",
-            "relevantProperty": "riepr-param:waswaterdebietbevloeiing",
-            "maxValue": "0.8"
-        },
-        {
-            "id": "riepr-bandbreedte:_16",
-            "_type": [
-                "skos:Concept"
-            ],
-            "dc_type": "Boven maximum grenswaarde",
-            "definition": "De drukval wijkt meer dan 50 Pa naar boven af van de operationele waarde die op de technische fiche vermeld staat.",
-            "inScheme": "conceptscheme:norm-bandbreedte",
-            "note": [
-                "De drukval wijkt meer dan 50 Pa naar boven af van de operationele waarde die op de technische fiche vermeld staat.",
-                "> 50 Pa + waarde technische fiche (afwijking > 50 Pa)"
-            ],
-            "prefLabel": "Drukval afwijking naar boven > 50 Pa (S3 systeem)",
-            "scopeNote": "> 50 Pa + waarde technische fiche (afwijking > 50 Pa)",
-            "topConceptOf": "conceptscheme:norm-bandbreedte",
-            "operatie": "som",
-            "relevantProperty": "riepr-param:drukvaloverhetsysteem",
-            "minValue": "50"
-        },
-        {
-            "id": "riepr-bandbreedte:_2",
-            "_type": [
-                "skos:Concept"
-            ],
-            "dc_type": "Boven maximum grenswaarde",
-            "definition": "De zuurtegraad van het waswater is groter dan 8,5",
-            "inScheme": "conceptscheme:norm-bandbreedte",
-            "note": [
-                "De zuurtegraad van het waswater is groter dan 8,5",
-                "> 8,5"
-            ],
-            "prefLabel": "Zuurtegraad waswater > 8,5 (S1 systeem)",
-            "scopeNote": "> 8,5",
-            "topConceptOf": "conceptscheme:norm-bandbreedte",
-            "relevantProperty": "riepr-param:zuurtegraadwaswater",
-            "minValue": "8.5"
-        },
-        {
-            "id": "riepr-bandbreedte:_3",
-            "_type": [
-                "skos:Concept"
-            ],
-            "dc_type": "Boven maximum grenswaarde",
-            "definition": "De geleidbaarheid is groter dan de maximale operationele waarde die op de technische fiche vermeld staat.",
-            "inScheme": "conceptscheme:norm-bandbreedte",
-            "note": [
-                "De geleidbaarheid is groter dan de maximale operationele waarde die op de technische fiche vermeld staat.",
-                "> waarde technische fiche"
-            ],
-            "prefLabel": "Geleidbaarheid waswater > maximale waarde (S1 systeem)",
-            "scopeNote": "> waarde technische fiche",
-            "topConceptOf": "conceptscheme:norm-bandbreedte",
-            "operatie": "som",
-            "relevantProperty": "riepr-param:geleidbaarheidvanhetwaswater",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-bandbreedte:_4",
-            "_type": [
-                "skos:Concept"
-            ],
-            "dc_type": "Onder minimum grenswaarde",
-            "definition": "Het waswaterdebiet wijkt meer dan 20% naar beneden af van de operationele waarde die op de technische fiche vermeld staat.",
-            "inScheme": "conceptscheme:norm-bandbreedte",
-            "note": [
-                "Het waswaterdebiet wijkt meer dan 20% naar beneden af van de operationele waarde die op de technische fiche vermeld staat.",
-                "< 0,8 x waarde technische fiche (afwijking > 20%)"
-            ],
-            "prefLabel": "Waswaterdebiet afwijking naar beneden > 20% (S1 systeem)",
-            "scopeNote": "< 0,8 x waarde technische fiche (afwijking > 20%)",
-            "topConceptOf": "conceptscheme:norm-bandbreedte",
-            "operatie": "product",
-            "relevantProperty": "riepr-param:waswaterdebiet",
-            "maxValue": "0.8"
-        },
-        {
-            "id": "riepr-bandbreedte:_5",
-            "_type": [
-                "skos:Concept"
-            ],
-            "dc_type": "Onder minimum grenswaarde",
-            "definition": "Het spuiwaterdebiet wijkt meer dan 10% naar beneden af van de operationele waarde die op de technische fiche vermeld staat.",
-            "inScheme": "conceptscheme:norm-bandbreedte",
-            "note": [
-                "Het spuiwaterdebiet wijkt meer dan 10% naar beneden af van de operationele waarde die op de technische fiche vermeld staat.",
-                "< 0,9 x waarde technische fiche (afwijking > 10%)"
-            ],
-            "prefLabel": "Spuiwaterdebiet afwijking naar beneden > 10% (S1 systeem)",
-            "scopeNote": "< 0,9 x waarde technische fiche (afwijking > 10%)",
-            "topConceptOf": "conceptscheme:norm-bandbreedte",
-            "operatie": "product",
-            "relevantProperty": "riepr-param:spuiwaterproductie",
-            "maxValue": "0.9"
-        },
-        {
-            "id": "riepr-bandbreedte:_6",
-            "_type": [
-                "skos:Concept"
-            ],
-            "dc_type": "Onder minimum grenswaarde",
-            "definition": "De drukval wijkt meer dan 40% naar beneden af van de operationele waarde die op de technische fiche vermeld staat.",
-            "inScheme": "conceptscheme:norm-bandbreedte",
-            "note": [
-                "De drukval wijkt meer dan 40% naar beneden af van de operationele waarde die op de technische fiche vermeld staat.",
-                "< 0,6 x waarde technische fiche (afwijking > 40%)"
-            ],
-            "prefLabel": "Drukval afwijking naar beneden > 40% (S1 systeem)",
-            "scopeNote": "< 0,6 x waarde technische fiche (afwijking > 40%)",
-            "topConceptOf": "conceptscheme:norm-bandbreedte",
-            "operatie": "product",
-            "relevantProperty": "riepr-param:drukvaloverhetsysteem",
-            "maxValue": "0.6"
-        },
-        {
-            "id": "riepr-bandbreedte:_7",
-            "_type": [
-                "skos:Concept"
-            ],
-            "dc_type": "Boven maximum grenswaarde",
-            "definition": "De drukval wijkt meer dan 40% naar boven af van de operationele waarde die op de technische fiche vermeld staat.",
-            "inScheme": "conceptscheme:norm-bandbreedte",
-            "note": [
-                "De drukval wijkt meer dan 40% naar boven af van de operationele waarde die op de technische fiche vermeld staat.",
-                "> 1,4 x waarde technische fiche (afwijking > 40%)"
-            ],
-            "prefLabel": "Drukval afwijking naar boven > 40% (S1 systeem)",
-            "scopeNote": "> 1,4 x waarde technische fiche (afwijking > 40%)",
-            "topConceptOf": "conceptscheme:norm-bandbreedte",
-            "operatie": "product",
-            "relevantProperty": "riepr-param:drukvaloverhetsysteem",
-            "minValue": "1.4"
-        },
-        {
-            "id": "riepr-bandbreedte:_8",
-            "_type": [
-                "skos:Concept"
-            ],
-            "dc_type": "Boven maximum grenswaarde",
-            "definition": "De zuurtegraad van het waswater wijkt meer dan 1 pH-eenheid naar boven af van de operationele waarde die op de technische fiche vermeld staat.",
-            "inScheme": "conceptscheme:norm-bandbreedte",
-            "note": [
-                "De zuurtegraad van het waswater wijkt meer dan 1 pH-eenheid naar boven af van de operationele waarde die op de technische fiche vermeld staat.",
-                "> 1 pH + waarde technische fiche (afwijking > 1pH)"
-            ],
-            "prefLabel": "Zuurtegraad waswater afwijking naar boven > 1 pH-eenheid (S2 systeem)",
-            "scopeNote": "> 1 pH + waarde technische fiche (afwijking > 1pH)",
-            "topConceptOf": "conceptscheme:norm-bandbreedte",
-            "operatie": "som",
-            "relevantProperty": "riepr-param:zuurtegraadwaswater",
-            "minValue": "1"
-        },
-        {
-            "id": "riepr-bandbreedte:_9",
-            "_type": [
-                "skos:Concept"
-            ],
-            "dc_type": "Boven maximum grenswaarde",
-            "definition": "De geleidbaarheid is groter dan de maximale operationele waarde die op de technische fiche vermeld staat.",
-            "inScheme": "conceptscheme:norm-bandbreedte",
-            "note": [
-                "De geleidbaarheid is groter dan de maximale operationele waarde die op de technische fiche vermeld staat.",
-                "> waarde technische fiche"
-            ],
-            "prefLabel": "Geleidbaarheid waswater > maximale waarde (S2 systeem)",
-            "scopeNote": "> waarde technische fiche",
-            "topConceptOf": "conceptscheme:norm-bandbreedte",
-            "operatie": "som",
-            "relevantProperty": "riepr-param:geleidbaarheidvanhetwaswater",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-param:biobedspoelwaterproductie",
-            "_type": [
-                "skos:Concept",
-                "ssn:Property"
-            ],
-            "subject": "riepr-medium:waswater",
-            "relevantQuantityKind": [
-                "quantitykind:Volume"
-            ],
-            "relevantUnit": {
-                "id": "unit:M3",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kubieke meter"
-            },
-            "seeAlso": "omg_id:concept/fysico-chemisch/0053",
-            "inScheme": "conceptscheme:parameter",
-            "prefLabel": "Biobedspoelwaterproductie",
-            "topConceptOf": "conceptscheme:parameter",
-            "relevantDataType": "xsd:decimal"
-        },
-        {
-            "id": "riepr-param:biobedspuiwaterproductie",
-            "_type": [
-                "skos:Concept",
-                "ssn:Property"
-            ],
-            "subject": "riepr-medium:spuiwater",
-            "relevantQuantityKind": [
-                "quantitykind:Volume"
-            ],
-            "relevantUnit": {
-                "id": "unit:M3",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kubieke meter"
-            },
-            "seeAlso": "omg_id:concept/fysico-chemisch/0050",
-            "inScheme": "conceptscheme:parameter",
-            "prefLabel": "Biobedspuiwaterproductie",
-            "topConceptOf": "conceptscheme:parameter",
-            "relevantDataType": "xsd:decimal"
-        },
-        {
-            "id": "riepr-param:drukvaloverhetsysteem",
-            "_type": [
-                "skos:Concept",
-                "ssn:Property"
-            ],
-            "subject": "riepr-medium:lucht",
-            "relevantQuantityKind": [
-                "quantitykind:VaporPressure"
-            ],
-            "relevantUnit": {
-                "id": "unit:PA",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Pascal"
-            },
-            "seeAlso": "omg_id:concept/fysico-chemisch/0329",
-            "inScheme": "conceptscheme:parameter",
-            "prefLabel": "Drukval over het systeem",
-            "topConceptOf": "conceptscheme:parameter",
-            "relevantDataType": "xsd:decimal"
-        },
-        {
-            "id": "riepr-param:elektriciteitsverbruikwaterpompen",
-            "_type": [
-                "skos:Concept",
-                "ssn:Property"
-            ],
-            "relevantQuantityKind": [
-                "quantitykind:Energy"
-            ],
-            "relevantUnit": {
-                "id": "unit:KiloW-HR",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kilowattuur"
-            },
-            "inScheme": "conceptscheme:parameter",
-            "prefLabel": "Elektriciteitsverbruik van de waswaterpomp(en)",
-            "topConceptOf": "conceptscheme:parameter",
-            "relevantDataType": "xsd:decimal"
-        },
-        {
-            "id": "riepr-param:geleidbaarheidvanhetwaswater",
-            "_type": [
-                "skos:Concept",
-                "ssn:Property"
-            ],
-            "subject": "riepr-medium:waswater",
-            "relevantQuantityKind": [
-                "quantitykind:Conductivity"
-            ],
-            "relevantUnit": {
-                "id": "unit:MilliS-PER-CentiM",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Millisiemens per centimeter"
-            },
-            "seeAlso": "omg_id:concept/fysico-chemisch/0010",
-            "inScheme": "conceptscheme:parameter",
-            "prefLabel": "Geleidbaarheid van het waswater",
-            "topConceptOf": "conceptscheme:parameter",
-            "hasProcedureForProperty": "procedure:WAC_I_A_011",
-            "relevantDataType": "xsd:decimal"
-        },
-        {
-            "id": "riepr-param:spuiwaterproductie",
-            "_type": [
-                "skos:Concept",
-                "ssn:Property"
-            ],
-            "subject": "riepr-medium:spuiwater",
-            "relevantQuantityKind": [
-                "quantitykind:Volume"
-            ],
-            "relevantUnit": {
-                "id": "unit:M3",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kubieke meter"
-            },
-            "seeAlso": "omg_id:concept/fysico-chemisch/0050",
-            "inScheme": "conceptscheme:parameter",
-            "prefLabel": "Spuiwaterproductie",
-            "topConceptOf": "conceptscheme:parameter",
-            "relevantDataType": "xsd:decimal"
-        },
-        {
-            "id": "riepr-param:stalbezetting",
-            "_type": [
-                "skos:Concept",
-                "ssn:Property"
-            ],
-            "subject": "riepr-medium:stal",
-            "inScheme": "conceptscheme:parameter",
-            "prefLabel": "Stalbezetting",
-            "topConceptOf": "conceptscheme:parameter",
-            "relevantCodeList": [
-                "conceptscheme:stalbezetting"
-            ]
-        },
-        {
-            "id": "riepr-param:systeemstatus",
-            "_type": [
-                "skos:Concept",
-                "ssn:Property"
-            ],
-            "subject": "riepr-medium:hetelektronischmonitoringssysteem",
-            "inScheme": "conceptscheme:parameter",
-            "prefLabel": "SysteemStatus",
-            "topConceptOf": "conceptscheme:parameter",
-            "relevantCodeList": [
-                "conceptscheme:systeemstatus"
-            ]
-        },
-        {
-            "id": "riepr-param:waswaterdebiet",
-            "_type": [
-                "skos:Concept",
-                "ssn:Property"
-            ],
-            "subject": "riepr-medium:waswater",
-            "relevantQuantityKind": [
-                "quantitykind:VolumeFlowRate"
-            ],
-            "relevantUnit": {
-                "id": "unit:M3-PER-HR",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kubieke meter per uur"
-            },
-            "seeAlso": "omg_id:concept/fysico-chemisch/0053",
-            "inScheme": "conceptscheme:parameter",
-            "prefLabel": "Waswaterdebiet over het waspakket",
-            "topConceptOf": "conceptscheme:parameter",
-            "relevantDataType": "xsd:decimal"
-        },
-        {
-            "id": "riepr-param:waswaterdebietbevloeiing",
-            "_type": [
-                "skos:Concept",
-                "ssn:Property"
-            ],
-            "subject": "riepr-medium:waswater",
-            "relevantQuantityKind": [
-                "quantitykind:VolumeFlowRate"
-            ],
-            "relevantUnit": {
-                "id": "unit:M3-PER-HR",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kubieke meter per uur"
-            },
-            "seeAlso": "omg_id:concept/fysico-chemisch/0053",
-            "inScheme": "conceptscheme:parameter",
-            "prefLabel": "Waswaterdebiet van de bevloeiing van het vulmateriaal",
-            "topConceptOf": "conceptscheme:parameter",
-            "relevantDataType": "xsd:decimal"
-        },
-        {
-            "id": "riepr-param:waswaterdebietvoorbevochtiging",
-            "_type": [
-                "skos:Concept",
-                "ssn:Property"
-            ],
-            "subject": "riepr-medium:waswater",
-            "relevantQuantityKind": [
-                "quantitykind:VolumeFlowRate"
-            ],
-            "relevantUnit": {
-                "id": "unit:M3-PER-HR",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kubieke meter per uur"
-            },
-            "seeAlso": "omg_id:concept/fysico-chemisch/0053",
-            "inScheme": "conceptscheme:parameter",
-            "prefLabel": "Waswaterdebiet van de voorbevochtiging van de ingaande stallucht",
-            "topConceptOf": "conceptscheme:parameter",
-            "relevantDataType": "xsd:decimal"
-        },
-        {
-            "id": "riepr-param:zuurtegraadwaswater",
-            "_type": [
-                "skos:Concept",
-                "ssn:Property"
-            ],
-            "subject": "riepr-medium:waswater",
-            "relevantQuantityKind": [
-                "quantitykind:Acidity"
-            ],
-            "relevantUnit": {
-                "id": "unit:PH",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Ph"
-            },
-            "seeAlso": "omg_id:concept/fysico-chemisch/0076",
-            "inScheme": "conceptscheme:parameter",
-            "prefLabel": "Zuurtegraad van het waswater",
-            "topConceptOf": "conceptscheme:parameter",
-            "hasProcedureForProperty": "procedure:WAC_I_A_011",
-            "relevantDataType": "xsd:decimal"
-        },
-        {
-            "id": "riepr-param-norm:_1",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:PH",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Ph"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Zuurtegraad waswater S1 systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "maximum",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:zuurtegraadwaswater",
-            "technischefiche": "true",
-            "maxValue": "8.5",
-            "minValue": "6"
-        },
-        {
-            "id": "riepr-param-norm:_10",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:PA",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Pascal"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Drukval S2 systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "exact",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:drukvaloverhetsysteem",
-            "technischefiche": "true",
-            "maxValue": "500",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-param-norm:_11",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:M3-PER-HR",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kubieke meter per uur"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Waswaterdebiet voorbevochtiging S3 systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "minimum",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:waswaterdebietvoorbevochtiging",
-            "technischefiche": "true",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-param-norm:_12",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:M3-PER-HR",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kubieke meter per uur"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Waswaterdebiet bevloeiing S3 systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "minimum",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:waswaterdebietbevloeiing",
-            "technischefiche": "true",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-param-norm:_13",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:M3",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kubieke meter"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Biobedspuiwaterproductie S3 systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "minimum",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:biobedspuiwaterproductie",
-            "technischefiche": "true",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-param-norm:_14",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:M3",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kubieke meter"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Biobedspoelwaterproductie S3 systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "minimum",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:biobedspoelwaterproductie",
-            "technischefiche": "true",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-param-norm:_15",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:PA",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Pascal"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Drukval S3 systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "maximum",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:drukvaloverhetsysteem",
-            "technischefiche": "true",
-            "maxValue": "500",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-param-norm:_16",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:MilliS-PER-CentiM",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Millisiemens per centimeter"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Geleidbaarheid waswater Lely Sphere systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "maximum",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:geleidbaarheidvanhetwaswater",
-            "technischefiche": "true",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-param-norm:_17",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:M3-PER-HR",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kubieke meter per uur"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Waswaterdebiet Lely Sphere systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "minimum",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:waswaterdebiet",
-            "technischefiche": "true",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-param-norm:_18",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:M3",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kubieke meter"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Spuiwaterdebiet Lely Sphere systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "minimum",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:spuiwaterproductie",
-            "technischefiche": "true",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-param-norm:_19",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:KiloW-HR",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kilowattuur"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Elektriciteitsverbruik van de waswaterpomp(en) Lely Sphere systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "minimum",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:elektriciteitsverbruikwaterpompen",
-            "technischefiche": "true",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-param-norm:_2",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:MilliS-PER-CentiM",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Millisiemens per centimeter"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Geleidbaarheid waswater S1 systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "maximum",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:geleidbaarheidvanhetwaswater",
-            "technischefiche": "true",
-            "maxValue": "30",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-param-norm:_3",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:M3-PER-HR",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kubieke meter per uur"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Waswaterdebiet S1 systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "minimum",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:waswaterdebiet",
-            "technischefiche": "true",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-param-norm:_4",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:M3",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kubieke meter"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Spuiwaterdebiet S1 systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "minimum",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:spuiwaterproductie",
-            "technischefiche": "true",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-param-norm:_5",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:PA",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Pascal"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Drukval S1 systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "exact",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:drukvaloverhetsysteem",
-            "technischefiche": "true",
-            "maxValue": "500",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-param-norm:_6",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:PH",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Ph"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Zuurtegraad waswater S2 systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "maximum",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:zuurtegraadwaswater",
-            "technischefiche": "true",
-            "maxValue": "14",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-param-norm:_7",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:MilliS-PER-CentiM",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Millisiemens per centimeter"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Geleidbaarheid waswater S2 systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "maximum",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:geleidbaarheidvanhetwaswater",
-            "technischefiche": "true",
-            "maxValue": "500",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-param-norm:_8",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:M3-PER-HR",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kubieke meter per uur"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Waswaterdebiet S2 systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "minimum",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:waswaterdebiet",
-            "technischefiche": "true",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-param-norm:_9",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:M3",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Kubieke meter"
-            },
-            "inScheme": "conceptscheme:parameter-norm",
-            "prefLabel": "Spuiwaterdebiet S2 systeem",
-            "topConceptOf": "conceptscheme:parameter-norm",
-            "referentiewaardeType": "minimum",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "riepr-param:spuiwaterproductie",
-            "technischefiche": "true",
-            "minValue": "0"
-        },
-        {
-            "id": "riepr-stalbezetting:in_gebruik",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:stalbezetting",
-            "prefLabel": "Stal in gebruik, dieren aanwezig.",
-            "topConceptOf": "conceptscheme:stalbezetting"
-        },
-        {
-            "id": "riepr-stalbezetting:leeg",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:stalbezetting",
-            "prefLabel": "Lege stal",
-            "topConceptOf": "conceptscheme:stalbezetting"
-        },
-        {
-            "id": "riepr-status:gereinigd",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:systeemstatus",
-            "prefLabel": "Gereinigd",
-            "topConceptOf": "conceptscheme:systeemstatus"
-        },
-        {
-            "id": "riepr-status:onderhoud",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:systeemstatus",
-            "prefLabel": "In onderhoud",
-            "topConceptOf": "conceptscheme:systeemstatus"
-        },
-        {
-            "id": "riepr-status:operationeel",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:systeemstatus",
-            "prefLabel": "Operationeel",
-            "topConceptOf": "conceptscheme:systeemstatus"
-        },
-        {
-            "id": "riepr-status:storing",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:systeemstatus",
-            "prefLabel": "Storing",
-            "topConceptOf": "conceptscheme:systeemstatus"
-        },
-        {
-            "id": "riepr-systeemopstelling:enkelvoudig",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:systeemopstelling",
-            "prefLabel": "Enkelvoudige opstelling",
-            "topConceptOf": "conceptscheme:systeemopstelling"
-        },
-        {
-            "id": "riepr-systeemopstelling:gecombineerd",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:systeemopstelling",
-            "prefLabel": "Gecombineerde opstelling",
-            "topConceptOf": "conceptscheme:systeemopstelling"
-        },
-        {
-            "id": "riepr-type:lelysphere",
-            "_type": [
-                "skos:Concept"
-            ],
-            "broader": "riepr-type:luchtwassysteem",
-            "broaderTransitive": [
-                "riepr-type:luchtwassysteem",
-                "riepr-type:luchtzuiveringssysteem"
-            ],
-            "inScheme": "conceptscheme:systeemtype",
-            "code": "Lelysphere",
-            "prefLabel": "Lely Sphere",
-            "semanticRelation": [
-                "riepr-type:luchtwassysteem",
-                "riepr-type:luchtzuiveringssysteem"
-            ]
-        },
-        {
-            "id": "riepr-type:luchtwassysteem",
-            "_type": [
-                "skos:Concept"
-            ],
-            "broader": "riepr-type:luchtzuiveringssysteem",
-            "broaderTransitive": "riepr-type:luchtzuiveringssysteem",
-            "inScheme": "conceptscheme:systeemtype",
-            "narrower": [
-                "riepr-type:lelysphere",
-                "riepr-type:s1",
-                "riepr-type:s2"
-            ],
-            "narrowerTransitive": [
-                "riepr-type:lelysphere",
-                "riepr-type:s1",
-                "riepr-type:s2"
-            ],
-            "prefLabel": "Luchtwassysteem",
-            "semanticRelation": [
-                "riepr-type:lelysphere",
-                "riepr-type:luchtzuiveringssysteem",
-                "riepr-type:s1",
-                "riepr-type:s2"
-            ]
-        },
-        {
-            "id": "riepr-type:luchtzuiveringssysteem",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:systeemtype",
-            "narrower": [
-                "riepr-type:luchtwassysteem",
-                "riepr-type:s3"
-            ],
-            "narrowerTransitive": [
-                "riepr-type:lelysphere",
-                "riepr-type:luchtwassysteem",
-                "riepr-type:s1",
-                "riepr-type:s2",
-                "riepr-type:s3"
-            ],
-            "prefLabel": "Luchtzuiveringssysteem",
-            "semanticRelation": [
-                "riepr-type:lelysphere",
-                "riepr-type:luchtwassysteem",
-                "riepr-type:s1",
-                "riepr-type:s2",
-                "riepr-type:s3"
-            ],
-            "topConceptOf": "conceptscheme:systeemtype"
-        },
-        {
-            "id": "riepr-type:s1",
-            "_type": [
-                "skos:Concept"
-            ],
-            "broader": "riepr-type:luchtwassysteem",
-            "broaderTransitive": [
-                "riepr-type:luchtwassysteem",
-                "riepr-type:luchtzuiveringssysteem"
-            ],
-            "inScheme": "conceptscheme:systeemtype",
-            "code": "S1",
-            "prefLabel": "Biologisch luchtwassysteem",
-            "semanticRelation": [
-                "riepr-type:luchtwassysteem",
-                "riepr-type:luchtzuiveringssysteem"
-            ]
-        },
-        {
-            "id": "riepr-type:s2",
-            "_type": [
-                "skos:Concept"
-            ],
-            "broader": "riepr-type:luchtwassysteem",
-            "broaderTransitive": [
-                "riepr-type:luchtwassysteem",
-                "riepr-type:luchtzuiveringssysteem"
-            ],
-            "inScheme": "conceptscheme:systeemtype",
-            "code": "S2",
-            "prefLabel": "Chemisch luchtwassysteem",
-            "semanticRelation": [
-                "riepr-type:luchtwassysteem",
-                "riepr-type:luchtzuiveringssysteem"
-            ]
-        },
-        {
-            "id": "riepr-type:s3",
-            "_type": [
-                "skos:Concept"
-            ],
-            "broader": "riepr-type:luchtzuiveringssysteem",
-            "broaderTransitive": "riepr-type:luchtzuiveringssysteem",
-            "inScheme": "conceptscheme:systeemtype",
-            "code": "S3",
-            "prefLabel": "Biobed",
-            "semanticRelation": [
-                "riepr-type:luchtzuiveringssysteem"
-            ]
-        },
-        {
             "id": "vlarem-klasse:k1",
             "_type": [
                 "skos:Concept"
@@ -2209,153 +862,166 @@
             "topConceptOf": "conceptscheme-alg:vlarem-klasse"
         },
         {
-            "id": "conceptscheme:dataleverancierstatus",
+            "id": "conceptscheme:datatypes",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "hasTopConcept": [
-                "riepr-dl-status:gevalideerd",
-                "riepr-dl-status:geweigerd",
-                "riepr-dl-status:ingetrokken",
-                "riepr-dl-status:nietgevalideerd"
-            ],
-            "prefLabel": "conceptschema dataleverancier status"
+            "definition": "Een lijst van verschillende externe identificatoren die al dan niet uniek zijn.",
+            "note": "Een lijst van verschillende externe identificatoren die al dan niet uniek zijn.",
+            "prefLabel": "Externe identificatoren"
         },
         {
-            "id": "conceptscheme:medium",
+            "id": "conceptscheme:emissiepunt_attributen",
             "_type": [
                 "skos:ConceptScheme"
             ],
+            "definition": "Een lijst die een koppeling maakt tussen soorten emissiepunten en de attributen die van toepassing zijn.",
             "hasTopConcept": [
-                "riepr-medium:hetelektronischmonitoringssysteem",
-                "riepr-medium:lucht",
-                "riepr-medium:spuiwater",
-                "riepr-medium:stal",
-                "riepr-medium:waswater"
+                "riepr-emissiepunt-attr:schouw-diameter",
+                "riepr-emissiepunt-attr:schouw-hoogte"
             ],
-            "prefLabel": "conceptschema luchtzuiveringssysteem medium"
+            "note": "Een lijst die een koppeling maakt tussen soorten emissiepunten en de attributen die van toepassing zijn.",
+            "prefLabel": "Emissiepunt attributen"
         },
         {
-            "id": "conceptscheme:norm-bandbreedte",
+            "id": "conceptscheme:emissiepunt_type",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "altLabel": "Ranges",
+            "definition": "Een lijst van verschillende soorten emissiepunten met mogelijke opsplitsing in subtyperingen.",
             "hasTopConcept": [
-                "riepr-bandbreedte:_10",
-                "riepr-bandbreedte:_11",
-                "riepr-bandbreedte:_12",
-                "riepr-bandbreedte:_13",
-                "riepr-bandbreedte:_14",
-                "riepr-bandbreedte:_15",
-                "riepr-bandbreedte:_16",
-                "riepr-bandbreedte:_1",
-                "riepr-bandbreedte:_2",
-                "riepr-bandbreedte:_3",
-                "riepr-bandbreedte:_4",
-                "riepr-bandbreedte:_5",
-                "riepr-bandbreedte:_6",
-                "riepr-bandbreedte:_7",
-                "riepr-bandbreedte:_8",
-                "riepr-bandbreedte:_9"
+                "riepr-emissiepunt-type:emissiepunt",
+                "riepr-emissiepunt-type:fakkel",
+                "riepr-emissiepunt-type:lozingspunt",
+                "riepr-emissiepunt-type:schouw"
             ],
-            "prefLabel": "conceptschema luchtzuiveringssysteem normbandbreedte"
+            "note": "Een lijst van verschillende soorten emissiepunten met mogelijke opsplitsing in subtyperingen.",
+            "prefLabel": "Emissiepunt types"
         },
         {
-            "id": "conceptscheme:parameter",
+            "id": "conceptscheme:filter_attributen",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "hasTopConcept": [
-                "riepr-param:waswaterdebiet",
-                "riepr-param:spuiwaterproductie",
-                "riepr-param:drukvaloverhetsysteem",
-                "riepr-param:waswaterdebietvoorbevochtiging",
-                "riepr-param:waswaterdebietbevloeiing",
-                "riepr-param:zuurtegraadwaswater",
-                "riepr-param:geleidbaarheidvanhetwaswater",
-                "riepr-param:biobedspoelwaterproductie",
-                "riepr-param:biobedspuiwaterproductie",
-                "riepr-param:elektriciteitsverbruikwaterpompen",
-                "riepr-param:stalbezetting",
-                "riepr-param:systeemstatus"
-            ],
-            "prefLabel": "conceptschema luchtzuiveringssysteem eigenschap"
+            "definition": "Een koppeling tussen attributen van een filter en de attributen die van toepassing zijn met een referentie naar een CSO codelijst voor de eenheid.",
+            "note": "Een koppeling tussen attributen van een filter en de attributen die van toepassing zijn met een referentie naar een CSO codelijst voor de eenheid.",
+            "prefLabel": "Filter attributen"
         },
         {
-            "id": "conceptscheme:parameter-norm",
+            "id": "conceptscheme:filter_type",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "definition": "Het schema van indelingsklassen (1, 2, 3) zoals vastgelegd in de Vlaamse milieuregelgeving (VLAREM).",
+            "definition": "Een lijst van verschillende types van filters en de objecten waarop van toepassing.",
             "hasTopConcept": [
-                "riepr-param-norm:_10",
-                "riepr-param-norm:_11",
-                "riepr-param-norm:_12",
-                "riepr-param-norm:_13",
-                "riepr-param-norm:_14",
-                "riepr-param-norm:_15",
-                "riepr-param-norm:_16",
-                "riepr-param-norm:_17",
-                "riepr-param-norm:_18",
-                "riepr-param-norm:_19",
-                "riepr-param-norm:_1",
-                "riepr-param-norm:_2",
-                "riepr-param-norm:_3",
-                "riepr-param-norm:_4",
-                "riepr-param-norm:_5",
-                "riepr-param-norm:_6",
-                "riepr-param-norm:_7",
-                "riepr-param-norm:_8",
-                "riepr-param-norm:_9"
+                "riepr-filter-type:peilfilter"
             ],
-            "note": "Het schema van indelingsklassen (1, 2, 3) zoals vastgelegd in de Vlaamse milieuregelgeving (VLAREM).",
-            "prefLabel": "conceptschema luchtzuiveringssysteem parameter specificatie"
+            "note": "Een lijst van verschillende types van filters en de objecten waarop van toepassing.",
+            "prefLabel": "Filter types"
         },
         {
-            "id": "conceptscheme:stalbezetting",
+            "id": "conceptscheme:installatie_eigenschappen_type",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "hasTopConcept": [
-                "riepr-stalbezetting:in_gebruik",
-                "riepr-stalbezetting:leeg"
-            ],
-            "prefLabel": "conceptschema luchtzuiveringssysteem stalbezetting"
+            "definition": "Een lijst die verschillende types geeft voor installatie eigenschappen.",
+            "note": "Een lijst die verschillende types geeft voor installatie eigenschappen.",
+            "prefLabel": "Installatie eigenschappen types"
         },
         {
-            "id": "conceptscheme:systeemopstelling",
+            "id": "conceptscheme:installatie_type",
             "_type": [
                 "skos:ConceptScheme"
             ],
+            "definition": "Een lijst van verschillende types van installaties met eventueel subtyperingen.",
             "hasTopConcept": [
-                "riepr-systeemopstelling:enkelvoudig",
-                "riepr-systeemopstelling:gecombineerd"
+                "riepr-installatie-type:gpbv",
+                "riepr-installatie-type:iepr",
+                "riepr-installatie-type:oven",
+                "riepr-installatie-type:zuiveringsinstallatie"
             ],
-            "prefLabel": "conceptschema  luchtzuiveringssysteem opstelingen"
+            "note": "Een lijst van verschillende types van installaties met eventueel subtyperingen.",
+            "prefLabel": "Installatie types"
         },
         {
-            "id": "conceptscheme:systeemstatus",
+            "id": "conceptscheme:meetinstrument_type",
             "_type": [
                 "skos:ConceptScheme"
             ],
+            "definition": "Een lijst van verschillende soorten meetinstrumenten.",
             "hasTopConcept": [
-                "riepr-status:gereinigd",
-                "riepr-status:onderhoud",
-                "riepr-status:operationeel",
-                "riepr-status:storing"
+                "riepr-meetinstrument-type:debietmeter"
             ],
-            "prefLabel": "conceptschema luchtzuiveringssysteem status"
+            "note": "Een lijst van verschillende soorten meetinstrumenten.",
+            "prefLabel": "Meetinstrument types"
         },
         {
-            "id": "conceptscheme:systeemtype",
+            "id": "conceptscheme:meetpunt_type",
             "_type": [
                 "skos:ConceptScheme"
             ],
+            "definition": "Een lijst van verschillende soorten meetpunten.",
             "hasTopConcept": [
-                "riepr-type:luchtzuiveringssysteem"
+                "riepr-meetpunt-type:controle-inrichting",
+                "riepr-meetpunt-type:meetput"
             ],
-            "prefLabel": "conceptschema luchtzuiveringssysteem"
+            "note": "Een lijst van verschillende soorten meetpunten.",
+            "prefLabel": "Meetpunt types"
+        },
+        {
+            "id": "conceptscheme:onttrekkingspunt_type",
+            "_type": [
+                "skos:ConceptScheme"
+            ],
+            "definition": "Een lijst van verschillende soorten onttrekkingspunten met mogelijke opsplitsing in subtyperingen.",
+            "hasTopConcept": [
+                "riepr-onttrekkingspunt-type:grondwaterput"
+            ],
+            "note": "Een lijst van verschillende soorten onttrekkingspunten met mogelijke opsplitsing in subtyperingen.",
+            "prefLabel": "Onttrekkingspunt types"
+        },
+        {
+            "id": "conceptscheme:procedure_type",
+            "_type": [
+                "skos:ConceptScheme"
+            ],
+            "definition": "Een lijst van verschillende hoofdtyperingen van procedures in een procesplan.",
+            "hasTopConcept": [
+                "riepr-procedure-type:emissie",
+                "riepr-procedure-type:meet",
+                "riepr-procedure-type:overbrenging",
+                "riepr-procedure-type:verbruik",
+                "riepr-procedure-type:verwerking"
+            ],
+            "note": "Een lijst van verschillende hoofdtyperingen van procedures in een procesplan.",
+            "prefLabel": "Procedure types"
+        },
+        {
+            "id": "conceptscheme:procesvariabele_type",
+            "_type": [
+                "skos:ConceptScheme"
+            ],
+            "definition": "Een lijst die verschillende types geeft voor stoffen die aangeduid mogen worden bij bepaalde procedure types.",
+            "hasTopConcept": [
+                "riepr-procesvariabele-type:aardgas",
+                "riepr-procesvariabele-type:co2",
+                "riepr-procesvariabele-type:grondstof"
+            ],
+            "note": "Een lijst die verschillende types geeft voor stoffen die aangeduid mogen worden bij bepaalde procedure types.",
+            "prefLabel": "Proces variabele types"
+        },
+        {
+            "id": "conceptscheme:rubriek_type",
+            "_type": [
+                "skos:ConceptScheme"
+            ],
+            "definition": "Een typering van verschillende rubrieken (VLAREM rubriektype EGW ...).",
+            "hasTopConcept": [
+                "riepr-rubriek-type:egw",
+                "riepr-rubriek-type:vlarem"
+            ],
+            "note": "Een typering van verschillende rubrieken (VLAREM rubriektype EGW ...).",
+            "prefLabel": "Rubriek types"
         },
         {
             "id": "conceptscheme-alg:vlarem-klasse",
@@ -2366,8 +1032,306 @@
                 "vlarem-klasse:k1",
                 "vlarem-klasse:k2",
                 "vlarem-klasse:k3"
+            ]
+        },
+        {
+            "id": "riepr-emissiepunt-attr:schouw-diameter",
+            "_type": [
+                "skos:Concept"
             ],
-            "prefLabel": "VLAREM indelingsklassen"
+            "relevantUnit": {
+                "id": "unit:M",
+                "_type": [
+                    "qudt:Unit"
+                ],
+                "altLabel": "Meter"
+            },
+            "inScheme": "conceptscheme:emissiepunt_attributen",
+            "code": "diameter",
+            "prefLabel": "Diameter van de schouw",
+            "topConceptOf": "conceptscheme:emissiepunt_attributen",
+            "relevantDataType": "xsd:decimal",
+            "relevantProperty": "dbo:diameter"
+        },
+        {
+            "id": "riepr-emissiepunt-attr:schouw-hoogte",
+            "_type": [
+                "skos:Concept"
+            ],
+            "relevantUnit": {
+                "id": "unit:M",
+                "_type": [
+                    "qudt:Unit"
+                ],
+                "altLabel": "Meter"
+            },
+            "inScheme": "conceptscheme:emissiepunt_attributen",
+            "code": "hoogte",
+            "prefLabel": "Hoogte van de schouw",
+            "topConceptOf": "conceptscheme:emissiepunt_attributen",
+            "relevantDataType": "xsd:decimal",
+            "relevantProperty": "dbo:height"
+        },
+        {
+            "id": "riepr-emissiepunt-type:emissiepunt",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:emissiepunt_type",
+            "code": "emissiepunt",
+            "prefLabel": "Emissiepunt",
+            "topConceptOf": "conceptscheme:emissiepunt_type"
+        },
+        {
+            "id": "riepr-emissiepunt-type:fakkel",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:emissiepunt_type",
+            "code": "fakkel",
+            "prefLabel": "Fakkel",
+            "topConceptOf": "conceptscheme:emissiepunt_type"
+        },
+        {
+            "id": "riepr-emissiepunt-type:lozingspunt",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:emissiepunt_type",
+            "code": "lozingspunt",
+            "prefLabel": "Lozingspunt",
+            "topConceptOf": "conceptscheme:emissiepunt_type"
+        },
+        {
+            "id": "riepr-emissiepunt-type:schouw",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:emissiepunt_type",
+            "code": "schouw",
+            "prefLabel": "Schouw",
+            "topConceptOf": "conceptscheme:emissiepunt_type"
+        },
+        {
+            "id": "riepr-filter-type:peilfilter",
+            "_type": [
+                "skos:Concept"
+            ],
+            "definition": "Filter voor het meten van het grondwaterpeil.",
+            "inScheme": "conceptscheme:filter_type",
+            "code": "peilfilter",
+            "note": "Filter voor het meten van het grondwaterpeil.",
+            "prefLabel": "Peilfilter",
+            "topConceptOf": "conceptscheme:filter_type"
+        },
+        {
+            "id": "riepr-installatie-type:gpbv",
+            "_type": [
+                "skos:Concept"
+            ],
+            "definition": "Installatie die valt onder de richtlijn industriële emissies (IED/GPBV).",
+            "inScheme": "conceptscheme:installatie_type",
+            "code": "GPBV",
+            "note": "Installatie die valt onder de richtlijn industriële emissies (IED/GPBV).",
+            "prefLabel": "GPBV installatie",
+            "topConceptOf": "conceptscheme:installatie_type"
+        },
+        {
+            "id": "riepr-installatie-type:iepr",
+            "_type": [
+                "skos:Concept"
+            ],
+            "definition": "Installatie in het kader van IEPR rapportering.",
+            "inScheme": "conceptscheme:installatie_type",
+            "code": "IEPR",
+            "note": "Installatie in het kader van IEPR rapportering.",
+            "prefLabel": "IEPR installatie",
+            "topConceptOf": "conceptscheme:installatie_type"
+        },
+        {
+            "id": "riepr-installatie-type:oven",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:installatie_type",
+            "code": "oven",
+            "prefLabel": "Oven",
+            "topConceptOf": "conceptscheme:installatie_type"
+        },
+        {
+            "id": "riepr-installatie-type:zuiveringsinstallatie",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:installatie_type",
+            "code": "zuiveringsinstallatie",
+            "prefLabel": "Zuiveringsinstallatie",
+            "topConceptOf": "conceptscheme:installatie_type"
+        },
+        {
+            "id": "riepr-meetinstrument-type:debietmeter",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:meetinstrument_type",
+            "code": "debietmeter",
+            "prefLabel": "Debietmeter",
+            "topConceptOf": "conceptscheme:meetinstrument_type"
+        },
+        {
+            "id": "riepr-meetpunt-type:controle-inrichting",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:meetpunt_type",
+            "code": "controle_inrichting",
+            "prefLabel": "Controle inrichting",
+            "topConceptOf": "conceptscheme:meetpunt_type"
+        },
+        {
+            "id": "riepr-meetpunt-type:meetput",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:meetpunt_type",
+            "code": "meetput",
+            "prefLabel": "Meetput",
+            "topConceptOf": "conceptscheme:meetpunt_type"
+        },
+        {
+            "id": "riepr-onttrekkingspunt-type:grondwaterput",
+            "_type": [
+                "skos:Concept"
+            ],
+            "definition": "Een put voor de onttrekking van grondwater.",
+            "inScheme": "conceptscheme:onttrekkingspunt_type",
+            "code": "grondwaterput",
+            "note": "Een put voor de onttrekking van grondwater.",
+            "prefLabel": "Grondwaterput",
+            "topConceptOf": "conceptscheme:onttrekkingspunt_type"
+        },
+        {
+            "id": "riepr-procedure-type:emissie",
+            "_type": [
+                "skos:Concept",
+                "rdfs:Resource"
+            ],
+            "inScheme": "conceptscheme:procedure_type",
+            "code": "EMISSIE",
+            "prefLabel": "Emissie",
+            "topConceptOf": "conceptscheme:procedure_type"
+        },
+        {
+            "id": "riepr-procedure-type:meet",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:procedure_type",
+            "code": "MEET",
+            "prefLabel": "Meet",
+            "topConceptOf": "conceptscheme:procedure_type"
+        },
+        {
+            "id": "riepr-procedure-type:overbrenging",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:procedure_type",
+            "code": "OVERBRENGING",
+            "prefLabel": "Overbrenging",
+            "topConceptOf": "conceptscheme:procedure_type"
+        },
+        {
+            "id": "riepr-procedure-type:verbruik",
+            "_type": [
+                "skos:Concept",
+                "rdfs:Resource"
+            ],
+            "inScheme": "conceptscheme:procedure_type",
+            "code": "VERBRUIK",
+            "prefLabel": "Verbruik",
+            "topConceptOf": "conceptscheme:procedure_type"
+        },
+        {
+            "id": "riepr-procedure-type:verwerking",
+            "_type": [
+                "skos:Concept",
+                "rdfs:Resource"
+            ],
+            "inScheme": "conceptscheme:procedure_type",
+            "code": "VERWERKING",
+            "prefLabel": "Verwerking",
+            "topConceptOf": "conceptscheme:procedure_type"
+        },
+        {
+            "id": "riepr-procesvariabele-type:aardgas",
+            "_type": [
+                "skos:Concept"
+            ],
+            "subject": "riepr-procedure-type:verbruik",
+            "relevantUnit": {
+                "id": "unit:TON-PER-YR",
+                "_type": [
+                    "qudt:Unit"
+                ],
+                "altLabel": "Ton per jaar"
+            },
+            "inScheme": "conceptscheme:procesvariabele_type",
+            "code": "aardgas",
+            "prefLabel": "Aardgas",
+            "topConceptOf": "conceptscheme:procesvariabele_type",
+            "relevantCodeList": [
+                "omg_id:concept/stof/aardgas"
+            ],
+            "relevantDataType": "xsd:decimal"
+        },
+        {
+            "id": "riepr-procesvariabele-type:co2",
+            "_type": [
+                "skos:Concept"
+            ],
+            "subject": "riepr-procedure-type:emissie",
+            "inScheme": "conceptscheme:procesvariabele_type",
+            "code": "co2",
+            "prefLabel": "CO2",
+            "topConceptOf": "conceptscheme:procesvariabele_type"
+        },
+        {
+            "id": "riepr-procesvariabele-type:grondstof",
+            "_type": [
+                "skos:Concept"
+            ],
+            "subject": "riepr-procedure-type:verwerking",
+            "definition": "Grondstof met vrije invoer subtypering.",
+            "inScheme": "conceptscheme:procesvariabele_type",
+            "code": "grondstof",
+            "note": "Grondstof met vrije invoer subtypering.",
+            "prefLabel": "Grondstof",
+            "topConceptOf": "conceptscheme:procesvariabele_type"
+        },
+        {
+            "id": "riepr-rubriek-type:egw",
+            "_type": [
+                "skos:Concept"
+            ],
+            "definition": "EGW rubriektype.",
+            "inScheme": "conceptscheme:rubriek_type",
+            "code": "EGW",
+            "note": "EGW rubriektype.",
+            "prefLabel": "EGW",
+            "topConceptOf": "conceptscheme:rubriek_type"
+        },
+        {
+            "id": "riepr-rubriek-type:vlarem",
+            "_type": [
+                "skos:Concept"
+            ],
+            "definition": "VLAREM rubriektype.",
+            "inScheme": "conceptscheme:rubriek_type",
+            "code": "VLAREM",
+            "note": "VLAREM rubriektype.",
+            "prefLabel": "VLAREM",
+            "topConceptOf": "conceptscheme:rubriek_type"
         }
     ]
 }

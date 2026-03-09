@@ -222,7 +222,6 @@ omg_ps:schema_hasTopConcept
     sh:description   "Verbindt een conceptschema met een concept dat bovenaan in een 'broader/narrower' hierarchie staat en voorziet aldus een ingang tot die hierarchie."@en ;
     rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:class         skos:Concept ; #dbo:ChemicalCompound, dbo:ChemicalSubstance,
-    sh:minCount      1 ;
     sh:nodeKind      sh:IRI ;
     sh:path          skos:hasTopConcept .
 
@@ -283,7 +282,6 @@ omg_ps:conceptscheme_prefLabel
     sh:languageIn    ( "en" "nl" ) ;
     sh:uniqueLang true ;
     sh:maxCount      2 ;
-    sh:minCount      1 ;
     sh:nodeKind      sh:Literal ;
     sh:path          skos:prefLabel .
 

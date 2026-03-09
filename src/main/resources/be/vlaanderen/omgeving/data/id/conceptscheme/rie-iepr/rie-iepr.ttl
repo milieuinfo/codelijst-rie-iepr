@@ -99,33 +99,14 @@
 @prefix xkos: <http://rdf-vocabulary.ddialliance.org/xkos#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 
-quantitykind:Acidity qudt:applicableUnit unit:PH;
-    a qudt:QuantityKind;
-    skos:altLabel "Zuurtegraad"@nl.
-quantitykind:Conductivity qudt:applicableUnit unit:MilliS-PER-CentiM;
-    a qudt:QuantityKind;
-    skos:altLabel "Geleidbaarheid"@nl.
-quantitykind:Count qudt:applicableUnit unit:NUM;
-    a qudt:QuantityKind;
-    skos:altLabel "Aantal"@nl.
-quantitykind:Energy qudt:applicableUnit unit:KiloW-HR;
-    a qudt:QuantityKind;
-    skos:altLabel "Vermogen"@nl.
-quantitykind:VaporPressure qudt:applicableUnit unit:PA;
-    a qudt:QuantityKind;
-    skos:altLabel "Dampdruk"@nl.
-quantitykind:Volume qudt:applicableUnit unit:M3;
-    a qudt:QuantityKind;
-    skos:altLabel "Volume"@nl.
-quantitykind:VolumeFlowRate qudt:applicableUnit unit:M3-PER-HR;
-    a qudt:QuantityKind;
-    skos:altLabel "Volume per tijdseenheid"@nl.
 unit:KiloW-HR a qudt:Unit;
     skos:altLabel "Kilowattuur"@nl.
 unit:M3-PER-HR a qudt:Unit;
     skos:altLabel "Kubieke meter per uur"@nl.
 unit:M3 a qudt:Unit;
     skos:altLabel "Kubieke meter"@nl.
+unit:M a qudt:Unit;
+    skos:altLabel "Meter"@nl.
 unit:MilliS-PER-CentiM a qudt:Unit;
     skos:altLabel "Millisiemens per centimeter"@nl.
 unit:NUM a qudt:Unit;
@@ -134,594 +115,8 @@ unit:PA a qudt:Unit;
     skos:altLabel "Pascal"@nl.
 unit:PH a qudt:Unit;
     skos:altLabel "Ph"@nl.
-riepr-dl-status:gevalideerd a skos:Concept;
-    skos:inScheme conceptscheme:dataleverancierstatus;
-    skos:notation "gevalideerd";
-    skos:prefLabel "Gevalideerd"@nl;
-    skos:topConceptOf conceptscheme:dataleverancierstatus.
-riepr-dl-status:geweigerd a skos:Concept;
-    skos:inScheme conceptscheme:dataleverancierstatus;
-    skos:notation "geweigerd";
-    skos:prefLabel "Geweigerd"@nl;
-    skos:topConceptOf conceptscheme:dataleverancierstatus.
-riepr-dl-status:ingetrokken a skos:Concept;
-    skos:inScheme conceptscheme:dataleverancierstatus;
-    skos:notation "ingetrokken";
-    skos:prefLabel "Ingetrokken"@nl;
-    skos:topConceptOf conceptscheme:dataleverancierstatus.
-riepr-dl-status:nietgevalideerd a skos:Concept;
-    skos:inScheme conceptscheme:dataleverancierstatus;
-    skos:notation "nietgevalideerd";
-    skos:prefLabel "Niet gevalideerd"@nl;
-    skos:topConceptOf conceptscheme:dataleverancierstatus.
-riepr-medium:hetelektronischmonitoringssysteem a rdfs:Resource, skos:Concept;
-    skos:inScheme conceptscheme:medium;
-    skos:prefLabel "Het elektronisch monitoringssysteem"@nl;
-    skos:topConceptOf conceptscheme:medium.
-riepr-medium:lucht a rdfs:Resource, skos:Concept;
-    skos:inScheme conceptscheme:medium;
-    skos:prefLabel "Lucht"@nl;
-    skos:topConceptOf conceptscheme:medium.
-riepr-medium:spuiwater a rdfs:Resource, skos:Concept;
-    skos:inScheme conceptscheme:medium;
-    skos:prefLabel "Spuiwater"@nl;
-    skos:topConceptOf conceptscheme:medium.
-riepr-medium:stal a rdfs:Resource, skos:Concept;
-    skos:inScheme conceptscheme:medium;
-    skos:prefLabel "Stal"@nl;
-    skos:topConceptOf conceptscheme:medium.
-riepr-medium:waswater a rdfs:Resource, skos:Concept;
-    skos:inScheme conceptscheme:medium;
-    skos:prefLabel "Waswater"@nl;
-    skos:topConceptOf conceptscheme:medium.
-riepr-bandbreedte:_10 dc:type "Onder minimum grenswaarde";
-    a skos:Concept;
-    skos:definition "Het waswaterdebiet wijkt meer dan 20% naar beneden af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:inScheme conceptscheme:norm-bandbreedte;
-    skos:note "< 0,8 x waarde technische fiche (afwijking > 20%)"@nl, "Het waswaterdebiet wijkt meer dan 20% naar beneden af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:prefLabel "Waswaterdebiet afwijking naar beneden > 20% (S2 systeem)"@nl;
-    skos:scopeNote "< 0,8 x waarde technische fiche (afwijking > 20%)"@nl;
-    skos:topConceptOf conceptscheme:norm-bandbreedte;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#operatie> "product"@nl;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:waswaterdebiet;
-    schema:maxValue 0.8.
-riepr-bandbreedte:_11 dc:type "Onder minimum grenswaarde";
-    a skos:Concept;
-    skos:definition "Het spuiwaterdebiet wijkt meer dan 10% naar beneden af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:inScheme conceptscheme:norm-bandbreedte;
-    skos:note "< 0,9 x waarde technische fiche (afwijking > 10%)"@nl, "Het spuiwaterdebiet wijkt meer dan 10% naar beneden af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:prefLabel "Spuiwaterdebiet afwijking naar beneden > 10% (S2 systeem)"@nl;
-    skos:scopeNote "< 0,9 x waarde technische fiche (afwijking > 10%)"@nl;
-    skos:topConceptOf conceptscheme:norm-bandbreedte;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#operatie> "product"@nl;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:spuiwaterproductie;
-    schema:maxValue 0.9.
-riepr-bandbreedte:_12 dc:type "Onder minimum grenswaarde";
-    a skos:Concept;
-    skos:definition "De drukval wijkt meer dan 40% naar beneden af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:inScheme conceptscheme:norm-bandbreedte;
-    skos:note "< 0,6 x waarde technische fiche (afwijking > 40%)"@nl, "De drukval wijkt meer dan 40% naar beneden af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:prefLabel "Drukval afwijking naar beneden > 40% (S2 systeem)"@nl;
-    skos:scopeNote "< 0,6 x waarde technische fiche (afwijking > 40%)"@nl;
-    skos:topConceptOf conceptscheme:norm-bandbreedte;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#operatie> "product"@nl;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:drukvaloverhetsysteem;
-    schema:maxValue 0.6.
-riepr-bandbreedte:_13 dc:type "Boven maximum grenswaarde";
-    a skos:Concept;
-    skos:definition "De drukval wijkt meer dan 40% naar boven af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:inScheme conceptscheme:norm-bandbreedte;
-    skos:note "> 1,4 x waarde technische fiche (afwijking > 40%)"@nl, "De drukval wijkt meer dan 40% naar boven af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:prefLabel "Drukval afwijking naar boven > 40% (S2 systeem)"@nl;
-    skos:scopeNote "> 1,4 x waarde technische fiche (afwijking > 40%)"@nl;
-    skos:topConceptOf conceptscheme:norm-bandbreedte;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#operatie> "product"@nl;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:drukvaloverhetsysteem;
-    schema:minValue 1.4.
-riepr-bandbreedte:_14 dc:type "Onder minimum grenswaarde";
-    a skos:Concept;
-    skos:definition "Het waswaterdebiet van de voorbevochtiging wijkt meer dan 20% naar beneden af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:inScheme conceptscheme:norm-bandbreedte;
-    skos:note "< 0,8 x waarde technische fiche (afwijking > 20%)"@nl, "Het waswaterdebiet van de voorbevochtiging wijkt meer dan 20% naar beneden af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:prefLabel "Waswaterdebiet voorbevochtiging afwijking naar beneden > 20% (S3 systeem)"@nl;
-    skos:scopeNote "< 0,8 x waarde technische fiche (afwijking > 20%)"@nl;
-    skos:topConceptOf conceptscheme:norm-bandbreedte;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#operatie> "product"@nl;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:waswaterdebietvoorbevochtiging;
-    schema:maxValue 0.8.
-riepr-bandbreedte:_15 dc:type "Onder minimum grenswaarde";
-    a skos:Concept;
-    skos:definition "Het waswaterdebiet van de bevloeiing wijkt meer dan 20% naar beneden af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:inScheme conceptscheme:norm-bandbreedte;
-    skos:note "< 0,8 x waarde technische fiche (afwijking > 20%)"@nl, "Het waswaterdebiet van de bevloeiing wijkt meer dan 20% naar beneden af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:prefLabel "Waswaterdebiet bevloeiing afwijking naar beneden > 20% (S3 systeem)"@nl;
-    skos:scopeNote "< 0,8 x waarde technische fiche (afwijking > 20%)"@nl;
-    skos:topConceptOf conceptscheme:norm-bandbreedte;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#operatie> "product"@nl;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:waswaterdebietbevloeiing;
-    schema:maxValue 0.8.
-riepr-bandbreedte:_16 dc:type "Boven maximum grenswaarde";
-    a skos:Concept;
-    skos:definition "De drukval wijkt meer dan 50 Pa naar boven af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:inScheme conceptscheme:norm-bandbreedte;
-    skos:note "> 50 Pa + waarde technische fiche (afwijking > 50 Pa)"@nl, "De drukval wijkt meer dan 50 Pa naar boven af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:prefLabel "Drukval afwijking naar boven > 50 Pa (S3 systeem)"@nl;
-    skos:scopeNote "> 50 Pa + waarde technische fiche (afwijking > 50 Pa)"@nl;
-    skos:topConceptOf conceptscheme:norm-bandbreedte;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#operatie> "som"@nl;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:drukvaloverhetsysteem;
-    schema:minValue "50"^^xsd:decimal.
-riepr-bandbreedte:_1 dc:type "Onder minimum grenswaarde";
-    a skos:Concept;
-    skos:definition "De zuurtegraad van het waswater is kleiner dan 6"@nl;
-    skos:inScheme conceptscheme:norm-bandbreedte;
-    skos:note "< 6"@nl, "De zuurtegraad van het waswater is kleiner dan 6"@nl;
-    skos:prefLabel "Zuurtegraad waswater < 6 (S1 systeem)"@nl;
-    skos:scopeNote "< 6"@nl;
-    skos:topConceptOf conceptscheme:norm-bandbreedte;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:zuurtegraadwaswater;
-    schema:maxValue "6"^^xsd:decimal.
-riepr-bandbreedte:_2 dc:type "Boven maximum grenswaarde";
-    a skos:Concept;
-    skos:definition "De zuurtegraad van het waswater is groter dan 8,5"@nl;
-    skos:inScheme conceptscheme:norm-bandbreedte;
-    skos:note "> 8,5"@nl, "De zuurtegraad van het waswater is groter dan 8,5"@nl;
-    skos:prefLabel "Zuurtegraad waswater > 8,5 (S1 systeem)"@nl;
-    skos:scopeNote "> 8,5"@nl;
-    skos:topConceptOf conceptscheme:norm-bandbreedte;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:zuurtegraadwaswater;
-    schema:minValue 8.5.
-riepr-bandbreedte:_3 dc:type "Boven maximum grenswaarde";
-    a skos:Concept;
-    skos:definition "De geleidbaarheid is groter dan de maximale operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:inScheme conceptscheme:norm-bandbreedte;
-    skos:note "> waarde technische fiche"@nl, "De geleidbaarheid is groter dan de maximale operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:prefLabel "Geleidbaarheid waswater > maximale waarde (S1 systeem)"@nl;
-    skos:scopeNote "> waarde technische fiche"@nl;
-    skos:topConceptOf conceptscheme:norm-bandbreedte;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#operatie> "som"@nl;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:geleidbaarheidvanhetwaswater;
-    schema:minValue "0"^^xsd:decimal.
-riepr-bandbreedte:_4 dc:type "Onder minimum grenswaarde";
-    a skos:Concept;
-    skos:definition "Het waswaterdebiet wijkt meer dan 20% naar beneden af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:inScheme conceptscheme:norm-bandbreedte;
-    skos:note "< 0,8 x waarde technische fiche (afwijking > 20%)"@nl, "Het waswaterdebiet wijkt meer dan 20% naar beneden af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:prefLabel "Waswaterdebiet afwijking naar beneden > 20% (S1 systeem)"@nl;
-    skos:scopeNote "< 0,8 x waarde technische fiche (afwijking > 20%)"@nl;
-    skos:topConceptOf conceptscheme:norm-bandbreedte;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#operatie> "product"@nl;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:waswaterdebiet;
-    schema:maxValue 0.8.
-riepr-bandbreedte:_5 dc:type "Onder minimum grenswaarde";
-    a skos:Concept;
-    skos:definition "Het spuiwaterdebiet wijkt meer dan 10% naar beneden af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:inScheme conceptscheme:norm-bandbreedte;
-    skos:note "< 0,9 x waarde technische fiche (afwijking > 10%)"@nl, "Het spuiwaterdebiet wijkt meer dan 10% naar beneden af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:prefLabel "Spuiwaterdebiet afwijking naar beneden > 10% (S1 systeem)"@nl;
-    skos:scopeNote "< 0,9 x waarde technische fiche (afwijking > 10%)"@nl;
-    skos:topConceptOf conceptscheme:norm-bandbreedte;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#operatie> "product"@nl;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:spuiwaterproductie;
-    schema:maxValue 0.9.
-riepr-bandbreedte:_6 dc:type "Onder minimum grenswaarde";
-    a skos:Concept;
-    skos:definition "De drukval wijkt meer dan 40% naar beneden af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:inScheme conceptscheme:norm-bandbreedte;
-    skos:note "< 0,6 x waarde technische fiche (afwijking > 40%)"@nl, "De drukval wijkt meer dan 40% naar beneden af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:prefLabel "Drukval afwijking naar beneden > 40% (S1 systeem)"@nl;
-    skos:scopeNote "< 0,6 x waarde technische fiche (afwijking > 40%)"@nl;
-    skos:topConceptOf conceptscheme:norm-bandbreedte;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#operatie> "product"@nl;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:drukvaloverhetsysteem;
-    schema:maxValue 0.6.
-riepr-bandbreedte:_7 dc:type "Boven maximum grenswaarde";
-    a skos:Concept;
-    skos:definition "De drukval wijkt meer dan 40% naar boven af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:inScheme conceptscheme:norm-bandbreedte;
-    skos:note "> 1,4 x waarde technische fiche (afwijking > 40%)"@nl, "De drukval wijkt meer dan 40% naar boven af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:prefLabel "Drukval afwijking naar boven > 40% (S1 systeem)"@nl;
-    skos:scopeNote "> 1,4 x waarde technische fiche (afwijking > 40%)"@nl;
-    skos:topConceptOf conceptscheme:norm-bandbreedte;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#operatie> "product"@nl;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:drukvaloverhetsysteem;
-    schema:minValue 1.4.
-riepr-bandbreedte:_8 dc:type "Boven maximum grenswaarde";
-    a skos:Concept;
-    skos:definition "De zuurtegraad van het waswater wijkt meer dan 1 pH-eenheid naar boven af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:inScheme conceptscheme:norm-bandbreedte;
-    skos:note "> 1 pH + waarde technische fiche (afwijking > 1pH)"@nl, "De zuurtegraad van het waswater wijkt meer dan 1 pH-eenheid naar boven af van de operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:prefLabel "Zuurtegraad waswater afwijking naar boven > 1 pH-eenheid (S2 systeem)"@nl;
-    skos:scopeNote "> 1 pH + waarde technische fiche (afwijking > 1pH)"@nl;
-    skos:topConceptOf conceptscheme:norm-bandbreedte;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#operatie> "som"@nl;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:zuurtegraadwaswater;
-    schema:minValue "1"^^xsd:decimal.
-riepr-bandbreedte:_9 dc:type "Boven maximum grenswaarde";
-    a skos:Concept;
-    skos:definition "De geleidbaarheid is groter dan de maximale operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:inScheme conceptscheme:norm-bandbreedte;
-    skos:note "> waarde technische fiche"@nl, "De geleidbaarheid is groter dan de maximale operationele waarde die op de technische fiche vermeld staat."@nl;
-    skos:prefLabel "Geleidbaarheid waswater > maximale waarde (S2 systeem)"@nl;
-    skos:scopeNote "> waarde technische fiche"@nl;
-    skos:topConceptOf conceptscheme:norm-bandbreedte;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#operatie> "som"@nl;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:geleidbaarheidvanhetwaswater;
-    schema:minValue "0"^^xsd:decimal.
-riepr-param:biobedspoelwaterproductie dcterms:subject riepr-medium:waswater;
-    qudt:relevantQuantityKind quantitykind:Volume;
-    qudt:relevantUnit unit:M3;
-    a skos:Concept, ssn:Property;
-    rdfs:seeAlso <https://data.omgeving.vlaanderen.be/id/concept/fysico-chemisch/0053>;
-    skos:inScheme conceptscheme:parameter;
-    skos:prefLabel "Biobedspoelwaterproductie"@nl;
-    skos:topConceptOf conceptscheme:parameter;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal.
-riepr-param:biobedspuiwaterproductie dcterms:subject riepr-medium:spuiwater;
-    qudt:relevantQuantityKind quantitykind:Volume;
-    qudt:relevantUnit unit:M3;
-    a skos:Concept, ssn:Property;
-    rdfs:seeAlso <https://data.omgeving.vlaanderen.be/id/concept/fysico-chemisch/0050>;
-    skos:inScheme conceptscheme:parameter;
-    skos:prefLabel "Biobedspuiwaterproductie"@nl;
-    skos:topConceptOf conceptscheme:parameter;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal.
-riepr-param:drukvaloverhetsysteem dcterms:subject riepr-medium:lucht;
-    qudt:relevantQuantityKind quantitykind:VaporPressure;
-    qudt:relevantUnit unit:PA;
-    a skos:Concept, ssn:Property;
-    rdfs:seeAlso <https://data.omgeving.vlaanderen.be/id/concept/fysico-chemisch/0329>;
-    skos:inScheme conceptscheme:parameter;
-    skos:prefLabel "Drukval over het systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal.
-riepr-param:elektriciteitsverbruikwaterpompen qudt:relevantQuantityKind quantitykind:Energy;
-    qudt:relevantUnit unit:KiloW-HR;
-    a skos:Concept, ssn:Property;
-    skos:inScheme conceptscheme:parameter;
-    skos:prefLabel "Elektriciteitsverbruik van de waswaterpomp(en)"@nl;
-    skos:topConceptOf conceptscheme:parameter;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal.
-riepr-param:geleidbaarheidvanhetwaswater dcterms:subject riepr-medium:waswater;
-    qudt:relevantQuantityKind quantitykind:Conductivity;
-    qudt:relevantUnit unit:MilliS-PER-CentiM;
-    a skos:Concept, ssn:Property;
-    rdfs:seeAlso <https://data.omgeving.vlaanderen.be/id/concept/fysico-chemisch/0010>;
-    skos:inScheme conceptscheme:parameter;
-    skos:prefLabel "Geleidbaarheid van het waswater"@nl;
-    skos:topConceptOf conceptscheme:parameter;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#hasProcedureForProperty> procedure:WAC_I_A_011;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal.
-riepr-param:spuiwaterproductie dcterms:subject riepr-medium:spuiwater;
-    qudt:relevantQuantityKind quantitykind:Volume;
-    qudt:relevantUnit unit:M3;
-    a skos:Concept, ssn:Property;
-    rdfs:seeAlso <https://data.omgeving.vlaanderen.be/id/concept/fysico-chemisch/0050>;
-    skos:inScheme conceptscheme:parameter;
-    skos:prefLabel "Spuiwaterproductie"@nl;
-    skos:topConceptOf conceptscheme:parameter;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal.
-riepr-param:stalbezetting dcterms:subject riepr-medium:stal;
-    a skos:Concept, ssn:Property;
-    skos:inScheme conceptscheme:parameter;
-    skos:prefLabel "Stalbezetting"@nl;
-    skos:topConceptOf conceptscheme:parameter;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantCodeList> conceptscheme:stalbezetting.
-riepr-param:systeemstatus dcterms:subject riepr-medium:hetelektronischmonitoringssysteem;
-    a skos:Concept, ssn:Property;
-    skos:inScheme conceptscheme:parameter;
-    skos:prefLabel "SysteemStatus"@nl;
-    skos:topConceptOf conceptscheme:parameter;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantCodeList> conceptscheme:systeemstatus.
-riepr-param:waswaterdebiet dcterms:subject riepr-medium:waswater;
-    qudt:relevantQuantityKind quantitykind:VolumeFlowRate;
-    qudt:relevantUnit unit:M3-PER-HR;
-    a skos:Concept, ssn:Property;
-    rdfs:seeAlso <https://data.omgeving.vlaanderen.be/id/concept/fysico-chemisch/0053>;
-    skos:inScheme conceptscheme:parameter;
-    skos:prefLabel "Waswaterdebiet over het waspakket"@nl;
-    skos:topConceptOf conceptscheme:parameter;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal.
-riepr-param:waswaterdebietbevloeiing dcterms:subject riepr-medium:waswater;
-    qudt:relevantQuantityKind quantitykind:VolumeFlowRate;
-    qudt:relevantUnit unit:M3-PER-HR;
-    a skos:Concept, ssn:Property;
-    rdfs:seeAlso <https://data.omgeving.vlaanderen.be/id/concept/fysico-chemisch/0053>;
-    skos:inScheme conceptscheme:parameter;
-    skos:prefLabel "Waswaterdebiet van de bevloeiing van het vulmateriaal"@nl;
-    skos:topConceptOf conceptscheme:parameter;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal.
-riepr-param:waswaterdebietvoorbevochtiging dcterms:subject riepr-medium:waswater;
-    qudt:relevantQuantityKind quantitykind:VolumeFlowRate;
-    qudt:relevantUnit unit:M3-PER-HR;
-    a skos:Concept, ssn:Property;
-    rdfs:seeAlso <https://data.omgeving.vlaanderen.be/id/concept/fysico-chemisch/0053>;
-    skos:inScheme conceptscheme:parameter;
-    skos:prefLabel "Waswaterdebiet van de voorbevochtiging van de ingaande stallucht"@nl;
-    skos:topConceptOf conceptscheme:parameter;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal.
-riepr-param:zuurtegraadwaswater dcterms:subject riepr-medium:waswater;
-    qudt:relevantQuantityKind quantitykind:Acidity;
-    qudt:relevantUnit unit:PH;
-    a skos:Concept, ssn:Property;
-    rdfs:seeAlso <https://data.omgeving.vlaanderen.be/id/concept/fysico-chemisch/0076>;
-    skos:inScheme conceptscheme:parameter;
-    skos:prefLabel "Zuurtegraad van het waswater"@nl;
-    skos:topConceptOf conceptscheme:parameter;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#hasProcedureForProperty> procedure:WAC_I_A_011;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal.
-riepr-param-norm:_10 qudt:relevantUnit unit:PA;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Drukval S2 systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "exact";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:drukvaloverhetsysteem;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:maxValue "500"^^xsd:decimal;
-    schema:minValue "0"^^xsd:decimal.
-riepr-param-norm:_11 qudt:relevantUnit unit:M3-PER-HR;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Waswaterdebiet voorbevochtiging S3 systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "minimum";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:waswaterdebietvoorbevochtiging;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:minValue "0"^^xsd:decimal.
-riepr-param-norm:_12 qudt:relevantUnit unit:M3-PER-HR;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Waswaterdebiet bevloeiing S3 systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "minimum";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:waswaterdebietbevloeiing;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:minValue "0"^^xsd:decimal.
-riepr-param-norm:_13 qudt:relevantUnit unit:M3;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Biobedspuiwaterproductie S3 systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "minimum";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:biobedspuiwaterproductie;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:minValue "0"^^xsd:decimal.
-riepr-param-norm:_14 qudt:relevantUnit unit:M3;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Biobedspoelwaterproductie S3 systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "minimum";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:biobedspoelwaterproductie;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:minValue "0"^^xsd:decimal.
-riepr-param-norm:_15 qudt:relevantUnit unit:PA;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Drukval S3 systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "maximum";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:drukvaloverhetsysteem;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:maxValue "500"^^xsd:decimal;
-    schema:minValue "0"^^xsd:decimal.
-riepr-param-norm:_16 qudt:relevantUnit unit:MilliS-PER-CentiM;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Geleidbaarheid waswater Lely Sphere systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "maximum";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:geleidbaarheidvanhetwaswater;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:minValue "0"^^xsd:decimal.
-riepr-param-norm:_17 qudt:relevantUnit unit:M3-PER-HR;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Waswaterdebiet Lely Sphere systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "minimum";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:waswaterdebiet;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:minValue "0"^^xsd:decimal.
-riepr-param-norm:_18 qudt:relevantUnit unit:M3;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Spuiwaterdebiet Lely Sphere systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "minimum";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:spuiwaterproductie;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:minValue "0"^^xsd:decimal.
-riepr-param-norm:_19 qudt:relevantUnit unit:KiloW-HR;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Elektriciteitsverbruik van de waswaterpomp(en) Lely Sphere systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "minimum";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:elektriciteitsverbruikwaterpompen;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:minValue "0"^^xsd:decimal.
-riepr-param-norm:_1 qudt:relevantUnit unit:PH;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Zuurtegraad waswater S1 systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "maximum";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:zuurtegraadwaswater;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:maxValue 8.5;
-    schema:minValue "6"^^xsd:decimal.
-riepr-param-norm:_2 qudt:relevantUnit unit:MilliS-PER-CentiM;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Geleidbaarheid waswater S1 systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "maximum";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:geleidbaarheidvanhetwaswater;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:maxValue "30"^^xsd:decimal;
-    schema:minValue "0"^^xsd:decimal.
-riepr-param-norm:_3 qudt:relevantUnit unit:M3-PER-HR;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Waswaterdebiet S1 systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "minimum";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:waswaterdebiet;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:minValue "0"^^xsd:decimal.
-riepr-param-norm:_4 qudt:relevantUnit unit:M3;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Spuiwaterdebiet S1 systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "minimum";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:spuiwaterproductie;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:minValue "0"^^xsd:decimal.
-riepr-param-norm:_5 qudt:relevantUnit unit:PA;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Drukval S1 systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "exact";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:drukvaloverhetsysteem;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:maxValue "500"^^xsd:decimal;
-    schema:minValue "0"^^xsd:decimal.
-riepr-param-norm:_6 qudt:relevantUnit unit:PH;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Zuurtegraad waswater S2 systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "maximum";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:zuurtegraadwaswater;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:maxValue "14"^^xsd:decimal;
-    schema:minValue "0"^^xsd:decimal.
-riepr-param-norm:_7 qudt:relevantUnit unit:MilliS-PER-CentiM;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Geleidbaarheid waswater S2 systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "maximum";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:geleidbaarheidvanhetwaswater;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:maxValue "500"^^xsd:decimal;
-    schema:minValue "0"^^xsd:decimal.
-riepr-param-norm:_8 qudt:relevantUnit unit:M3-PER-HR;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Waswaterdebiet S2 systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "minimum";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:waswaterdebiet;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:minValue "0"^^xsd:decimal.
-riepr-param-norm:_9 qudt:relevantUnit unit:M3;
-    a skos:Concept;
-    skos:inScheme conceptscheme:parameter-norm;
-    skos:prefLabel "Spuiwaterdebiet S2 systeem"@nl;
-    skos:topConceptOf conceptscheme:parameter-norm;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType> "minimum";
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> riepr-param:spuiwaterproductie;
-    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#technischefiche> true;
-    schema:minValue "0"^^xsd:decimal.
-riepr-stalbezetting:in_gebruik a skos:Concept;
-    skos:inScheme conceptscheme:stalbezetting;
-    skos:prefLabel "Stal in gebruik, dieren aanwezig."@nl;
-    skos:topConceptOf conceptscheme:stalbezetting.
-riepr-stalbezetting:leeg a skos:Concept;
-    skos:inScheme conceptscheme:stalbezetting;
-    skos:prefLabel "Lege stal"@nl;
-    skos:topConceptOf conceptscheme:stalbezetting.
-riepr-status:gereinigd a skos:Concept;
-    skos:inScheme conceptscheme:systeemstatus;
-    skos:prefLabel "Gereinigd"@nl;
-    skos:topConceptOf conceptscheme:systeemstatus.
-riepr-status:onderhoud a skos:Concept;
-    skos:inScheme conceptscheme:systeemstatus;
-    skos:prefLabel "In onderhoud"@nl;
-    skos:topConceptOf conceptscheme:systeemstatus.
-riepr-status:operationeel a skos:Concept;
-    skos:inScheme conceptscheme:systeemstatus;
-    skos:prefLabel "Operationeel"@nl;
-    skos:topConceptOf conceptscheme:systeemstatus.
-riepr-status:storing a skos:Concept;
-    skos:inScheme conceptscheme:systeemstatus;
-    skos:prefLabel "Storing"@nl;
-    skos:topConceptOf conceptscheme:systeemstatus.
-riepr-systeemopstelling:enkelvoudig a skos:Concept;
-    skos:inScheme conceptscheme:systeemopstelling;
-    skos:prefLabel "Enkelvoudige opstelling"@nl;
-    skos:topConceptOf conceptscheme:systeemopstelling.
-riepr-systeemopstelling:gecombineerd a skos:Concept;
-    skos:inScheme conceptscheme:systeemopstelling;
-    skos:prefLabel "Gecombineerde opstelling"@nl;
-    skos:topConceptOf conceptscheme:systeemopstelling.
-riepr-type:lelysphere a skos:Concept;
-    skos:broader riepr-type:luchtwassysteem;
-    skos:broaderTransitive riepr-type:luchtwassysteem, riepr-type:luchtzuiveringssysteem;
-    skos:inScheme conceptscheme:systeemtype;
-    skos:notation "Lelysphere";
-    skos:prefLabel "Lely Sphere"@nl;
-    skos:semanticRelation riepr-type:luchtwassysteem, riepr-type:luchtzuiveringssysteem.
-riepr-type:luchtwassysteem a skos:Concept;
-    skos:broader riepr-type:luchtzuiveringssysteem;
-    skos:broaderTransitive riepr-type:luchtzuiveringssysteem;
-    skos:inScheme conceptscheme:systeemtype;
-    skos:narrower riepr-type:lelysphere, riepr-type:s1, riepr-type:s2;
-    skos:narrowerTransitive riepr-type:lelysphere, riepr-type:s1, riepr-type:s2;
-    skos:prefLabel "Luchtwassysteem"@nl;
-    skos:semanticRelation riepr-type:lelysphere, riepr-type:luchtzuiveringssysteem, riepr-type:s1, riepr-type:s2.
-riepr-type:luchtzuiveringssysteem a skos:Concept;
-    skos:inScheme conceptscheme:systeemtype;
-    skos:narrower riepr-type:luchtwassysteem, riepr-type:s3;
-    skos:narrowerTransitive riepr-type:lelysphere, riepr-type:luchtwassysteem, riepr-type:s1, riepr-type:s2, riepr-type:s3;
-    skos:prefLabel "Luchtzuiveringssysteem"@nl;
-    skos:semanticRelation riepr-type:lelysphere, riepr-type:luchtwassysteem, riepr-type:s1, riepr-type:s2, riepr-type:s3;
-    skos:topConceptOf conceptscheme:systeemtype.
-riepr-type:s1 a skos:Concept;
-    skos:broader riepr-type:luchtwassysteem;
-    skos:broaderTransitive riepr-type:luchtwassysteem, riepr-type:luchtzuiveringssysteem;
-    skos:inScheme conceptscheme:systeemtype;
-    skos:notation "S1";
-    skos:prefLabel "Biologisch luchtwassysteem"@nl;
-    skos:semanticRelation riepr-type:luchtwassysteem, riepr-type:luchtzuiveringssysteem.
-riepr-type:s2 a skos:Concept;
-    skos:broader riepr-type:luchtwassysteem;
-    skos:broaderTransitive riepr-type:luchtwassysteem, riepr-type:luchtzuiveringssysteem;
-    skos:inScheme conceptscheme:systeemtype;
-    skos:notation "S2";
-    skos:prefLabel "Chemisch luchtwassysteem"@nl;
-    skos:semanticRelation riepr-type:luchtwassysteem, riepr-type:luchtzuiveringssysteem.
-riepr-type:s3 a skos:Concept;
-    skos:broader riepr-type:luchtzuiveringssysteem;
-    skos:broaderTransitive riepr-type:luchtzuiveringssysteem;
-    skos:inScheme conceptscheme:systeemtype;
-    skos:notation "S3";
-    skos:prefLabel "Biobed"@nl;
-    skos:semanticRelation riepr-type:luchtzuiveringssysteem.
+unit:TON-PER-YR a qudt:Unit;
+    skos:altLabel "Ton per jaar"@nl.
 vlarem-klasse:k1 a skos:Concept;
     skos:altLabel "VLAREM klasse 1"@nl;
     skos:definition "Indelingsklasse voor inrichtingen met de grootste milieu-impact. Voor deze activiteiten geldt een omgevingsvergunning klasse 1 (zwaarste procedure)."@nl;
@@ -743,36 +138,218 @@ vlarem-klasse:k3 a skos:Concept;
     skos:note "Indelingsklasse voor inrichtingen met een beperkte milieu-impact. Voor deze activiteiten geldt een meldingsplicht (klasse 3)."@nl;
     skos:prefLabel "Klasse 3"@nl;
     skos:topConceptOf conceptscheme-alg:vlarem-klasse.
-conceptscheme:dataleverancierstatus a skos:ConceptScheme;
-    skos:hasTopConcept riepr-dl-status:gevalideerd, riepr-dl-status:geweigerd, riepr-dl-status:ingetrokken, riepr-dl-status:nietgevalideerd;
-    skos:prefLabel "conceptschema dataleverancier status"@nl.
-conceptscheme:medium a skos:ConceptScheme;
-    skos:hasTopConcept riepr-medium:hetelektronischmonitoringssysteem, riepr-medium:lucht, riepr-medium:spuiwater, riepr-medium:stal, riepr-medium:waswater;
-    skos:prefLabel "conceptschema luchtzuiveringssysteem medium"@nl.
-conceptscheme:norm-bandbreedte a skos:ConceptScheme;
-    skos:altLabel "Ranges"@nl;
-    skos:hasTopConcept riepr-bandbreedte:_10, riepr-bandbreedte:_11, riepr-bandbreedte:_12, riepr-bandbreedte:_13, riepr-bandbreedte:_14, riepr-bandbreedte:_15, riepr-bandbreedte:_16, riepr-bandbreedte:_1, riepr-bandbreedte:_2, riepr-bandbreedte:_3, riepr-bandbreedte:_4, riepr-bandbreedte:_5, riepr-bandbreedte:_6, riepr-bandbreedte:_7, riepr-bandbreedte:_8, riepr-bandbreedte:_9;
-    skos:prefLabel "conceptschema luchtzuiveringssysteem normbandbreedte"@nl.
-conceptscheme:parameter-norm a skos:ConceptScheme;
-    skos:definition "Het schema van indelingsklassen (1, 2, 3) zoals vastgelegd in de Vlaamse milieuregelgeving (VLAREM)."@nl;
-    skos:hasTopConcept riepr-param-norm:_10, riepr-param-norm:_11, riepr-param-norm:_12, riepr-param-norm:_13, riepr-param-norm:_14, riepr-param-norm:_15, riepr-param-norm:_16, riepr-param-norm:_17, riepr-param-norm:_18, riepr-param-norm:_19, riepr-param-norm:_1, riepr-param-norm:_2, riepr-param-norm:_3, riepr-param-norm:_4, riepr-param-norm:_5, riepr-param-norm:_6, riepr-param-norm:_7, riepr-param-norm:_8, riepr-param-norm:_9;
-    skos:note "Het schema van indelingsklassen (1, 2, 3) zoals vastgelegd in de Vlaamse milieuregelgeving (VLAREM)."@nl;
-    skos:prefLabel "conceptschema luchtzuiveringssysteem parameter specificatie"@nl.
-conceptscheme:parameter a skos:ConceptScheme;
-    skos:hasTopConcept riepr-param:biobedspoelwaterproductie, riepr-param:biobedspuiwaterproductie, riepr-param:drukvaloverhetsysteem, riepr-param:elektriciteitsverbruikwaterpompen, riepr-param:geleidbaarheidvanhetwaswater, riepr-param:spuiwaterproductie, riepr-param:stalbezetting, riepr-param:systeemstatus, riepr-param:waswaterdebiet, riepr-param:waswaterdebietbevloeiing, riepr-param:waswaterdebietvoorbevochtiging, riepr-param:zuurtegraadwaswater;
-    skos:prefLabel "conceptschema luchtzuiveringssysteem eigenschap"@nl.
-conceptscheme:stalbezetting a skos:ConceptScheme;
-    skos:hasTopConcept riepr-stalbezetting:in_gebruik, riepr-stalbezetting:leeg;
-    skos:prefLabel "conceptschema luchtzuiveringssysteem stalbezetting"@nl.
-conceptscheme:systeemopstelling a skos:ConceptScheme;
-    skos:hasTopConcept riepr-systeemopstelling:enkelvoudig, riepr-systeemopstelling:gecombineerd;
-    skos:prefLabel "conceptschema  luchtzuiveringssysteem opstelingen"@nl.
-conceptscheme:systeemstatus a skos:ConceptScheme;
-    skos:hasTopConcept riepr-status:gereinigd, riepr-status:onderhoud, riepr-status:operationeel, riepr-status:storing;
-    skos:prefLabel "conceptschema luchtzuiveringssysteem status"@nl.
-conceptscheme:systeemtype a skos:ConceptScheme;
-    skos:hasTopConcept riepr-type:luchtzuiveringssysteem;
-    skos:prefLabel "conceptschema luchtzuiveringssysteem"@nl.
+conceptscheme:datatypes a skos:ConceptScheme;
+    skos:definition "Een lijst van verschillende externe identificatoren die al dan niet uniek zijn."@nl;
+    skos:note "Een lijst van verschillende externe identificatoren die al dan niet uniek zijn."@nl;
+    skos:prefLabel "Externe identificatoren"@nl.
+conceptscheme:emissiepunt_attributen a skos:ConceptScheme;
+    skos:definition "Een lijst die een koppeling maakt tussen soorten emissiepunten en de attributen die van toepassing zijn."@nl;
+    skos:hasTopConcept <riepr-emissiepunt-attr:schouw-diameter>, <riepr-emissiepunt-attr:schouw-hoogte>;
+    skos:note "Een lijst die een koppeling maakt tussen soorten emissiepunten en de attributen die van toepassing zijn."@nl;
+    skos:prefLabel "Emissiepunt attributen"@nl.
+conceptscheme:emissiepunt_type a skos:ConceptScheme;
+    skos:definition "Een lijst van verschillende soorten emissiepunten met mogelijke opsplitsing in subtyperingen."@nl;
+    skos:hasTopConcept <riepr-emissiepunt-type:emissiepunt>, <riepr-emissiepunt-type:fakkel>, <riepr-emissiepunt-type:lozingspunt>, <riepr-emissiepunt-type:schouw>;
+    skos:note "Een lijst van verschillende soorten emissiepunten met mogelijke opsplitsing in subtyperingen."@nl;
+    skos:prefLabel "Emissiepunt types"@nl.
+conceptscheme:filter_attributen a skos:ConceptScheme;
+    skos:definition "Een koppeling tussen attributen van een filter en de attributen die van toepassing zijn met een referentie naar een CSO codelijst voor de eenheid."@nl;
+    skos:note "Een koppeling tussen attributen van een filter en de attributen die van toepassing zijn met een referentie naar een CSO codelijst voor de eenheid."@nl;
+    skos:prefLabel "Filter attributen"@nl.
+conceptscheme:filter_type a skos:ConceptScheme;
+    skos:definition "Een lijst van verschillende types van filters en de objecten waarop van toepassing."@nl;
+    skos:hasTopConcept <riepr-filter-type:peilfilter>;
+    skos:note "Een lijst van verschillende types van filters en de objecten waarop van toepassing."@nl;
+    skos:prefLabel "Filter types"@nl.
+conceptscheme:installatie_eigenschappen_type a skos:ConceptScheme;
+    skos:definition "Een lijst die verschillende types geeft voor installatie eigenschappen."@nl;
+    skos:note "Een lijst die verschillende types geeft voor installatie eigenschappen."@nl;
+    skos:prefLabel "Installatie eigenschappen types"@nl.
+conceptscheme:installatie_type a skos:ConceptScheme;
+    skos:definition "Een lijst van verschillende types van installaties met eventueel subtyperingen."@nl;
+    skos:hasTopConcept <riepr-installatie-type:gpbv>, <riepr-installatie-type:iepr>, <riepr-installatie-type:oven>, <riepr-installatie-type:zuiveringsinstallatie>;
+    skos:note "Een lijst van verschillende types van installaties met eventueel subtyperingen."@nl;
+    skos:prefLabel "Installatie types"@nl.
+conceptscheme:meetinstrument_type a skos:ConceptScheme;
+    skos:definition "Een lijst van verschillende soorten meetinstrumenten."@nl;
+    skos:hasTopConcept <riepr-meetinstrument-type:debietmeter>;
+    skos:note "Een lijst van verschillende soorten meetinstrumenten."@nl;
+    skos:prefLabel "Meetinstrument types"@nl.
+conceptscheme:meetpunt_type a skos:ConceptScheme;
+    skos:definition "Een lijst van verschillende soorten meetpunten."@nl;
+    skos:hasTopConcept <riepr-meetpunt-type:controle-inrichting>, <riepr-meetpunt-type:meetput>;
+    skos:note "Een lijst van verschillende soorten meetpunten."@nl;
+    skos:prefLabel "Meetpunt types"@nl.
+conceptscheme:onttrekkingspunt_type a skos:ConceptScheme;
+    skos:definition "Een lijst van verschillende soorten onttrekkingspunten met mogelijke opsplitsing in subtyperingen."@nl;
+    skos:hasTopConcept <riepr-onttrekkingspunt-type:grondwaterput>;
+    skos:note "Een lijst van verschillende soorten onttrekkingspunten met mogelijke opsplitsing in subtyperingen."@nl;
+    skos:prefLabel "Onttrekkingspunt types"@nl.
+conceptscheme:procedure_type a skos:ConceptScheme;
+    skos:definition "Een lijst van verschillende hoofdtyperingen van procedures in een procesplan."@nl;
+    skos:hasTopConcept <riepr-procedure-type:emissie>, <riepr-procedure-type:meet>, <riepr-procedure-type:overbrenging>, <riepr-procedure-type:verbruik>, <riepr-procedure-type:verwerking>;
+    skos:note "Een lijst van verschillende hoofdtyperingen van procedures in een procesplan."@nl;
+    skos:prefLabel "Procedure types"@nl.
+conceptscheme:procesvariabele_type a skos:ConceptScheme;
+    skos:definition "Een lijst die verschillende types geeft voor stoffen die aangeduid mogen worden bij bepaalde procedure types."@nl;
+    skos:hasTopConcept <riepr-procesvariabele-type:aardgas>, <riepr-procesvariabele-type:co2>, <riepr-procesvariabele-type:grondstof>;
+    skos:note "Een lijst die verschillende types geeft voor stoffen die aangeduid mogen worden bij bepaalde procedure types."@nl;
+    skos:prefLabel "Proces variabele types"@nl.
+conceptscheme:rubriek_type a skos:ConceptScheme;
+    skos:definition "Een typering van verschillende rubrieken (VLAREM rubriektype EGW ...)."@nl;
+    skos:hasTopConcept <riepr-rubriek-type:egw>, <riepr-rubriek-type:vlarem>;
+    skos:note "Een typering van verschillende rubrieken (VLAREM rubriektype EGW ...)."@nl;
+    skos:prefLabel "Rubriek types"@nl.
 conceptscheme-alg:vlarem-klasse a skos:ConceptScheme;
-    skos:hasTopConcept vlarem-klasse:k1, vlarem-klasse:k2, vlarem-klasse:k3;
-    skos:prefLabel "VLAREM indelingsklassen"@nl.
+    skos:hasTopConcept vlarem-klasse:k1, vlarem-klasse:k2, vlarem-klasse:k3.
+<riepr-emissiepunt-attr:schouw-diameter> qudt:relevantUnit unit:M;
+    a skos:Concept;
+    skos:inScheme conceptscheme:emissiepunt_attributen;
+    skos:notation "diameter";
+    skos:prefLabel "Diameter van de schouw"@nl;
+    skos:topConceptOf conceptscheme:emissiepunt_attributen;
+    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
+    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> dbo:diameter.
+<riepr-emissiepunt-attr:schouw-hoogte> qudt:relevantUnit unit:M;
+    a skos:Concept;
+    skos:inScheme conceptscheme:emissiepunt_attributen;
+    skos:notation "hoogte";
+    skos:prefLabel "Hoogte van de schouw"@nl;
+    skos:topConceptOf conceptscheme:emissiepunt_attributen;
+    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal;
+    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantProperty> dbo:height.
+<riepr-emissiepunt-type:emissiepunt> a skos:Concept;
+    skos:inScheme conceptscheme:emissiepunt_type;
+    skos:notation "emissiepunt";
+    skos:prefLabel "Emissiepunt"@nl;
+    skos:topConceptOf conceptscheme:emissiepunt_type.
+<riepr-emissiepunt-type:fakkel> a skos:Concept;
+    skos:inScheme conceptscheme:emissiepunt_type;
+    skos:notation "fakkel";
+    skos:prefLabel "Fakkel"@nl;
+    skos:topConceptOf conceptscheme:emissiepunt_type.
+<riepr-emissiepunt-type:lozingspunt> a skos:Concept;
+    skos:inScheme conceptscheme:emissiepunt_type;
+    skos:notation "lozingspunt";
+    skos:prefLabel "Lozingspunt"@nl;
+    skos:topConceptOf conceptscheme:emissiepunt_type.
+<riepr-emissiepunt-type:schouw> a skos:Concept;
+    skos:inScheme conceptscheme:emissiepunt_type;
+    skos:notation "schouw";
+    skos:prefLabel "Schouw"@nl;
+    skos:topConceptOf conceptscheme:emissiepunt_type.
+<riepr-filter-type:peilfilter> a skos:Concept;
+    skos:definition "Filter voor het meten van het grondwaterpeil."@nl;
+    skos:inScheme conceptscheme:filter_type;
+    skos:notation "peilfilter";
+    skos:note "Filter voor het meten van het grondwaterpeil."@nl;
+    skos:prefLabel "Peilfilter"@nl;
+    skos:topConceptOf conceptscheme:filter_type.
+<riepr-installatie-type:gpbv> a skos:Concept;
+    skos:definition "Installatie die valt onder de richtlijn industriële emissies (IED/GPBV)."@nl;
+    skos:inScheme conceptscheme:installatie_type;
+    skos:notation "GPBV";
+    skos:note "Installatie die valt onder de richtlijn industriële emissies (IED/GPBV)."@nl;
+    skos:prefLabel "GPBV installatie"@nl;
+    skos:topConceptOf conceptscheme:installatie_type.
+<riepr-installatie-type:iepr> a skos:Concept;
+    skos:definition "Installatie in het kader van IEPR rapportering."@nl;
+    skos:inScheme conceptscheme:installatie_type;
+    skos:notation "IEPR";
+    skos:note "Installatie in het kader van IEPR rapportering."@nl;
+    skos:prefLabel "IEPR installatie"@nl;
+    skos:topConceptOf conceptscheme:installatie_type.
+<riepr-installatie-type:oven> a skos:Concept;
+    skos:inScheme conceptscheme:installatie_type;
+    skos:notation "oven";
+    skos:prefLabel "Oven"@nl;
+    skos:topConceptOf conceptscheme:installatie_type.
+<riepr-installatie-type:zuiveringsinstallatie> a skos:Concept;
+    skos:inScheme conceptscheme:installatie_type;
+    skos:notation "zuiveringsinstallatie";
+    skos:prefLabel "Zuiveringsinstallatie"@nl;
+    skos:topConceptOf conceptscheme:installatie_type.
+<riepr-meetinstrument-type:debietmeter> a skos:Concept;
+    skos:inScheme conceptscheme:meetinstrument_type;
+    skos:notation "debietmeter";
+    skos:prefLabel "Debietmeter"@nl;
+    skos:topConceptOf conceptscheme:meetinstrument_type.
+<riepr-meetpunt-type:controle-inrichting> a skos:Concept;
+    skos:inScheme conceptscheme:meetpunt_type;
+    skos:notation "controle_inrichting";
+    skos:prefLabel "Controle inrichting"@nl;
+    skos:topConceptOf conceptscheme:meetpunt_type.
+<riepr-meetpunt-type:meetput> a skos:Concept;
+    skos:inScheme conceptscheme:meetpunt_type;
+    skos:notation "meetput";
+    skos:prefLabel "Meetput"@nl;
+    skos:topConceptOf conceptscheme:meetpunt_type.
+<riepr-onttrekkingspunt-type:grondwaterput> a skos:Concept;
+    skos:definition "Een put voor de onttrekking van grondwater."@nl;
+    skos:inScheme conceptscheme:onttrekkingspunt_type;
+    skos:notation "grondwaterput";
+    skos:note "Een put voor de onttrekking van grondwater."@nl;
+    skos:prefLabel "Grondwaterput"@nl;
+    skos:topConceptOf conceptscheme:onttrekkingspunt_type.
+<riepr-procedure-type:emissie> a rdfs:Resource, skos:Concept;
+    skos:inScheme conceptscheme:procedure_type;
+    skos:notation "EMISSIE";
+    skos:prefLabel "Emissie"@nl;
+    skos:topConceptOf conceptscheme:procedure_type.
+<riepr-procedure-type:meet> a skos:Concept;
+    skos:inScheme conceptscheme:procedure_type;
+    skos:notation "MEET";
+    skos:prefLabel "Meet"@nl;
+    skos:topConceptOf conceptscheme:procedure_type.
+<riepr-procedure-type:overbrenging> a skos:Concept;
+    skos:inScheme conceptscheme:procedure_type;
+    skos:notation "OVERBRENGING";
+    skos:prefLabel "Overbrenging"@nl;
+    skos:topConceptOf conceptscheme:procedure_type.
+<riepr-procedure-type:verbruik> a rdfs:Resource, skos:Concept;
+    skos:inScheme conceptscheme:procedure_type;
+    skos:notation "VERBRUIK";
+    skos:prefLabel "Verbruik"@nl;
+    skos:topConceptOf conceptscheme:procedure_type.
+<riepr-procedure-type:verwerking> a rdfs:Resource, skos:Concept;
+    skos:inScheme conceptscheme:procedure_type;
+    skos:notation "VERWERKING";
+    skos:prefLabel "Verwerking"@nl;
+    skos:topConceptOf conceptscheme:procedure_type.
+<riepr-procesvariabele-type:aardgas> dcterms:subject <riepr-procedure-type:verbruik>;
+    qudt:relevantUnit unit:TON-PER-YR;
+    a skos:Concept;
+    skos:inScheme conceptscheme:procesvariabele_type;
+    skos:notation "aardgas";
+    skos:prefLabel "Aardgas"@nl;
+    skos:topConceptOf conceptscheme:procesvariabele_type;
+    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantCodeList> <https://data.omgeving.vlaanderen.be/id/concept/stof/aardgas>;
+    <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#relevantDataType> xsd:decimal.
+<riepr-procesvariabele-type:co2> dcterms:subject <riepr-procedure-type:emissie>;
+    a skos:Concept;
+    skos:inScheme conceptscheme:procesvariabele_type;
+    skos:notation "co2";
+    skos:prefLabel "CO2"@nl;
+    skos:topConceptOf conceptscheme:procesvariabele_type.
+<riepr-procesvariabele-type:grondstof> dcterms:subject <riepr-procedure-type:verwerking>;
+    a skos:Concept;
+    skos:definition "Grondstof met vrije invoer subtypering."@nl;
+    skos:inScheme conceptscheme:procesvariabele_type;
+    skos:notation "grondstof";
+    skos:note "Grondstof met vrije invoer subtypering."@nl;
+    skos:prefLabel "Grondstof"@nl;
+    skos:topConceptOf conceptscheme:procesvariabele_type.
+<riepr-rubriek-type:egw> a skos:Concept;
+    skos:definition "EGW rubriektype."@nl;
+    skos:inScheme conceptscheme:rubriek_type;
+    skos:notation "EGW";
+    skos:note "EGW rubriektype."@nl;
+    skos:prefLabel "EGW"@nl;
+    skos:topConceptOf conceptscheme:rubriek_type.
+<riepr-rubriek-type:vlarem> a skos:Concept;
+    skos:definition "VLAREM rubriektype."@nl;
+    skos:inScheme conceptscheme:rubriek_type;
+    skos:notation "VLAREM";
+    skos:note "VLAREM rubriektype."@nl;
+    skos:prefLabel "VLAREM"@nl;
+    skos:topConceptOf conceptscheme:rubriek_type.
