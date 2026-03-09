@@ -1,0 +1,34 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix lzs-vocab: <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#>.
+
+# Definitie van de nieuwe afgeleide property
+lzs-vocab:hasProcedureForProperty a rdf:Property ;
+    rdfs:label "has procedure for property"@en ;
+    owl:propertyChainAxiom (
+^sosa:observedProperty   # Stap 1: Ga van de property naar de observation
+sosa:usedProcedure       # Stap 2: Ga van de observation naar de procedure
+) .
+
+lzs-vocab:relevantDataType a rdf:Property ;
+    rdfs:label "relevant Data Type"@nl .
+
+lzs-vocab:operatie a rdf:Property ;
+    rdfs:label "operatie"@nl .
+
+lzs-vocab:referentiewaardeType  a rdf:Property ;
+    rdfs:label "type referentiewaarde"@nl .
+
+lzs-vocab:relevantCodeList  a rdf:Property ;
+    rdfs:label "relevante codelijst"@nl .
+
+lzs-vocab:relevantProperty  a rdf:Property ;
+    rdfs:label "relevante eigenschap"@nl .
+
+lzs-vocab:technischefiche  a rdf:Property ;
+    rdfs:label "technische fiche"@nl .
+
+lzs-vocab:relevantLZS  a rdf:Property ;
+    rdfs:label "relevant Luchtzuiveringssysteem"@nl .

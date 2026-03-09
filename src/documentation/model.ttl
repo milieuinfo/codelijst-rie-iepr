@@ -1,0 +1,446 @@
+PREFIX LZS:                   <https://data.lzs.omgeving.vlaanderen.be/id/installation/>
+PREFIX access_right:          <http://publications.europa.eu/resource/authority/access-right/>
+PREFIX adms:                  <http://www.w3.org/ns/adms#>
+PREFIX agent:                 <https://data.lzs.omgeving.vlaanderen.be/id/agent/>
+PREFIX assettype:             <http://purl.org/adms/assettype/>
+PREFIX conceptscheme:         <https://data.omgeving.vlaanderen.be/id/conceptscheme/lzs/>
+PREFIX conceptscheme-alg:     <https://data.omgeving.vlaanderen.be/id/conceptscheme/>
+PREFIX country:               <http://publications.europa.eu/resource/authority/country/>
+PREFIX cs:                    <https://data.vlaanderen.be/ns/chemische_stof#>
+PREFIX csc:                   <https://data.omgeving.vlaanderen.be/id/concept/chemische_stof/>
+PREFIX datasets:              <https://datasets.omgeving.vlaanderen.be/>
+PREFIX datatheme_be:          <http://vocab.belgif.be/auth/datatheme/>
+PREFIX datatheme_eu:          <http://publications.europa.eu/resource/authority/data-theme/>
+PREFIX dbo:                   <http://dbpedia.org/ontology/>
+PREFIX dbp:                   <http://dbpedia.org/property/>
+PREFIX dc:                    <http://purl.org/dc/elements/1.1/>
+PREFIX dcat:                  <http://www.w3.org/ns/dcat#>
+PREFIX dcmitype:              <http://purl.org/dc/dcmitype/>
+PREFIX dcterms:               <http://purl.org/dc/terms/>
+PREFIX dr:                    <https://data.omgeving.vlaanderen.be/id/concept/drager/>
+PREFIX eurovoc:               <http://eurovoc.europa.eu/>
+PREFIX file_type:             <http://publications.europa.eu/resource/authority/file-type/>
+PREFIX foaf:                  <http://xmlns.com/foaf/0.1/>
+PREFIX formats:               <http://www.w3.org/ns/formats/>
+PREFIX frequency:             <http://publications.europa.eu/resource/authority/frequency/>
+PREFIX gemet:                 <http://www.eionet.europa.eu/gemet/concept/>
+PREFIX gml:                   <http://www.opengis.net/ont/gml#>
+PREFIX gsp:                   <http://www.opengis.net/ont/geosparql#>
+PREFIX iioa:                  <https://data.lzs.omgeving.vlaanderen.be/id/iioa/>
+PREFIX licence:               <http://data.vlaanderen.be/id/licentie/modellicentie-gratis-hergebruik/>
+PREFIX locn:                  <http://www.w3.org/ns/locn#>
+PREFIX lzs-bandbreedte:       <https://data.omgeving.vlaanderen.be/id/concept/lzs/norm_bandbreedte/>
+PREFIX lzs-dl-status:         <https://data.omgeving.vlaanderen.be/id/concept/lzs/dataleverancierstatus/>
+PREFIX lzs-medium:            <https://data.omgeving.vlaanderen.be/id/concept/lzs/medium/>
+PREFIX lzs-param:             <https://data.omgeving.vlaanderen.be/id/concept/lzs/parameter/>
+PREFIX lzs-param-norm:        <https://data.omgeving.vlaanderen.be/id/concept/lzs/parameter_norm/>
+PREFIX lzs-stalbezetting:     <https://data.omgeving.vlaanderen.be/id/concept/lzs/stalbezetting/>
+PREFIX lzs-status:            <https://data.omgeving.vlaanderen.be/id/concept/lzs/status/>
+PREFIX lzs-systeemopstelling: <https://data.omgeving.vlaanderen.be/id/concept/lzs/systeemopstelling/>
+PREFIX lzs-type:              <https://data.omgeving.vlaanderen.be/id/concept/lzs/type/>
+PREFIX lzs-vocab:             <https://data.lzs.omgeving.vlaanderen.be/ns/vocab#>
+PREFIX metadata:              <https://data.omgeving.vlaanderen.be/ns/metadata#>
+PREFIX observatie:            <https://data.lzs.omgeving.vlaanderen.be/id/observation/>
+PREFIX omg:                   <https://data.vlaanderen.be/ns/omgevingsvergunning#>
+PREFIX omg_catalog:           <https://data.omgeving.vlaanderen.be/id/catalog/>
+PREFIX omg_catalog_doc:       <https://data.omgeving.vlaanderen.be/doc/catalog/>
+PREFIX omg_collection:        <https://data.omgeving.vlaanderen.be/id/collection/>
+PREFIX omg_dataservice:       <https://data.omgeving.vlaanderen.be/id/dataservice/>
+PREFIX omg_dataset:           <https://data.omgeving.vlaanderen.be/id/dataset/>
+PREFIX omg_dataset_doc:       <https://data.omgeving.vlaanderen.be/doc/dataset/>
+PREFIX omg_distribution:      <https://data.omgeving.vlaanderen.be/id/distribution/>
+PREFIX omg_distribution_doc:  <https://data.omgeving.vlaanderen.be/doc/distribution/>
+PREFIX omg_graph:             <https://data.omgeving.vlaanderen.be/id/graph/>
+PREFIX omg_graphcollection:   <https://data.omgeving.vlaanderen.be/id/graphcollection/>
+PREFIX omg_id:                <https://data.omgeving.vlaanderen.be/id/>
+PREFIX omg_named_graph:       <https://data.omgeving.vlaanderen.be/id/namedgraph/>
+PREFIX omg_ontology:          <https://data.omgeving.vlaanderen.be/id/ontology/>
+PREFIX omg_package:           <https://data.omgeving.vlaanderen.be/id/package/>
+PREFIX omg_periodoftime:      <https://data.omgeving.vlaanderen.be/id/periodoftime/>
+PREFIX omg_service:           <https://data.omgeving.vlaanderen.be/id/service/>
+PREFIX omg_vcard:             <https://data.omgeving.vlaanderen.be/id/vcard/>
+PREFIX org:                   <http://www.w3.org/ns/org#>
+PREFIX ovo:                   <http://data.vlaanderen.be/id/organisatie/>
+PREFIX owl:                   <http://www.w3.org/2002/07/owl#>
+PREFIX platform:              <https://data.lzs.omgeving.vlaanderen.be/id/platform/>
+PREFIX procedure:             <https://data.omgeving.vlaanderen.be/id/concept/observatieprocedure/>
+PREFIX property:              <https://id.erfgoed.net/property/>
+PREFIX prov:                  <http://www.w3.org/ns/prov#>
+PREFIX provenancestatement:   <https://data.omgeving.vlaanderen.be/id/provenancestatement/dataset/>
+PREFIX qb:                    <http://purl.org/linked-data/cube#>
+PREFIX quantitykind:          <http://qudt.org/vocab/quantitykind/>
+PREFIX qudt:                  <http://qudt.org/schema/qudt/>
+PREFIX qudt-schema:           <https://qudt.org/schema/qudt/>
+PREFIX qudt-unit:             <https://qudt.org/vocab/unit/>
+PREFIX rdf:                   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:                  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rechtspers:            <https://data.cbb.omgeving.vlaanderen.be/id/concept/orgrechtspersoonlijkheid/>
+PREFIX refnis2025:            <http://vocab.belgif.be/auth/refnis2025/>
+PREFIX repo:                  <https://repo.omgeving.vlaanderen.be/artifactory/release/>
+PREFIX rov:                   <http://www.w3.org/ns/regorg#>
+PREFIX schema:                <https://schema.org/>
+PREFIX sdmx-attribute:        <http://purl.org/linked-data/sdmx/2009/attribute#>
+PREFIX sdmx-dimension:        <http://purl.org/linked-data/sdmx/2009/dimension#>
+PREFIX sdmx-measure:          <http://purl.org/linked-data/sdmx/2009/measure#>
+PREFIX sh:                    <http://www.w3.org/ns/shacl#>
+PREFIX site:                  <https://data.lzs.omgeving.vlaanderen.be/id/site/>
+PREFIX skos:                  <http://www.w3.org/2004/02/skos/core#>
+PREFIX sosa:                  <http://www.w3.org/ns/sosa/>
+PREFIX sosa-om:               <http://www.w3.org/ns/sosa/om#>
+PREFIX spdx:                  <http://spdx.org/rdf/terms#>
+PREFIX ssd:                   <http://www.w3.org/ns/sparql-service-description#>
+PREFIX ssn:                   <http://www.w3.org/ns/ssn/>
+PREFIX ssn-system:            <http://www.w3.org/ns/ssn/systems/>
+PREFIX time:                  <http://www.w3.org/2006/time#>
+PREFIX unit:                  <http://qudt.org/vocab/unit/>
+PREFIX vcard:                 <http://www.w3.org/2006/vcard/ns#>
+PREFIX vlarem-klasse:         <https://data.omgeving.vlaanderen.be/id/concept/vlarem-klasse/>
+PREFIX vlcs:                  <https://data.omgeving.vlaanderen.be/id/conceptscheme/>
+PREFIX void:                  <http://rdfs.org/ns/void#>
+PREFIX wise:                  <http://dd.eionet.europa.eu/vocabulary/wise/ObservedProperty/>
+PREFIX xkos:                  <http://rdf-vocabulary.ddialliance.org/xkos#>
+PREFIX xsd:                   <http://www.w3.org/2001/XMLSchema#>
+
+vcard:Kind  rdf:type  rdfs:Class .
+
+dcterms:MediaType  rdf:type  rdfs:Class .
+
+ssd:NamedGraph  rdf:type    rdfs:Class;
+        rdfs:Label          "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:identifier  ssd:NamedGraph , void:Dataset;
+        dcterms:source      rdfs:Resource , spdx:SpdxItem , spdx:Package , spdx:SpdxElement;
+        dcterms:title       "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        void:rootResource   skos:ConceptScheme;
+        ssd:graph           ssd:Graph;
+        ssd:name            ssd:Graph .
+
+dcterms:RightsStatement
+        rdf:type  rdfs:Class .
+
+dcterms:LicenseDocument
+        rdf:type  rdfs:Class .
+
+rdfs:Resource  rdf:type             rdfs:Class;
+        rdfs:Label                  "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:accessRights        dcterms:RightsStatement;
+        dcterms:accrualPeriodicity  dcterms:Frequency;
+        dcterms:alternative         "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:description         "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:format              dcterms:MediaType , dcterms:MediaTypeOrExtent;
+        dcterms:hasVersion          rdfs:Resource , dcat:Resource , dcat:Dataset , void:Dataset;
+        dcterms:identifier          spdx:SpdxItem , spdx:Package , spdx:SpdxElement , ssd:Dataset , dcat:Resource , dcat:Dataset , void:Dataset , rdfs:Resource;
+        dcterms:isPartOf            dcat:Resource , dcat:Dataset , dcat:Catalog;
+        dcterms:isVersionOf         rdfs:Resource , dcat:Resource , dcat:Dataset , ssd:Dataset , void:Dataset;
+        dcterms:issued              "http://www.w3.org/2001/XMLSchema#dateTime";
+        dcterms:license             dcterms:LicenseDocument;
+        dcterms:provenance          dcterms:ProvenanceStatement;
+        dcterms:publisher           dcterms:Agent;
+        dcterms:relation            spdx:SpdxItem , spdx:Package , spdx:SpdxElement , rdfs:Resource;
+        dcterms:rightsHolder        dcterms:Agent;
+        dcterms:spatial             dcterms:Location;
+        dcterms:subject             skos:Concept , rdfs:Resource;
+        dcterms:temporal            dcterms:PeriodOfTime;
+        dcterms:title               "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        void:rootResource           skos:ConceptScheme;
+        spdx:downloadLocation       rdfs:Resource;
+        spdx:name                   "http://www.w3.org/2001/XMLSchema#string";
+        spdx:packageName            "http://www.w3.org/2001/XMLSchema#string";
+        spdx:versionInfo            "http://www.w3.org/2001/XMLSchema#string";
+        owl:versionInfo             "http://www.w3.org/2001/XMLSchema#string";
+        dcat:accessURL              rdfs:Resource;
+        dcat:contactPoint           vcard:Kind;
+        dcat:distribution           spdx:SpdxItem , spdx:Package , spdx:SpdxElement , rdfs:Resource;
+        dcat:downloadURL            rdfs:Resource;
+        dcat:landingPage            foaf:Document;
+        dcat:mediaType              dcterms:MediaTypeOrExtent , dcterms:MediaType;
+        dcat:theme                  skos:Concept , rdfs:Resource;
+        ssd:defaultGraph            ssd:Graph;
+        foaf:page                   foaf:Document .
+
+spdx:SpdxItem  rdf:type             rdfs:Class;
+        rdfs:Label                  "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:accessRights        dcterms:RightsStatement;
+        dcterms:accrualPeriodicity  dcterms:Frequency;
+        dcterms:description         "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:format              dcterms:MediaType , dcterms:MediaTypeOrExtent;
+        dcterms:identifier          rdfs:Resource , spdx:SpdxItem , spdx:Package , spdx:SpdxElement;
+        dcterms:issued              "http://www.w3.org/2001/XMLSchema#dateTime";
+        dcterms:license             dcterms:LicenseDocument;
+        dcterms:publisher           dcterms:Agent;
+        dcterms:rightsHolder        dcterms:Agent;
+        dcterms:spatial             dcterms:Location;
+        dcterms:subject             skos:Concept , rdfs:Resource;
+        dcterms:title               "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        spdx:downloadLocation       rdfs:Resource;
+        spdx:name                   "http://www.w3.org/2001/XMLSchema#string";
+        spdx:packageName            "http://www.w3.org/2001/XMLSchema#string";
+        spdx:versionInfo            "http://www.w3.org/2001/XMLSchema#string";
+        owl:versionInfo             "http://www.w3.org/2001/XMLSchema#string";
+        dcat:accessURL              rdfs:Resource;
+        dcat:contactPoint           vcard:Kind;
+        dcat:downloadURL            rdfs:Resource;
+        dcat:landingPage            foaf:Document;
+        dcat:mediaType              dcterms:MediaTypeOrExtent , dcterms:MediaType;
+        dcat:theme                  skos:Concept , rdfs:Resource;
+        foaf:page                   foaf:Document .
+
+ssd:Language  rdf:type  rdfs:Class .
+
+ssd:Graph  rdf:type  rdfs:Class .
+
+skos:Concept  rdf:type  rdfs:Class .
+
+spdx:Package  rdf:type              rdfs:Class;
+        rdfs:Label                  "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:accessRights        dcterms:RightsStatement;
+        dcterms:accrualPeriodicity  dcterms:Frequency;
+        dcterms:description         "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:format              dcterms:MediaType , dcterms:MediaTypeOrExtent;
+        dcterms:identifier          rdfs:Resource , spdx:SpdxItem , spdx:Package , spdx:SpdxElement;
+        dcterms:issued              "http://www.w3.org/2001/XMLSchema#dateTime";
+        dcterms:license             dcterms:LicenseDocument;
+        dcterms:publisher           dcterms:Agent;
+        dcterms:rightsHolder        dcterms:Agent;
+        dcterms:spatial             dcterms:Location;
+        dcterms:subject             skos:Concept , rdfs:Resource;
+        dcterms:title               "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        spdx:downloadLocation       rdfs:Resource;
+        spdx:name                   "http://www.w3.org/2001/XMLSchema#string";
+        spdx:packageName            "http://www.w3.org/2001/XMLSchema#string";
+        spdx:versionInfo            "http://www.w3.org/2001/XMLSchema#string";
+        owl:versionInfo             "http://www.w3.org/2001/XMLSchema#string";
+        dcat:accessURL              rdfs:Resource;
+        dcat:contactPoint           vcard:Kind;
+        dcat:downloadURL            rdfs:Resource;
+        dcat:landingPage            foaf:Document;
+        dcat:mediaType              dcterms:MediaTypeOrExtent , dcterms:MediaType;
+        dcat:theme                  skos:Concept , rdfs:Resource;
+        foaf:page                   foaf:Document .
+
+dcat:Resource  rdf:type             rdfs:Class;
+        rdfs:Label                  "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:accessRights        dcterms:RightsStatement;
+        dcterms:accrualPeriodicity  dcterms:Frequency;
+        dcterms:alternative         "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:description         "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:hasPart             rdfs:Resource , dcat:Dataset , ssd:Dataset , void:Dataset , dcat:Resource , dcmitype:Service , dcat:DataService;
+        dcterms:hasVersion          rdfs:Resource , dcat:Resource , dcat:Dataset , void:Dataset;
+        dcterms:identifier          ssd:Dataset , rdfs:Resource , dcat:Dataset , void:Dataset , dcat:DataService , dcmitype:Service , dcat:Resource;
+        dcterms:isPartOf            dcat:Catalog , dcat:Dataset , dcat:Resource;
+        dcterms:isVersionOf         rdfs:Resource , dcat:Resource , dcat:Dataset , ssd:Dataset , void:Dataset;
+        dcterms:issued              "http://www.w3.org/2001/XMLSchema#dateTime";
+        dcterms:license             dcterms:LicenseDocument;
+        dcterms:provenance          dcterms:ProvenanceStatement;
+        dcterms:publisher           dcterms:Agent;
+        dcterms:relation            spdx:SpdxItem , spdx:Package , spdx:SpdxElement , rdfs:Resource;
+        dcterms:rightsHolder        dcterms:Agent;
+        dcterms:spatial             dcterms:Location;
+        dcterms:subject             rdfs:Resource , skos:Concept;
+        dcterms:temporal            dcterms:PeriodOfTime;
+        dcterms:title               "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        void:rootResource           skos:ConceptScheme;
+        owl:versionInfo             "http://www.w3.org/2001/XMLSchema#string";
+        dcat:accessURL              rdfs:Resource;
+        dcat:contactPoint           vcard:Kind;
+        dcat:dataset                rdfs:Resource , dcat:Resource , dcat:Dataset , ssd:Dataset , void:Dataset;
+        dcat:distribution           spdx:SpdxItem , spdx:Package , spdx:SpdxElement , rdfs:Resource;
+        dcat:endpointDescription    ssd:Service;
+        dcat:endpointURL            rdfs:Resource;
+        dcat:landingPage            foaf:Document;
+        dcat:resource               rdfs:Resource , dcat:Dataset , ssd:Dataset , void:Dataset , dcat:Resource , dcmitype:Service , dcat:DataService;
+        dcat:servesDataset          void:Dataset , dcat:Dataset , dcat:Resource , rdfs:Resource;
+        dcat:service                dcat:Resource , dcmitype:Service , dcat:DataService;
+        dcat:theme                  rdfs:Resource , skos:Concept;
+        ssd:defaultGraph            ssd:Graph;
+        foaf:page                   foaf:Document .
+
+foaf:Document  rdf:type  rdfs:Class .
+
+ssd:Feature  rdf:type  rdfs:Class .
+
+dcterms:Frequency  rdf:type  rdfs:Class .
+
+ssd:GraphCollection  rdf:type  rdfs:Class;
+        rdfs:Label          "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:identifier  ssd:GraphCollection , ssd:Dataset;
+        ssd:namedGraph      ssd:NamedGraph , void:Dataset .
+
+dcterms:Location  rdf:type  rdfs:Class .
+
+dcat:Dataset  rdf:type              rdfs:Class;
+        rdfs:Label                  "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:accessRights        dcterms:RightsStatement;
+        dcterms:accrualPeriodicity  dcterms:Frequency;
+        dcterms:alternative         "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:description         "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:hasPart             rdfs:Resource , dcat:Dataset , ssd:Dataset , void:Dataset , dcat:Resource , dcmitype:Service , dcat:DataService;
+        dcterms:hasVersion          rdfs:Resource , dcat:Resource , dcat:Dataset , void:Dataset;
+        dcterms:identifier          ssd:Dataset , rdfs:Resource , dcat:Resource , dcat:Dataset , void:Dataset;
+        dcterms:isPartOf            dcat:Resource , dcat:Dataset , dcat:Catalog;
+        dcterms:isVersionOf         rdfs:Resource , dcat:Resource , dcat:Dataset , ssd:Dataset , void:Dataset;
+        dcterms:issued              "http://www.w3.org/2001/XMLSchema#dateTime";
+        dcterms:license             dcterms:LicenseDocument;
+        dcterms:provenance          dcterms:ProvenanceStatement;
+        dcterms:publisher           dcterms:Agent;
+        dcterms:relation            rdfs:Resource , spdx:SpdxElement , spdx:Package , spdx:SpdxItem;
+        dcterms:rightsHolder        dcterms:Agent;
+        dcterms:spatial             dcterms:Location;
+        dcterms:subject             skos:Concept , rdfs:Resource;
+        dcterms:temporal            dcterms:PeriodOfTime;
+        dcterms:title               "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        void:rootResource           skos:ConceptScheme;
+        owl:versionInfo             "http://www.w3.org/2001/XMLSchema#string";
+        dcat:accessURL              rdfs:Resource;
+        dcat:contactPoint           vcard:Kind;
+        dcat:dataset                rdfs:Resource , dcat:Resource , dcat:Dataset , ssd:Dataset , void:Dataset;
+        dcat:distribution           spdx:SpdxItem , spdx:Package , spdx:SpdxElement , rdfs:Resource;
+        dcat:landingPage            foaf:Document;
+        dcat:resource               rdfs:Resource , dcat:Dataset , ssd:Dataset , void:Dataset , dcat:Resource , dcmitype:Service , dcat:DataService;
+        dcat:service                dcat:Resource , dcmitype:Service , dcat:DataService;
+        dcat:theme                  skos:Concept , rdfs:Resource;
+        ssd:defaultGraph            ssd:Graph;
+        foaf:page                   foaf:Document .
+
+rdfs:Class  rdf:type  rdfs:Class .
+
+ssd:Service  rdf:type          rdfs:Class;
+        rdfs:Label             "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:description    "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:identifier     ssd:Service;
+        dcterms:title          "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        ssd:availableGraphs    ssd:GraphCollection , ssd:Dataset;
+        ssd:defaultDataset     ssd:GraphCollection , ssd:Dataset;
+        ssd:endpoint           rdfs:Resource;
+        ssd:feature            ssd:Language , ssd:Feature;
+        ssd:resultFormat       formats:Format;
+        ssd:supportedLanguage  ssd:Language , ssd:Feature .
+
+ssd:Dataset  rdf:type               rdfs:Class;
+        rdfs:Label                  "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:accessRights        dcterms:RightsStatement;
+        dcterms:accrualPeriodicity  dcterms:Frequency;
+        dcterms:alternative         "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:description         "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:hasVersion          rdfs:Resource , dcat:Resource , dcat:Dataset , void:Dataset;
+        dcterms:identifier          rdfs:Resource , dcat:Resource , dcat:Dataset , void:Dataset , ssd:Dataset , ssd:GraphCollection;
+        dcterms:isPartOf            dcat:Resource , dcat:Dataset , dcat:Catalog;
+        dcterms:license             dcterms:LicenseDocument;
+        dcterms:provenance          dcterms:ProvenanceStatement;
+        dcterms:publisher           dcterms:Agent;
+        dcterms:rightsHolder        dcterms:Agent;
+        dcterms:spatial             dcterms:Location;
+        dcterms:subject             skos:Concept , rdfs:Resource;
+        dcterms:temporal            dcterms:PeriodOfTime;
+        dcterms:title               "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        void:rootResource           skos:ConceptScheme;
+        dcat:accessURL              rdfs:Resource;
+        dcat:contactPoint           vcard:Kind;
+        dcat:landingPage            foaf:Document;
+        dcat:theme                  skos:Concept , rdfs:Resource;
+        ssd:defaultGraph            ssd:Graph;
+        ssd:namedGraph              void:Dataset , ssd:NamedGraph;
+        foaf:page                   foaf:Document .
+
+dcat:Catalog  rdf:type       rdfs:Class;
+        rdfs:Label           "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:description  "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:hasPart      rdfs:Resource , dcat:Dataset , ssd:Dataset , void:Dataset , dcat:Resource , dcmitype:Service , dcat:DataService;
+        dcterms:title        "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcat:dataset         void:Dataset , ssd:Dataset , dcat:Dataset , dcat:Resource , rdfs:Resource;
+        dcat:resource        dcat:DataService , dcmitype:Service , dcat:Resource , void:Dataset , ssd:Dataset , dcat:Dataset , rdfs:Resource;
+        dcat:service         dcat:Resource , dcat:DataService , dcmitype:Service .
+
+skos:ConceptScheme  rdf:type  rdfs:Class .
+
+dcterms:ProvenanceStatement
+        rdf:type    rdfs:Class;
+        rdfs:Label  "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString" .
+
+dcterms:PeriodOfTime  rdf:type  rdfs:Class .
+
+void:Dataset  rdf:type              rdfs:Class;
+        rdfs:Label                  "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:accessRights        dcterms:RightsStatement;
+        dcterms:accrualPeriodicity  dcterms:Frequency;
+        dcterms:alternative         "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:description         "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:hasVersion          rdfs:Resource , dcat:Resource , dcat:Dataset , void:Dataset;
+        dcterms:identifier          ssd:Dataset , ssd:NamedGraph , rdfs:Resource , dcat:Resource , dcat:Dataset , void:Dataset;
+        dcterms:isPartOf            dcat:Resource , dcat:Dataset , dcat:Catalog;
+        dcterms:isVersionOf         rdfs:Resource , dcat:Resource , dcat:Dataset , ssd:Dataset , void:Dataset;
+        dcterms:issued              "http://www.w3.org/2001/XMLSchema#dateTime";
+        dcterms:license             dcterms:LicenseDocument;
+        dcterms:provenance          dcterms:ProvenanceStatement;
+        dcterms:publisher           dcterms:Agent;
+        dcterms:relation            rdfs:Resource , spdx:SpdxElement , spdx:Package , spdx:SpdxItem;
+        dcterms:rightsHolder        dcterms:Agent;
+        dcterms:source              rdfs:Resource , spdx:SpdxItem , spdx:Package , spdx:SpdxElement;
+        dcterms:spatial             dcterms:Location;
+        dcterms:subject             skos:Concept , rdfs:Resource;
+        dcterms:temporal            dcterms:PeriodOfTime;
+        dcterms:title               "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        void:rootResource           skos:ConceptScheme;
+        owl:versionInfo             "http://www.w3.org/2001/XMLSchema#string";
+        dcat:accessURL              rdfs:Resource;
+        dcat:contactPoint           vcard:Kind;
+        dcat:distribution           spdx:SpdxItem , spdx:Package , spdx:SpdxElement , rdfs:Resource;
+        dcat:landingPage            foaf:Document;
+        dcat:theme                  skos:Concept , rdfs:Resource;
+        ssd:defaultGraph            ssd:Graph;
+        ssd:graph                   ssd:Graph;
+        ssd:name                    ssd:Graph;
+        foaf:page                   foaf:Document .
+
+dcterms:MediaTypeOrExtent
+        rdf:type  rdfs:Class .
+
+dcterms:Agent  rdf:type  rdfs:Class .
+
+dcmitype:Service  rdf:type        rdfs:Class;
+        rdfs:Label                "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:description       "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:identifier        dcat:Resource , dcmitype:Service , dcat:DataService;
+        dcterms:isPartOf          dcat:Resource , dcat:Dataset , dcat:Catalog;
+        dcterms:title             "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcat:endpointDescription  ssd:Service;
+        dcat:endpointURL          rdfs:Resource;
+        dcat:servesDataset        rdfs:Resource , dcat:Resource , dcat:Dataset , void:Dataset .
+
+dcat:DataService  rdf:type        rdfs:Class;
+        rdfs:Label                "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:description       "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:identifier        dcat:Resource , dcmitype:Service , dcat:DataService;
+        dcterms:isPartOf          dcat:Resource , dcat:Dataset , dcat:Catalog;
+        dcterms:title             "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcat:endpointDescription  ssd:Service;
+        dcat:endpointURL          rdfs:Resource;
+        dcat:servesDataset        rdfs:Resource , dcat:Resource , dcat:Dataset , void:Dataset .
+
+spdx:SpdxElement  rdf:type          rdfs:Class;
+        rdfs:Label                  "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:accessRights        dcterms:RightsStatement;
+        dcterms:accrualPeriodicity  dcterms:Frequency;
+        dcterms:description         "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        dcterms:format              dcterms:MediaType , dcterms:MediaTypeOrExtent;
+        dcterms:identifier          rdfs:Resource , spdx:SpdxItem , spdx:Package , spdx:SpdxElement;
+        dcterms:issued              "http://www.w3.org/2001/XMLSchema#dateTime";
+        dcterms:license             dcterms:LicenseDocument;
+        dcterms:publisher           dcterms:Agent;
+        dcterms:rightsHolder        dcterms:Agent;
+        dcterms:spatial             dcterms:Location;
+        dcterms:subject             skos:Concept , rdfs:Resource;
+        dcterms:title               "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
+        spdx:downloadLocation       rdfs:Resource;
+        spdx:name                   "http://www.w3.org/2001/XMLSchema#string";
+        spdx:packageName            "http://www.w3.org/2001/XMLSchema#string";
+        spdx:versionInfo            "http://www.w3.org/2001/XMLSchema#string";
+        owl:versionInfo             "http://www.w3.org/2001/XMLSchema#string";
+        dcat:accessURL              rdfs:Resource;
+        dcat:contactPoint           vcard:Kind;
+        dcat:downloadURL            rdfs:Resource;
+        dcat:landingPage            foaf:Document;
+        dcat:mediaType              dcterms:MediaTypeOrExtent , dcterms:MediaType;
+        dcat:theme                  skos:Concept , rdfs:Resource;
+        foaf:page                   foaf:Document .
+
+formats:Format  rdf:type  rdfs:Class .

@@ -1,0 +1,11 @@
+PREFIX dct:                 <http://purl.org/dc/terms/>
+prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+
+SELECT ?uri (GROUP_CONCAT(distinct ?label; SEPARATOR=", ") AS ?labels)
+WHERE {
+    ?s dct:isVersionOf ?uri ;
+        rdfs:label ?label .
+}
+GROUP BY ?uri
+HAVING (COUNT(distinct ?label) > 1)

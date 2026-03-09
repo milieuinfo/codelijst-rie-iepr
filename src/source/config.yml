@@ -1,0 +1,244 @@
+types : industriele-emissies
+skos:
+  rules :
+    skos_rules : /../node_modules/@milieuinfo/maven-metadata-generator-npm/src/n3/skos-rules.n3
+    dcterms_rules : /../node_modules/@milieuinfo/maven-metadata-generator-npm/src/n3/dcterms-rules.n3
+    parameter_rules : /n3/rie-iepr-rules.n3
+  prefixes :
+    concept : https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/
+    collectie : https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/
+  path: ./main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/
+  name: rie-iepr
+  turtle: .ttl
+  jsonld: .jsonld
+  xsd: .xsd
+  csv: .csv
+  rdf_xml: .rdf
+  json: .json
+  xlsx: .xlsx
+  nt: .nt
+  parquet: .parquet
+
+source:
+  path: ./source/
+  codelijst_csv: codelijst-source.csv
+  context: context.json
+dcat:
+  path_catalog: be/vlaanderen/omgeving/data/id/catalog/
+  path_dataset: be/vlaanderen/omgeving/data/id/dataset/
+  name: codelijst-rie-iepr
+  dataset_jsonld: dataset.jsonld
+  dataset_turtle: dataset.ttl
+  catalog_turtle: catalog.ttl
+  catalog_jsonld: catalog.jsonld
+
+ap :
+  path: ./main/resources/be/vlaanderen/omgeving/data/id/ontology/
+  type: ap-constraints
+  name: rie-iepr
+  turtle: .ttl
+
+metadata :
+  start_version : 0.1.0
+  sparqlservice:
+    title: "Sparql service op endpoint https://data.omgeving.vlaanderen.be/sparql"
+    description: "Een beschrijving van de sparql service, met de verschillende kenmerken."
+    endpoint: https://data.omgeving.vlaanderen.be/sparql
+    feature:
+      - http://www.w3.org/ns/sparql-service-description#DereferencesURIs
+      - http://www.w3.org/ns/sparql-service-description#UnionDefaultGraph
+    resultFormat:
+      - http://www.w3.org/ns/formats/JSON-LD
+      - http://www.w3.org/ns/formats/RDF_XML
+      - http://www.w3.org/ns/formats/N-Triples
+      - http://www.w3.org/ns/formats/N-Quads
+      - http://www.w3.org/ns/formats/SPARQL_Results_CSV
+      - http://www.w3.org/ns/formats/SPARQL_Results_XML
+      - http://www.w3.org/ns/formats/Turtle
+      - http://www.w3.org/ns/formats/SPARQL_Results_JSON
+    supportedLanguage: http://www.w3.org/ns/sparql-service-description#SPARQL10Query
+  all :
+    accessURL : https://github.com/milieuinfo/codelijst-rie-iepr.git
+    contactPoint : https://data.omgeving.vlaanderen.be/id/vcard/helpdesk
+    license : http://data.vlaanderen.be/id/licentie/modellicentie-gratis-hergebruik/v1.0
+    publisher : http://data.vlaanderen.be/id/organisatie/OVO003323
+    rightsHolder :  http://data.vlaanderen.be/id/organisatie/OVO003323
+    theme :
+      - http://eurovoc.europa.eu/2407
+      - http://publications.europa.eu/resource/authority/data-theme/ENVI
+      - http://vocab.belgif.be/auth/datatheme/ENVI
+      - http://www.eionet.europa.eu/gemet/concept/10087
+    spatial :
+      - http://publications.europa.eu/resource/authority/country/BEL
+      - https://sws.geonames.org/3337388/
+    accessRights :  http://publications.europa.eu/resource/authority/access-right/PUBLIC
+    accrualPeriodicity : http://publications.europa.eu/resource/authority/frequency/IRREG
+    dct.language : http://publications.europa.eu/resource/authority/language/NLD
+    landingPage  : https://data.omgeving.vlaanderen.be/doc/catalog/codelijst.html
+  catalog :
+    title: "Catalogus van datasets van codelijsten."
+    description: "Catalogus van datasets van codelijsten die onder het domein data.omgeving.vlaanderen.be gepubliceerd worden."
+    uri : https://data.omgeving.vlaanderen.be/id/catalog/codelijst
+    type: http://www.w3.org/ns/dcat#Catalog
+  dataset :
+    title: "Dataset van codelijsten i.v.m. industriele emissies."
+    description: "Deze dataset bevat codelijsten i.v.m. industriele emissies. De codelijsten hebben een onderlinge samenhang, bv. types van systemen met specifieke regels. De lijsten worden gebruikt bij de een IOT-opzet, i.e. sensordata die aangeleverd worden voor de monitoring van deze systemen. Deze momitoring is opgezet in het kader van het RIE-IEPR-project."
+    temporal : https://data.omgeving.vlaanderen.be/id/periodoftime/dataset_omg
+    type : http://www.w3.org/ns/dcat#Dataset
+    provenance:
+      label: "Deze combinatie van codelijsten kwam tot stand in het kader van het RIE-IEPR-project en is een representatie van de logica en typering, die vervat is in regelgeving."
+  distribution :
+    parquet:
+      title: "Codelijsten ivm. industriele emissies, geserialiseerd als parquet-formaat."
+      description: "Codelijsten ivm. industriele emissies, geserialiseerd als parquet bestand."
+      mediaType: https://www.iana.org/assignments/media-types/application/vnd.apache.parquet
+      format: http://publications.europa.eu/resource/authority/file-type/PARQUET
+      type: http://www.w3.org/ns/dcat#Distribution
+    xlsx:
+      title: "Codelijsten ivm. industriele emissies, geserialiseerd als excel-formaat."
+      description: "Codelijsten ivm. industriele emissies, geserialiseerd als excel bestand."
+      mediaType: https://www.iana.org/assignments/media-types/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+      format: http://publications.europa.eu/resource/authority/file-type/XLSX
+      type: http://www.w3.org/ns/dcat#Distribution
+    csv :
+      title: "Codelijsten ivm. industriele emissies, geserialiseerd als csv-formaat."
+      description: "Codelijsten ivm. industriele emissies, geserialiseerd als csv bestand."
+      mediaType : https://www.iana.org/assignments/media-types/text/csv
+      format : http://publications.europa.eu/resource/authority/file-type/CSV
+      type : http://www.w3.org/ns/dcat#Distribution
+    nt:
+      title: "Codelijsten ivm. industriele emissies, geserialiseerd als n-triple-formaat."
+      description: "Codelijsten ivm. industriele emissies, geserialiseerd als n-triple bestand."
+      mediaType: https://www.iana.org/assignments/media-types/application/n-triples
+      format: http://publications.europa.eu/resource/authority/file-type/RDF_N_TRIPLES
+      type: http://www.w3.org/ns/dcat#Distribution
+    json:
+      title: "Codelijsten ivm. industriele emissies, geserialiseerd als json-formaat."
+      description: "Codelijsten ivm. industriele emissies, geserialiseerd als json bestand."
+      mediaType: https://www.iana.org/assignments/media-types/application/json
+      format: http://publications.europa.eu/resource/authority/file-type/JSON
+      type: http://www.w3.org/ns/dcat#Distribution
+    ttl:
+      title: "Codelijsten ivm. industriele emissies, geserialiseerd als turtle-formaat."
+      description: "Codelijsten ivm. industriele emissies, geserialiseerd als turtle bestand."
+      mediaType: https://www.iana.org/assignments/media-types/text/turtle
+      format: http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE
+      type : http://www.w3.org/ns/dcat#Distribution
+    jsonld:
+      title: "Codelijsten ivm. industriele emissies, geserialiseerd als ld+json-formaat."
+      description: "Codelijsten ivm. industriele emissies, geserialiseerd als json-ld bestand."
+      mediaType: https://www.iana.org/assignments/media-types/application/ld+json
+      format: http://publications.europa.eu/resource/authority/file-type/JSON_LD
+      type : http://www.w3.org/ns/dcat#Distribution
+    jar :
+      title: "Codelijsten ivm. industriele emissies, alle verspreidingsvormen samengevoegd in een jar-formaat."
+      description: "Codelijsten ivm. industriele emissies, alle verspreidingsvormen samengevoegd in een jar bestand."
+      mediaType : https://www.iana.org/assignments/media-types/application/java-archive
+      format : http://publications.europa.eu/resource/authority/file-type/JAR
+      type :
+        - http://www.w3.org/ns/dcat#Distribution
+        - http://spdx.org/rdf/terms#Package
+
+prefixes :
+  access_right: http://publications.europa.eu/resource/authority/access-right/
+  adms: http://www.w3.org/ns/adms#
+  agent: https://data.lzs.omgeving.vlaanderen.be/id/agent/
+  assettype: http://purl.org/adms/assettype/
+  conceptscheme-alg: https://data.omgeving.vlaanderen.be/id/conceptscheme/
+  conceptscheme: https://data.omgeving.vlaanderen.be/id/conceptscheme/lzs/
+  country: http://publications.europa.eu/resource/authority/country/
+  datasets: https://datasets.omgeving.vlaanderen.be/
+  datatheme_be: http://vocab.belgif.be/auth/datatheme/
+  datatheme_eu: http://publications.europa.eu/resource/authority/data-theme/
+  dbo: http://dbpedia.org/ontology/
+  dcat: http://www.w3.org/ns/dcat#
+  dc: http://purl.org/dc/elements/1.1/
+  dcmitype: http://purl.org/dc/dcmitype/
+  dcterms: http://purl.org/dc/terms/
+  dr: https://data.omgeving.vlaanderen.be/id/concept/drager/
+  eurovoc: http://eurovoc.europa.eu/
+  file_type: http://publications.europa.eu/resource/authority/file-type/
+  foaf: http://xmlns.com/foaf/0.1/
+  formats: http://www.w3.org/ns/formats/
+  frequency: http://publications.europa.eu/resource/authority/frequency/
+  gemet: http://www.eionet.europa.eu/gemet/concept/
+  gml: http://www.opengis.net/ont/gml#
+  gsp: http://www.opengis.net/ont/geosparql#
+  iioa: https://data.lzs.omgeving.vlaanderen.be/id/iioa/
+  platform: https://data.lzs.omgeving.vlaanderen.be/id/platform/
+  licence: http://data.vlaanderen.be/id/licentie/modellicentie-gratis-hergebruik/
+  locn: http://www.w3.org/ns/locn#
+  lzs-bandbreedte: https://data.omgeving.vlaanderen.be/id/concept/lzs/norm_bandbreedte/
+  LZS: https://data.lzs.omgeving.vlaanderen.be/id/installation/
+  lzs-medium: https://data.omgeving.vlaanderen.be/id/concept/lzs/medium/
+  lzs-param: https://data.omgeving.vlaanderen.be/id/concept/lzs/parameter/
+  lzs-param-norm: https://data.omgeving.vlaanderen.be/id/concept/lzs/parameter_norm/
+  lzs-stalbezetting: https://data.omgeving.vlaanderen.be/id/concept/lzs/stalbezetting/
+  lzs-status: https://data.omgeving.vlaanderen.be/id/concept/lzs/status/
+  lzs-type: https://data.omgeving.vlaanderen.be/id/concept/lzs/type/
+  lzs-dl-status: https://data.omgeving.vlaanderen.be/id/concept/lzs/dataleverancierstatus/
+  lzs-systeemopstelling: https://data.omgeving.vlaanderen.be/id/concept/lzs/systeemopstelling/
+  lzs-vocab: https://data.lzs.omgeving.vlaanderen.be/ns/vocab#
+  metadata: https://data.omgeving.vlaanderen.be/ns/metadata#
+  observatie: https://data.lzs.omgeving.vlaanderen.be/id/observation/
+  omg_catalog_doc: https://data.omgeving.vlaanderen.be/doc/catalog/
+  omg_catalog: https://data.omgeving.vlaanderen.be/id/catalog/
+  omg_collection: https://data.omgeving.vlaanderen.be/id/collection/
+  omg_dataservice: https://data.omgeving.vlaanderen.be/id/dataservice/
+  omg_dataset_doc: https://data.omgeving.vlaanderen.be/doc/dataset/
+  omg_dataset: https://data.omgeving.vlaanderen.be/id/dataset/
+  omg_distribution_doc: https://data.omgeving.vlaanderen.be/doc/distribution/
+  omg_distribution: https://data.omgeving.vlaanderen.be/id/distribution/
+  omg_graphcollection: https://data.omgeving.vlaanderen.be/id/graphcollection/
+  omg_graph: https://data.omgeving.vlaanderen.be/id/graph/
+  omg: https://data.vlaanderen.be/ns/omgevingsvergunning#
+  omg_id: https://data.omgeving.vlaanderen.be/id/
+  omg_named_graph: https://data.omgeving.vlaanderen.be/id/namedgraph/
+  omg_ontology: https://data.omgeving.vlaanderen.be/id/ontology/
+  omg_package: https://data.omgeving.vlaanderen.be/id/package/
+  omg_periodoftime: https://data.omgeving.vlaanderen.be/id/periodoftime/
+  omg_service: https://data.omgeving.vlaanderen.be/id/service/
+  omg_vcard: https://data.omgeving.vlaanderen.be/id/vcard/
+  org: http://www.w3.org/ns/org#
+  ovo: http://data.vlaanderen.be/id/organisatie/
+  owl: http://www.w3.org/2002/07/owl#
+  procedure: https://data.omgeving.vlaanderen.be/id/concept/observatieprocedure/
+  property: https://id.erfgoed.net/property/
+  provenancestatement: https://data.omgeving.vlaanderen.be/id/provenancestatement/dataset/
+  prov: http://www.w3.org/ns/prov#
+  qb: http://purl.org/linked-data/cube#
+  quantitykind: http://qudt.org/vocab/quantitykind/
+  qudt: http://qudt.org/schema/qudt/
+  qudt-schema: https://qudt.org/schema/qudt/
+  qudt-unit: https://qudt.org/vocab/unit/
+  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  rdfs: http://www.w3.org/2000/01/rdf-schema#
+  rechtspers: https://data.cbb.omgeving.vlaanderen.be/id/concept/orgrechtspersoonlijkheid/
+  refnis2025: http://vocab.belgif.be/auth/refnis2025/
+  repo: https://repo.omgeving.vlaanderen.be/artifactory/release/
+  rov: http://www.w3.org/ns/regorg#
+  schema: https://schema.org/
+  sdmx-attribute: http://purl.org/linked-data/sdmx/2009/attribute#
+  sdmx-dimension: http://purl.org/linked-data/sdmx/2009/dimension#
+  sdmx-measure: http://purl.org/linked-data/sdmx/2009/measure#
+  sh: http://www.w3.org/ns/shacl#
+  site: https://data.lzs.omgeving.vlaanderen.be/id/site/
+  skos: http://www.w3.org/2004/02/skos/core#
+  sosa: http://www.w3.org/ns/sosa/
+  sosa-om: http://www.w3.org/ns/sosa/om#
+  spdx: http://spdx.org/rdf/terms#
+  ssd: http://www.w3.org/ns/sparql-service-description#
+  ssn: http://www.w3.org/ns/ssn/
+  ssn-system: http://www.w3.org/ns/ssn/systems/
+  time: http://www.w3.org/2006/time#
+  unit: http://qudt.org/vocab/unit/
+  vcard: http://www.w3.org/2006/vcard/ns#
+  vlarem-klasse: https://data.omgeving.vlaanderen.be/id/concept/vlarem-klasse/
+  void: http://rdfs.org/ns/void#
+  wise: http://dd.eionet.europa.eu/vocabulary/wise/ObservedProperty/
+  xkos: http://rdf-vocabulary.ddialliance.org/xkos#
+  xsd: http://www.w3.org/2001/XMLSchema#
+
+
+deploy:
+  virtuoso: virtuoso-algemeen
