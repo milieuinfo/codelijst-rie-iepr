@@ -363,7 +363,7 @@ const skosOptions = {
 }
 
 const skosSource = {
-    "sourcePath": config.source.path + config.source.codelijst_csv,
+    "sourcePaths": (Array.isArray(config.source.codelijst_csv) ? config.source.codelijst_csv : [config.source.codelijst_csv]).map(f => config.source.path + f),
     "contextPrefixes": Object.assign({},skos_context , skos_prefixes),
     "rules": config.skos.rules,
     "shapesDataset": await rdf.dataset().import(rdf.fromFile(config.ap.path + config.ap.name + '-' + config.ap.type + '/' + config.ap.name + '-' + config.ap.type + config.ap.turtle)),
