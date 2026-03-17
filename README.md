@@ -1,6 +1,6 @@
 # codelijst-rie-iepr
 
-Codelijsten voor het RIE-IEPR-project (Richtlijn Industriële Emissies / Industriële Emissies Preventie en Reductie) van het Departement Omgeving, Vlaanderen.
+Codelijsten voor het RIE-IEPR-project (Richtlijn Industriële Emissies / Industrial Emissions Portal Regulation) van het Departement Omgeving, Vlaanderen.
 
 De codelijsten zijn gemodelleerd als [SKOS](https://www.w3.org/TR/skos-reference/) conceptschema's en worden gegenereerd vanuit een CSV-bronbestand. Ze worden gepubliceerd op [data.omgeving.vlaanderen.be](https://data.omgeving.vlaanderen.be).
 
@@ -10,20 +10,20 @@ De volgende conceptschema's zijn opgenomen:
 
 | Conceptschema | Beschrijving |
 |---|---|
-| `emissiepunt_attributen` | Koppeling tussen soorten emissiepunten en hun attributen |
+| `emissiepunt_eigenschappen` | Koppeling tussen soorten emissiepunten en hun eigenschappen |
+| `installatie_eigenschappen` | Koppeling tussen soorten installaties en hun eigenschappen |
+| `filter_eigenschappen` | Koppeling tussen soorten filters en hun eigenschappen |
+| `installatie_type` | Soorten installaties (GPBV, IEPR, Stookinstallatie, ...) |
 | `emissiepunt_type` | Soorten emissiepunten (schouw, fakkel, lozingspunt, ...) |
-| `filter_type` | Types van filters (bv. peilfilter) |
-| `filter_attributen` | Attributen van filters met eenheden |
-| `installatie_type` | Types van installaties (GPBV, IEPR, oven, ...) |
-| `installatie_eigenschappen_type` | Types voor installatie-eigenschappen |
-| `meetinstrument_type` | Soorten meetinstrumenten (bv. debietmeter) |
-| `meetpunt_type` | Soorten meetpunten (bv. meetput, controle-inrichting) |
-| `onttrekkingspunt_type` | Soorten onttrekkingspunten (bv. grondwaterput) |
-| `procedure_type` | Hoofdtyperingen van procedures in een procesplan |
+| `onttrekkingspunt_type` | Soorten onttrekkingspunten (Grondwaterput, ...) |
+| `filter_type` | Soorten filters (Peilfilter, ...) |
+| `meetinstrument_type` | Soorten meetinstrumenten (Debietmeter, ...) |
+| `meetpunt_type` | Soorten meetpunten (meetput, controle-inrichting, ...) |
+| `procedure_type` | Soorten procedures in een procesplan |
 | `procesvariabele_type` | Types stoffen bij bepaalde procedure-types |
 | `rubriek_type` | Typering van rubrieken (VLAREM, EGW) |
-| `datatypes` | Externe identificatoren |
-| `vlarem-klasse` | VLAREM-indelingsklassen (klasse 1, 2, 3) |
+| `data_type` | Soorten data types |
+| `status_type` | Soorten statussen |
 
 ## Uitvoerformaten
 
