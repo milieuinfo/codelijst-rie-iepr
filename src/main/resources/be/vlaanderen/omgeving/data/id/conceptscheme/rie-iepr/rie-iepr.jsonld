@@ -828,167 +828,15 @@
     },
     "graph": [
         {
-            "id": "riepr-emissiepunt-attr:schouw-diameter",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:M",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Meter"
-            },
-            "inScheme": "conceptscheme:emissiepunt_attributen",
-            "code": "diameter",
-            "prefLabel": "Diameter van de schouw",
-            "topConceptOf": "conceptscheme:emissiepunt_attributen",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "dbo:diameter",
-            "relevantriepr": [
-                {
-                    "id": "riepr-emissiepunt-type:schouw",
-                    "_type": [
-                        "skos:Concept"
-                    ],
-                    "inScheme": {
-                        "id": "conceptscheme:emissiepunt_type",
-                        "_type": [
-                            "skos:ConceptScheme"
-                        ],
-                        "definition": "Een lijst van verschillende soorten emissiepunten met mogelijke opsplitsing in subtyperingen.",
-                        "hasTopConcept": [
-                            "riepr-emissiepunt-type:schouw",
-                            {
-                                "id": "riepr-emissiepunt-type:emissiepunt",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:emissiepunt_type",
-                                "code": "emissiepunt",
-                                "prefLabel": "Emissiepunt",
-                                "topConceptOf": "conceptscheme:emissiepunt_type"
-                            },
-                            {
-                                "id": "riepr-emissiepunt-type:fakkel",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:emissiepunt_type",
-                                "code": "fakkel",
-                                "prefLabel": "Fakkel",
-                                "topConceptOf": "conceptscheme:emissiepunt_type"
-                            },
-                            {
-                                "id": "riepr-emissiepunt-type:lozingspunt",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:emissiepunt_type",
-                                "code": "lozingspunt",
-                                "prefLabel": "Lozingspunt",
-                                "topConceptOf": "conceptscheme:emissiepunt_type"
-                            }
-                        ],
-                        "note": "Een lijst van verschillende soorten emissiepunten met mogelijke opsplitsing in subtyperingen.",
-                        "prefLabel": "Emissiepunt types"
-                    },
-                    "code": "schouw",
-                    "prefLabel": "Schouw",
-                    "topConceptOf": "conceptscheme:emissiepunt_type"
-                }
-            ]
-        },
-        {
-            "id": "riepr-emissiepunt-attr:schouw-hoogte",
-            "_type": [
-                "skos:Concept"
-            ],
-            "relevantUnit": {
-                "id": "unit:M",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Meter"
-            },
-            "inScheme": "conceptscheme:emissiepunt_attributen",
-            "code": "hoogte",
-            "prefLabel": "Hoogte van de schouw",
-            "topConceptOf": "conceptscheme:emissiepunt_attributen",
-            "relevantDataType": "xsd:decimal",
-            "relevantProperty": "dbo:height",
-            "relevantriepr": [
-                {
-                    "id": "riepr-emissiepunt-type:schouw",
-                    "_type": [
-                        "skos:Concept"
-                    ],
-                    "inScheme": {
-                        "id": "conceptscheme:emissiepunt_type",
-                        "_type": [
-                            "skos:ConceptScheme"
-                        ],
-                        "definition": "Een lijst van verschillende soorten emissiepunten met mogelijke opsplitsing in subtyperingen.",
-                        "hasTopConcept": [
-                            "riepr-emissiepunt-type:schouw",
-                            {
-                                "id": "riepr-emissiepunt-type:emissiepunt",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:emissiepunt_type",
-                                "code": "emissiepunt",
-                                "prefLabel": "Emissiepunt",
-                                "topConceptOf": "conceptscheme:emissiepunt_type"
-                            },
-                            {
-                                "id": "riepr-emissiepunt-type:fakkel",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:emissiepunt_type",
-                                "code": "fakkel",
-                                "prefLabel": "Fakkel",
-                                "topConceptOf": "conceptscheme:emissiepunt_type"
-                            },
-                            {
-                                "id": "riepr-emissiepunt-type:lozingspunt",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:emissiepunt_type",
-                                "code": "lozingspunt",
-                                "prefLabel": "Lozingspunt",
-                                "topConceptOf": "conceptscheme:emissiepunt_type"
-                            }
-                        ],
-                        "note": "Een lijst van verschillende soorten emissiepunten met mogelijke opsplitsing in subtyperingen.",
-                        "prefLabel": "Emissiepunt types"
-                    },
-                    "code": "schouw",
-                    "prefLabel": "Schouw",
-                    "topConceptOf": "conceptscheme:emissiepunt_type"
-                }
-            ]
-        },
-        {
             "id": "riepr-emissiepunt-type:emissiepunt",
             "_type": [
                 "skos:Concept"
             ],
+            "definition": "Een regulier emissiepunt.",
             "inScheme": "conceptscheme:emissiepunt_type",
             "code": "emissiepunt",
+            "note": "Een regulier emissiepunt.",
             "prefLabel": "Emissiepunt",
-            "topConceptOf": "conceptscheme:emissiepunt_type"
-        },
-        {
-            "id": "riepr-emissiepunt-type:fakkel",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:emissiepunt_type",
-            "code": "fakkel",
-            "prefLabel": "Fakkel",
             "topConceptOf": "conceptscheme:emissiepunt_type"
         },
         {
@@ -996,9 +844,65 @@
             "_type": [
                 "skos:Concept"
             ],
+            "definition": "Een lozing naar water.",
             "inScheme": "conceptscheme:emissiepunt_type",
             "code": "lozingspunt",
+            "note": "Een lozing naar water.",
             "prefLabel": "Lozingspunt",
+            "topConceptOf": "conceptscheme:emissiepunt_type"
+        },
+        {
+            "id": "riepr-emissiepunt-type:schoorsteen",
+            "_type": [
+                "skos:Concept"
+            ],
+            "definition": "Een schoorsteen.",
+            "inScheme": "conceptscheme:emissiepunt_type",
+            "narrower": [
+                "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom"
+            ],
+            "narrowerTransitive": [
+                "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom"
+            ],
+            "code": "schoorsteen",
+            "note": "Een schoorsteen.",
+            "prefLabel": "Schoorsteen",
+            "semanticRelation": [
+                "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom"
+            ],
+            "topConceptOf": "conceptscheme:emissiepunt_type"
+        },
+        {
+            "id": "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+            "_type": [
+                "skos:Concept"
+            ],
+            "broader": "riepr-emissiepunt-type:schoorsteen",
+            "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
+            "inScheme": "conceptscheme:emissiepunt_type",
+            "code": "schoorsteen_horizontale_uitstroom",
+            "prefLabel": "Schoorsteen met horizontale uitstroom",
+            "semanticRelation": [
+                "riepr-emissiepunt-type:schoorsteen"
+            ],
+            "topConceptOf": "conceptscheme:emissiepunt_type"
+        },
+        {
+            "id": "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom",
+            "_type": [
+                "skos:Concept"
+            ],
+            "broader": "riepr-emissiepunt-type:schoorsteen",
+            "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
+            "inScheme": "conceptscheme:emissiepunt_type",
+            "code": "schoorsteen_verticale_uitstroom",
+            "prefLabel": "Schoorsteen met vertikale uitstroom",
+            "semanticRelation": [
+                "riepr-emissiepunt-type:schoorsteen"
+            ],
             "topConceptOf": "conceptscheme:emissiepunt_type"
         },
         {
@@ -1006,86 +910,32 @@
             "_type": [
                 "skos:Concept"
             ],
+            "definition": "Een schouw.",
             "inScheme": "conceptscheme:emissiepunt_type",
             "code": "schouw",
+            "note": "Een schouw.",
             "prefLabel": "Schouw",
             "topConceptOf": "conceptscheme:emissiepunt_type"
         },
         {
-            "id": "riepr-filter-type:peilfilter",
-            "_type": [
-                "skos:Concept"
-            ],
-            "definition": "Filter voor het meten van het grondwaterpeil.",
-            "inScheme": "conceptscheme:filter_type",
-            "code": "peilfilter",
-            "note": "Filter voor het meten van het grondwaterpeil.",
-            "prefLabel": "Peilfilter",
-            "topConceptOf": "conceptscheme:filter_type"
-        },
-        {
-            "id": "riepr-installatie-type:gpbv",
-            "_type": [
-                "skos:Concept"
-            ],
-            "definition": "Installatie die valt onder de richtlijn industriële emissies (IED/GPBV).",
-            "inScheme": "conceptscheme:installatie_type",
-            "code": "GPBV",
-            "note": "Installatie die valt onder de richtlijn industriële emissies (IED/GPBV).",
-            "prefLabel": "GPBV installatie",
-            "topConceptOf": "conceptscheme:installatie_type"
-        },
-        {
-            "id": "riepr-installatie-type:iepr",
-            "_type": [
-                "skos:Concept"
-            ],
-            "definition": "Installatie in het kader van IEPR rapportering.",
-            "inScheme": "conceptscheme:installatie_type",
-            "code": "IEPR",
-            "note": "Installatie in het kader van IEPR rapportering.",
-            "prefLabel": "IEPR installatie",
-            "topConceptOf": "conceptscheme:installatie_type"
-        },
-        {
-            "id": "riepr-installatie-type:oven",
+            "id": "riepr-installatie-type:directe_stookinstallatie",
             "_type": [
                 "skos:Concept"
             ],
             "inScheme": "conceptscheme:installatie_type",
-            "code": "oven",
-            "prefLabel": "Oven",
+            "code": "directe_stookinstallatie",
+            "prefLabel": "Directe Stookinstallatie",
             "topConceptOf": "conceptscheme:installatie_type"
         },
         {
-            "id": "riepr-installatie-type:zuiveringsinstallatie",
+            "id": "riepr-installatie-type:stookinstallatie",
             "_type": [
                 "skos:Concept"
             ],
             "inScheme": "conceptscheme:installatie_type",
-            "code": "zuiveringsinstallatie",
-            "prefLabel": "Zuiveringsinstallatie",
+            "code": "stookinstallatie",
+            "prefLabel": "Stookinstallatie",
             "topConceptOf": "conceptscheme:installatie_type"
-        },
-        {
-            "id": "riepr-meetinstrument-type:debietmeter",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:meetinstrument_type",
-            "code": "debietmeter",
-            "prefLabel": "Debietmeter",
-            "topConceptOf": "conceptscheme:meetinstrument_type"
-        },
-        {
-            "id": "riepr-meetpunt-type:controle-inrichting",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:meetpunt_type",
-            "code": "controle_inrichting",
-            "prefLabel": "Controle inrichting",
-            "topConceptOf": "conceptscheme:meetpunt_type"
         },
         {
             "id": "riepr-meetpunt-type:meetput",
@@ -1102,277 +952,132 @@
             "_type": [
                 "skos:Concept"
             ],
-            "definition": "Een put voor de onttrekking van grondwater.",
             "inScheme": "conceptscheme:onttrekkingspunt_type",
             "code": "grondwaterput",
-            "note": "Een put voor de onttrekking van grondwater.",
             "prefLabel": "Grondwaterput",
             "topConceptOf": "conceptscheme:onttrekkingspunt_type"
         },
         {
             "id": "riepr-procedure-type:emissie",
             "_type": [
-                "skos:Concept",
-                "rdfs:Resource"
+                "skos:Concept"
             ],
+            "definition": "De procedure emissie via een emissiepunt.",
             "inScheme": "conceptscheme:procedure_type",
             "code": "EMISSIE",
+            "note": "De procedure emissie via een emissiepunt.",
             "prefLabel": "Emissie",
-            "topConceptOf": "conceptscheme:procedure_type"
+            "topConceptOf": "conceptscheme:procedure_type",
+            "relevantDataType": "sosa:Procedure"
         },
         {
-            "id": "riepr-procedure-type:meet",
+            "id": "riepr-procedure-type:onttrekking",
             "_type": [
                 "skos:Concept"
             ],
+            "definition": "De procedure onttrekking via een onttrekingspunt.",
             "inScheme": "conceptscheme:procedure_type",
-            "code": "MEET",
-            "prefLabel": "Meet",
-            "topConceptOf": "conceptscheme:procedure_type"
+            "code": "ONTTREKKING",
+            "note": "De procedure onttrekking via een onttrekingspunt.",
+            "prefLabel": "Onttrekking",
+            "topConceptOf": "conceptscheme:procedure_type",
+            "relevantDataType": "sosa:Procedure"
         },
         {
-            "id": "riepr-procedure-type:overbrenging",
+            "id": "riepr-procedure-type:transport",
             "_type": [
                 "skos:Concept"
             ],
+            "definition": "De procedure transport tussen twee processen.",
             "inScheme": "conceptscheme:procedure_type",
-            "code": "OVERBRENGING",
-            "prefLabel": "Overbrenging",
-            "topConceptOf": "conceptscheme:procedure_type"
-        },
-        {
-            "id": "riepr-procedure-type:verbruik",
-            "_type": [
-                "skos:Concept",
-                "rdfs:Resource"
-            ],
-            "inScheme": "conceptscheme:procedure_type",
-            "code": "VERBRUIK",
-            "prefLabel": "Verbruik",
-            "topConceptOf": "conceptscheme:procedure_type"
+            "code": "TRANSPORT",
+            "note": "De procedure transport tussen twee processen.",
+            "prefLabel": "Transport",
+            "topConceptOf": "conceptscheme:procedure_type",
+            "relevantDataType": "sosa:Procedure"
         },
         {
             "id": "riepr-procedure-type:verwerking",
             "_type": [
-                "skos:Concept",
-                "rdfs:Resource"
+                "skos:Concept"
             ],
+            "definition": "De procedure verwerking door een installatie.",
             "inScheme": "conceptscheme:procedure_type",
             "code": "VERWERKING",
+            "note": "De procedure verwerking door een installatie.",
             "prefLabel": "Verwerking",
-            "topConceptOf": "conceptscheme:procedure_type"
+            "topConceptOf": "conceptscheme:procedure_type",
+            "relevantDataType": "sosa:Procedure"
         },
         {
-            "id": "riepr-procesvariabele-type:aardgas",
-            "_type": [
-                "skos:Concept"
-            ],
-            "subject": "riepr-procedure-type:verbruik",
-            "relevantUnit": {
-                "id": "unit:TON-PER-YR",
-                "_type": [
-                    "qudt:Unit"
-                ],
-                "altLabel": "Ton per jaar"
-            },
-            "inScheme": "conceptscheme:procesvariabele_type",
-            "code": "aardgas",
-            "prefLabel": "Aardgas",
-            "topConceptOf": "conceptscheme:procesvariabele_type",
-            "relevantDataType": "xsd:decimal"
-        },
-        {
-            "id": "riepr-procesvariabele-type:co2",
-            "_type": [
-                "skos:Concept"
-            ],
-            "subject": "riepr-procedure-type:emissie",
-            "inScheme": "conceptscheme:procesvariabele_type",
-            "code": "co2",
-            "prefLabel": "CO2",
-            "topConceptOf": "conceptscheme:procesvariabele_type",
-            "relevantriepr": [
-                "omg_id:concept/stof/co2"
-            ]
-        },
-        {
-            "id": "riepr-procesvariabele-type:grondstof",
-            "_type": [
-                "skos:Concept"
-            ],
-            "subject": "riepr-procedure-type:verwerking",
-            "definition": "Grondstof met vrije invoer subtypering.",
-            "inScheme": "conceptscheme:procesvariabele_type",
-            "code": "grondstof",
-            "note": "Grondstof met vrije invoer subtypering.",
-            "prefLabel": "Grondstof",
-            "topConceptOf": "conceptscheme:procesvariabele_type"
-        },
-        {
-            "id": "riepr-rubriek-type:egw",
-            "_type": [
-                "skos:Concept"
-            ],
-            "definition": "EGW rubriektype.",
-            "inScheme": "conceptscheme:rubriek_type",
-            "code": "EGW",
-            "note": "EGW rubriektype.",
-            "prefLabel": "EGW",
-            "topConceptOf": "conceptscheme:rubriek_type"
-        },
-        {
-            "id": "riepr-rubriek-type:vlarem",
-            "_type": [
-                "skos:Concept"
-            ],
-            "definition": "VLAREM rubriektype.",
-            "inScheme": "conceptscheme:rubriek_type",
-            "code": "VLAREM",
-            "note": "VLAREM rubriektype.",
-            "prefLabel": "VLAREM",
-            "topConceptOf": "conceptscheme:rubriek_type"
-        },
-        {
-            "id": "vlarem-klasse:k1",
-            "_type": [
-                "skos:Concept"
-            ],
-            "altLabel": "VLAREM klasse 1",
-            "definition": "Indelingsklasse voor inrichtingen met de grootste milieu-impact. Voor deze activiteiten geldt een omgevingsvergunning klasse 1 (zwaarste procedure).",
-            "inScheme": "conceptscheme-alg:vlarem-klasse",
-            "note": "Indelingsklasse voor inrichtingen met de grootste milieu-impact. Voor deze activiteiten geldt een omgevingsvergunning klasse 1 (zwaarste procedure).",
-            "prefLabel": "Klasse 1",
-            "topConceptOf": "conceptscheme-alg:vlarem-klasse"
-        },
-        {
-            "id": "vlarem-klasse:k2",
-            "_type": [
-                "skos:Concept"
-            ],
-            "altLabel": "VLAREM klasse 2",
-            "definition": "Indelingsklasse voor inrichtingen met een middelgrote milieu-impact. Voor deze activiteiten geldt een omgevingsvergunning klasse 2.",
-            "inScheme": "conceptscheme-alg:vlarem-klasse",
-            "note": "Indelingsklasse voor inrichtingen met een middelgrote milieu-impact. Voor deze activiteiten geldt een omgevingsvergunning klasse 2.",
-            "prefLabel": "Klasse 2",
-            "topConceptOf": "conceptscheme-alg:vlarem-klasse"
-        },
-        {
-            "id": "vlarem-klasse:k3",
-            "_type": [
-                "skos:Concept"
-            ],
-            "altLabel": "VLAREM klasse 3",
-            "definition": "Indelingsklasse voor inrichtingen met een beperkte milieu-impact. Voor deze activiteiten geldt een meldingsplicht (klasse 3).",
-            "inScheme": "conceptscheme-alg:vlarem-klasse",
-            "note": "Indelingsklasse voor inrichtingen met een beperkte milieu-impact. Voor deze activiteiten geldt een meldingsplicht (klasse 3).",
-            "prefLabel": "Klasse 3",
-            "topConceptOf": "conceptscheme-alg:vlarem-klasse"
-        },
-        {
-            "id": "conceptscheme:datatypes",
+            "id": "conceptscheme:data_type",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "definition": "Een lijst van verschillende externe identificatoren die al dan niet uniek zijn.",
-            "note": "Een lijst van verschillende externe identificatoren die al dan niet uniek zijn.",
-            "prefLabel": "Externe identificatoren"
+            "definition": "Een typering van verschillende data types.",
+            "note": "Een typering van verschillende data types.",
+            "prefLabel": "Data types"
         },
         {
-            "id": "conceptscheme:emissiepunt_attributen",
+            "id": "conceptscheme:emissiepunt_eigenschappen",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "definition": "Een lijst die een koppeling maakt tussen soorten emissiepunten en de attributen die van toepassing zijn.",
+            "definition": "Een typering van verschillende eigenschappen voor emissiepunten.",
             "hasTopConcept": [
-                "riepr-emissiepunt-attr:schouw-diameter",
-                "riepr-emissiepunt-attr:schouw-hoogte"
+                "riepr-emissiepunt-eigenschappen:schouw-diameter",
+                "riepr-emissiepunt-eigenschappen:schouw-hoogte"
             ],
-            "note": "Een lijst die een koppeling maakt tussen soorten emissiepunten en de attributen die van toepassing zijn.",
-            "prefLabel": "Emissiepunt attributen"
+            "note": "Een typering van verschillende eigenschappen voor emissiepunten.",
+            "prefLabel": "Emissiepunt eigenschappen"
         },
         {
             "id": "conceptscheme:emissiepunt_type",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "definition": "Een lijst van verschillende soorten emissiepunten met mogelijke opsplitsing in subtyperingen.",
+            "definition": "Een typering van verschillende soorten emissiepunten.",
             "hasTopConcept": [
-                "riepr-emissiepunt-type:schouw",
                 "riepr-emissiepunt-type:emissiepunt",
-                "riepr-emissiepunt-type:fakkel",
-                "riepr-emissiepunt-type:lozingspunt"
+                "riepr-emissiepunt-type:lozingspunt",
+                "riepr-emissiepunt-type:schoorsteen",
+                "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom",
+                "riepr-emissiepunt-type:schouw"
             ],
-            "note": "Een lijst van verschillende soorten emissiepunten met mogelijke opsplitsing in subtyperingen.",
+            "note": "Een typering van verschillende soorten emissiepunten.",
             "prefLabel": "Emissiepunt types"
         },
         {
-            "id": "conceptscheme:filter_attributen",
+            "id": "conceptscheme:installatie_eigenschappen",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "definition": "Een koppeling tussen attributen van een filter en de attributen die van toepassing zijn met een referentie naar een CSO codelijst voor de eenheid.",
-            "note": "Een koppeling tussen attributen van een filter en de attributen die van toepassing zijn met een referentie naar een CSO codelijst voor de eenheid.",
-            "prefLabel": "Filter attributen"
-        },
-        {
-            "id": "conceptscheme:filter_type",
-            "_type": [
-                "skos:ConceptScheme"
-            ],
-            "definition": "Een lijst van verschillende types van filters en de objecten waarop van toepassing.",
-            "hasTopConcept": [
-                "riepr-filter-type:peilfilter"
-            ],
-            "note": "Een lijst van verschillende types van filters en de objecten waarop van toepassing.",
-            "prefLabel": "Filter types"
-        },
-        {
-            "id": "conceptscheme:installatie_eigenschappen_type",
-            "_type": [
-                "skos:ConceptScheme"
-            ],
-            "definition": "Een lijst die verschillende types geeft voor installatie eigenschappen.",
-            "note": "Een lijst die verschillende types geeft voor installatie eigenschappen.",
-            "prefLabel": "Installatie eigenschappen types"
+            "definition": "Een typering van verschillende eigenschappen voor installaties.",
+            "note": "Een typering van verschillende eigenschappen voor installaties.",
+            "prefLabel": "Installatie eigenschappen"
         },
         {
             "id": "conceptscheme:installatie_type",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "definition": "Een lijst van verschillende types van installaties met eventueel subtyperingen.",
+            "definition": "Een typering van verschillende soorten installaties.",
             "hasTopConcept": [
-                "riepr-installatie-type:gpbv",
-                "riepr-installatie-type:iepr",
-                "riepr-installatie-type:oven",
-                "riepr-installatie-type:zuiveringsinstallatie"
+                "riepr-installatie-type:directe_stookinstallatie",
+                "riepr-installatie-type:stookinstallatie"
             ],
-            "note": "Een lijst van verschillende types van installaties met eventueel subtyperingen.",
+            "note": "Een typering van verschillende soorten installaties.",
             "prefLabel": "Installatie types"
-        },
-        {
-            "id": "conceptscheme:meetinstrument_type",
-            "_type": [
-                "skos:ConceptScheme"
-            ],
-            "definition": "Een lijst van verschillende soorten meetinstrumenten.",
-            "hasTopConcept": [
-                "riepr-meetinstrument-type:debietmeter"
-            ],
-            "note": "Een lijst van verschillende soorten meetinstrumenten.",
-            "prefLabel": "Meetinstrument types"
         },
         {
             "id": "conceptscheme:meetpunt_type",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "definition": "Een lijst van verschillende soorten meetpunten.",
             "hasTopConcept": [
-                "riepr-meetpunt-type:controle-inrichting",
                 "riepr-meetpunt-type:meetput"
             ],
-            "note": "Een lijst van verschillende soorten meetpunten.",
             "prefLabel": "Meetpunt types"
         },
         {
@@ -1380,11 +1085,11 @@
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "definition": "Een lijst van verschillende soorten onttrekkingspunten met mogelijke opsplitsing in subtyperingen.",
+            "definition": "Een typering van verschillende soorten onttrekkingspunten.",
             "hasTopConcept": [
                 "riepr-onttrekkingspunt-type:grondwaterput"
             ],
-            "note": "Een lijst van verschillende soorten onttrekkingspunten met mogelijke opsplitsing in subtyperingen.",
+            "note": "Een typering van verschillende soorten onttrekkingspunten.",
             "prefLabel": "Onttrekkingspunt types"
         },
         {
@@ -1392,54 +1097,333 @@
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "definition": "Een lijst van verschillende hoofdtyperingen van procedures in een procesplan.",
+            "definition": "Een typering van verschillende procedures.",
             "hasTopConcept": [
                 "riepr-procedure-type:emissie",
-                "riepr-procedure-type:meet",
-                "riepr-procedure-type:overbrenging",
-                "riepr-procedure-type:verbruik",
+                "riepr-procedure-type:onttrekking",
+                "riepr-procedure-type:transport",
                 "riepr-procedure-type:verwerking"
             ],
-            "note": "Een lijst van verschillende hoofdtyperingen van procedures in een procesplan.",
+            "note": "Een typering van verschillende procedures.",
             "prefLabel": "Procedure types"
         },
         {
-            "id": "conceptscheme:procesvariabele_type",
+            "id": "conceptscheme:status_type",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "definition": "Een lijst die verschillende types geeft voor stoffen die aangeduid mogen worden bij bepaalde procedure types.",
+            "definition": "Een typering van verschillende statussen (actief, inactief, ...).",
             "hasTopConcept": [
-                "riepr-procesvariabele-type:aardgas",
-                "riepr-procesvariabele-type:co2",
-                "riepr-procesvariabele-type:grondstof"
+                "riepr-status-type:definitief_uit_dienst",
+                "riepr-status-type:in_dienst",
+                "riepr-status-type:ontmanteld",
+                "riepr-status-type:tijdelijk_uit_dienst",
+                "riepr-status-type:voorgesteld"
             ],
-            "note": "Een lijst die verschillende types geeft voor stoffen die aangeduid mogen worden bij bepaalde procedure types.",
-            "prefLabel": "Proces variabele types"
+            "note": "Een typering van verschillende statussen (actief, inactief, ...).",
+            "prefLabel": "Status types"
         },
         {
-            "id": "conceptscheme:rubriek_type",
+            "id": "riepr-emissiepunt-eigenschappen:schouw-diameter",
             "_type": [
-                "skos:ConceptScheme"
+                "skos:Concept"
             ],
-            "definition": "Een typering van verschillende rubrieken (VLAREM rubriektype EGW ...).",
-            "hasTopConcept": [
-                "riepr-rubriek-type:egw",
-                "riepr-rubriek-type:vlarem"
-            ],
-            "note": "Een typering van verschillende rubrieken (VLAREM rubriektype EGW ...).",
-            "prefLabel": "Rubriek types"
-        },
-        {
-            "id": "conceptscheme-alg:vlarem-klasse",
-            "_type": [
-                "skos:ConceptScheme"
-            ],
-            "hasTopConcept": [
-                "vlarem-klasse:k1",
-                "vlarem-klasse:k2",
-                "vlarem-klasse:k3"
+            "relevantUnit": "unit:M",
+            "inScheme": "conceptscheme:emissiepunt_eigenschappen",
+            "code": "diameter",
+            "prefLabel": "Diameter van de schouw",
+            "topConceptOf": "conceptscheme:emissiepunt_eigenschappen",
+            "relevantDataType": "xsd:decimal",
+            "relevantProperty": "dbo:diameter",
+            "relevantriepr": [
+                {
+                    "id": "riepr-emissiepunt-type:schouw",
+                    "_type": [
+                        "skos:Concept"
+                    ],
+                    "definition": "Een schouw.",
+                    "inScheme": {
+                        "id": "conceptscheme:emissiepunt_type",
+                        "_type": [
+                            "skos:ConceptScheme"
+                        ],
+                        "definition": "Een typering van verschillende soorten emissiepunten.",
+                        "hasTopConcept": [
+                            {
+                                "id": "riepr-emissiepunt-type:emissiepunt",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een regulier emissiepunt.",
+                                "inScheme": "conceptscheme:emissiepunt_type",
+                                "code": "emissiepunt",
+                                "note": "Een regulier emissiepunt.",
+                                "prefLabel": "Emissiepunt",
+                                "topConceptOf": "conceptscheme:emissiepunt_type"
+                            },
+                            {
+                                "id": "riepr-emissiepunt-type:lozingspunt",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een lozing naar water.",
+                                "inScheme": "conceptscheme:emissiepunt_type",
+                                "code": "lozingspunt",
+                                "note": "Een lozing naar water.",
+                                "prefLabel": "Lozingspunt",
+                                "topConceptOf": "conceptscheme:emissiepunt_type"
+                            },
+                            {
+                                "id": "riepr-emissiepunt-type:schoorsteen",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een schoorsteen.",
+                                "inScheme": "conceptscheme:emissiepunt_type",
+                                "narrower": [
+                                    {
+                                        "id": "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                                        "_type": [
+                                            "skos:Concept"
+                                        ],
+                                        "broader": "riepr-emissiepunt-type:schoorsteen",
+                                        "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
+                                        "inScheme": "conceptscheme:emissiepunt_type",
+                                        "code": "schoorsteen_horizontale_uitstroom",
+                                        "prefLabel": "Schoorsteen met horizontale uitstroom",
+                                        "semanticRelation": [
+                                            "riepr-emissiepunt-type:schoorsteen"
+                                        ],
+                                        "topConceptOf": "conceptscheme:emissiepunt_type"
+                                    },
+                                    {
+                                        "id": "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom",
+                                        "_type": [
+                                            "skos:Concept"
+                                        ],
+                                        "broader": "riepr-emissiepunt-type:schoorsteen",
+                                        "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
+                                        "inScheme": "conceptscheme:emissiepunt_type",
+                                        "code": "schoorsteen_verticale_uitstroom",
+                                        "prefLabel": "Schoorsteen met vertikale uitstroom",
+                                        "semanticRelation": [
+                                            "riepr-emissiepunt-type:schoorsteen"
+                                        ],
+                                        "topConceptOf": "conceptscheme:emissiepunt_type"
+                                    }
+                                ],
+                                "narrowerTransitive": [
+                                    "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                                    "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom"
+                                ],
+                                "code": "schoorsteen",
+                                "note": "Een schoorsteen.",
+                                "prefLabel": "Schoorsteen",
+                                "semanticRelation": [
+                                    "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                                    "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom"
+                                ],
+                                "topConceptOf": "conceptscheme:emissiepunt_type"
+                            },
+                            "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                            "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom",
+                            "riepr-emissiepunt-type:schouw"
+                        ],
+                        "note": "Een typering van verschillende soorten emissiepunten.",
+                        "prefLabel": "Emissiepunt types"
+                    },
+                    "code": "schouw",
+                    "note": "Een schouw.",
+                    "prefLabel": "Schouw",
+                    "topConceptOf": "conceptscheme:emissiepunt_type"
+                }
             ]
+        },
+        {
+            "id": "riepr-emissiepunt-eigenschappen:schouw-hoogte",
+            "_type": [
+                "skos:Concept"
+            ],
+            "relevantUnit": "unit:M",
+            "inScheme": "conceptscheme:emissiepunt_eigenschappen",
+            "code": "hoogte",
+            "prefLabel": "Hoogte van de schouw",
+            "topConceptOf": "conceptscheme:emissiepunt_eigenschappen",
+            "relevantDataType": "xsd:decimal",
+            "relevantProperty": "dbo:height",
+            "relevantriepr": [
+                {
+                    "id": "riepr-emissiepunt-type:schouw",
+                    "_type": [
+                        "skos:Concept"
+                    ],
+                    "definition": "Een schouw.",
+                    "inScheme": {
+                        "id": "conceptscheme:emissiepunt_type",
+                        "_type": [
+                            "skos:ConceptScheme"
+                        ],
+                        "definition": "Een typering van verschillende soorten emissiepunten.",
+                        "hasTopConcept": [
+                            {
+                                "id": "riepr-emissiepunt-type:emissiepunt",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een regulier emissiepunt.",
+                                "inScheme": "conceptscheme:emissiepunt_type",
+                                "code": "emissiepunt",
+                                "note": "Een regulier emissiepunt.",
+                                "prefLabel": "Emissiepunt",
+                                "topConceptOf": "conceptscheme:emissiepunt_type"
+                            },
+                            {
+                                "id": "riepr-emissiepunt-type:lozingspunt",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een lozing naar water.",
+                                "inScheme": "conceptscheme:emissiepunt_type",
+                                "code": "lozingspunt",
+                                "note": "Een lozing naar water.",
+                                "prefLabel": "Lozingspunt",
+                                "topConceptOf": "conceptscheme:emissiepunt_type"
+                            },
+                            {
+                                "id": "riepr-emissiepunt-type:schoorsteen",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een schoorsteen.",
+                                "inScheme": "conceptscheme:emissiepunt_type",
+                                "narrower": [
+                                    {
+                                        "id": "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                                        "_type": [
+                                            "skos:Concept"
+                                        ],
+                                        "broader": "riepr-emissiepunt-type:schoorsteen",
+                                        "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
+                                        "inScheme": "conceptscheme:emissiepunt_type",
+                                        "code": "schoorsteen_horizontale_uitstroom",
+                                        "prefLabel": "Schoorsteen met horizontale uitstroom",
+                                        "semanticRelation": [
+                                            "riepr-emissiepunt-type:schoorsteen"
+                                        ],
+                                        "topConceptOf": "conceptscheme:emissiepunt_type"
+                                    },
+                                    {
+                                        "id": "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom",
+                                        "_type": [
+                                            "skos:Concept"
+                                        ],
+                                        "broader": "riepr-emissiepunt-type:schoorsteen",
+                                        "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
+                                        "inScheme": "conceptscheme:emissiepunt_type",
+                                        "code": "schoorsteen_verticale_uitstroom",
+                                        "prefLabel": "Schoorsteen met vertikale uitstroom",
+                                        "semanticRelation": [
+                                            "riepr-emissiepunt-type:schoorsteen"
+                                        ],
+                                        "topConceptOf": "conceptscheme:emissiepunt_type"
+                                    }
+                                ],
+                                "narrowerTransitive": [
+                                    "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                                    "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom"
+                                ],
+                                "code": "schoorsteen",
+                                "note": "Een schoorsteen.",
+                                "prefLabel": "Schoorsteen",
+                                "semanticRelation": [
+                                    "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                                    "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom"
+                                ],
+                                "topConceptOf": "conceptscheme:emissiepunt_type"
+                            },
+                            "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                            "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom",
+                            "riepr-emissiepunt-type:schouw"
+                        ],
+                        "note": "Een typering van verschillende soorten emissiepunten.",
+                        "prefLabel": "Emissiepunt types"
+                    },
+                    "code": "schouw",
+                    "note": "Een schouw.",
+                    "prefLabel": "Schouw",
+                    "topConceptOf": "conceptscheme:emissiepunt_type"
+                }
+            ]
+        },
+        {
+            "id": "riepr-status-type:definitief_uit_dienst",
+            "_type": [
+                "skos:Concept"
+            ],
+            "seeAlso": "http://purl.org/adms/status/Withdrawn",
+            "definition": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
+            "inScheme": "conceptscheme:status_type",
+            "code": "DEFINITIEF_UIT_DIENST",
+            "note": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
+            "prefLabel": "Definitief uit dienst",
+            "topConceptOf": "conceptscheme:status_type",
+            "relevantDataType": "http://www.w3.org/ns/adms#"
+        },
+        {
+            "id": "riepr-status-type:in_dienst",
+            "_type": [
+                "skos:Concept"
+            ],
+            "seeAlso": "http://purl.org/adms/status/Completed",
+            "definition": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
+            "inScheme": "conceptscheme:status_type",
+            "code": "IN_DIENST",
+            "note": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
+            "prefLabel": "In dienst",
+            "topConceptOf": "conceptscheme:status_type",
+            "relevantDataType": "http://www.w3.org/ns/adms#"
+        },
+        {
+            "id": "riepr-status-type:ontmanteld",
+            "_type": [
+                "skos:Concept"
+            ],
+            "seeAlso": "http://purl.org/adms/status/Withdrawn",
+            "definition": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
+            "inScheme": "conceptscheme:status_type",
+            "code": "ONTMANTELD",
+            "note": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
+            "prefLabel": "Ontmanteld",
+            "topConceptOf": "conceptscheme:status_type",
+            "relevantDataType": "http://www.w3.org/ns/adms#"
+        },
+        {
+            "id": "riepr-status-type:tijdelijk_uit_dienst",
+            "_type": [
+                "skos:Concept"
+            ],
+            "seeAlso": "http://purl.org/adms/status/Deprecated",
+            "definition": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
+            "inScheme": "conceptscheme:status_type",
+            "code": "TIJDELIJK_UIT_DIENST",
+            "note": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
+            "prefLabel": "Tijdelijk uit dienst",
+            "topConceptOf": "conceptscheme:status_type",
+            "relevantDataType": "http://www.w3.org/ns/adms#"
+        },
+        {
+            "id": "riepr-status-type:voorgesteld",
+            "_type": [
+                "skos:Concept"
+            ],
+            "seeAlso": "http://purl.org/adms/status/UnderDevelopment",
+            "definition": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
+            "inScheme": "conceptscheme:status_type",
+            "code": "VOORGESTELD",
+            "note": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
+            "prefLabel": "Voorgesteld Ontwerp",
+            "topConceptOf": "conceptscheme:status_type",
+            "relevantDataType": "http://www.w3.org/ns/adms#"
         }
     ]
 }

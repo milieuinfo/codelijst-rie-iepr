@@ -101,259 +101,206 @@
 @prefix xkos: <http://rdf-vocabulary.ddialliance.org/xkos#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 
-unit:KiloW-HR a qudt:Unit;
-    skos:altLabel "Kilowattuur"@nl.
-unit:M3-PER-HR a qudt:Unit;
-    skos:altLabel "Kubieke meter per uur"@nl.
-unit:M3 a qudt:Unit;
-    skos:altLabel "Kubieke meter"@nl.
-unit:M a qudt:Unit;
-    skos:altLabel "Meter"@nl.
-unit:MilliS-PER-CentiM a qudt:Unit;
-    skos:altLabel "Millisiemens per centimeter"@nl.
-unit:NUM a qudt:Unit;
-    skos:altLabel "Getal"@nl.
-unit:PA a qudt:Unit;
-    skos:altLabel "Pascal"@nl.
-unit:PH a qudt:Unit;
-    skos:altLabel "Ph"@nl.
-unit:TON-PER-YR a qudt:Unit;
-    skos:altLabel "Ton per jaar"@nl.
-riepr-emissiepunt-attr:schouw-diameter qudt:relevantUnit unit:M;
-    a skos:Concept;
-    skos:inScheme conceptscheme:emissiepunt_attributen;
-    skos:notation "diameter";
-    skos:prefLabel "Diameter van de schouw"@nl;
-    skos:topConceptOf conceptscheme:emissiepunt_attributen;
-    riepr-vocab:relevantDataType xsd:decimal;
-    riepr-vocab:relevantProperty dbo:diameter;
-    riepr-vocab:relevantriepr riepr-emissiepunt-type:schouw.
-riepr-emissiepunt-attr:schouw-hoogte qudt:relevantUnit unit:M;
-    a skos:Concept;
-    skos:inScheme conceptscheme:emissiepunt_attributen;
-    skos:notation "hoogte";
-    skos:prefLabel "Hoogte van de schouw"@nl;
-    skos:topConceptOf conceptscheme:emissiepunt_attributen;
-    riepr-vocab:relevantDataType xsd:decimal;
-    riepr-vocab:relevantProperty dbo:height;
-    riepr-vocab:relevantriepr riepr-emissiepunt-type:schouw.
 riepr-emissiepunt-type:emissiepunt a skos:Concept;
+    skos:definition "Een regulier emissiepunt."@nl;
     skos:inScheme conceptscheme:emissiepunt_type;
     skos:notation "emissiepunt";
+    skos:note "Een regulier emissiepunt."@nl;
     skos:prefLabel "Emissiepunt"@nl;
     skos:topConceptOf conceptscheme:emissiepunt_type.
-riepr-emissiepunt-type:fakkel a skos:Concept;
-    skos:inScheme conceptscheme:emissiepunt_type;
-    skos:notation "fakkel";
-    skos:prefLabel "Fakkel"@nl;
-    skos:topConceptOf conceptscheme:emissiepunt_type.
 riepr-emissiepunt-type:lozingspunt a skos:Concept;
+    skos:definition "Een lozing naar water."@nl;
     skos:inScheme conceptscheme:emissiepunt_type;
     skos:notation "lozingspunt";
+    skos:note "Een lozing naar water."@nl;
     skos:prefLabel "Lozingspunt"@nl;
     skos:topConceptOf conceptscheme:emissiepunt_type.
+riepr-emissiepunt-type:schoorsteen a skos:Concept;
+    skos:definition "Een schoorsteen."@nl;
+    skos:inScheme conceptscheme:emissiepunt_type;
+    skos:narrower riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom, riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom;
+    skos:narrowerTransitive riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom, riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom;
+    skos:notation "schoorsteen";
+    skos:note "Een schoorsteen."@nl;
+    skos:prefLabel "Schoorsteen"@nl;
+    skos:semanticRelation riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom, riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom;
+    skos:topConceptOf conceptscheme:emissiepunt_type.
+riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom a skos:Concept;
+    skos:broader riepr-emissiepunt-type:schoorsteen;
+    skos:broaderTransitive riepr-emissiepunt-type:schoorsteen;
+    skos:inScheme conceptscheme:emissiepunt_type;
+    skos:notation "schoorsteen_horizontale_uitstroom";
+    skos:prefLabel "Schoorsteen met horizontale uitstroom"@nl;
+    skos:semanticRelation riepr-emissiepunt-type:schoorsteen;
+    skos:topConceptOf conceptscheme:emissiepunt_type.
+riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom a skos:Concept;
+    skos:broader riepr-emissiepunt-type:schoorsteen;
+    skos:broaderTransitive riepr-emissiepunt-type:schoorsteen;
+    skos:inScheme conceptscheme:emissiepunt_type;
+    skos:notation "schoorsteen_verticale_uitstroom";
+    skos:prefLabel "Schoorsteen met vertikale uitstroom"@nl;
+    skos:semanticRelation riepr-emissiepunt-type:schoorsteen;
+    skos:topConceptOf conceptscheme:emissiepunt_type.
 riepr-emissiepunt-type:schouw a skos:Concept;
+    skos:definition "Een schouw."@nl;
     skos:inScheme conceptscheme:emissiepunt_type;
     skos:notation "schouw";
+    skos:note "Een schouw."@nl;
     skos:prefLabel "Schouw"@nl;
     skos:topConceptOf conceptscheme:emissiepunt_type.
-riepr-filter-type:peilfilter a skos:Concept;
-    skos:definition "Filter voor het meten van het grondwaterpeil."@nl;
-    skos:inScheme conceptscheme:filter_type;
-    skos:notation "peilfilter";
-    skos:note "Filter voor het meten van het grondwaterpeil."@nl;
-    skos:prefLabel "Peilfilter"@nl;
-    skos:topConceptOf conceptscheme:filter_type.
-riepr-installatie-type:gpbv a skos:Concept;
-    skos:definition "Installatie die valt onder de richtlijn industriële emissies (IED/GPBV)."@nl;
+riepr-installatie-type:directe_stookinstallatie a skos:Concept;
     skos:inScheme conceptscheme:installatie_type;
-    skos:notation "GPBV";
-    skos:note "Installatie die valt onder de richtlijn industriële emissies (IED/GPBV)."@nl;
-    skos:prefLabel "GPBV installatie"@nl;
+    skos:notation "directe_stookinstallatie";
+    skos:prefLabel "Directe Stookinstallatie"@nl;
     skos:topConceptOf conceptscheme:installatie_type.
-riepr-installatie-type:iepr a skos:Concept;
-    skos:definition "Installatie in het kader van IEPR rapportering."@nl;
+riepr-installatie-type:stookinstallatie a skos:Concept;
     skos:inScheme conceptscheme:installatie_type;
-    skos:notation "IEPR";
-    skos:note "Installatie in het kader van IEPR rapportering."@nl;
-    skos:prefLabel "IEPR installatie"@nl;
+    skos:notation "stookinstallatie";
+    skos:prefLabel "Stookinstallatie"@nl;
     skos:topConceptOf conceptscheme:installatie_type.
-riepr-installatie-type:oven a skos:Concept;
-    skos:inScheme conceptscheme:installatie_type;
-    skos:notation "oven";
-    skos:prefLabel "Oven"@nl;
-    skos:topConceptOf conceptscheme:installatie_type.
-riepr-installatie-type:zuiveringsinstallatie a skos:Concept;
-    skos:inScheme conceptscheme:installatie_type;
-    skos:notation "zuiveringsinstallatie";
-    skos:prefLabel "Zuiveringsinstallatie"@nl;
-    skos:topConceptOf conceptscheme:installatie_type.
-riepr-meetinstrument-type:debietmeter a skos:Concept;
-    skos:inScheme conceptscheme:meetinstrument_type;
-    skos:notation "debietmeter";
-    skos:prefLabel "Debietmeter"@nl;
-    skos:topConceptOf conceptscheme:meetinstrument_type.
-riepr-meetpunt-type:controle-inrichting a skos:Concept;
-    skos:inScheme conceptscheme:meetpunt_type;
-    skos:notation "controle_inrichting";
-    skos:prefLabel "Controle inrichting"@nl;
-    skos:topConceptOf conceptscheme:meetpunt_type.
 riepr-meetpunt-type:meetput a skos:Concept;
     skos:inScheme conceptscheme:meetpunt_type;
     skos:notation "meetput";
     skos:prefLabel "Meetput"@nl;
     skos:topConceptOf conceptscheme:meetpunt_type.
 riepr-onttrekkingspunt-type:grondwaterput a skos:Concept;
-    skos:definition "Een put voor de onttrekking van grondwater."@nl;
     skos:inScheme conceptscheme:onttrekkingspunt_type;
     skos:notation "grondwaterput";
-    skos:note "Een put voor de onttrekking van grondwater."@nl;
     skos:prefLabel "Grondwaterput"@nl;
     skos:topConceptOf conceptscheme:onttrekkingspunt_type.
-riepr-procedure-type:emissie a rdfs:Resource, skos:Concept;
+riepr-procedure-type:emissie a skos:Concept;
+    skos:definition "De procedure emissie via een emissiepunt."@nl;
     skos:inScheme conceptscheme:procedure_type;
     skos:notation "EMISSIE";
+    skos:note "De procedure emissie via een emissiepunt."@nl;
     skos:prefLabel "Emissie"@nl;
-    skos:topConceptOf conceptscheme:procedure_type.
-riepr-procedure-type:meet a skos:Concept;
+    skos:topConceptOf conceptscheme:procedure_type;
+    riepr-vocab:relevantDataType sosa:Procedure.
+riepr-procedure-type:onttrekking a skos:Concept;
+    skos:definition "De procedure onttrekking via een onttrekingspunt."@nl;
     skos:inScheme conceptscheme:procedure_type;
-    skos:notation "MEET";
-    skos:prefLabel "Meet"@nl;
-    skos:topConceptOf conceptscheme:procedure_type.
-riepr-procedure-type:overbrenging a skos:Concept;
+    skos:notation "ONTTREKKING";
+    skos:note "De procedure onttrekking via een onttrekingspunt."@nl;
+    skos:prefLabel "Onttrekking"@nl;
+    skos:topConceptOf conceptscheme:procedure_type;
+    riepr-vocab:relevantDataType sosa:Procedure.
+riepr-procedure-type:transport a skos:Concept;
+    skos:definition "De procedure transport tussen twee processen."@nl;
     skos:inScheme conceptscheme:procedure_type;
-    skos:notation "OVERBRENGING";
-    skos:prefLabel "Overbrenging"@nl;
-    skos:topConceptOf conceptscheme:procedure_type.
-riepr-procedure-type:verbruik a rdfs:Resource, skos:Concept;
-    skos:inScheme conceptscheme:procedure_type;
-    skos:notation "VERBRUIK";
-    skos:prefLabel "Verbruik"@nl;
-    skos:topConceptOf conceptscheme:procedure_type.
-riepr-procedure-type:verwerking a rdfs:Resource, skos:Concept;
+    skos:notation "TRANSPORT";
+    skos:note "De procedure transport tussen twee processen."@nl;
+    skos:prefLabel "Transport"@nl;
+    skos:topConceptOf conceptscheme:procedure_type;
+    riepr-vocab:relevantDataType sosa:Procedure.
+riepr-procedure-type:verwerking a skos:Concept;
+    skos:definition "De procedure verwerking door een installatie."@nl;
     skos:inScheme conceptscheme:procedure_type;
     skos:notation "VERWERKING";
+    skos:note "De procedure verwerking door een installatie."@nl;
     skos:prefLabel "Verwerking"@nl;
-    skos:topConceptOf conceptscheme:procedure_type.
-riepr-procesvariabele-type:aardgas dcterms:subject riepr-procedure-type:verbruik;
-    qudt:relevantUnit unit:TON-PER-YR;
-    a skos:Concept;
-    skos:inScheme conceptscheme:procesvariabele_type;
-    skos:notation "aardgas";
-    skos:prefLabel "Aardgas"@nl;
-    skos:topConceptOf conceptscheme:procesvariabele_type;
-    riepr-vocab:relevantDataType xsd:decimal.
-riepr-procesvariabele-type:co2 dcterms:subject riepr-procedure-type:emissie;
-    a skos:Concept;
-    skos:inScheme conceptscheme:procesvariabele_type;
-    skos:notation "co2";
-    skos:prefLabel "CO2"@nl;
-    skos:topConceptOf conceptscheme:procesvariabele_type;
-    riepr-vocab:relevantriepr <https://data.omgeving.vlaanderen.be/id/concept/stof/co2>.
-riepr-procesvariabele-type:grondstof dcterms:subject riepr-procedure-type:verwerking;
-    a skos:Concept;
-    skos:definition "Grondstof met vrije invoer subtypering."@nl;
-    skos:inScheme conceptscheme:procesvariabele_type;
-    skos:notation "grondstof";
-    skos:note "Grondstof met vrije invoer subtypering."@nl;
-    skos:prefLabel "Grondstof"@nl;
-    skos:topConceptOf conceptscheme:procesvariabele_type.
-riepr-rubriek-type:egw a skos:Concept;
-    skos:definition "EGW rubriektype."@nl;
-    skos:inScheme conceptscheme:rubriek_type;
-    skos:notation "EGW";
-    skos:note "EGW rubriektype."@nl;
-    skos:prefLabel "EGW"@nl;
-    skos:topConceptOf conceptscheme:rubriek_type.
-riepr-rubriek-type:vlarem a skos:Concept;
-    skos:definition "VLAREM rubriektype."@nl;
-    skos:inScheme conceptscheme:rubriek_type;
-    skos:notation "VLAREM";
-    skos:note "VLAREM rubriektype."@nl;
-    skos:prefLabel "VLAREM"@nl;
-    skos:topConceptOf conceptscheme:rubriek_type.
-vlarem-klasse:k1 a skos:Concept;
-    skos:altLabel "VLAREM klasse 1"@nl;
-    skos:definition "Indelingsklasse voor inrichtingen met de grootste milieu-impact. Voor deze activiteiten geldt een omgevingsvergunning klasse 1 (zwaarste procedure)."@nl;
-    skos:inScheme conceptscheme-alg:vlarem-klasse;
-    skos:note "Indelingsklasse voor inrichtingen met de grootste milieu-impact. Voor deze activiteiten geldt een omgevingsvergunning klasse 1 (zwaarste procedure)."@nl;
-    skos:prefLabel "Klasse 1"@nl;
-    skos:topConceptOf conceptscheme-alg:vlarem-klasse.
-vlarem-klasse:k2 a skos:Concept;
-    skos:altLabel "VLAREM klasse 2"@nl;
-    skos:definition "Indelingsklasse voor inrichtingen met een middelgrote milieu-impact. Voor deze activiteiten geldt een omgevingsvergunning klasse 2."@nl;
-    skos:inScheme conceptscheme-alg:vlarem-klasse;
-    skos:note "Indelingsklasse voor inrichtingen met een middelgrote milieu-impact. Voor deze activiteiten geldt een omgevingsvergunning klasse 2."@nl;
-    skos:prefLabel "Klasse 2"@nl;
-    skos:topConceptOf conceptscheme-alg:vlarem-klasse.
-vlarem-klasse:k3 a skos:Concept;
-    skos:altLabel "VLAREM klasse 3"@nl;
-    skos:definition "Indelingsklasse voor inrichtingen met een beperkte milieu-impact. Voor deze activiteiten geldt een meldingsplicht (klasse 3)."@nl;
-    skos:inScheme conceptscheme-alg:vlarem-klasse;
-    skos:note "Indelingsklasse voor inrichtingen met een beperkte milieu-impact. Voor deze activiteiten geldt een meldingsplicht (klasse 3)."@nl;
-    skos:prefLabel "Klasse 3"@nl;
-    skos:topConceptOf conceptscheme-alg:vlarem-klasse.
-conceptscheme:datatypes a skos:ConceptScheme;
-    skos:definition "Een lijst van verschillende externe identificatoren die al dan niet uniek zijn."@nl;
-    skos:note "Een lijst van verschillende externe identificatoren die al dan niet uniek zijn."@nl;
-    skos:prefLabel "Externe identificatoren"@nl.
-conceptscheme:emissiepunt_attributen a skos:ConceptScheme;
-    skos:definition "Een lijst die een koppeling maakt tussen soorten emissiepunten en de attributen die van toepassing zijn."@nl;
-    skos:hasTopConcept riepr-emissiepunt-attr:schouw-diameter, riepr-emissiepunt-attr:schouw-hoogte;
-    skos:note "Een lijst die een koppeling maakt tussen soorten emissiepunten en de attributen die van toepassing zijn."@nl;
-    skos:prefLabel "Emissiepunt attributen"@nl.
+    skos:topConceptOf conceptscheme:procedure_type;
+    riepr-vocab:relevantDataType sosa:Procedure.
+conceptscheme:data_type a skos:ConceptScheme;
+    skos:definition "Een typering van verschillende data types."@nl;
+    skos:note "Een typering van verschillende data types."@nl;
+    skos:prefLabel "Data types"@nl.
+conceptscheme:emissiepunt_eigenschappen a skos:ConceptScheme;
+    skos:definition "Een typering van verschillende eigenschappen voor emissiepunten."@nl;
+    skos:hasTopConcept <riepr-emissiepunt-eigenschappen:schouw-diameter>, <riepr-emissiepunt-eigenschappen:schouw-hoogte>;
+    skos:note "Een typering van verschillende eigenschappen voor emissiepunten."@nl;
+    skos:prefLabel "Emissiepunt eigenschappen"@nl.
 conceptscheme:emissiepunt_type a skos:ConceptScheme;
-    skos:definition "Een lijst van verschillende soorten emissiepunten met mogelijke opsplitsing in subtyperingen."@nl;
-    skos:hasTopConcept riepr-emissiepunt-type:emissiepunt, riepr-emissiepunt-type:fakkel, riepr-emissiepunt-type:lozingspunt, riepr-emissiepunt-type:schouw;
-    skos:note "Een lijst van verschillende soorten emissiepunten met mogelijke opsplitsing in subtyperingen."@nl;
+    skos:definition "Een typering van verschillende soorten emissiepunten."@nl;
+    skos:hasTopConcept riepr-emissiepunt-type:emissiepunt, riepr-emissiepunt-type:lozingspunt, riepr-emissiepunt-type:schoorsteen, riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom, riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom, riepr-emissiepunt-type:schouw;
+    skos:note "Een typering van verschillende soorten emissiepunten."@nl;
     skos:prefLabel "Emissiepunt types"@nl.
-conceptscheme:filter_attributen a skos:ConceptScheme;
-    skos:definition "Een koppeling tussen attributen van een filter en de attributen die van toepassing zijn met een referentie naar een CSO codelijst voor de eenheid."@nl;
-    skos:note "Een koppeling tussen attributen van een filter en de attributen die van toepassing zijn met een referentie naar een CSO codelijst voor de eenheid."@nl;
-    skos:prefLabel "Filter attributen"@nl.
-conceptscheme:filter_type a skos:ConceptScheme;
-    skos:definition "Een lijst van verschillende types van filters en de objecten waarop van toepassing."@nl;
-    skos:hasTopConcept riepr-filter-type:peilfilter;
-    skos:note "Een lijst van verschillende types van filters en de objecten waarop van toepassing."@nl;
-    skos:prefLabel "Filter types"@nl.
-conceptscheme:installatie_eigenschappen_type a skos:ConceptScheme;
-    skos:definition "Een lijst die verschillende types geeft voor installatie eigenschappen."@nl;
-    skos:note "Een lijst die verschillende types geeft voor installatie eigenschappen."@nl;
-    skos:prefLabel "Installatie eigenschappen types"@nl.
+conceptscheme:installatie_eigenschappen a skos:ConceptScheme;
+    skos:definition "Een typering van verschillende eigenschappen voor installaties."@nl;
+    skos:note "Een typering van verschillende eigenschappen voor installaties."@nl;
+    skos:prefLabel "Installatie eigenschappen"@nl.
 conceptscheme:installatie_type a skos:ConceptScheme;
-    skos:definition "Een lijst van verschillende types van installaties met eventueel subtyperingen."@nl;
-    skos:hasTopConcept riepr-installatie-type:gpbv, riepr-installatie-type:iepr, riepr-installatie-type:oven, riepr-installatie-type:zuiveringsinstallatie;
-    skos:note "Een lijst van verschillende types van installaties met eventueel subtyperingen."@nl;
+    skos:definition "Een typering van verschillende soorten installaties."@nl;
+    skos:hasTopConcept riepr-installatie-type:directe_stookinstallatie, riepr-installatie-type:stookinstallatie;
+    skos:note "Een typering van verschillende soorten installaties."@nl;
     skos:prefLabel "Installatie types"@nl.
-conceptscheme:meetinstrument_type a skos:ConceptScheme;
-    skos:definition "Een lijst van verschillende soorten meetinstrumenten."@nl;
-    skos:hasTopConcept riepr-meetinstrument-type:debietmeter;
-    skos:note "Een lijst van verschillende soorten meetinstrumenten."@nl;
-    skos:prefLabel "Meetinstrument types"@nl.
 conceptscheme:meetpunt_type a skos:ConceptScheme;
-    skos:definition "Een lijst van verschillende soorten meetpunten."@nl;
-    skos:hasTopConcept riepr-meetpunt-type:controle-inrichting, riepr-meetpunt-type:meetput;
-    skos:note "Een lijst van verschillende soorten meetpunten."@nl;
+    skos:hasTopConcept riepr-meetpunt-type:meetput;
     skos:prefLabel "Meetpunt types"@nl.
 conceptscheme:onttrekkingspunt_type a skos:ConceptScheme;
-    skos:definition "Een lijst van verschillende soorten onttrekkingspunten met mogelijke opsplitsing in subtyperingen."@nl;
+    skos:definition "Een typering van verschillende soorten onttrekkingspunten."@nl;
     skos:hasTopConcept riepr-onttrekkingspunt-type:grondwaterput;
-    skos:note "Een lijst van verschillende soorten onttrekkingspunten met mogelijke opsplitsing in subtyperingen."@nl;
+    skos:note "Een typering van verschillende soorten onttrekkingspunten."@nl;
     skos:prefLabel "Onttrekkingspunt types"@nl.
 conceptscheme:procedure_type a skos:ConceptScheme;
-    skos:definition "Een lijst van verschillende hoofdtyperingen van procedures in een procesplan."@nl;
-    skos:hasTopConcept riepr-procedure-type:emissie, riepr-procedure-type:meet, riepr-procedure-type:overbrenging, riepr-procedure-type:verbruik, riepr-procedure-type:verwerking;
-    skos:note "Een lijst van verschillende hoofdtyperingen van procedures in een procesplan."@nl;
+    skos:definition "Een typering van verschillende procedures."@nl;
+    skos:hasTopConcept riepr-procedure-type:emissie, riepr-procedure-type:onttrekking, riepr-procedure-type:transport, riepr-procedure-type:verwerking;
+    skos:note "Een typering van verschillende procedures."@nl;
     skos:prefLabel "Procedure types"@nl.
-conceptscheme:procesvariabele_type a skos:ConceptScheme;
-    skos:definition "Een lijst die verschillende types geeft voor stoffen die aangeduid mogen worden bij bepaalde procedure types."@nl;
-    skos:hasTopConcept riepr-procesvariabele-type:aardgas, riepr-procesvariabele-type:co2, riepr-procesvariabele-type:grondstof;
-    skos:note "Een lijst die verschillende types geeft voor stoffen die aangeduid mogen worden bij bepaalde procedure types."@nl;
-    skos:prefLabel "Proces variabele types"@nl.
-conceptscheme:rubriek_type a skos:ConceptScheme;
-    skos:definition "Een typering van verschillende rubrieken (VLAREM rubriektype EGW ...)."@nl;
-    skos:hasTopConcept riepr-rubriek-type:egw, riepr-rubriek-type:vlarem;
-    skos:note "Een typering van verschillende rubrieken (VLAREM rubriektype EGW ...)."@nl;
-    skos:prefLabel "Rubriek types"@nl.
-conceptscheme-alg:vlarem-klasse a skos:ConceptScheme;
-    skos:hasTopConcept vlarem-klasse:k1, vlarem-klasse:k2, vlarem-klasse:k3.
+conceptscheme:status_type a skos:ConceptScheme;
+    skos:definition "Een typering van verschillende statussen (actief, inactief, ...)."@nl;
+    skos:hasTopConcept <riepr-status-type:definitief_uit_dienst>, <riepr-status-type:in_dienst>, <riepr-status-type:ontmanteld>, <riepr-status-type:tijdelijk_uit_dienst>, <riepr-status-type:voorgesteld>;
+    skos:note "Een typering van verschillende statussen (actief, inactief, ...)."@nl;
+    skos:prefLabel "Status types"@nl.
+<riepr-emissiepunt-eigenschappen:schouw-diameter> qudt:relevantUnit unit:M;
+    a skos:Concept;
+    skos:inScheme conceptscheme:emissiepunt_eigenschappen;
+    skos:notation "diameter";
+    skos:prefLabel "Diameter van de schouw"@nl;
+    skos:topConceptOf conceptscheme:emissiepunt_eigenschappen;
+    riepr-vocab:relevantDataType xsd:decimal;
+    riepr-vocab:relevantProperty dbo:diameter;
+    riepr-vocab:relevantriepr riepr-emissiepunt-type:schouw.
+<riepr-emissiepunt-eigenschappen:schouw-hoogte> qudt:relevantUnit unit:M;
+    a skos:Concept;
+    skos:inScheme conceptscheme:emissiepunt_eigenschappen;
+    skos:notation "hoogte";
+    skos:prefLabel "Hoogte van de schouw"@nl;
+    skos:topConceptOf conceptscheme:emissiepunt_eigenschappen;
+    riepr-vocab:relevantDataType xsd:decimal;
+    riepr-vocab:relevantProperty dbo:height;
+    riepr-vocab:relevantriepr riepr-emissiepunt-type:schouw.
+<riepr-status-type:definitief_uit_dienst> a skos:Concept;
+    rdfs:seeAlso <http://purl.org/adms/status/Withdrawn>;
+    skos:definition "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is."@nl;
+    skos:inScheme conceptscheme:status_type;
+    skos:notation "DEFINITIEF_UIT_DIENST";
+    skos:note "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is."@nl;
+    skos:prefLabel "Definitief uit dienst"@nl;
+    skos:topConceptOf conceptscheme:status_type;
+    riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
+<riepr-status-type:in_dienst> a skos:Concept;
+    rdfs:seeAlso <http://purl.org/adms/status/Completed>;
+    skos:definition "De status in dienst geeft aan dat een entiteit momenteel in gebruik is."@nl;
+    skos:inScheme conceptscheme:status_type;
+    skos:notation "IN_DIENST";
+    skos:note "De status in dienst geeft aan dat een entiteit momenteel in gebruik is."@nl;
+    skos:prefLabel "In dienst"@nl;
+    skos:topConceptOf conceptscheme:status_type;
+    riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
+<riepr-status-type:ontmanteld> a skos:Concept;
+    rdfs:seeAlso <http://purl.org/adms/status/Withdrawn>;
+    skos:definition "De status ontmanteld geeft aan dat een entiteit niet meer bestaat."@nl;
+    skos:inScheme conceptscheme:status_type;
+    skos:notation "ONTMANTELD";
+    skos:note "De status ontmanteld geeft aan dat een entiteit niet meer bestaat."@nl;
+    skos:prefLabel "Ontmanteld"@nl;
+    skos:topConceptOf conceptscheme:status_type;
+    riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
+<riepr-status-type:tijdelijk_uit_dienst> a skos:Concept;
+    rdfs:seeAlso <http://purl.org/adms/status/Deprecated>;
+    skos:definition "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is."@nl;
+    skos:inScheme conceptscheme:status_type;
+    skos:notation "TIJDELIJK_UIT_DIENST";
+    skos:note "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is."@nl;
+    skos:prefLabel "Tijdelijk uit dienst"@nl;
+    skos:topConceptOf conceptscheme:status_type;
+    riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
+<riepr-status-type:voorgesteld> a skos:Concept;
+    rdfs:seeAlso <http://purl.org/adms/status/UnderDevelopment>;
+    skos:definition "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid."@nl;
+    skos:inScheme conceptscheme:status_type;
+    skos:notation "VOORGESTELD";
+    skos:note "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid."@nl;
+    skos:prefLabel "Voorgesteld Ontwerp"@nl;
+    skos:topConceptOf conceptscheme:status_type;
+    riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.

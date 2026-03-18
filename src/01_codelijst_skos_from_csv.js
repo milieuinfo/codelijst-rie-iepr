@@ -5,6 +5,4 @@ import {
     skosSource
 } from './utils/variables.js';
 
-
 generate_skos(skosOptions, skosSource);
-

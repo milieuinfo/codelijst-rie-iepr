@@ -5,7 +5,9 @@
   "description": "",
   "main": "src/main/nodejs/01_codelijst_skos_from_csv.js",
   "scripts": {
-    "create_metadata": "cd src && node 02_metadata.js"
+    "generate_skos": "cd src && node 01_codelijst_skos_from_csv.js",
+    "create_metadata": "cd src && node 02_metadata.js",
+    "deploy": "cd src && node 99_deploy_latest.js"
   },
   "keywords": [
     "milieuinfo",
