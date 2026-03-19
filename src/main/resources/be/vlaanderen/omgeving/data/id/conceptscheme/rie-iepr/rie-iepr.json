@@ -1,5 +1,57 @@
 [
     {
+        "id": "http://qudt.org/vocab/unit/M",
+        "_type": [
+            "http://qudt.org/schema/qudt/Unit",
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden",
+        "code": "m",
+        "prefLabel": "Meter",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden"
+    },
+    {
+        "id": "http://qudt.org/vocab/unit/MegaW",
+        "_type": [
+            "http://qudt.org/schema/qudt/Unit",
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden",
+        "code": "MW",
+        "prefLabel": "Mega Watt",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/schouw-diameter",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "relevantUnit": "http://qudt.org/vocab/unit/M",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen",
+        "code": "diameter",
+        "prefLabel": "Diameter van de schouw",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen",
+        "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal",
+        "relevantRiepr": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schouw"
+        ]
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/schouw-hoogte",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "relevantUnit": "http://qudt.org/vocab/unit/M",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen",
+        "code": "hoogte",
+        "prefLabel": "Hoogte van de schouw",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen",
+        "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal",
+        "relevantRiepr": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schouw"
+        ]
+    },
+    {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/emissiepunt",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
@@ -90,6 +142,21 @@
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type"
     },
     {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/geinstalleerd_vermogen",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "relevantUnit": "http://qudt.org/vocab/unit/MegaW",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen",
+        "code": "GEINSTALLEERD_VERMOGEN",
+        "prefLabel": "Geinstalleerd vermogen",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen",
+        "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal",
+        "relevantRiepr": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie"
+        ]
+    },
+    {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
@@ -153,7 +220,8 @@
         "code": "EMISSIE",
         "note": "De procedure emissie via een emissiepunt.",
         "prefLabel": "Emissie",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type"
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type",
+        "relevantDataType": "http://www.w3.org/ns/sosa/Procedure"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/onttrekking",
@@ -165,7 +233,8 @@
         "code": "ONTTREKKING",
         "note": "De procedure onttrekking via een onttrekingspunt.",
         "prefLabel": "Onttrekking",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type"
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type",
+        "relevantDataType": "http://www.w3.org/ns/sosa/Procedure"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/transport",
@@ -177,7 +246,8 @@
         "code": "TRANSPORT",
         "note": "De procedure transport tussen twee processen.",
         "prefLabel": "Transport",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type"
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type",
+        "relevantDataType": "http://www.w3.org/ns/sosa/Procedure"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/verwerking",
@@ -189,7 +259,8 @@
         "code": "VERWERKING",
         "note": "De procedure verwerking door een installatie.",
         "prefLabel": "Verwerking",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type"
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type",
+        "relevantDataType": "http://www.w3.org/ns/sosa/Procedure"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/definitief_uit_dienst",
@@ -202,7 +273,8 @@
         "code": "DEFINITIEF_UIT_DIENST",
         "note": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
         "prefLabel": "Definitief uit dienst",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type"
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type",
+        "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/in_dienst",
@@ -215,7 +287,8 @@
         "code": "IN_DIENST",
         "note": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
         "prefLabel": "In dienst",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type"
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type",
+        "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/ontmanteld",
@@ -228,7 +301,8 @@
         "code": "ONTMANTELD",
         "note": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
         "prefLabel": "Ontmanteld",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type"
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type",
+        "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/tijdelijk_uit_dienst",
@@ -241,7 +315,8 @@
         "code": "TIJDELIJK_UIT_DIENST",
         "note": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
         "prefLabel": "Tijdelijk uit dienst",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type"
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type",
+        "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/voorgesteld",
@@ -254,7 +329,18 @@
         "code": "VOORGESTELD",
         "note": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
         "prefLabel": "Voorgesteld Ontwerp",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type"
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type",
+        "relevantDataType": "http://www.w3.org/ns/adms#"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+        ],
+        "hasTopConcept": [
+            "http://qudt.org/vocab/unit/M",
+            "http://qudt.org/vocab/unit/MegaW"
+        ]
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen",
@@ -263,8 +349,8 @@
         ],
         "definition": "Een typering van verschillende eigenschappen voor emissiepunten.",
         "hasTopConcept": [
-            "riepr-emissiepunt-eigenschappen:schouw-diameter",
-            "riepr-emissiepunt-eigenschappen:schouw-hoogte"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/schouw-diameter",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/schouw-hoogte"
         ],
         "note": "Een typering van verschillende eigenschappen voor emissiepunten.",
         "prefLabel": "Emissiepunt eigenschappen"
@@ -276,12 +362,12 @@
         ],
         "definition": "Een typering van verschillende soorten emissiepunten.",
         "hasTopConcept": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schouw",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/emissiepunt",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/lozingspunt",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_horizontale_uitstroom",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_vertikale_uitstroom",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schouw"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_vertikale_uitstroom"
         ],
         "note": "Een typering van verschillende soorten emissiepunten.",
         "prefLabel": "Emissiepunt types"
@@ -293,7 +379,7 @@
         ],
         "definition": "Een typering van verschillende eigenschappen voor installaties.",
         "hasTopConcept": [
-            "riepr-installatie-eigenschappen:geinstalleerd_vermogen"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/geinstalleerd_vermogen"
         ],
         "note": "Een typering van verschillende eigenschappen voor installaties.",
         "prefLabel": "Installatie eigenschappen"
@@ -305,8 +391,8 @@
         ],
         "definition": "Een typering van verschillende soorten installaties.",
         "hasTopConcept": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie"
         ],
         "note": "Een typering van verschillende soorten installaties.",
         "prefLabel": "Installatie types"
@@ -363,44 +449,5 @@
         ],
         "note": "Een typering van verschillende statussen (actief, inactief, ...).",
         "prefLabel": "Status types"
-    },
-    {
-        "id": "riepr-emissiepunt-eigenschappen:schouw-diameter",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen",
-        "code": "diameter",
-        "prefLabel": "Diameter van de schouw",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schouw"
-        ]
-    },
-    {
-        "id": "riepr-emissiepunt-eigenschappen:schouw-hoogte",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen",
-        "code": "hoogte",
-        "prefLabel": "Hoogte van de schouw",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schouw"
-        ]
-    },
-    {
-        "id": "riepr-installatie-eigenschappen:geinstalleerd_vermogen",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen",
-        "code": "GEINSTALLEERD_VERMOGEN",
-        "prefLabel": "Geinstalleerd vermogen",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie"
-        ]
     }
 ]

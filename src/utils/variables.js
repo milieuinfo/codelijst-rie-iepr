@@ -92,10 +92,6 @@ const frame_skos_prefixes = {
         "@embed": "@never",
         "@omitDefault": true
     },
-    "drager" : {
-        "@embed": "@never",
-        "@omitDefault": true
-    },
     "relevantSystem" : {
         "@embed": "@never",
         "@omitDefault": true
@@ -113,10 +109,6 @@ const frame_skos_prefixes = {
         "@omitDefault": true
     },
     "relevantDataType":  {
-        "@embed": "@never",
-        "@omitDefault": true
-    },
-    "relevantLZS":  {
         "@embed": "@never",
         "@omitDefault": true
     },
@@ -239,7 +231,6 @@ const frame_skos_no_prefixes = {
         "@embed": "@never",
         "@omitDefault": true
     },
-
     "relevantSystem" : {
         "@type": "http://www.w3.org/2004/02/skos/core#Concept",
         "@embed": "@never",
@@ -263,7 +254,6 @@ const frame_skos_no_prefixes = {
         "@omitDefault": true
     },
     "relevantDataType":  {
-        "@type": "http://www.w3.org/2004/02/skos/core#Concept",
         "@embed": "@never",
         "@omitDefault": true
     },
@@ -276,9 +266,7 @@ const frame_skos_no_prefixes = {
         "@embed": "@never",
         "@omitDefault": true
     },
-
     "relevantUnit": {
-        "@type": "http://www.w3.org/2004/02/skos/core#Concept",
         "@embed": "@never",
         "@omitDefault": true
     },
@@ -296,10 +284,6 @@ const frame_skos_no_prefixes = {
         "@omitDefault": true
     },
     "severity": {
-        "@embed": "@never",
-        "@omitDefault": true
-    },
-    "intervalcategorie": {
         "@embed": "@never",
         "@omitDefault": true
     },

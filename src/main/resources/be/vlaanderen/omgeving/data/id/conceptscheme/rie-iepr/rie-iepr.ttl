@@ -39,6 +39,8 @@
 @prefix riepr-rubriek-type: <https://data.omgeving.vlaanderen.be/id/concept/riepr/rubriek-type/>.
 @prefix riepr-filter-type: <https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/>.
 @prefix riepr-installatie-type: <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/>.
+@prefix riepr-installatie-eigenschappen: <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/>.
+@prefix riepr-emissiepunt-eigenschappen: <https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/>.
 @prefix riepr-meetinstrument-type: <https://data.omgeving.vlaanderen.be/id/concept/riepr/meetinstrument-type/>.
 @prefix riepr-status-type: <https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/>.
 @prefix riepr-data-type: <https://data.omgeving.vlaanderen.be/id/concept/riepr/data-type/>.
@@ -103,6 +105,34 @@
 @prefix xkos: <http://rdf-vocabulary.ddialliance.org/xkos#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 
+unit:M a qudt:Unit, skos:Concept;
+    skos:inScheme conceptscheme:eenheden;
+    skos:notation "m";
+    skos:prefLabel "Meter"@nl;
+    skos:topConceptOf conceptscheme:eenheden.
+unit:MegaW a qudt:Unit, skos:Concept;
+    skos:inScheme conceptscheme:eenheden;
+    skos:notation "MW";
+    skos:prefLabel "Mega Watt"@nl;
+    skos:topConceptOf conceptscheme:eenheden.
+riepr-emissiepunt-eigenschappen:schouw-diameter qudt:relevantUnit unit:M;
+    a skos:Concept;
+    skos:inScheme conceptscheme:emissiepunt_eigenschappen;
+    skos:notation "diameter";
+    skos:prefLabel "Diameter van de schouw"@nl;
+    skos:topConceptOf conceptscheme:emissiepunt_eigenschappen;
+    riepr-vocab:relevantDataType xsd:decimal;
+    riepr-vocab:relevantProperty dbo:diameter;
+    riepr-vocab:relevantRiepr riepr-emissiepunt-type:schouw.
+riepr-emissiepunt-eigenschappen:schouw-hoogte qudt:relevantUnit unit:M;
+    a skos:Concept;
+    skos:inScheme conceptscheme:emissiepunt_eigenschappen;
+    skos:notation "hoogte";
+    skos:prefLabel "Hoogte van de schouw"@nl;
+    skos:topConceptOf conceptscheme:emissiepunt_eigenschappen;
+    riepr-vocab:relevantDataType xsd:decimal;
+    riepr-vocab:relevantProperty dbo:height;
+    riepr-vocab:relevantRiepr riepr-emissiepunt-type:schouw.
 riepr-emissiepunt-type:emissiepunt a skos:Concept;
     skos:definition "Een regulier emissiepunt."@nl;
     skos:inScheme conceptscheme:emissiepunt_type;
@@ -150,6 +180,14 @@ riepr-emissiepunt-type:schouw a skos:Concept;
     skos:note "Een schouw."@nl;
     skos:prefLabel "Schouw"@nl;
     skos:topConceptOf conceptscheme:emissiepunt_type.
+riepr-installatie-eigenschappen:geinstalleerd_vermogen qudt:relevantUnit unit:MegaW;
+    a skos:Concept;
+    skos:inScheme conceptscheme:installatie_eigenschappen;
+    skos:notation "GEINSTALLEERD_VERMOGEN";
+    skos:prefLabel "Geinstalleerd vermogen"@nl;
+    skos:topConceptOf conceptscheme:installatie_eigenschappen;
+    riepr-vocab:relevantDataType xsd:decimal;
+    riepr-vocab:relevantRiepr riepr-installatie-type:stookinstallatie.
 riepr-installatie-type:directe_stookinstallatie a skos:Concept;
     skos:broader riepr-installatie-type:stookinstallatie;
     skos:broaderTransitive riepr-installatie-type:stookinstallatie;
@@ -257,9 +295,11 @@ conceptscheme:data_type a skos:ConceptScheme;
     skos:definition "Een typering van verschillende data types."@nl;
     skos:note "Een typering van verschillende data types."@nl;
     skos:prefLabel "Data types"@nl.
+conceptscheme:eenheden a skos:ConceptScheme;
+    skos:hasTopConcept unit:M, unit:MegaW.
 conceptscheme:emissiepunt_eigenschappen a skos:ConceptScheme;
     skos:definition "Een typering van verschillende eigenschappen voor emissiepunten."@nl;
-    skos:hasTopConcept <riepr-emissiepunt-eigenschappen:schouw-diameter>, <riepr-emissiepunt-eigenschappen:schouw-hoogte>;
+    skos:hasTopConcept riepr-emissiepunt-eigenschappen:schouw-diameter, riepr-emissiepunt-eigenschappen:schouw-hoogte;
     skos:note "Een typering van verschillende eigenschappen voor emissiepunten."@nl;
     skos:prefLabel "Emissiepunt eigenschappen"@nl.
 conceptscheme:emissiepunt_type a skos:ConceptScheme;
@@ -269,7 +309,7 @@ conceptscheme:emissiepunt_type a skos:ConceptScheme;
     skos:prefLabel "Emissiepunt types"@nl.
 conceptscheme:installatie_eigenschappen a skos:ConceptScheme;
     skos:definition "Een typering van verschillende eigenschappen voor installaties."@nl;
-    skos:hasTopConcept <riepr-installatie-eigenschappen:geinstalleerd_vermogen>;
+    skos:hasTopConcept riepr-installatie-eigenschappen:geinstalleerd_vermogen;
     skos:note "Een typering van verschillende eigenschappen voor installaties."@nl;
     skos:prefLabel "Installatie eigenschappen"@nl.
 conceptscheme:installatie_type a skos:ConceptScheme;
@@ -295,29 +335,3 @@ conceptscheme:status_type a skos:ConceptScheme;
     skos:hasTopConcept riepr-status-type:definitief_uit_dienst, riepr-status-type:in_dienst, riepr-status-type:ontmanteld, riepr-status-type:tijdelijk_uit_dienst, riepr-status-type:voorgesteld;
     skos:note "Een typering van verschillende statussen (actief, inactief, ...)."@nl;
     skos:prefLabel "Status types"@nl.
-<riepr-emissiepunt-eigenschappen:schouw-diameter> qudt:relevantUnit unit:M;
-    a skos:Concept;
-    skos:inScheme conceptscheme:emissiepunt_eigenschappen;
-    skos:notation "diameter";
-    skos:prefLabel "Diameter van de schouw"@nl;
-    skos:topConceptOf conceptscheme:emissiepunt_eigenschappen;
-    riepr-vocab:relevantDataType xsd:decimal;
-    riepr-vocab:relevantProperty dbo:diameter;
-    riepr-vocab:relevantRiepr riepr-emissiepunt-type:schouw.
-<riepr-emissiepunt-eigenschappen:schouw-hoogte> qudt:relevantUnit unit:M;
-    a skos:Concept;
-    skos:inScheme conceptscheme:emissiepunt_eigenschappen;
-    skos:notation "hoogte";
-    skos:prefLabel "Hoogte van de schouw"@nl;
-    skos:topConceptOf conceptscheme:emissiepunt_eigenschappen;
-    riepr-vocab:relevantDataType xsd:decimal;
-    riepr-vocab:relevantProperty dbo:height;
-    riepr-vocab:relevantRiepr riepr-emissiepunt-type:schouw.
-<riepr-installatie-eigenschappen:geinstalleerd_vermogen> qudt:relevantUnit unit:MegaW;
-    a skos:Concept;
-    skos:inScheme conceptscheme:installatie_eigenschappen;
-    skos:notation "GEINSTALLEERD_VERMOGEN";
-    skos:prefLabel "Geinstalleerd vermogen"@nl;
-    skos:topConceptOf conceptscheme:installatie_eigenschappen;
-    riepr-vocab:relevantDataType xsd:decimal;
-    riepr-vocab:relevantRiepr riepr-installatie-type:stookinstallatie.
