@@ -49,14 +49,20 @@
 <https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schouw> <http://www.w3.org/2004/02/skos/core#prefLabel> "Schouw"@nl .
 <https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schouw> <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type> .
 <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie> <http://www.w3.org/2004/02/skos/core#broader> <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie> <http://www.w3.org/2004/02/skos/core#broaderTransitive> <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie> .
 <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie> <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type> .
 <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie> <http://www.w3.org/2004/02/skos/core#notation> "directe_stookinstallatie" .
 <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie> <http://www.w3.org/2004/02/skos/core#prefLabel> "Directe Stookinstallatie"@nl .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie> <http://www.w3.org/2004/02/skos/core#semanticRelation> <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie> .
 <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie> <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type> .
 <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept> .
 <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie> <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie> <http://www.w3.org/2004/02/skos/core#narrower> <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie> <http://www.w3.org/2004/02/skos/core#narrowerTransitive> <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie> .
 <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie> <http://www.w3.org/2004/02/skos/core#notation> "stookinstallatie" .
 <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie> <http://www.w3.org/2004/02/skos/core#prefLabel> "Stookinstallatie"@nl .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie> <http://www.w3.org/2004/02/skos/core#semanticRelation> <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie> .
 <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie> <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type> .
 <https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/meetput> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept> .
 <https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/meetput> <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/meetpunt_type> .
@@ -100,6 +106,51 @@
 <https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/verwerking> <http://www.w3.org/2004/02/skos/core#prefLabel> "Verwerking"@nl .
 <https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/verwerking> <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type> .
 <https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/verwerking> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantDataType> <http://www.w3.org/ns/sosa/Procedure> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/definitief_uit_dienst> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/definitief_uit_dienst> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://purl.org/adms/status/Withdrawn> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/definitief_uit_dienst> <http://www.w3.org/2004/02/skos/core#definition> "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is."@nl .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/definitief_uit_dienst> <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/definitief_uit_dienst> <http://www.w3.org/2004/02/skos/core#notation> "DEFINITIEF_UIT_DIENST" .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/definitief_uit_dienst> <http://www.w3.org/2004/02/skos/core#note> "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is."@nl .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/definitief_uit_dienst> <http://www.w3.org/2004/02/skos/core#prefLabel> "Definitief uit dienst"@nl .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/definitief_uit_dienst> <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/definitief_uit_dienst> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantDataType> <http://www.w3.org/ns/adms#> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/in_dienst> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/in_dienst> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://purl.org/adms/status/Completed> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/in_dienst> <http://www.w3.org/2004/02/skos/core#definition> "De status in dienst geeft aan dat een entiteit momenteel in gebruik is."@nl .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/in_dienst> <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/in_dienst> <http://www.w3.org/2004/02/skos/core#notation> "IN_DIENST" .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/in_dienst> <http://www.w3.org/2004/02/skos/core#note> "De status in dienst geeft aan dat een entiteit momenteel in gebruik is."@nl .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/in_dienst> <http://www.w3.org/2004/02/skos/core#prefLabel> "In dienst"@nl .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/in_dienst> <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/in_dienst> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantDataType> <http://www.w3.org/ns/adms#> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/ontmanteld> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/ontmanteld> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://purl.org/adms/status/Withdrawn> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/ontmanteld> <http://www.w3.org/2004/02/skos/core#definition> "De status ontmanteld geeft aan dat een entiteit niet meer bestaat."@nl .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/ontmanteld> <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/ontmanteld> <http://www.w3.org/2004/02/skos/core#notation> "ONTMANTELD" .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/ontmanteld> <http://www.w3.org/2004/02/skos/core#note> "De status ontmanteld geeft aan dat een entiteit niet meer bestaat."@nl .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/ontmanteld> <http://www.w3.org/2004/02/skos/core#prefLabel> "Ontmanteld"@nl .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/ontmanteld> <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/ontmanteld> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantDataType> <http://www.w3.org/ns/adms#> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/tijdelijk_uit_dienst> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/tijdelijk_uit_dienst> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://purl.org/adms/status/Deprecated> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/tijdelijk_uit_dienst> <http://www.w3.org/2004/02/skos/core#definition> "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is."@nl .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/tijdelijk_uit_dienst> <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/tijdelijk_uit_dienst> <http://www.w3.org/2004/02/skos/core#notation> "TIJDELIJK_UIT_DIENST" .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/tijdelijk_uit_dienst> <http://www.w3.org/2004/02/skos/core#note> "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is."@nl .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/tijdelijk_uit_dienst> <http://www.w3.org/2004/02/skos/core#prefLabel> "Tijdelijk uit dienst"@nl .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/tijdelijk_uit_dienst> <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/tijdelijk_uit_dienst> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantDataType> <http://www.w3.org/ns/adms#> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/voorgesteld> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/voorgesteld> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://purl.org/adms/status/UnderDevelopment> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/voorgesteld> <http://www.w3.org/2004/02/skos/core#definition> "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid."@nl .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/voorgesteld> <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/voorgesteld> <http://www.w3.org/2004/02/skos/core#notation> "VOORGESTELD" .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/voorgesteld> <http://www.w3.org/2004/02/skos/core#note> "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid."@nl .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/voorgesteld> <http://www.w3.org/2004/02/skos/core#prefLabel> "Voorgesteld Ontwerp"@nl .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/voorgesteld> <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/voorgesteld> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantDataType> <http://www.w3.org/ns/adms#> .
 <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/data_type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#ConceptScheme> .
 <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/data_type> <http://www.w3.org/2004/02/skos/core#definition> "Een typering van verschillende data types."@nl .
 <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/data_type> <http://www.w3.org/2004/02/skos/core#note> "Een typering van verschillende data types."@nl .
@@ -122,6 +173,7 @@
 <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type> <http://www.w3.org/2004/02/skos/core#prefLabel> "Emissiepunt types"@nl .
 <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#ConceptScheme> .
 <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen> <http://www.w3.org/2004/02/skos/core#definition> "Een typering van verschillende eigenschappen voor installaties."@nl .
+<https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen> <http://www.w3.org/2004/02/skos/core#hasTopConcept> <riepr-installatie-eigenschappen:geinstalleerd_vermogen> .
 <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen> <http://www.w3.org/2004/02/skos/core#note> "Een typering van verschillende eigenschappen voor installaties."@nl .
 <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen> <http://www.w3.org/2004/02/skos/core#prefLabel> "Installatie eigenschappen"@nl .
 <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#ConceptScheme> .
@@ -148,11 +200,11 @@
 <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type> <http://www.w3.org/2004/02/skos/core#prefLabel> "Procedure types"@nl .
 <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#ConceptScheme> .
 <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> <http://www.w3.org/2004/02/skos/core#definition> "Een typering van verschillende statussen (actief, inactief, ...)."@nl .
-<https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> <http://www.w3.org/2004/02/skos/core#hasTopConcept> <riepr-status-type:definitief_uit_dienst> .
-<https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> <http://www.w3.org/2004/02/skos/core#hasTopConcept> <riepr-status-type:in_dienst> .
-<https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> <http://www.w3.org/2004/02/skos/core#hasTopConcept> <riepr-status-type:ontmanteld> .
-<https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> <http://www.w3.org/2004/02/skos/core#hasTopConcept> <riepr-status-type:tijdelijk_uit_dienst> .
-<https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> <http://www.w3.org/2004/02/skos/core#hasTopConcept> <riepr-status-type:voorgesteld> .
+<https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> <http://www.w3.org/2004/02/skos/core#hasTopConcept> <https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/definitief_uit_dienst> .
+<https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> <http://www.w3.org/2004/02/skos/core#hasTopConcept> <https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/in_dienst> .
+<https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> <http://www.w3.org/2004/02/skos/core#hasTopConcept> <https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/ontmanteld> .
+<https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> <http://www.w3.org/2004/02/skos/core#hasTopConcept> <https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/tijdelijk_uit_dienst> .
+<https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> <http://www.w3.org/2004/02/skos/core#hasTopConcept> <https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/voorgesteld> .
 <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> <http://www.w3.org/2004/02/skos/core#note> "Een typering van verschillende statussen (actief, inactief, ...)."@nl .
 <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> <http://www.w3.org/2004/02/skos/core#prefLabel> "Status types"@nl .
 <riepr-emissiepunt-eigenschappen:schouw-diameter> <http://qudt.org/schema/qudt/relevantUnit> <http://qudt.org/vocab/unit/M> .
@@ -163,7 +215,7 @@
 <riepr-emissiepunt-eigenschappen:schouw-diameter> <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen> .
 <riepr-emissiepunt-eigenschappen:schouw-diameter> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantDataType> <http://www.w3.org/2001/XMLSchema#decimal> .
 <riepr-emissiepunt-eigenschappen:schouw-diameter> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantProperty> <http://dbpedia.org/ontology/diameter> .
-<riepr-emissiepunt-eigenschappen:schouw-diameter> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantriepr> <https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schouw> .
+<riepr-emissiepunt-eigenschappen:schouw-diameter> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantRiepr> <https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schouw> .
 <riepr-emissiepunt-eigenschappen:schouw-hoogte> <http://qudt.org/schema/qudt/relevantUnit> <http://qudt.org/vocab/unit/M> .
 <riepr-emissiepunt-eigenschappen:schouw-hoogte> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept> .
 <riepr-emissiepunt-eigenschappen:schouw-hoogte> <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen> .
@@ -172,49 +224,12 @@
 <riepr-emissiepunt-eigenschappen:schouw-hoogte> <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen> .
 <riepr-emissiepunt-eigenschappen:schouw-hoogte> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantDataType> <http://www.w3.org/2001/XMLSchema#decimal> .
 <riepr-emissiepunt-eigenschappen:schouw-hoogte> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantProperty> <http://dbpedia.org/ontology/height> .
-<riepr-emissiepunt-eigenschappen:schouw-hoogte> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantriepr> <https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schouw> .
-<riepr-status-type:definitief_uit_dienst> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept> .
-<riepr-status-type:definitief_uit_dienst> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://purl.org/adms/status/Withdrawn> .
-<riepr-status-type:definitief_uit_dienst> <http://www.w3.org/2004/02/skos/core#definition> "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is."@nl .
-<riepr-status-type:definitief_uit_dienst> <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
-<riepr-status-type:definitief_uit_dienst> <http://www.w3.org/2004/02/skos/core#notation> "DEFINITIEF_UIT_DIENST" .
-<riepr-status-type:definitief_uit_dienst> <http://www.w3.org/2004/02/skos/core#note> "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is."@nl .
-<riepr-status-type:definitief_uit_dienst> <http://www.w3.org/2004/02/skos/core#prefLabel> "Definitief uit dienst"@nl .
-<riepr-status-type:definitief_uit_dienst> <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
-<riepr-status-type:definitief_uit_dienst> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantDataType> <http://www.w3.org/ns/adms#> .
-<riepr-status-type:in_dienst> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept> .
-<riepr-status-type:in_dienst> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://purl.org/adms/status/Completed> .
-<riepr-status-type:in_dienst> <http://www.w3.org/2004/02/skos/core#definition> "De status in dienst geeft aan dat een entiteit momenteel in gebruik is."@nl .
-<riepr-status-type:in_dienst> <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
-<riepr-status-type:in_dienst> <http://www.w3.org/2004/02/skos/core#notation> "IN_DIENST" .
-<riepr-status-type:in_dienst> <http://www.w3.org/2004/02/skos/core#note> "De status in dienst geeft aan dat een entiteit momenteel in gebruik is."@nl .
-<riepr-status-type:in_dienst> <http://www.w3.org/2004/02/skos/core#prefLabel> "In dienst"@nl .
-<riepr-status-type:in_dienst> <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
-<riepr-status-type:in_dienst> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantDataType> <http://www.w3.org/ns/adms#> .
-<riepr-status-type:ontmanteld> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept> .
-<riepr-status-type:ontmanteld> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://purl.org/adms/status/Withdrawn> .
-<riepr-status-type:ontmanteld> <http://www.w3.org/2004/02/skos/core#definition> "De status ontmanteld geeft aan dat een entiteit niet meer bestaat."@nl .
-<riepr-status-type:ontmanteld> <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
-<riepr-status-type:ontmanteld> <http://www.w3.org/2004/02/skos/core#notation> "ONTMANTELD" .
-<riepr-status-type:ontmanteld> <http://www.w3.org/2004/02/skos/core#note> "De status ontmanteld geeft aan dat een entiteit niet meer bestaat."@nl .
-<riepr-status-type:ontmanteld> <http://www.w3.org/2004/02/skos/core#prefLabel> "Ontmanteld"@nl .
-<riepr-status-type:ontmanteld> <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
-<riepr-status-type:ontmanteld> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantDataType> <http://www.w3.org/ns/adms#> .
-<riepr-status-type:tijdelijk_uit_dienst> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept> .
-<riepr-status-type:tijdelijk_uit_dienst> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://purl.org/adms/status/Deprecated> .
-<riepr-status-type:tijdelijk_uit_dienst> <http://www.w3.org/2004/02/skos/core#definition> "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is."@nl .
-<riepr-status-type:tijdelijk_uit_dienst> <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
-<riepr-status-type:tijdelijk_uit_dienst> <http://www.w3.org/2004/02/skos/core#notation> "TIJDELIJK_UIT_DIENST" .
-<riepr-status-type:tijdelijk_uit_dienst> <http://www.w3.org/2004/02/skos/core#note> "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is."@nl .
-<riepr-status-type:tijdelijk_uit_dienst> <http://www.w3.org/2004/02/skos/core#prefLabel> "Tijdelijk uit dienst"@nl .
-<riepr-status-type:tijdelijk_uit_dienst> <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
-<riepr-status-type:tijdelijk_uit_dienst> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantDataType> <http://www.w3.org/ns/adms#> .
-<riepr-status-type:voorgesteld> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept> .
-<riepr-status-type:voorgesteld> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://purl.org/adms/status/UnderDevelopment> .
-<riepr-status-type:voorgesteld> <http://www.w3.org/2004/02/skos/core#definition> "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid."@nl .
-<riepr-status-type:voorgesteld> <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
-<riepr-status-type:voorgesteld> <http://www.w3.org/2004/02/skos/core#notation> "VOORGESTELD" .
-<riepr-status-type:voorgesteld> <http://www.w3.org/2004/02/skos/core#note> "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid."@nl .
-<riepr-status-type:voorgesteld> <http://www.w3.org/2004/02/skos/core#prefLabel> "Voorgesteld Ontwerp"@nl .
-<riepr-status-type:voorgesteld> <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type> .
-<riepr-status-type:voorgesteld> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantDataType> <http://www.w3.org/ns/adms#> .
+<riepr-emissiepunt-eigenschappen:schouw-hoogte> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantRiepr> <https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schouw> .
+<riepr-installatie-eigenschappen:geinstalleerd_vermogen> <http://qudt.org/schema/qudt/relevantUnit> <http://qudt.org/vocab/unit/MegaW> .
+<riepr-installatie-eigenschappen:geinstalleerd_vermogen> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2004/02/skos/core#Concept> .
+<riepr-installatie-eigenschappen:geinstalleerd_vermogen> <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen> .
+<riepr-installatie-eigenschappen:geinstalleerd_vermogen> <http://www.w3.org/2004/02/skos/core#notation> "GEINSTALLEERD_VERMOGEN" .
+<riepr-installatie-eigenschappen:geinstalleerd_vermogen> <http://www.w3.org/2004/02/skos/core#prefLabel> "Geinstalleerd vermogen"@nl .
+<riepr-installatie-eigenschappen:geinstalleerd_vermogen> <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen> .
+<riepr-installatie-eigenschappen:geinstalleerd_vermogen> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantDataType> <http://www.w3.org/2001/XMLSchema#decimal> .
+<riepr-installatie-eigenschappen:geinstalleerd_vermogen> <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantRiepr> <https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie> .

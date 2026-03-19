@@ -94,9 +94,14 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type",
         "code": "directe_stookinstallatie",
         "prefLabel": "Directe Stookinstallatie",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie"
+        ],
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type"
     },
     {
@@ -105,8 +110,17 @@
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type",
+        "narrower": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie"
+        ],
+        "narrowerTransitive": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie"
+        ],
         "code": "stookinstallatie",
         "prefLabel": "Stookinstallatie",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie"
+        ],
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type"
     },
     {
@@ -178,6 +192,71 @@
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type"
     },
     {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/definitief_uit_dienst",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "seeAlso": "http://purl.org/adms/status/Withdrawn",
+        "definition": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type",
+        "code": "DEFINITIEF_UIT_DIENST",
+        "note": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
+        "prefLabel": "Definitief uit dienst",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/in_dienst",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "seeAlso": "http://purl.org/adms/status/Completed",
+        "definition": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type",
+        "code": "IN_DIENST",
+        "note": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
+        "prefLabel": "In dienst",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/ontmanteld",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "seeAlso": "http://purl.org/adms/status/Withdrawn",
+        "definition": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type",
+        "code": "ONTMANTELD",
+        "note": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
+        "prefLabel": "Ontmanteld",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/tijdelijk_uit_dienst",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "seeAlso": "http://purl.org/adms/status/Deprecated",
+        "definition": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type",
+        "code": "TIJDELIJK_UIT_DIENST",
+        "note": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
+        "prefLabel": "Tijdelijk uit dienst",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/voorgesteld",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "seeAlso": "http://purl.org/adms/status/UnderDevelopment",
+        "definition": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type",
+        "code": "VOORGESTELD",
+        "note": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
+        "prefLabel": "Voorgesteld Ontwerp",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type"
+    },
+    {
         "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#ConceptScheme"
@@ -206,6 +285,18 @@
         ],
         "note": "Een typering van verschillende soorten emissiepunten.",
         "prefLabel": "Emissiepunt types"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+        ],
+        "definition": "Een typering van verschillende eigenschappen voor installaties.",
+        "hasTopConcept": [
+            "riepr-installatie-eigenschappen:geinstalleerd_vermogen"
+        ],
+        "note": "Een typering van verschillende eigenschappen voor installaties.",
+        "prefLabel": "Installatie eigenschappen"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type",
@@ -264,11 +355,11 @@
         ],
         "definition": "Een typering van verschillende statussen (actief, inactief, ...).",
         "hasTopConcept": [
-            "riepr-status-type:definitief_uit_dienst",
-            "riepr-status-type:in_dienst",
-            "riepr-status-type:ontmanteld",
-            "riepr-status-type:tijdelijk_uit_dienst",
-            "riepr-status-type:voorgesteld"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/definitief_uit_dienst",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/in_dienst",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/ontmanteld",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/tijdelijk_uit_dienst",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/voorgesteld"
         ],
         "note": "Een typering van verschillende statussen (actief, inactief, ...).",
         "prefLabel": "Status types"
@@ -282,7 +373,7 @@
         "code": "diameter",
         "prefLabel": "Diameter van de schouw",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen",
-        "relevantriepr": [
+        "relevantRiepr": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schouw"
         ]
     },
@@ -295,73 +386,21 @@
         "code": "hoogte",
         "prefLabel": "Hoogte van de schouw",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen",
-        "relevantriepr": [
+        "relevantRiepr": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schouw"
         ]
     },
     {
-        "id": "riepr-status-type:definitief_uit_dienst",
+        "id": "riepr-installatie-eigenschappen:geinstalleerd_vermogen",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "seeAlso": "http://purl.org/adms/status/Withdrawn",
-        "definition": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type",
-        "code": "DEFINITIEF_UIT_DIENST",
-        "note": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
-        "prefLabel": "Definitief uit dienst",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type"
-    },
-    {
-        "id": "riepr-status-type:in_dienst",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "seeAlso": "http://purl.org/adms/status/Completed",
-        "definition": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type",
-        "code": "IN_DIENST",
-        "note": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
-        "prefLabel": "In dienst",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type"
-    },
-    {
-        "id": "riepr-status-type:ontmanteld",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "seeAlso": "http://purl.org/adms/status/Withdrawn",
-        "definition": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type",
-        "code": "ONTMANTELD",
-        "note": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
-        "prefLabel": "Ontmanteld",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type"
-    },
-    {
-        "id": "riepr-status-type:tijdelijk_uit_dienst",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "seeAlso": "http://purl.org/adms/status/Deprecated",
-        "definition": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type",
-        "code": "TIJDELIJK_UIT_DIENST",
-        "note": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
-        "prefLabel": "Tijdelijk uit dienst",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type"
-    },
-    {
-        "id": "riepr-status-type:voorgesteld",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "seeAlso": "http://purl.org/adms/status/UnderDevelopment",
-        "definition": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type",
-        "code": "VOORGESTELD",
-        "note": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
-        "prefLabel": "Voorgesteld Ontwerp",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/status_type"
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen",
+        "code": "GEINSTALLEERD_VERMOGEN",
+        "prefLabel": "Geinstalleerd vermogen",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen",
+        "relevantRiepr": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie"
+        ]
     }
 ]

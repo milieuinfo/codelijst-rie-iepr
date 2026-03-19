@@ -525,8 +525,8 @@
             "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantDataType",
             "@type": "@id"
         },
-        "relevantriepr": {
-            "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantriepr",
+        "relevantRiepr": {
+            "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantRiepr",
             "@type": "@id",
             "@container": "@set"
         },
@@ -764,6 +764,8 @@
         "riepr-filter-type": "https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/",
         "riepr-installatie-type": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/",
         "riepr-meetinstrument-type": "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetinstrument-type/",
+        "riepr-status-type": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/",
+        "riepr-data-type": "https://data.omgeving.vlaanderen.be/id/concept/riepr/data-type/",
         "riepr-vocab": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#",
         "metadata": "https://data.omgeving.vlaanderen.be/ns/metadata#",
         "observatie": "https://data.riepr.omgeving.vlaanderen.be/id/observation/",
@@ -922,9 +924,14 @@
             "_type": [
                 "skos:Concept"
             ],
+            "broader": "riepr-installatie-type:stookinstallatie",
+            "broaderTransitive": "riepr-installatie-type:stookinstallatie",
             "inScheme": "conceptscheme:installatie_type",
             "code": "directe_stookinstallatie",
             "prefLabel": "Directe Stookinstallatie",
+            "semanticRelation": [
+                "riepr-installatie-type:stookinstallatie"
+            ],
             "topConceptOf": "conceptscheme:installatie_type"
         },
         {
@@ -933,8 +940,17 @@
                 "skos:Concept"
             ],
             "inScheme": "conceptscheme:installatie_type",
+            "narrower": [
+                "riepr-installatie-type:directe_stookinstallatie"
+            ],
+            "narrowerTransitive": [
+                "riepr-installatie-type:directe_stookinstallatie"
+            ],
             "code": "stookinstallatie",
             "prefLabel": "Stookinstallatie",
+            "semanticRelation": [
+                "riepr-installatie-type:directe_stookinstallatie"
+            ],
             "topConceptOf": "conceptscheme:installatie_type"
         },
         {
@@ -1010,6 +1026,76 @@
             "relevantDataType": "sosa:Procedure"
         },
         {
+            "id": "riepr-status-type:definitief_uit_dienst",
+            "_type": [
+                "skos:Concept"
+            ],
+            "seeAlso": "http://purl.org/adms/status/Withdrawn",
+            "definition": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
+            "inScheme": "conceptscheme:status_type",
+            "code": "DEFINITIEF_UIT_DIENST",
+            "note": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
+            "prefLabel": "Definitief uit dienst",
+            "topConceptOf": "conceptscheme:status_type",
+            "relevantDataType": "http://www.w3.org/ns/adms#"
+        },
+        {
+            "id": "riepr-status-type:in_dienst",
+            "_type": [
+                "skos:Concept"
+            ],
+            "seeAlso": "http://purl.org/adms/status/Completed",
+            "definition": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
+            "inScheme": "conceptscheme:status_type",
+            "code": "IN_DIENST",
+            "note": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
+            "prefLabel": "In dienst",
+            "topConceptOf": "conceptscheme:status_type",
+            "relevantDataType": "http://www.w3.org/ns/adms#"
+        },
+        {
+            "id": "riepr-status-type:ontmanteld",
+            "_type": [
+                "skos:Concept"
+            ],
+            "seeAlso": "http://purl.org/adms/status/Withdrawn",
+            "definition": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
+            "inScheme": "conceptscheme:status_type",
+            "code": "ONTMANTELD",
+            "note": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
+            "prefLabel": "Ontmanteld",
+            "topConceptOf": "conceptscheme:status_type",
+            "relevantDataType": "http://www.w3.org/ns/adms#"
+        },
+        {
+            "id": "riepr-status-type:tijdelijk_uit_dienst",
+            "_type": [
+                "skos:Concept"
+            ],
+            "seeAlso": "http://purl.org/adms/status/Deprecated",
+            "definition": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
+            "inScheme": "conceptscheme:status_type",
+            "code": "TIJDELIJK_UIT_DIENST",
+            "note": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
+            "prefLabel": "Tijdelijk uit dienst",
+            "topConceptOf": "conceptscheme:status_type",
+            "relevantDataType": "http://www.w3.org/ns/adms#"
+        },
+        {
+            "id": "riepr-status-type:voorgesteld",
+            "_type": [
+                "skos:Concept"
+            ],
+            "seeAlso": "http://purl.org/adms/status/UnderDevelopment",
+            "definition": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
+            "inScheme": "conceptscheme:status_type",
+            "code": "VOORGESTELD",
+            "note": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
+            "prefLabel": "Voorgesteld Ontwerp",
+            "topConceptOf": "conceptscheme:status_type",
+            "relevantDataType": "http://www.w3.org/ns/adms#"
+        },
+        {
             "id": "conceptscheme:data_type",
             "_type": [
                 "skos:ConceptScheme"
@@ -1054,6 +1140,9 @@
                 "skos:ConceptScheme"
             ],
             "definition": "Een typering van verschillende eigenschappen voor installaties.",
+            "hasTopConcept": [
+                "riepr-installatie-eigenschappen:geinstalleerd_vermogen"
+            ],
             "note": "Een typering van verschillende eigenschappen voor installaties.",
             "prefLabel": "Installatie eigenschappen"
         },
@@ -1135,7 +1224,7 @@
             "topConceptOf": "conceptscheme:emissiepunt_eigenschappen",
             "relevantDataType": "xsd:decimal",
             "relevantProperty": "dbo:diameter",
-            "relevantriepr": [
+            "relevantRiepr": [
                 {
                     "id": "riepr-emissiepunt-type:schouw",
                     "_type": [
@@ -1251,7 +1340,7 @@
             "topConceptOf": "conceptscheme:emissiepunt_eigenschappen",
             "relevantDataType": "xsd:decimal",
             "relevantProperty": "dbo:height",
-            "relevantriepr": [
+            "relevantRiepr": [
                 {
                     "id": "riepr-emissiepunt-type:schouw",
                     "_type": [
@@ -1356,74 +1445,63 @@
             ]
         },
         {
-            "id": "riepr-status-type:definitief_uit_dienst",
+            "id": "riepr-installatie-eigenschappen:geinstalleerd_vermogen",
             "_type": [
                 "skos:Concept"
             ],
-            "seeAlso": "http://purl.org/adms/status/Withdrawn",
-            "definition": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
-            "inScheme": "conceptscheme:status_type",
-            "code": "DEFINITIEF_UIT_DIENST",
-            "note": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
-            "prefLabel": "Definitief uit dienst",
-            "topConceptOf": "conceptscheme:status_type",
-            "relevantDataType": "http://www.w3.org/ns/adms#"
-        },
-        {
-            "id": "riepr-status-type:in_dienst",
-            "_type": [
-                "skos:Concept"
-            ],
-            "seeAlso": "http://purl.org/adms/status/Completed",
-            "definition": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
-            "inScheme": "conceptscheme:status_type",
-            "code": "IN_DIENST",
-            "note": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
-            "prefLabel": "In dienst",
-            "topConceptOf": "conceptscheme:status_type",
-            "relevantDataType": "http://www.w3.org/ns/adms#"
-        },
-        {
-            "id": "riepr-status-type:ontmanteld",
-            "_type": [
-                "skos:Concept"
-            ],
-            "seeAlso": "http://purl.org/adms/status/Withdrawn",
-            "definition": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
-            "inScheme": "conceptscheme:status_type",
-            "code": "ONTMANTELD",
-            "note": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
-            "prefLabel": "Ontmanteld",
-            "topConceptOf": "conceptscheme:status_type",
-            "relevantDataType": "http://www.w3.org/ns/adms#"
-        },
-        {
-            "id": "riepr-status-type:tijdelijk_uit_dienst",
-            "_type": [
-                "skos:Concept"
-            ],
-            "seeAlso": "http://purl.org/adms/status/Deprecated",
-            "definition": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
-            "inScheme": "conceptscheme:status_type",
-            "code": "TIJDELIJK_UIT_DIENST",
-            "note": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
-            "prefLabel": "Tijdelijk uit dienst",
-            "topConceptOf": "conceptscheme:status_type",
-            "relevantDataType": "http://www.w3.org/ns/adms#"
-        },
-        {
-            "id": "riepr-status-type:voorgesteld",
-            "_type": [
-                "skos:Concept"
-            ],
-            "seeAlso": "http://purl.org/adms/status/UnderDevelopment",
-            "definition": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
-            "inScheme": "conceptscheme:status_type",
-            "code": "VOORGESTELD",
-            "note": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
-            "prefLabel": "Voorgesteld Ontwerp",
-            "topConceptOf": "conceptscheme:status_type",
-            "relevantDataType": "http://www.w3.org/ns/adms#"
+            "relevantUnit": "unit:MegaW",
+            "inScheme": "conceptscheme:installatie_eigenschappen",
+            "code": "GEINSTALLEERD_VERMOGEN",
+            "prefLabel": "Geinstalleerd vermogen",
+            "topConceptOf": "conceptscheme:installatie_eigenschappen",
+            "relevantDataType": "xsd:decimal",
+            "relevantRiepr": [
+                {
+                    "id": "riepr-installatie-type:stookinstallatie",
+                    "_type": [
+                        "skos:Concept"
+                    ],
+                    "inScheme": {
+                        "id": "conceptscheme:installatie_type",
+                        "_type": [
+                            "skos:ConceptScheme"
+                        ],
+                        "definition": "Een typering van verschillende soorten installaties.",
+                        "hasTopConcept": [
+                            {
+                                "id": "riepr-installatie-type:directe_stookinstallatie",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "broader": "riepr-installatie-type:stookinstallatie",
+                                "broaderTransitive": "riepr-installatie-type:stookinstallatie",
+                                "inScheme": "conceptscheme:installatie_type",
+                                "code": "directe_stookinstallatie",
+                                "prefLabel": "Directe Stookinstallatie",
+                                "semanticRelation": [
+                                    "riepr-installatie-type:stookinstallatie"
+                                ],
+                                "topConceptOf": "conceptscheme:installatie_type"
+                            },
+                            "riepr-installatie-type:stookinstallatie"
+                        ],
+                        "note": "Een typering van verschillende soorten installaties.",
+                        "prefLabel": "Installatie types"
+                    },
+                    "narrower": [
+                        "riepr-installatie-type:directe_stookinstallatie"
+                    ],
+                    "narrowerTransitive": [
+                        "riepr-installatie-type:directe_stookinstallatie"
+                    ],
+                    "code": "stookinstallatie",
+                    "prefLabel": "Stookinstallatie",
+                    "semanticRelation": [
+                        "riepr-installatie-type:directe_stookinstallatie"
+                    ],
+                    "topConceptOf": "conceptscheme:installatie_type"
+                }
+            ]
         }
     ]
 }
