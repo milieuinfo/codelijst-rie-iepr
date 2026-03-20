@@ -703,9 +703,13 @@
         "voornaam": {
             "@id": "http://www.w3.org/2006/vcard/ns#given-name"
         },
-        "waardebepaling": {
-            "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#waardebepaling",
-            "@type": "@id"
+        "isVerplicht": {
+            "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#isVerplicht",
+            "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+        },
+        "isMeervoudig": {
+            "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#isMeervoudig",
+            "@type": "http://www.w3.org/2001/XMLSchema#boolean"
         },
         "wasAssociatedWith": {
             "@id": "http://www.w3.org/ns/prov#wasAssociatedWith",
@@ -1623,6 +1627,7 @@
             "code": "GEINSTALLEERD_VERMOGEN",
             "prefLabel": "Geinstalleerd vermogen",
             "topConceptOf": "conceptscheme:installatie_eigenschappen",
+            "isVerplicht": "true",
             "relevantDataType": "xsd:decimal",
             "relevantRiepr": [
                 {
@@ -1821,6 +1826,7 @@
             "code": "VERWIJDERDINGS_RENDEMENT",
             "prefLabel": "Verwijderingsrendement",
             "topConceptOf": "conceptscheme:installatie_eigenschappen",
+            "isMeervoudig": "true",
             "parameterDimensie": "conceptscheme:chemische_stof",
             "relevantDataType": "xsd:decimal",
             "relevantRiepr": [
