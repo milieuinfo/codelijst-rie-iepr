@@ -110,6 +110,18 @@
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden"
     },
     {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/conceptscheme_systeem_type",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+        ],
+        "hasTopConcept": [
+            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type",
+            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type",
+            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/meetpunt_type",
+            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/onttrekkingspunt_type"
+        ]
+    },
+    {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/schouw-diameter",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
@@ -487,6 +499,7 @@
     {
         "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen",
         "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept",
             "http://www.w3.org/2004/02/skos/core#ConceptScheme"
         ],
         "definition": "Een typering van verschillende eigenschappen voor emissiepunten.",
@@ -494,12 +507,15 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/schouw-diameter",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/schouw-hoogte"
         ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/systeem_eigenschappen",
         "note": "Een typering van verschillende eigenschappen voor emissiepunten.",
-        "prefLabel": "Emissiepunt eigenschappen"
+        "prefLabel": "Emissiepunt eigenschappen",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/systeem_eigenschappen"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type",
         "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept",
             "http://www.w3.org/2004/02/skos/core#ConceptScheme"
         ],
         "definition": "Een typering van verschillende soorten emissiepunten.",
@@ -511,12 +527,15 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_horizontale_uitstroom",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_verticale_uitstroom"
         ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/conceptscheme_systeem_type",
         "note": "Een typering van verschillende soorten emissiepunten.",
-        "prefLabel": "Emissiepunt types"
+        "prefLabel": "Emissiepunt types",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/conceptscheme_systeem_type"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen",
         "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept",
             "http://www.w3.org/2004/02/skos/core#ConceptScheme"
         ],
         "definition": "Een typering van verschillende eigenschappen voor installaties.",
@@ -524,12 +543,15 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/geinstalleerd_vermogen",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/verwijderingsrendement"
         ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/systeem_eigenschappen",
         "note": "Een typering van verschillende eigenschappen voor installaties.",
-        "prefLabel": "Installatie eigenschappen"
+        "prefLabel": "Installatie eigenschappen",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/systeem_eigenschappen"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type",
         "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept",
             "http://www.w3.org/2004/02/skos/core#ConceptScheme"
         ],
         "definition": "Een typering van verschillende soorten installaties.",
@@ -539,30 +561,38 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/installatie"
         ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/conceptscheme_systeem_type",
         "note": "Een typering van verschillende soorten installaties.",
-        "prefLabel": "Installatie types"
+        "prefLabel": "Installatie types",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/conceptscheme_systeem_type"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/meetpunt_type",
         "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept",
             "http://www.w3.org/2004/02/skos/core#ConceptScheme"
         ],
         "hasTopConcept": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/meetput"
         ],
-        "prefLabel": "Meetpunt types"
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/conceptscheme_systeem_type",
+        "prefLabel": "Meetpunt types",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/conceptscheme_systeem_type"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/onttrekkingspunt_type",
         "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept",
             "http://www.w3.org/2004/02/skos/core#ConceptScheme"
         ],
         "definition": "Een typering van verschillende soorten onttrekkingspunten.",
         "hasTopConcept": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunt-type/grondwaterput"
         ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/conceptscheme_systeem_type",
         "note": "Een typering van verschillende soorten onttrekkingspunten.",
-        "prefLabel": "Onttrekkingspunt types"
+        "prefLabel": "Onttrekkingspunt types",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/conceptscheme_systeem_type"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type",
@@ -594,5 +624,15 @@
         ],
         "note": "Een typering van verschillende statussen (actief, inactief, ...).",
         "prefLabel": "Status types"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/systeem_eigenschappen",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+        ],
+        "hasTopConcept": [
+            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen",
+            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen"
+        ]
     }
 ]

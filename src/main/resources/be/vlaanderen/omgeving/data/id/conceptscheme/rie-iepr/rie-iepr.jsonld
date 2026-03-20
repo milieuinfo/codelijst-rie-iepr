@@ -939,6 +939,18 @@
             "topConceptOf": "conceptscheme:eenheden"
         },
         {
+            "id": "concept:conceptscheme_systeem_type",
+            "_type": [
+                "skos:ConceptScheme"
+            ],
+            "hasTopConcept": [
+                "conceptscheme:emissiepunt_type",
+                "conceptscheme:installatie_type",
+                "conceptscheme:meetpunt_type",
+                "conceptscheme:onttrekkingspunt_type"
+            ]
+        },
+        {
             "id": "riepr-emissiepunt-eigenschappen:schouw-diameter",
             "_type": [
                 "skos:Concept"
@@ -1079,6 +1091,7 @@
                     "inScheme": {
                         "id": "conceptscheme:emissiepunt_type",
                         "_type": [
+                            "skos:Concept",
                             "skos:ConceptScheme"
                         ],
                         "definition": "Een typering van verschillende soorten emissiepunten.",
@@ -1163,8 +1176,132 @@
                             "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
                             "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
                         ],
+                        "inScheme": {
+                            "id": "concept:conceptscheme_systeem_type",
+                            "_type": [
+                                "skos:ConceptScheme"
+                            ],
+                            "hasTopConcept": [
+                                "conceptscheme:emissiepunt_type",
+                                {
+                                    "id": "conceptscheme:installatie_type",
+                                    "_type": [
+                                        "skos:Concept",
+                                        "skos:ConceptScheme"
+                                    ],
+                                    "definition": "Een typering van verschillende soorten installaties.",
+                                    "hasTopConcept": [
+                                        {
+                                            "id": "riepr-installatie-type:stookinstallatie",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "inScheme": "conceptscheme:installatie_type",
+                                            "narrower": [
+                                                {
+                                                    "id": "riepr-installatie-type:directe_stookinstallatie",
+                                                    "_type": [
+                                                        "skos:Concept"
+                                                    ],
+                                                    "broader": "riepr-installatie-type:stookinstallatie",
+                                                    "broaderTransitive": "riepr-installatie-type:stookinstallatie",
+                                                    "inScheme": "conceptscheme:installatie_type",
+                                                    "code": "directe_stookinstallatie",
+                                                    "prefLabel": "Directe Stookinstallatie",
+                                                    "semanticRelation": [
+                                                        "riepr-installatie-type:stookinstallatie"
+                                                    ],
+                                                    "topConceptOf": "conceptscheme:installatie_type"
+                                                }
+                                            ],
+                                            "narrowerTransitive": [
+                                                "riepr-installatie-type:directe_stookinstallatie"
+                                            ],
+                                            "code": "stookinstallatie",
+                                            "prefLabel": "Stookinstallatie",
+                                            "semanticRelation": [
+                                                "riepr-installatie-type:directe_stookinstallatie"
+                                            ],
+                                            "topConceptOf": "conceptscheme:installatie_type"
+                                        },
+                                        {
+                                            "id": "riepr-installatie-type:filterinstallatie",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "inScheme": "conceptscheme:installatie_type",
+                                            "code": "filterinstallatie",
+                                            "prefLabel": "Filter Installatie",
+                                            "topConceptOf": "conceptscheme:installatie_type"
+                                        },
+                                        "riepr-installatie-type:directe_stookinstallatie",
+                                        {
+                                            "id": "riepr-installatie-type:installatie",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "inScheme": "conceptscheme:installatie_type",
+                                            "code": "installatie",
+                                            "prefLabel": "Installatie",
+                                            "topConceptOf": "conceptscheme:installatie_type"
+                                        }
+                                    ],
+                                    "inScheme": "concept:conceptscheme_systeem_type",
+                                    "note": "Een typering van verschillende soorten installaties.",
+                                    "prefLabel": "Installatie types",
+                                    "topConceptOf": "concept:conceptscheme_systeem_type"
+                                },
+                                {
+                                    "id": "conceptscheme:meetpunt_type",
+                                    "_type": [
+                                        "skos:Concept",
+                                        "skos:ConceptScheme"
+                                    ],
+                                    "hasTopConcept": [
+                                        {
+                                            "id": "riepr-meetpunt-type:meetput",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "inScheme": "conceptscheme:meetpunt_type",
+                                            "code": "meetput",
+                                            "prefLabel": "Meetput",
+                                            "topConceptOf": "conceptscheme:meetpunt_type"
+                                        }
+                                    ],
+                                    "inScheme": "concept:conceptscheme_systeem_type",
+                                    "prefLabel": "Meetpunt types",
+                                    "topConceptOf": "concept:conceptscheme_systeem_type"
+                                },
+                                {
+                                    "id": "conceptscheme:onttrekkingspunt_type",
+                                    "_type": [
+                                        "skos:Concept",
+                                        "skos:ConceptScheme"
+                                    ],
+                                    "definition": "Een typering van verschillende soorten onttrekkingspunten.",
+                                    "hasTopConcept": [
+                                        {
+                                            "id": "riepr-onttrekkingspunt-type:grondwaterput",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "inScheme": "conceptscheme:onttrekkingspunt_type",
+                                            "code": "grondwaterput",
+                                            "prefLabel": "Grondwaterput",
+                                            "topConceptOf": "conceptscheme:onttrekkingspunt_type"
+                                        }
+                                    ],
+                                    "inScheme": "concept:conceptscheme_systeem_type",
+                                    "note": "Een typering van verschillende soorten onttrekkingspunten.",
+                                    "prefLabel": "Onttrekkingspunt types",
+                                    "topConceptOf": "concept:conceptscheme_systeem_type"
+                                }
+                            ]
+                        },
                         "note": "Een typering van verschillende soorten emissiepunten.",
-                        "prefLabel": "Emissiepunt types"
+                        "prefLabel": "Emissiepunt types",
+                        "topConceptOf": "concept:conceptscheme_systeem_type"
                     },
                     "code": "schouw",
                     "note": "Een schouw.",
@@ -1314,6 +1451,7 @@
                     "inScheme": {
                         "id": "conceptscheme:emissiepunt_type",
                         "_type": [
+                            "skos:Concept",
                             "skos:ConceptScheme"
                         ],
                         "definition": "Een typering van verschillende soorten emissiepunten.",
@@ -1398,8 +1536,132 @@
                             "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
                             "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
                         ],
+                        "inScheme": {
+                            "id": "concept:conceptscheme_systeem_type",
+                            "_type": [
+                                "skos:ConceptScheme"
+                            ],
+                            "hasTopConcept": [
+                                "conceptscheme:emissiepunt_type",
+                                {
+                                    "id": "conceptscheme:installatie_type",
+                                    "_type": [
+                                        "skos:Concept",
+                                        "skos:ConceptScheme"
+                                    ],
+                                    "definition": "Een typering van verschillende soorten installaties.",
+                                    "hasTopConcept": [
+                                        {
+                                            "id": "riepr-installatie-type:stookinstallatie",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "inScheme": "conceptscheme:installatie_type",
+                                            "narrower": [
+                                                {
+                                                    "id": "riepr-installatie-type:directe_stookinstallatie",
+                                                    "_type": [
+                                                        "skos:Concept"
+                                                    ],
+                                                    "broader": "riepr-installatie-type:stookinstallatie",
+                                                    "broaderTransitive": "riepr-installatie-type:stookinstallatie",
+                                                    "inScheme": "conceptscheme:installatie_type",
+                                                    "code": "directe_stookinstallatie",
+                                                    "prefLabel": "Directe Stookinstallatie",
+                                                    "semanticRelation": [
+                                                        "riepr-installatie-type:stookinstallatie"
+                                                    ],
+                                                    "topConceptOf": "conceptscheme:installatie_type"
+                                                }
+                                            ],
+                                            "narrowerTransitive": [
+                                                "riepr-installatie-type:directe_stookinstallatie"
+                                            ],
+                                            "code": "stookinstallatie",
+                                            "prefLabel": "Stookinstallatie",
+                                            "semanticRelation": [
+                                                "riepr-installatie-type:directe_stookinstallatie"
+                                            ],
+                                            "topConceptOf": "conceptscheme:installatie_type"
+                                        },
+                                        {
+                                            "id": "riepr-installatie-type:filterinstallatie",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "inScheme": "conceptscheme:installatie_type",
+                                            "code": "filterinstallatie",
+                                            "prefLabel": "Filter Installatie",
+                                            "topConceptOf": "conceptscheme:installatie_type"
+                                        },
+                                        "riepr-installatie-type:directe_stookinstallatie",
+                                        {
+                                            "id": "riepr-installatie-type:installatie",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "inScheme": "conceptscheme:installatie_type",
+                                            "code": "installatie",
+                                            "prefLabel": "Installatie",
+                                            "topConceptOf": "conceptscheme:installatie_type"
+                                        }
+                                    ],
+                                    "inScheme": "concept:conceptscheme_systeem_type",
+                                    "note": "Een typering van verschillende soorten installaties.",
+                                    "prefLabel": "Installatie types",
+                                    "topConceptOf": "concept:conceptscheme_systeem_type"
+                                },
+                                {
+                                    "id": "conceptscheme:meetpunt_type",
+                                    "_type": [
+                                        "skos:Concept",
+                                        "skos:ConceptScheme"
+                                    ],
+                                    "hasTopConcept": [
+                                        {
+                                            "id": "riepr-meetpunt-type:meetput",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "inScheme": "conceptscheme:meetpunt_type",
+                                            "code": "meetput",
+                                            "prefLabel": "Meetput",
+                                            "topConceptOf": "conceptscheme:meetpunt_type"
+                                        }
+                                    ],
+                                    "inScheme": "concept:conceptscheme_systeem_type",
+                                    "prefLabel": "Meetpunt types",
+                                    "topConceptOf": "concept:conceptscheme_systeem_type"
+                                },
+                                {
+                                    "id": "conceptscheme:onttrekkingspunt_type",
+                                    "_type": [
+                                        "skos:Concept",
+                                        "skos:ConceptScheme"
+                                    ],
+                                    "definition": "Een typering van verschillende soorten onttrekkingspunten.",
+                                    "hasTopConcept": [
+                                        {
+                                            "id": "riepr-onttrekkingspunt-type:grondwaterput",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "inScheme": "conceptscheme:onttrekkingspunt_type",
+                                            "code": "grondwaterput",
+                                            "prefLabel": "Grondwaterput",
+                                            "topConceptOf": "conceptscheme:onttrekkingspunt_type"
+                                        }
+                                    ],
+                                    "inScheme": "concept:conceptscheme_systeem_type",
+                                    "note": "Een typering van verschillende soorten onttrekkingspunten.",
+                                    "prefLabel": "Onttrekkingspunt types",
+                                    "topConceptOf": "concept:conceptscheme_systeem_type"
+                                }
+                            ]
+                        },
                         "note": "Een typering van verschillende soorten emissiepunten.",
-                        "prefLabel": "Emissiepunt types"
+                        "prefLabel": "Emissiepunt types",
+                        "topConceptOf": "concept:conceptscheme_systeem_type"
                     },
                     "code": "schouw",
                     "note": "Een schouw.",
@@ -1638,6 +1900,7 @@
                     "inScheme": {
                         "id": "conceptscheme:installatie_type",
                         "_type": [
+                            "skos:Concept",
                             "skos:ConceptScheme"
                         ],
                         "definition": "Een typering van verschillende soorten installaties.",
@@ -1679,8 +1942,168 @@
                                 "topConceptOf": "conceptscheme:installatie_type"
                             }
                         ],
+                        "inScheme": {
+                            "id": "concept:conceptscheme_systeem_type",
+                            "_type": [
+                                "skos:ConceptScheme"
+                            ],
+                            "hasTopConcept": [
+                                {
+                                    "id": "conceptscheme:emissiepunt_type",
+                                    "_type": [
+                                        "skos:Concept",
+                                        "skos:ConceptScheme"
+                                    ],
+                                    "definition": "Een typering van verschillende soorten emissiepunten.",
+                                    "hasTopConcept": [
+                                        {
+                                            "id": "riepr-emissiepunt-type:schouw",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "definition": "Een schouw.",
+                                            "inScheme": "conceptscheme:emissiepunt_type",
+                                            "code": "schouw",
+                                            "note": "Een schouw.",
+                                            "prefLabel": "Schouw",
+                                            "topConceptOf": "conceptscheme:emissiepunt_type"
+                                        },
+                                        {
+                                            "id": "riepr-emissiepunt-type:emissiepunt",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "definition": "Een regulier emissiepunt.",
+                                            "inScheme": "conceptscheme:emissiepunt_type",
+                                            "code": "emissiepunt",
+                                            "note": "Een regulier emissiepunt.",
+                                            "prefLabel": "Emissiepunt",
+                                            "topConceptOf": "conceptscheme:emissiepunt_type"
+                                        },
+                                        {
+                                            "id": "riepr-emissiepunt-type:lozingspunt",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "definition": "Een lozing naar water.",
+                                            "inScheme": "conceptscheme:emissiepunt_type",
+                                            "code": "lozingspunt",
+                                            "note": "Een lozing naar water.",
+                                            "prefLabel": "Lozingspunt",
+                                            "topConceptOf": "conceptscheme:emissiepunt_type"
+                                        },
+                                        {
+                                            "id": "riepr-emissiepunt-type:schoorsteen",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "definition": "Een schoorsteen.",
+                                            "inScheme": "conceptscheme:emissiepunt_type",
+                                            "narrower": [
+                                                {
+                                                    "id": "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                                                    "_type": [
+                                                        "skos:Concept"
+                                                    ],
+                                                    "broader": "riepr-emissiepunt-type:schoorsteen",
+                                                    "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
+                                                    "inScheme": "conceptscheme:emissiepunt_type",
+                                                    "code": "schoorsteen_horizontale_uitstroom",
+                                                    "prefLabel": "Schoorsteen met horizontale uitstroom",
+                                                    "semanticRelation": [
+                                                        "riepr-emissiepunt-type:schoorsteen"
+                                                    ],
+                                                    "topConceptOf": "conceptscheme:emissiepunt_type"
+                                                },
+                                                {
+                                                    "id": "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom",
+                                                    "_type": [
+                                                        "skos:Concept"
+                                                    ],
+                                                    "broader": "riepr-emissiepunt-type:schoorsteen",
+                                                    "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
+                                                    "inScheme": "conceptscheme:emissiepunt_type",
+                                                    "code": "schoorsteen_verticale_uitstroom",
+                                                    "prefLabel": "Schoorsteen met verticale uitstroom",
+                                                    "semanticRelation": [
+                                                        "riepr-emissiepunt-type:schoorsteen"
+                                                    ],
+                                                    "topConceptOf": "conceptscheme:emissiepunt_type"
+                                                }
+                                            ],
+                                            "narrowerTransitive": [
+                                                "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                                                "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
+                                            ],
+                                            "code": "schoorsteen",
+                                            "note": "Een schoorsteen.",
+                                            "prefLabel": "Schoorsteen",
+                                            "semanticRelation": [
+                                                "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                                                "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
+                                            ],
+                                            "topConceptOf": "conceptscheme:emissiepunt_type"
+                                        },
+                                        "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                                        "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
+                                    ],
+                                    "inScheme": "concept:conceptscheme_systeem_type",
+                                    "note": "Een typering van verschillende soorten emissiepunten.",
+                                    "prefLabel": "Emissiepunt types",
+                                    "topConceptOf": "concept:conceptscheme_systeem_type"
+                                },
+                                "conceptscheme:installatie_type",
+                                {
+                                    "id": "conceptscheme:meetpunt_type",
+                                    "_type": [
+                                        "skos:Concept",
+                                        "skos:ConceptScheme"
+                                    ],
+                                    "hasTopConcept": [
+                                        {
+                                            "id": "riepr-meetpunt-type:meetput",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "inScheme": "conceptscheme:meetpunt_type",
+                                            "code": "meetput",
+                                            "prefLabel": "Meetput",
+                                            "topConceptOf": "conceptscheme:meetpunt_type"
+                                        }
+                                    ],
+                                    "inScheme": "concept:conceptscheme_systeem_type",
+                                    "prefLabel": "Meetpunt types",
+                                    "topConceptOf": "concept:conceptscheme_systeem_type"
+                                },
+                                {
+                                    "id": "conceptscheme:onttrekkingspunt_type",
+                                    "_type": [
+                                        "skos:Concept",
+                                        "skos:ConceptScheme"
+                                    ],
+                                    "definition": "Een typering van verschillende soorten onttrekkingspunten.",
+                                    "hasTopConcept": [
+                                        {
+                                            "id": "riepr-onttrekkingspunt-type:grondwaterput",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "inScheme": "conceptscheme:onttrekkingspunt_type",
+                                            "code": "grondwaterput",
+                                            "prefLabel": "Grondwaterput",
+                                            "topConceptOf": "conceptscheme:onttrekkingspunt_type"
+                                        }
+                                    ],
+                                    "inScheme": "concept:conceptscheme_systeem_type",
+                                    "note": "Een typering van verschillende soorten onttrekkingspunten.",
+                                    "prefLabel": "Onttrekkingspunt types",
+                                    "topConceptOf": "concept:conceptscheme_systeem_type"
+                                }
+                            ]
+                        },
                         "note": "Een typering van verschillende soorten installaties.",
-                        "prefLabel": "Installatie types"
+                        "prefLabel": "Installatie types",
+                        "topConceptOf": "concept:conceptscheme_systeem_type"
                     },
                     "narrower": [
                         "riepr-installatie-type:directe_stookinstallatie"
@@ -1838,6 +2261,7 @@
                     "inScheme": {
                         "id": "conceptscheme:installatie_type",
                         "_type": [
+                            "skos:Concept",
                             "skos:ConceptScheme"
                         ],
                         "definition": "Een typering van verschillende soorten installaties.",
@@ -1888,8 +2312,168 @@
                                 "topConceptOf": "conceptscheme:installatie_type"
                             }
                         ],
+                        "inScheme": {
+                            "id": "concept:conceptscheme_systeem_type",
+                            "_type": [
+                                "skos:ConceptScheme"
+                            ],
+                            "hasTopConcept": [
+                                {
+                                    "id": "conceptscheme:emissiepunt_type",
+                                    "_type": [
+                                        "skos:Concept",
+                                        "skos:ConceptScheme"
+                                    ],
+                                    "definition": "Een typering van verschillende soorten emissiepunten.",
+                                    "hasTopConcept": [
+                                        {
+                                            "id": "riepr-emissiepunt-type:schouw",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "definition": "Een schouw.",
+                                            "inScheme": "conceptscheme:emissiepunt_type",
+                                            "code": "schouw",
+                                            "note": "Een schouw.",
+                                            "prefLabel": "Schouw",
+                                            "topConceptOf": "conceptscheme:emissiepunt_type"
+                                        },
+                                        {
+                                            "id": "riepr-emissiepunt-type:emissiepunt",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "definition": "Een regulier emissiepunt.",
+                                            "inScheme": "conceptscheme:emissiepunt_type",
+                                            "code": "emissiepunt",
+                                            "note": "Een regulier emissiepunt.",
+                                            "prefLabel": "Emissiepunt",
+                                            "topConceptOf": "conceptscheme:emissiepunt_type"
+                                        },
+                                        {
+                                            "id": "riepr-emissiepunt-type:lozingspunt",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "definition": "Een lozing naar water.",
+                                            "inScheme": "conceptscheme:emissiepunt_type",
+                                            "code": "lozingspunt",
+                                            "note": "Een lozing naar water.",
+                                            "prefLabel": "Lozingspunt",
+                                            "topConceptOf": "conceptscheme:emissiepunt_type"
+                                        },
+                                        {
+                                            "id": "riepr-emissiepunt-type:schoorsteen",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "definition": "Een schoorsteen.",
+                                            "inScheme": "conceptscheme:emissiepunt_type",
+                                            "narrower": [
+                                                {
+                                                    "id": "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                                                    "_type": [
+                                                        "skos:Concept"
+                                                    ],
+                                                    "broader": "riepr-emissiepunt-type:schoorsteen",
+                                                    "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
+                                                    "inScheme": "conceptscheme:emissiepunt_type",
+                                                    "code": "schoorsteen_horizontale_uitstroom",
+                                                    "prefLabel": "Schoorsteen met horizontale uitstroom",
+                                                    "semanticRelation": [
+                                                        "riepr-emissiepunt-type:schoorsteen"
+                                                    ],
+                                                    "topConceptOf": "conceptscheme:emissiepunt_type"
+                                                },
+                                                {
+                                                    "id": "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom",
+                                                    "_type": [
+                                                        "skos:Concept"
+                                                    ],
+                                                    "broader": "riepr-emissiepunt-type:schoorsteen",
+                                                    "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
+                                                    "inScheme": "conceptscheme:emissiepunt_type",
+                                                    "code": "schoorsteen_verticale_uitstroom",
+                                                    "prefLabel": "Schoorsteen met verticale uitstroom",
+                                                    "semanticRelation": [
+                                                        "riepr-emissiepunt-type:schoorsteen"
+                                                    ],
+                                                    "topConceptOf": "conceptscheme:emissiepunt_type"
+                                                }
+                                            ],
+                                            "narrowerTransitive": [
+                                                "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                                                "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
+                                            ],
+                                            "code": "schoorsteen",
+                                            "note": "Een schoorsteen.",
+                                            "prefLabel": "Schoorsteen",
+                                            "semanticRelation": [
+                                                "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                                                "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
+                                            ],
+                                            "topConceptOf": "conceptscheme:emissiepunt_type"
+                                        },
+                                        "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
+                                        "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
+                                    ],
+                                    "inScheme": "concept:conceptscheme_systeem_type",
+                                    "note": "Een typering van verschillende soorten emissiepunten.",
+                                    "prefLabel": "Emissiepunt types",
+                                    "topConceptOf": "concept:conceptscheme_systeem_type"
+                                },
+                                "conceptscheme:installatie_type",
+                                {
+                                    "id": "conceptscheme:meetpunt_type",
+                                    "_type": [
+                                        "skos:Concept",
+                                        "skos:ConceptScheme"
+                                    ],
+                                    "hasTopConcept": [
+                                        {
+                                            "id": "riepr-meetpunt-type:meetput",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "inScheme": "conceptscheme:meetpunt_type",
+                                            "code": "meetput",
+                                            "prefLabel": "Meetput",
+                                            "topConceptOf": "conceptscheme:meetpunt_type"
+                                        }
+                                    ],
+                                    "inScheme": "concept:conceptscheme_systeem_type",
+                                    "prefLabel": "Meetpunt types",
+                                    "topConceptOf": "concept:conceptscheme_systeem_type"
+                                },
+                                {
+                                    "id": "conceptscheme:onttrekkingspunt_type",
+                                    "_type": [
+                                        "skos:Concept",
+                                        "skos:ConceptScheme"
+                                    ],
+                                    "definition": "Een typering van verschillende soorten onttrekkingspunten.",
+                                    "hasTopConcept": [
+                                        {
+                                            "id": "riepr-onttrekkingspunt-type:grondwaterput",
+                                            "_type": [
+                                                "skos:Concept"
+                                            ],
+                                            "inScheme": "conceptscheme:onttrekkingspunt_type",
+                                            "code": "grondwaterput",
+                                            "prefLabel": "Grondwaterput",
+                                            "topConceptOf": "conceptscheme:onttrekkingspunt_type"
+                                        }
+                                    ],
+                                    "inScheme": "concept:conceptscheme_systeem_type",
+                                    "note": "Een typering van verschillende soorten onttrekkingspunten.",
+                                    "prefLabel": "Onttrekkingspunt types",
+                                    "topConceptOf": "concept:conceptscheme_systeem_type"
+                                }
+                            ]
+                        },
                         "note": "Een typering van verschillende soorten installaties.",
-                        "prefLabel": "Installatie types"
+                        "prefLabel": "Installatie types",
+                        "topConceptOf": "concept:conceptscheme_systeem_type"
                     },
                     "code": "filterinstallatie",
                     "prefLabel": "Filter Installatie",
@@ -2123,6 +2707,7 @@
         {
             "id": "conceptscheme:emissiepunt_eigenschappen",
             "_type": [
+                "skos:Concept",
                 "skos:ConceptScheme"
             ],
             "definition": "Een typering van verschillende eigenschappen voor emissiepunten.",
@@ -2130,12 +2715,15 @@
                 "riepr-emissiepunt-eigenschappen:schouw-diameter",
                 "riepr-emissiepunt-eigenschappen:schouw-hoogte"
             ],
+            "inScheme": "conceptscheme:systeem_eigenschappen",
             "note": "Een typering van verschillende eigenschappen voor emissiepunten.",
-            "prefLabel": "Emissiepunt eigenschappen"
+            "prefLabel": "Emissiepunt eigenschappen",
+            "topConceptOf": "conceptscheme:systeem_eigenschappen"
         },
         {
             "id": "conceptscheme:emissiepunt_type",
             "_type": [
+                "skos:Concept",
                 "skos:ConceptScheme"
             ],
             "definition": "Een typering van verschillende soorten emissiepunten.",
@@ -2147,12 +2735,15 @@
                 "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
                 "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
             ],
+            "inScheme": "concept:conceptscheme_systeem_type",
             "note": "Een typering van verschillende soorten emissiepunten.",
-            "prefLabel": "Emissiepunt types"
+            "prefLabel": "Emissiepunt types",
+            "topConceptOf": "concept:conceptscheme_systeem_type"
         },
         {
             "id": "conceptscheme:installatie_eigenschappen",
             "_type": [
+                "skos:Concept",
                 "skos:ConceptScheme"
             ],
             "definition": "Een typering van verschillende eigenschappen voor installaties.",
@@ -2160,12 +2751,15 @@
                 "riepr-installatie-eigenschappen:geinstalleerd_vermogen",
                 "riepr-installatie-eigenschappen:verwijderingsrendement"
             ],
+            "inScheme": "conceptscheme:systeem_eigenschappen",
             "note": "Een typering van verschillende eigenschappen voor installaties.",
-            "prefLabel": "Installatie eigenschappen"
+            "prefLabel": "Installatie eigenschappen",
+            "topConceptOf": "conceptscheme:systeem_eigenschappen"
         },
         {
             "id": "conceptscheme:installatie_type",
             "_type": [
+                "skos:Concept",
                 "skos:ConceptScheme"
             ],
             "definition": "Een typering van verschillende soorten installaties.",
@@ -2175,30 +2769,38 @@
                 "riepr-installatie-type:directe_stookinstallatie",
                 "riepr-installatie-type:installatie"
             ],
+            "inScheme": "concept:conceptscheme_systeem_type",
             "note": "Een typering van verschillende soorten installaties.",
-            "prefLabel": "Installatie types"
+            "prefLabel": "Installatie types",
+            "topConceptOf": "concept:conceptscheme_systeem_type"
         },
         {
             "id": "conceptscheme:meetpunt_type",
             "_type": [
+                "skos:Concept",
                 "skos:ConceptScheme"
             ],
             "hasTopConcept": [
                 "riepr-meetpunt-type:meetput"
             ],
-            "prefLabel": "Meetpunt types"
+            "inScheme": "concept:conceptscheme_systeem_type",
+            "prefLabel": "Meetpunt types",
+            "topConceptOf": "concept:conceptscheme_systeem_type"
         },
         {
             "id": "conceptscheme:onttrekkingspunt_type",
             "_type": [
+                "skos:Concept",
                 "skos:ConceptScheme"
             ],
             "definition": "Een typering van verschillende soorten onttrekkingspunten.",
             "hasTopConcept": [
                 "riepr-onttrekkingspunt-type:grondwaterput"
             ],
+            "inScheme": "concept:conceptscheme_systeem_type",
             "note": "Een typering van verschillende soorten onttrekkingspunten.",
-            "prefLabel": "Onttrekkingspunt types"
+            "prefLabel": "Onttrekkingspunt types",
+            "topConceptOf": "concept:conceptscheme_systeem_type"
         },
         {
             "id": "conceptscheme:procedure_type",
@@ -2230,6 +2832,16 @@
             ],
             "note": "Een typering van verschillende statussen (actief, inactief, ...).",
             "prefLabel": "Status types"
+        },
+        {
+            "id": "conceptscheme:systeem_eigenschappen",
+            "_type": [
+                "skos:ConceptScheme"
+            ],
+            "hasTopConcept": [
+                "conceptscheme:emissiepunt_eigenschappen",
+                "conceptscheme:installatie_eigenschappen"
+            ]
         }
     ]
 }

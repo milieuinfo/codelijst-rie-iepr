@@ -155,6 +155,8 @@ unit:PPM a qudt:Unit, skos:Concept;
     skos:notation "PPM";
     skos:prefLabel "PPM"@nl;
     skos:topConceptOf conceptscheme:eenheden.
+concept:conceptscheme_systeem_type a skos:ConceptScheme;
+    skos:hasTopConcept conceptscheme:emissiepunt_type, conceptscheme:installatie_type, conceptscheme:meetpunt_type, conceptscheme:onttrekkingspunt_type.
 riepr-emissiepunt-eigenschappen:schouw-diameter qudt:relevantUnit unit:M;
     a skos:Concept;
     skos:inScheme conceptscheme:emissiepunt_eigenschappen;
@@ -358,34 +360,46 @@ conceptscheme:data_type a skos:ConceptScheme;
     skos:prefLabel "Data types"@nl.
 conceptscheme:eenheden a skos:ConceptScheme;
     skos:hasTopConcept unit:DEG_C, unit:K, unit:M, unit:MegaW, unit:MicroGM-PER-L, unit:MilliGM-PER-L, unit:NanoGM-PER-L, unit:PERCENT, unit:PPB, unit:PPM.
-conceptscheme:emissiepunt_eigenschappen a skos:ConceptScheme;
+conceptscheme:emissiepunt_eigenschappen a skos:Concept, skos:ConceptScheme;
     skos:definition "Een typering van verschillende eigenschappen voor emissiepunten."@nl;
     skos:hasTopConcept riepr-emissiepunt-eigenschappen:schouw-diameter, riepr-emissiepunt-eigenschappen:schouw-hoogte;
+    skos:inScheme conceptscheme:systeem_eigenschappen;
     skos:note "Een typering van verschillende eigenschappen voor emissiepunten."@nl;
-    skos:prefLabel "Emissiepunt eigenschappen"@nl.
-conceptscheme:emissiepunt_type a skos:ConceptScheme;
+    skos:prefLabel "Emissiepunt eigenschappen"@nl;
+    skos:topConceptOf conceptscheme:systeem_eigenschappen.
+conceptscheme:emissiepunt_type a skos:Concept, skos:ConceptScheme;
     skos:definition "Een typering van verschillende soorten emissiepunten."@nl;
     skos:hasTopConcept riepr-emissiepunt-type:emissiepunt, riepr-emissiepunt-type:lozingspunt, riepr-emissiepunt-type:schoorsteen, riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom, riepr-emissiepunt-type:schoorsteen_verticale_uitstroom, riepr-emissiepunt-type:schouw;
+    skos:inScheme concept:conceptscheme_systeem_type;
     skos:note "Een typering van verschillende soorten emissiepunten."@nl;
-    skos:prefLabel "Emissiepunt types"@nl.
-conceptscheme:installatie_eigenschappen a skos:ConceptScheme;
+    skos:prefLabel "Emissiepunt types"@nl;
+    skos:topConceptOf concept:conceptscheme_systeem_type.
+conceptscheme:installatie_eigenschappen a skos:Concept, skos:ConceptScheme;
     skos:definition "Een typering van verschillende eigenschappen voor installaties."@nl;
     skos:hasTopConcept riepr-installatie-eigenschappen:geinstalleerd_vermogen, riepr-installatie-eigenschappen:verwijderingsrendement;
+    skos:inScheme conceptscheme:systeem_eigenschappen;
     skos:note "Een typering van verschillende eigenschappen voor installaties."@nl;
-    skos:prefLabel "Installatie eigenschappen"@nl.
-conceptscheme:installatie_type a skos:ConceptScheme;
+    skos:prefLabel "Installatie eigenschappen"@nl;
+    skos:topConceptOf conceptscheme:systeem_eigenschappen.
+conceptscheme:installatie_type a skos:Concept, skos:ConceptScheme;
     skos:definition "Een typering van verschillende soorten installaties."@nl;
     skos:hasTopConcept riepr-installatie-type:directe_stookinstallatie, riepr-installatie-type:filterinstallatie, riepr-installatie-type:installatie, riepr-installatie-type:stookinstallatie;
+    skos:inScheme concept:conceptscheme_systeem_type;
     skos:note "Een typering van verschillende soorten installaties."@nl;
-    skos:prefLabel "Installatie types"@nl.
-conceptscheme:meetpunt_type a skos:ConceptScheme;
+    skos:prefLabel "Installatie types"@nl;
+    skos:topConceptOf concept:conceptscheme_systeem_type.
+conceptscheme:meetpunt_type a skos:Concept, skos:ConceptScheme;
     skos:hasTopConcept riepr-meetpunt-type:meetput;
-    skos:prefLabel "Meetpunt types"@nl.
-conceptscheme:onttrekkingspunt_type a skos:ConceptScheme;
+    skos:inScheme concept:conceptscheme_systeem_type;
+    skos:prefLabel "Meetpunt types"@nl;
+    skos:topConceptOf concept:conceptscheme_systeem_type.
+conceptscheme:onttrekkingspunt_type a skos:Concept, skos:ConceptScheme;
     skos:definition "Een typering van verschillende soorten onttrekkingspunten."@nl;
     skos:hasTopConcept riepr-onttrekkingspunt-type:grondwaterput;
+    skos:inScheme concept:conceptscheme_systeem_type;
     skos:note "Een typering van verschillende soorten onttrekkingspunten."@nl;
-    skos:prefLabel "Onttrekkingspunt types"@nl.
+    skos:prefLabel "Onttrekkingspunt types"@nl;
+    skos:topConceptOf concept:conceptscheme_systeem_type.
 conceptscheme:procedure_type a skos:ConceptScheme;
     skos:definition "Een typering van verschillende procedures."@nl;
     skos:hasTopConcept riepr-procedure-type:emissie, riepr-procedure-type:onttrekking, riepr-procedure-type:transport, riepr-procedure-type:verwerking;
@@ -396,3 +410,5 @@ conceptscheme:status_type a skos:ConceptScheme;
     skos:hasTopConcept riepr-status-type:definitief_uit_dienst, riepr-status-type:in_dienst, riepr-status-type:ontmanteld, riepr-status-type:tijdelijk_uit_dienst, riepr-status-type:voorgesteld;
     skos:note "Een typering van verschillende statussen (actief, inactief, ...)."@nl;
     skos:prefLabel "Status types"@nl.
+conceptscheme:systeem_eigenschappen a skos:ConceptScheme;
+    skos:hasTopConcept conceptscheme:emissiepunt_eigenschappen, conceptscheme:installatie_eigenschappen.
