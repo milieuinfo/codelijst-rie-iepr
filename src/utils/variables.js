@@ -275,6 +275,10 @@ const frame_skos_no_prefixes = {
         "@embed": "@never",
         "@omitDefault": true
     },
+    "parameterDimensie": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
     "normstatus": {
         "@embed": "@never",
         "@omitDefault": true

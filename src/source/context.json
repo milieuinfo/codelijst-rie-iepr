@@ -462,17 +462,9 @@
     "@id": "http://xmlns.com/foaf/0.1/page",
     "@type": "@id"
   },
-  "parametereenheid": {
-    "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#parametereenheid",
-    "@type": "@id"
-  },
-  "parameter": {
+  "parameterDimensie": {
     "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#parameterDimensie",
     "@type": "@id"
-  },
-  "parameterwaarde": {
-    "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#parameterwaarde",
-    "@type": "http://www.w3.org/2001/XMLSchema#decimal"
   },
   "phenomenonTime": {
     "@id": "http://www.w3.org/ns/sosa/phenomenonTime",
@@ -545,7 +537,8 @@
   },
   "relevantUnit": {
     "@id": "http://qudt.org/schema/qudt/relevantUnit",
-    "@type": "@id"
+    "@type": "@id",
+    "@container": "@set"
   },
   "resultFormat": {
     "@id": "http://www.w3.org/ns/sparql-service-description#resultFormat",

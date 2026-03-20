@@ -1,5 +1,27 @@
 [
     {
+        "id": "http://qudt.org/vocab/unit/DEG_C",
+        "_type": [
+            "http://qudt.org/schema/qudt/Unit",
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden",
+        "code": "°C",
+        "prefLabel": "Graden celcius",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden"
+    },
+    {
+        "id": "http://qudt.org/vocab/unit/K",
+        "_type": [
+            "http://qudt.org/schema/qudt/Unit",
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden",
+        "code": "K",
+        "prefLabel": "Kelvin",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden"
+    },
+    {
         "id": "http://qudt.org/vocab/unit/M",
         "_type": [
             "http://qudt.org/schema/qudt/Unit",
@@ -22,11 +44,79 @@
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden"
     },
     {
+        "id": "http://qudt.org/vocab/unit/MicroGM-PER-L",
+        "_type": [
+            "http://qudt.org/schema/qudt/Unit",
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden",
+        "code": "µg/l",
+        "prefLabel": "Microgram per liter",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden"
+    },
+    {
+        "id": "http://qudt.org/vocab/unit/MilliGM-PER-L",
+        "_type": [
+            "http://qudt.org/schema/qudt/Unit",
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden",
+        "code": "mg/l",
+        "prefLabel": "Milligram per liter",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden"
+    },
+    {
+        "id": "http://qudt.org/vocab/unit/NanoGM-PER-L",
+        "_type": [
+            "http://qudt.org/schema/qudt/Unit",
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden",
+        "code": "ng/l",
+        "prefLabel": "Nanogram per liter",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden"
+    },
+    {
+        "id": "http://qudt.org/vocab/unit/PERCENT",
+        "_type": [
+            "http://qudt.org/schema/qudt/Unit",
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden",
+        "code": "%",
+        "prefLabel": "Pcent",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden"
+    },
+    {
+        "id": "http://qudt.org/vocab/unit/PPB",
+        "_type": [
+            "http://qudt.org/schema/qudt/Unit",
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden",
+        "code": "PPB",
+        "prefLabel": "PB",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden"
+    },
+    {
+        "id": "http://qudt.org/vocab/unit/PPM",
+        "_type": [
+            "http://qudt.org/schema/qudt/Unit",
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden",
+        "code": "PPM",
+        "prefLabel": "PPM",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden"
+    },
+    {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/schouw-diameter",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "relevantUnit": "http://qudt.org/vocab/unit/M",
+        "relevantUnit": [
+            "http://qudt.org/vocab/unit/M"
+        ],
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen",
         "code": "diameter",
         "prefLabel": "Diameter van de schouw",
@@ -41,7 +131,9 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "relevantUnit": "http://qudt.org/vocab/unit/M",
+        "relevantUnit": [
+            "http://qudt.org/vocab/unit/M"
+        ],
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_eigenschappen",
         "code": "hoogte",
         "prefLabel": "Hoogte van de schouw",
@@ -84,18 +176,18 @@
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type",
         "narrower": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_horizontale_uitstroom",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_vertikale_uitstroom"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_verticale_uitstroom"
         ],
         "narrowerTransitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_horizontale_uitstroom",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_vertikale_uitstroom"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_verticale_uitstroom"
         ],
         "code": "schoorsteen",
         "note": "Een schoorsteen.",
         "prefLabel": "Schoorsteen",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_horizontale_uitstroom",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_vertikale_uitstroom"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_verticale_uitstroom"
         ],
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type"
     },
@@ -115,7 +207,7 @@
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type"
     },
     {
-        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_vertikale_uitstroom",
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_verticale_uitstroom",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
@@ -123,7 +215,7 @@
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type",
         "code": "schoorsteen_verticale_uitstroom",
-        "prefLabel": "Schoorsteen met vertikale uitstroom",
+        "prefLabel": "Schoorsteen met verticale uitstroom",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen"
         ],
@@ -146,7 +238,9 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "relevantUnit": "http://qudt.org/vocab/unit/MegaW",
+        "relevantUnit": [
+            "http://qudt.org/vocab/unit/MegaW"
+        ],
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen",
         "code": "GEINSTALLEERD_VERMOGEN",
         "prefLabel": "Geinstalleerd vermogen",
@@ -154,6 +248,24 @@
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal",
         "relevantRiepr": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie"
+        ]
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/verwijderingsrendement",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "relevantUnit": [
+            "http://qudt.org/vocab/unit/PERCENT"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen",
+        "code": "VERWIJDERDINGS_RENDEMENT",
+        "prefLabel": "Verwijderingsrendement",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen",
+        "parameterDimensie": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/chemische_stof",
+        "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal",
+        "relevantRiepr": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/filterinstallatie"
         ]
     },
     {
@@ -169,6 +281,26 @@
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie"
         ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/filterinstallatie",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type",
+        "code": "filterinstallatie",
+        "prefLabel": "Filter Installatie",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/installatie",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type",
+        "code": "installatie",
+        "prefLabel": "Installatie",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_type"
     },
     {
@@ -338,8 +470,16 @@
             "http://www.w3.org/2004/02/skos/core#ConceptScheme"
         ],
         "hasTopConcept": [
+            "http://qudt.org/vocab/unit/DEG_C",
+            "http://qudt.org/vocab/unit/K",
             "http://qudt.org/vocab/unit/M",
-            "http://qudt.org/vocab/unit/MegaW"
+            "http://qudt.org/vocab/unit/MegaW",
+            "http://qudt.org/vocab/unit/MicroGM-PER-L",
+            "http://qudt.org/vocab/unit/MilliGM-PER-L",
+            "http://qudt.org/vocab/unit/NanoGM-PER-L",
+            "http://qudt.org/vocab/unit/PERCENT",
+            "http://qudt.org/vocab/unit/PPB",
+            "http://qudt.org/vocab/unit/PPM"
         ]
     },
     {
@@ -367,7 +507,7 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/lozingspunt",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_horizontale_uitstroom",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_vertikale_uitstroom"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_verticale_uitstroom"
         ],
         "note": "Een typering van verschillende soorten emissiepunten.",
         "prefLabel": "Emissiepunt types"
@@ -379,7 +519,8 @@
         ],
         "definition": "Een typering van verschillende eigenschappen voor installaties.",
         "hasTopConcept": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/geinstalleerd_vermogen"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/geinstalleerd_vermogen",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/verwijderingsrendement"
         ],
         "note": "Een typering van verschillende eigenschappen voor installaties.",
         "prefLabel": "Installatie eigenschappen"
@@ -392,7 +533,9 @@
         "definition": "Een typering van verschillende soorten installaties.",
         "hasTopConcept": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/filterinstallatie",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/installatie"
         ],
         "note": "Een typering van verschillende soorten installaties.",
         "prefLabel": "Installatie types"

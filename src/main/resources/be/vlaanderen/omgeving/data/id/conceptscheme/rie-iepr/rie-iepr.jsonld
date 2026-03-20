@@ -463,17 +463,9 @@
             "@id": "http://xmlns.com/foaf/0.1/page",
             "@type": "@id"
         },
-        "parametereenheid": {
-            "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#parametereenheid",
-            "@type": "@id"
-        },
-        "parameter": {
+        "parameterDimensie": {
             "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#parameterDimensie",
             "@type": "@id"
-        },
-        "parameterwaarde": {
-            "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#parameterwaarde",
-            "@type": "http://www.w3.org/2001/XMLSchema#decimal"
         },
         "phenomenonTime": {
             "@id": "http://www.w3.org/ns/sosa/phenomenonTime",
@@ -546,7 +538,8 @@
         },
         "relevantUnit": {
             "@id": "http://qudt.org/schema/qudt/relevantUnit",
-            "@type": "@id"
+            "@type": "@id",
+            "@container": "@set"
         },
         "resultFormat": {
             "@id": "http://www.w3.org/ns/sparql-service-description#resultFormat",
@@ -832,6 +825,28 @@
     },
     "graph": [
         {
+            "id": "unit:DEG_C",
+            "_type": [
+                "qudt:Unit",
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:eenheden",
+            "code": "°C",
+            "prefLabel": "Graden celcius",
+            "topConceptOf": "conceptscheme:eenheden"
+        },
+        {
+            "id": "unit:K",
+            "_type": [
+                "qudt:Unit",
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:eenheden",
+            "code": "K",
+            "prefLabel": "Kelvin",
+            "topConceptOf": "conceptscheme:eenheden"
+        },
+        {
             "id": "unit:M",
             "_type": [
                 "qudt:Unit",
@@ -854,40 +869,196 @@
             "topConceptOf": "conceptscheme:eenheden"
         },
         {
+            "id": "unit:MicroGM-PER-L",
+            "_type": [
+                "qudt:Unit",
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:eenheden",
+            "code": "µg/l",
+            "prefLabel": "Microgram per liter",
+            "topConceptOf": "conceptscheme:eenheden"
+        },
+        {
+            "id": "unit:MilliGM-PER-L",
+            "_type": [
+                "qudt:Unit",
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:eenheden",
+            "code": "mg/l",
+            "prefLabel": "Milligram per liter",
+            "topConceptOf": "conceptscheme:eenheden"
+        },
+        {
+            "id": "unit:NanoGM-PER-L",
+            "_type": [
+                "qudt:Unit",
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:eenheden",
+            "code": "ng/l",
+            "prefLabel": "Nanogram per liter",
+            "topConceptOf": "conceptscheme:eenheden"
+        },
+        {
+            "id": "unit:PERCENT",
+            "_type": [
+                "qudt:Unit",
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:eenheden",
+            "code": "%",
+            "prefLabel": "Pcent",
+            "topConceptOf": "conceptscheme:eenheden"
+        },
+        {
+            "id": "unit:PPB",
+            "_type": [
+                "qudt:Unit",
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:eenheden",
+            "code": "PPB",
+            "prefLabel": "PB",
+            "topConceptOf": "conceptscheme:eenheden"
+        },
+        {
+            "id": "unit:PPM",
+            "_type": [
+                "qudt:Unit",
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:eenheden",
+            "code": "PPM",
+            "prefLabel": "PPM",
+            "topConceptOf": "conceptscheme:eenheden"
+        },
+        {
             "id": "riepr-emissiepunt-eigenschappen:schouw-diameter",
             "_type": [
                 "skos:Concept"
             ],
-            "relevantUnit": {
-                "id": "unit:M",
-                "_type": [
-                    "qudt:Unit",
-                    "skos:Concept"
-                ],
-                "inScheme": {
-                    "id": "conceptscheme:eenheden",
+            "relevantUnit": [
+                {
+                    "id": "unit:M",
                     "_type": [
-                        "skos:ConceptScheme"
+                        "qudt:Unit",
+                        "skos:Concept"
                     ],
-                    "hasTopConcept": [
-                        "unit:M",
-                        {
-                            "id": "unit:MegaW",
-                            "_type": [
-                                "qudt:Unit",
-                                "skos:Concept"
-                            ],
-                            "inScheme": "conceptscheme:eenheden",
-                            "code": "MW",
-                            "prefLabel": "Mega Watt",
-                            "topConceptOf": "conceptscheme:eenheden"
-                        }
-                    ]
-                },
-                "code": "m",
-                "prefLabel": "Meter",
-                "topConceptOf": "conceptscheme:eenheden"
-            },
+                    "inScheme": {
+                        "id": "conceptscheme:eenheden",
+                        "_type": [
+                            "skos:ConceptScheme"
+                        ],
+                        "hasTopConcept": [
+                            {
+                                "id": "unit:DEG_C",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "°C",
+                                "prefLabel": "Graden celcius",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:K",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "K",
+                                "prefLabel": "Kelvin",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            "unit:M",
+                            {
+                                "id": "unit:MegaW",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "MW",
+                                "prefLabel": "Mega Watt",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:MicroGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "µg/l",
+                                "prefLabel": "Microgram per liter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:MilliGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "mg/l",
+                                "prefLabel": "Milligram per liter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:NanoGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "ng/l",
+                                "prefLabel": "Nanogram per liter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:PERCENT",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "%",
+                                "prefLabel": "Pcent",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:PPB",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "PPB",
+                                "prefLabel": "PB",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:PPM",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "PPM",
+                                "prefLabel": "PPM",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            }
+                        ]
+                    },
+                    "code": "m",
+                    "prefLabel": "Meter",
+                    "topConceptOf": "conceptscheme:eenheden"
+                }
+            ],
             "inScheme": "conceptscheme:emissiepunt_eigenschappen",
             "code": "diameter",
             "prefLabel": "Diameter van de schouw",
@@ -957,7 +1128,7 @@
                                         "topConceptOf": "conceptscheme:emissiepunt_type"
                                     },
                                     {
-                                        "id": "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom",
+                                        "id": "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom",
                                         "_type": [
                                             "skos:Concept"
                                         ],
@@ -965,7 +1136,7 @@
                                         "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
                                         "inScheme": "conceptscheme:emissiepunt_type",
                                         "code": "schoorsteen_verticale_uitstroom",
-                                        "prefLabel": "Schoorsteen met vertikale uitstroom",
+                                        "prefLabel": "Schoorsteen met verticale uitstroom",
                                         "semanticRelation": [
                                             "riepr-emissiepunt-type:schoorsteen"
                                         ],
@@ -974,19 +1145,19 @@
                                 ],
                                 "narrowerTransitive": [
                                     "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
-                                    "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom"
+                                    "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
                                 ],
                                 "code": "schoorsteen",
                                 "note": "Een schoorsteen.",
                                 "prefLabel": "Schoorsteen",
                                 "semanticRelation": [
                                     "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
-                                    "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom"
+                                    "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
                                 ],
                                 "topConceptOf": "conceptscheme:emissiepunt_type"
                             },
                             "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
-                            "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom"
+                            "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
                         ],
                         "note": "Een typering van verschillende soorten emissiepunten.",
                         "prefLabel": "Emissiepunt types"
@@ -1003,36 +1174,126 @@
             "_type": [
                 "skos:Concept"
             ],
-            "relevantUnit": {
-                "id": "unit:M",
-                "_type": [
-                    "qudt:Unit",
-                    "skos:Concept"
-                ],
-                "inScheme": {
-                    "id": "conceptscheme:eenheden",
+            "relevantUnit": [
+                {
+                    "id": "unit:M",
                     "_type": [
-                        "skos:ConceptScheme"
+                        "qudt:Unit",
+                        "skos:Concept"
                     ],
-                    "hasTopConcept": [
-                        "unit:M",
-                        {
-                            "id": "unit:MegaW",
-                            "_type": [
-                                "qudt:Unit",
-                                "skos:Concept"
-                            ],
-                            "inScheme": "conceptscheme:eenheden",
-                            "code": "MW",
-                            "prefLabel": "Mega Watt",
-                            "topConceptOf": "conceptscheme:eenheden"
-                        }
-                    ]
-                },
-                "code": "m",
-                "prefLabel": "Meter",
-                "topConceptOf": "conceptscheme:eenheden"
-            },
+                    "inScheme": {
+                        "id": "conceptscheme:eenheden",
+                        "_type": [
+                            "skos:ConceptScheme"
+                        ],
+                        "hasTopConcept": [
+                            {
+                                "id": "unit:DEG_C",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "°C",
+                                "prefLabel": "Graden celcius",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:K",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "K",
+                                "prefLabel": "Kelvin",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            "unit:M",
+                            {
+                                "id": "unit:MegaW",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "MW",
+                                "prefLabel": "Mega Watt",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:MicroGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "µg/l",
+                                "prefLabel": "Microgram per liter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:MilliGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "mg/l",
+                                "prefLabel": "Milligram per liter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:NanoGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "ng/l",
+                                "prefLabel": "Nanogram per liter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:PERCENT",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "%",
+                                "prefLabel": "Pcent",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:PPB",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "PPB",
+                                "prefLabel": "PB",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:PPM",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "PPM",
+                                "prefLabel": "PPM",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            }
+                        ]
+                    },
+                    "code": "m",
+                    "prefLabel": "Meter",
+                    "topConceptOf": "conceptscheme:eenheden"
+                }
+            ],
             "inScheme": "conceptscheme:emissiepunt_eigenschappen",
             "code": "hoogte",
             "prefLabel": "Hoogte van de schouw",
@@ -1102,7 +1363,7 @@
                                         "topConceptOf": "conceptscheme:emissiepunt_type"
                                     },
                                     {
-                                        "id": "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom",
+                                        "id": "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom",
                                         "_type": [
                                             "skos:Concept"
                                         ],
@@ -1110,7 +1371,7 @@
                                         "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
                                         "inScheme": "conceptscheme:emissiepunt_type",
                                         "code": "schoorsteen_verticale_uitstroom",
-                                        "prefLabel": "Schoorsteen met vertikale uitstroom",
+                                        "prefLabel": "Schoorsteen met verticale uitstroom",
                                         "semanticRelation": [
                                             "riepr-emissiepunt-type:schoorsteen"
                                         ],
@@ -1119,19 +1380,19 @@
                                 ],
                                 "narrowerTransitive": [
                                     "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
-                                    "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom"
+                                    "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
                                 ],
                                 "code": "schoorsteen",
                                 "note": "Een schoorsteen.",
                                 "prefLabel": "Schoorsteen",
                                 "semanticRelation": [
                                     "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
-                                    "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom"
+                                    "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
                                 ],
                                 "topConceptOf": "conceptscheme:emissiepunt_type"
                             },
                             "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
-                            "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom"
+                            "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
                         ],
                         "note": "Een typering van verschillende soorten emissiepunten.",
                         "prefLabel": "Emissiepunt types"
@@ -1176,18 +1437,18 @@
             "inScheme": "conceptscheme:emissiepunt_type",
             "narrower": [
                 "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
-                "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom"
+                "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
             ],
             "narrowerTransitive": [
                 "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
-                "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom"
+                "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
             ],
             "code": "schoorsteen",
             "note": "Een schoorsteen.",
             "prefLabel": "Schoorsteen",
             "semanticRelation": [
                 "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
-                "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom"
+                "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
             ],
             "topConceptOf": "conceptscheme:emissiepunt_type"
         },
@@ -1207,7 +1468,7 @@
             "topConceptOf": "conceptscheme:emissiepunt_type"
         },
         {
-            "id": "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom",
+            "id": "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom",
             "_type": [
                 "skos:Concept"
             ],
@@ -1215,7 +1476,7 @@
             "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
             "inScheme": "conceptscheme:emissiepunt_type",
             "code": "schoorsteen_verticale_uitstroom",
-            "prefLabel": "Schoorsteen met vertikale uitstroom",
+            "prefLabel": "Schoorsteen met verticale uitstroom",
             "semanticRelation": [
                 "riepr-emissiepunt-type:schoorsteen"
             ],
@@ -1238,36 +1499,126 @@
             "_type": [
                 "skos:Concept"
             ],
-            "relevantUnit": {
-                "id": "unit:MegaW",
-                "_type": [
-                    "qudt:Unit",
-                    "skos:Concept"
-                ],
-                "inScheme": {
-                    "id": "conceptscheme:eenheden",
+            "relevantUnit": [
+                {
+                    "id": "unit:MegaW",
                     "_type": [
-                        "skos:ConceptScheme"
+                        "qudt:Unit",
+                        "skos:Concept"
                     ],
-                    "hasTopConcept": [
-                        {
-                            "id": "unit:M",
-                            "_type": [
-                                "qudt:Unit",
-                                "skos:Concept"
-                            ],
-                            "inScheme": "conceptscheme:eenheden",
-                            "code": "m",
-                            "prefLabel": "Meter",
-                            "topConceptOf": "conceptscheme:eenheden"
-                        },
-                        "unit:MegaW"
-                    ]
-                },
-                "code": "MW",
-                "prefLabel": "Mega Watt",
-                "topConceptOf": "conceptscheme:eenheden"
-            },
+                    "inScheme": {
+                        "id": "conceptscheme:eenheden",
+                        "_type": [
+                            "skos:ConceptScheme"
+                        ],
+                        "hasTopConcept": [
+                            {
+                                "id": "unit:DEG_C",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "°C",
+                                "prefLabel": "Graden celcius",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:K",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "K",
+                                "prefLabel": "Kelvin",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:M",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "m",
+                                "prefLabel": "Meter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            "unit:MegaW",
+                            {
+                                "id": "unit:MicroGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "µg/l",
+                                "prefLabel": "Microgram per liter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:MilliGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "mg/l",
+                                "prefLabel": "Milligram per liter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:NanoGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "ng/l",
+                                "prefLabel": "Nanogram per liter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:PERCENT",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "%",
+                                "prefLabel": "Pcent",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:PPB",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "PPB",
+                                "prefLabel": "PB",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:PPM",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "PPM",
+                                "prefLabel": "PPM",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            }
+                        ]
+                    },
+                    "code": "MW",
+                    "prefLabel": "Mega Watt",
+                    "topConceptOf": "conceptscheme:eenheden"
+                }
+            ],
             "inScheme": "conceptscheme:installatie_eigenschappen",
             "code": "GEINSTALLEERD_VERMOGEN",
             "prefLabel": "Geinstalleerd vermogen",
@@ -1288,6 +1639,16 @@
                         "hasTopConcept": [
                             "riepr-installatie-type:stookinstallatie",
                             {
+                                "id": "riepr-installatie-type:filterinstallatie",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:installatie_type",
+                                "code": "filterinstallatie",
+                                "prefLabel": "Filter Installatie",
+                                "topConceptOf": "conceptscheme:installatie_type"
+                            },
+                            {
                                 "id": "riepr-installatie-type:directe_stookinstallatie",
                                 "_type": [
                                     "skos:Concept"
@@ -1300,6 +1661,16 @@
                                 "semanticRelation": [
                                     "riepr-installatie-type:stookinstallatie"
                                 ],
+                                "topConceptOf": "conceptscheme:installatie_type"
+                            },
+                            {
+                                "id": "riepr-installatie-type:installatie",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:installatie_type",
+                                "code": "installatie",
+                                "prefLabel": "Installatie",
                                 "topConceptOf": "conceptscheme:installatie_type"
                             }
                         ],
@@ -1322,6 +1693,205 @@
             ]
         },
         {
+            "id": "riepr-installatie-eigenschappen:verwijderingsrendement",
+            "_type": [
+                "skos:Concept"
+            ],
+            "relevantUnit": [
+                {
+                    "id": "unit:PERCENT",
+                    "_type": [
+                        "qudt:Unit",
+                        "skos:Concept"
+                    ],
+                    "inScheme": {
+                        "id": "conceptscheme:eenheden",
+                        "_type": [
+                            "skos:ConceptScheme"
+                        ],
+                        "hasTopConcept": [
+                            {
+                                "id": "unit:DEG_C",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "°C",
+                                "prefLabel": "Graden celcius",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:K",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "K",
+                                "prefLabel": "Kelvin",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:M",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "m",
+                                "prefLabel": "Meter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:MegaW",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "MW",
+                                "prefLabel": "Mega Watt",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:MicroGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "µg/l",
+                                "prefLabel": "Microgram per liter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:MilliGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "mg/l",
+                                "prefLabel": "Milligram per liter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:NanoGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "ng/l",
+                                "prefLabel": "Nanogram per liter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            "unit:PERCENT",
+                            {
+                                "id": "unit:PPB",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "PPB",
+                                "prefLabel": "PB",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:PPM",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "PPM",
+                                "prefLabel": "PPM",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            }
+                        ]
+                    },
+                    "code": "%",
+                    "prefLabel": "Pcent",
+                    "topConceptOf": "conceptscheme:eenheden"
+                }
+            ],
+            "inScheme": "conceptscheme:installatie_eigenschappen",
+            "code": "VERWIJDERDINGS_RENDEMENT",
+            "prefLabel": "Verwijderingsrendement",
+            "topConceptOf": "conceptscheme:installatie_eigenschappen",
+            "parameterDimensie": "conceptscheme:chemische_stof",
+            "relevantDataType": "xsd:decimal",
+            "relevantRiepr": [
+                {
+                    "id": "riepr-installatie-type:filterinstallatie",
+                    "_type": [
+                        "skos:Concept"
+                    ],
+                    "inScheme": {
+                        "id": "conceptscheme:installatie_type",
+                        "_type": [
+                            "skos:ConceptScheme"
+                        ],
+                        "definition": "Een typering van verschillende soorten installaties.",
+                        "hasTopConcept": [
+                            {
+                                "id": "riepr-installatie-type:stookinstallatie",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:installatie_type",
+                                "narrower": [
+                                    {
+                                        "id": "riepr-installatie-type:directe_stookinstallatie",
+                                        "_type": [
+                                            "skos:Concept"
+                                        ],
+                                        "broader": "riepr-installatie-type:stookinstallatie",
+                                        "broaderTransitive": "riepr-installatie-type:stookinstallatie",
+                                        "inScheme": "conceptscheme:installatie_type",
+                                        "code": "directe_stookinstallatie",
+                                        "prefLabel": "Directe Stookinstallatie",
+                                        "semanticRelation": [
+                                            "riepr-installatie-type:stookinstallatie"
+                                        ],
+                                        "topConceptOf": "conceptscheme:installatie_type"
+                                    }
+                                ],
+                                "narrowerTransitive": [
+                                    "riepr-installatie-type:directe_stookinstallatie"
+                                ],
+                                "code": "stookinstallatie",
+                                "prefLabel": "Stookinstallatie",
+                                "semanticRelation": [
+                                    "riepr-installatie-type:directe_stookinstallatie"
+                                ],
+                                "topConceptOf": "conceptscheme:installatie_type"
+                            },
+                            "riepr-installatie-type:filterinstallatie",
+                            "riepr-installatie-type:directe_stookinstallatie",
+                            {
+                                "id": "riepr-installatie-type:installatie",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:installatie_type",
+                                "code": "installatie",
+                                "prefLabel": "Installatie",
+                                "topConceptOf": "conceptscheme:installatie_type"
+                            }
+                        ],
+                        "note": "Een typering van verschillende soorten installaties.",
+                        "prefLabel": "Installatie types"
+                    },
+                    "code": "filterinstallatie",
+                    "prefLabel": "Filter Installatie",
+                    "topConceptOf": "conceptscheme:installatie_type"
+                }
+            ]
+        },
+        {
             "id": "riepr-installatie-type:directe_stookinstallatie",
             "_type": [
                 "skos:Concept"
@@ -1334,6 +1904,26 @@
             "semanticRelation": [
                 "riepr-installatie-type:stookinstallatie"
             ],
+            "topConceptOf": "conceptscheme:installatie_type"
+        },
+        {
+            "id": "riepr-installatie-type:filterinstallatie",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:installatie_type",
+            "code": "filterinstallatie",
+            "prefLabel": "Filter Installatie",
+            "topConceptOf": "conceptscheme:installatie_type"
+        },
+        {
+            "id": "riepr-installatie-type:installatie",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:installatie_type",
+            "code": "installatie",
+            "prefLabel": "Installatie",
             "topConceptOf": "conceptscheme:installatie_type"
         },
         {
@@ -1512,8 +2102,16 @@
                 "skos:ConceptScheme"
             ],
             "hasTopConcept": [
+                "unit:DEG_C",
+                "unit:K",
                 "unit:M",
-                "unit:MegaW"
+                "unit:MegaW",
+                "unit:MicroGM-PER-L",
+                "unit:MilliGM-PER-L",
+                "unit:NanoGM-PER-L",
+                "unit:PERCENT",
+                "unit:PPB",
+                "unit:PPM"
             ]
         },
         {
@@ -1541,7 +2139,7 @@
                 "riepr-emissiepunt-type:lozingspunt",
                 "riepr-emissiepunt-type:schoorsteen",
                 "riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom",
-                "riepr-emissiepunt-type:schoorsteen_vertikale_uitstroom"
+                "riepr-emissiepunt-type:schoorsteen_verticale_uitstroom"
             ],
             "note": "Een typering van verschillende soorten emissiepunten.",
             "prefLabel": "Emissiepunt types"
@@ -1553,7 +2151,8 @@
             ],
             "definition": "Een typering van verschillende eigenschappen voor installaties.",
             "hasTopConcept": [
-                "riepr-installatie-eigenschappen:geinstalleerd_vermogen"
+                "riepr-installatie-eigenschappen:geinstalleerd_vermogen",
+                "riepr-installatie-eigenschappen:verwijderingsrendement"
             ],
             "note": "Een typering van verschillende eigenschappen voor installaties.",
             "prefLabel": "Installatie eigenschappen"
@@ -1566,7 +2165,9 @@
             "definition": "Een typering van verschillende soorten installaties.",
             "hasTopConcept": [
                 "riepr-installatie-type:stookinstallatie",
-                "riepr-installatie-type:directe_stookinstallatie"
+                "riepr-installatie-type:filterinstallatie",
+                "riepr-installatie-type:directe_stookinstallatie",
+                "riepr-installatie-type:installatie"
             ],
             "note": "Een typering van verschillende soorten installaties.",
             "prefLabel": "Installatie types"
