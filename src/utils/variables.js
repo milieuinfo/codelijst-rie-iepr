@@ -283,6 +283,10 @@ const frame_skos_no_prefixes = {
         "@embed": "@never",
         "@omitDefault": true
     },
+    "isPartOf": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
     "actie": {
         "@embed": "@never",
         "@omitDefault": true
