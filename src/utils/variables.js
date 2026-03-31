@@ -366,6 +366,15 @@ const metadataSource = {
     "prefixes": config.prefixes
 }
 
+// Versioning settings (moved here for easier editing).
+// Edit these values instead of modifying source/config.yml when you want
+// to change versioning behaviour or release URL.
+const versioning = {
+    enabled: config.distribution?.versioning?.enabled ?? true,
+    // Default release URL (matches previous config.yml value). Override as needed.
+    release_url: config.distribution?.versioning?.release_url || 'https://repo.omgeving.vlaanderen.be/ui/api/v1/download/contentBrowsing/release/be/vlaanderen/omgeving/data/id/graph/codelijst-rie-iepr'
+}
+
 
 export {
     virtuoso,
@@ -374,5 +383,6 @@ export {
     metadataSource,
     metadataOptions,
     datasetOptions,
-    catalogOptions
+    catalogOptions,
+    versioning
 };

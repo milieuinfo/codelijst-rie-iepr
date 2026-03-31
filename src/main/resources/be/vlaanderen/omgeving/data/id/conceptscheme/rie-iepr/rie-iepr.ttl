@@ -105,95 +105,117 @@
 @prefix xkos: <http://rdf-vocabulary.ddialliance.org/xkos#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 
-unit:DEG_C a qudt:Unit, skos:Concept;
+unit:DEG_C dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a qudt:Unit, skos:Concept;
     skos:inScheme conceptscheme:eenheden;
     skos:notation "°C";
     skos:prefLabel "Graden celcius"@nl;
-    skos:topConceptOf conceptscheme:eenheden.
-unit:K a qudt:Unit, skos:Concept;
+    skos:topConceptOf conceptscheme:eenheden;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+unit:K dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a qudt:Unit, skos:Concept;
     skos:inScheme conceptscheme:eenheden;
     skos:notation "K";
     skos:prefLabel "Kelvin"@nl;
-    skos:topConceptOf conceptscheme:eenheden.
-unit:M a qudt:Unit, skos:Concept;
+    skos:topConceptOf conceptscheme:eenheden;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+unit:M dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a qudt:Unit, skos:Concept;
     skos:inScheme conceptscheme:eenheden;
     skos:notation "m";
     skos:prefLabel "Meter"@nl;
-    skos:topConceptOf conceptscheme:eenheden.
-unit:MegaW a qudt:Unit, skos:Concept;
+    skos:topConceptOf conceptscheme:eenheden;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+unit:MegaW dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a qudt:Unit, skos:Concept;
     skos:inScheme conceptscheme:eenheden;
     skos:notation "MW";
     skos:prefLabel "Mega Watt"@nl;
-    skos:topConceptOf conceptscheme:eenheden.
-unit:MicroGM-PER-L a qudt:Unit, skos:Concept;
+    skos:topConceptOf conceptscheme:eenheden;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+unit:MicroGM-PER-L dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a qudt:Unit, skos:Concept;
     skos:inScheme conceptscheme:eenheden;
     skos:notation "µg/l";
     skos:prefLabel "Microgram per liter"@nl;
-    skos:topConceptOf conceptscheme:eenheden.
-unit:MilliGM-PER-L a qudt:Unit, skos:Concept;
+    skos:topConceptOf conceptscheme:eenheden;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+unit:MilliGM-PER-L dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a qudt:Unit, skos:Concept;
     skos:inScheme conceptscheme:eenheden;
     skos:notation "mg/l";
     skos:prefLabel "Milligram per liter"@nl;
-    skos:topConceptOf conceptscheme:eenheden.
-unit:NanoGM-PER-L a qudt:Unit, skos:Concept;
+    skos:topConceptOf conceptscheme:eenheden;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+unit:NanoGM-PER-L dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a qudt:Unit, skos:Concept;
     skos:inScheme conceptscheme:eenheden;
     skos:notation "ng/l";
     skos:prefLabel "Nanogram per liter"@nl;
-    skos:topConceptOf conceptscheme:eenheden.
-unit:PERCENT a qudt:Unit, skos:Concept;
+    skos:topConceptOf conceptscheme:eenheden;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+unit:PERCENT dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a qudt:Unit, skos:Concept;
     skos:inScheme conceptscheme:eenheden;
     skos:notation "%";
     skos:prefLabel "Percent"@nl;
-    skos:topConceptOf conceptscheme:eenheden.
-unit:PPB a qudt:Unit, skos:Concept;
+    skos:topConceptOf conceptscheme:eenheden;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+unit:PPB dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a qudt:Unit, skos:Concept;
     skos:inScheme conceptscheme:eenheden;
     skos:notation "PPB";
     skos:prefLabel "PB"@nl;
-    skos:topConceptOf conceptscheme:eenheden.
-unit:PPM a qudt:Unit, skos:Concept;
+    skos:topConceptOf conceptscheme:eenheden;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+unit:PPM dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a qudt:Unit, skos:Concept;
     skos:inScheme conceptscheme:eenheden;
     skos:notation "PPM";
     skos:prefLabel "PPM"@nl;
-    skos:topConceptOf conceptscheme:eenheden.
-concept:conceptscheme_systeem_type a skos:ConceptScheme;
-    skos:hasTopConcept conceptscheme:meetpunt_type, conceptscheme:onttrekkingspunt_type.
-riepr-emissiepunt-eigenschappen:schouw-diameter dcterms:isPartOf conceptscheme:systeem_eigenschappen;
+    skos:topConceptOf conceptscheme:eenheden;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+riepr-emissiepunt-eigenschappen:schouw-diameter dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
     qudt:relevantUnit unit:M;
     a skos:Concept;
     skos:inScheme conceptscheme:emissiepunt_eigenschappen;
     skos:notation "diameter";
     skos:prefLabel "Diameter van de schouw"@nl;
     skos:topConceptOf conceptscheme:emissiepunt_eigenschappen;
+    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantProperty dbo:diameter;
     riepr-vocab:relevantRiepr riepr-emissiepunt-type:schouw.
-riepr-emissiepunt-eigenschappen:schouw-hoogte dcterms:isPartOf conceptscheme:systeem_eigenschappen;
+riepr-emissiepunt-eigenschappen:schouw-hoogte dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
     qudt:relevantUnit unit:M;
     a skos:Concept;
     skos:inScheme conceptscheme:emissiepunt_eigenschappen;
     skos:notation "hoogte";
     skos:prefLabel "Hoogte van de schouw"@nl;
     skos:topConceptOf conceptscheme:emissiepunt_eigenschappen;
+    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantProperty dbo:height;
     riepr-vocab:relevantRiepr riepr-emissiepunt-type:schouw.
-riepr-emissiepunt-type:emissiepunt dcterms:isPartOf conceptscheme:systeem_type;
+riepr-emissiepunt-type:emissiepunt dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "Een regulier emissiepunt."@nl;
     skos:inScheme conceptscheme:emissiepunt_type;
     skos:notation "emissiepunt";
     skos:note "Een regulier emissiepunt."@nl;
     skos:prefLabel "Emissiepunt"@nl;
-    skos:topConceptOf conceptscheme:emissiepunt_type.
-riepr-emissiepunt-type:lozingspunt dcterms:isPartOf conceptscheme:systeem_type;
+    skos:topConceptOf conceptscheme:emissiepunt_type;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+riepr-emissiepunt-type:lozingspunt dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "Een lozing naar water."@nl;
     skos:inScheme conceptscheme:emissiepunt_type;
     skos:notation "lozingspunt";
     skos:note "Een lozing naar water."@nl;
     skos:prefLabel "Lozingspunt"@nl;
-    skos:topConceptOf conceptscheme:emissiepunt_type.
-riepr-emissiepunt-type:schoorsteen dcterms:isPartOf conceptscheme:systeem_type;
+    skos:topConceptOf conceptscheme:emissiepunt_type;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+riepr-emissiepunt-type:schoorsteen dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "Een schoorsteen."@nl;
     skos:inScheme conceptscheme:emissiepunt_type;
@@ -203,73 +225,82 @@ riepr-emissiepunt-type:schoorsteen dcterms:isPartOf conceptscheme:systeem_type;
     skos:note "Een schoorsteen."@nl;
     skos:prefLabel "Schoorsteen"@nl;
     skos:semanticRelation riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom, riepr-emissiepunt-type:schoorsteen_verticale_uitstroom;
-    skos:topConceptOf conceptscheme:emissiepunt_type.
-riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom dcterms:isPartOf conceptscheme:systeem_type;
+    skos:topConceptOf conceptscheme:emissiepunt_type;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
     a skos:Concept;
     skos:broader riepr-emissiepunt-type:schoorsteen;
     skos:broaderTransitive riepr-emissiepunt-type:schoorsteen;
     skos:inScheme conceptscheme:emissiepunt_type;
     skos:notation "schoorsteen_horizontale_uitstroom";
     skos:prefLabel "Schoorsteen met horizontale uitstroom"@nl;
-    skos:semanticRelation riepr-emissiepunt-type:schoorsteen.
-riepr-emissiepunt-type:schoorsteen_verticale_uitstroom dcterms:isPartOf conceptscheme:systeem_type;
+    skos:semanticRelation riepr-emissiepunt-type:schoorsteen;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+riepr-emissiepunt-type:schoorsteen_verticale_uitstroom dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
     a skos:Concept;
     skos:broader riepr-emissiepunt-type:schoorsteen;
     skos:broaderTransitive riepr-emissiepunt-type:schoorsteen;
     skos:inScheme conceptscheme:emissiepunt_type;
     skos:notation "schoorsteen_verticale_uitstroom";
     skos:prefLabel "Schoorsteen met verticale uitstroom"@nl;
-    skos:semanticRelation riepr-emissiepunt-type:schoorsteen.
-riepr-emissiepunt-type:schouw dcterms:isPartOf conceptscheme:systeem_type;
+    skos:semanticRelation riepr-emissiepunt-type:schoorsteen;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+riepr-emissiepunt-type:schouw dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "Een schouw."@nl;
     skos:inScheme conceptscheme:emissiepunt_type;
     skos:notation "schouw";
     skos:note "Een schouw."@nl;
     skos:prefLabel "Schouw"@nl;
-    skos:topConceptOf conceptscheme:emissiepunt_type.
-riepr-installatie-eigenschappen:geinstalleerd_vermogen dcterms:isPartOf conceptscheme:systeem_eigenschappen;
+    skos:topConceptOf conceptscheme:emissiepunt_type;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+riepr-installatie-eigenschappen:geinstalleerd_vermogen dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
     qudt:relevantUnit unit:MegaW;
     a skos:Concept;
     skos:inScheme conceptscheme:installatie_eigenschappen;
     skos:notation "GEINSTALLEERD_VERMOGEN";
     skos:prefLabel "Geinstalleerd vermogen"@nl;
     skos:topConceptOf conceptscheme:installatie_eigenschappen;
+    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantRiepr riepr-installatie-type:stookinstallatie.
-riepr-installatie-eigenschappen:verwijderingsrendement dcterms:isPartOf conceptscheme:systeem_eigenschappen;
+riepr-installatie-eigenschappen:verwijderingsrendement dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
     qudt:relevantUnit unit:PERCENT;
     a skos:Concept;
     skos:inScheme conceptscheme:installatie_eigenschappen;
     skos:notation "VERWIJDERDINGS_RENDEMENT";
     skos:prefLabel "Verwijderingsrendement"@nl;
     skos:topConceptOf conceptscheme:installatie_eigenschappen;
+    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:parameterDimensie conceptscheme-alg:chemische_stof;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantRiepr riepr-installatie-type:filterinstallatie.
-riepr-installatie-type:directe_stookinstallatie dcterms:isPartOf conceptscheme:systeem_type;
+riepr-installatie-type:directe_stookinstallatie dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
     a skos:Concept;
     skos:broader riepr-installatie-type:stookinstallatie;
     skos:broaderTransitive riepr-installatie-type:stookinstallatie;
     skos:inScheme conceptscheme:installatie_type;
     skos:notation "directe_stookinstallatie";
     skos:prefLabel "Directe Stookinstallatie"@nl;
-    skos:semanticRelation riepr-installatie-type:stookinstallatie.
-riepr-installatie-type:filterinstallatie dcterms:isPartOf conceptscheme:systeem_type;
+    skos:semanticRelation riepr-installatie-type:stookinstallatie;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+riepr-installatie-type:filterinstallatie dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
     a skos:Concept;
     skos:inScheme conceptscheme:installatie_type;
     skos:notation "filterinstallatie";
     skos:prefLabel "Filter Installatie"@nl;
-    skos:topConceptOf conceptscheme:installatie_type.
-riepr-installatie-type:installatie dcterms:isPartOf conceptscheme:systeem_type;
+    skos:topConceptOf conceptscheme:installatie_type;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+riepr-installatie-type:installatie dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
     a skos:Concept;
     skos:inScheme conceptscheme:installatie_type;
     skos:notation "installatie";
-    skos:prefLabel "Installatie"@nl;
-    skos:topConceptOf conceptscheme:installatie_type.
-riepr-installatie-type:stookinstallatie dcterms:isPartOf conceptscheme:systeem_type;
+    skos:prefLabel "Installatie'"@nl;
+    skos:topConceptOf conceptscheme:installatie_type;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+riepr-installatie-type:stookinstallatie dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
     a skos:Concept;
     skos:inScheme conceptscheme:installatie_type;
     skos:narrower riepr-installatie-type:directe_stookinstallatie;
@@ -277,50 +308,64 @@ riepr-installatie-type:stookinstallatie dcterms:isPartOf conceptscheme:systeem_t
     skos:notation "stookinstallatie";
     skos:prefLabel "Stookinstallatie"@nl;
     skos:semanticRelation riepr-installatie-type:directe_stookinstallatie;
-    skos:topConceptOf conceptscheme:installatie_type.
-riepr-meetpunt-type:meetput a skos:Concept;
+    skos:topConceptOf conceptscheme:installatie_type;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+riepr-meetpunt-type:meetput dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a skos:Concept;
     skos:inScheme conceptscheme:meetpunt_type;
     skos:notation "meetput";
     skos:prefLabel "Meetput"@nl;
-    skos:topConceptOf conceptscheme:meetpunt_type.
-riepr-onttrekkingspunt-type:grondwaterput a skos:Concept;
+    skos:topConceptOf conceptscheme:meetpunt_type;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+riepr-onttrekkingspunt-type:grondwaterput dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a skos:Concept;
     skos:inScheme conceptscheme:onttrekkingspunt_type;
     skos:notation "grondwaterput";
     skos:prefLabel "Grondwaterput"@nl;
-    skos:topConceptOf conceptscheme:onttrekkingspunt_type.
-riepr-procedure-type:emissie a skos:Concept;
+    skos:topConceptOf conceptscheme:onttrekkingspunt_type;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+riepr-procedure-type:emissie dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a skos:Concept;
     skos:definition "De procedure emissie via een emissiepunt."@nl;
     skos:inScheme conceptscheme:procedure_type;
     skos:notation "EMISSIE";
     skos:note "De procedure emissie via een emissiepunt."@nl;
     skos:prefLabel "Emissie"@nl;
     skos:topConceptOf conceptscheme:procedure_type;
+    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType sosa:Procedure.
-riepr-procedure-type:onttrekking a skos:Concept;
+riepr-procedure-type:onttrekking dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a skos:Concept;
     skos:definition "De procedure onttrekking via een onttrekingspunt."@nl;
     skos:inScheme conceptscheme:procedure_type;
     skos:notation "ONTTREKKING";
     skos:note "De procedure onttrekking via een onttrekingspunt."@nl;
     skos:prefLabel "Onttrekking"@nl;
     skos:topConceptOf conceptscheme:procedure_type;
+    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType sosa:Procedure.
-riepr-procedure-type:transport a skos:Concept;
+riepr-procedure-type:transport dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a skos:Concept;
     skos:definition "De procedure transport tussen twee processen."@nl;
     skos:inScheme conceptscheme:procedure_type;
     skos:notation "TRANSPORT";
     skos:note "De procedure transport tussen twee processen."@nl;
     skos:prefLabel "Transport"@nl;
     skos:topConceptOf conceptscheme:procedure_type;
+    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType sosa:Procedure.
-riepr-procedure-type:verwerking a skos:Concept;
+riepr-procedure-type:verwerking dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a skos:Concept;
     skos:definition "De procedure verwerking door een installatie."@nl;
     skos:inScheme conceptscheme:procedure_type;
     skos:notation "VERWERKING";
     skos:note "De procedure verwerking door een installatie."@nl;
     skos:prefLabel "Verwerking"@nl;
     skos:topConceptOf conceptscheme:procedure_type;
+    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType sosa:Procedure.
-riepr-status-type:definitief_uit_dienst a skos:Concept;
+riepr-status-type:definitief_uit_dienst dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a skos:Concept;
     rdfs:seeAlso <http://purl.org/adms/status/Withdrawn>;
     skos:definition "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is."@nl;
     skos:inScheme conceptscheme:status_type;
@@ -328,8 +373,10 @@ riepr-status-type:definitief_uit_dienst a skos:Concept;
     skos:note "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is."@nl;
     skos:prefLabel "Definitief uit dienst"@nl;
     skos:topConceptOf conceptscheme:status_type;
+    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-riepr-status-type:in_dienst a skos:Concept;
+riepr-status-type:in_dienst dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a skos:Concept;
     rdfs:seeAlso <http://purl.org/adms/status/Completed>;
     skos:definition "De status in dienst geeft aan dat een entiteit momenteel in gebruik is."@nl;
     skos:inScheme conceptscheme:status_type;
@@ -337,8 +384,10 @@ riepr-status-type:in_dienst a skos:Concept;
     skos:note "De status in dienst geeft aan dat een entiteit momenteel in gebruik is."@nl;
     skos:prefLabel "In dienst"@nl;
     skos:topConceptOf conceptscheme:status_type;
+    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-riepr-status-type:ontmanteld a skos:Concept;
+riepr-status-type:ontmanteld dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a skos:Concept;
     rdfs:seeAlso <http://purl.org/adms/status/Withdrawn>;
     skos:definition "De status ontmanteld geeft aan dat een entiteit niet meer bestaat."@nl;
     skos:inScheme conceptscheme:status_type;
@@ -346,8 +395,10 @@ riepr-status-type:ontmanteld a skos:Concept;
     skos:note "De status ontmanteld geeft aan dat een entiteit niet meer bestaat."@nl;
     skos:prefLabel "Ontmanteld"@nl;
     skos:topConceptOf conceptscheme:status_type;
+    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-riepr-status-type:tijdelijk_uit_dienst a skos:Concept;
+riepr-status-type:tijdelijk_uit_dienst dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a skos:Concept;
     rdfs:seeAlso <http://purl.org/adms/status/Deprecated>;
     skos:definition "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is."@nl;
     skos:inScheme conceptscheme:status_type;
@@ -355,8 +406,10 @@ riepr-status-type:tijdelijk_uit_dienst a skos:Concept;
     skos:note "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is."@nl;
     skos:prefLabel "Tijdelijk uit dienst"@nl;
     skos:topConceptOf conceptscheme:status_type;
+    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-riepr-status-type:voorgesteld a skos:Concept;
+riepr-status-type:voorgesteld dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a skos:Concept;
     rdfs:seeAlso <http://purl.org/adms/status/UnderDevelopment>;
     skos:definition "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid."@nl;
     skos:inScheme conceptscheme:status_type;
@@ -364,56 +417,73 @@ riepr-status-type:voorgesteld a skos:Concept;
     skos:note "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid."@nl;
     skos:prefLabel "Voorgesteld Ontwerp"@nl;
     skos:topConceptOf conceptscheme:status_type;
+    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-conceptscheme:data_type a skos:ConceptScheme;
+conceptscheme:data_type dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a skos:ConceptScheme;
     skos:definition "Een typering van verschillende data types."@nl;
     skos:note "Een typering van verschillende data types."@nl;
-    skos:prefLabel "Data types"@nl.
-conceptscheme:eenheden a skos:ConceptScheme;
-    skos:hasTopConcept unit:DEG_C, unit:K, unit:M, unit:MegaW, unit:MicroGM-PER-L, unit:MilliGM-PER-L, unit:NanoGM-PER-L, unit:PERCENT, unit:PPB, unit:PPM.
-conceptscheme:emissiepunt_eigenschappen dcterms:isPartOf conceptscheme:systeem_eigenschappen;
+    skos:prefLabel "Data types"@nl;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+conceptscheme:eenheden dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a skos:ConceptScheme;
+    skos:hasTopConcept unit:DEG_C, unit:K, unit:M, unit:MegaW, unit:MicroGM-PER-L, unit:MilliGM-PER-L, unit:NanoGM-PER-L, unit:PERCENT, unit:PPB, unit:PPM;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+conceptscheme:emissiepunt_eigenschappen dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    dcterms:isPartOf conceptscheme:systeem_eigenschappen;
     a skos:ConceptScheme;
     skos:definition "Een typering van verschillende eigenschappen voor emissiepunten."@nl;
     skos:hasTopConcept riepr-emissiepunt-eigenschappen:schouw-diameter, riepr-emissiepunt-eigenschappen:schouw-hoogte;
     skos:note "Een typering van verschillende eigenschappen voor emissiepunten."@nl;
-    skos:prefLabel "Emissiepunt eigenschappen"@nl.
-conceptscheme:emissiepunt_type dcterms:isPartOf conceptscheme:systeem_type;
+    skos:prefLabel "Emissiepunt eigenschappen"@nl;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+conceptscheme:emissiepunt_type dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    dcterms:isPartOf conceptscheme:systeem_type;
     a skos:ConceptScheme;
     skos:definition "Een typering van verschillende soorten emissiepunten."@nl;
     skos:hasTopConcept riepr-emissiepunt-type:emissiepunt, riepr-emissiepunt-type:lozingspunt, riepr-emissiepunt-type:schoorsteen, riepr-emissiepunt-type:schouw;
     skos:note "Een typering van verschillende soorten emissiepunten."@nl;
-    skos:prefLabel "Emissiepunt types"@nl.
-conceptscheme:installatie_eigenschappen dcterms:isPartOf conceptscheme:systeem_eigenschappen;
+    skos:prefLabel "Emissiepunt types"@nl;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+conceptscheme:installatie_eigenschappen dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    dcterms:isPartOf conceptscheme:systeem_eigenschappen;
     a skos:ConceptScheme;
     skos:definition "Een typering van verschillende eigenschappen voor installaties."@nl;
     skos:hasTopConcept riepr-installatie-eigenschappen:geinstalleerd_vermogen, riepr-installatie-eigenschappen:verwijderingsrendement;
     skos:note "Een typering van verschillende eigenschappen voor installaties."@nl;
-    skos:prefLabel "Installatie eigenschappen"@nl.
-conceptscheme:installatie_type dcterms:isPartOf conceptscheme:systeem_type;
+    skos:prefLabel "Installatie eigenschappen"@nl;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+conceptscheme:installatie_type dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    dcterms:isPartOf conceptscheme:systeem_type;
     a skos:ConceptScheme;
     skos:definition "Een typering van verschillende soorten installaties."@nl;
     skos:hasTopConcept riepr-installatie-type:filterinstallatie, riepr-installatie-type:installatie, riepr-installatie-type:stookinstallatie;
     skos:note "Een typering van verschillende soorten installaties."@nl;
-    skos:prefLabel "Installatie types"@nl.
-conceptscheme:meetpunt_type a skos:Concept, skos:ConceptScheme;
+    skos:prefLabel "Installatie types"@nl;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+conceptscheme:meetpunt_type dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a skos:ConceptScheme;
     skos:hasTopConcept riepr-meetpunt-type:meetput;
-    skos:inScheme concept:conceptscheme_systeem_type;
     skos:prefLabel "Meetpunt types"@nl;
-    skos:topConceptOf concept:conceptscheme_systeem_type.
-conceptscheme:onttrekkingspunt_type a skos:Concept, skos:ConceptScheme;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+conceptscheme:onttrekkingspunt_type dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a skos:ConceptScheme;
     skos:definition "Een typering van verschillende soorten onttrekkingspunten."@nl;
     skos:hasTopConcept riepr-onttrekkingspunt-type:grondwaterput;
-    skos:inScheme concept:conceptscheme_systeem_type;
     skos:note "Een typering van verschillende soorten onttrekkingspunten."@nl;
     skos:prefLabel "Onttrekkingspunt types"@nl;
-    skos:topConceptOf concept:conceptscheme_systeem_type.
-conceptscheme:procedure_type a skos:ConceptScheme;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+conceptscheme:procedure_type dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a skos:ConceptScheme;
     skos:definition "Een typering van verschillende procedures."@nl;
     skos:hasTopConcept riepr-procedure-type:emissie, riepr-procedure-type:onttrekking, riepr-procedure-type:transport, riepr-procedure-type:verwerking;
     skos:note "Een typering van verschillende procedures."@nl;
-    skos:prefLabel "Procedure types"@nl.
-conceptscheme:status_type a skos:ConceptScheme;
+    skos:prefLabel "Procedure types"@nl;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+conceptscheme:status_type dcterms:created "2026-03-31T14:34:10.085Z"^^xsd:dateTime;
+    a skos:ConceptScheme;
     skos:definition "Een typering van verschillende statussen (actief, inactief, ...)."@nl;
     skos:hasTopConcept riepr-status-type:definitief_uit_dienst, riepr-status-type:in_dienst, riepr-status-type:ontmanteld, riepr-status-type:tijdelijk_uit_dienst, riepr-status-type:voorgesteld;
     skos:note "Een typering van verschillende statussen (actief, inactief, ...)."@nl;
-    skos:prefLabel "Status types"@nl.
+    skos:prefLabel "Status types"@nl;
+    adms:status <https://purl.archive.org/adms/status/Active>.
