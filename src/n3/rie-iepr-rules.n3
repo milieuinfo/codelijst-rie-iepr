@@ -2,6 +2,7 @@
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
 @prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
 
+# Als het conceptscheme van een bepaald concept deel uitmaakt van een ander conceptscheme, dan is het concept ook onderdeel van dat andere conceptscheme.
 { 
     ?x skos:inScheme ?y .
     ?y dcterms:isPartOf ?z .
