@@ -4,7 +4,8 @@
 
 { 
     ?x skos:inScheme ?y .
-    ?y skos:inScheme ?z .
+    ?y dcterms:isPartOf ?z .
+    ?y a skos:ConceptScheme .
 } => { 
     ?x dcterms:isPartOf ?z . 
 } .

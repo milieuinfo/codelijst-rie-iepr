@@ -156,7 +156,7 @@ unit:PPM a qudt:Unit, skos:Concept;
     skos:prefLabel "PPM"@nl;
     skos:topConceptOf conceptscheme:eenheden.
 concept:conceptscheme_systeem_type a skos:ConceptScheme;
-    skos:hasTopConcept conceptscheme:emissiepunt_type, conceptscheme:installatie_type, conceptscheme:meetpunt_type, conceptscheme:onttrekkingspunt_type.
+    skos:hasTopConcept conceptscheme:meetpunt_type, conceptscheme:onttrekkingspunt_type.
 riepr-emissiepunt-eigenschappen:schouw-diameter dcterms:isPartOf conceptscheme:systeem_eigenschappen;
     qudt:relevantUnit unit:M;
     a skos:Concept;
@@ -177,7 +177,7 @@ riepr-emissiepunt-eigenschappen:schouw-hoogte dcterms:isPartOf conceptscheme:sys
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantProperty dbo:height;
     riepr-vocab:relevantRiepr riepr-emissiepunt-type:schouw.
-riepr-emissiepunt-type:emissiepunt dcterms:isPartOf concept:conceptscheme_systeem_type;
+riepr-emissiepunt-type:emissiepunt dcterms:isPartOf conceptscheme:systeem_type;
     a skos:Concept;
     skos:definition "Een regulier emissiepunt."@nl;
     skos:inScheme conceptscheme:emissiepunt_type;
@@ -185,7 +185,7 @@ riepr-emissiepunt-type:emissiepunt dcterms:isPartOf concept:conceptscheme_systee
     skos:note "Een regulier emissiepunt."@nl;
     skos:prefLabel "Emissiepunt"@nl;
     skos:topConceptOf conceptscheme:emissiepunt_type.
-riepr-emissiepunt-type:lozingspunt dcterms:isPartOf concept:conceptscheme_systeem_type;
+riepr-emissiepunt-type:lozingspunt dcterms:isPartOf conceptscheme:systeem_type;
     a skos:Concept;
     skos:definition "Een lozing naar water."@nl;
     skos:inScheme conceptscheme:emissiepunt_type;
@@ -193,7 +193,7 @@ riepr-emissiepunt-type:lozingspunt dcterms:isPartOf concept:conceptscheme_systee
     skos:note "Een lozing naar water."@nl;
     skos:prefLabel "Lozingspunt"@nl;
     skos:topConceptOf conceptscheme:emissiepunt_type.
-riepr-emissiepunt-type:schoorsteen dcterms:isPartOf concept:conceptscheme_systeem_type;
+riepr-emissiepunt-type:schoorsteen dcterms:isPartOf conceptscheme:systeem_type;
     a skos:Concept;
     skos:definition "Een schoorsteen."@nl;
     skos:inScheme conceptscheme:emissiepunt_type;
@@ -204,25 +204,23 @@ riepr-emissiepunt-type:schoorsteen dcterms:isPartOf concept:conceptscheme_systee
     skos:prefLabel "Schoorsteen"@nl;
     skos:semanticRelation riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom, riepr-emissiepunt-type:schoorsteen_verticale_uitstroom;
     skos:topConceptOf conceptscheme:emissiepunt_type.
-riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom dcterms:isPartOf concept:conceptscheme_systeem_type;
+riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom dcterms:isPartOf conceptscheme:systeem_type;
     a skos:Concept;
     skos:broader riepr-emissiepunt-type:schoorsteen;
     skos:broaderTransitive riepr-emissiepunt-type:schoorsteen;
     skos:inScheme conceptscheme:emissiepunt_type;
     skos:notation "schoorsteen_horizontale_uitstroom";
     skos:prefLabel "Schoorsteen met horizontale uitstroom"@nl;
-    skos:semanticRelation riepr-emissiepunt-type:schoorsteen;
-    skos:topConceptOf conceptscheme:emissiepunt_type.
-riepr-emissiepunt-type:schoorsteen_verticale_uitstroom dcterms:isPartOf concept:conceptscheme_systeem_type;
+    skos:semanticRelation riepr-emissiepunt-type:schoorsteen.
+riepr-emissiepunt-type:schoorsteen_verticale_uitstroom dcterms:isPartOf conceptscheme:systeem_type;
     a skos:Concept;
     skos:broader riepr-emissiepunt-type:schoorsteen;
     skos:broaderTransitive riepr-emissiepunt-type:schoorsteen;
     skos:inScheme conceptscheme:emissiepunt_type;
     skos:notation "schoorsteen_verticale_uitstroom";
     skos:prefLabel "Schoorsteen met verticale uitstroom"@nl;
-    skos:semanticRelation riepr-emissiepunt-type:schoorsteen;
-    skos:topConceptOf conceptscheme:emissiepunt_type.
-riepr-emissiepunt-type:schouw dcterms:isPartOf concept:conceptscheme_systeem_type;
+    skos:semanticRelation riepr-emissiepunt-type:schoorsteen.
+riepr-emissiepunt-type:schouw dcterms:isPartOf conceptscheme:systeem_type;
     a skos:Concept;
     skos:definition "Een schouw."@nl;
     skos:inScheme conceptscheme:emissiepunt_type;
@@ -251,28 +249,27 @@ riepr-installatie-eigenschappen:verwijderingsrendement dcterms:isPartOf concepts
     riepr-vocab:parameterDimensie conceptscheme-alg:chemische_stof;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantRiepr riepr-installatie-type:filterinstallatie.
-riepr-installatie-type:directe_stookinstallatie dcterms:isPartOf concept:conceptscheme_systeem_type;
+riepr-installatie-type:directe_stookinstallatie dcterms:isPartOf conceptscheme:systeem_type;
     a skos:Concept;
     skos:broader riepr-installatie-type:stookinstallatie;
     skos:broaderTransitive riepr-installatie-type:stookinstallatie;
     skos:inScheme conceptscheme:installatie_type;
     skos:notation "directe_stookinstallatie";
     skos:prefLabel "Directe Stookinstallatie"@nl;
-    skos:semanticRelation riepr-installatie-type:stookinstallatie;
-    skos:topConceptOf conceptscheme:installatie_type.
-riepr-installatie-type:filterinstallatie dcterms:isPartOf concept:conceptscheme_systeem_type;
+    skos:semanticRelation riepr-installatie-type:stookinstallatie.
+riepr-installatie-type:filterinstallatie dcterms:isPartOf conceptscheme:systeem_type;
     a skos:Concept;
     skos:inScheme conceptscheme:installatie_type;
     skos:notation "filterinstallatie";
     skos:prefLabel "Filter Installatie"@nl;
     skos:topConceptOf conceptscheme:installatie_type.
-riepr-installatie-type:installatie dcterms:isPartOf concept:conceptscheme_systeem_type;
+riepr-installatie-type:installatie dcterms:isPartOf conceptscheme:systeem_type;
     a skos:Concept;
     skos:inScheme conceptscheme:installatie_type;
     skos:notation "installatie";
     skos:prefLabel "Installatie"@nl;
     skos:topConceptOf conceptscheme:installatie_type.
-riepr-installatie-type:stookinstallatie dcterms:isPartOf concept:conceptscheme_systeem_type;
+riepr-installatie-type:stookinstallatie dcterms:isPartOf conceptscheme:systeem_type;
     a skos:Concept;
     skos:inScheme conceptscheme:installatie_type;
     skos:narrower riepr-installatie-type:directe_stookinstallatie;
@@ -281,14 +278,12 @@ riepr-installatie-type:stookinstallatie dcterms:isPartOf concept:conceptscheme_s
     skos:prefLabel "Stookinstallatie"@nl;
     skos:semanticRelation riepr-installatie-type:directe_stookinstallatie;
     skos:topConceptOf conceptscheme:installatie_type.
-riepr-meetpunt-type:meetput dcterms:isPartOf concept:conceptscheme_systeem_type;
-    a skos:Concept;
+riepr-meetpunt-type:meetput a skos:Concept;
     skos:inScheme conceptscheme:meetpunt_type;
     skos:notation "meetput";
     skos:prefLabel "Meetput"@nl;
     skos:topConceptOf conceptscheme:meetpunt_type.
-riepr-onttrekkingspunt-type:grondwaterput dcterms:isPartOf concept:conceptscheme_systeem_type;
-    a skos:Concept;
+riepr-onttrekkingspunt-type:grondwaterput a skos:Concept;
     skos:inScheme conceptscheme:onttrekkingspunt_type;
     skos:notation "grondwaterput";
     skos:prefLabel "Grondwaterput"@nl;
@@ -376,34 +371,30 @@ conceptscheme:data_type a skos:ConceptScheme;
     skos:prefLabel "Data types"@nl.
 conceptscheme:eenheden a skos:ConceptScheme;
     skos:hasTopConcept unit:DEG_C, unit:K, unit:M, unit:MegaW, unit:MicroGM-PER-L, unit:MilliGM-PER-L, unit:NanoGM-PER-L, unit:PERCENT, unit:PPB, unit:PPM.
-conceptscheme:emissiepunt_eigenschappen a skos:Concept, skos:ConceptScheme;
+conceptscheme:emissiepunt_eigenschappen dcterms:isPartOf conceptscheme:systeem_eigenschappen;
+    a skos:ConceptScheme;
     skos:definition "Een typering van verschillende eigenschappen voor emissiepunten."@nl;
     skos:hasTopConcept riepr-emissiepunt-eigenschappen:schouw-diameter, riepr-emissiepunt-eigenschappen:schouw-hoogte;
-    skos:inScheme conceptscheme:systeem_eigenschappen;
     skos:note "Een typering van verschillende eigenschappen voor emissiepunten."@nl;
-    skos:prefLabel "Emissiepunt eigenschappen"@nl;
-    skos:topConceptOf conceptscheme:systeem_eigenschappen.
-conceptscheme:emissiepunt_type a skos:Concept, skos:ConceptScheme;
+    skos:prefLabel "Emissiepunt eigenschappen"@nl.
+conceptscheme:emissiepunt_type dcterms:isPartOf conceptscheme:systeem_type;
+    a skos:ConceptScheme;
     skos:definition "Een typering van verschillende soorten emissiepunten."@nl;
-    skos:hasTopConcept riepr-emissiepunt-type:emissiepunt, riepr-emissiepunt-type:lozingspunt, riepr-emissiepunt-type:schoorsteen, riepr-emissiepunt-type:schoorsteen_horizontale_uitstroom, riepr-emissiepunt-type:schoorsteen_verticale_uitstroom, riepr-emissiepunt-type:schouw;
-    skos:inScheme concept:conceptscheme_systeem_type;
+    skos:hasTopConcept riepr-emissiepunt-type:emissiepunt, riepr-emissiepunt-type:lozingspunt, riepr-emissiepunt-type:schoorsteen, riepr-emissiepunt-type:schouw;
     skos:note "Een typering van verschillende soorten emissiepunten."@nl;
-    skos:prefLabel "Emissiepunt types"@nl;
-    skos:topConceptOf concept:conceptscheme_systeem_type.
-conceptscheme:installatie_eigenschappen a skos:Concept, skos:ConceptScheme;
+    skos:prefLabel "Emissiepunt types"@nl.
+conceptscheme:installatie_eigenschappen dcterms:isPartOf conceptscheme:systeem_eigenschappen;
+    a skos:ConceptScheme;
     skos:definition "Een typering van verschillende eigenschappen voor installaties."@nl;
     skos:hasTopConcept riepr-installatie-eigenschappen:geinstalleerd_vermogen, riepr-installatie-eigenschappen:verwijderingsrendement;
-    skos:inScheme conceptscheme:systeem_eigenschappen;
     skos:note "Een typering van verschillende eigenschappen voor installaties."@nl;
-    skos:prefLabel "Installatie eigenschappen"@nl;
-    skos:topConceptOf conceptscheme:systeem_eigenschappen.
-conceptscheme:installatie_type a skos:Concept, skos:ConceptScheme;
+    skos:prefLabel "Installatie eigenschappen"@nl.
+conceptscheme:installatie_type dcterms:isPartOf conceptscheme:systeem_type;
+    a skos:ConceptScheme;
     skos:definition "Een typering van verschillende soorten installaties."@nl;
-    skos:hasTopConcept riepr-installatie-type:directe_stookinstallatie, riepr-installatie-type:filterinstallatie, riepr-installatie-type:installatie, riepr-installatie-type:stookinstallatie;
-    skos:inScheme concept:conceptscheme_systeem_type;
+    skos:hasTopConcept riepr-installatie-type:filterinstallatie, riepr-installatie-type:installatie, riepr-installatie-type:stookinstallatie;
     skos:note "Een typering van verschillende soorten installaties."@nl;
-    skos:prefLabel "Installatie types"@nl;
-    skos:topConceptOf concept:conceptscheme_systeem_type.
+    skos:prefLabel "Installatie types"@nl.
 conceptscheme:meetpunt_type a skos:Concept, skos:ConceptScheme;
     skos:hasTopConcept riepr-meetpunt-type:meetput;
     skos:inScheme concept:conceptscheme_systeem_type;
@@ -426,5 +417,3 @@ conceptscheme:status_type a skos:ConceptScheme;
     skos:hasTopConcept riepr-status-type:definitief_uit_dienst, riepr-status-type:in_dienst, riepr-status-type:ontmanteld, riepr-status-type:tijdelijk_uit_dienst, riepr-status-type:voorgesteld;
     skos:note "Een typering van verschillende statussen (actief, inactief, ...)."@nl;
     skos:prefLabel "Status types"@nl.
-conceptscheme:systeem_eigenschappen a skos:ConceptScheme;
-    skos:hasTopConcept conceptscheme:emissiepunt_eigenschappen, conceptscheme:installatie_eigenschappen.
