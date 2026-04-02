@@ -1,29 +1,23 @@
-// Single in-memory NT-only versioning implementation
+import { rdf_to_jsonld } from '@milieuinfo/maven-metadata-generator-npm/src/utils/functions.js';
 
-// Common RDF property IRIs used for versioning metadata
 const DCT_CREATED = 'http://purl.org/dc/terms/created';
 const DCT_MODIFIED = 'http://purl.org/dc/terms/modified';
 const DCT_IS_VERSION_OF = 'http://purl.org/dc/terms/isVersionOf';
 const ADMS_STATUS = 'http://www.w3.org/ns/adms#status';
+const XSD_DATE_TIME = 'http://www.w3.org/2001/XMLSchema#dateTime';
 
 export class ConceptVersioning {
     
     async process({ currentNt, frame = {}, options = {} } = {}) {
-        const { rdf_to_jsonld } = await import('@milieuinfo/maven-metadata-generator-npm/src/utils/functions.js');
         const now = new Date().toISOString();
         const allowMultiple = options.allowMultipleIsVersionOf ?? true;
 
-        // convert current RDF N-Quads to framed JSON-LD
-        let currentJson;
-        try {
-            currentJson = await rdf_to_jsonld(currentNt, frame);
-        } catch (e) {
-            currentJson = { '@context': frame['@context'] || {}, graph: [] };
-        }
-
+        // Convert N-Quads to JSON-LD and extract the graph
+        const currentJson = await rdf_to_jsonld(currentNt, frame);
         const currentGraph = Array.isArray(currentJson.graph) ? currentJson.graph : [];
         const prevGraph = [];
 
+        // Compare the current graph to the previous graph to detect added/edited/deleted nodes
         const { added, edited, deleted, mapCurr, mapPrev } = this._detectChanges(currentGraph, prevGraph, {
             createdProp: DCT_CREATED,
             modifiedProp: DCT_MODIFIED,
@@ -31,7 +25,7 @@ export class ConceptVersioning {
             isVersionOfProp: DCT_IS_VERSION_OF,
         });
 
-        // Apply metadata updates in-place
+        // Apply metadata updates in-place for the current graph
         this._handleCreations(mapCurr, added, options, now);
         this._handleEdits(mapCurr, mapPrev, edited, options, now, allowMultiple);
         this._handleDeletions(currentGraph, mapCurr, deleted, now);
@@ -47,7 +41,6 @@ export class ConceptVersioning {
         return { updated_nt, result: { added, edited, deleted } };
     }
 
-    // Compute added/edited/deleted ids and return maps for quick lookup.
     _detectChanges(currentGraph, prevGraph, props = {}) {
         const { createdProp, modifiedProp, statusProp, isVersionOfProp } = props;
         const getId = n => n && (n['@id'] || n['id'] || n.uri || n._id || null);
@@ -58,10 +51,12 @@ export class ConceptVersioning {
         const currIds = new Set(mapCurr.keys());
         const prevIds = new Set(mapPrev.keys());
 
+        // Added nodes are new IDs that were not in the previous graph
         const added = [...currIds].filter(id => id && !prevIds.has(id));
+        // Deleted nodes are old IDs that are not in the current graph
         const deleted = [...prevIds].filter(id => id && !currIds.has(id));
+        // Edited nodes are those with the same ID in both graphs but different content (ignoring transient metadata)
         const common = [...currIds].filter(id => prevIds.has(id));
-
         const edited = [];
         for (const id of common) {
             const a = mapPrev.get(id);
@@ -89,20 +84,17 @@ export class ConceptVersioning {
         for (const id of added) {
             const node = mapCurr.get(id);
             if (node) {
-                node[DCT_CREATED] = { '@value': now, '@type': 'http://www.w3.org/2001/XMLSchema#dateTime' };
+                node[DCT_CREATED] = { '@value': now, '@type': XSD_DATE_TIME };
                 if (statusIri) node[ADMS_STATUS] = { '@id': statusIri };
             }
         }
     }
 
-    // Mark edited nodes with a modified timestamp and link to previous version
-    // via `dct:isVersionOf`. If `allowMultiple` is true, append rather than
-    // replace existing values.
     _handleEdits(mapCurr, mapPrev, edited, options, now, allowMultiple) {
         for (const id of edited) {
             const node = mapCurr.get(id);
             if (node) {
-                node[DCT_MODIFIED] = { '@value': now, '@type': 'http://www.w3.org/2001/XMLSchema#dateTime' };
+                node[DCT_MODIFIED] = { '@value': now, '@type': XSD_DATE_TIME };
                 const prevNode = mapPrev.get(id);
                 const prevId = prevNode && prevNode['@id'] ? prevNode['@id'] : null;
                 if (prevId) {
@@ -121,18 +113,15 @@ export class ConceptVersioning {
         }
     }
 
-    // For deleted items, add a minimal marker to the current graph indicating
-    // withdrawal, unless the ID already exists in the current graph.
     _handleDeletions(currentGraph, mapCurr, deleted, now) {
         for (const id of deleted) {
             const marker = { '@id': id };
             marker[ADMS_STATUS] = { '@id': this._statusToIri('withdrawn') };
-            marker[DCT_MODIFIED] = { '@value': now, '@type': 'http://www.w3.org/2001/XMLSchema#dateTime' };
+            marker[DCT_MODIFIED] = { '@value': now, '@type': XSD_DATE_TIME };
             if (!mapCurr.has(id)) currentGraph.push(marker);
         }
     }
 
-    // Map a status short name or full URI to an ADMS status IRI.
     _statusToIri(status) {
         if (!status) return null;
         if (typeof status === 'string' && (status.startsWith('http://') || status.startsWith('https://'))) return status;
