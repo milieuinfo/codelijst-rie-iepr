@@ -711,6 +711,10 @@
             "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#isMeervoudig",
             "@type": "http://www.w3.org/2001/XMLSchema#boolean"
         },
+        "isOnzichtbaar": {
+            "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#isOnzichtbaar",
+            "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+        },
         "wasAssociatedWith": {
             "@id": "http://www.w3.org/ns/prov#wasAssociatedWith",
             "@type": "@id"
@@ -761,6 +765,7 @@
         "riepr-installatie-type": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/",
         "riepr-installatie-eigenschappen": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/",
         "riepr-emissiepunt-eigenschappen": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/",
+        "riepr-emissiepunt-eigenschappen-selectiemogelijkheden": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen-selectiemogelijkheden/",
         "riepr-onttrekkingspunt-eigenschappen": "https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunt-eigenschappen/",
         "riepr-meetinstrument-type": "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetinstrument-type/",
         "riepr-status-type": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/",
@@ -837,7 +842,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:eenheden",
             "code": "°C",
@@ -855,7 +860,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:eenheden",
             "code": "K",
@@ -873,7 +878,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:eenheden",
             "code": "m",
@@ -891,7 +896,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:eenheden",
             "code": "MW",
@@ -909,7 +914,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:eenheden",
             "code": "µg/l",
@@ -927,7 +932,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:eenheden",
             "code": "mg/l",
@@ -945,7 +950,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:eenheden",
             "code": "ng/l",
@@ -963,7 +968,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:eenheden",
             "code": "%",
@@ -981,7 +986,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:eenheden",
             "code": "PPB",
@@ -999,12 +1004,46 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:eenheden",
             "code": "PPM",
             "prefLabel": "PPM",
             "topConceptOf": "conceptscheme:eenheden",
+            "adms:status": {
+                "id": "https://purl.archive.org/adms/status/Active"
+            }
+        },
+        {
+            "id": "riepr-emissiepunt-eigenschappen-selectiemogelijkheden:oppervlaktewater",
+            "_type": [
+                "skos:Concept"
+            ],
+            "dcterms:created": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-05-29T13:54:16.692Z"
+            },
+            "inScheme": "conceptscheme:lozingspunt_lozingsplaats",
+            "code": "oppervlaktewater",
+            "prefLabel": "Oppervlaktewater",
+            "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats",
+            "adms:status": {
+                "id": "https://purl.archive.org/adms/status/Active"
+            }
+        },
+        {
+            "id": "riepr-emissiepunt-eigenschappen-selectiemogelijkheden:test2",
+            "_type": [
+                "skos:Concept"
+            ],
+            "dcterms:created": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-05-29T13:54:16.692Z"
+            },
+            "inScheme": "conceptscheme:lozingspunt_lozingsplaats",
+            "code": "test",
+            "prefLabel": "test",
+            "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats",
             "adms:status": {
                 "id": "https://purl.archive.org/adms/status/Active"
             }
@@ -1016,7 +1055,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:emissiepunt_eigenschappen",
             "code": "lozingsplaats",
@@ -1024,6 +1063,55 @@
             "topConceptOf": "conceptscheme:emissiepunt_eigenschappen",
             "adms:status": {
                 "id": "https://purl.archive.org/adms/status/Active"
+            },
+            "parameterDimensie": {
+                "id": "conceptscheme:lozingspunt_lozingsplaats",
+                "_type": [
+                    "skos:ConceptScheme"
+                ],
+                "dcterms:created": {
+                    "_type": "xsd:dateTime",
+                    "_value": "2026-05-29T13:54:16.692Z"
+                },
+                "hasTopConcept": [
+                    {
+                        "id": "riepr-emissiepunt-eigenschappen-selectiemogelijkheden:oppervlaktewater",
+                        "_type": [
+                            "skos:Concept"
+                        ],
+                        "dcterms:created": {
+                            "_type": "xsd:dateTime",
+                            "_value": "2026-05-29T13:54:16.692Z"
+                        },
+                        "inScheme": "conceptscheme:lozingspunt_lozingsplaats",
+                        "code": "oppervlaktewater",
+                        "prefLabel": "Oppervlaktewater",
+                        "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats",
+                        "adms:status": {
+                            "id": "https://purl.archive.org/adms/status/Active"
+                        }
+                    },
+                    {
+                        "id": "riepr-emissiepunt-eigenschappen-selectiemogelijkheden:test2",
+                        "_type": [
+                            "skos:Concept"
+                        ],
+                        "dcterms:created": {
+                            "_type": "xsd:dateTime",
+                            "_value": "2026-05-29T13:54:16.692Z"
+                        },
+                        "inScheme": "conceptscheme:lozingspunt_lozingsplaats",
+                        "code": "test",
+                        "prefLabel": "test",
+                        "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats",
+                        "adms:status": {
+                            "id": "https://purl.archive.org/adms/status/Active"
+                        }
+                    }
+                ],
+                "adms:status": {
+                    "id": "https://purl.archive.org/adms/status/Active"
+                }
             },
             "relevantRiepr": [
                 {
@@ -1033,7 +1121,7 @@
                     ],
                     "dcterms:created": {
                         "_type": "xsd:dateTime",
-                        "_value": "2026-05-26T13:18:38.051Z"
+                        "_value": "2026-05-29T13:54:16.692Z"
                     },
                     "definition": "Een lozing naar water.",
                     "inScheme": {
@@ -1043,7 +1131,7 @@
                         ],
                         "dcterms:created": {
                             "_type": "xsd:dateTime",
-                            "_value": "2026-05-26T13:18:38.051Z"
+                            "_value": "2026-05-29T13:54:16.692Z"
                         },
                         "isPartOf": "conceptscheme:systeem_type",
                         "definition": "Een typering van verschillende soorten emissiepunten.",
@@ -1056,7 +1144,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "definition": "Een schouw.",
                                 "inScheme": "conceptscheme:emissiepunt_type",
@@ -1075,7 +1163,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "definition": "Een regulier emissiepunt.",
                                 "inScheme": "conceptscheme:emissiepunt_type",
@@ -1094,7 +1182,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "definition": "Een schoorsteen.",
                                 "inScheme": "conceptscheme:emissiepunt_type",
@@ -1106,7 +1194,7 @@
                                         ],
                                         "dcterms:created": {
                                             "_type": "xsd:dateTime",
-                                            "_value": "2026-05-26T13:18:38.051Z"
+                                            "_value": "2026-05-29T13:54:16.692Z"
                                         },
                                         "broader": "riepr-emissiepunt-type:schoorsteen",
                                         "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
@@ -1127,7 +1215,7 @@
                                         ],
                                         "dcterms:created": {
                                             "_type": "xsd:dateTime",
-                                            "_value": "2026-05-26T13:18:38.051Z"
+                                            "_value": "2026-05-29T13:54:16.692Z"
                                         },
                                         "broader": "riepr-emissiepunt-type:schoorsteen",
                                         "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
@@ -1182,7 +1270,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "relevantUnit": [
                 {
@@ -1193,7 +1281,7 @@
                     ],
                     "dcterms:created": {
                         "_type": "xsd:dateTime",
-                        "_value": "2026-05-26T13:18:38.051Z"
+                        "_value": "2026-05-29T13:54:16.692Z"
                     },
                     "inScheme": {
                         "id": "conceptscheme:eenheden",
@@ -1202,7 +1290,7 @@
                         ],
                         "dcterms:created": {
                             "_type": "xsd:dateTime",
-                            "_value": "2026-05-26T13:18:38.051Z"
+                            "_value": "2026-05-29T13:54:16.692Z"
                         },
                         "hasTopConcept": [
                             {
@@ -1213,7 +1301,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "°C",
@@ -1231,7 +1319,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "K",
@@ -1250,7 +1338,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "MW",
@@ -1268,7 +1356,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "µg/l",
@@ -1286,7 +1374,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "mg/l",
@@ -1304,7 +1392,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "ng/l",
@@ -1322,7 +1410,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "%",
@@ -1340,7 +1428,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "PPB",
@@ -1358,7 +1446,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "PPM",
@@ -1398,7 +1486,7 @@
                     ],
                     "dcterms:created": {
                         "_type": "xsd:dateTime",
-                        "_value": "2026-05-26T13:18:38.051Z"
+                        "_value": "2026-05-29T13:54:16.692Z"
                     },
                     "definition": "Een schouw.",
                     "inScheme": {
@@ -1408,7 +1496,7 @@
                         ],
                         "dcterms:created": {
                             "_type": "xsd:dateTime",
-                            "_value": "2026-05-26T13:18:38.051Z"
+                            "_value": "2026-05-29T13:54:16.692Z"
                         },
                         "isPartOf": "conceptscheme:systeem_type",
                         "definition": "Een typering van verschillende soorten emissiepunten.",
@@ -1420,7 +1508,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "definition": "Een lozing naar water.",
                                 "inScheme": "conceptscheme:emissiepunt_type",
@@ -1440,7 +1528,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "definition": "Een regulier emissiepunt.",
                                 "inScheme": "conceptscheme:emissiepunt_type",
@@ -1459,7 +1547,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "definition": "Een schoorsteen.",
                                 "inScheme": "conceptscheme:emissiepunt_type",
@@ -1471,7 +1559,7 @@
                                         ],
                                         "dcterms:created": {
                                             "_type": "xsd:dateTime",
-                                            "_value": "2026-05-26T13:18:38.051Z"
+                                            "_value": "2026-05-29T13:54:16.692Z"
                                         },
                                         "broader": "riepr-emissiepunt-type:schoorsteen",
                                         "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
@@ -1492,7 +1580,7 @@
                                         ],
                                         "dcterms:created": {
                                             "_type": "xsd:dateTime",
-                                            "_value": "2026-05-26T13:18:38.051Z"
+                                            "_value": "2026-05-29T13:54:16.692Z"
                                         },
                                         "broader": "riepr-emissiepunt-type:schoorsteen",
                                         "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
@@ -1547,7 +1635,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "relevantUnit": [
                 {
@@ -1558,7 +1646,7 @@
                     ],
                     "dcterms:created": {
                         "_type": "xsd:dateTime",
-                        "_value": "2026-05-26T13:18:38.051Z"
+                        "_value": "2026-05-29T13:54:16.692Z"
                     },
                     "inScheme": {
                         "id": "conceptscheme:eenheden",
@@ -1567,7 +1655,7 @@
                         ],
                         "dcterms:created": {
                             "_type": "xsd:dateTime",
-                            "_value": "2026-05-26T13:18:38.051Z"
+                            "_value": "2026-05-29T13:54:16.692Z"
                         },
                         "hasTopConcept": [
                             {
@@ -1578,7 +1666,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "°C",
@@ -1596,7 +1684,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "K",
@@ -1615,7 +1703,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "MW",
@@ -1633,7 +1721,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "µg/l",
@@ -1651,7 +1739,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "mg/l",
@@ -1669,7 +1757,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "ng/l",
@@ -1687,7 +1775,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "%",
@@ -1705,7 +1793,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "PPB",
@@ -1723,7 +1811,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "PPM",
@@ -1763,7 +1851,7 @@
                     ],
                     "dcterms:created": {
                         "_type": "xsd:dateTime",
-                        "_value": "2026-05-26T13:18:38.051Z"
+                        "_value": "2026-05-29T13:54:16.692Z"
                     },
                     "definition": "Een schouw.",
                     "inScheme": {
@@ -1773,7 +1861,7 @@
                         ],
                         "dcterms:created": {
                             "_type": "xsd:dateTime",
-                            "_value": "2026-05-26T13:18:38.051Z"
+                            "_value": "2026-05-29T13:54:16.692Z"
                         },
                         "isPartOf": "conceptscheme:systeem_type",
                         "definition": "Een typering van verschillende soorten emissiepunten.",
@@ -1785,7 +1873,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "definition": "Een lozing naar water.",
                                 "inScheme": "conceptscheme:emissiepunt_type",
@@ -1805,7 +1893,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "definition": "Een regulier emissiepunt.",
                                 "inScheme": "conceptscheme:emissiepunt_type",
@@ -1824,7 +1912,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "definition": "Een schoorsteen.",
                                 "inScheme": "conceptscheme:emissiepunt_type",
@@ -1836,7 +1924,7 @@
                                         ],
                                         "dcterms:created": {
                                             "_type": "xsd:dateTime",
-                                            "_value": "2026-05-26T13:18:38.051Z"
+                                            "_value": "2026-05-29T13:54:16.692Z"
                                         },
                                         "broader": "riepr-emissiepunt-type:schoorsteen",
                                         "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
@@ -1857,7 +1945,7 @@
                                         ],
                                         "dcterms:created": {
                                             "_type": "xsd:dateTime",
-                                            "_value": "2026-05-26T13:18:38.051Z"
+                                            "_value": "2026-05-29T13:54:16.692Z"
                                         },
                                         "broader": "riepr-emissiepunt-type:schoorsteen",
                                         "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
@@ -1912,7 +2000,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "definition": "Een regulier emissiepunt.",
             "inScheme": "conceptscheme:emissiepunt_type",
@@ -1931,7 +2019,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "definition": "Een lozing naar water.",
             "inScheme": "conceptscheme:emissiepunt_type",
@@ -1950,7 +2038,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "definition": "Een schoorsteen.",
             "inScheme": "conceptscheme:emissiepunt_type",
@@ -1981,7 +2069,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "broader": "riepr-emissiepunt-type:schoorsteen",
             "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
@@ -2002,7 +2090,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "broader": "riepr-emissiepunt-type:schoorsteen",
             "broaderTransitive": "riepr-emissiepunt-type:schoorsteen",
@@ -2023,7 +2111,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "definition": "Een schouw.",
             "inScheme": "conceptscheme:emissiepunt_type",
@@ -2036,13 +2124,47 @@
             }
         },
         {
+            "id": "riepr-filter-type:peil",
+            "_type": [
+                "skos:Concept"
+            ],
+            "dcterms:created": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-05-29T13:54:16.692Z"
+            },
+            "inScheme": "conceptscheme:filter_type",
+            "code": "peil",
+            "prefLabel": "Peilfilter",
+            "topConceptOf": "conceptscheme:filter_type",
+            "adms:status": {
+                "id": "https://purl.archive.org/adms/status/Active"
+            }
+        },
+        {
+            "id": "riepr-filter-type:pomp",
+            "_type": [
+                "skos:Concept"
+            ],
+            "dcterms:created": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-05-29T13:54:16.692Z"
+            },
+            "inScheme": "conceptscheme:filter_type",
+            "code": "pomp",
+            "prefLabel": "Pompfilter",
+            "topConceptOf": "conceptscheme:filter_type",
+            "adms:status": {
+                "id": "https://purl.archive.org/adms/status/Active"
+            }
+        },
+        {
             "id": "riepr-installatie-eigenschappen:geinstalleerd_vermogen",
             "_type": [
                 "skos:Concept"
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "relevantUnit": [
                 {
@@ -2053,7 +2175,7 @@
                     ],
                     "dcterms:created": {
                         "_type": "xsd:dateTime",
-                        "_value": "2026-05-26T13:18:38.051Z"
+                        "_value": "2026-05-29T13:54:16.692Z"
                     },
                     "inScheme": {
                         "id": "conceptscheme:eenheden",
@@ -2062,7 +2184,7 @@
                         ],
                         "dcterms:created": {
                             "_type": "xsd:dateTime",
-                            "_value": "2026-05-26T13:18:38.051Z"
+                            "_value": "2026-05-29T13:54:16.692Z"
                         },
                         "hasTopConcept": [
                             {
@@ -2073,7 +2195,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "°C",
@@ -2091,7 +2213,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "K",
@@ -2109,7 +2231,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "m",
@@ -2128,7 +2250,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "µg/l",
@@ -2146,7 +2268,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "mg/l",
@@ -2164,7 +2286,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "ng/l",
@@ -2182,7 +2304,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "%",
@@ -2200,7 +2322,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "PPB",
@@ -2218,7 +2340,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "PPM",
@@ -2258,7 +2380,7 @@
                     ],
                     "dcterms:created": {
                         "_type": "xsd:dateTime",
-                        "_value": "2026-05-26T13:18:38.051Z"
+                        "_value": "2026-05-29T13:54:16.692Z"
                     },
                     "inScheme": {
                         "id": "conceptscheme:installatie_type",
@@ -2267,7 +2389,7 @@
                         ],
                         "dcterms:created": {
                             "_type": "xsd:dateTime",
-                            "_value": "2026-05-26T13:18:38.051Z"
+                            "_value": "2026-05-29T13:54:16.692Z"
                         },
                         "isPartOf": "conceptscheme:systeem_type",
                         "definition": "Een typering van verschillende soorten installaties.",
@@ -2280,7 +2402,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:installatie_type",
                                 "narrower": [
@@ -2291,7 +2413,7 @@
                                         ],
                                         "dcterms:created": {
                                             "_type": "xsd:dateTime",
-                                            "_value": "2026-05-26T13:18:38.051Z"
+                                            "_value": "2026-05-29T13:54:16.692Z"
                                         },
                                         "broader": "riepr-installatie-type:filterinstallatie",
                                         "broaderTransitive": "riepr-installatie-type:filterinstallatie",
@@ -2326,7 +2448,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:installatie_type",
                                 "code": "gpbv",
@@ -2334,7 +2456,8 @@
                                 "topConceptOf": "conceptscheme:installatie_type",
                                 "adms:status": {
                                     "id": "https://purl.archive.org/adms/status/Active"
-                                }
+                                },
+                                "isOnzichtbaar": "true"
                             },
                             {
                                 "id": "riepr-installatie-type:installatie",
@@ -2343,7 +2466,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:installatie_type",
                                 "code": "installatie",
@@ -2368,7 +2491,7 @@
                             ],
                             "dcterms:created": {
                                 "_type": "xsd:dateTime",
-                                "_value": "2026-05-26T13:18:38.051Z"
+                                "_value": "2026-05-29T13:54:16.692Z"
                             },
                             "broader": "riepr-installatie-type:stookinstallatie",
                             "broaderTransitive": "riepr-installatie-type:stookinstallatie",
@@ -2405,7 +2528,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "relevantUnit": [
                 {
@@ -2416,7 +2539,7 @@
                     ],
                     "dcterms:created": {
                         "_type": "xsd:dateTime",
-                        "_value": "2026-05-26T13:18:38.051Z"
+                        "_value": "2026-05-29T13:54:16.692Z"
                     },
                     "inScheme": {
                         "id": "conceptscheme:eenheden",
@@ -2425,7 +2548,7 @@
                         ],
                         "dcterms:created": {
                             "_type": "xsd:dateTime",
-                            "_value": "2026-05-26T13:18:38.051Z"
+                            "_value": "2026-05-29T13:54:16.692Z"
                         },
                         "hasTopConcept": [
                             {
@@ -2436,7 +2559,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "°C",
@@ -2454,7 +2577,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "K",
@@ -2472,7 +2595,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "m",
@@ -2490,7 +2613,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "MW",
@@ -2508,7 +2631,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "µg/l",
@@ -2526,7 +2649,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "mg/l",
@@ -2544,7 +2667,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "ng/l",
@@ -2563,7 +2686,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "PPB",
@@ -2581,7 +2704,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:eenheden",
                                 "code": "PPM",
@@ -2622,7 +2745,7 @@
                     ],
                     "dcterms:created": {
                         "_type": "xsd:dateTime",
-                        "_value": "2026-05-26T13:18:38.051Z"
+                        "_value": "2026-05-29T13:54:16.692Z"
                     },
                     "inScheme": {
                         "id": "conceptscheme:installatie_type",
@@ -2631,7 +2754,7 @@
                         ],
                         "dcterms:created": {
                             "_type": "xsd:dateTime",
-                            "_value": "2026-05-26T13:18:38.051Z"
+                            "_value": "2026-05-29T13:54:16.692Z"
                         },
                         "isPartOf": "conceptscheme:systeem_type",
                         "definition": "Een typering van verschillende soorten installaties.",
@@ -2643,7 +2766,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:installatie_type",
                                 "narrower": [
@@ -2654,7 +2777,7 @@
                                         ],
                                         "dcterms:created": {
                                             "_type": "xsd:dateTime",
-                                            "_value": "2026-05-26T13:18:38.051Z"
+                                            "_value": "2026-05-29T13:54:16.692Z"
                                         },
                                         "broader": "riepr-installatie-type:stookinstallatie",
                                         "broaderTransitive": "riepr-installatie-type:stookinstallatie",
@@ -2690,7 +2813,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:installatie_type",
                                 "code": "gpbv",
@@ -2698,7 +2821,8 @@
                                 "topConceptOf": "conceptscheme:installatie_type",
                                 "adms:status": {
                                     "id": "https://purl.archive.org/adms/status/Active"
-                                }
+                                },
+                                "isOnzichtbaar": "true"
                             },
                             {
                                 "id": "riepr-installatie-type:installatie",
@@ -2707,7 +2831,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-05-26T13:18:38.051Z"
+                                    "_value": "2026-05-29T13:54:16.692Z"
                                 },
                                 "inScheme": "conceptscheme:installatie_type",
                                 "code": "installatie",
@@ -2732,7 +2856,7 @@
                             ],
                             "dcterms:created": {
                                 "_type": "xsd:dateTime",
-                                "_value": "2026-05-26T13:18:38.051Z"
+                                "_value": "2026-05-29T13:54:16.692Z"
                             },
                             "broader": "riepr-installatie-type:filterinstallatie",
                             "broaderTransitive": "riepr-installatie-type:filterinstallatie",
@@ -2769,7 +2893,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "broader": "riepr-installatie-type:stookinstallatie",
             "broaderTransitive": "riepr-installatie-type:stookinstallatie",
@@ -2790,7 +2914,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:installatie_type",
             "narrower": [
@@ -2816,7 +2940,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:installatie_type",
             "code": "gpbv",
@@ -2824,7 +2948,8 @@
             "topConceptOf": "conceptscheme:installatie_type",
             "adms:status": {
                 "id": "https://purl.archive.org/adms/status/Active"
-            }
+            },
+            "isOnzichtbaar": "true"
         },
         {
             "id": "riepr-installatie-type:installatie",
@@ -2833,7 +2958,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:installatie_type",
             "code": "installatie",
@@ -2850,7 +2975,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:installatie_type",
             "narrower": [
@@ -2876,7 +3001,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "broader": "riepr-installatie-type:filterinstallatie",
             "broaderTransitive": "riepr-installatie-type:filterinstallatie",
@@ -2891,30 +3016,13 @@
             }
         },
         {
-            "id": "riepr-lozingspunt-lozingsplaats:oppervlaktewater",
-            "_type": [
-                "skos:Concept"
-            ],
-            "dcterms:created": {
-                "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
-            },
-            "inScheme": "conceptscheme:lozingspunt_lozingsplaats",
-            "code": "oppervlaktewater",
-            "prefLabel": "Oppervlaktewater",
-            "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats",
-            "adms:status": {
-                "id": "https://purl.archive.org/adms/status/Active"
-            }
-        },
-        {
             "id": "riepr-meetpunt-type:controleinrichting",
             "_type": [
                 "skos:Concept"
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:meetpunt_type",
             "code": "controleinrichting",
@@ -2931,7 +3039,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:meetpunt_type",
             "code": "debietmeter",
@@ -2948,7 +3056,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:meetpunt_type",
             "code": "meetpunt_emissiepunt",
@@ -2959,13 +3067,266 @@
             }
         },
         {
+            "id": "riepr-onttrekkingspunt-eigenschappen:diepte",
+            "_type": [
+                "skos:Concept"
+            ],
+            "dcterms:created": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-05-29T13:54:16.692Z"
+            },
+            "relevantUnit": [
+                {
+                    "id": "unit:M",
+                    "_type": [
+                        "qudt:Unit",
+                        "skos:Concept"
+                    ],
+                    "dcterms:created": {
+                        "_type": "xsd:dateTime",
+                        "_value": "2026-05-29T13:54:16.692Z"
+                    },
+                    "inScheme": {
+                        "id": "conceptscheme:eenheden",
+                        "_type": [
+                            "skos:ConceptScheme"
+                        ],
+                        "dcterms:created": {
+                            "_type": "xsd:dateTime",
+                            "_value": "2026-05-29T13:54:16.692Z"
+                        },
+                        "hasTopConcept": [
+                            {
+                                "id": "unit:DEG_C",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "dcterms:created": {
+                                    "_type": "xsd:dateTime",
+                                    "_value": "2026-05-29T13:54:16.692Z"
+                                },
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "°C",
+                                "prefLabel": "Graden celcius",
+                                "topConceptOf": "conceptscheme:eenheden",
+                                "adms:status": {
+                                    "id": "https://purl.archive.org/adms/status/Active"
+                                }
+                            },
+                            {
+                                "id": "unit:K",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "dcterms:created": {
+                                    "_type": "xsd:dateTime",
+                                    "_value": "2026-05-29T13:54:16.692Z"
+                                },
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "K",
+                                "prefLabel": "Kelvin",
+                                "topConceptOf": "conceptscheme:eenheden",
+                                "adms:status": {
+                                    "id": "https://purl.archive.org/adms/status/Active"
+                                }
+                            },
+                            "unit:M",
+                            {
+                                "id": "unit:MegaW",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "dcterms:created": {
+                                    "_type": "xsd:dateTime",
+                                    "_value": "2026-05-29T13:54:16.692Z"
+                                },
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "MW",
+                                "prefLabel": "Mega Watt",
+                                "topConceptOf": "conceptscheme:eenheden",
+                                "adms:status": {
+                                    "id": "https://purl.archive.org/adms/status/Active"
+                                }
+                            },
+                            {
+                                "id": "unit:MicroGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "dcterms:created": {
+                                    "_type": "xsd:dateTime",
+                                    "_value": "2026-05-29T13:54:16.692Z"
+                                },
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "µg/l",
+                                "prefLabel": "Microgram per liter",
+                                "topConceptOf": "conceptscheme:eenheden",
+                                "adms:status": {
+                                    "id": "https://purl.archive.org/adms/status/Active"
+                                }
+                            },
+                            {
+                                "id": "unit:MilliGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "dcterms:created": {
+                                    "_type": "xsd:dateTime",
+                                    "_value": "2026-05-29T13:54:16.692Z"
+                                },
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "mg/l",
+                                "prefLabel": "Milligram per liter",
+                                "topConceptOf": "conceptscheme:eenheden",
+                                "adms:status": {
+                                    "id": "https://purl.archive.org/adms/status/Active"
+                                }
+                            },
+                            {
+                                "id": "unit:NanoGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "dcterms:created": {
+                                    "_type": "xsd:dateTime",
+                                    "_value": "2026-05-29T13:54:16.692Z"
+                                },
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "ng/l",
+                                "prefLabel": "Nanogram per liter",
+                                "topConceptOf": "conceptscheme:eenheden",
+                                "adms:status": {
+                                    "id": "https://purl.archive.org/adms/status/Active"
+                                }
+                            },
+                            {
+                                "id": "unit:PERCENT",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "dcterms:created": {
+                                    "_type": "xsd:dateTime",
+                                    "_value": "2026-05-29T13:54:16.692Z"
+                                },
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "%",
+                                "prefLabel": "Percent",
+                                "topConceptOf": "conceptscheme:eenheden",
+                                "adms:status": {
+                                    "id": "https://purl.archive.org/adms/status/Active"
+                                }
+                            },
+                            {
+                                "id": "unit:PPB",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "dcterms:created": {
+                                    "_type": "xsd:dateTime",
+                                    "_value": "2026-05-29T13:54:16.692Z"
+                                },
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "PPB",
+                                "prefLabel": "PB",
+                                "topConceptOf": "conceptscheme:eenheden",
+                                "adms:status": {
+                                    "id": "https://purl.archive.org/adms/status/Active"
+                                }
+                            },
+                            {
+                                "id": "unit:PPM",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "dcterms:created": {
+                                    "_type": "xsd:dateTime",
+                                    "_value": "2026-05-29T13:54:16.692Z"
+                                },
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "PPM",
+                                "prefLabel": "PPM",
+                                "topConceptOf": "conceptscheme:eenheden",
+                                "adms:status": {
+                                    "id": "https://purl.archive.org/adms/status/Active"
+                                }
+                            }
+                        ],
+                        "adms:status": {
+                            "id": "https://purl.archive.org/adms/status/Active"
+                        }
+                    },
+                    "code": "m",
+                    "prefLabel": "Meter",
+                    "topConceptOf": "conceptscheme:eenheden",
+                    "adms:status": {
+                        "id": "https://purl.archive.org/adms/status/Active"
+                    }
+                }
+            ],
+            "inScheme": "conceptscheme:onttrekkingspunt_eigenschappen",
+            "code": "diepte",
+            "prefLabel": "Diepte van een grondwaterput",
+            "topConceptOf": "conceptscheme:onttrekkingspunt_eigenschappen",
+            "adms:status": {
+                "id": "https://purl.archive.org/adms/status/Active"
+            },
+            "relevantDataType": "xsd:decimal",
+            "relevantProperty": "dbo:depth",
+            "relevantRiepr": [
+                {
+                    "id": "riepr-onttrekkingspunt-type:grondwaterput",
+                    "_type": [
+                        "skos:Concept"
+                    ],
+                    "dcterms:created": {
+                        "_type": "xsd:dateTime",
+                        "_value": "2026-05-29T13:54:16.692Z"
+                    },
+                    "inScheme": {
+                        "id": "conceptscheme:onttrekkingspunt_type",
+                        "_type": [
+                            "skos:ConceptScheme"
+                        ],
+                        "dcterms:created": {
+                            "_type": "xsd:dateTime",
+                            "_value": "2026-05-29T13:54:16.692Z"
+                        },
+                        "definition": "Een typering van verschillende soorten onttrekkingspunten.",
+                        "hasTopConcept": [
+                            "riepr-onttrekkingspunt-type:grondwaterput"
+                        ],
+                        "note": "Een typering van verschillende soorten onttrekkingspunten.",
+                        "prefLabel": "Onttrekkingspunt types",
+                        "adms:status": {
+                            "id": "https://purl.archive.org/adms/status/Active"
+                        }
+                    },
+                    "code": "grondwaterput",
+                    "prefLabel": "Grondwaterput",
+                    "topConceptOf": "conceptscheme:onttrekkingspunt_type",
+                    "adms:status": {
+                        "id": "https://purl.archive.org/adms/status/Active"
+                    }
+                }
+            ]
+        },
+        {
             "id": "riepr-onttrekkingspunt-type:grondwaterput",
             "_type": [
                 "skos:Concept"
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:onttrekkingspunt_type",
             "code": "grondwaterput",
@@ -2982,7 +3343,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "definition": "De procedure emissie via een emissiepunt.",
             "inScheme": "conceptscheme:procedure_type",
@@ -3002,7 +3363,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "definition": "De procedure meting via een meetpunt.",
             "inScheme": "conceptscheme:procedure_type",
@@ -3022,7 +3383,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "definition": "De procedure onttrekking via een onttrekingspunt.",
             "inScheme": "conceptscheme:procedure_type",
@@ -3042,7 +3403,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "definition": "De procedure transport tussen twee processen.",
             "inScheme": "conceptscheme:procedure_type",
@@ -3062,7 +3423,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "definition": "De procedure verwerking door een installatie.",
             "inScheme": "conceptscheme:procedure_type",
@@ -3082,7 +3443,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "inScheme": "conceptscheme:rubriek_type",
             "code": "vlarem",
@@ -3099,7 +3460,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "seeAlso": "http://purl.org/adms/status/Withdrawn",
             "definition": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
@@ -3120,7 +3481,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "seeAlso": "http://purl.org/adms/status/Completed",
             "definition": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
@@ -3141,7 +3502,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "seeAlso": "http://purl.org/adms/status/Withdrawn",
             "definition": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
@@ -3162,7 +3523,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "seeAlso": "http://purl.org/adms/status/Deprecated",
             "definition": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
@@ -3183,7 +3544,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "seeAlso": "http://purl.org/adms/status/UnderDevelopment",
             "definition": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
@@ -3204,7 +3565,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "definition": "Een typering van verschillende data types.",
             "note": "Een typering van verschillende data types.",
@@ -3220,7 +3581,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "hasTopConcept": [
                 "unit:DEG_C",
@@ -3245,7 +3606,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "isPartOf": "conceptscheme:systeem_eigenschappen",
             "definition": "Een typering van verschillende eigenschappen voor emissiepunten.",
@@ -3267,7 +3628,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "isPartOf": "conceptscheme:systeem_type",
             "definition": "Een typering van verschillende soorten emissiepunten.",
@@ -3284,13 +3645,31 @@
             }
         },
         {
+            "id": "conceptscheme:filter_type",
+            "_type": [
+                "skos:ConceptScheme"
+            ],
+            "dcterms:created": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-05-29T13:54:16.692Z"
+            },
+            "hasTopConcept": [
+                "riepr-filter-type:peil",
+                "riepr-filter-type:pomp"
+            ],
+            "prefLabel": "Filter type",
+            "adms:status": {
+                "id": "https://purl.archive.org/adms/status/Active"
+            }
+        },
+        {
             "id": "conceptscheme:installatie_eigenschappen",
             "_type": [
                 "skos:ConceptScheme"
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "isPartOf": "conceptscheme:systeem_eigenschappen",
             "definition": "Een typering van verschillende eigenschappen voor installaties.",
@@ -3311,7 +3690,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "isPartOf": "conceptscheme:systeem_type",
             "definition": "Een typering van verschillende soorten installaties.",
@@ -3334,10 +3713,11 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "hasTopConcept": [
-                "riepr-lozingspunt-lozingsplaats:oppervlaktewater"
+                "riepr-emissiepunt-eigenschappen-selectiemogelijkheden:oppervlaktewater",
+                "riepr-emissiepunt-eigenschappen-selectiemogelijkheden:test2"
             ],
             "adms:status": {
                 "id": "https://purl.archive.org/adms/status/Active"
@@ -3350,7 +3730,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "hasTopConcept": [
                 "riepr-meetpunt-type:controleinrichting",
@@ -3369,10 +3749,13 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "isPartOf": "conceptscheme:systeem_eigenschappen",
             "definition": "Een typering van verschillende eigenschappen voor onttrekkingspunten.",
+            "hasTopConcept": [
+                "riepr-onttrekkingspunt-eigenschappen:diepte"
+            ],
             "note": "Een typering van verschillende eigenschappen voor onttrekkingspunten.",
             "prefLabel": "Onttrekkingspunt eigenschappen",
             "adms:status": {
@@ -3386,7 +3769,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "definition": "Een typering van verschillende soorten onttrekkingspunten.",
             "hasTopConcept": [
@@ -3405,7 +3788,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "definition": "Een typering van verschillende procedures.",
             "hasTopConcept": [
@@ -3428,7 +3811,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "hasTopConcept": [
                 "riepr-rubriek-type:vlarem"
@@ -3445,7 +3828,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-05-26T13:18:38.051Z"
+                "_value": "2026-05-29T13:54:16.692Z"
             },
             "definition": "Een typering van verschillende statussen (actief, inactief, ...).",
             "hasTopConcept": [
