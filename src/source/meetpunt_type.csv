@@ -1,5 +1,6 @@
-_id,_type,topConceptOf,prefLabel,altLabel,notation,definition,scopeNote,broader
-conceptscheme:meetpunt_type,skos:ConceptScheme,,Meetpunt types,,,,,
-riepr-meetpunt-type:controleinrichting,skos:Concept,conceptscheme:meetpunt_type,Controleinrichting,,controleinrichting,Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.,,
-riepr-meetpunt-type:meetinrichting,skos:Concept,conceptscheme:meetpunt_type,Meetinrichting,,meetinrichting,Een meetinrichting is een meetpunt voor een peil of pompput.,,
-riepr-meetpunt-type:peilput,skos:Concept,conceptscheme:meetpunt_type,Peilput,,peilput,,,riepr-meetpunt-type:meetinrichting
+_id,_type,topConceptOf,prefLabel,altLabel,notation,definition,scopeNote,broader,relevantRiepr,isOnzichtbaar
+conceptscheme:meetpunt_type,skos:ConceptScheme,,Meetpunt types,,,,,,,
+riepr-meetpunt-type:controleinrichting,skos:Concept,conceptscheme:meetpunt_type,Controleinrichting,,controleinrichting,Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.,,,,
+riepr-meetpunt-type:meetinrichting,skos:Concept,conceptscheme:meetpunt_type,Meetinrichting,,meetinrichting,Een meetinrichting is een meetpunt voor een pompput.,,,,
+riepr-meetpunt-type:peilput,skos:Concept,conceptscheme:meetpunt_type,Peilput,,peilput,Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater,,riepr-meetpunt-type:meetinrichting,,
+riepr-meetpunt-type:emissiepunt,skos:Concept,conceptscheme:meetpunt_type,Emissiepunt,,meetpunt_emissiepunt,,,,riepr-emissiepunt-type:emissiepunt,true
