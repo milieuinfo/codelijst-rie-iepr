@@ -121,8 +121,10 @@ export class ConceptVersioning {
             }
             if (!node[this._defaults.admsStatus]) {
                 const statusIri = this._statusToIri('active');
-                if (statusIri) node[this._defaults.admsStatus] = { '@id': statusIri };
-                nodeUpdated = true;
+                if (statusIri) {
+                    node[this._defaults.admsStatus] = { '@id': statusIri };
+                    nodeUpdated = true;
+                }
             }
             if (nodeUpdated) updatedCount++;
         }
@@ -253,7 +255,7 @@ export class ConceptVersioning {
             if (node) {
                 node[this._defaults.dctModified] = { '@value': now, '@type': this._defaults.xsdDateTime };
                 const prevNode = mapPrev.get(id);
-                const prevId = prevNode && prevNode['@id'] ? prevNode['@id'] : null;
+                const prevId = prevNode ? (prevNode['@id'] || prevNode['id'] || prevNode.uri || prevNode._id || null) : null;
                 if (prevId) {
                     const existing = node[this._defaults.dctIsVersionOf];
                     if (!existing) {
