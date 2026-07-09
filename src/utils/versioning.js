@@ -60,7 +60,7 @@ export class ConceptVersioning {
     async process({ currentNt, frame = {}, options = {} } = {}) {
         if (currentNt == null) throw new Error('process() requires a non-null currentNt argument');
         if (typeof currentNt !== 'string' || currentNt.trim().length === 0) throw new Error('process() requires a non-empty currentNt string');
-        if (typeof frame !== 'object') throw new Error('process() requires frame to be an object');
+        if (frame == null || Array.isArray(frame)) throw new Error('process() requires frame to be a non-null object');
 
         const now = options.timestamp ?? new Date().toISOString();
         const allowMultiple = options.allowMultipleIsVersionOf ?? true;
@@ -109,18 +109,22 @@ export class ConceptVersioning {
         const data = JSON.parse(readFileSync(filePath, 'utf-8'));
         const graph = Array.isArray(data.graph) ? data.graph : [];
 
-        // Only add metadata to nodes that don't already have dct:created
         const now = new Date().toISOString();
         let updatedCount = 0;
         for (const node of graph) {
             const id = node['@id'] || node['id'] || node.uri || node._id;
             if (!id) continue;
+            let nodeUpdated = false;
             if (!node[this._defaults.dctCreated]) {
                 node[this._defaults.dctCreated] = { '@value': now, '@type': this._defaults.xsdDateTime };
+                nodeUpdated = true;
+            }
+            if (!node[this._defaults.admsStatus]) {
                 const statusIri = this._statusToIri('active');
                 if (statusIri) node[this._defaults.admsStatus] = { '@id': statusIri };
-                updatedCount++;
+                nodeUpdated = true;
             }
+            if (nodeUpdated) updatedCount++;
         }
 
         writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
@@ -200,9 +204,11 @@ export class ConceptVersioning {
             const a = mapPrev.get(id);
             const b = mapCurr.get(id);
 
+            // Same object reference — no edit regardless of transient props
+            if (a === b) continue;
+
             const strippedA = stripTransient(a);
-            // Only clone B if A had transient props or they differ structurally
-            const strippedB = (a === b || !stripTransient(b)) ? b : stripTransient(b);
+            const strippedB = stripTransient(b);
 
             if (JSON.stringify(strippedA) !== JSON.stringify(strippedB)) {
                 edited.push(id);
@@ -276,17 +282,17 @@ export class ConceptVersioning {
      * @param {string} now - ISO 8601 timestamp string.
      */
     _handleDeletions(currentGraph, mapCurr, deleted, now) {
+        // Precompute existing IDs for O(1) lookup instead of O(n) find() per iteration
+        const existingIds = new Set(currentGraph.map(n => n['@id']));
         for (const id of deleted) {
-            // Skip if node already exists in current graph
             if (mapCurr.has(id)) continue;
-            // Skip if a withdrawal marker for this ID already exists in the graph
-            const existingMarker = currentGraph.find(n => n['@id'] === id);
-            if (existingMarker) continue;
+            if (existingIds.has(id)) continue;
 
             const marker = { '@id': id };
             marker[this._defaults.admsStatus] = { '@id': this._statusToIri('withdrawn') };
             marker[this._defaults.dctModified] = { '@value': now, '@type': this._defaults.xsdDateTime };
             currentGraph.push(marker);
+            existingIds.add(id);
         }
     }
 
