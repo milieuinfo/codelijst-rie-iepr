@@ -305,7 +305,9 @@ export class ConceptVersioning {
     _statusToIri(status) {
         if (!status) return null;
         if (typeof status === 'string' && (status.startsWith('http://') || status.startsWith('https://'))) return status;
-        const base = this._defaults.statusBaseIri;
+        const base = (typeof this._defaults.statusBaseIri === 'string' && this._defaults.statusBaseIri.length > 0)
+            ? this._defaults.statusBaseIri
+            : DEFAULTS.statusBaseIri;
         const parts = String(status).split(/[^A-Za-z0-9]+/).filter(Boolean).map(s => s.charAt(0).toUpperCase() + s.slice(1));
         return base + parts.join('');
     }
