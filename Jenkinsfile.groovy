@@ -5,7 +5,7 @@ pipeline {
 	agent {
 		kubernetes {
 			inheritFrom 'jenkins-jenkins-agent'
-			yaml podBuilder.from([maven.podSpec(11), sonar.podSpec(), trivy.podSpec()])
+			yaml podBuilder.from([maven.podSpec(25), sonar.podSpec(), trivy.podSpec()])
 		}
 	}
 
@@ -22,13 +22,6 @@ pipeline {
 		stage('Setup') {
 			steps {
 				script {
-					container('maven') {
-						sh '''
-							set -e
-							apk add --no-cache libstdc++ libgcc
-						'''
-					}
-
 					if (env.BRANCH_IS_PRIMARY) {
 						properties([versions.releaseParameters()])
 						if (versions.isRelease()) {
