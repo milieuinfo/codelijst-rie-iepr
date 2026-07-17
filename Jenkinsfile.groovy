@@ -1,5 +1,20 @@
 @Library('Cumulus@1.2-stable') _
 
+properties([
+	parameters([
+		booleanParam(
+			name: 'RELEASE',
+			defaultValue: false,
+			description: 'Release uitvoeren.'
+		),
+		choice(
+			name: 'RELEASE_BUMP',
+			choices: ['patch', 'minor', 'major'],
+			description: 'Version bump to apply to the current -SNAPSHOT version.'
+		)
+	])
+])
+
 pipeline {
 
 	agent {
@@ -15,7 +30,6 @@ pipeline {
 
 	environment {
 		DEFAULT_RELEASE_BUMP = 'patch'
-		RELEASE_SETTINGS     = '/opt/maven-settings/release/settings.xml'
 	}
 
 	stages {
@@ -25,11 +39,11 @@ pipeline {
 				expression { git.notSkipCi() }
 			}
 			steps {
-				container('maven') {
-					sh '''
-						set -e
-						mvn -B clean deploy
-					'''
+				script {
+					maven.goal([
+						goal   : 'clean deploy',
+						profile: 'ci'
+					])
 				}
 			}
 		}
@@ -39,77 +53,67 @@ pipeline {
 				allOf {
 					branch 'main'
 					expression { git.notSkipCi() }
+					expression { params.RELEASE }
 				}
 			}
 			steps {
 				script {
-					def releaseBump = input(
-						id: 'release-bump',
-						message: 'Select the release bump for this build',
-						ok: 'Release',
-						parameters: [
-							choice(
-								name: 'RELEASE_BUMP',
-								choices: ['patch', 'minor', 'major'].join('\n'),
-								description: 'Version bump to apply to the current -SNAPSHOT version.'
-							)
-						]
-					)
+					def selectedBump = params.RELEASE_BUMP ?: env.DEFAULT_RELEASE_BUMP
+					def currentVersion
+					def baseVersionParts
+					def releaseVersion
+					def nextSnapshot
 
 					container('maven') {
-						git.withGitAuth {
-							withEnv(["RELEASE_BUMP=${releaseBump ?: env.DEFAULT_RELEASE_BUMP}"]) {
-								sh '''
-									set -e
+						currentVersion = sh(
+							script: 'mvn -q -DforceStdout help:evaluate -Dexpression=project.version | tail -n 1',
+							returnStdout: true
+						).trim()
+					}
 
-									current_version=$(mvn -q -DforceStdout help:evaluate -Dexpression=project.version | tail -n 1)
+					if (!currentVersion.endsWith('-SNAPSHOT')) {
+						error("Expected a -SNAPSHOT project version, got: ${currentVersion}")
+					}
 
-									case "$current_version" in
-										*-SNAPSHOT) base_version=${current_version%-SNAPSHOT} ;;
-										*)
-											echo "Expected a -SNAPSHOT project version, got: $current_version"
-											exit 1
-											;;
-									esac
+					baseVersionParts = currentVersion.replace('-SNAPSHOT', '').tokenize('.')
+					if (baseVersionParts.size() != 3) {
+						error("Unsupported version format: ${currentVersion}")
+					}
 
-									IFS='.' read -r major minor patch <<EOF
-$base_version
-EOF
+					def major = baseVersionParts[0] as int
+					def minor = baseVersionParts[1] as int
+					def patch = baseVersionParts[2] as int
 
-									if [ -z "$major" ] || [ -z "$minor" ] || [ -z "$patch" ]; then
-										echo "Unsupported version format: $base_version"
-										exit 1
-									fi
+					switch (selectedBump) {
+						case 'major':
+							releaseVersion = "${major + 1}.0.0"
+							nextSnapshot = "${major + 1}.0.1-SNAPSHOT"
+							break
+						case 'minor':
+							releaseVersion = "${major}.${minor + 1}.0"
+							nextSnapshot = "${major}.${minor + 1}.1-SNAPSHOT"
+							break
+						case 'patch':
+							releaseVersion = "${major}.${minor}.${patch}"
+							nextSnapshot = "${major}.${minor}.${patch + 1}-SNAPSHOT"
+							break
+						default:
+							error("Unsupported release bump: ${selectedBump}")
+					}
 
-									case "$RELEASE_BUMP" in
-										major)
-											release_version="$((major + 1)).0.0"
-											next_snapshot="$((major + 1)).0.1-SNAPSHOT"
-											;;
-										minor)
-											release_version="$major.$((minor + 1)).0"
-											next_snapshot="$major.$((minor + 1)).1-SNAPSHOT"
-											;;
-										patch)
-											release_version="$major.$minor.$patch"
-											next_snapshot="$major.$minor.$((patch + 1))-SNAPSHOT"
-											;;
-										*)
-											echo "Unsupported release bump: $RELEASE_BUMP"
-											exit 1
-											;;
-									esac
+					echo "Preparing release ${releaseVersion} with next development version ${nextSnapshot}"
 
-									echo "Preparing release $release_version with next development version $next_snapshot"
-
-									mvn -B -e release:clean release:prepare \
-										-DreleaseVersion="$release_version" \
-										-DdevelopmentVersion="$next_snapshot"
-
-									mvn -B release:perform -s "$RELEASE_SETTINGS"
-								'''
-							}
-						}
+					git.withGitAuth {
+						maven.goal([
+							goal     : 'release:clean release:prepare',
+							profile  : 'ci',
+							extraArgs: "-e -DreleaseVersion=${releaseVersion} -DdevelopmentVersion=${nextSnapshot}"
+						])
+						maven.goal([
+							goal     : 'release:perform',
+							profile  : 'ci',
+							extraArgs: '-e'
+						])
 					}
 				}
 			}
