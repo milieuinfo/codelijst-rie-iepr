@@ -40,9 +40,15 @@ pipeline {
 			}
 			steps {
 				script {
+					container('maven') {
+						sh '''
+							set -e
+							apk add --no-cache libstdc++ libgcc
+						'''
+					}
+
 					maven.goal([
-						goal   : 'clean deploy',
-						profile: 'ci'
+						goal: 'clean deploy'
 					])
 				}
 			}
@@ -104,14 +110,19 @@ pipeline {
 					echo "Preparing release ${releaseVersion} with next development version ${nextSnapshot}"
 
 					git.withGitAuth {
+						container('maven') {
+							sh '''
+								set -e
+								apk add --no-cache libstdc++ libgcc
+							'''
+						}
+
 						maven.goal([
 							goal     : 'release:clean release:prepare',
-							profile  : 'ci',
 							extraArgs: "-e -DreleaseVersion=${releaseVersion} -DdevelopmentVersion=${nextSnapshot}"
 						])
 						maven.goal([
 							goal     : 'release:perform',
-							profile  : 'ci',
 							extraArgs: '-e'
 						])
 					}
