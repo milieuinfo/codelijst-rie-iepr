@@ -105,42 +105,32 @@ def enhance_concept_with_ai(imjv_data, target_file, item):
     current_preflabel = item.get('v1_veldnaam', '')
     current_definition = item.get('definition', '')
     
-    prompt = f"""You are a technical documentation expert for environmental data codelists (RIE-IEPR/SKOS).
+    prompt = f"""You are a SKOS codelist expert. Create SHORT, CLEAR Dutch terms for environmental data fields.
 
 CONTEXT FROM IMJV SPECIFICATION:
 {context}
 
-CURRENT CONCEPT DATA:
-- Field name (v1_veldnaam): "{current_preflabel}"
-- Definition: "{current_definition if current_definition else '(empty)'}"
+CURRENT FIELD NAME (v1_veldnaam): "{current_preflabel}"
 
-TASK:
-Return a JSON object with improved SKOS concept data based on the IMJV context above.
+TASK: Return JSON with EXACTLY these rules:
 
-REQUIRED FIELDS:
 {{
-  "prefLabel": "Clear Dutch name for this concept",
-  "definition": "Technical definition in Dutch explaining what this field represents (30-120 chars)",
-  "scopeNote": "Optional usage notes or constraints (max 150 chars, omit if not needed)"
+  "prefLabel": "SHORT Dutch term (MAX 5 words, e.g., 'Waterverbruik' NOT 'Waterverbruik van de installatie')",
+  "definition": "ONE sentence explanation (MAX 100 chars, e.g., 'Hoeveelheid water per jaar')",
+  "scopeNote": "Optional usage note (MAX 80 chars, omit if not needed)"
 }}
 
-GUIDELINES:
-1. **prefLabel**: Professional Dutch term, based on the given name and context
-2. **definition**: MUST explain what this data field represents in the IMJV/IEPR context
-3. **scopeNote**: Add usage notes, measurement context, or constraints if helpful
-
-IMPORTANT RULES:
-- All values must be in Dutch
-- Definitions should be technically accurate for environmental reporting
-- Use standard Flemish/Dutch terminology
-- Return ONLY valid JSON, no markdown, no explanations
-- If scopeNote is not needed, omit that field from the JSON
+STRICT RULES:
+1. prefLabel: MAX 5 words. Use standard terms like 'Jaaremissie', 'Meetwaarde', 'Bepalingsmethode'
+2. definition: MAX 100 CHARACTERS total. ONE sentence only.
+3. scopeNote: MAX 80 CHARACTERS. Omit if unnecessary.
+4. NO long descriptions, NO lists, NO examples in definition
+5. Return ONLY valid JSON
 
 Example output:
 {{
   "prefLabel": "Waterverbruik",
-  "definition": "Totale hoeveelheid grondwater onttrokken aan de ondergrond per activiteit",
-  "scopeNote": "Per watervoerende laag en exploitatiedeel"
+  "definition": "Totale waterhoeveelheid geïntroduceerd of verwijderd per jaar"
 }}"""
 
     try:
@@ -239,7 +229,7 @@ def process_items(imjv_data, target_file):
         if enhanced:
             # Update the item in the JSON structure
             if 'prefLabel' in enhanced and enhanced['prefLabel']:
-                item['definition'] = enhanced['prefLabel']  # Store as definition for now
+                item['prefLabel'] = enhanced['prefLabel']
             
             if 'definition' in enhanced and enhanced['definition']:
                 item['definition'] = enhanced['definition']
