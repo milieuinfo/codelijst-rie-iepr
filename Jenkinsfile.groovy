@@ -1,7 +1,5 @@
 @Library('Cumulus@1.2-stable') _
 
-def sonarProjectKey = 'be.vlaanderen.omgeving.data.id.graph:codelijst-rie-iepr'
-
 pipeline {
 
 	agent {
@@ -16,7 +14,7 @@ pipeline {
 	}
 
 	environment {
-		SONAR_PROJECT_KEY = sonarProjectKey
+		SONAR_PROJECT_KEY = 'be.vlaanderen.omgeving.data.id.graph:codelijst-rie-iepr'
 	}
 
 	stages {
