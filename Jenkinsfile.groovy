@@ -1,26 +1,13 @@
 @Library('Cumulus@1.2-stable') _
 
-properties([
-	parameters([
-		booleanParam(
-			name: 'RELEASE',
-			defaultValue: false,
-			description: 'Release uitvoeren.'
-		),
-		choice(
-			name: 'RELEASE_BUMP',
-			choices: ['patch', 'minor', 'major'],
-			description: 'Version bump to apply to the current -SNAPSHOT version.'
-		)
-	])
-])
+def sonarProjectKey = 'be.vlaanderen.omgeving.data.id.graph:codelijst-rie-iepr'
 
 pipeline {
 
 	agent {
 		kubernetes {
 			inheritFrom 'jenkins-jenkins-agent'
-			yaml maven.podSpec(11)
+			yaml podBuilder.from([maven.podSpec(11), sonar.podSpec(), trivy.podSpec()])
 		}
 	}
 
@@ -29,15 +16,12 @@ pipeline {
 	}
 
 	environment {
-		DEFAULT_RELEASE_BUMP = 'patch'
+		SONAR_PROJECT_KEY = sonarProjectKey
 	}
 
 	stages {
 
-		stage('Build') {
-			when {
-				expression { git.notSkipCi() }
-			}
+		stage('Setup') {
 			steps {
 				script {
 					container('maven') {
@@ -47,86 +31,132 @@ pipeline {
 						'''
 					}
 
-					maven.goal([
-						goal: 'clean deploy'
-					])
+					if (env.BRANCH_IS_PRIMARY) {
+						properties([versions.releaseParameters()])
+						if (versions.isRelease()) {
+							def currentVersion = maven.version()
+							def version = versions.bump(currentVersion)
+							git.validateTag(version)
+							maven.validateVersion(version)
+							env.VERSION = version
+						}
+					} else {
+						properties([parameters([
+							booleanParam(
+								name: 'DEPLOY',
+								defaultValue: false,
+								description: 'If true, runs mvn deploy instead of mvn verify.'
+							)
+						])])
+					}
 				}
 			}
 		}
 
-		stage('Release') {
+		stage('Non-primary branch') {
 			when {
 				allOf {
-					branch 'main'
+					not { expression { env.BRANCH_IS_PRIMARY } }
 					expression { git.notSkipCi() }
-					expression { params.RELEASE }
 				}
 			}
-			steps {
-				script {
-					def selectedBump = params.RELEASE_BUMP ?: env.DEFAULT_RELEASE_BUMP
-					def currentVersion
-					def baseVersionParts
-					def releaseVersion
-					def nextSnapshot
-
-					container('maven') {
-						currentVersion = sh(
-							script: 'mvn -q -DforceStdout help:evaluate -Dexpression=project.version | tail -n 1',
-							returnStdout: true
-						).trim()
-					}
-
-					if (!currentVersion.endsWith('-SNAPSHOT')) {
-						error("Expected a -SNAPSHOT project version, got: ${currentVersion}")
-					}
-
-					baseVersionParts = currentVersion.replace('-SNAPSHOT', '').tokenize('.')
-					if (baseVersionParts.size() != 3) {
-						error("Unsupported version format: ${currentVersion}")
-					}
-
-					def major = baseVersionParts[0] as int
-					def minor = baseVersionParts[1] as int
-					def patch = baseVersionParts[2] as int
-
-					switch (selectedBump) {
-						case 'major':
-							releaseVersion = "${major + 1}.0.0"
-							nextSnapshot = "${major + 1}.0.1-SNAPSHOT"
-							break
-						case 'minor':
-							releaseVersion = "${major}.${minor + 1}.0"
-							nextSnapshot = "${major}.${minor + 1}.1-SNAPSHOT"
-							break
-						case 'patch':
-							releaseVersion = "${major}.${minor}.${patch}"
-							nextSnapshot = "${major}.${minor}.${patch + 1}-SNAPSHOT"
-							break
-						default:
-							error("Unsupported release bump: ${selectedBump}")
-					}
-
-					echo "Preparing release ${releaseVersion} with next development version ${nextSnapshot}"
-
-					git.withGitAuth {
-						container('maven') {
-							sh '''
-								set -e
-								apk add --no-cache libstdc++ libgcc
-							'''
+			parallel {
+				stage('Trivy scan') {
+					steps {
+						script {
+							trivy.scanFilesystem([targetPath: 'pom.xml'])
 						}
-
-						maven.goal([
-							goal     : 'release:clean release:prepare',
-							extraArgs: "-e -DreleaseVersion=${releaseVersion} -DdevelopmentVersion=${nextSnapshot}"
-						])
-						maven.goal([
-							goal     : 'release:perform',
-							extraArgs: '-e'
-						])
 					}
 				}
+
+				stage('Maven verify') {
+					when {
+						expression { !(params.DEPLOY ?: false) }
+					}
+					steps {
+						script {
+							maven.goal([goal: 'verify'])
+						}
+					}
+				}
+
+				stage('Maven deploy') {
+					when {
+						expression { params.DEPLOY ?: false }
+					}
+					steps {
+						script {
+							maven.goal([goal: 'deploy'])
+						}
+					}
+				}
+			}
+		}
+
+		stage('Primary branch') {
+			when {
+				allOf {
+					expression { env.BRANCH_IS_PRIMARY }
+					expression { git.notSkipCi() }
+				}
+			}
+			stages {
+				stage('Maven prepare') {
+					when {
+						expression { versions.isRelease() }
+					}
+					steps {
+						script {
+							maven.goal([
+								goal     : 'release:clean release:prepare',
+								version  : env.VERSION,
+								skipTests: true
+							])
+						}
+					}
+				}
+
+				stage('Maven deploy') {
+					steps {
+						script {
+							maven.goal([goal: 'deploy'])
+						}
+					}
+				}
+
+				stage('Sonar scan') {
+					steps {
+						script {
+							sonar.scanMaven([
+								projectKey        : env.SONAR_PROJECT_KEY,
+								tolerateBadQuality: true
+							])
+						}
+					}
+				}
+
+				stage('Maven release') {
+					when {
+						expression { versions.isRelease() }
+					}
+					steps {
+						script {
+							maven.goal([
+								goal     : 'release:perform',
+								version  : env.VERSION,
+								skipTests: true
+							])
+						}
+					}
+				}
+			}
+		}
+	}
+
+	post {
+		always {
+			script {
+				pipelineSummary([sonarProjectKey: env.BRANCH_IS_PRIMARY ? env.SONAR_PROJECT_KEY : null])
 			}
 		}
 	}
