@@ -2,12 +2,14 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { readFileSync, writeFileSync, unlinkSync } from 'fs';
 import { tmpdir } from 'os';
 import { join } from 'path';
+import AdmZip from 'adm-zip';
 
 // Mock rdf_to_jsonld used by the module to avoid transforming external package files
 vi.mock('@milieuinfo/maven-metadata-generator-npm/src/utils/functions.js', () => ({
-  rdf_to_jsonld: async () => ({ graph: [] }),
+  rdf_to_jsonld: vi.fn(async () => ({ graph: [] })),
 }));
 
+import { rdf_to_jsonld } from '@milieuinfo/maven-metadata-generator-npm/src/utils/functions.js';
 import { ConceptVersioning, DEFAULTS } from '../src/utils/versioning.js';
 
 const DCT_CREATED = 'http://purl.org/dc/terms/created';
@@ -556,6 +558,254 @@ describe('allowMultiple = false overwrites instead of appending', () => {
     // Should be a single object, not an array
     expect(Array.isArray(node[DCT_IS_VERSION_OF])).toBe(false);
     expect(node[DCT_IS_VERSION_OF]['@id']).toBe('new-prev');
+  });
+});
+
+describe('_loadPreviousGraph — resolving the previous release via Maven metadata + sources jar', () => {
+  let v;
+  const baseUrl = 'https://example.org/release/be/vlaanderen/omgeving/data/id/graph/codelijst-rie-iepr';
+  const metadataUrl = `${baseUrl}/maven-metadata.xml`;
+
+  const metadataXml = (version) => `<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>be.vlaanderen.omgeving.data.id.graph</groupId>
+  <artifactId>codelijst-rie-iepr</artifactId>
+  <versioning>
+    <latest>${version}</latest>
+    <release>${version}</release>
+    <versions><version>${version}</version></versions>
+  </versioning>
+</metadata>`;
+
+  // Build a real in-memory jar (zip) so AdmZip parsing is exercised for real, not mocked.
+  const buildJar = (entries) => {
+    const zip = new AdmZip();
+    for (const [entryName, content] of entries) {
+      zip.addFile(entryName, Buffer.from(content, 'utf8'));
+    }
+    return zip.toBuffer();
+  };
+
+  const arrayBufferResponse = (buffer) => ({
+    ok: true,
+    status: 200,
+    arrayBuffer: async () => buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength),
+  });
+
+  beforeEach(() => {
+    v = new ConceptVersioning();
+    vi.mocked(rdf_to_jsonld).mockReset();
+    vi.mocked(rdf_to_jsonld).mockResolvedValue({ graph: [] });
+    global.fetch = vi.fn();
+  });
+
+  afterEach(() => {
+    delete global.fetch;
+  });
+
+  it('returns an empty array without calling fetch when no url is given', async () => {
+    const graph = await v._loadPreviousGraph(undefined, {});
+    expect(graph).toEqual([]);
+    expect(global.fetch).not.toHaveBeenCalled();
+  });
+
+  it('returns an empty array without calling fetch when url is null', async () => {
+    const graph = await v._loadPreviousGraph(null, {});
+    expect(graph).toEqual([]);
+    expect(global.fetch).not.toHaveBeenCalled();
+  });
+
+  it('resolves the release version, downloads the sources jar, and parses its .nt file', async () => {
+    const previousGraph = [{ '@id': 'urn:prev-1', name: 'Previous' }];
+    const jarUrl = `${baseUrl}/0.0.5/codelijst-rie-iepr-0.0.5-sources.jar`;
+    const jarBuffer = buildJar([
+      ['be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.nt', '<urn:prev-1> <urn:name> "Previous" .'],
+    ]);
+
+    global.fetch.mockImplementation(async (url) => {
+      if (url === metadataUrl) return { ok: true, status: 200, text: async () => metadataXml('0.0.5') };
+      if (url === jarUrl) return arrayBufferResponse(jarBuffer);
+      throw new Error(`unexpected fetch: ${url}`);
+    });
+    vi.mocked(rdf_to_jsonld).mockResolvedValue({ graph: previousGraph });
+
+    const frame = { '@context': {} };
+    const graph = await v._loadPreviousGraph(baseUrl, frame);
+
+    expect(global.fetch).toHaveBeenCalledWith(metadataUrl, { headers: { Accept: '*/*' } });
+    expect(global.fetch).toHaveBeenCalledWith(jarUrl, { headers: { Accept: '*/*' } });
+    expect(rdf_to_jsonld).toHaveBeenCalledWith('<urn:prev-1> <urn:name> "Previous" .', frame);
+    expect(graph).toEqual(previousGraph);
+  });
+
+  it('strips a trailing slash from the base url before building metadata/jar urls', async () => {
+    const jarUrl = `${baseUrl}/0.0.1/codelijst-rie-iepr-0.0.1-sources.jar`;
+    const jarBuffer = buildJar([['rie-iepr.nt', '']]);
+    global.fetch.mockImplementation(async (url) => {
+      if (url === metadataUrl) return { ok: true, status: 200, text: async () => metadataXml('0.0.1') };
+      if (url === jarUrl) return arrayBufferResponse(jarBuffer);
+      throw new Error(`unexpected fetch: ${url}`);
+    });
+
+    await v._loadPreviousGraph(`${baseUrl}/`, {});
+
+    expect(global.fetch).toHaveBeenCalledWith(metadataUrl, expect.anything());
+  });
+
+  it('treats a 404 on maven-metadata.xml (no previous release yet) as an empty graph', async () => {
+    global.fetch.mockResolvedValue({ ok: false, status: 404, statusText: 'Not Found' });
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+
+    const graph = await v._loadPreviousGraph(baseUrl, {});
+
+    expect(graph).toEqual([]);
+    expect(rdf_to_jsonld).not.toHaveBeenCalled();
+    expect(warnSpy).toHaveBeenCalled();
+    warnSpy.mockRestore();
+  });
+
+  it('throws when maven-metadata.xml responds with a non-404 error status', async () => {
+    global.fetch.mockResolvedValue({ ok: false, status: 500, statusText: 'Internal Server Error' });
+
+    await expect(v._loadPreviousGraph(baseUrl, {})).rejects.toThrow(/previous release metadata.*500/i);
+  });
+
+  it('throws when the fetch itself fails (e.g. network error)', async () => {
+    global.fetch.mockRejectedValue(new Error('getaddrinfo ENOTFOUND example.org'));
+
+    await expect(v._loadPreviousGraph(baseUrl, {})).rejects.toThrow(/failed to fetch.*ENOTFOUND/i);
+  });
+
+  it('throws when maven-metadata.xml has neither <release> nor <latest>', async () => {
+    global.fetch.mockResolvedValue({ ok: true, status: 200, text: async () => '<metadata></metadata>' });
+
+    await expect(v._loadPreviousGraph(baseUrl, {})).rejects.toThrow(/could not find a <release> or <latest> version/i);
+  });
+
+  it('throws when the resolved version has no sources jar published (404)', async () => {
+    const jarUrl = `${baseUrl}/0.0.5/codelijst-rie-iepr-0.0.5-sources.jar`;
+    global.fetch.mockImplementation(async (url) => {
+      if (url === metadataUrl) return { ok: true, status: 200, text: async () => metadataXml('0.0.5') };
+      if (url === jarUrl) return { ok: false, status: 404, statusText: 'Not Found' };
+      throw new Error(`unexpected fetch: ${url}`);
+    });
+
+    await expect(v._loadPreviousGraph(baseUrl, {})).rejects.toThrow(/was not found \(404\)/);
+  });
+
+  it('throws when the sources jar contains no .nt file', async () => {
+    const jarUrl = `${baseUrl}/0.0.5/codelijst-rie-iepr-0.0.5-sources.jar`;
+    const jarBuffer = buildJar([['rie-iepr.ttl', '']]);
+    global.fetch.mockImplementation(async (url) => {
+      if (url === metadataUrl) return { ok: true, status: 200, text: async () => metadataXml('0.0.5') };
+      if (url === jarUrl) return arrayBufferResponse(jarBuffer);
+      throw new Error(`unexpected fetch: ${url}`);
+    });
+
+    await expect(v._loadPreviousGraph(baseUrl, {})).rejects.toThrow(/no \.nt file found/);
+  });
+
+  it('picks the conceptscheme/ .nt file when the jar contains more than one .nt entry', async () => {
+    const jarUrl = `${baseUrl}/0.0.5/codelijst-rie-iepr-0.0.5-sources.jar`;
+    const jarBuffer = buildJar([
+      ['be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.nt', '<urn:right> <urn:p> "right" .'],
+      ['be/vlaanderen/omgeving/data/id/catalog/codelijst-rie-iepr/catalog.nt', '<urn:wrong> <urn:p> "wrong" .'],
+    ]);
+    global.fetch.mockImplementation(async (url) => {
+      if (url === metadataUrl) return { ok: true, status: 200, text: async () => metadataXml('0.0.5') };
+      if (url === jarUrl) return arrayBufferResponse(jarBuffer);
+      throw new Error(`unexpected fetch: ${url}`);
+    });
+
+    await v._loadPreviousGraph(baseUrl, {});
+
+    expect(rdf_to_jsonld).toHaveBeenCalledWith('<urn:right> <urn:p> "right" .', {});
+  });
+
+  it('throws when the jar has multiple .nt entries and none is under conceptscheme/', async () => {
+    const jarUrl = `${baseUrl}/0.0.5/codelijst-rie-iepr-0.0.5-sources.jar`;
+    const jarBuffer = buildJar([
+      ['a/one.nt', ''],
+      ['b/two.nt', ''],
+    ]);
+    global.fetch.mockImplementation(async (url) => {
+      if (url === metadataUrl) return { ok: true, status: 200, text: async () => metadataXml('0.0.5') };
+      if (url === jarUrl) return arrayBufferResponse(jarBuffer);
+      throw new Error(`unexpected fetch: ${url}`);
+    });
+
+    await expect(v._loadPreviousGraph(baseUrl, {})).rejects.toThrow(/multiple \.nt files found/);
+  });
+
+  it('returns an empty array when the .nt file is empty', async () => {
+    const jarUrl = `${baseUrl}/0.0.5/codelijst-rie-iepr-0.0.5-sources.jar`;
+    const jarBuffer = buildJar([['rie-iepr.nt', '   ']]);
+    global.fetch.mockImplementation(async (url) => {
+      if (url === metadataUrl) return { ok: true, status: 200, text: async () => metadataXml('0.0.5') };
+      if (url === jarUrl) return arrayBufferResponse(jarBuffer);
+      throw new Error(`unexpected fetch: ${url}`);
+    });
+
+    const graph = await v._loadPreviousGraph(baseUrl, {});
+
+    expect(graph).toEqual([]);
+    expect(rdf_to_jsonld).not.toHaveBeenCalled();
+  });
+});
+
+describe('process() diffs against the fetched previous release', () => {
+  let v;
+  const baseUrl = 'https://example.org/release/be/vlaanderen/omgeving/data/id/graph/codelijst-rie-iepr';
+  const metadataUrl = `${baseUrl}/maven-metadata.xml`;
+  const jarUrl = `${baseUrl}/0.0.5/codelijst-rie-iepr-0.0.5-sources.jar`;
+
+  const metadataXml = `<?xml version="1.0" encoding="UTF-8"?>
+<metadata><versioning><release>0.0.5</release></versioning></metadata>`;
+
+  const buildJar = (entryName, content) => {
+    const zip = new AdmZip();
+    zip.addFile(entryName, Buffer.from(content, 'utf8'));
+    const buffer = zip.toBuffer();
+    return buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
+  };
+
+  beforeEach(() => {
+    v = new ConceptVersioning();
+    vi.mocked(rdf_to_jsonld).mockReset();
+    global.fetch = vi.fn();
+  });
+
+  afterEach(() => {
+    delete global.fetch;
+  });
+
+  it('classifies a concept as edited (not added) when it also exists in the fetched previous graph', async () => {
+    vi.mocked(rdf_to_jsonld)
+      .mockResolvedValueOnce({ graph: [{ '@id': 'urn:x', name: 'new' }] }) // current
+      .mockResolvedValueOnce({ graph: [{ '@id': 'urn:x', name: 'old' }] }); // previous
+    global.fetch.mockImplementation(async (url) => {
+      if (url === metadataUrl) return { ok: true, status: 200, text: async () => metadataXml };
+      if (url === jarUrl) return { ok: true, status: 200, arrayBuffer: async () => buildJar('rie-iepr.nt', 'irrelevant, rdf_to_jsonld is mocked') };
+      throw new Error(`unexpected fetch: ${url}`);
+    });
+
+    const res = await v.process({
+      currentNt: 'irrelevant nquads',
+      frame: {},
+      previousReleaseUrl: baseUrl,
+    });
+
+    expect(res.result.added).toEqual([]);
+    expect(res.result.edited).toEqual(['urn:x']);
+  });
+
+  it('does not call fetch when previousReleaseUrl is omitted (falls back to empty previous graph)', async () => {
+    vi.mocked(rdf_to_jsonld).mockResolvedValue({ graph: [{ '@id': 'urn:y' }] });
+
+    const res = await v.process({ currentNt: 'irrelevant nquads', frame: {} });
+
+    expect(global.fetch).not.toHaveBeenCalled();
+    expect(res.result.added).toEqual(['urn:y']);
   });
 });
 

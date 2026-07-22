@@ -366,15 +366,22 @@ const metadataSource = {
     "prefixes": config.prefixes
 }
 
-// Versioning settings (moved here for easier editing).
-// Edit these values instead of modifying source/config.yml when you want
-// to change versioning behaviour or release URL.
+// Versioning settings, read from metadata.distribution.versioning in source/config.yml.
 const versioning = {
-    enabled: config.distribution?.versioning?.enabled ?? true,
-    // Default release URL (matches previous config.yml value). Override as needed.
-    release_url: config.distribution?.versioning?.release_url || 'https://repo.omgeving.vlaanderen.be/ui/api/v1/download/contentBrowsing/release/be/vlaanderen/omgeving/data/id/graph/codelijst-rie-iepr'
+    enabled: config.metadata?.distribution?.versioning?.enabled ?? true,
+    release_url: config.metadata?.distribution?.versioning?.release_url
 }
 
+// ConceptVersioning's DEFAULTS use the raw dct:/adms: IRIs as JSON object keys, but
+// frame_skos_prefixes (context_prefixes) compacts those same properties to these terms/CURIEs
+// when framing. Override ConceptVersioning with these so it reads its own previously-written
+// metadata correctly instead of treating every concept as edited on every run.
+const versioningPropertyKeys = {
+    dctCreated: 'dcterms:created',
+    dctModified: 'dcterms:modified',
+    dctIsVersionOf: 'isVersionOf',
+    admsStatus: 'adms:status',
+}
 
 export {
     virtuoso,
@@ -384,5 +391,6 @@ export {
     metadataOptions,
     datasetOptions,
     catalogOptions,
-    versioning
+    versioning,
+    versioningPropertyKeys
 };

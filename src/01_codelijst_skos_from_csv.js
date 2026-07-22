@@ -3,7 +3,9 @@ import { output } from '@milieuinfo/maven-metadata-generator-npm';
 import csv from 'csvtojson';
 import {
     skosOptions,
-    skosSource
+    skosSource,
+    versioning,
+    versioningPropertyKeys
 } from './utils/variables.js';
 import { ConceptVersioning } from './utils/versioning.js';
 import { separateString, n3_reasoning } from '@milieuinfo/maven-metadata-generator-npm/src/utils/functions.js';
@@ -49,9 +51,15 @@ async function generate_skos(options, skosSource ) {
     console.log("1: Csv to Jsonld");
     const nt_rdf = await n3_reasoning(jsonld, skosSource.rules);
 
-    const versioner = new ConceptVersioning();
-    // Versioning will be applied directly on the N-Quads RDF string (in-memory only).
-    const { updated_nt, result } = await versioner.process({ currentNt: nt_rdf, frame: skosOptions.jsonldOptions.frame, options: { allowMultipleIsVersionOf: true } });
+    const versioner = new ConceptVersioning(versioningPropertyKeys);
+    // Versioning will be applied directly on the N-Quads RDF string (in-memory only),
+    // diffed against the previously published graph (versioning.release_url in config.yml).
+    const { updated_nt, result } = await versioner.process({
+        currentNt: nt_rdf,
+        frame: skosOptions.jsonldOptions.frame,
+        options: { allowMultipleIsVersionOf: true },
+        previousReleaseUrl: versioning.enabled ? versioning.release_url : undefined,
+    });
     console.log('Versioning result:', result);
     await output(skosSource, updated_nt, options);
 }

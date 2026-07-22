@@ -1,10 +1,10 @@
 'use strict';
-import { skosOptions } from './utils/variables.js';
+import { skosOptions, versioningPropertyKeys } from './utils/variables.js';
 import { ConceptVersioning } from './utils/versioning.js';
 
 (async () => {
   try {
-    const versioner = new ConceptVersioning();
+    const versioner = new ConceptVersioning(versioningPropertyKeys);
     const currentFile = skosOptions.jsonldOptions.file;
     const res = await versioner.init(currentFile);
     console.log('Initialized versioning for', res.updated, 'concepts in', currentFile);

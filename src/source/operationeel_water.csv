@@ -1,2 +1,16 @@
-_id,_type,inScheme,topConceptOf,prefLabel,notation,definition,scopeNote,broader,relevantDataType,relevantCodeList,relevantUnit
-conceptscheme:operationeel_water,skos:ConceptScheme,,,Operationele gegevens,,,,,,,
+_id,_type,topConceptOf,prefLabel,notation,definition,broader,relevantDataType,relevantCodeList,relevantUnit,isVerplicht,isMeervoudig
+conceptscheme:operationeel_water,skos:ConceptScheme,,Operationele gegevens,,,,,,,,
+riepr-operationeel-water:lozing-debiet,skos:Concept,conceptscheme:operationeel_water,Debiet per jaar,OPERATIONEEL_WATER_LOZING_DEBIET,,,,,http://qudt.org/vocab/unit/M3-PER-YR,true,
+riepr-operationeel-water:lozing-dagen,skos:Concept,conceptscheme:operationeel_water,Aantal dagen per jaar,OPERATIONEEL_WATER_LOZING_DAGEN,,,,,http://TODO,true,
+riepr-operationeel-water:lozing,skos:Concept,conceptscheme:operationeel_water,Lozing,OPERATIONEEL_WATER_LOZING,,,,,,,true
+riepr-operationeel-water:lozing-stof,skos:Concept,conceptscheme:operationeel_water,Verontreinigende stof,OPERATIONEEL_WATER_LOZING_STOF,,riepr-operationeel-water:lozing,,https://data.omgeving.vlaanderen.be/id/conceptscheme/csor/variabele,,true,
+riepr-operationeel-water:lozing-meetfrequentie,skos:Concept,conceptscheme:operationeel_water,Meetfrequentie,OPERATIONEEL_WATER_LOZING_MEETFREQUENTIE,,riepr-operationeel-water:lozing,,http://TODO,,,
+riepr-operationeel-water:lozing-concentratie,skos:Concept,conceptscheme:operationeel_water,Gemiddelde concentratie,OPERATIONEEL_WATER_LOZING_CONCENTRATIE,,riepr-operationeel-water:lozing,,,http://TODO,,
+riepr-operationeel-water:lozing-jaarvracht,skos:Concept,conceptscheme:operationeel_water,Totale jaarvracht,OPERATIONEEL_WATER_LOZING_JAARVRACHT,,riepr-operationeel-water:lozing,,,http://TODO,,
+riepr-operationeel-water:lozing-bepalingsmethode,skos:Concept,conceptscheme:operationeel_water,Bepalingsmethode,OPERATIONEEL_WATER_LOZING_BEPALINGSMETHODE,,riepr-operationeel-water:lozing,,conceptscheme:operationeel_bepalingsmethode,,,
+riepr-operationeel-water:lozing-bepalingsmethodeclassificatie,skos:Concept,conceptscheme:operationeel_water,Bepalingsmethodeclassificatie,OPERATIONEEL_WATER_LOZING_BEPALINGSMETHODECLASSIFICATIE,,riepr-operationeel-water:lozing,,conceptscheme:operationeel_bepalingsmethodeclassificatie,,,
+riepr-operationeel-water:abnormale-lozing,skos:Concept,conceptscheme:operationeel_water,Abnormale lozing,OPERATIONEEL_WATER_ABNORMALE_LOZING,,,,,,,true
+riepr-operationeel-water:abnormale-lozing-stof,skos:Concept,conceptscheme:operationeel_water,Verontreinigende stof,OPERATIONEEL_WATER_ABNORMALE_LOZING_STOF,,riepr-operationeel-water:abnormale-lozing,,https://data.omgeving.vlaanderen.be/id/conceptscheme/csor/variabele,,true,
+riepr-operationeel-water:abnormale-lozing-lozingsduur,skos:Concept,conceptscheme:operationeel_water,Lozingsduur,OPERATIONEEL_WATER_ABNORMALE_LOZING_LOZINGSDUUR,,riepr-operationeel-water:abnormale-lozing,http://www.w3.org/2001/XMLSchema#integer,,http://qudt.org/vocab/unit/DAY,true,
+riepr-operationeel-water:abnormale-lozing-jaarvracht,skos:Concept,conceptscheme:operationeel_water,Jaarvracht,OPERATIONEEL_WATER_ABNORMALE_LOZING_JAARVRACHT,,riepr-operationeel-water:abnormale-lozing,http://www.w3.org/2001/XMLSchema#decimal,,http://TODO,,
+riepr-operationeel-water:abnormale-lozing-verklaring,skos:Concept,conceptscheme:operationeel_water,Verklaring,OPERATIONEEL_WATER_ABNORMALE_LOZING_VERKLARING,,riepr-operationeel-water:abnormale-lozing,http://www.w3.org/2001/XMLSchema#string,,,,
