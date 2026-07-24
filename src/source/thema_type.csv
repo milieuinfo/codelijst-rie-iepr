@@ -1,7 +1,10 @@
-_id,_type,topConceptOf,prefLabel,notation,definition,relevantRiepr
-conceptscheme:thema_type,skos:ConceptScheme,,Thematische stromen,,,
-riepr-thema-type:lucht,skos:Concept,conceptscheme:thema_type,Lucht,THEMA_LUCHT,,conceptscheme:operationeel_lucht
-riepr-thema-type:water,skos:Concept,conceptscheme:thema_type,Water,THEMA_WATER,,conceptscheme:operationeel_water
-riepr-thema-type:grondwater,skos:Concept,conceptscheme:thema_type,Grondwater,THEMA_GRONDWATER,,conceptscheme:operationeel_grondwater
-riepr-thema-type:zelfcontrole-lucht,skos:Concept,conceptscheme:thema_type,Zelfcontrole lucht,THEMA_ZELFCONTROLE_LUCHT,,conceptscheme:operationeel_zelfcontrole_lucht
-riepr-thema-type:zelfcontrole-water,skos:Concept,conceptscheme:thema_type,Zelfcontrole water,THEMA_ZELFCONTROLE_WATER,,conceptscheme:operationeel_zelfcontrole_water
+_id,_type,topConceptOf,prefLabel,notation,definition,relevantRiepr,broader
+conceptscheme:thema_type,skos:ConceptScheme,,,,,,
+riepr-thema-type:lucht,skos:Concept,conceptscheme:thema_type,Lucht,THEMA_LUCHT,,conceptscheme:operationeel_lucht,
+riepr-thema-type:water,skos:Concept,conceptscheme:thema_type,Water,THEMA_WATER,,conceptscheme:operationeel_water,
+riepr-thema-type:grondwater,skos:Concept,conceptscheme:thema_type,Grondwater,THEMA_GRONDWATER,,conceptscheme:operationeel_grondwater,
+riepr-thema-type:grondwater-onttrekking,skos:Concept,conceptscheme:thema_type,Onttrekking/infiltratie,THEMA_GRONDWATER_ONTTREKKING,,conceptscheme:operationeel_grondwater_onttrekking,riepr-thema-type:grondwater
+riepr-thema-type:grondwater-peilmeting,skos:Concept,conceptscheme:thema_type,Peilmetingen,THEMA_GRONDWATER_PEILMETING,,conceptscheme:operationeel_grondwater_peilmeting,riepr-thema-type:grondwater
+riepr-thema-type:grondwater-kwaliteitsmeting,skos:Concept,conceptscheme:thema_type,Kwaliteitsmeting,THEMA_GRONDWATER_KWALITEITSMETING,,conceptscheme:operationeel_grondwater_kwaliteitsmetings,riepr-thema-type:grondwater
+riepr-thema-type:zelfcontrole-lucht,skos:Concept,conceptscheme:thema_type,Zelfcontrole lucht,THEMA_ZELFCONTROLE_LUCHT,,conceptscheme:operationeel_zelfcontrole_lucht,
+riepr-thema-type:zelfcontrole-water,skos:Concept,conceptscheme:thema_type,Zelfcontrole water,THEMA_ZELFCONTROLE_WATER,,conceptscheme:operationeel_zelfcontrole_water,
