@@ -144,12 +144,18 @@ npm run preview
 
 # Run linting
 npm run lint
+
+# Run E2E tests (Playwright)
+npm run test
+
+# Run unit tests (Vitest)
+npm run test:unit
 ```
 
 ## Testing Strategy
 
-- **Playwright** - E2E tests for key user flows (`tests/codelijst.spec.ts`)
-- **Vitest** - Unit tests for services
+- **Playwright** - E2E tests for key user flows (`tests/codelijst.spec.ts`), including required-field rendering behavior
+- **Vitest** - Unit tests for `CodelistService` (`src/services/codelist-service.test.ts`), covering scheme/concept parsing, broader/narrower resolution, and graceful degradation for the dangling/unresolvable refs documented in `docs/ISSUES.md`
 - **Manual testing** - HTML validation and browser compatibility
 
 ## Configuration Files
@@ -158,6 +164,14 @@ npm run lint
 - `vite.config.js` - Vite build and dev server configuration
 - `package.json` - Project metadata and scripts
 - `.editorconfig` - Code formatting consistency
+
+## Codelist Sync
+
+The POC consumes the RIE-IEPR codelist (`rie-iepr.jsonld`) from its own copy under `public/resources/...`, served by Vite as a static asset. The authoritative source lives at `../src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld` (the sibling Java/Maven project).
+
+Before every `npm run dev` or `npm run build`, npm automatically runs the `predev` / `prebuild` lifecycle scripts which invoke `scripts/sync-codelist.mjs`. This Node script (no extra dependencies — uses only `fs` and `path`) copies the canonical file into `poc/public/resources/...`, creating parent directories as needed. If the source is missing, it logs a warning and exits 0 gracefully.
+
+See AGENTS.md section 6 for full details.
 
 ## Known Issues
 

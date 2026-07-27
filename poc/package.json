@@ -4,13 +4,16 @@
   "description": "Proof of Concept Web UI for RIE-IEPR codelists",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/sync-codelist.mjs",
     "dev": "vite",
+    "prebuild": "node scripts/sync-codelist.mjs",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint 'src/**/*.{ts,js}' --max-warnings=0",
     "lint:fix": "eslint 'src/**/*.{ts,js}' --fix",
     "test": "playwright test",
-    "test:ui": "playwright test --ui"
+    "test:ui": "playwright test --ui",
+    "test:unit": "vitest run"
   },
   "dependencies": {
     "@domg-wc/components": "2.16.0",

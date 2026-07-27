@@ -30,6 +30,14 @@ instruction to report rather than silently work around them.
   - **Status**: Open (upstream data).
   - **Solution**: The app already degrades gracefully — it shows the "no operational data defined" message rather than crashing, consistent with the existing `CODELIST-UNRESOLVABLE-REFS` handling pattern. Fix requires a correction to the source `rie-iepr.jsonld` data (either fix the `relevantRiepr` reference or rename the scheme id, whichever is intended). No code changes needed per PROJECT_OUTLINE.md's guardrail against modifying codelist data.
 
+## Build / tooling gaps (resolved)
+
+- **Issue ID**: MANUAL-CODELIST-COPY
+  - **Description**: The POC consumed `rie-iepr.jsonld` from a manually copied copy under `public/resources/...`. If the upstream source (`../src/main/resources/.../rie-iepr.jsonld`) was updated, the POC would silently serve stale codelist data. No automation existed to keep the two copies in sync.
+  - **Impact**: Risk of developing against outdated codelist definitions without realizing it.
+  - **Status**: Resolved.
+  - **Solution**: Added `scripts/sync-codelist.mjs` which runs automatically via `predev` and `prebuild` npm lifecycle scripts. Every `npm run dev` or `npm run build` now syncs the canonical file into place before starting. See AGENTS.md section 6 and ARCHITECTURE.md "Codelist Sync" for details.
+
 ## Environment / dependency notes
 
 - **Issue ID**: FLUX-COMPONENTS-PRIVATE-REGISTRY

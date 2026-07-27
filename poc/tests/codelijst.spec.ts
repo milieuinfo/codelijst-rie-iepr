@@ -171,4 +171,87 @@ test.describe('Codelijst App', () => {
     const operationeelLabels = opFields.locator('vl-form-label').count()
     expect(await operationeelLabels).toBeGreaterThan(0)
   })
+
+  // --- Required-field rendering tests (water thema → operationeel_water scheme) ---
+
+  test('required root text field carries required signal on water thema', async ({ page }) => {
+    // Water thema (no children) maps to operationeel_water which has two required
+    // root fields: "Aantal dagen per jaar" (lozing-dagen) and "Debiet per jaar" (lozing-debiet).
+    await page.selectOption('select#thema', { value: 'riepr-thema-type:water' })
+
+    const opFields = page.locator('codelijst-operationeel-fields')
+    await expect(opFields).toBeVisible()
+
+    // "Aantal dagen per jaar" is a required xsd:string field → vl-input-field type="text" ?required=true
+    const requiredInput = opFields.locator('vl-input-field#riepr-operationeel-water\\:lozing-dagen')
+    await expect(requiredInput).toBeVisible()
+    const requiredAttr = await requiredInput.getAttribute('required')
+    const requiredProp = await requiredInput.evaluate(el => (el as HTMLElement & { required?: boolean }).required ?? false)
+    expect(requiredAttr).toBe('')
+    expect(requiredProp).toBe(true)
+  })
+
+  test('non-required child text input does not carry required signal', async ({ page }) => {
+    // Within the repeatable composite group "Abnormale lozing", children get #1 suffix.
+    // "Verklaring" (abnormale-lozing-verklaring) has no isVerplicht → NOT required.
+    await page.selectOption('select#thema', { value: 'riepr-thema-type:water' })
+
+    const opFields = page.locator('codelijst-operationeel-fields')
+    await expect(opFields).toBeVisible()
+
+    const nonRequiredInput = opFields.locator('vl-input-field#riepr-operationeel-water\\:abnormale-lozing-verklaring\\#1')
+    await expect(nonRequiredInput).toBeVisible()
+    const attr = await nonRequiredInput.getAttribute('required')
+    const prop = await nonRequiredInput.evaluate(el => (el as HTMLElement & { required?: boolean }).required ?? false)
+    expect(attr).toBeNull()
+    expect(prop).toBe(false)
+  })
+
+  test('required number input within composite fieldset carries required signal', async ({ page }) => {
+    // "Lozingsduur" (abnormale-lozing-lozingsduur) has isVerplicht=true and relevantDataType=xsd:integer
+    // → renders as vl-input-field type="number" with required. Inside repeatable composite → #1 suffix.
+    await page.selectOption('select#thema', { value: 'riepr-thema-type:water' })
+
+    const opFields = page.locator('codelijst-operationeel-fields')
+    await expect(opFields).toBeVisible()
+
+    const reqNumber = opFields.locator('vl-input-field#riepr-operationeel-water\\:abnormale-lozing-lozingsduur\\#1')
+    await expect(reqNumber).toBeVisible()
+    const attr = await reqNumber.getAttribute('required')
+    const prop = await reqNumber.evaluate(el => (el as HTMLElement & { required?: boolean }).required ?? false)
+    expect(attr).toBe('')
+    expect(prop).toBe(true)
+  })
+
+  test('non-required select within composite fieldset does not carry required signal', async ({ page }) => {
+    // "Bepalingsmethode" (lozing-bepalingsmethode) inside the repeatable "Lozing" group
+    // has no isVerplicht, relevantCodeList→operationeel_bepalingsmethode (internal scheme) → populated select.
+    await page.selectOption('select#thema', { value: 'riepr-thema-type:water' })
+
+    const opFields = page.locator('codelijst-operationeel-fields')
+    await expect(opFields).toBeVisible()
+
+    const nonReqSelect = opFields.locator('vl-select#riepr-operationeel-water\\:lozing-bepalingsmethode\\#1')
+    await expect(nonReqSelect).toBeVisible()
+    const attr = await nonReqSelect.getAttribute('required')
+    const prop = await nonReqSelect.evaluate(el => (el as HTMLElement & { required?: boolean }).required ?? false)
+    expect(attr).toBeNull()
+    expect(prop).toBe(false)
+  })
+
+  test('required select child within composite fieldset carries required signal', async ({ page }) => {
+    // "Verontreinigende stof" (abnormale-lozing-stof) inside "Abnormale lozing" has isVerplicht=true
+    // and relevantCodeList pointing to conceptscheme-alg:csor/variabele (external → empty select).
+    await page.selectOption('select#thema', { value: 'riepr-thema-type:water' })
+
+    const opFields = page.locator('codelijst-operationeel-fields')
+    await expect(opFields).toBeVisible()
+
+    const reqSelect = opFields.locator('vl-select#riepr-operationeel-water\\:abnormale-lozing-stof\\#1')
+    await expect(reqSelect).toBeVisible()
+    const attr = await reqSelect.getAttribute('required')
+    const prop = await reqSelect.evaluate(el => (el as HTMLElement & { required?: boolean }).required ?? false)
+    expect(attr).toBe('')
+    expect(prop).toBe(true)
+  })
 })

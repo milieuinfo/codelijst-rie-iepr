@@ -91,7 +91,20 @@ In `src/components/codelijst-app.ts`:
 ### Step D: Update styles if needed
 Only if design tokens need updating — import additional `@domg-wc/styles/.../*.raw.css` sheets in `src/styles/main.css`. Prefer existing tokens over adding new ones.
 
-## 6. Task Planning Docs
+## 6. Codelist Sync Mechanism
+
+The POC reads `rie-iepr.jsonld` from its own copy at `public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld`, served by Vite as a static asset. This file is **not** the canonical source — the authoritative version lives in the sibling Java project at `../src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld`.
+
+A no-dependency Node script (`scripts/sync-codelist.mjs`) copies the upstream file into place before every dev server start and build:
+
+- **`npm run predev`** → runs `node scripts/sync-codelist.mjs` → then `vite` starts with fresh data.
+- **`npm run prebuild`** → same sync → then `tsc && vite build` compiles against it.
+
+If the source file is missing, the script logs a warning to stdout and exits 0 (the existing destination copy, if any, is left untouched). No new npm dependencies are needed — the script uses only Node.js built-ins (`fs`, `path`).
+
+This ensures the POC always runs against the latest codelist without a human remembering to copy the file manually.
+
+## 7. Task Planning Docs
 
 Task epics live under `docs/tasks/<NN-name>/DESCRIPTION.md`. Each task directory may also contain reviewer feedback or supplementary docs alongside its DESCRIPTION.md. When a task's scope changes during implementation, **update that task's DESCRIPTION.md** to reflect the current state rather than leaving stale AS IS / TO BE sections.
 
