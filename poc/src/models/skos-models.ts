@@ -35,6 +35,10 @@ export interface Concept {
   relevantRiepr?: string[]
   relevantUnit?: string[]
   relevantProperty?: string
+  /** Reference (id) to another concept/field in the same form whose current value gates visibility of this field. */
+  conditionPath?: string
+  /** The value that the referenced field's current input must equal for this field to be shown. */
+  conditionValue?: string
 }
 
 export interface Scheme {

@@ -191,6 +191,9 @@ export class CodelistService {
     const relevantDataType = this.getValue(node, ['relevantDataType', 'relevant_data_type'])
     concept.relevantDataType = typeof relevantDataType === 'string' ? relevantDataType : undefined
 
+    concept.conditionPath = this.idOf(this.getValue(node, ['conditionPath', 'condition_path']))
+    concept.conditionValue = this.getValue(node, ['conditionValue', 'condition_value']) as string | undefined
+
     concept.relevantCodeList = this.idsOf(this.getValue(node, ['relevantCodeList', 'relevant_code_list']))
     concept.relevantRiepr = this.idsOf(this.getValue(node, ['relevantRiepr', 'relevant_riepr']))
     concept.relevantUnit = this.idsOf(this.getValue(node, ['relevantUnit', 'relevant_unit']))

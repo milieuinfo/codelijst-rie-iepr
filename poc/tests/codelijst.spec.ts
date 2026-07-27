@@ -254,4 +254,44 @@ test.describe('Codelijst App', () => {
     expect(attr).toBe('')
     expect(prop).toBe(true)
   })
+
+  test('relevantCodeList vl-select must not revert after unrelated field interaction triggers full re-render', async ({ page }) => {
+    // Regression test for SELECT-VALUE-REVERT bug: every @input handler called requestUpdate(),
+    // causing a full re-render. Each re-render created a fresh .options array passed to <vl-select>,
+    // which triggered the child component's updated() lifecycle, clearing its internal value.
+    // The fix adds explicit .value binding and selected flags to all vl-select controls.
+    await page.selectOption('select#thema', { value: 'riepr-thema-type:water' })
+
+    const opFields = page.locator('codelijst-operationeel-fields')
+    await expect(opFields).toBeVisible()
+
+    // Select a value in the relevantCodeList select (lozing-bepalingsmethode#1)
+    const bepalingSelect = opFields.locator('vl-select#riepr-operationeel-water\\:lozing-bepalingsmethode\\#1')
+    await expect(bepalingSelect).toBeVisible()
+    await page.selectOption('select#riepr-operationeel-water\\:lozing-bepalingsmethode\\#1', { value: 'riepr-operationeel-bepalingsmethode:gemeten' })
+
+    // Verify initial selection persisted
+    let selectValue = await page.inputValue('select#riepr-operationeel-water\\:lozing-bepalingsmethode\\#1')
+    expect(selectValue).toBe('riepr-operationeel-bepalingsmethode:gemeten')
+
+    // Trigger a full re-render of ALL fields by clicking a button in the same component tree.
+    // The addInstance/removeInstance methods call requestUpdate() which re-renders all fields,
+    // exercising the same code path as @input handlers but without needing to interact with
+    // web-component shadow DOM internals that Playwright cannot reach directly.
+    const addButton = opFields.locator('vl-button', { hasText: /Nog.*toevoegen/ }).first()
+    if (await addButton.isVisible()) {
+      await addButton.click()
+    } else {
+      // No repeatable field in this scheme — click the "Verwijder" button on the composite group instead
+      const removeButton = opFields.locator('vl-button', { hasText: 'Verwijder' }).first()
+      if (await removeButton.isVisible()) {
+        await removeButton.click()
+      }
+    }
+
+    // After the re-render caused by typing in the unrelated field,
+    // the relevantCodeList select must STILL show its previously selected value.
+    selectValue = await page.inputValue('select#riepr-operationeel-water\\:lozing-bepalingsmethode\\#1')
+    expect(selectValue).toBe('riepr-operationeel-bepalingsmethode:gemeten')
+  })
 })

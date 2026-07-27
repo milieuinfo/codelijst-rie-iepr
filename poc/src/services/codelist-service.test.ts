@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
-import { CodelistService, type CodelistResult } from './codelist-service.js'
+import { CodelistService, type CodelistResult, type JsonLdNode } from './codelist-service.js'
 import type { Concept, Scheme } from '../models/skos-models.js'
 
 const FIXTURE_PATH = path.resolve(
@@ -211,6 +211,69 @@ describe('CodelistService — fixture parsing', () => {
     })
   })
 })
+
+describe('conditionPath / conditionValue parsing', () => {
+    function makeNode(id: string, props: Record<string, unknown>): JsonLdNode {
+      return { id, '@type': ['skos:Concept'], ...props }
+    }
+
+    function parse(nodes: JsonLdNode[]): CodelistResult {
+      const service = new CodelistService()
+      // @ts-expect-error parseData is private — accessing via prototype for testing only
+      return service.parseData({ graph: nodes }, true)
+    }
+
+    it('parses standard camelCase keys (conditionPath, conditionValue)', () => {
+      const result = parse([makeNode('field-a', {}), makeNode('field-b', {
+        conditionPath: 'field-a',
+        conditionValue: 'some-value',
+      })])
+      const fieldB = result.concepts.get('field-b')!
+      expect(fieldB.conditionPath).toBe('field-a')
+      expect(fieldB.conditionValue).toBe('some-value')
+    })
+
+    it('parses snake_case key variants (condition_path, condition_value)', () => {
+      const result = parse([makeNode('trigger-field', {}), makeNode('dependent-field', {
+        condition_path: 'trigger-field',
+        condition_value: 'triggered',
+      })])
+      const dep = result.concepts.get('dependent-field')!
+      expect(dep.conditionPath).toBe('trigger-field')
+      expect(dep.conditionValue).toBe('triggered')
+    })
+
+    it('extracts id from inline {@id: ...} object for conditionPath', () => {
+      const result = parse([makeNode('ref-concept', {}), makeNode('dependent', {
+        conditionPath: { '@id': 'ref-concept' },
+        conditionValue: 'match',
+      })])
+      const dep = result.concepts.get('dependent')!
+      expect(dep.conditionPath).toBe('ref-concept')
+      expect(dep.conditionValue).toBe('match')
+    })
+
+    it('leaves both properties undefined when neither is present on a concept', () => {
+      const result = parse([makeNode('plain-field', { prefLabel: 'Plain' })])
+      const plain = result.concepts.get('plain-field')!
+      expect(plain.conditionPath).toBeUndefined()
+      expect(plain.conditionValue).toBeUndefined()
+    })
+
+    it('parses conditionValue as a plain string literal regardless of content', () => {
+      const result = parse([makeNode('a', {}), makeNode('b', {
+        conditionPath: 'a',
+        conditionValue: '123',
+      }), makeNode('c', {
+        conditionPath: 'a',
+        conditionValue: '',
+      })])
+      const b = result.concepts.get('b')!
+      const c = result.concepts.get('c')!
+      expect(b.conditionValue).toBe('123')
+      expect(c.conditionValue).toBe('')
+    })
+  })
 
 // Convenience wrapper so tests don't need to import CodelistService separately
 const svc = new CodelistService()
