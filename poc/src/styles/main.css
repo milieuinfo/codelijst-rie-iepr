@@ -1,0 +1,35 @@
+/**
+ * Base styles for RIE-IEPR Codelist POC
+ * Imports design system tokens from @domg-wc/styles.
+ *
+ * Note: vl-reset.css.js and vl-body.css.js use Lit tagged-template exports
+ * (css``) so they cannot be pulled in via plain CSS @import. The raw .raw.css
+ * files below cover all CSS-variable definitions; custom-element form atoms
+ * style themselves inside their shadow DOM. A tiny body/font-family reset is
+ * added because nothing else in the imported sheets targets it.
+ */
+
+/* ---- Design-system token variables (pure CSS, Vite-resolvable) ---- */
+@import '@domg-wc/styles/base/var/vl-color.raw.css';
+@import '@domg-wc/styles/base/var/vl-color-foundation-v2.raw.css';
+@import '@domg-wc/styles/base/var/vl-color-domg.raw.css';
+@import '@domg-wc/styles/base/var/vl-typography.raw.css';
+@import '@domg-wc/styles/base/var/vl-spacing.raw.css';
+@import '@domg-wc/styles/base/var/vl-z-layer.raw.css';
+@import '@domg-wc/styles/base/var/vl-general.raw.css';
+@import '@domg-wc/styles/layout/grid/vl-grid.raw.css';
+@import '@domg-wc/styles/layout/section/vl-section.raw.css';
+
+/* NOTE: The actual grid/column/margin/group/spacer utility classes are Lit
+   CSSResult JS modules (.css.js), NOT plain CSS. They cannot be consumed via
+   @import in a .css file. Instead they are adopted per-component via the
+   `static styles` array (see src/components/codelijst-app.ts). */
+
+/* ---- Minimal body/reset fallback ----
+   The design system's full reset (vl-reset.css.js) and body styles
+   (vl-body.css.js) are Lit-tagged-template modules only; they cannot be
+   consumed via plain CSS @import.  The <vl-*> custom elements handle their
+   own shadow-DOM styling internally. */
+body {
+  margin: 0;
+}
