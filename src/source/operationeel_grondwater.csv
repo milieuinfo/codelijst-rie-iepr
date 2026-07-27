@@ -1,7 +1,18 @@
-_id,_type,inScheme,topConceptOf,prefLabel,notation,definition,scopeNote,broader,relevantDataType,relevantRiepr,relevantUnit
-conceptscheme:operationeel_grondwater,skos:ConceptScheme,,,,,,,,,,
-conceptscheme:operationeel_grondwater_kwaliteitsmeting,skos:ConceptScheme,,,,,,,,,
-conceptscheme:operationeel_grondwater_onttrekking,skos:ConceptScheme,,,,,,,,,riepr-meetpunt-type:debietmeter
-riepr-operationeel-grondwater:periode,skos:Concept,,conceptscheme:operationeel_grondwater_onttrekking,Periode van onttrekking
-riepr-operationeel-grondwater:type-debiet,skos:Concept,,conceptscheme:operationeel_grondwater_onttrekking,Type debiet
-riepr-operationeel-grondwater:volume,skos:Concept,,conceptscheme:operationeel_grondwater_onttrekking,Volume
+_id,_type,inScheme,topConceptOf,prefLabel,notation,definition,scopeNote,broader,relevantDataType,relevantRiepr,conditionPath,conditionValue,relevantCodeList,relevantUnit
+conceptscheme:operationeel_grondwater,skos:ConceptScheme,,,,,,,,,,,,,
+conceptscheme:operationeel_grondwater_kwaliteitsmeting,skos:ConceptScheme,,,Kwaliteitsmeting,,,,,,conceptscheme:filter_type,,,
+conceptscheme:operationeel_grondwater_onttrekking,skos:ConceptScheme,,,Onttrekking,,,,,,riepr-meetpunt-type:debietmeter,,,
+conceptscheme:operationeel_grondwater_peilmeting,skos:ConceptScheme,,,Peilmeting,,,,,,conceptscheme:filter_type,,,,
+,,,,,,,,,,,,,,
+riepr-operationeel-grondwater:periode,skos:Concept,,conceptscheme:operationeel_grondwater_onttrekking,Periode van onttrekking,,,,,dcterms:temporal,,,,
+riepr-operationeel-grondwater:type-debiet,skos:Concept,,conceptscheme:operationeel_grondwater_onttrekking,Type debiet,,,,,,,,,
+riepr-operationeel-grondwater:volume,skos:Concept,,conceptscheme:operationeel_grondwater_onttrekking,Volume,,,,,,,,,
+,,,,,,,,,,,,,,
+riepr-operationeel-grondwater:datum,skos:Concept,,conceptscheme:operationeel_grondwater_peilmeting,Datum,,,,,xsd:dateTime,,,,
+riepr-operationeel-grondwater:referentiepunt,skos:Concept,,conceptscheme:operationeel_grondwater_peilmeting,Referentiepunt,,,,,,riepr-meetpunt-eigenschappen:referentiepunt,,,
+riepr-operationeel-grondwater:diepte,skos:Concept,,conceptscheme:operationeel_grondwater_peilmeting,Diepte/hoogte (TAW) t.o.v. referentiepunt,,,,,xsd:decimal,,,,,unit:M
+riepr-operationeel-grondwater:peilmethode,skos:Concept,,conceptscheme:operationeel_grondwater_peilmeting,Peilmethode,,,,,,,,,conceptscheme:operationeel_peilmethode
+riepr-operationeel-grondwater:pomptoestand,skos:Concept,,conceptscheme:operationeel_grondwater_peilmeting,Pomptoestand,,,,,,,,,conceptscheme:operationeel_pomptoestand
+riepr-operationeel-grondwater:duur-stil,skos:Concept,,conceptscheme:operationeel_grondwater_peilmeting,Duur pompen stil,,,,,xsd:duration,,riepr-operationeel-grondwater:pomptoestand,riepr-operationeel-pomptoestand:rust
+riepr-operationeel-grondwater:volume-rust,skos:Concept,,conceptscheme:operationeel_grondwater_peilmeting,Volume (8u voor stilstand),,,,,,,riepr-operationeel-grondwater:pomptoestand,riepr-operationeel-pomptoestand:rust,,unit:M3
+riepr-operationeel-grondwater:volume-werking,skos:Concept,,conceptscheme:operationeel_grondwater_peilmeting,Volume (1 uur voor meting),,,,,,,riepr-operationeel-grondwater:pomptoestand,riepr-operationeel-pomptoestand:werking,,unit:M3
