@@ -23,16 +23,20 @@ export class CodelijstThemeSelector extends LitElement {
     }
   `]
 
-  private codelistService = new CodelistService()
-
   result?: CodelistResult
   selectedThemeId?: string
   selectedSubThemeId?: string
+  codelistService?: CodelistService
 
   static override properties = {
     result: { attribute: false },
     selectedThemeId: { attribute: false },
     selectedSubThemeId: { attribute: false },
+    codelistService: { attribute: false },
+  }
+
+  get _service(): CodelistService {
+    return this.codelistService ??= new CodelistService()
   }
 
   override render() {
@@ -44,13 +48,12 @@ export class CodelijstThemeSelector extends LitElement {
     // The thema_type scheme has no prefLabel in the source data (see ISSUES.md); fall back to a fixed Dutch label.
     const themaLabel = themaScheme?.prefLabel ?? 'Thema'
 
-    const themaOptions = this.codelistService
-      .getTopConceptsForScheme(this.result, THEMA_SCHEME_ID)
-      .filter(concept => !concept.broader)
+    const themaOptions = this._service
+      .getTopLevelConcepts(this.result, THEMA_SCHEME_ID)
       .map(concept => ({ value: concept.id, label: concept.prefLabel ?? concept.id, selected: concept.id === this.selectedThemeId }))
 
     const selectedThema = this.selectedThemeId ? this.result.concepts.get(this.selectedThemeId) : undefined
-    const subThemes = selectedThema ? this.codelistService.getChildren(this.result, selectedThema) : []
+    const subThemes = selectedThema ? this._service.getChildren(this.result, selectedThema) : []
 
     return html`
       <vl-form-label for="thema" label="${themaLabel}" block .annotation="${themaScheme?.definition ?? ''}"></vl-form-label>

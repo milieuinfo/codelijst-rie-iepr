@@ -9,13 +9,5 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: true
   },
-  resolve: {
-    alias: {
-      '@src': '/src',
-      '@utils': '/src/utils',
-      '@services': '/src/services',
-      '@models': '/src/models',
-      '@components': '/src/components'
-    }
-  }
+  resolve: {}
 })

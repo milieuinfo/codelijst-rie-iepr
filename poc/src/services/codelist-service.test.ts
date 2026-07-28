@@ -19,8 +19,7 @@ function loadFixture(): CodelistResult {
   const raw = readFileSync(FIXTURE_PATH, 'utf-8')
   const data = JSON.parse(raw) as Record<string, unknown>
   const service = new CodelistService()
-  // @ts-expect-error parseData is private — accessing via prototype for testing only
-  cachedResult = service.parseData(data, true)
+   cachedResult = (service as any).parseData(data, true) as CodelistResult
   return cachedResult
 }
 
@@ -196,8 +195,7 @@ describe('CodelistService — fixture parsing', () => {
       const raw = readFileSync(FIXTURE_PATH, 'utf-8')
       const data = JSON.parse(raw) as Record<string, unknown>
       const service = new CodelistService()
-      // @ts-expect-error parseData is private — accessing via prototype for testing only
-      const result = service.parseData(data, true)
+      const result = (service as any).parseData(data, true)
 
       // Find any concept with boolean fields set in the fixture
       let foundBooleanField = false
@@ -220,8 +218,7 @@ describe('conditionPath / conditionValue parsing', () => {
 
     function parse(nodes: JsonLdNode[]): CodelistResult {
       const service = new CodelistService()
-      // @ts-expect-error parseData is private — accessing via prototype for testing only
-      return service.parseData({ graph: nodes }, true)
+      return (service as any).parseData({ graph: nodes }, true)
     }
 
     it('parses standard camelCase keys (conditionPath, conditionValue)', () => {

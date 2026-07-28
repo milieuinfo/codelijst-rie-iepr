@@ -56,7 +56,7 @@ export class CodelistService {
     return this.parseData(data, normalizeBooleans)
   }
 
-  private parseData(data: Record<string, unknown>, normalizeBooleans: boolean): CodelistResult {
+  protected parseData(data: Record<string, unknown>, normalizeBooleans: boolean): CodelistResult {
     const graph = Array.isArray(data['graph']) ? data['graph'] : data['graph'] ? [data['graph']] : []
 
     const nodesById = this.buildNodeIndex(graph)
@@ -265,6 +265,15 @@ export class CodelistService {
 
   getTopConceptsForScheme(result: CodelistResult, schemeId: string): Concept[] {
     return result.topConcepts.get(schemeId) || []
+  }
+
+  /**
+   * Returns top-level (root) concepts for a scheme — i.e., hasTopConcept entries
+   * that have no broader reference. Composite children (fields with `broader` set)
+   * are excluded so they're only rendered as part of their parent's group.
+   */
+  getTopLevelConcepts(result: CodelistResult, schemeId: string): Concept[] {
+    return this.getTopConceptsForScheme(result, schemeId).filter(concept => !concept.broader?.length)
   }
 
   getChildren(result: CodelistResult, concept: Concept): Concept[] {

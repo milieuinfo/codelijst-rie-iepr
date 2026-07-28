@@ -21,7 +21,7 @@ export class CodelijstApp extends LitElement {
     vlMarginStyles,
   ]
 
-  private codelistService = new CodelistService()
+  public readonly codelistService = new CodelistService()
 
   private result?: CodelistResult
   private loadError?: string
@@ -77,6 +77,7 @@ export class CodelijstApp extends LitElement {
                   .result="${this.result}"
                   .selectedThemeId="${this.selectedThemeId}"
                   .selectedSubThemeId="${this.selectedSubThemeId}"
+                  .codelistService="${this.codelistService}"
                   @theme-select="${this.onThemeSelect}"
                 ></codelijst-theme-selector>
 
@@ -87,6 +88,7 @@ export class CodelijstApp extends LitElement {
                         <codelijst-operationeel-fields
                           .result="${this.result}"
                           .schemeId="${this.operationeelSchemeId}"
+                          .codelistService="${this.codelistService}"
                         ></codelijst-operationeel-fields>
                       </vl-fieldset>
                     `
