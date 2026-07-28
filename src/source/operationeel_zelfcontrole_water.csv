@@ -1,2 +1,8 @@
-_id,_type,inScheme,topConceptOf,prefLabel,notation,definition,scopeNote,broader,relevantDataType,relevantUnit
-conceptscheme:operationeel_grondwater,skos:ConceptScheme,,,Operationele gegevens,,,,,,
+_id,_type,inScheme,topConceptOf,prefLabel,notation,definition,scopeNote,broader,relevantDataType,relevantUnit,relevantRiepr,
+conceptscheme:operationeel_zelfcontrole_water,skos:ConceptScheme,,,Operationele gegevens,,,,,,,riepr-meetpunt-type:controleinrichting,
+riepr-operationeel-zelfcontrole-water:meting,skos:Concept,,conceptscheme:operationeel_zelfcontrole_water,Meting,,,,,,,true,
+riepr-operationeel-zelfcontrole-water:datum,skos:Concept,,conceptscheme:operationeel_zelfcontrole_water,Datum van meting,,Datum van de meting of startdatum indien de meting over meerdere dagen heeft plaatsgevonden.,riepr-operationeel-zelfcontrole-water:meting,xsd:date,,,,true
+riepr-operationeel-zelfcontrole-water:labo,skos:Concept,,conceptscheme:operationeel_zelfcontrole_water,Labo,,,,,,,,
+riepr-operationeel-zelfcontrole-water:labo-naam,skos:Concept,,conceptscheme:operationeel_zelfcontrole_water,Naam,,De naam van het labo.,riepr-operationeel-zelfcontrole-water:labo,xsd:string,,,,true
+riepr-operationeel-zelfcontrole-water:labo-id,skos:Concept,,conceptscheme:operationeel_zelfcontrole_water,KBO nummer of BTW nummer,,,riepr-operationeel-zelfcontrole-water:labo,xsd:string,,,,
+riepr-operationeel-zelfcontrole-water:parameter,skos:Concept,,conceptscheme:operationeel_zelfcontrole_water,Parameter,,,,,,,true,

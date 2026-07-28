@@ -25,11 +25,6 @@
    @import in a .css file. Instead they are adopted per-component via the
    `static styles` array (see src/components/codelijst-app.ts). */
 
-/* ---- Minimal body/reset fallback ----
-   The design system's full reset (vl-reset.css.js) and body styles
-   (vl-body.css.js) are Lit-tagged-template modules only; they cannot be
-   consumed via plain CSS @import.  The <vl-*> custom elements handle their
-   own shadow-DOM styling internally. */
-body {
-  margin: 0;
-}
+/* NOTE: Body/page-level gutters are now provided by .vl-region/.vl-layout
+   classes adopted via layoutStyle in codelijst-app.ts static styles.
+   No custom CSS needed for page padding/margin. */

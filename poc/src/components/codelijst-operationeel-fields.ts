@@ -69,19 +69,26 @@ export class CodelijstOperationeelFields extends LitElement {
   }
 
   /**
-   * Renders a structural element picker dropdown when the scheme's relevantRiepr points at type concepts.
+   * Renders structural element picker dropdowns when the scheme's relevantRiepr points at type concepts.
    * @param scheme - The operationeel scheme whose relevantRiepr refs determine available structural types.
    * @returns HTML template with vl-select pickers, or nothing if no structural types are defined.
    */
   private renderStructuralPicker(scheme: Scheme) {
     if (!this.result) return nothing
+    return this.renderPickersForRefs(this._service.getRelevantRieprRefs(this.result, scheme))
+  }
 
-    const structuralConcepts = this._service
-      .getRelevantRieprRefs(this.result, scheme)
-      .filter((ref): ref is Concept => Array.isArray((ref as Concept).type) && (ref as Concept).type!.includes('skos:Concept'))
-
+  /**
+   * Takes a list of scheme/concept refs and renders vl-select pickers for any that are skos:Concept nodes.
+   * Used both by scheme-level structural pickers and root-field composite groups whose grandchildren
+   * carry a shared relevantRiepr (e.g. multiple peilput-backed leaf fields sharing one "Kies Peilput").
+   * @param refs - Array of resolved scheme or concept references to render pickers for.
+   * @returns HTML template with vl-select pickers, or nothing if no structural concepts found.
+   */
+  private renderPickersForRefs(refs: (Scheme | Concept)[]) {
+    if (!this.result) return nothing
+    const structuralConcepts = refs.filter((ref): ref is Concept => Array.isArray((ref as Concept).type) && (ref as Concept).type!.includes('skos:Concept'))
     if (structuralConcepts.length === 0) return nothing
-
     return html`
       ${structuralConcepts.map(concept => {
         const label = concept.prefLabel ?? concept.id
@@ -97,7 +104,27 @@ export class CodelijstOperationeelFields extends LitElement {
   private renderRootField(field: Concept) {
     if (!this.result) return nothing
 
-    const children = this._service.getChildren(this.result, field)
+    let children = this._service.getChildren(this.result, field)
+    let groupPicker: ReturnType<typeof html> | typeof nothing = nothing
+
+    if (children.length === 0 && field.relevantRiepr?.length) {
+      const referencedConcept = field.relevantRiepr
+        .map(id => this.result!.concepts.get(id))
+        .find((c): c is Concept => c !== undefined)
+
+      if (referencedConcept) {
+        const grandchildren = this._service.getChildren(this.result, referencedConcept)
+        if (grandchildren.length > 0) {
+          children = grandchildren
+          const structuralRefIds = new Set(grandchildren.flatMap(c => c.relevantRiepr ?? []))
+          const structuralRefs = Array.from(structuralRefIds)
+            .map(id => this.result!.concepts.get(id))
+            .filter((c): c is Concept => c !== undefined)
+          groupPicker = this.renderPickersForRefs(structuralRefs)
+        }
+      }
+    }
+
     const isComposite = children.length > 0
     const isRepeatable = field.isMeervoudig === true
     const count = isRepeatable ? this.repeatCounts.get(field.id) ?? 1 : 1
@@ -108,6 +135,7 @@ export class CodelijstOperationeelFields extends LitElement {
         ? html`
             <vl-fieldset>
               <span slot="legend">${field.prefLabel ?? field.id}${isRepeatable ? ` ${index + 1}` : ''}</span>
+              ${groupPicker}
               ${children.map(child => this.renderFieldControl(child, suffix))}
             </vl-fieldset>
           `

@@ -6,6 +6,7 @@
 
 import { LitElement, html, css, nothing } from 'lit'
 import { vlMarginStyles } from '@domg-wc/styles/layout/margin/vl-margin.css.js'
+import layoutStyle from '@domg/govflanders-style/common/layout.css.js'
 import { CodelistService } from '../services/codelist-service.js'
 import type { CodelistResult } from '../services/codelist-service.js'
 import './codelijst-theme-selector.js'
@@ -19,6 +20,7 @@ export class CodelijstApp extends LitElement {
       }
     `,
     vlMarginStyles,
+    layoutStyle,
   ]
 
   public readonly codelistService = new CodelistService()
@@ -63,37 +65,43 @@ export class CodelijstApp extends LitElement {
 
   override render() {
     return html`
-      <div class="vl-margin--medium">
-        <h1>RIE-IEPR Codelijst POC</h1>
+      <div class="vl-page">
+        <main class="vl-main-content">
+          <div class="vl-region">
+            <div class="vl-layout">
+              <h1>RIE-IEPR Codelijst POC</h1>
 
-        ${this.loadError
-          ? html`<vl-alert type="error" title="Kon codelijst niet laden" message="${this.loadError}"></vl-alert>`
-          : !this.result
-            ? html`<p>Codelijsten laden...</p>`
-            : html`
-                <p class="vl-margin--small">Selecteer een thema om de bijbehorende operationele velden te bekijken.</p>
+              ${this.loadError
+                ? html`<vl-alert type="error" title="Kon codelijst niet laden" message="${this.loadError}"></vl-alert>`
+                : !this.result
+                  ? html`<p>Codelijsten laden...</p>`
+                  : html`
+                      <p class="vl-margin--small">Selecteer een thema om de bijbehorende operationele velden te bekijken.</p>
 
-                <codelijst-theme-selector
-                  .result="${this.result}"
-                  .selectedThemeId="${this.selectedThemeId}"
-                  .selectedSubThemeId="${this.selectedSubThemeId}"
-                  .codelistService="${this.codelistService}"
-                  @theme-select="${this.onThemeSelect}"
-                ></codelijst-theme-selector>
+                      <codelijst-theme-selector
+                        .result="${this.result}"
+                        .selectedThemeId="${this.selectedThemeId}"
+                        .selectedSubThemeId="${this.selectedSubThemeId}"
+                        .codelistService="${this.codelistService}"
+                        @theme-select="${this.onThemeSelect}"
+                      ></codelijst-theme-selector>
 
-                ${this.operationeelSchemeId
-                  ? html`
-                      <vl-fieldset class="vl-margin--small">
-                        <span slot="legend">Operationele gegevens</span>
-                        <codelijst-operationeel-fields
-                          .result="${this.result}"
-                          .schemeId="${this.operationeelSchemeId}"
-                          .codelistService="${this.codelistService}"
-                        ></codelijst-operationeel-fields>
-                      </vl-fieldset>
-                    `
-                  : (this.selectedThemeId ? html`<p>Voor dit thema zijn geen operationele gegevens gedefinieerd.</p>` : nothing)}
-              `}
+                      ${this.operationeelSchemeId
+                        ? html`
+                            <vl-fieldset class="vl-margin--medium">
+                              <span slot="legend">Operationele gegevens</span>
+                              <codelijst-operationeel-fields
+                                .result="${this.result}"
+                                .schemeId="${this.operationeelSchemeId}"
+                                .codelistService="${this.codelistService}"
+                              ></codelijst-operationeel-fields>
+                            </vl-fieldset>
+                          `
+                        : (this.selectedThemeId ? html`<p>Voor dit thema zijn geen operationele gegevens gedefinieerd.</p>` : nothing)}
+                  `}
+            </div>
+          </div>
+        </main>
       </div>
     `
   }
