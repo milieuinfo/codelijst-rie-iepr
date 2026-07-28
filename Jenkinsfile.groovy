@@ -46,10 +46,7 @@ pipeline {
 
 		stage('Non-primary branch') {
 			when {
-				allOf {
-					not { expression { env.BRANCH_IS_PRIMARY } }
-					expression { git.notSkipCi() }
-				}
+				not { expression { env.BRANCH_IS_PRIMARY } }
 			}
 			parallel {
 				stage('Trivy scan') {
@@ -86,10 +83,7 @@ pipeline {
 
 		stage('Primary branch') {
 			when {
-				allOf {
-					expression { env.BRANCH_IS_PRIMARY }
-					expression { git.notSkipCi() }
-				}
+				expression { env.BRANCH_IS_PRIMARY }
 			}
 			stages {
 				stage('Maven prepare') {
