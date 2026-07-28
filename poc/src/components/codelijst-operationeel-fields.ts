@@ -248,20 +248,20 @@ export class CodelijstOperationeelFields extends LitElement {
   }
 
   /**
-   * Handles vl-input events from vl-select / vl-datepicker / vl-input-field controls.
-   * The custom event detail carries { value } set by the component's internal handler.
-   */
-  private _onControlInput(event: CustomEvent<{ value?: unknown }>) {
-    const component = event.currentTarget as Element
-    const id = component.id
-    let value: unknown = event.detail?.value
-    // Fallback — read directly from the component instance when detail.value is missing.
-    if (value === undefined) {
-      value = (component as { value?: unknown }).value
-    }
-    this._fieldValues.set(id, value)
-    this.requestUpdate()
-  }
+    * Handles vl-input events from vl-select / vl-datepicker / vl-input-field controls.
+    * The custom event detail carries { value } set by the component's internal handler.
+    */
+   private _onControlInput(event: CustomEvent<{ value?: unknown }>) {
+     const component = event.currentTarget as Element
+     const id = component.id
+     let value: unknown = event.detail?.value
+     // Fallback — read directly from the component instance when detail.value is missing.
+     if (value === undefined) {
+       value = (component as { value?: unknown }).value
+     }
+     this._fieldValues.set(id, value)
+     this.requestUpdate()
+   }
 
   /**
    * Handles vl-change events from vl-checkbox controls.
@@ -278,24 +278,24 @@ export class CodelijstOperationeelFields extends LitElement {
   }
 
   /**
-   * Checks whether a concept with conditionPath/conditionValue should be rendered.
-   * If no condition is defined the field always shows; otherwise the referenced
-   * field's current tracked value must equal `conditionValue`.
-   */
-  private matchesCondition(field: Concept): boolean {
-    if (!field.conditionPath || !field.conditionValue) return true
-    const refId = field.conditionPath
-    // Direct id match first (the exact control that was rendered).
-    let stored = this._fieldValues.get(refId)
-    if (stored !== undefined && String(stored) === field.conditionValue) return true
-    // For repeatable fields the rendered id has a #N suffix — check baseId#1.
-    const baseId = refId.replace(/#\d+$/, '')
-    const firstInstance = `${baseId}#1`
-    stored = this._fieldValues.get(firstInstance)
-    if (stored !== undefined && String(stored) === field.conditionValue) return true
-    // No stored value yet → treat as unmet (field stays hidden until user fills in the trigger).
-    return false
-  }
+    * Checks whether a concept with conditionPath/conditionValue should be rendered.
+    * If no condition is defined the field always shows; otherwise the referenced
+    * field's current tracked value must equal `conditionValue`.
+    */
+   private matchesCondition(field: Concept): boolean {
+     if (!field.conditionPath || !field.conditionValue) return true
+     const refId = field.conditionPath
+     // Direct id match first (the exact control that was rendered).
+     let stored = this._fieldValues.get(refId)
+     if (stored !== undefined && String(stored) === field.conditionValue) return true
+     // For repeatable fields the rendered id has a #N suffix — check baseId#1.
+     const baseId = refId.replace(/#\d+$/, '')
+     const firstInstance = `${baseId}#1`
+     stored = this._fieldValues.get(firstInstance)
+     if (stored !== undefined && String(stored) === field.conditionValue) return true
+     // No stored value yet → treat as unmet (field stays hidden until user fills in the trigger).
+     return false
+   }
 }
 
 declare global {

@@ -294,4 +294,63 @@ test.describe('Codelijst App', () => {
     selectValue = await page.inputValue('select#riepr-operationeel-water\\:lozing-bepalingsmethode\\#1')
     expect(selectValue).toBe('riepr-operationeel-bepalingsmethode:gemeten')
   })
+
+   test('conditional visibility — conditionPath/conditionValue shows/hides fields based on trigger field value', async ({ page }) => {
+     // Inject synthetic conditionPath/conditionValue into the real codelist data via page.route()
+     // so we can exercise this code path end-to-end without modifying files on disk.
+     await page.route('**/rie-iepr.jsonld', async route => {
+       const response = await route.fetch()
+       const json = await response.json() as Record<string, unknown>
+       if (Array.isArray(json.graph)) {
+         for (const node of json.graph) {
+           const types: string[] = ((node._type ?? node['@type']) as string | undefined)?.toString().split(',') || []
+           if (!types.includes('skos:Concept')) continue
+           const id: string = (node.id ?? node['@id'] ?? '') as string
+           // lozing-dagen is a ROOT concept (no broader), renders without #1 suffix
+           // Its trigger reference points to bepalingsmethode#1 which is inside composite root "lozing"
+           if (id === 'riepr-operationeel-water:lozing-dagen') {
+             node.condition_path = 'riepr-operationeel-water:lozing-bepalingsmethode#1'
+             node.condition_value = 'riepr-operationeel-bepalingsmethode:gemeten'
+           }
+           // lozing-debiet same pattern — root concept, no suffix; uses geschat as trigger value
+           if (id === 'riepr-operationeel-water:lozing-debiet') {
+             node.condition_path = 'riepr-operationeel-water:lozing-bepalingsmethode#1'
+             node.condition_value = 'riepr-operationeel-bepalingsmethode:geschat'
+           }
+         }
+       }
+       await route.fulfill({ response, json })
+     })
+
+     await page.goto('/')
+     await expect(page.locator('select#thema')).toBeVisible()
+     await page.selectOption('select#thema', { value: 'riepr-thema-type:water' })
+
+     const opFields = page.locator('codelijst-operationeel-fields')
+     await expect(opFields).toBeVisible()
+
+     // Conditioned fields — neither should be visible initially (no trigger value selected yet)
+     const dagenField = opFields.locator('vl-input-field#riepr-operationeel-water\\:lozing-dagen')
+     const debietField = opFields.locator('vl-input-field#riepr-operationeel-water\\:lozing-debiet')
+     await expect(dagenField).not.toBeVisible()
+     await expect(debietField).not.toBeVisible()
+
+     // Select matching value for lozing-dagen's condition (trigger has #1 suffix as child of composite root)
+     await page.selectOption('select#riepr-operationeel-water\\:lozing-bepalingsmethode\\#1', {
+       value: 'riepr-operationeel-bepalingsmethode:gemeten',
+     })
+
+     // lozing-dagen should NOW appear, but lozing-debiet should still hide
+     await expect(dagenField).toBeVisible({ timeout: 3000 })
+     await expect(debietField).not.toBeVisible()
+
+     // Switch to a different option that matches lozing-debiet's condition
+     await page.selectOption('select#riepr-operationeel-water\\:lozing-bepalingsmethode\\#1', {
+       value: 'riepr-operationeel-bepalingsmethode:geschat',
+     })
+
+     // Now lozing-debiet should show and lozing-dagen should hide (exact-match logic)
+     await expect(debietField).toBeVisible({ timeout: 3000 })
+     await expect(dagenField).not.toBeVisible()
+   })
 })

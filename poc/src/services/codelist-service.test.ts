@@ -60,10 +60,10 @@ describe('CodelistService — fixture parsing', () => {
       expect(luchtScheme!.prefLabel).toBeTruthy()
     })
 
-    it('handles conceptscheme with no prefLabel gracefully', () => {
+    it('captures prefLabel for thema_type (fixed upstream, previously absent)', () => {
       const result = loadFixture()
       const themaScheme = result.schemes.get('conceptscheme:thema_type')
-      expect(themaScheme!.prefLabel).toBeUndefined()
+      expect(themaScheme!.prefLabel).toBe('Thematische stroom')
     })
   })
 
@@ -156,14 +156,15 @@ describe('CodelistService — fixture parsing', () => {
       expect(schemes).toEqual([])
     })
 
-    it('getRelevantRieprRefs returns [] for pluralization-typo ref (ISSUES.md RELEVANTRIEPR-PLURALIZATION-TYPO)', () => {
+    it('getRelevantRieprRefs returns [] for a genuinely unresolvable relevantRiepr ref', () => {
       const result = loadFixture()
-      // grondwater-kwaliteitsmeting references "operationeel_grondwater_kwaliteitsmeting**s**" with trailing s
-      // but the actual scheme is singular — this dangling ref must not throw
-      const concept = result.concepts.get('riepr-thema-type:grondwater-kwaliteitsmeting')
+      // zelfcontrole-water's relevantRiepr points at a scheme id that has no
+      // matching node in the fixture (still genuinely unresolvable — unlike
+      // grondwater-kwaliteitsmeting's old pluralization typo, fixed upstream).
+      const concept = result.concepts.get('riepr-thema-type:zelfcontrole-water')
       expect(concept).toBeDefined()
       expect(concept!.relevantRiepr).toBeDefined()
-      expect(concept!.relevantRiepr!).toContain('conceptscheme:operationeel_grondwater_kwaliteitsmetings')
+      expect(concept!.relevantRiepr!).toContain('conceptscheme:operationeel_zelfcontrole_water')
 
       const refs = CodelistServiceMock.getRelevantRieprRefs(result, concept!)
       expect(refs).toEqual([])
