@@ -1,11 +1,11 @@
-_id,_type,inScheme,topConceptOf,prefLabel,notation,definition,broader,relevantDataType,relevantRiepr,relevantUnit,isMeervoudig,isVerplicht
-conceptscheme:operationeel_zelfcontrole_lucht,skos:ConceptScheme,,,Operationele gegevens,,,,,conceptscheme:emissiepunt_type,,,
-riepr-operationeel-water:productiejaar,skos:Concept,conceptscheme:operationeel_water,Productiejaar,Het productiejaar waarop gerapporteerd dient te worden.,,xsd:gYear,sosa:phenomenonTime,,,,true,,,,,,,,
-riepr-operationeel-water:feature,skos:Concept,conceptscheme:operationeel_water,Controleinrichting,De controleinrichting waarop gerapporteed moet worden.,,,sosa:hasFeatureOfInterest,"conceptscheme:operationeel_water_lozing,conceptscheme:operationeel_water_abnormale_lozing",,,true,true,,,,,,,
-,,,,,,,,,,,,,,,,,,,
-riepr-operationeel-zelfcontrole-lucht:meting,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht,Meting,,,,,,,true,
-riepr-operationeel-zelfcontrole-lucht:datum,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht,Datum van meting,,Datum van de meting of startdatum indien de meting over meerdere dagen heeft plaatsgevonden.,riepr-operationeel-zelfcontrole-lucht:meting,xsd:date,,,,true
-riepr-operationeel-zelfcontrole-lucht:labo,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht,Labo,,,,,,,,
-riepr-operationeel-zelfcontrole-lucht:labo-naam,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht,Naam,,De naam van het labo.,riepr-operationeel-zelfcontrole-lucht:labo,xsd:string,,,,true
-riepr-operationeel-zelfcontrole-lucht:labo-id,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht,KBO nummer of BTW nummer,,,riepr-operationeel-zelfcontrole-lucht:labo,xsd:string,,,,
-riepr-operationeel-zelfcontrole-lucht:parameter,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht,Parameter,,,,,,,true,
+_id,_type,topConceptOf,prefLabel,notation,definition,broader,relevantDataType,relevantRiepr,conditionPath,conditionValue,relevantCodeList,relevantUnit,isVerplicht,isMeervoudig,relation,seeAlso,inScheme,scopeNote,altLabel,isOnzichtbaar
+conceptscheme:operationeel_zelfcontrole_lucht,skos:ConceptScheme,,Operationele gegevens,,,,,conceptscheme:emissiepunt_type,,,,,,,,,,,,
+riepr-operationeel-water:productiejaar,skos:Concept,Productiejaar,Het productiejaar waarop gerapporteerd dient te worden.,,xsd:gYear,sosa:phenomenonTime,,,,,,,,true,,,conceptscheme:operationeel_water,,,
+riepr-operationeel-water:feature,skos:Concept,Controleinrichting,De controleinrichting waarop gerapporteed moet worden.,,,sosa:hasFeatureOfInterest,"conceptscheme:operationeel_water_lozing,conceptscheme:operationeel_water_abnormale_lozing",,,,,,true,true,,,conceptscheme:operationeel_water,,,
+,,,,,,,,,,,,,,,,,,,,
+riepr-operationeel-zelfcontrole-lucht:meting,skos:Concept,conceptscheme:operationeel_zelfcontrole_lucht,Meting,,,,,,,,,,,true,,,,,,
+riepr-operationeel-zelfcontrole-lucht:datum,skos:Concept,conceptscheme:operationeel_zelfcontrole_lucht,Datum van meting,,Datum van de meting of startdatum indien de meting over meerdere dagen heeft plaatsgevonden.,riepr-operationeel-zelfcontrole-lucht:meting,xsd:date,,,,,,true,,,,,,,
+riepr-operationeel-zelfcontrole-lucht:labo,skos:Concept,conceptscheme:operationeel_zelfcontrole_lucht,Labo,,,,,,,,,,,,,,,,,
+riepr-operationeel-zelfcontrole-lucht:labo-naam,skos:Concept,conceptscheme:operationeel_zelfcontrole_lucht,Naam,,De naam van het labo.,riepr-operationeel-zelfcontrole-lucht:labo,xsd:string,,,,,,true,,,,,,,
+riepr-operationeel-zelfcontrole-lucht:labo-id,skos:Concept,conceptscheme:operationeel_zelfcontrole_lucht,KBO nummer of BTW nummer,,,riepr-operationeel-zelfcontrole-lucht:labo,xsd:string,,,,,,,,,,,,,
+riepr-operationeel-zelfcontrole-lucht:parameter,skos:Concept,conceptscheme:operationeel_zelfcontrole_lucht,Parameter,,,,,,,,,,,true,,,,,,
