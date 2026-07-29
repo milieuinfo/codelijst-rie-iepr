@@ -10,12 +10,41 @@ import {
     versioningPropertyKeys
 } from './utils/variables.js';
 import { ConceptVersioning } from './utils/versioning.js';
-import { separateString, n3_reasoning } from '@milieuinfo/maven-metadata-generator-npm/src/utils/functions.js';
+import { n3_reasoning } from '@milieuinfo/maven-metadata-generator-npm/src/utils/functions.js';
 
 
 // Resolve paths relative to this script's directory (src/)
 const SRC_DIR = path.dirname(new URL(import.meta.url).pathname);
 const VALIDATION_JSON_PATH = path.resolve(SRC_DIR, '../validation/validation_result.json');
+
+/**
+ * Split a string value into an array if it contains separators (`|` or `,`).
+ * Returns unchanged non-string values (booleans, numbers, objects).
+ *
+ * - Pipe (`|`) and comma (`,`) are treated as multi-value separators
+ * - If no separator is found, returns the original string
+ *
+ * Examples:
+ *   "value"            → "value"
+ *   "a|b"              → ["a", "b"]
+ *   "a,b"              → ["a", "b"]
+ *   "a|b,c"            → ["a", "b", "c"]
+ *   true               → true
+ */
+function separateString(original) {
+    if (typeof original === 'string') {
+        const trimmed = original.trim();
+        if (!trimmed) return trimmed; // empty string stays empty
+        if (trimmed.includes('|')) {
+            return trimmed.split('|').map(v => v.trim());
+        } else if (trimmed.includes(',')) {
+            return trimmed.split(',').map(v => v.trim());
+        }
+        return trimmed;
+    } else {
+        return original; // boolean, number or object
+    }
+}
 
 /** SHACL shape IRIs → human-readable labels */
 const SHAPE_LABELS = {
@@ -216,9 +245,13 @@ function validateRelevantRiepr(concepts) {
 
     const errors = [];
     concepts.forEach((concept, index) => {
-        if (!concept.relevantRiepr || !concept.relevantRiepr.trim()) return;
+        if (!concept.relevantRiepr) return;
 
-        const rieprValues = concept.relevantRiepr.split(',').map(v => v.trim()).filter(Boolean);
+        // After separateString(), relevantRiepr may already be an array (if separators were present)
+        const rawValues = Array.isArray(concept.relevantRiepr)
+            ? concept.relevantRiepr
+            : [concept.relevantRiepr];
+        const rieprValues = rawValues.map(v => String(v).trim()).filter(Boolean);
         rieprValues.forEach(rieprValue => {
             // Skip external URIs (e.g., http://...)
             if (rieprValue.startsWith('http://') || rieprValue.startsWith('https://')) return;
