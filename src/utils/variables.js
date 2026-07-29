@@ -273,6 +273,14 @@ const frame_skos_no_prefixes = {
         "@embed": "@never",
         "@omitDefault": true
     },
+    "conditionPath": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "conditionValue": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
     "parameterDimensie": {
         "@embed": "@never",
         "@omitDefault": true
@@ -298,7 +306,6 @@ const frame_skos_no_prefixes = {
         "@omitDefault": true
     }
 }
-
 
 
 const xsdOptions = {"file": config.skos.path + config.skos.name + '/' + config.skos.name + config.skos.xsd, "urn": ('urn:' + metadataOptions.groupId + ':' + metadataOptions.artifactId)}
