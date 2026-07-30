@@ -18,17 +18,6 @@
     "@id": "http://www.w3.org/ns/prov#actedOnBehalfOf",
     "@type": "@id"
   },
-  "actie": {
-    "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#actie",
-    "@language": "nl"
-  },
-  "adres": {
-    "@id": "http://www.w3.org/ns/locn#address"
-  },
-  "alternatieveId": {
-    "@id": "http://www.w3.org/ns/adms#identifier",
-    "@type": "@id"
-  },
   "alternative": {
     "@id": "http://purl.org/dc/terms/alternative",
     "@language": "nl"
@@ -40,10 +29,6 @@
   "applicableUnit": {
     "@id": "http://qudt.org/schema/qudt/applicableUnit",
     "@type": "@id"
-  },
-  "armoscode": {
-    "@type": "https://data.riepr.omgeving.vlaanderen.be/id/datatype/armoscode",
-    "@id": "http://www.w3.org/2004/02/skos/core#notation"
   },
   "asWKT": {
     "@id": "http://www.opengis.net/ont/geosparql#asWKT",
@@ -176,18 +161,6 @@
     "@id": "http://www.w3.org/ns/dcat#downloadURL",
     "@type": "@id"
   },
-  "drager": {
-    "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#drager",
-    "@type": "@id"
-  },
-  "eenheid": {
-    "@id": "http://qudt.org/schema/qudt/unit",
-    "@type": "@id"
-  },
-  "email": {
-    "@id": "http://www.w3.org/2006/vcard/ns#hasEmail",
-    "@type": "@id"
-  },
   "endpointDescription": {
     "@id": "http://www.w3.org/ns/dcat#endpointDescription",
     "@type": "@id"
@@ -270,14 +243,6 @@
     "@id": "http://purl.org/dc/terms/hasVersion",
     "@type": "@id"
   },
-  "homepage": {
-    "@id": "http://xmlns.com/foaf/0.1/homepage",
-    "@type": "@id"
-  },
-  "hoofdvestiging": {
-    "@id": "http://www.w3.org/ns/org#hasRegisteredSite",
-    "@type": "@id"
-  },
   "identifier": {
     "@id": "http://purl.org/dc/terms/identifier",
     "@type": "@id"
@@ -343,13 +308,6 @@
   "label": {
     "@id": "http://www.w3.org/2000/01/rdf-schema#label",
     "@language": "nl"
-  },
-  "land": {
-    "@id": "http://www.w3.org/ns/locn#adminUnitL1"
-  },
-  "landingPage": {
-    "@id": "http://www.w3.org/ns/dcat#landingPage",
-    "@type": "@id"
   },
   "language": "http://publications.europa.eu/resource/authority/language/",
   "accrualPeriodicity": {
@@ -510,6 +468,10 @@
   },
   "relevantDataType": {
     "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantDataType",
+    "@type": "@id"
+  },
+  "relevantClass": {
+    "@id": "http://www.w3.org/ns/shacl#class",
     "@type": "@id"
   },
   "relevantRiepr": {
@@ -683,6 +645,10 @@
   },
   "isMeervoudig": {
     "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#isMeervoudig",
+    "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+  },
+  "isMultiselect": {
+    "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#isMultiselect",
     "@type": "http://www.w3.org/2001/XMLSchema#boolean"
   },
   "isMeetbaar": {
