@@ -18,27 +18,54 @@ const SRC_DIR = path.dirname(new URL(import.meta.url).pathname);
 const VALIDATION_JSON_PATH = path.resolve(SRC_DIR, '../validation/validation_result.json');
 
 /**
- * Split a string value into an array if it contains separators (`|` or `,`).
+ * Check whether a string looks like a URI or prefix:name reference.
+ * Matches: http://..., https://..., or prefix:something (no spaces, at least one char after `:`).
+ */
+function looksLikeUri(value) {
+    if (!value || typeof value !== 'string') return false;
+    const trimmed = value.trim();
+    // Full URIs
+    if (/^https?:\/\//.test(trimmed)) return true;
+    // Prefix:name patterns (e.g., "xsd:string", "conceptscheme:foo")
+    // Must have no spaces and contain a colon with content on both sides
+    if (/^[a-zA-Z][a-zA-Z0-9]*:[a-zA-Z0-9_/.:-]+$/.test(trimmed)) return true;
+    return false;
+}
+
+/**
+ * Split a string value into an array if it contains separators.
  * Returns unchanged non-string values (booleans, numbers, objects).
  *
- * - Pipe (`|`) and comma (`,`) are treated as multi-value separators
- * - If no separator is found, returns the original string
+ * - Pipe (`|`) always splits → multi-value separator for all columns
+ * - Comma (`,`) only splits when BOTH parts look like URIs/prefixes AND the key is NOT definition/scopeNote
+ *   (definition text naturally contains commas — e.g., "Een term die verwijst naar X, Y en Z")
+ * - If no separator found, returns the original string
  *
  * Examples:
- *   "value"            → "value"
- *   "a|b"              → ["a", "b"]
- *   "a,b"              → ["a", "b"]
- *   "a|b,c"            → ["a", "b", "c"]
- *   true               → true
+ *   "value"              → "value"
+ *   "a|b"                → ["a", "b"]
+ *   "conceptscheme:a,b"  → ["conceptscheme:a", "conceptscheme:b"]  ← comma-split URI list
+ *   "def1, def2"         → "def1, def2"                             ← comma in definition kept intact
+ *   true                 → true
  */
-function separateString(original) {
+function separateString(original, key) {
     if (typeof original === 'string') {
         const trimmed = original.trim();
         if (!trimmed) return trimmed; // empty string stays empty
         if (trimmed.includes('|')) {
             return trimmed.split('|').map(v => v.trim());
-        } else if (trimmed.includes(',')) {
-            return trimmed.split(',').map(v => v.trim());
+        }
+        // Only split on comma when both sides are URI-like and it's not a definition column.
+        // Definition/scopeNote columns contain prose text with natural commas that must stay joined.
+        if (!key || !['definition', 'scopeNote'].includes(key.toLowerCase())) {
+            const commaIdx = trimmed.indexOf(',');
+            if (commaIdx !== -1) {
+                const left = trimmed.substring(0, commaIdx).trim();
+                const right = trimmed.substring(commaIdx + 1).trim();
+                if (looksLikeUri(left) && looksLikeUri(right)) {
+                    return [left, right];
+                }
+            }
         }
         return trimmed;
     } else {
@@ -247,14 +274,15 @@ function validateRelevantRiepr(concepts) {
     concepts.forEach((concept, index) => {
         if (!concept.relevantRiepr) return;
 
-        // After separateString(), relevantRiepr may already be an array (if separators were present)
-        const rawValues = Array.isArray(concept.relevantRiepr)
-            ? concept.relevantRiepr
-            : [concept.relevantRiepr];
-        const rieprValues = rawValues.map(v => String(v).trim()).filter(Boolean);
+        // After separateString(), relevantRiepr may already be an array.
+        // Also split on commas since we no longer do that in separateString().
+        const rawValue = Array.isArray(concept.relevantRiepr)
+            ? concept.relevantRiepr.join(',')
+            : String(concept.relevantRiepr);
+        const rieprValues = rawValue.split(',').map(v => v.trim()).filter(Boolean);
         rieprValues.forEach(rieprValue => {
-            // Skip external URIs (e.g., http://...)
-            if (rieprValue.startsWith('http://') || rieprValue.startsWith('https://')) return;
+            // Skip external URIs and prefixed names (e.g., http://..., https://..., riepr:*)
+            if (rieprValue.startsWith('http://') || rieprValue.startsWith('https://') || rieprValue.startsWith('riepr:')) return;
 
             if (!existingIds.has(rieprValue)) {
                 const sourceFile = concept.__source ? ` (${concept.__source})` : '';
@@ -310,7 +338,7 @@ async function generate_skos(options, skosSource ) {
         const object = { __source: row.__source };
         Object.keys(row).forEach(key => {
             if (key !== '__source') {
-                object[key] = separateString(row[key]);
+                object[key] = separateString(row[key], key);
             }
         });
         return object;

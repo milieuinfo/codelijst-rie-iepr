@@ -110,6 +110,22 @@
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/eenheden"
     },
     {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/Controleinrichting",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+        ],
+        "http://purl.org/dc/terms/created": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "hasTopConcept": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/feature"
+        ],
+        "http://www.w3.org/ns/adms#status": {
+            "id": "https://purl.archive.org/adms/status/Active"
+        }
+    },
+    {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/aangifte-status/concept",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
@@ -231,7 +247,7 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/schouw-diameter",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "relevantUnit": [
             "http://qudt.org/vocab/unit/M"
@@ -254,7 +270,7 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/schouw-hoogte",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "relevantUnit": [
             "http://qudt.org/vocab/unit/M"
@@ -431,7 +447,7 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/geinstalleerd_vermogen",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "relevantUnit": [
             "http://qudt.org/vocab/unit/MegaW"
@@ -454,10 +470,15 @@
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
         "isPartOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/systeem_eigenschappen",
-        "definition": "De geïnstalleerde opslagcapaciteit ",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/geinstalleerde_opslagcapaciteit",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "definition": "De geïnstalleerde opslagcapaciteit",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen",
         "code": "GEINSTALLEERDE_OPSLAG_CAPACITEIT",
-        "note": "De geïnstalleerde opslagcapaciteit ",
+        "note": "De geïnstalleerde opslagcapaciteit",
         "prefLabel": "Geinstalleerde opslagcapaciteit",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/installatie_eigenschappen",
         "relevantRiepr": [
@@ -544,7 +565,7 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/verwijderingsrendement_percentage",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "relevantUnit": [
             "http://qudt.org/vocab/unit/PERCENT"
@@ -809,7 +830,7 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunt-eigenschappen/diepte",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "relevantUnit": [
             "http://qudt.org/vocab/unit/M"
@@ -930,7 +951,7 @@
         ],
         "http://purl.org/dc/terms/created": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
         "narrower": [
@@ -962,6 +983,7 @@
         "http://www.w3.org/ns/adms#status": {
             "id": "https://purl.archive.org/adms/status/Active"
         },
+        "relevantClass": "http://www.w3.org/ns/sosa/Observation",
         "conditionValue": [
             "https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/true"
         ],
@@ -977,7 +999,7 @@
         ],
         "http://purl.org/dc/terms/created": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
@@ -992,7 +1014,7 @@
         },
         "isVerplicht": "true",
         "relevantCodeList": [
-            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_bestemmingtype"
+            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_bestemmingstype"
         ]
     },
     {
@@ -1002,7 +1024,7 @@
         ],
         "http://purl.org/dc/terms/created": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "relevantUnit": [
             "http://TODO"
@@ -1028,7 +1050,7 @@
         ],
         "http://purl.org/dc/terms/created": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
@@ -1052,7 +1074,7 @@
         ],
         "http://purl.org/dc/terms/created": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
@@ -1075,7 +1097,7 @@
         ],
         "http://purl.org/dc/terms/created": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
@@ -1098,7 +1120,7 @@
         ],
         "http://purl.org/dc/terms/created": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
@@ -1121,9 +1143,19 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_peilmeting",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/datum",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Datum",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_peilmeting",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#dateTime"
     },
     {
@@ -1134,14 +1166,19 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/diepte",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "relevantUnit": [
             "http://qudt.org/vocab/unit/M"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_peilmeting",
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Diepte/hoogte (TAW) t.o.v. referentiepunt",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_peilmeting",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal"
     },
     {
@@ -1152,11 +1189,16 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/duur-stil",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_peilmeting",
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Duur pompen stil",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_peilmeting",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "conditionValue": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/rust"
         ],
@@ -1166,15 +1208,220 @@
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#duration"
     },
     {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "http://purl.org/dc/terms/created": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "definition": "Een kwaliteitsmeting van een pomp- of peilput.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
+        "narrower": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting_feature"
+        ],
+        "narrowerTransitive": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting_feature"
+        ],
+        "note": "Een kwaliteitsmeting van een pomp- of peilput.",
+        "prefLabel": "Kwaliteitsmeting",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting_feature"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
+        "http://www.w3.org/ns/adms#status": {
+            "id": "https://purl.archive.org/adms/status/Active"
+        },
+        "isMeervoudig": "true"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting_feature",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "http://purl.org/dc/terms/created": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting",
+        "definition": "Actieve peil- en pompfilters in het productiejaar.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
+        "note": "Actieve peil- en pompfilters in het productiejaar.",
+        "prefLabel": "Peilfilter/Pompfilter",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
+        "http://www.w3.org/ns/adms#status": {
+            "id": "https://purl.archive.org/adms/status/Active"
+        },
+        "relevantRiepr": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/peil,riepr-filter-type:pomp"
+        ]
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "http://purl.org/dc/terms/created": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "definition": "Een meting van de onttrekking van een pompput.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
+        "narrower": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking_feature",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/periode",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/type-debiet",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/volume"
+        ],
+        "narrowerTransitive": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking_feature",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/periode",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/type-debiet",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/volume"
+        ],
+        "note": "Een meting van de onttrekking van een pompput.",
+        "prefLabel": "Onttrekking/infiltratie",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking_feature",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/periode",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/type-debiet",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/volume"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
+        "http://www.w3.org/ns/adms#status": {
+            "id": "https://purl.archive.org/adms/status/Active"
+        },
+        "isMeervoudig": "true"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking_feature",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "http://purl.org/dc/terms/created": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
+        "definition": "Actieve debietmeters in het productiejaar.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
+        "note": "Actieve debietmeters in het productiejaar.",
+        "prefLabel": "Debietmeter",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
+        "http://www.w3.org/ns/adms#status": {
+            "id": "https://purl.archive.org/adms/status/Active"
+        },
+        "relevantRiepr": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/debietmeter"
+        ]
+    },
+    {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmethode",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_peilmeting",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmethode",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Peilmethode",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_peilmeting",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "relevantCodeList": [
             "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_peilmethode"
+        ]
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "http://purl.org/dc/terms/created": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "definition": "Een peilmeting van een pomp- of peilput.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
+        "narrower": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/datum",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/diepte",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/duur-stil",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/pomptoestand",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmethode",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting_feature",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/referentiepunt",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/volume-rust",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/volume-werking"
+        ],
+        "narrowerTransitive": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/datum",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/diepte",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/duur-stil",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/pomptoestand",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmethode",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting_feature",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/referentiepunt",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/volume-rust",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/volume-werking"
+        ],
+        "note": "Een peilmeting van een pomp- of peilput.",
+        "prefLabel": "Peilmeting",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/datum",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/diepte",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/duur-stil",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/pomptoestand",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmethode",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting_feature",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/referentiepunt",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/volume-rust",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/volume-werking"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
+        "http://www.w3.org/ns/adms#status": {
+            "id": "https://purl.archive.org/adms/status/Active"
+        },
+        "isMeervoudig": "true"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting_feature",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "http://purl.org/dc/terms/created": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "definition": "Actieve peil- en pompfilters in het productiejaar.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
+        "note": "Actieve peil- en pompfilters in het productiejaar.",
+        "prefLabel": "Peilfilter/Pompfilter",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
+        "http://www.w3.org/ns/adms#status": {
+            "id": "https://purl.archive.org/adms/status/Active"
+        },
+        "relevantRiepr": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/peil,riepr-filter-type:pomp"
         ]
     },
     {
@@ -1182,9 +1429,19 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_onttrekking",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/periode",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Periode van onttrekking",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_onttrekking",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "relevantDataType": "http://purl.org/dc/terms/temporal"
     },
     {
@@ -1192,9 +1449,19 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_peilmeting",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/pomptoestand",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Pomptoestand",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_peilmeting",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "relevantCodeList": [
             "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_pomptoestand"
         ]
@@ -1207,11 +1474,18 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/referentiepunt",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_peilmeting",
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Referentiepunt",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_peilmeting",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
+        "isMeervoudig": "true",
+        "isVerplicht": "true",
         "relevantRiepr": [
             "riepr-meetpunt-eigenschappen:referentiepunt"
         ]
@@ -1221,9 +1495,19 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_onttrekking",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/type-debiet",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Type debiet",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_onttrekking",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "relevantCodeList": [
             "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_debiet_type"
         ]
@@ -1233,9 +1517,19 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_onttrekking",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/volume",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Volume",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_onttrekking",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal"
     },
     {
@@ -1246,14 +1540,19 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/volume-rust",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "relevantUnit": [
             "http://qudt.org/vocab/unit/M3"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_peilmeting",
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Volume (8u voor stilstand)",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_peilmeting",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "conditionValue": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/rust"
         ],
@@ -1270,14 +1569,19 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/volume-werking",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "relevantUnit": [
             "http://qudt.org/vocab/unit/M3"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_peilmeting",
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Volume (1 uur voor meting)",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_peilmeting",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "conditionValue": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/werking"
         ],
@@ -1294,10 +1598,10 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "definition": "Afvalproduct",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "narrower": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct_aard",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct_hoeveelheid",
@@ -1308,7 +1612,6 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct_hoeveelheid",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct_naam"
         ],
-        "code": "OPERATIONEEL_AFVALPRODUCT",
         "note": "Afvalproduct",
         "prefLabel": "Afvalproduct",
         "semanticRelation": [
@@ -1316,28 +1619,30 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct_hoeveelheid",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct_naam"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
-        "isMeervoudig": "true",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/emissie"
-        ]
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
+        "relevantClass": "http://www.w3.org/ns/sosa/Observation",
+        "isMeervoudig": "true"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct_aard",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct_aard",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct",
         "definition": "Aard van de afvalproduct.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
-        "code": "OPERATIONEEL_AFVALPRODUCT_AARD",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "note": "Aard van de afvalproduct.",
         "prefLabel": "Aard",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "isVerplicht": "true",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#string"
     },
@@ -1346,18 +1651,22 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct_hoeveelheid",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "relevantUnit": [
             "http://TODO"
         ],
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
-        "code": "OPERATIONEEL_AFVALPRODUCT_HOEVEELHEID",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "prefLabel": "Verbruik",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal"
     },
     {
@@ -1365,17 +1674,21 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct_naam",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct",
         "definition": "Naam van het afvalproduct.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
-        "code": "OPERATIONEEL_AFVALPRODUCT_NAAM",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "note": "Naam van het afvalproduct.",
         "prefLabel": "Naam",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "isVerplicht": "true",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#string"
     },
@@ -1387,10 +1700,10 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "definition": "Geef de verbruikte brondstoffen op.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "narrower": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_as",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_naam",
@@ -1403,7 +1716,6 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_s",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_verbruik"
         ],
-        "code": "OPERATIONEEL_LUCHT_BRANDSTOF",
         "note": "Geef de verbruikte brondstoffen op.",
         "prefLabel": "Verbruikte brandstof",
         "semanticRelation": [
@@ -1412,26 +1724,28 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_s",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_verbruik"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
-        "isMeervoudig": "true",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/emissie"
-        ]
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
+        "relevantClass": "http://www.w3.org/ns/sosa/Observation",
+        "isMeervoudig": "true"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_as",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_as",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
-        "code": "OPERATIONEEL_LUCHT_BRANDSTOF_AS",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "prefLabel": "AS-gehalte",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "isVerplicht": "true",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal"
     },
@@ -1440,17 +1754,21 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_naam",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof",
         "definition": "Naam van de brandstof.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
-        "code": "OPERATIONEEL_LUCHT_BRANDSTOF_NAAM",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "note": "Naam van de brandstof.",
         "prefLabel": "Naam",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "isVerplicht": "true",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#string"
     },
@@ -1459,15 +1777,19 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_s",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
-        "code": "OPERATIONEEL_LUCHT_BRANDSTOF_S",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "prefLabel": "S-gehalte",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "isVerplicht": "true",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal"
     },
@@ -1476,30 +1798,85 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_verbruik",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "relevantUnit": [
             "https://qudt.org/vocab/unit/GigaJ"
         ],
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof",
         "definition": "Verbruik van de brandstof in GJ",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
-        "code": "OPERATIONEEL_LUCHT_BRANDSTOF_VERBRUIK",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "note": "Verbruik van de brandstof in GJ",
         "prefLabel": "Verbruik",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "isVerplicht": "true",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/feature_bron",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "http://purl.org/dc/terms/created": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "seeAlso": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
+        "definition": "Selecteer de bron(nen) waarop je wil rapporteren.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "note": "Selecteer de bron(nen) waarop je wil rapporteren.",
+        "prefLabel": "Bron(nen)",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "http://www.w3.org/ns/adms#status": {
+            "id": "https://purl.archive.org/adms/status/Active"
+        },
+        "relevantClass": "http://www.w3.org/ns/sosa/FeatureOfInterest",
+        "isMultiselect": "true",
+        "relevantRiepr": [
+            "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Installatie"
+        ]
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/feature_ep",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "http://purl.org/dc/terms/created": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "definition": "Selecteer het emissiepunt waarop je wil rapporteren.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "note": "Selecteer het emissiepunt waarop je wil rapporteren.",
+        "prefLabel": "Emissiepunt",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "http://www.w3.org/ns/adms#status": {
+            "id": "https://purl.archive.org/adms/status/Active"
+        },
+        "relevantClass": "http://www.w3.org/ns/sosa/FeatureOfInterest",
+        "relevantRiepr": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen"
+        ]
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "definition": "Geproduceerde stof.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "narrower": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof_aard",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof_hoeveelheid",
@@ -1510,7 +1887,6 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof_hoeveelheid",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof_naam"
         ],
-        "code": "OPERATIONEEL_GEPRODUCEERDE_STOF",
         "note": "Geproduceerde stof.",
         "prefLabel": "Geproduceerde stof",
         "semanticRelation": [
@@ -1518,7 +1894,8 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof_hoeveelheid",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof_naam"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
+        "relevantClass": "http://www.w3.org/ns/sosa/Observation",
         "isMeervoudig": "true"
     },
     {
@@ -1526,17 +1903,21 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof_aard",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof",
         "definition": "Aard van de geproduceerde stof.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
-        "code": "OPERATIONEEL_GEPRODUCEERDE_STOF_AARD",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "note": "Aard van de geproduceerde stof.",
         "prefLabel": "Aard",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "isVerplicht": "true",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#string"
     },
@@ -1545,18 +1926,22 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof_hoeveelheid",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "relevantUnit": [
             "http://TODO"
         ],
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
-        "code": "OPERATIONEEL_GEPRODUCEERDE_STOF_HOEVEELHEID",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "prefLabel": "Verbruik",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal"
     },
     {
@@ -1564,17 +1949,21 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof_naam",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof",
         "definition": "Naam van de geproduceerde stof.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
-        "code": "OPERATIONEEL_GEPRODUCEERDE_STOF_NAAM",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "note": "Naam van de geproduceerde stof.",
         "prefLabel": "Naam",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "isVerplicht": "true",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#string"
     },
@@ -1586,10 +1975,10 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "definition": "Geef de verbruikte stoffen op.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "narrower": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_aard",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_hoeveelheid",
@@ -1600,7 +1989,6 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_hoeveelheid",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_naam"
         ],
-        "code": "OPERATIONEEL_LUCHT_STOF",
         "note": "Geef de verbruikte stoffen op.",
         "prefLabel": "Verbruikte stof",
         "semanticRelation": [
@@ -1608,28 +1996,30 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_hoeveelheid",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_naam"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
-        "isMeervoudig": "true",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/emissie"
-        ]
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
+        "relevantClass": "http://www.w3.org/ns/sosa/Observation",
+        "isMeervoudig": "true"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_aard",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_aard",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof",
         "definition": "Aard van het verbruik.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
-        "code": "OPERATIONEEL_VERBRUIKTE_STOF_AARD",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "note": "Aard van het verbruik.",
         "prefLabel": "Aard",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "isVerplicht": "true",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#string"
     },
@@ -1638,18 +2028,22 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_hoeveelheid",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "relevantUnit": [
             "http://TODO"
         ],
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
-        "code": "OPERATIONEEL_VERBRUIKTE_STOF_HOEVEELHEID",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "prefLabel": "Verbruik",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "isVerplicht": "true",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal"
     },
@@ -1658,17 +2052,21 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_naam",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof",
         "definition": "Naam van de verbruikte stof.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
-        "code": "OPERATIONEEL_VERBRUIKTE_STOF_NAAM",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "note": "Naam van de verbruikte stof.",
         "prefLabel": "Naam",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
         "isVerplicht": "true",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#string"
     },
@@ -1727,7 +2125,12 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "narrower": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-jaarvracht",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-lozingsduur",
@@ -1740,7 +2143,6 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-stof",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-verklaring"
         ],
-        "code": "OPERATIONEEL_WATER_ABNORMALE_LOZING",
         "prefLabel": "Abnormale lozing",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-jaarvracht",
@@ -1748,26 +2150,31 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-stof",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-verklaring"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
-        "isMeervoudig": "true"
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
+        "isMeervoudig": "true",
+        "isVerplicht": "false"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-jaarvracht",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-jaarvracht",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "relevantUnit": [
             "http://TODO"
         ],
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
-        "code": "OPERATIONEEL_WATER_ABNORMALE_LOZING_JAARVRACHT",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "prefLabel": "Jaarvracht",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal"
     },
     {
@@ -1775,18 +2182,22 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-lozingsduur",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "relevantUnit": [
             "http://qudt.org/vocab/unit/DAY"
         ],
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
-        "code": "OPERATIONEEL_WATER_ABNORMALE_LOZING_LOZINGSDUUR",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "prefLabel": "Lozingsduur",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "isVerplicht": "true",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#integer"
     },
@@ -1795,15 +2206,20 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-stof",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
-        "code": "OPERATIONEEL_WATER_ABNORMALE_LOZING_STOF",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "prefLabel": "Verontreinigende stof",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
+        "relevantClass": "http://www.w3.org/ns/sosa/Observation",
         "isVerplicht": "true",
         "relevantCodeList": [
             "https://data.omgeving.vlaanderen.be/id/conceptscheme/csor/variabele"
@@ -1814,27 +2230,60 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-verklaring",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
-        "code": "OPERATIONEEL_WATER_ABNORMALE_LOZING_VERKLARING",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "prefLabel": "Verklaring",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#string"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/feature",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "http://purl.org/dc/terms/created": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "seeAlso": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
+        "definition": "De controleinrichting waarop gerapporteed moet worden.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
+        "note": "De controleinrichting waarop gerapporteed moet worden.",
+        "prefLabel": "Controleinrichting",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
+        "http://www.w3.org/ns/adms#status": {
+            "id": "https://purl.archive.org/adms/status/Active"
+        },
+        "relevantClass": "http://www.w3.org/ns/sosa/FeatureOfInterest",
+        "isMeervoudig": "true",
+        "isVerplicht": "true"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "narrower": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-bepalingsmethode",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-bepalingsmethodeclassificatie",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-concentratie",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-dagen",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-debiet",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-jaarvracht",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-meetfrequentie",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof"
@@ -1843,37 +2292,46 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-bepalingsmethode",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-bepalingsmethodeclassificatie",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-concentratie",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-dagen",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-debiet",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-jaarvracht",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-meetfrequentie",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof"
         ],
-        "code": "OPERATIONEEL_WATER_LOZING",
         "prefLabel": "Lozing",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-bepalingsmethode",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-bepalingsmethodeclassificatie",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-concentratie",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-dagen",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-debiet",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-jaarvracht",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-meetfrequentie",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
-        "isMeervoudig": "true"
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
+        "relevantClass": "http://www.w3.org/ns/sosa/Observation",
+        "isMeervoudig": "true",
+        "isVerplicht": "true"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-bepalingsmethode",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-bepalingsmethode",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
-        "code": "OPERATIONEEL_WATER_LOZING_BEPALINGSMETHODE",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "prefLabel": "Bepalingsmethode",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "relevantCodeList": [
             "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_bepalingsmethode"
         ]
@@ -1883,15 +2341,19 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-bepalingsmethodeclassificatie",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
-        "code": "OPERATIONEEL_WATER_LOZING_BEPALINGSMETHODECLASSIFICATIE",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "prefLabel": "Bepalingsmethodeclassificatie",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "relevantCodeList": [
             "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_bepalingsmethodeclassificatie"
         ]
@@ -1901,18 +2363,22 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-concentratie",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "relevantUnit": [
             "http://TODO"
         ],
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
-        "code": "OPERATIONEEL_WATER_LOZING_CONCENTRATIE",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "prefLabel": "Gemiddelde concentratie",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal"
     },
     {
@@ -1920,13 +2386,22 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-dagen",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "relevantUnit": [
             "http://TODO"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
-        "code": "OPERATIONEEL_WATER_LOZING_DAGEN",
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "prefLabel": "Aantal dagen per jaar",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "isVerplicht": "true",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#integer"
     },
@@ -1935,13 +2410,22 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-debiet",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "relevantUnit": [
             "http://qudt.org/vocab/unit/M3-PER-YR"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
-        "code": "OPERATIONEEL_WATER_LOZING_DEBIET",
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "prefLabel": "Debiet per jaar",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "isVerplicht": "true",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal"
     },
@@ -1950,18 +2434,22 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-jaarvracht",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "relevantUnit": [
             "http://TODO"
         ],
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
-        "code": "OPERATIONEEL_WATER_LOZING_JAARVRACHT",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "prefLabel": "Totale jaarvracht",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal"
     },
     {
@@ -1969,33 +2457,43 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-meetfrequentie",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
-        "code": "OPERATIONEEL_WATER_LOZING_MEETFREQUENTIE",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "prefLabel": "Meetfrequentie",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "relevantCodeList": [
             "http://TODO"
-        ]
+        ],
+        "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
-        "code": "OPERATIONEEL_WATER_LOZING_STOF",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
         "prefLabel": "Verontreinigende stof",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
+        "relevantClass": "http://www.w3.org/ns/sosa/Observation",
         "isVerplicht": "true",
         "relevantCodeList": [
             "https://data.omgeving.vlaanderen.be/id/conceptscheme/csor/variabele"
@@ -2006,25 +2504,55 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/datum",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/meting",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/meting",
         "definition": "Datum van de meting of startdatum indien de meting over meerdere dagen heeft plaatsgevonden.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht_meting",
         "note": "Datum van de meting of startdatum indien de meting over meerdere dagen heeft plaatsgevonden.",
         "prefLabel": "Datum van meting",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/meting"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht_meting",
         "isVerplicht": "true",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#date"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/feature",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "http://purl.org/dc/terms/created": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/Controleinrichting",
+        "prefLabel": "De controleinrichting waarop gerapporteed moet worden.",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/Controleinrichting",
+        "http://www.w3.org/ns/adms#status": {
+            "id": "https://purl.archive.org/adms/status/Active"
+        },
+        "relevantClass": "http://www.w3.org/ns/sosa/FeatureOfInterest",
+        "isMeervoudig": "true",
+        "isVerplicht": "true",
+        "relevantDataType": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht_meting"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht_meting",
         "narrower": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo-id",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo-naam"
@@ -2038,21 +2566,26 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo-id",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo-naam"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht"
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht_meting"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo-id",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo-id",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht_meting",
         "prefLabel": "KBO nummer of BTW nummer",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht_meting",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#string"
     },
     {
@@ -2060,16 +2593,21 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo-naam",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo",
         "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo",
         "definition": "De naam van het labo.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht_meting",
         "note": "De naam van het labo.",
         "prefLabel": "Naam",
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht_meting",
         "isVerplicht": "true",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#string"
     },
@@ -2078,7 +2616,12 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/meting",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht_meting",
         "narrower": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/datum"
         ],
@@ -2089,7 +2632,7 @@
         "semanticRelation": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/datum"
         ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht_meting",
         "isMeervoudig": "true"
     },
     {
@@ -2097,9 +2640,14 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht_meting",
         "prefLabel": "Parameter",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht_meting",
         "isMeervoudig": "true"
     },
     {
@@ -2107,16 +2655,44 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "broader": "http://www.w3.org/2001/XMLSchema#date",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/datum",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/meting",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/meting",
         "definition": "Datum van de meting of startdatum indien de meting over meerdere dagen heeft plaatsgevonden.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water",
-        "note": [
-            "Datum van de meting of startdatum indien de meting over meerdere dagen heeft plaatsgevonden.",
-            "riepr-operationeel-zelfcontrole-water:meting"
-        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water_meting",
+        "note": "Datum van de meting of startdatum indien de meting over meerdere dagen heeft plaatsgevonden.",
         "prefLabel": "Datum van meting",
-        "scopeNote": "riepr-operationeel-zelfcontrole-water:meting",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/meting"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water_meting",
+        "isVerplicht": "true",
+        "relevantDataType": "http://www.w3.org/2001/XMLSchema#date"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/feature",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#Concept"
+        ],
+        "http://purl.org/dc/terms/created": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "seeAlso": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water_meting",
+        "definition": "De controleinrichting waarop gerapporteed moet worden.",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water",
+        "note": "De controleinrichting waarop gerapporteed moet worden.",
+        "prefLabel": "Controleinrichting",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water",
+        "http://www.w3.org/ns/adms#status": {
+            "id": "https://purl.archive.org/adms/status/Active"
+        },
+        "relevantClass": "http://www.w3.org/ns/sosa/FeatureOfInterest",
+        "isMeervoudig": "true",
         "isVerplicht": "true"
     },
     {
@@ -2124,47 +2700,92 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water_meting",
+        "narrower": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo-id",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo-naam"
+        ],
+        "narrowerTransitive": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo-id",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo-naam"
+        ],
         "prefLabel": "Labo",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water"
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo-id",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo-naam"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water_meting"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo-id",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "broader": "http://www.w3.org/2001/XMLSchema#string",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water",
-        "note": "riepr-operationeel-zelfcontrole-water:labo",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo-id",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo",
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water_meting",
         "prefLabel": "KBO nummer of BTW nummer",
-        "scopeNote": "riepr-operationeel-zelfcontrole-water:labo",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water"
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water_meting",
+        "relevantDataType": "http://www.w3.org/2001/XMLSchema#string"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo-naam",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "broader": "http://www.w3.org/2001/XMLSchema#string",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo-naam",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo",
+        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo",
         "definition": "De naam van het labo.",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water",
-        "note": [
-            "De naam van het labo.",
-            "riepr-operationeel-zelfcontrole-water:labo"
-        ],
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water_meting",
+        "note": "De naam van het labo.",
         "prefLabel": "Naam",
-        "scopeNote": "riepr-operationeel-zelfcontrole-water:labo",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water",
-        "isVerplicht": "true"
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water_meting",
+        "isVerplicht": "true",
+        "relevantDataType": "http://www.w3.org/2001/XMLSchema#string"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/meting",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/meting",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water_meting",
+        "narrower": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/datum"
+        ],
+        "narrowerTransitive": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/datum"
+        ],
         "prefLabel": "Meting",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water",
+        "semanticRelation": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/datum"
+        ],
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water_meting",
         "isMeervoudig": "true"
     },
     {
@@ -2172,9 +2793,14 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water_meting",
         "prefLabel": "Parameter",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water",
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water_meting",
         "isMeervoudig": "true"
     },
     {
@@ -2371,15 +2997,13 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondstoffen",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
+        "seeAlso": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
         "code": "THEMA_GRONDSTOFFEN",
         "prefLabel": "Grondstoffen",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen"
-        ]
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater",
@@ -2389,99 +3013,13 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
+        "seeAlso": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
-        "narrower": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater-kwaliteitsmeting",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater-onttrekking",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater-peilmeting"
-        ],
-        "narrowerTransitive": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater-kwaliteitsmeting",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater-onttrekking",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater-peilmeting"
-        ],
         "code": "THEMA_GRONDWATER",
         "prefLabel": "Grondwater",
-        "semanticRelation": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater-kwaliteitsmeting",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater-onttrekking",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater-peilmeting"
-        ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater"
-        ]
-    },
-    {
-        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater-kwaliteitsmeting",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater-kwaliteitsmeting",
-        "http://purl.org/dc/terms/modified": {
-            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
-        },
-        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater",
-        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
-        "code": "THEMA_GRONDWATER_KWALITEITSMETING",
-        "prefLabel": "Kwaliteitsmeting",
-        "semanticRelation": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater"
-        ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_kwaliteitsmeting"
-        ]
-    },
-    {
-        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater-onttrekking",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater-onttrekking",
-        "http://purl.org/dc/terms/modified": {
-            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
-        },
-        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater",
-        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
-        "code": "THEMA_GRONDWATER_ONTTREKKING",
-        "prefLabel": "Onttrekking/infiltratie",
-        "semanticRelation": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater"
-        ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_onttrekking"
-        ]
-    },
-    {
-        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater-peilmeting",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#Concept"
-        ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater-peilmeting",
-        "http://purl.org/dc/terms/modified": {
-            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
-        },
-        "broader": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater",
-        "broaderTransitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater",
-        "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
-        "code": "THEMA_GRONDWATER_PEILMETING",
-        "prefLabel": "Peilmetingen",
-        "semanticRelation": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater"
-        ],
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_peilmeting"
-        ]
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/lucht",
@@ -2491,15 +3029,13 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/lucht",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
+        "seeAlso": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
         "code": "THEMA_LUCHT",
         "prefLabel": "Lucht",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht"
-        ]
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/water",
@@ -2509,15 +3045,13 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/water",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
+        "seeAlso": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
         "code": "THEMA_WATER",
         "prefLabel": "Water",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water"
-        ]
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/zelfcontrole-lucht",
@@ -2527,15 +3061,13 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/zelfcontrole-lucht",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
+        "seeAlso": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
         "code": "THEMA_ZELFCONTROLE_LUCHT",
         "prefLabel": "Zelfcontrole lucht",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht"
-        ]
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/zelfcontrole-water",
@@ -2545,15 +3077,13 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/zelfcontrole-water",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
+        "seeAlso": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
         "code": "THEMA_ZELFCONTROLE_WATER",
         "prefLabel": "Zelfcontrole water",
-        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water"
-        ]
+        "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/uitwisselpunt-type/uitwisselpunt",
@@ -2822,7 +3352,7 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "hasTopConcept": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/geproduceerd",
@@ -2837,48 +3367,33 @@
         "prefLabel": "Operationeel grondstoffen"
     },
     {
-        "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_kwaliteitsmeting",
+        "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#ConceptScheme"
         ],
-        "prefLabel": "Kwaliteitsmeting",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/filter_type"
-        ]
-    },
-    {
-        "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_onttrekking",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#ConceptScheme"
-        ],
-        "hasTopConcept": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/periode",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/type-debiet",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/volume"
-        ],
-        "prefLabel": "Onttrekking",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/debietmeter"
-        ]
-    },
-    {
-        "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater_peilmeting",
-        "_type": [
-            "http://www.w3.org/2004/02/skos/core#ConceptScheme"
-        ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "hasTopConcept": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/datum",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/diepte",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/duur-stil",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/pomptoestand",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting_feature",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking_feature",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/periode",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/type-debiet",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/volume",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmethode",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting_feature",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/referentiepunt",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/volume-rust",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/volume-werking"
-        ],
-        "prefLabel": "Peilmeting",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/filter_type"
         ]
     },
     {
@@ -2886,6 +3401,26 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#ConceptScheme"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "hasTopConcept": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/feature_bron",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/feature_ep"
+        ],
+        "prefLabel": "Operationele gegevens"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+        ],
+        "http://purl.org/dc/terms/created": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "hasTopConcept": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct_aard",
@@ -2905,7 +3440,9 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_hoeveelheid",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_naam"
         ],
-        "prefLabel": "Operationele gegevens"
+        "http://www.w3.org/ns/adms#status": {
+            "id": "https://purl.archive.org/adms/status/Active"
+        }
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_peilmethode",
@@ -2950,7 +3487,23 @@
         "isVersionOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "definition": "Selecteer de controleinrichting waarop je de lozing wil rapporteren.",
+        "hasTopConcept": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/feature"
+        ],
+        "note": "Selecteer de controleinrichting waarop je de lozing wil rapporteren.",
+        "prefLabel": "Operationele gegevens"
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water_lozing",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+        ],
+        "http://purl.org/dc/terms/created": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "hasTopConcept": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-jaarvracht",
@@ -2968,16 +3521,34 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-meetfrequentie",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof"
         ],
-        "prefLabel": "Operationele gegevens",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/controleinrichting"
-        ]
+        "http://www.w3.org/ns/adms#status": {
+            "id": "https://purl.archive.org/adms/status/Active"
+        }
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#ConceptScheme"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "prefLabel": "Operationele gegevens",
+        "relevantRiepr": [
+            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type"
+        ]
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht_meting",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+        ],
+        "http://purl.org/dc/terms/created": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "hasTopConcept": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/datum",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/meting",
@@ -2986,28 +3557,48 @@
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo-naam",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter"
         ],
-        "prefLabel": "Operationele gegevens",
-        "relevantRiepr": [
-            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissiepunt_type"
-        ]
+        "http://www.w3.org/ns/adms#status": {
+            "id": "https://purl.archive.org/adms/status/Active"
+        }
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#ConceptScheme"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "hasTopConcept": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/datum",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo-id",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo-naam",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/meting",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/feature"
         ],
         "prefLabel": "Operationele gegevens",
         "relevantRiepr": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/controleinrichting"
         ]
+    },
+    {
+        "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water_meting",
+        "_type": [
+            "http://www.w3.org/2004/02/skos/core#ConceptScheme"
+        ],
+        "http://purl.org/dc/terms/created": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
+        "hasTopConcept": [
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/datum",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/meting",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo-id",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo-naam",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter"
+        ],
+        "http://www.w3.org/ns/adms#status": {
+            "id": "https://purl.archive.org/adms/status/Active"
+        }
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/procedure_type",
@@ -3059,12 +3650,14 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#ConceptScheme"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/thema_type",
+        "http://purl.org/dc/terms/modified": {
+            "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "_value": "2026-07-30T10:55:52.101Z"
+        },
         "hasTopConcept": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondstoffen",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater-kwaliteitsmeting",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater-onttrekking",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/grondwater-peilmeting",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/lucht",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/water",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/zelfcontrole-lucht",
@@ -3104,7 +3697,7 @@
         "isVersionOf": "riepr-meetpunt-eigenschappen:diepte",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "relevantUnit": [
             "http://qudt.org/vocab/unit/M"
@@ -3154,7 +3747,7 @@
         "isVersionOf": "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
         "http://purl.org/dc/terms/modified": {
             "_type": "http://www.w3.org/2001/XMLSchema#dateTime",
-            "_value": "2026-07-29T13:23:33.592Z"
+            "_value": "2026-07-30T10:55:52.101Z"
         },
         "relevantUnit": [
             "http://qudt.org/vocab/unit/M"
