@@ -484,18 +484,20 @@ export class CodelijstOperationeelFields extends LitElement {
       let pickerHtml: ReturnType<typeof html>
 
       if (isMultiSelect) {
-        // Multiselect: render individual pickers for each structural type ref
+        // Multiselect: single <vl-select-rich multiple> combining all instances from all refs.
+        // This enables seeAlso flow navigation after selection.
+        const domId = `${id}__multiselect`
+        const selectedValues = (this._fieldValues.get(domId) as string[] | undefined) ?? []
+        const allOptions = structuralRefs.flatMap(ref =>
+          getMockInstances(ref.id, ref.prefLabel ?? ref.id).map(instance => ({
+            value: instance.id,
+            label: instance.label,
+            selected: Array.isArray(selectedValues) ? selectedValues.includes(instance.id) : false,
+          }))
+        )
         pickerHtml = html`
-          ${structuralRefs.map(ref => {
-            const label = ref.prefLabel ?? ref.id
-            const domId = this.getPickerDomId(ref.id, parentFieldId ?? id)
-            const fieldValue = String(this._fieldValues.get(domId) ?? '')
-            const options = getMockInstances(ref.id, label).map(instance => ({ value: instance.id, label: instance.label, selected: instance.id === fieldValue }))
-            return html`
-              <vl-form-label for="${domId}" label="Kies ${label}" block .annotation="${ref.definition ?? ''}"></vl-form-label>
-              <vl-select id="${domId}" name="${domId}" label="Kies ${label}" placeholder="Selecteer ${label.toLowerCase()}..." ?required="${required}" .value="${fieldValue}" .options="${options}" @vl-input="${this._onControlInput}"></vl-select>
-            `
-          })}
+          <vl-form-label for="${domId}" label="Kies ${plainLabel}" block .annotation="${field.definition ?? ''}"></vl-form-label>
+          <vl-select-rich id="${domId}" name="${domId}" label="Kies ${plainLabel}" placeholder="Selecteer..." ?required="${required}" .multiple=${true} .value="${selectedValues}" .options="${allOptions}" @vl-input="${this._onStructuralPickerInput}" @vl-change="${this._onStructuralPickerInput}"></vl-select-rich>
         `
       } else {
         // Single select with one ref → single dropdown; multiple refs → first viable
@@ -672,41 +674,76 @@ export class CodelijstOperationeelFields extends LitElement {
    * Handles vl-input events specifically from structural type pickers that may have seeAlso targets.
    * After storing the value, checks if the parent field has seeAlso pointing to another scheme
    * and emits flow-navigate event if so.
+   *
+   * Supports both single-select (<vl-select>) and multi-select (<vl-select-rich multiple>) values:
+   * - Single select: string value stored as-is
+   * - Multi-select: string[] array preserved (not coerced to "val1,val2")
+   */
+   private _structuralHandlerRunning = false
+
+  /**
+   * Handles vl-input events specifically from structural type pickers that may have seeAlso targets.
+   * After storing the value, checks if the parent field has seeAlso pointing to another scheme
+   * and emits flow-navigate event if so.
+   *
+   * Supports both single-select (<vl-select>) and multi-select (<vl-select-rich multiple>) values:
+   * - Single select: string value stored as-is
+   * - Multi-select: string[] array preserved (not coerced to "val1,val2")
    */
   private _onStructuralPickerInput(event: CustomEvent<VlInputElementEventDetail>) {
-    const component = event.currentTarget! as VlSelectElement | VlInputFieldElement | VlDatepickerElement
-    const domId = component.id
-    let value: unknown = event.detail?.value
-    if (value === undefined) {
-      value = 'value' in component ? component.value : undefined
-    }
-    this._fieldValues.set(domId, value)
+    // Guard against re-entrant calls causing infinite loops
+    if (this._structuralHandlerRunning) return
+    this._structuralHandlerRunning = true
 
-    // Track structural selection using all possible key forms
-    if (this.result && value && value !== '') {
-      if (this.result.concepts.has(domId)) {
-        this.structuralSelections.set(domId, String(value))
-      } else {
-        for (const [conceptId] of this.result.concepts.entries()) {
-          if (domId.includes(conceptId)) {
-            this.structuralSelections.set(conceptId, String(value))
-            break
+    try {
+      const component = event.currentTarget! as VlSelectElement | VlInputFieldElement | VlDatepickerElement | VlSelectRichElement
+      const domId = component.id
+      let value: unknown = event.detail?.value
+      if (value === undefined) {
+        value = 'value' in component ? component.value : undefined
+      }
+      this._fieldValues.set(domId, value)
+
+      // Track structural selection using all possible key forms.
+      // Preserve arrays from <vl-select-rich multiple>; coerce single values to strings.
+      const normalisedValue = Array.isArray(value) ? value : String(value ?? '')
+      if (this.result && this.hasSelection(normalisedValue)) {
+        if (this.result.concepts.has(domId)) {
+          this.structuralSelections.set(domId, normalisedValue)
+        } else {
+          for (const [conceptId] of this.result.concepts.entries()) {
+            if (domId.includes(conceptId)) {
+              this.structuralSelections.set(conceptId, normalisedValue)
+              break
+            }
           }
         }
       }
+
+      // Check if any root-level concept with seeAlso was satisfied by this picker.
+      // The picker's DOM id may contain the concept id it represents; we look up the
+      // parent field from renderRootFieldContent context via embedded picker tracking.
+      this.checkSeeAlsoForPickerDomId(domId, value)
+    } finally {
+      this.requestUpdate()
+      this._structuralHandlerRunning = false
     }
+  }
 
-    // Check if any root-level concept with seeAlso was satisfied by this picker.
-    // The picker's DOM id may contain the concept id it represents; we look up the
-    // parent field from renderRootFieldContent context via embedded picker tracking.
-    this.checkSeeAlsoForPickerDomId(domId, value)
-
-    this.requestUpdate()
+  /** Returns true when a stored structural value counts as "something selected". */
+  private hasSelection(val: string | string[]): boolean {
+    if (Array.isArray(val)) return val.some(v => v && v !== '')
+    return val !== ''
   }
 
   /** When a structural picker gets a value, check if its owning field has seeAlso → flow-navigate. */
   private checkSeeAlsoForPickerDomId(domId: string, value: unknown): void {
-    if (!this.result || !value || value === '') return
+    if (!this.result) return
+    // Handle both string and array values (from <vl-select-rich multiple>)
+    const hasValue = Array.isArray(value)
+      ? value.some(v => v && v !== '')
+      : !!value && String(value) !== ''
+    if (!hasValue) return
 
     // Try exact match first
     const directConcept = this.result.concepts.get(domId)
@@ -744,7 +781,11 @@ export class CodelijstOperationeelFields extends LitElement {
 
   /** When a structural/feature field with seeAlso gets a value, emit flow-navigate event. */
   private checkSeeAlsoNavigation(conceptId: string, value: unknown): void {
-    if (!this.result || !value || value === '') return
+    if (!this.result) return
+    const hasValue = Array.isArray(value)
+      ? value.some(v => v && v !== '')
+      : !!value && String(value) !== ''
+    if (!hasValue) return
 
     const concept = this.result.concepts.get(conceptId)
     if (!concept) return

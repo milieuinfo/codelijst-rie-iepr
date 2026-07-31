@@ -176,7 +176,9 @@ unit:PPM a qudt:Unit, skos:Concept;
     skos:notation "PPM";
     skos:prefLabel "PPM"@nl;
     skos:topConceptOf conceptscheme:eenheden.
-concept:Controleinrichting dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
+concept:Controleinrichting dcterms:modified "2026-07-31T09:59:00.563Z"^^xsd:dateTime;
+    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
+concept:Emissiepunt dcterms:created "2026-07-31T09:59:00.563Z"^^xsd:dateTime;
     a skos:ConceptScheme;
     skos:hasTopConcept riepr-operationeel-zelfcontrole-lucht:feature;
     adms:status <https://purl.archive.org/adms/status/Active>.
@@ -241,8 +243,6 @@ riepr-emissiepunt-eigenschappen:lozingspunt-lozingsplaats dcterms:isPartOf conce
     riepr-vocab:relevantCodeList conceptscheme:lozingspunt_lozingsplaats;
     riepr-vocab:relevantRiepr riepr-emissiepunt-type:lozingspunt.
 riepr-emissiepunt-eigenschappen:schouw-diameter dcterms:isPartOf conceptscheme:systeem_eigenschappen;
-    dcterms:isVersionOf riepr-emissiepunt-eigenschappen:schouw-diameter;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     qudt:relevantUnit unit:M;
     a skos:Concept;
@@ -254,8 +254,6 @@ riepr-emissiepunt-eigenschappen:schouw-diameter dcterms:isPartOf conceptscheme:s
     riepr-vocab:relevantProperty dbo:diameter;
     riepr-vocab:relevantRiepr riepr-emissiepunt-type:schoorsteen.
 riepr-emissiepunt-eigenschappen:schouw-hoogte dcterms:isPartOf conceptscheme:systeem_eigenschappen;
-    dcterms:isVersionOf riepr-emissiepunt-eigenschappen:schouw-hoogte;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     qudt:relevantUnit unit:M;
     a skos:Concept;
@@ -353,8 +351,6 @@ riepr-filter-type:pomp a skos:Concept;
     skos:topConceptOf conceptscheme:filter_type;
     riepr-vocab:isMeetbaar true.
 riepr-installatie-eigenschappen:geinstalleerd_vermogen dcterms:isPartOf conceptscheme:systeem_eigenschappen;
-    dcterms:isVersionOf riepr-installatie-eigenschappen:geinstalleerd_vermogen;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
     qudt:relevantUnit unit:MegaW;
     a skos:Concept;
     skos:definition "Het geïnstalleerde vermogen van een Stookinstallatie"@nl;
@@ -367,8 +363,6 @@ riepr-installatie-eigenschappen:geinstalleerd_vermogen dcterms:isPartOf concepts
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantRiepr riepr-installatie-type:stookinstallatie.
 riepr-installatie-eigenschappen:geinstalleerde_opslagcapaciteit dcterms:isPartOf conceptscheme:systeem_eigenschappen;
-    dcterms:isVersionOf riepr-installatie-eigenschappen:geinstalleerde_opslagcapaciteit;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "De geïnstalleerde opslagcapaciteit"@nl;
     skos:inScheme conceptscheme:installatie_eigenschappen;
@@ -416,8 +410,6 @@ riepr-installatie-eigenschappen:verwijderingsrendement dcterms:isPartOf concepts
     skos:topConceptOf conceptscheme:installatie_eigenschappen;
     riepr-vocab:isMeervoudig true.
 riepr-installatie-eigenschappen:verwijderingsrendement_percentage dcterms:isPartOf conceptscheme:systeem_eigenschappen;
-    dcterms:isVersionOf riepr-installatie-eigenschappen:verwijderingsrendement_percentage;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     qudt:relevantUnit unit:PERCENT;
     a skos:Concept;
@@ -543,8 +535,6 @@ riepr-installatie-type:waterzuivering dcterms:isPartOf conceptscheme:systeem_typ
     skos:prefLabel "Waterzuiveringsinstallatie"@nl;
     skos:topConceptOf conceptscheme:installatie_type.
 riepr-meetpunt-eigenschappen:diepte dcterms:isPartOf conceptscheme:systeem_eigenschappen;
-    dcterms:isVersionOf riepr-meetpunt-eigenschappen:diepte;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     qudt:relevantUnit unit:M;
     a skos:Concept;
@@ -568,8 +558,6 @@ riepr-meetpunt-eigenschappen:referentiepunt dcterms:isPartOf conceptscheme:syste
     skos:topConceptOf conceptscheme:meetpunt_eigenschappen;
     riepr-vocab:isMeervoudig true.
 riepr-meetpunt-eigenschappen:referentiepunt_diepte dcterms:isPartOf conceptscheme:systeem_eigenschappen;
-    dcterms:isVersionOf riepr-meetpunt-eigenschappen:referentiepunt_diepte;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     qudt:relevantUnit unit:M;
     a skos:Concept;
@@ -621,8 +609,6 @@ riepr-meetpunt-type:peilput a skos:Concept;
     skos:topConceptOf conceptscheme:meetpunt_type;
     riepr-vocab:isMeetbaar true.
 riepr-onttrekkingspunt-eigenschappen:diepte dcterms:isPartOf conceptscheme:systeem_eigenschappen;
-    dcterms:isVersionOf riepr-onttrekkingspunt-eigenschappen:diepte;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     qudt:relevantUnit unit:M;
     a skos:Concept;
@@ -731,7 +717,8 @@ riepr-operationeel-grondstoffen:geproduceerd a skos:Concept;
     skos:prefLabel "Heeft u grondstoffen geproduceerd?"@nl;
     skos:topConceptOf conceptscheme:operationeel_grondstoffen;
     riepr-vocab:relevantDataType xsd:boolean.
-riepr-operationeel-grondstoffen:grondstof dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
+riepr-operationeel-grondstoffen:grondstof dcterms:isVersionOf riepr-operationeel-grondstoffen:grondstof;
+    dcterms:modified "2026-07-31T09:59:00.563Z"^^xsd:dateTime;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondstoffen;
     skos:narrower riepr-operationeel-grondstoffen:grondstof_bestemming_type, riepr-operationeel-grondstoffen:grondstof_hoeveelheid, riepr-operationeel-grondstoffen:grondstof_materiaalcode, riepr-operationeel-grondstoffen:grondstof_omschrijving, riepr-operationeel-grondstoffen:grondstof_opmerking, riepr-operationeel-grondstoffen:grondstof_toepassingswijze;
@@ -739,24 +726,20 @@ riepr-operationeel-grondstoffen:grondstof dcterms:created "2026-07-31T08:59:03.6
     skos:prefLabel "Grondstof"@nl;
     skos:semanticRelation riepr-operationeel-grondstoffen:grondstof_bestemming_type, riepr-operationeel-grondstoffen:grondstof_hoeveelheid, riepr-operationeel-grondstoffen:grondstof_materiaalcode, riepr-operationeel-grondstoffen:grondstof_omschrijving, riepr-operationeel-grondstoffen:grondstof_opmerking, riepr-operationeel-grondstoffen:grondstof_toepassingswijze;
     skos:topConceptOf conceptscheme:operationeel_grondstoffen;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class sosa:Observation;
     sh:hasValue concept:true;
     sh:path riepr-operationeel-grondstoffen:geproduceerd;
     riepr-vocab:isMeervoudig true.
-riepr-operationeel-grondstoffen:grondstof_bestemming_type dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-grondstoffen:grondstof_bestemming_type a skos:Concept;
     skos:broader riepr-operationeel-grondstoffen:grondstof;
     skos:broaderTransitive riepr-operationeel-grondstoffen:grondstof;
     skos:inScheme conceptscheme:operationeel_grondstoffen;
     skos:prefLabel "Bestemming type"@nl;
     skos:semanticRelation riepr-operationeel-grondstoffen:grondstof;
     skos:topConceptOf conceptscheme:operationeel_grondstoffen;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_bestemmingstype.
-riepr-operationeel-grondstoffen:grondstof_hoeveelheid dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasResult;
+riepr-operationeel-grondstoffen:grondstof_hoeveelheid dcterms:relation sosa:hasResult;
     qudt:relevantUnit <http://TODO>;
     a skos:Concept;
     skos:broader riepr-operationeel-grondstoffen:grondstof;
@@ -765,21 +748,17 @@ riepr-operationeel-grondstoffen:grondstof_hoeveelheid dcterms:created "2026-07-3
     skos:prefLabel "Hoeveelheid"@nl;
     skos:semanticRelation riepr-operationeel-grondstoffen:grondstof;
     skos:topConceptOf conceptscheme:operationeel_grondstoffen;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:decimal.
-riepr-operationeel-grondstoffen:grondstof_materiaalcode dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-grondstoffen:grondstof_materiaalcode a skos:Concept;
     skos:broader riepr-operationeel-grondstoffen:grondstof;
     skos:broaderTransitive riepr-operationeel-grondstoffen:grondstof;
     skos:inScheme conceptscheme:operationeel_grondstoffen;
     skos:prefLabel "Materiaalcode"@nl;
     skos:semanticRelation riepr-operationeel-grondstoffen:grondstof;
     skos:topConceptOf conceptscheme:operationeel_grondstoffen;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantCodeList <http://TODO>.
-riepr-operationeel-grondstoffen:grondstof_omschrijving dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    dcterms:relation rdfs:comment;
+riepr-operationeel-grondstoffen:grondstof_omschrijving dcterms:relation rdfs:comment;
     a skos:Concept;
     skos:broader riepr-operationeel-grondstoffen:grondstof;
     skos:broaderTransitive riepr-operationeel-grondstoffen:grondstof;
@@ -787,11 +766,9 @@ riepr-operationeel-grondstoffen:grondstof_omschrijving dcterms:created "2026-07-
     skos:prefLabel "Omschrijving"@nl;
     skos:semanticRelation riepr-operationeel-grondstoffen:grondstof;
     skos:topConceptOf conceptscheme:operationeel_grondstoffen;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isVerplicht false;
     riepr-vocab:relevantDataType xsd:string.
-riepr-operationeel-grondstoffen:grondstof_opmerking dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    dcterms:relation rdfs:comment;
+riepr-operationeel-grondstoffen:grondstof_opmerking dcterms:relation rdfs:comment;
     a skos:Concept;
     skos:broader riepr-operationeel-grondstoffen:grondstof;
     skos:broaderTransitive riepr-operationeel-grondstoffen:grondstof;
@@ -799,23 +776,18 @@ riepr-operationeel-grondstoffen:grondstof_opmerking dcterms:created "2026-07-31T
     skos:prefLabel "Opmerking"@nl;
     skos:semanticRelation riepr-operationeel-grondstoffen:grondstof;
     skos:topConceptOf conceptscheme:operationeel_grondstoffen;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isVerplicht false;
     riepr-vocab:relevantDataType xsd:string.
-riepr-operationeel-grondstoffen:grondstof_toepassingswijze dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-grondstoffen:grondstof_toepassingswijze a skos:Concept;
     skos:broader riepr-operationeel-grondstoffen:grondstof;
     skos:broaderTransitive riepr-operationeel-grondstoffen:grondstof;
     skos:inScheme conceptscheme:operationeel_grondstoffen;
     skos:prefLabel "Toepassingswijze"@nl;
     skos:semanticRelation riepr-operationeel-grondstoffen:grondstof;
     skos:topConceptOf conceptscheme:operationeel_grondstoffen;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_toepassingwijze.
-riepr-operationeel-grondwater:datum dcterms:isVersionOf riepr-operationeel-grondwater:datum;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-grondwater:datum a skos:Concept;
     skos:broader riepr-operationeel-grondwater:peilmeting;
     skos:broaderTransitive riepr-operationeel-grondwater:peilmeting;
     skos:inScheme conceptscheme:operationeel_grondwater;
@@ -823,9 +795,7 @@ riepr-operationeel-grondwater:datum dcterms:isVersionOf riepr-operationeel-grond
     skos:semanticRelation riepr-operationeel-grondwater:peilmeting;
     skos:topConceptOf conceptscheme:operationeel_grondwater;
     riepr-vocab:relevantDataType xsd:dateTime.
-riepr-operationeel-grondwater:diepte dcterms:isVersionOf riepr-operationeel-grondwater:diepte;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    qudt:relevantUnit unit:M;
+riepr-operationeel-grondwater:diepte qudt:relevantUnit unit:M;
     a skos:Concept;
     skos:broader riepr-operationeel-grondwater:peilmeting;
     skos:broaderTransitive riepr-operationeel-grondwater:peilmeting;
@@ -835,7 +805,7 @@ riepr-operationeel-grondwater:diepte dcterms:isVersionOf riepr-operationeel-gron
     skos:topConceptOf conceptscheme:operationeel_grondwater;
     riepr-vocab:relevantDataType xsd:decimal.
 riepr-operationeel-grondwater:duur-stil dcterms:isVersionOf riepr-operationeel-grondwater:duur-stil;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
+    dcterms:modified "2026-07-31T09:59:00.563Z"^^xsd:dateTime;
     a skos:Concept;
     skos:broader riepr-operationeel-grondwater:peilmeting;
     skos:broaderTransitive riepr-operationeel-grondwater:peilmeting;
@@ -846,8 +816,7 @@ riepr-operationeel-grondwater:duur-stil dcterms:isVersionOf riepr-operationeel-g
     sh:hasValue riepr-operationeel-pomptoestand:rust;
     sh:path riepr-operationeel-grondwater:pomptoestand;
     riepr-vocab:relevantDataType xsd:duration.
-riepr-operationeel-grondwater:kwaliteitsmeting dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-grondwater:kwaliteitsmeting a skos:Concept;
     skos:definition "Een kwaliteitsmeting van een pomp- of peilput."@nl;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:narrower riepr-operationeel-grondwater:kwaliteitsmeting_feature;
@@ -856,10 +825,8 @@ riepr-operationeel-grondwater:kwaliteitsmeting dcterms:created "2026-07-31T08:59
     skos:prefLabel "Kwaliteitsmeting"@nl;
     skos:semanticRelation riepr-operationeel-grondwater:kwaliteitsmeting_feature;
     skos:topConceptOf conceptscheme:operationeel_grondwater;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeervoudig true.
-riepr-operationeel-grondwater:kwaliteitsmeting_feature dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-grondwater:kwaliteitsmeting_feature a skos:Concept;
     skos:broader riepr-operationeel-grondwater:kwaliteitsmeting;
     skos:broaderTransitive riepr-operationeel-grondwater:kwaliteitsmeting;
     skos:definition "Actieve peil- en pompfilters in het productiejaar."@nl;
@@ -868,10 +835,8 @@ riepr-operationeel-grondwater:kwaliteitsmeting_feature dcterms:created "2026-07-
     skos:prefLabel "Peilfilter/Pompfilter"@nl;
     skos:semanticRelation riepr-operationeel-grondwater:kwaliteitsmeting;
     skos:topConceptOf conceptscheme:operationeel_grondwater;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantRiepr <https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/peil,riepr-filter-type:pomp>.
-riepr-operationeel-grondwater:onttrekking dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-grondwater:onttrekking a skos:Concept;
     skos:definition "Een meting van de onttrekking van een pompput."@nl;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:narrower riepr-operationeel-grondwater:onttrekking_feature, riepr-operationeel-grondwater:periode, riepr-operationeel-grondwater:type-debiet, riepr-operationeel-grondwater:volume;
@@ -880,10 +845,8 @@ riepr-operationeel-grondwater:onttrekking dcterms:created "2026-07-31T08:59:03.6
     skos:prefLabel "Onttrekking/infiltratie"@nl;
     skos:semanticRelation riepr-operationeel-grondwater:onttrekking_feature, riepr-operationeel-grondwater:periode, riepr-operationeel-grondwater:type-debiet, riepr-operationeel-grondwater:volume;
     skos:topConceptOf conceptscheme:operationeel_grondwater;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeervoudig true.
-riepr-operationeel-grondwater:onttrekking_feature dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-grondwater:onttrekking_feature a skos:Concept;
     skos:broader riepr-operationeel-grondwater:onttrekking;
     skos:broaderTransitive riepr-operationeel-grondwater:onttrekking;
     skos:definition "Actieve debietmeters in het productiejaar."@nl;
@@ -892,11 +855,8 @@ riepr-operationeel-grondwater:onttrekking_feature dcterms:created "2026-07-31T08
     skos:prefLabel "Debietmeter"@nl;
     skos:semanticRelation riepr-operationeel-grondwater:onttrekking;
     skos:topConceptOf conceptscheme:operationeel_grondwater;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantRiepr riepr-meetpunt-type:debietmeter.
-riepr-operationeel-grondwater:peilmethode dcterms:isVersionOf riepr-operationeel-grondwater:peilmethode;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-grondwater:peilmethode a skos:Concept;
     skos:broader riepr-operationeel-grondwater:peilmeting;
     skos:broaderTransitive riepr-operationeel-grondwater:peilmeting;
     skos:inScheme conceptscheme:operationeel_grondwater;
@@ -904,8 +864,7 @@ riepr-operationeel-grondwater:peilmethode dcterms:isVersionOf riepr-operationeel
     skos:semanticRelation riepr-operationeel-grondwater:peilmeting;
     skos:topConceptOf conceptscheme:operationeel_grondwater;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_peilmethode.
-riepr-operationeel-grondwater:peilmeting dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-grondwater:peilmeting a skos:Concept;
     skos:definition "Een peilmeting van een pomp- of peilput."@nl;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:narrower riepr-operationeel-grondwater:datum, riepr-operationeel-grondwater:diepte, riepr-operationeel-grondwater:duur-stil, riepr-operationeel-grondwater:peilmethode, riepr-operationeel-grondwater:peilmeting_feature, riepr-operationeel-grondwater:pomptoestand, riepr-operationeel-grondwater:referentiepunt, riepr-operationeel-grondwater:volume-rust, riepr-operationeel-grondwater:volume-werking;
@@ -914,10 +873,8 @@ riepr-operationeel-grondwater:peilmeting dcterms:created "2026-07-31T08:59:03.63
     skos:prefLabel "Peilmeting"@nl;
     skos:semanticRelation riepr-operationeel-grondwater:datum, riepr-operationeel-grondwater:diepte, riepr-operationeel-grondwater:duur-stil, riepr-operationeel-grondwater:peilmethode, riepr-operationeel-grondwater:peilmeting_feature, riepr-operationeel-grondwater:pomptoestand, riepr-operationeel-grondwater:referentiepunt, riepr-operationeel-grondwater:volume-rust, riepr-operationeel-grondwater:volume-werking;
     skos:topConceptOf conceptscheme:operationeel_grondwater;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeervoudig true.
-riepr-operationeel-grondwater:peilmeting_feature dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-grondwater:peilmeting_feature a skos:Concept;
     skos:broader riepr-operationeel-grondwater:peilmeting;
     skos:broaderTransitive riepr-operationeel-grondwater:peilmeting;
     skos:definition "Actieve peil- en pompfilters in het productiejaar."@nl;
@@ -926,11 +883,8 @@ riepr-operationeel-grondwater:peilmeting_feature dcterms:created "2026-07-31T08:
     skos:prefLabel "Peilfilter/Pompfilter"@nl;
     skos:semanticRelation riepr-operationeel-grondwater:peilmeting;
     skos:topConceptOf conceptscheme:operationeel_grondwater;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantRiepr <https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/peil,riepr-filter-type:pomp>.
-riepr-operationeel-grondwater:periode dcterms:isVersionOf riepr-operationeel-grondwater:periode;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-grondwater:periode a skos:Concept;
     skos:broader riepr-operationeel-grondwater:onttrekking;
     skos:broaderTransitive riepr-operationeel-grondwater:onttrekking;
     skos:inScheme conceptscheme:operationeel_grondwater;
@@ -938,9 +892,7 @@ riepr-operationeel-grondwater:periode dcterms:isVersionOf riepr-operationeel-gro
     skos:semanticRelation riepr-operationeel-grondwater:onttrekking;
     skos:topConceptOf conceptscheme:operationeel_grondwater;
     riepr-vocab:relevantDataType dcterms:temporal.
-riepr-operationeel-grondwater:pomptoestand dcterms:isVersionOf riepr-operationeel-grondwater:pomptoestand;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-grondwater:pomptoestand a skos:Concept;
     skos:broader riepr-operationeel-grondwater:peilmeting;
     skos:broaderTransitive riepr-operationeel-grondwater:peilmeting;
     skos:inScheme conceptscheme:operationeel_grondwater;
@@ -949,7 +901,7 @@ riepr-operationeel-grondwater:pomptoestand dcterms:isVersionOf riepr-operationee
     skos:topConceptOf conceptscheme:operationeel_grondwater;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_pomptoestand.
 riepr-operationeel-grondwater:referentiepunt dcterms:isVersionOf riepr-operationeel-grondwater:referentiepunt;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
+    dcterms:modified "2026-07-31T09:59:00.563Z"^^xsd:dateTime;
     a skos:Concept;
     skos:broader riepr-operationeel-grondwater:peilmeting;
     skos:broaderTransitive riepr-operationeel-grondwater:peilmeting;
@@ -960,9 +912,7 @@ riepr-operationeel-grondwater:referentiepunt dcterms:isVersionOf riepr-operation
     riepr-vocab:isMeervoudig true;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantRiepr riepr-meetpunt-eigenschappen:referentiepunt.
-riepr-operationeel-grondwater:type-debiet dcterms:isVersionOf riepr-operationeel-grondwater:type-debiet;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-grondwater:type-debiet a skos:Concept;
     skos:broader riepr-operationeel-grondwater:onttrekking;
     skos:broaderTransitive riepr-operationeel-grondwater:onttrekking;
     skos:inScheme conceptscheme:operationeel_grondwater;
@@ -971,7 +921,7 @@ riepr-operationeel-grondwater:type-debiet dcterms:isVersionOf riepr-operationeel
     skos:topConceptOf conceptscheme:operationeel_grondwater;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_debiet_type.
 riepr-operationeel-grondwater:volume-rust dcterms:isVersionOf riepr-operationeel-grondwater:volume-rust;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
+    dcterms:modified "2026-07-31T09:59:00.563Z"^^xsd:dateTime;
     qudt:relevantUnit unit:M3;
     a skos:Concept;
     skos:broader riepr-operationeel-grondwater:peilmeting;
@@ -984,7 +934,7 @@ riepr-operationeel-grondwater:volume-rust dcterms:isVersionOf riepr-operationeel
     sh:path riepr-operationeel-grondwater:pomptoestand;
     riepr-vocab:relevantDataType xsd:decimal.
 riepr-operationeel-grondwater:volume-werking dcterms:isVersionOf riepr-operationeel-grondwater:volume-werking;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
+    dcterms:modified "2026-07-31T09:59:00.563Z"^^xsd:dateTime;
     qudt:relevantUnit unit:M3;
     a skos:Concept;
     skos:broader riepr-operationeel-grondwater:peilmeting;
@@ -996,9 +946,7 @@ riepr-operationeel-grondwater:volume-werking dcterms:isVersionOf riepr-operation
     sh:hasValue riepr-operationeel-pomptoestand:werking;
     sh:path riepr-operationeel-grondwater:pomptoestand;
     riepr-vocab:relevantDataType xsd:decimal.
-riepr-operationeel-grondwater:volume dcterms:isVersionOf riepr-operationeel-grondwater:volume;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-grondwater:volume a skos:Concept;
     skos:broader riepr-operationeel-grondwater:onttrekking;
     skos:broaderTransitive riepr-operationeel-grondwater:onttrekking;
     skos:inScheme conceptscheme:operationeel_grondwater;
@@ -1006,9 +954,7 @@ riepr-operationeel-grondwater:volume dcterms:isVersionOf riepr-operationeel-gron
     skos:semanticRelation riepr-operationeel-grondwater:onttrekking;
     skos:topConceptOf conceptscheme:operationeel_grondwater;
     riepr-vocab:relevantDataType xsd:decimal.
-riepr-operationeel-lucht:afvalproduct dcterms:isVersionOf riepr-operationeel-lucht:afvalproduct;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-lucht:afvalproduct a skos:Concept;
     skos:definition "Afvalproduct"@nl;
     skos:inScheme conceptscheme:operationeel_lucht_rapportering;
     skos:narrower riepr-operationeel-lucht:afvalproduct_aard, riepr-operationeel-lucht:afvalproduct_hoeveelheid, riepr-operationeel-lucht:afvalproduct_naam;
@@ -1019,9 +965,7 @@ riepr-operationeel-lucht:afvalproduct dcterms:isVersionOf riepr-operationeel-luc
     skos:topConceptOf conceptscheme:operationeel_lucht_rapportering;
     sh:class sosa:Observation;
     riepr-vocab:isMeervoudig true.
-riepr-operationeel-lucht:afvalproduct_aard dcterms:isVersionOf riepr-operationeel-lucht:afvalproduct_aard;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-lucht:afvalproduct_aard a skos:Concept;
     skos:broader riepr-operationeel-lucht:afvalproduct;
     skos:broaderTransitive riepr-operationeel-lucht:afvalproduct;
     skos:definition "Aard van de afvalproduct."@nl;
@@ -1032,9 +976,7 @@ riepr-operationeel-lucht:afvalproduct_aard dcterms:isVersionOf riepr-operationee
     skos:topConceptOf conceptscheme:operationeel_lucht_rapportering;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string.
-riepr-operationeel-lucht:afvalproduct_hoeveelheid dcterms:isVersionOf riepr-operationeel-lucht:afvalproduct_hoeveelheid;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    qudt:relevantUnit <http://TODO>;
+riepr-operationeel-lucht:afvalproduct_hoeveelheid qudt:relevantUnit <http://TODO>;
     a skos:Concept;
     skos:broader riepr-operationeel-lucht:afvalproduct;
     skos:broaderTransitive riepr-operationeel-lucht:afvalproduct;
@@ -1043,9 +985,7 @@ riepr-operationeel-lucht:afvalproduct_hoeveelheid dcterms:isVersionOf riepr-oper
     skos:semanticRelation riepr-operationeel-lucht:afvalproduct;
     skos:topConceptOf conceptscheme:operationeel_lucht_rapportering;
     riepr-vocab:relevantDataType xsd:decimal.
-riepr-operationeel-lucht:afvalproduct_naam dcterms:isVersionOf riepr-operationeel-lucht:afvalproduct_naam;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-lucht:afvalproduct_naam a skos:Concept;
     skos:broader riepr-operationeel-lucht:afvalproduct;
     skos:broaderTransitive riepr-operationeel-lucht:afvalproduct;
     skos:definition "Naam van het afvalproduct."@nl;
@@ -1056,9 +996,7 @@ riepr-operationeel-lucht:afvalproduct_naam dcterms:isVersionOf riepr-operationee
     skos:topConceptOf conceptscheme:operationeel_lucht_rapportering;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string.
-riepr-operationeel-lucht:brandstof dcterms:isVersionOf riepr-operationeel-lucht:brandstof;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-lucht:brandstof a skos:Concept;
     skos:definition "Geef de verbruikte brondstoffen op."@nl;
     skos:inScheme conceptscheme:operationeel_lucht_rapportering;
     skos:narrower riepr-operationeel-lucht:brandstof_as, riepr-operationeel-lucht:brandstof_naam, riepr-operationeel-lucht:brandstof_s, riepr-operationeel-lucht:brandstof_verbruik;
@@ -1069,9 +1007,7 @@ riepr-operationeel-lucht:brandstof dcterms:isVersionOf riepr-operationeel-lucht:
     skos:topConceptOf conceptscheme:operationeel_lucht_rapportering;
     sh:class sosa:Observation;
     riepr-vocab:isMeervoudig true.
-riepr-operationeel-lucht:brandstof_as dcterms:isVersionOf riepr-operationeel-lucht:brandstof_as;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-lucht:brandstof_as a skos:Concept;
     skos:broader riepr-operationeel-lucht:brandstof;
     skos:broaderTransitive riepr-operationeel-lucht:brandstof;
     skos:inScheme conceptscheme:operationeel_lucht_rapportering;
@@ -1080,9 +1016,7 @@ riepr-operationeel-lucht:brandstof_as dcterms:isVersionOf riepr-operationeel-luc
     skos:topConceptOf conceptscheme:operationeel_lucht_rapportering;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:decimal.
-riepr-operationeel-lucht:brandstof_naam dcterms:isVersionOf riepr-operationeel-lucht:brandstof_naam;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-lucht:brandstof_naam a skos:Concept;
     skos:broader riepr-operationeel-lucht:brandstof;
     skos:broaderTransitive riepr-operationeel-lucht:brandstof;
     skos:definition "Naam van de brandstof."@nl;
@@ -1093,9 +1027,7 @@ riepr-operationeel-lucht:brandstof_naam dcterms:isVersionOf riepr-operationeel-l
     skos:topConceptOf conceptscheme:operationeel_lucht_rapportering;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string.
-riepr-operationeel-lucht:brandstof_s dcterms:isVersionOf riepr-operationeel-lucht:brandstof_s;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-lucht:brandstof_s a skos:Concept;
     skos:broader riepr-operationeel-lucht:brandstof;
     skos:broaderTransitive riepr-operationeel-lucht:brandstof;
     skos:inScheme conceptscheme:operationeel_lucht_rapportering;
@@ -1104,9 +1036,7 @@ riepr-operationeel-lucht:brandstof_s dcterms:isVersionOf riepr-operationeel-luch
     skos:topConceptOf conceptscheme:operationeel_lucht_rapportering;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:decimal.
-riepr-operationeel-lucht:brandstof_verbruik dcterms:isVersionOf riepr-operationeel-lucht:brandstof_verbruik;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    qudt:relevantUnit qudt-unit:GigaJ;
+riepr-operationeel-lucht:brandstof_verbruik qudt:relevantUnit qudt-unit:GigaJ;
     a skos:Concept;
     skos:broader riepr-operationeel-lucht:brandstof;
     skos:broaderTransitive riepr-operationeel-lucht:brandstof;
@@ -1118,8 +1048,7 @@ riepr-operationeel-lucht:brandstof_verbruik dcterms:isVersionOf riepr-operatione
     skos:topConceptOf conceptscheme:operationeel_lucht_rapportering;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:decimal.
-riepr-operationeel-lucht:feature_bron dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasFeatureOfInterest;
+riepr-operationeel-lucht:feature_bron dcterms:relation sosa:hasFeatureOfInterest;
     a skos:Concept;
     rdfs:seeAlso conceptscheme:operationeel_lucht_rapportering;
     skos:definition "Selecteer de bron(nen) waarop je wil rapporteren."@nl;
@@ -1127,12 +1056,10 @@ riepr-operationeel-lucht:feature_bron dcterms:created "2026-07-31T08:59:03.638Z"
     skos:note "Selecteer de bron(nen) waarop je wil rapporteren."@nl;
     skos:prefLabel "Bron(nen)"@nl;
     skos:topConceptOf conceptscheme:operationeel_lucht_bron;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class sosa:FeatureOfInterest;
     riepr-vocab:isMultiselect true;
     riepr-vocab:relevantRiepr riepr:Installatie.
-riepr-operationeel-lucht:feature_ep dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasFeatureOfInterest;
+riepr-operationeel-lucht:feature_ep dcterms:relation sosa:hasFeatureOfInterest;
     a skos:Concept;
     rdfs:seeAlso conceptscheme:operationeel_lucht_bron;
     skos:definition "Selecteer het emissiepunt waarop je wil rapporteren."@nl;
@@ -1140,12 +1067,9 @@ riepr-operationeel-lucht:feature_ep dcterms:created "2026-07-31T08:59:03.638Z"^^
     skos:note "Selecteer het emissiepunt waarop je wil rapporteren."@nl;
     skos:prefLabel "Emissiepunt"@nl;
     skos:topConceptOf conceptscheme:operationeel_lucht;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class sosa:FeatureOfInterest;
     riepr-vocab:relevantRiepr riepr-emissiepunt-type:schoorsteen.
-riepr-operationeel-lucht:geproduceerde_stof dcterms:isVersionOf riepr-operationeel-lucht:geproduceerde_stof;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-lucht:geproduceerde_stof a skos:Concept;
     skos:definition "Geproduceerde stof."@nl;
     skos:inScheme conceptscheme:operationeel_lucht_rapportering;
     skos:narrower riepr-operationeel-lucht:geproduceerde_stof_aard, riepr-operationeel-lucht:geproduceerde_stof_hoeveelheid, riepr-operationeel-lucht:geproduceerde_stof_naam;
@@ -1156,9 +1080,7 @@ riepr-operationeel-lucht:geproduceerde_stof dcterms:isVersionOf riepr-operatione
     skos:topConceptOf conceptscheme:operationeel_lucht_rapportering;
     sh:class sosa:Observation;
     riepr-vocab:isMeervoudig true.
-riepr-operationeel-lucht:geproduceerde_stof_aard dcterms:isVersionOf riepr-operationeel-lucht:geproduceerde_stof_aard;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-lucht:geproduceerde_stof_aard a skos:Concept;
     skos:broader riepr-operationeel-lucht:geproduceerde_stof;
     skos:broaderTransitive riepr-operationeel-lucht:geproduceerde_stof;
     skos:definition "Aard van de geproduceerde stof."@nl;
@@ -1169,9 +1091,7 @@ riepr-operationeel-lucht:geproduceerde_stof_aard dcterms:isVersionOf riepr-opera
     skos:topConceptOf conceptscheme:operationeel_lucht_rapportering;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string.
-riepr-operationeel-lucht:geproduceerde_stof_hoeveelheid dcterms:isVersionOf riepr-operationeel-lucht:geproduceerde_stof_hoeveelheid;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    qudt:relevantUnit <http://TODO>;
+riepr-operationeel-lucht:geproduceerde_stof_hoeveelheid qudt:relevantUnit <http://TODO>;
     a skos:Concept;
     skos:broader riepr-operationeel-lucht:geproduceerde_stof;
     skos:broaderTransitive riepr-operationeel-lucht:geproduceerde_stof;
@@ -1180,9 +1100,7 @@ riepr-operationeel-lucht:geproduceerde_stof_hoeveelheid dcterms:isVersionOf riep
     skos:semanticRelation riepr-operationeel-lucht:geproduceerde_stof;
     skos:topConceptOf conceptscheme:operationeel_lucht_rapportering;
     riepr-vocab:relevantDataType xsd:decimal.
-riepr-operationeel-lucht:geproduceerde_stof_naam dcterms:isVersionOf riepr-operationeel-lucht:geproduceerde_stof_naam;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-lucht:geproduceerde_stof_naam a skos:Concept;
     skos:broader riepr-operationeel-lucht:geproduceerde_stof;
     skos:broaderTransitive riepr-operationeel-lucht:geproduceerde_stof;
     skos:definition "Naam van de geproduceerde stof."@nl;
@@ -1193,9 +1111,7 @@ riepr-operationeel-lucht:geproduceerde_stof_naam dcterms:isVersionOf riepr-opera
     skos:topConceptOf conceptscheme:operationeel_lucht_rapportering;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string.
-riepr-operationeel-lucht:verbruikte_stof dcterms:isVersionOf riepr-operationeel-lucht:verbruikte_stof;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-lucht:verbruikte_stof a skos:Concept;
     skos:definition "Geef de verbruikte stoffen op."@nl;
     skos:inScheme conceptscheme:operationeel_lucht_rapportering;
     skos:narrower riepr-operationeel-lucht:verbruikte_stof_aard, riepr-operationeel-lucht:verbruikte_stof_hoeveelheid, riepr-operationeel-lucht:verbruikte_stof_naam;
@@ -1206,9 +1122,7 @@ riepr-operationeel-lucht:verbruikte_stof dcterms:isVersionOf riepr-operationeel-
     skos:topConceptOf conceptscheme:operationeel_lucht_rapportering;
     sh:class sosa:Observation;
     riepr-vocab:isMeervoudig true.
-riepr-operationeel-lucht:verbruikte_stof_aard dcterms:isVersionOf riepr-operationeel-lucht:verbruikte_stof_aard;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-lucht:verbruikte_stof_aard a skos:Concept;
     skos:broader riepr-operationeel-lucht:verbruikte_stof;
     skos:broaderTransitive riepr-operationeel-lucht:verbruikte_stof;
     skos:definition "Aard van het verbruik."@nl;
@@ -1219,9 +1133,7 @@ riepr-operationeel-lucht:verbruikte_stof_aard dcterms:isVersionOf riepr-operatio
     skos:topConceptOf conceptscheme:operationeel_lucht_rapportering;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string.
-riepr-operationeel-lucht:verbruikte_stof_hoeveelheid dcterms:isVersionOf riepr-operationeel-lucht:verbruikte_stof_hoeveelheid;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    qudt:relevantUnit <http://TODO>;
+riepr-operationeel-lucht:verbruikte_stof_hoeveelheid qudt:relevantUnit <http://TODO>;
     a skos:Concept;
     skos:broader riepr-operationeel-lucht:verbruikte_stof;
     skos:broaderTransitive riepr-operationeel-lucht:verbruikte_stof;
@@ -1231,9 +1143,7 @@ riepr-operationeel-lucht:verbruikte_stof_hoeveelheid dcterms:isVersionOf riepr-o
     skos:topConceptOf conceptscheme:operationeel_lucht_rapportering;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:decimal.
-riepr-operationeel-lucht:verbruikte_stof_naam dcterms:isVersionOf riepr-operationeel-lucht:verbruikte_stof_naam;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-lucht:verbruikte_stof_naam a skos:Concept;
     skos:broader riepr-operationeel-lucht:verbruikte_stof;
     skos:broaderTransitive riepr-operationeel-lucht:verbruikte_stof;
     skos:definition "Naam van de verbruikte stof."@nl;
@@ -1284,9 +1194,7 @@ riepr-operationeel-toepassingwijze:overige a skos:Concept;
     skos:notation "TOEPASSINGSWIJZE_OVERIGE";
     skos:prefLabel "Ander gebruik in de ingedeelde inrichting"@nl;
     skos:topConceptOf conceptscheme:operationeel_toepassingwijze.
-riepr-operationeel-water:abnormale-lozing-jaarvracht dcterms:isVersionOf riepr-operationeel-water:abnormale-lozing-jaarvracht;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasResult;
+riepr-operationeel-water:abnormale-lozing-jaarvracht dcterms:relation sosa:hasResult;
     qudt:relevantUnit <http://TODO>;
     a skos:Concept;
     skos:broader riepr-operationeel-water:abnormale-lozing;
@@ -1296,9 +1204,7 @@ riepr-operationeel-water:abnormale-lozing-jaarvracht dcterms:isVersionOf riepr-o
     skos:semanticRelation riepr-operationeel-water:abnormale-lozing;
     skos:topConceptOf conceptscheme:operationeel_water_lozing;
     riepr-vocab:relevantDataType xsd:decimal.
-riepr-operationeel-water:abnormale-lozing-lozingsduur dcterms:isVersionOf riepr-operationeel-water:abnormale-lozing-lozingsduur;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasResult;
+riepr-operationeel-water:abnormale-lozing-lozingsduur dcterms:relation sosa:hasResult;
     qudt:relevantUnit unit:DAY;
     a skos:Concept;
     skos:broader riepr-operationeel-water:abnormale-lozing;
@@ -1309,9 +1215,7 @@ riepr-operationeel-water:abnormale-lozing-lozingsduur dcterms:isVersionOf riepr-
     skos:topConceptOf conceptscheme:operationeel_water_lozing;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:integer.
-riepr-operationeel-water:abnormale-lozing-stof dcterms:isVersionOf riepr-operationeel-water:abnormale-lozing-stof;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-water:abnormale-lozing-stof a skos:Concept;
     skos:broader riepr-operationeel-water:abnormale-lozing;
     skos:broaderTransitive riepr-operationeel-water:abnormale-lozing;
     skos:inScheme conceptscheme:operationeel_water_lozing;
@@ -1321,9 +1225,7 @@ riepr-operationeel-water:abnormale-lozing-stof dcterms:isVersionOf riepr-operati
     sh:class sosa:Observation;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList <https://data.omgeving.vlaanderen.be/id/conceptscheme/csor/variabele>.
-riepr-operationeel-water:abnormale-lozing-verklaring dcterms:isVersionOf riepr-operationeel-water:abnormale-lozing-verklaring;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasResult;
+riepr-operationeel-water:abnormale-lozing-verklaring dcterms:relation sosa:hasResult;
     a skos:Concept;
     skos:broader riepr-operationeel-water:abnormale-lozing;
     skos:broaderTransitive riepr-operationeel-water:abnormale-lozing;
@@ -1332,9 +1234,7 @@ riepr-operationeel-water:abnormale-lozing-verklaring dcterms:isVersionOf riepr-o
     skos:semanticRelation riepr-operationeel-water:abnormale-lozing;
     skos:topConceptOf conceptscheme:operationeel_water_lozing;
     riepr-vocab:relevantDataType xsd:string.
-riepr-operationeel-water:abnormale-lozing dcterms:isVersionOf riepr-operationeel-water:abnormale-lozing;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-water:abnormale-lozing a skos:Concept;
     skos:inScheme conceptscheme:operationeel_water_lozing;
     skos:narrower riepr-operationeel-water:abnormale-lozing-jaarvracht, riepr-operationeel-water:abnormale-lozing-lozingsduur, riepr-operationeel-water:abnormale-lozing-stof, riepr-operationeel-water:abnormale-lozing-verklaring;
     skos:narrowerTransitive riepr-operationeel-water:abnormale-lozing-jaarvracht, riepr-operationeel-water:abnormale-lozing-lozingsduur, riepr-operationeel-water:abnormale-lozing-stof, riepr-operationeel-water:abnormale-lozing-verklaring;
@@ -1343,8 +1243,7 @@ riepr-operationeel-water:abnormale-lozing dcterms:isVersionOf riepr-operationeel
     skos:topConceptOf conceptscheme:operationeel_water_lozing;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:isVerplicht false.
-riepr-operationeel-water:feature dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasFeatureOfInterest;
+riepr-operationeel-water:feature dcterms:relation sosa:hasFeatureOfInterest;
     a skos:Concept;
     rdfs:seeAlso conceptscheme:operationeel_water_lozing;
     skos:definition "De controleinrichting waarop gerapporteed moet worden."@nl;
@@ -1352,14 +1251,11 @@ riepr-operationeel-water:feature dcterms:created "2026-07-31T08:59:03.638Z"^^xsd
     skos:note "De controleinrichting waarop gerapporteed moet worden."@nl;
     skos:prefLabel "Controleinrichting"@nl;
     skos:topConceptOf conceptscheme:operationeel_water;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class sosa:FeatureOfInterest;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantRiepr riepr-meetpunt-type:controleinrichting.
-riepr-operationeel-water:lozing-bepalingsmethode dcterms:isVersionOf riepr-operationeel-water:lozing-bepalingsmethode;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    dcterms:relation concept:TODO;
+riepr-operationeel-water:lozing-bepalingsmethode dcterms:relation concept:TODO;
     a skos:Concept;
     skos:broader riepr-operationeel-water:lozing;
     skos:broaderTransitive riepr-operationeel-water:lozing;
@@ -1368,9 +1264,7 @@ riepr-operationeel-water:lozing-bepalingsmethode dcterms:isVersionOf riepr-opera
     skos:semanticRelation riepr-operationeel-water:lozing;
     skos:topConceptOf conceptscheme:operationeel_water_lozing;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_bepalingsmethode.
-riepr-operationeel-water:lozing-bepalingsmethodeclassificatie dcterms:isVersionOf riepr-operationeel-water:lozing-bepalingsmethodeclassificatie;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    dcterms:relation concept:TODO;
+riepr-operationeel-water:lozing-bepalingsmethodeclassificatie dcterms:relation concept:TODO;
     a skos:Concept;
     skos:broader riepr-operationeel-water:lozing;
     skos:broaderTransitive riepr-operationeel-water:lozing;
@@ -1379,9 +1273,7 @@ riepr-operationeel-water:lozing-bepalingsmethodeclassificatie dcterms:isVersionO
     skos:semanticRelation riepr-operationeel-water:lozing;
     skos:topConceptOf conceptscheme:operationeel_water_lozing;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_bepalingsmethodeclassificatie.
-riepr-operationeel-water:lozing-concentratie dcterms:isVersionOf riepr-operationeel-water:lozing-concentratie;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasResult;
+riepr-operationeel-water:lozing-concentratie dcterms:relation sosa:hasResult;
     qudt:relevantUnit <http://TODO>;
     a skos:Concept;
     skos:broader riepr-operationeel-water:lozing;
@@ -1391,9 +1283,7 @@ riepr-operationeel-water:lozing-concentratie dcterms:isVersionOf riepr-operation
     skos:semanticRelation riepr-operationeel-water:lozing;
     skos:topConceptOf conceptscheme:operationeel_water_lozing;
     riepr-vocab:relevantDataType xsd:decimal.
-riepr-operationeel-water:lozing-dagen dcterms:isVersionOf riepr-operationeel-water:lozing-dagen;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasResult;
+riepr-operationeel-water:lozing-dagen dcterms:relation sosa:hasResult;
     qudt:relevantUnit <http://TODO>;
     a skos:Concept;
     skos:broader riepr-operationeel-water:lozing;
@@ -1404,9 +1294,7 @@ riepr-operationeel-water:lozing-dagen dcterms:isVersionOf riepr-operationeel-wat
     skos:topConceptOf conceptscheme:operationeel_water_lozing;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:integer.
-riepr-operationeel-water:lozing-debiet dcterms:isVersionOf riepr-operationeel-water:lozing-debiet;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasResult;
+riepr-operationeel-water:lozing-debiet dcterms:relation sosa:hasResult;
     qudt:relevantUnit unit:M3-PER-YR;
     a skos:Concept;
     skos:broader riepr-operationeel-water:lozing;
@@ -1417,9 +1305,7 @@ riepr-operationeel-water:lozing-debiet dcterms:isVersionOf riepr-operationeel-wa
     skos:topConceptOf conceptscheme:operationeel_water_lozing;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:decimal.
-riepr-operationeel-water:lozing-jaarvracht dcterms:isVersionOf riepr-operationeel-water:lozing-jaarvracht;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasResult;
+riepr-operationeel-water:lozing-jaarvracht dcterms:relation sosa:hasResult;
     qudt:relevantUnit <http://TODO>;
     a skos:Concept;
     skos:broader riepr-operationeel-water:lozing;
@@ -1429,9 +1315,7 @@ riepr-operationeel-water:lozing-jaarvracht dcterms:isVersionOf riepr-operationee
     skos:semanticRelation riepr-operationeel-water:lozing;
     skos:topConceptOf conceptscheme:operationeel_water_lozing;
     riepr-vocab:relevantDataType xsd:decimal.
-riepr-operationeel-water:lozing-meetfrequentie dcterms:isVersionOf riepr-operationeel-water:lozing-meetfrequentie;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    dcterms:relation concept:TODO;
+riepr-operationeel-water:lozing-meetfrequentie dcterms:relation concept:TODO;
     a skos:Concept;
     skos:broader riepr-operationeel-water:lozing;
     skos:broaderTransitive riepr-operationeel-water:lozing;
@@ -1441,9 +1325,7 @@ riepr-operationeel-water:lozing-meetfrequentie dcterms:isVersionOf riepr-operati
     skos:topConceptOf conceptscheme:operationeel_water_lozing;
     riepr-vocab:relevantCodeList <http://TODO>;
     riepr-vocab:relevantDataType xsd:decimal.
-riepr-operationeel-water:lozing-stof dcterms:isVersionOf riepr-operationeel-water:lozing-stof;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-water:lozing-stof a skos:Concept;
     skos:broader riepr-operationeel-water:lozing;
     skos:broaderTransitive riepr-operationeel-water:lozing;
     skos:inScheme conceptscheme:operationeel_water_lozing;
@@ -1453,9 +1335,7 @@ riepr-operationeel-water:lozing-stof dcterms:isVersionOf riepr-operationeel-wate
     sh:class sosa:Observation;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList <https://data.omgeving.vlaanderen.be/id/conceptscheme/csor/variabele>.
-riepr-operationeel-water:lozing dcterms:isVersionOf riepr-operationeel-water:lozing;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-water:lozing a skos:Concept;
     skos:inScheme conceptscheme:operationeel_water_lozing;
     skos:narrower riepr-operationeel-water:lozing-bepalingsmethode, riepr-operationeel-water:lozing-bepalingsmethodeclassificatie, riepr-operationeel-water:lozing-concentratie, riepr-operationeel-water:lozing-dagen, riepr-operationeel-water:lozing-debiet, riepr-operationeel-water:lozing-jaarvracht, riepr-operationeel-water:lozing-meetfrequentie, riepr-operationeel-water:lozing-stof;
     skos:narrowerTransitive riepr-operationeel-water:lozing-bepalingsmethode, riepr-operationeel-water:lozing-bepalingsmethodeclassificatie, riepr-operationeel-water:lozing-concentratie, riepr-operationeel-water:lozing-dagen, riepr-operationeel-water:lozing-debiet, riepr-operationeel-water:lozing-jaarvracht, riepr-operationeel-water:lozing-meetfrequentie, riepr-operationeel-water:lozing-stof;
@@ -1465,9 +1345,7 @@ riepr-operationeel-water:lozing dcterms:isVersionOf riepr-operationeel-water:loz
     sh:class sosa:Observation;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:isVerplicht true.
-riepr-operationeel-zelfcontrole-lucht:datum dcterms:isVersionOf riepr-operationeel-zelfcontrole-lucht:datum;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-zelfcontrole-lucht:datum a skos:Concept;
     skos:broader riepr-operationeel-zelfcontrole-lucht:meting;
     skos:broaderTransitive riepr-operationeel-zelfcontrole-lucht:meting;
     skos:definition "Datum van de meting of startdatum indien de meting over meerdere dagen heeft plaatsgevonden."@nl;
@@ -1478,21 +1356,19 @@ riepr-operationeel-zelfcontrole-lucht:datum dcterms:isVersionOf riepr-operatione
     skos:topConceptOf conceptscheme:operationeel_zelfcontrole_lucht_meting;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:date.
-riepr-operationeel-zelfcontrole-lucht:feature dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
+riepr-operationeel-zelfcontrole-lucht:feature dcterms:isVersionOf riepr-operationeel-zelfcontrole-lucht:feature;
+    dcterms:modified "2026-07-31T09:59:00.563Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     a skos:Concept;
     rdfs:seeAlso conceptscheme:operationeel_zelfcontrole_lucht_meting;
-    skos:inScheme concept:Controleinrichting;
-    skos:prefLabel "De controleinrichting waarop gerapporteed moet worden."@nl;
-    skos:topConceptOf concept:Controleinrichting;
-    adms:status <https://purl.archive.org/adms/status/Active>;
+    skos:inScheme concept:Emissiepunt;
+    skos:prefLabel "Het emissiepunt waarop gerapporteed moet worden."@nl;
+    skos:topConceptOf concept:Emissiepunt;
     sh:class sosa:FeatureOfInterest;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:isVerplicht true;
-    riepr-vocab:relevantRiepr riepr-meetpunt-type:controleinrichting.
-riepr-operationeel-zelfcontrole-lucht:labo-id dcterms:isVersionOf riepr-operationeel-zelfcontrole-lucht:labo-id;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+    riepr-vocab:relevantRiepr conceptscheme:emissiepunt_type.
+riepr-operationeel-zelfcontrole-lucht:labo-id a skos:Concept;
     skos:broader riepr-operationeel-zelfcontrole-lucht:labo;
     skos:broaderTransitive riepr-operationeel-zelfcontrole-lucht:labo;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_lucht_meting;
@@ -1500,9 +1376,7 @@ riepr-operationeel-zelfcontrole-lucht:labo-id dcterms:isVersionOf riepr-operatio
     skos:semanticRelation riepr-operationeel-zelfcontrole-lucht:labo;
     skos:topConceptOf conceptscheme:operationeel_zelfcontrole_lucht_meting;
     riepr-vocab:relevantDataType xsd:string.
-riepr-operationeel-zelfcontrole-lucht:labo-naam dcterms:isVersionOf riepr-operationeel-zelfcontrole-lucht:labo-naam;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-zelfcontrole-lucht:labo-naam a skos:Concept;
     skos:broader riepr-operationeel-zelfcontrole-lucht:labo;
     skos:broaderTransitive riepr-operationeel-zelfcontrole-lucht:labo;
     skos:definition "De naam van het labo."@nl;
@@ -1513,18 +1387,14 @@ riepr-operationeel-zelfcontrole-lucht:labo-naam dcterms:isVersionOf riepr-operat
     skos:topConceptOf conceptscheme:operationeel_zelfcontrole_lucht_meting;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string.
-riepr-operationeel-zelfcontrole-lucht:labo dcterms:isVersionOf riepr-operationeel-zelfcontrole-lucht:labo;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-zelfcontrole-lucht:labo a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_lucht_meting;
     skos:narrower riepr-operationeel-zelfcontrole-lucht:labo-id, riepr-operationeel-zelfcontrole-lucht:labo-naam;
     skos:narrowerTransitive riepr-operationeel-zelfcontrole-lucht:labo-id, riepr-operationeel-zelfcontrole-lucht:labo-naam;
     skos:prefLabel "Labo"@nl;
     skos:semanticRelation riepr-operationeel-zelfcontrole-lucht:labo-id, riepr-operationeel-zelfcontrole-lucht:labo-naam;
     skos:topConceptOf conceptscheme:operationeel_zelfcontrole_lucht_meting.
-riepr-operationeel-zelfcontrole-lucht:meting dcterms:isVersionOf riepr-operationeel-zelfcontrole-lucht:meting;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-zelfcontrole-lucht:meting a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_lucht_meting;
     skos:narrower riepr-operationeel-zelfcontrole-lucht:datum;
     skos:narrowerTransitive riepr-operationeel-zelfcontrole-lucht:datum;
@@ -1532,16 +1402,12 @@ riepr-operationeel-zelfcontrole-lucht:meting dcterms:isVersionOf riepr-operation
     skos:semanticRelation riepr-operationeel-zelfcontrole-lucht:datum;
     skos:topConceptOf conceptscheme:operationeel_zelfcontrole_lucht_meting;
     riepr-vocab:isMeervoudig true.
-riepr-operationeel-zelfcontrole-lucht:parameter dcterms:isVersionOf riepr-operationeel-zelfcontrole-lucht:parameter;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-zelfcontrole-lucht:parameter a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_lucht_meting;
     skos:prefLabel "Parameter"@nl;
     skos:topConceptOf conceptscheme:operationeel_zelfcontrole_lucht_meting;
     riepr-vocab:isMeervoudig true.
-riepr-operationeel-zelfcontrole-water:datum dcterms:isVersionOf riepr-operationeel-zelfcontrole-water:datum;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-zelfcontrole-water:datum a skos:Concept;
     skos:broader riepr-operationeel-zelfcontrole-water:meting;
     skos:broaderTransitive riepr-operationeel-zelfcontrole-water:meting;
     skos:definition "Datum van de meting of startdatum indien de meting over meerdere dagen heeft plaatsgevonden."@nl;
@@ -1552,8 +1418,7 @@ riepr-operationeel-zelfcontrole-water:datum dcterms:isVersionOf riepr-operatione
     skos:topConceptOf conceptscheme:operationeel_zelfcontrole_water_meting;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:date.
-riepr-operationeel-zelfcontrole-water:feature dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasFeatureOfInterest;
+riepr-operationeel-zelfcontrole-water:feature dcterms:relation sosa:hasFeatureOfInterest;
     a skos:Concept;
     rdfs:seeAlso conceptscheme:operationeel_zelfcontrole_water_meting;
     skos:definition "De controleinrichting waarop gerapporteed moet worden."@nl;
@@ -1561,14 +1426,11 @@ riepr-operationeel-zelfcontrole-water:feature dcterms:created "2026-07-31T08:59:
     skos:note "De controleinrichting waarop gerapporteed moet worden."@nl;
     skos:prefLabel "Controleinrichting"@nl;
     skos:topConceptOf conceptscheme:operationeel_zelfcontrole_water;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class sosa:FeatureOfInterest;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantRiepr riepr-meetpunt-type:controleinrichting.
-riepr-operationeel-zelfcontrole-water:labo-id dcterms:isVersionOf riepr-operationeel-zelfcontrole-water:labo-id;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-zelfcontrole-water:labo-id a skos:Concept;
     skos:broader riepr-operationeel-zelfcontrole-water:labo;
     skos:broaderTransitive riepr-operationeel-zelfcontrole-water:labo;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_water_meting;
@@ -1576,9 +1438,7 @@ riepr-operationeel-zelfcontrole-water:labo-id dcterms:isVersionOf riepr-operatio
     skos:semanticRelation riepr-operationeel-zelfcontrole-water:labo;
     skos:topConceptOf conceptscheme:operationeel_zelfcontrole_water_meting;
     riepr-vocab:relevantDataType xsd:string.
-riepr-operationeel-zelfcontrole-water:labo-naam dcterms:isVersionOf riepr-operationeel-zelfcontrole-water:labo-naam;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-zelfcontrole-water:labo-naam a skos:Concept;
     skos:broader riepr-operationeel-zelfcontrole-water:labo;
     skos:broaderTransitive riepr-operationeel-zelfcontrole-water:labo;
     skos:definition "De naam van het labo."@nl;
@@ -1589,18 +1449,14 @@ riepr-operationeel-zelfcontrole-water:labo-naam dcterms:isVersionOf riepr-operat
     skos:topConceptOf conceptscheme:operationeel_zelfcontrole_water_meting;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string.
-riepr-operationeel-zelfcontrole-water:labo dcterms:isVersionOf riepr-operationeel-zelfcontrole-water:labo;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-zelfcontrole-water:labo a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_water_meting;
     skos:narrower riepr-operationeel-zelfcontrole-water:labo-id, riepr-operationeel-zelfcontrole-water:labo-naam;
     skos:narrowerTransitive riepr-operationeel-zelfcontrole-water:labo-id, riepr-operationeel-zelfcontrole-water:labo-naam;
     skos:prefLabel "Labo"@nl;
     skos:semanticRelation riepr-operationeel-zelfcontrole-water:labo-id, riepr-operationeel-zelfcontrole-water:labo-naam;
     skos:topConceptOf conceptscheme:operationeel_zelfcontrole_water_meting.
-riepr-operationeel-zelfcontrole-water:meting dcterms:isVersionOf riepr-operationeel-zelfcontrole-water:meting;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-zelfcontrole-water:meting a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_water_meting;
     skos:narrower riepr-operationeel-zelfcontrole-water:datum;
     skos:narrowerTransitive riepr-operationeel-zelfcontrole-water:datum;
@@ -1608,9 +1464,7 @@ riepr-operationeel-zelfcontrole-water:meting dcterms:isVersionOf riepr-operation
     skos:semanticRelation riepr-operationeel-zelfcontrole-water:datum;
     skos:topConceptOf conceptscheme:operationeel_zelfcontrole_water_meting;
     riepr-vocab:isMeervoudig true.
-riepr-operationeel-zelfcontrole-water:parameter dcterms:isVersionOf riepr-operationeel-zelfcontrole-water:parameter;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-operationeel-zelfcontrole-water:parameter a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_water_meting;
     skos:prefLabel "Parameter"@nl;
     skos:topConceptOf conceptscheme:operationeel_zelfcontrole_water_meting;
@@ -1731,55 +1585,37 @@ riepr-status-type:voorgesteld a skos:Concept;
     skos:prefLabel "Voorgesteld Ontwerp"@nl;
     skos:topConceptOf conceptscheme:status_type;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-riepr-thema-type:grondstoffen dcterms:isVersionOf riepr-thema-type:grondstoffen;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-thema-type:grondstoffen a skos:Concept;
     rdfs:seeAlso conceptscheme:operationeel_grondstoffen;
     skos:inScheme conceptscheme:thema_type;
     skos:notation "THEMA_GRONDSTOFFEN";
     skos:prefLabel "Grondstoffen"@nl;
     skos:topConceptOf conceptscheme:thema_type.
-riepr-thema-type:grondwater-kwaliteitsmeting dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-riepr-thema-type:grondwater-onttrekking dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-riepr-thema-type:grondwater-peilmeting dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-riepr-thema-type:grondwater dcterms:isVersionOf riepr-thema-type:grondwater;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-thema-type:grondwater a skos:Concept;
     rdfs:seeAlso conceptscheme:operationeel_grondwater;
     skos:inScheme conceptscheme:thema_type;
     skos:notation "THEMA_GRONDWATER";
     skos:prefLabel "Grondwater"@nl;
     skos:topConceptOf conceptscheme:thema_type.
-riepr-thema-type:lucht dcterms:isVersionOf riepr-thema-type:lucht;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-thema-type:lucht a skos:Concept;
     rdfs:seeAlso conceptscheme:operationeel_lucht;
     skos:inScheme conceptscheme:thema_type;
     skos:notation "THEMA_LUCHT";
     skos:prefLabel "Lucht"@nl;
     skos:topConceptOf conceptscheme:thema_type.
-riepr-thema-type:water dcterms:isVersionOf riepr-thema-type:water;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-thema-type:water a skos:Concept;
     rdfs:seeAlso conceptscheme:operationeel_water;
     skos:inScheme conceptscheme:thema_type;
     skos:notation "THEMA_WATER";
     skos:prefLabel "Water"@nl;
     skos:topConceptOf conceptscheme:thema_type.
-riepr-thema-type:zelfcontrole-lucht dcterms:isVersionOf riepr-thema-type:zelfcontrole-lucht;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-thema-type:zelfcontrole-lucht a skos:Concept;
     rdfs:seeAlso conceptscheme:operationeel_zelfcontrole_lucht;
     skos:inScheme conceptscheme:thema_type;
     skos:notation "THEMA_ZELFCONTROLE_LUCHT";
     skos:prefLabel "Zelfcontrole lucht"@nl;
     skos:topConceptOf conceptscheme:thema_type.
-riepr-thema-type:zelfcontrole-water dcterms:isVersionOf riepr-thema-type:zelfcontrole-water;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:Concept;
+riepr-thema-type:zelfcontrole-water a skos:Concept;
     rdfs:seeAlso conceptscheme:operationeel_zelfcontrole_water;
     skos:inScheme conceptscheme:thema_type;
     skos:notation "THEMA_ZELFCONTROLE_WATER";
@@ -1864,34 +1700,18 @@ conceptscheme:operationeel_bestemmingstype a skos:ConceptScheme;
 conceptscheme:operationeel_debiet_type a skos:ConceptScheme;
     skos:hasTopConcept riepr-operationeel-debiet-type:infiltratie, riepr-operationeel-debiet-type:onttrekking, riepr-operationeel-debiet-type:spui, riepr-operationeel-debiet-type:totaal_rondgepompd;
     skos:prefLabel "Type debiet"@nl.
-conceptscheme:operationeel_grondstoffen dcterms:isVersionOf conceptscheme:operationeel_grondstoffen;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:ConceptScheme;
+conceptscheme:operationeel_grondstoffen a skos:ConceptScheme;
     skos:hasTopConcept riepr-operationeel-grondstoffen:geproduceerd, riepr-operationeel-grondstoffen:grondstof, riepr-operationeel-grondstoffen:grondstof_bestemming_type, riepr-operationeel-grondstoffen:grondstof_hoeveelheid, riepr-operationeel-grondstoffen:grondstof_materiaalcode, riepr-operationeel-grondstoffen:grondstof_omschrijving, riepr-operationeel-grondstoffen:grondstof_opmerking, riepr-operationeel-grondstoffen:grondstof_toepassingswijze;
     skos:prefLabel "Operationeel grondstoffen"@nl.
-conceptscheme:operationeel_grondwater dcterms:isVersionOf conceptscheme:operationeel_grondwater;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:ConceptScheme;
+conceptscheme:operationeel_grondwater a skos:ConceptScheme;
     skos:hasTopConcept riepr-operationeel-grondwater:datum, riepr-operationeel-grondwater:diepte, riepr-operationeel-grondwater:duur-stil, riepr-operationeel-grondwater:kwaliteitsmeting, riepr-operationeel-grondwater:kwaliteitsmeting_feature, riepr-operationeel-grondwater:onttrekking, riepr-operationeel-grondwater:onttrekking_feature, riepr-operationeel-grondwater:peilmethode, riepr-operationeel-grondwater:peilmeting, riepr-operationeel-grondwater:peilmeting_feature, riepr-operationeel-grondwater:periode, riepr-operationeel-grondwater:pomptoestand, riepr-operationeel-grondwater:referentiepunt, riepr-operationeel-grondwater:type-debiet, riepr-operationeel-grondwater:volume-rust, riepr-operationeel-grondwater:volume-werking, riepr-operationeel-grondwater:volume.
-conceptscheme:operationeel_grondwater_kwaliteitsmeting dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-conceptscheme:operationeel_grondwater_onttrekking dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-conceptscheme:operationeel_grondwater_peilmeting dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-conceptscheme:operationeel_lucht dcterms:isVersionOf conceptscheme:operationeel_lucht;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:ConceptScheme;
+conceptscheme:operationeel_lucht a skos:ConceptScheme;
     skos:hasTopConcept riepr-operationeel-lucht:feature_ep;
     skos:prefLabel "Operationele gegevens"@nl.
-conceptscheme:operationeel_lucht_bron dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:ConceptScheme;
-    skos:hasTopConcept riepr-operationeel-lucht:feature_bron;
-    adms:status <https://purl.archive.org/adms/status/Active>.
-conceptscheme:operationeel_lucht_rapportering dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:ConceptScheme;
-    skos:hasTopConcept riepr-operationeel-lucht:afvalproduct, riepr-operationeel-lucht:afvalproduct_aard, riepr-operationeel-lucht:afvalproduct_hoeveelheid, riepr-operationeel-lucht:afvalproduct_naam, riepr-operationeel-lucht:brandstof, riepr-operationeel-lucht:brandstof_as, riepr-operationeel-lucht:brandstof_naam, riepr-operationeel-lucht:brandstof_s, riepr-operationeel-lucht:brandstof_verbruik, riepr-operationeel-lucht:geproduceerde_stof, riepr-operationeel-lucht:geproduceerde_stof_aard, riepr-operationeel-lucht:geproduceerde_stof_hoeveelheid, riepr-operationeel-lucht:geproduceerde_stof_naam, riepr-operationeel-lucht:verbruikte_stof, riepr-operationeel-lucht:verbruikte_stof_aard, riepr-operationeel-lucht:verbruikte_stof_hoeveelheid, riepr-operationeel-lucht:verbruikte_stof_naam;
-    adms:status <https://purl.archive.org/adms/status/Active>.
+conceptscheme:operationeel_lucht_bron a skos:ConceptScheme;
+    skos:hasTopConcept riepr-operationeel-lucht:feature_bron.
+conceptscheme:operationeel_lucht_rapportering a skos:ConceptScheme;
+    skos:hasTopConcept riepr-operationeel-lucht:afvalproduct, riepr-operationeel-lucht:afvalproduct_aard, riepr-operationeel-lucht:afvalproduct_hoeveelheid, riepr-operationeel-lucht:afvalproduct_naam, riepr-operationeel-lucht:brandstof, riepr-operationeel-lucht:brandstof_as, riepr-operationeel-lucht:brandstof_naam, riepr-operationeel-lucht:brandstof_s, riepr-operationeel-lucht:brandstof_verbruik, riepr-operationeel-lucht:geproduceerde_stof, riepr-operationeel-lucht:geproduceerde_stof_aard, riepr-operationeel-lucht:geproduceerde_stof_hoeveelheid, riepr-operationeel-lucht:geproduceerde_stof_naam, riepr-operationeel-lucht:verbruikte_stof, riepr-operationeel-lucht:verbruikte_stof_aard, riepr-operationeel-lucht:verbruikte_stof_hoeveelheid, riepr-operationeel-lucht:verbruikte_stof_naam.
 conceptscheme:operationeel_peilmethode a skos:ConceptScheme;
     skos:hasTopConcept riepr-operationeel-peilmethode:automatische_sonde, riepr-operationeel-peilmethode:overige, riepr-operationeel-peilmethode:peillint;
     skos:prefLabel "Peilmethode"@nl.
@@ -1901,35 +1721,24 @@ conceptscheme:operationeel_pomptoestand a skos:ConceptScheme;
 conceptscheme:operationeel_toepassingwijze a skos:ConceptScheme;
     skos:hasTopConcept riepr-operationeel-toepassingwijze:brandstof, riepr-operationeel-toepassingwijze:dispers, riepr-operationeel-toepassingwijze:overige;
     skos:prefLabel "Toepassingswijze"@nl.
-conceptscheme:operationeel_water dcterms:isVersionOf conceptscheme:operationeel_water;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:ConceptScheme;
+conceptscheme:operationeel_water a skos:ConceptScheme;
     skos:definition "Selecteer de controleinrichting waarop je de lozing wil rapporteren."@nl;
     skos:hasTopConcept riepr-operationeel-water:feature;
     skos:note "Selecteer de controleinrichting waarop je de lozing wil rapporteren."@nl;
     skos:prefLabel "Operationele gegevens"@nl.
-conceptscheme:operationeel_water_lozing dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:ConceptScheme;
-    skos:hasTopConcept riepr-operationeel-water:abnormale-lozing-jaarvracht, riepr-operationeel-water:abnormale-lozing-lozingsduur, riepr-operationeel-water:abnormale-lozing-stof, riepr-operationeel-water:abnormale-lozing-verklaring, riepr-operationeel-water:abnormale-lozing, riepr-operationeel-water:lozing-bepalingsmethode, riepr-operationeel-water:lozing-bepalingsmethodeclassificatie, riepr-operationeel-water:lozing-concentratie, riepr-operationeel-water:lozing-dagen, riepr-operationeel-water:lozing-debiet, riepr-operationeel-water:lozing-jaarvracht, riepr-operationeel-water:lozing-meetfrequentie, riepr-operationeel-water:lozing-stof, riepr-operationeel-water:lozing;
-    adms:status <https://purl.archive.org/adms/status/Active>.
+conceptscheme:operationeel_water_lozing a skos:ConceptScheme;
+    skos:hasTopConcept riepr-operationeel-water:abnormale-lozing-jaarvracht, riepr-operationeel-water:abnormale-lozing-lozingsduur, riepr-operationeel-water:abnormale-lozing-stof, riepr-operationeel-water:abnormale-lozing-verklaring, riepr-operationeel-water:abnormale-lozing, riepr-operationeel-water:lozing-bepalingsmethode, riepr-operationeel-water:lozing-bepalingsmethodeclassificatie, riepr-operationeel-water:lozing-concentratie, riepr-operationeel-water:lozing-dagen, riepr-operationeel-water:lozing-debiet, riepr-operationeel-water:lozing-jaarvracht, riepr-operationeel-water:lozing-meetfrequentie, riepr-operationeel-water:lozing-stof, riepr-operationeel-water:lozing.
 conceptscheme:operationeel_zelfcontrole_lucht dcterms:isVersionOf conceptscheme:operationeel_zelfcontrole_lucht;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
+    dcterms:modified "2026-07-31T09:59:00.563Z"^^xsd:dateTime;
     a skos:ConceptScheme;
-    skos:prefLabel "Operationele gegevens"@nl;
-    riepr-vocab:relevantRiepr conceptscheme:emissiepunt_type.
-conceptscheme:operationeel_zelfcontrole_lucht_meting dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:ConceptScheme;
-    skos:hasTopConcept riepr-operationeel-zelfcontrole-lucht:datum, riepr-operationeel-zelfcontrole-lucht:labo-id, riepr-operationeel-zelfcontrole-lucht:labo-naam, riepr-operationeel-zelfcontrole-lucht:labo, riepr-operationeel-zelfcontrole-lucht:meting, riepr-operationeel-zelfcontrole-lucht:parameter;
-    adms:status <https://purl.archive.org/adms/status/Active>.
-conceptscheme:operationeel_zelfcontrole_water dcterms:isVersionOf conceptscheme:operationeel_zelfcontrole_water;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:ConceptScheme;
+    skos:prefLabel "Operationele gegevens"@nl.
+conceptscheme:operationeel_zelfcontrole_lucht_meting a skos:ConceptScheme;
+    skos:hasTopConcept riepr-operationeel-zelfcontrole-lucht:datum, riepr-operationeel-zelfcontrole-lucht:labo-id, riepr-operationeel-zelfcontrole-lucht:labo-naam, riepr-operationeel-zelfcontrole-lucht:labo, riepr-operationeel-zelfcontrole-lucht:meting, riepr-operationeel-zelfcontrole-lucht:parameter.
+conceptscheme:operationeel_zelfcontrole_water a skos:ConceptScheme;
     skos:hasTopConcept riepr-operationeel-zelfcontrole-water:feature;
     skos:prefLabel "Operationele gegevens"@nl.
-conceptscheme:operationeel_zelfcontrole_water_meting dcterms:created "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:ConceptScheme;
-    skos:hasTopConcept riepr-operationeel-zelfcontrole-water:datum, riepr-operationeel-zelfcontrole-water:labo-id, riepr-operationeel-zelfcontrole-water:labo-naam, riepr-operationeel-zelfcontrole-water:labo, riepr-operationeel-zelfcontrole-water:meting, riepr-operationeel-zelfcontrole-water:parameter;
-    adms:status <https://purl.archive.org/adms/status/Active>.
+conceptscheme:operationeel_zelfcontrole_water_meting a skos:ConceptScheme;
+    skos:hasTopConcept riepr-operationeel-zelfcontrole-water:datum, riepr-operationeel-zelfcontrole-water:labo-id, riepr-operationeel-zelfcontrole-water:labo-naam, riepr-operationeel-zelfcontrole-water:labo, riepr-operationeel-zelfcontrole-water:meting, riepr-operationeel-zelfcontrole-water:parameter.
 conceptscheme:procedure_type a skos:ConceptScheme;
     skos:definition "Een typering van verschillende procedures."@nl;
     skos:hasTopConcept riepr-procedure-type:emissie, riepr-procedure-type:hoofdactiviteit, riepr-procedure-type:meting, riepr-procedure-type:onttrekking, riepr-procedure-type:transport, riepr-procedure-type:uitwissel, riepr-procedure-type:verwerking;
@@ -1943,9 +1752,7 @@ conceptscheme:status_type a skos:ConceptScheme;
     skos:hasTopConcept riepr-status-type:definitief_uit_dienst, riepr-status-type:in_dienst, riepr-status-type:ontmanteld, riepr-status-type:tijdelijk_uit_dienst, riepr-status-type:verkeerde_registratie, riepr-status-type:voorgesteld;
     skos:note "Een typering van verschillende statussen (actief, inactief, ...)."@nl;
     skos:prefLabel "Status types"@nl.
-conceptscheme:thema_type dcterms:isVersionOf conceptscheme:thema_type;
-    dcterms:modified "2026-07-31T08:59:03.638Z"^^xsd:dateTime;
-    a skos:ConceptScheme;
+conceptscheme:thema_type a skos:ConceptScheme;
     skos:hasTopConcept riepr-thema-type:grondstoffen, riepr-thema-type:grondwater, riepr-thema-type:lucht, riepr-thema-type:water, riepr-thema-type:zelfcontrole-lucht, riepr-thema-type:zelfcontrole-water;
     skos:prefLabel "Thematische stroom"@nl.
 conceptscheme:uitwisselpunt_eigenschappen dcterms:isPartOf conceptscheme:systeem_eigenschappen;

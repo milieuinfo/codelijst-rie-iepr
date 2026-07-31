@@ -34,6 +34,12 @@ declare global {
     placeholder?: string
   }
 
+  interface VlSelectRichElement extends HTMLElement {
+    value: string | string[]
+    options?: Array<{ value: string; label: string; selected?: boolean }>
+    placeholder?: string
+  }
+
   interface VlInputElementEventDetail {
     value?: unknown
   }
