@@ -70,8 +70,12 @@ describe('CodelistService — fixture parsing', () => {
     it('returns top concepts for operationeel_lucht scheme', () => {
       const result = loadFixture()
       const topConcepts = CodelistServiceMock.getTopConceptsForScheme(result, 'conceptscheme:operationeel_lucht')
-      // hasTopConcept includes both roots AND composite children (ISSUES.md HASTOPCONCEPT-INCLUDES-CHILDREN)
-      expect(topConcepts.length).toBeGreaterThan(5)
+      // In the updated codelist format, operationeel_lucht has feature_ep as its sole top concept.
+      // feature_bron was moved to operationeel_lucht_bron scheme (accessed via seeAlso navigation).
+      expect(topConcepts.length).toBeGreaterThanOrEqual(1)
+      // Verify feature_ep is present
+      const featureEp = topConcepts.find(c => c.id.includes('feature_ep'))
+      expect(featureEp).toBeDefined()
     })
 
     it('returns empty array for unknown scheme id', () => {
@@ -124,17 +128,30 @@ describe('CodelistService — fixture parsing', () => {
       expect(CodelistServiceMock.getParent(result, rootConcept)).toBeNull()
     })
 
-    it('handles grondwater theme hierarchy (parent with multiple children)', () => {
+    /**
+     * In the updated codelist format, grondwater theme no longer has sub-themes via
+     * narrower at the thema level. Instead, the composite measurement types
+     * (kwaliteitsmeting, peilmeting, onttrekking/infiltratie) live as top-level
+     * concepts inside operationeel_grondwater scheme with their own narrower children.
+     */
+    it('handles grondwater composite hierarchy inside operationeel_grondwater scheme', () => {
       const result = loadFixture()
-      const grondwater = result.concepts.get('riepr-thema-type:grondwater')
-      expect(grondwater).toBeDefined()
-      expect(grondwater!.narrower).toBeDefined()
+      // Grondwater theme now uses seeAlso instead of narrower for navigation
+      const grondwaterThema = result.concepts.get('riepr-thema-type:grondwater')
+      expect(grondwaterThema).toBeDefined()
+      expect(grondwaterThema!.seeAlso).toContain('conceptscheme:operationeel_grondwater')
 
-      const children = CodelistServiceMock.getChildren(result, grondwater!)
+      // The composite measurement types are inside the operationeel_grondwater scheme
+      const peilmeting = result.concepts.get('riepr-operationeel-grondwater:peilmeting')
+      expect(peilmeting).toBeDefined()
+      expect(peilmeting!.narrower).toBeDefined()
+      expect(peilmeting!.narrower!.length).toBeGreaterThan(0)
+
+      const children = CodelistServiceMock.getChildren(result, peilmeting!)
       expect(children.length).toBeGreaterThan(1)
-      // Kwaliteitsmeting is one known child per ISSUES.md RELEVANTRIEPR-PLURALIZATION-TYPO
       const labels = children.map(c => c.prefLabel || '')
-      expect(labels.some(l => l.includes('Kwaliteitsmeting'))).toBe(true)
+      // Datum and Diepte are known children of peilmeting
+      expect(labels.some(l => l.includes('Datum'))).toBe(true)
     })
   })
 
@@ -155,17 +172,40 @@ describe('CodelistService — fixture parsing', () => {
       expect(schemes).toEqual([])
     })
 
-    it('getRelevantRieprRefs returns [] for a genuinely unresolvable relevantRiepr ref', () => {
+    /**
+     * In the updated codelist format, thema concepts use seeAlso instead of
+     * relevantRiepr for scheme navigation. This test verifies that getSeeAlsoRefs
+     * correctly resolves the link from a thema to its operationeel scheme.
+     */
+    it('getSeeAlsoRefs resolves theme → operationeel scheme navigation', () => {
       const result = loadFixture()
-      // zelfcontrole-water's relevantRiepr points at a scheme id that has no
-      // matching node in the fixture (still genuinely unresolvable — unlike
-      // grondwater-kwaliteitsmeting's old pluralization typo, fixed upstream).
+      // zelfcontrole-water's seeAlso points at operationeel_zelfcontrole_water scheme
       const concept = result.concepts.get('riepr-thema-type:zelfcontrole-water')
       expect(concept).toBeDefined()
-      expect(concept!.relevantRiepr).toBeDefined()
-      expect(concept!.relevantRiepr!).toContain('conceptscheme:operationeel_zelfcontrole_water')
+      expect(concept!.seeAlso).toBeDefined()
+      expect(concept!.seeAlso!).toContain('conceptscheme:operationeel_zelfcontrole_water')
 
-      const refs = CodelistServiceMock.getRelevantRieprRefs(result, concept!)
+      const refs = CodelistServiceMock.getSeeAlsoRefs(result, concept!)
+      expect(refs.length).toBeGreaterThan(0)
+      // The target should be a conceptscheme
+      const targetScheme = refs.find(r => r.type?.includes('skos:ConceptScheme'))
+      expect(targetScheme).toBeDefined()
+      expect(targetScheme!.id).toBe('conceptscheme:operationeel_zelfcontrole_water')
+    })
+
+    /**
+     * External seeAlso references (e.g., ADMS status URIs) are silently dropped
+     * since they don't resolve to local schemes or concepts in this document.
+     */
+    it('getSeeAlsoRefs drops external URI references (ADMS status links)', () => {
+      const result = loadFixture()
+      // Status type concepts have seeAlso pointing at external ADMS URIs
+      const concept = result.concepts.get('riepr-status-type:in_dienst')
+      expect(concept).toBeDefined()
+      expect(concept!.seeAlso).toBeDefined()
+
+      const refs = CodelistServiceMock.getSeeAlsoRefs(result, concept!)
+      // External URIs like http://purl.org/adms/status/Completed won't resolve locally
       expect(refs).toEqual([])
     })
 
@@ -175,6 +215,34 @@ describe('CodelistService — fixture parsing', () => {
       expect(concept).toBeDefined()
       const schemes = CodelistServiceMock.getCodeListSchemes(result, concept!)
       expect(schemes).toEqual([])
+    })
+  })
+
+  describe('resolveOperationeelSchemeId()', () => {
+    /**
+     * The new codelist format uses seeAlso for theme→scheme navigation.
+     * This helper method should resolve the operationeel scheme from a thema concept.
+     */
+    it('resolves operationeel scheme via seeAlso (new format)', () => {
+      const result = loadFixture()
+      const luchtThema = result.concepts.get('riepr-thema-type:lucht')!
+      const schemeId = svc.resolveOperationeelSchemeId(result, luchtThema)
+      expect(schemeId).toBe('conceptscheme:operationeel_lucht')
+    })
+
+    it('resolves operationeel scheme via seeAlso for grondstoffen', () => {
+      const result = loadFixture()
+      const grondstoffenThema = result.concepts.get('riepr-thema-type:grondstoffen')!
+      const schemeId = svc.resolveOperationeelSchemeId(result, grondstoffenThema)
+      expect(schemeId).toBe('conceptscheme:operationeel_grondstoffen')
+    })
+
+    it('returns undefined when no seeAlso or relevantRiepr points to a scheme', () => {
+      const result = loadFixture()
+      // A leaf concept without schema references
+      const leafConcept = result.concepts.get('riepr-operationeel-lucht:afvalproduct_aard')!
+      const schemeId = svc.resolveOperationeelSchemeId(result, leafConcept)
+      expect(schemeId).toBeUndefined()
     })
   })
 
@@ -207,6 +275,41 @@ describe('CodelistService — fixture parsing', () => {
       }
       // At least some concepts should have normalized booleans
       expect(foundBooleanField).toBe(true)
+    })
+  })
+
+  /**
+   * New properties from updated codelist format: seeAlso, isMultiselect, relevantClass.
+   */
+  describe('new codelist properties', () => {
+    it('parses seeAlso on a concept that chains to a sub-scheme', () => {
+      const result = loadFixture()
+      // feature_bron has seeAlso → operationeel_lucht_rapportering
+      const concept = result.concepts.get('riepr-operationeel-lucht:feature_bron')
+      expect(concept).toBeDefined()
+      expect(concept!.seeAlso).toContain('conceptscheme:operationeel_lucht_rapportering')
+    })
+
+    it('parses isMultiselect as boolean when normalizeBooleans is true', () => {
+      const result = loadFixture()
+      const concept = result.concepts.get('riepr-operationeel-lucht:feature_bron')
+      expect(concept).toBeDefined()
+      // isMultiselect: "true" in the source data → parsed as boolean true
+      expect(concept!.isMultiselect).toBe(true)
+    })
+
+    it('parses relevantClass string property', () => {
+      const result = loadFixture()
+      const concept = result.concepts.get('riepr-operationeel-lucht:afvalproduct')
+      expect(concept).toBeDefined()
+      expect(concept!.relevantClass).toBe('sosa:Observation')
+    })
+
+    it('parses relevantClass for FeatureOfInterest concepts', () => {
+      const result = loadFixture()
+      const concept = result.concepts.get('riepr-operationeel-lucht:feature_ep')
+      expect(concept).toBeDefined()
+      expect(concept!.relevantClass).toBe('sosa:FeatureOfInterest')
     })
   })
 })
@@ -284,4 +387,5 @@ const CodelistServiceMock = {
   getParent: (r: CodelistResult, c: Concept) => svc.getParent(r, c),
   getCodeListSchemes: (r: CodelistResult, c: Concept) => svc.getCodeListSchemes(r, c),
   getRelevantRieprRefs: (r: CodelistResult, n: Scheme | Concept) => svc.getRelevantRieprRefs(r, n),
+  getSeeAlsoRefs: (r: CodelistResult, n: Scheme | Concept) => svc.getSeeAlsoRefs(r, n),
 }

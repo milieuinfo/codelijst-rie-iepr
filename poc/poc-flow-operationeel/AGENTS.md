@@ -4,7 +4,7 @@
 
 This is a Dutch-language proof-of-concept web app that reads the **RIE-IEPR SKOS/JSON-LD codelist** (`public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld`) and renders a Vlaanderen-government data-entry form using the `@domg-wc/components` / `@domg-wc/styles` web-component library from the private Artifactory registry.
 
-The POC demonstrates how hierarchical code lists are interpreted: a user picks a thema/sub-thema, then sees operationele velden rendered as `<vl-input-field>`, `<vl-select>`, `<vl-checkbox>`, etc., with composite grouping, multi-value repetition, and a mock structural-instance picker — all without a backend.
+The POC demonstrates how hierarchical code lists are interpreted: a user picks a thema/sub-thema, then sees operationele velden rendered as `<vl-input-field>`, `<vl-select>`, `<vl-checkbox>`, etc., with composite grouping, multi-value repetition, structural pickers, and multi-step flow chaining via `seeAlso` — all without a backend.
 
 **Scope boundaries:** See [`docs/PROJECT_OUTLINE.md`](../docs/PROJECT_OUTLINE.md) for authoritative requirements, guardrails, out-of-scope items, and the full user-flow specification. Key constraints: no persistence, no security hardening, Dutch/Vlaams language only, use `@domg-wc/*` components wherever possible, avoid custom CSS.
 
@@ -19,7 +19,7 @@ From this canonical index, typed views are derived:
 - **concepts** — nodes whose `_type` includes `skos:Concept`
 - **topConcepts** — for each scheme, resolves its `hasTopConcept` / `has_top_concept` references to Concept objects
 
-All relations (broader, narrower, relevantCodeList, relevantRiepr, etc.) are resolved down to **plain id strings** (`string[]` or single string). Consumers always look up the real entity via `result.concepts.get(id)` / `result.schemes.get(id)`. No inline objects flow out of the service.
+All relations (broader, narrower, relevantCodeList, relevantRiepr, seeAlso, etc.) are resolved down to **plain id strings** (`string[]` or single string). Consumers always look up the real entity via `result.concepts.get(id)` / `result.schemes.get(id)`. No inline objects flow out of the service.
 
 The approach is deliberately **content-agnostic**: no conceptscheme name or property is special-cased. New schemes or new custom RIE-IEPR properties added to the source data need zero code changes here.
 
@@ -27,13 +27,25 @@ The approach is deliberately **content-agnostic**: no conceptscheme name or prop
 
 In the source data, `hasTopConcept` redundantly lists **every concept in a scheme**, including composite children. A concept with `broader` set is a child of another concept within the same scheme and should be rendered as part of that parent's composite group, not as a top-level question.
 
-Therefore, in `codelijst-operationeel-fields.ts:50`, root fields are derived as:
+Therefore, in `codelijst-operationeel-fields.ts`, root fields are derived as:
 
 ```ts
-getTopConceptsForScheme(result, schemeId).filter(field => !field.broader)
+getTopLevelConceptsForScheme(result, schemeId).filter(field => !field.broader)
 ```
 
 Any future component that needs to distinguish "top-level questions" from "composite children" must apply this same filter.
+
+### seeAlso-based navigation model (updated codelist format)
+
+The updated codelist uses `seeAlso` for two purposes:
+
+1. **Theme → operationeel scheme navigation:** Each thema concept has `seeAlso` pointing at its corresponding operationeel conceptscheme. Use `CodelistService.resolveOperationeelSchemeId()` which tries `seeAlso` first, then falls back to `relevantRiepr` for backward compatibility.
+
+2. **Multi-step flow chaining:** Within operational schemes, structural/feature concepts can have `seeAlso` pointing to sub-schemes. When the user selects a value for such a concept, the app navigates to the target scheme via a `flow-navigate` custom event. Example: `riepr-operationeel-lucht:feature_bron` has `seeAlso: "conceptscheme:operationeel_lucht_rapportering"`. After selecting bronnen, the app transitions to render the detailed reporting fields from that sub-scheme.
+
+Service methods:
+- `getSeeAlsoRefs(result, node)` — resolves `seeAlso` refs to Scheme or Concept objects (external URIs silently dropped)
+- `resolveOperationeelSchemeId(result, themeConcept)` — primary method for theme→scheme resolution
 
 ## 3. vl-* Component Library Integration
 
@@ -67,9 +79,25 @@ The `SEEDED_INSTANCES` map provides labels keyed by structural-type concept id. 
 
 **To add a new structural type**, just add a key+array entry to `SEEDED_INSTANCES`. No other code changes are needed — the fallback already covers unseeded types.
 
-## 5. How to Add Support for a New User-Flow Step
+## 5. Multi-Step Flow Architecture
 
-The POC must stay generic so that new flows can be added later per `docs/PROJECT_OUTLINE.md`. The current flow has three steps: thema selection → operationeel fields rendering. To add another step, follow this pattern:
+### Flow stack model
+
+`codelijst-app.ts` maintains a `flowStack: FlowStep[]` where each step is `{ schemeId, triggerConceptId? }`. The base step has no trigger (it comes from theme selection). Subsequent steps are pushed when a structural field with `seeAlso` gets a value.
+
+### Navigation events
+
+- **Theme selection** → resets flow stack, resolves base operationeel scheme via `resolveOperationeelSchemeId()`
+- **Structural field value change** → checks if the concept has `seeAlso` pointing to a scheme → emits `flow-navigate` event with `{ schemeId, triggerConceptId }`
+- **Back navigation** → pops from flow stack, shows breadcrumb nav when depth > 1
+
+### Rendering
+
+The current scheme being rendered is always `flowStack[flowStack.length - 1].schemeId`. The `<codelijst-operationeel-fields>` component renders fields for that scheme and listens for its own `flow-navigate` events to chain deeper.
+
+## 6. How to Add Support for a New User-Flow Step
+
+The POC must stay generic so that new flows can be added later per `docs/PROJECT_OUTLINE.md`. To add another step or handle new codelist properties:
 
 ### Step A: Add any new data resolution logic
 If the new step needs to resolve references from the codelist (e.g. a new property on Concept or Scheme), extend `CodelistService` with a helper method and/or update the typed models in `src/models/skos-models.ts`. The service is designed to handle new properties without breaking existing ones.
@@ -85,15 +113,15 @@ Create `src/components/codelijst-new-step.ts`:
 In `src/components/codelijst-app.ts`:
 - Import the new component
 - Add state variables for tracking the new step's selections
-- Conditionally render the new component between existing steps based on state
+- Conditionally render the new component between existing steps based on flow stack state
 - Handle the new step's events to drive subsequent rendering
 
 ### Step D: Update styles if needed
 Only if design tokens need updating — import additional `@domg-wc/styles/.../*.raw.css` sheets in `src/styles/main.css`. Prefer existing tokens over adding new ones.
 
-## 6. Codelist Sync Mechanism
+## 7. Codelist Sync Mechanism
 
-The POC reads `rie-iepr.jsonld` from its own copy at `public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld`, served by Vite as a static asset. This file is **not** the canonical source — the authoritative version lives in the sibling Java project at `../src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld`.
+The POC reads `rie-iepr.jsonld` from its own copy at `public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld`, served by Vite as a static asset. This file is **not** the canonical source — the authoritative version lives in the parent project at `../../src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld`.
 
 A no-dependency Node script (`scripts/sync-codelist.mjs`) copies the upstream file into place before every dev server start and build:
 
@@ -104,16 +132,14 @@ If the source file is missing, the script logs a warning to stdout and exits 0 (
 
 This ensures the POC always runs against the latest codelist without a human remembering to copy the file manually.
 
-## 6. Developer Guide — Reading Codelists (Dutch)
+## 8. Developer Guide — Reading Codelists (Dutch)
 
-For a comprehensive Dutch-language explanation of how to read and interpret the RIE-IEPR codelist data model, which properties are declarative (in the JSON-LD) vs imperative (TypeScript application logic), and where to find each concept mapping in the source code, see:
+For a comprehensive Dutch-language explanation of how to read and interpret the RIE-IEPR codelist data model, which properties are declarative (in the JSON-LD) vs imperative (TypeScript application logic), and where to find each concept mapping in the source code, see the root repository's [`README.md`](../../../README.md), section **"Interpretatie"**. This is the authoritative specification for how the codelist should be interpreted by the application.
 
-→ [`docs/CODELIST_README_NL.md`](docs/CODELIST_README_NL.md)
-
-This document covers SKOS/RDF concepts, RIE-IEPR extension properties, application vs. codelist logic distinction, file structure reference, concrete example walkthroughs, and common pitfalls.
-
-## 7. Task Planning Docs
+## 9. Task Planning Docs
 
 Task epics live under `docs/tasks/<NN-name>/DESCRIPTION.md`. Each task directory may also contain reviewer feedback or supplementary docs alongside its DESCRIPTION.md. When a task's scope changes during implementation, **update that task's DESCRIPTION.md** to reflect the current state rather than leaving stale AS IS / TO BE sections.
+
+The project outline with current tasks is at [`docs/PROJECT_OUTLINE.md`](../docs/PROJECT_OUTLINE.md).
 
 The repository root is `/mnt/d/workspace/omgeving.vlaanderen.be/codelijst-rie-iepr/poc`. All work stays within this directory per the guardrails documented in PROJECT_OUTLINE.md.

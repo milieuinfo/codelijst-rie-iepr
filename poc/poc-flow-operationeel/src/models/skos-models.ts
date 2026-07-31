@@ -39,6 +39,14 @@ export interface Concept {
   conditionPath?: string
   /** The value that the referenced field's current input must equal for this field to be shown. */
   conditionValue?: string
+  /** Links to another scheme or concept for multi-step flows. When a structural element is selected,
+   * the app transitions to the target scheme referenced here. Points at a `skos:ConceptScheme` id.
+   * Replaces the old pattern where `relevantRiepr` was used for theme→scheme navigation. */
+  seeAlso?: string[]
+  /** Indicates that a structural picker allows multiple selections (e.g., selecting multiple bronnen). */
+  isMultiselect?: boolean | string
+  /** SOSA class mapping — e.g., `sosa:Observation`, `sosa:FeatureOfInterest`. Used for future backend integration. */
+  relevantClass?: string
   /** Optional Dutch instruction text shown when structural/procedural picker gating hides composite children.
    * When absent, a default message derived from the relatedRiepr concept's definition or prefLabel is used. */
   selecteerEerstMessage?: string
@@ -52,6 +60,8 @@ export interface Scheme {
   note?: string
   /** Points at a structural type concept (e.g. a meetpunt/installatie type) this scheme's data is collected for. */
   relevantRiepr?: string[]
+  /** Links to another scheme for multi-step flows. Resolved to a `skos:ConceptScheme` id. */
+  seeAlso?: string[]
 }
 
 

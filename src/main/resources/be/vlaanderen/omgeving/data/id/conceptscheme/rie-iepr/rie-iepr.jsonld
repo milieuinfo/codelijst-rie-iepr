@@ -737,6 +737,12 @@
         "riepr-operationeel-bepalingsmethodeclassificatie": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bepalingsmethodeclassificatie/",
         "riepr-operationeel-peilmethode": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-peilmethode/",
         "riepr-operationeel-pomptoestand": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/",
+        "riepr-emissie-type": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissie-type/",
+        "riepr-meetpunt-eigenschappen": "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen/",
+        "riepr-operationeel-bestemmingstype": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/",
+        "riepr-operationeel-contextueel": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-contextueel/",
+        "riepr-operationeel-debiet-type": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-debiet-type/",
+        "riepr-operationeel-toepassingwijze": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toepassingswijze/",
         "metadata": "https://data.omgeving.vlaanderen.be/ns/metadata#",
         "observatie": "https://data.riepr.omgeving.vlaanderen.be/id/observation/",
         "omg_catalog_doc": "https://data.omgeving.vlaanderen.be/doc/catalog/",
@@ -915,7 +921,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "hasTopConcept": [
                 "riepr-operationeel-zelfcontrole-lucht:feature"
@@ -1166,7 +1172,7 @@
             "isVersionOf": "riepr-emissiepunt-eigenschappen:schouw-diameter",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "rdfs:value",
             "relevantUnit": [
@@ -1427,7 +1433,7 @@
             "isVersionOf": "riepr-emissiepunt-eigenschappen:schouw-hoogte",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "rdfs:value",
             "relevantUnit": [
@@ -1842,7 +1848,7 @@
             "isVersionOf": "riepr-installatie-eigenschappen:geinstalleerd_vermogen",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relevantUnit": [
                 {
@@ -2099,7 +2105,7 @@
             "isVersionOf": "riepr-installatie-eigenschappen:geinstalleerde_opslagcapaciteit",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "definition": "De geïnstalleerde opslagcapaciteit",
             "inScheme": "conceptscheme:installatie_eigenschappen",
@@ -2533,7 +2539,7 @@
             "isVersionOf": "riepr-installatie-eigenschappen:verwijderingsrendement_percentage",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "rdfs:value",
             "relevantUnit": [
@@ -3100,6 +3106,484 @@
             "topConceptOf": "conceptscheme:installatie_type"
         },
         {
+            "id": "riepr-meetpunt-eigenschappen:diepte",
+            "_type": [
+                "skos:Concept"
+            ],
+            "isPartOf": "conceptscheme:systeem_eigenschappen",
+            "isVersionOf": "riepr-meetpunt-eigenschappen:diepte",
+            "dcterms:modified": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-07-31T08:59:03.638Z"
+            },
+            "relation": "rdfs:value",
+            "relevantUnit": [
+                {
+                    "id": "unit:M",
+                    "_type": [
+                        "qudt:Unit",
+                        "skos:Concept"
+                    ],
+                    "inScheme": {
+                        "id": "conceptscheme:eenheden",
+                        "_type": [
+                            "skos:ConceptScheme"
+                        ],
+                        "hasTopConcept": [
+                            {
+                                "id": "unit:DEG_C",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "°C",
+                                "prefLabel": "Celsius",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:K",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "K",
+                                "prefLabel": "Kelvin",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            "unit:M",
+                            {
+                                "id": "unit:MegaW",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "MW",
+                                "prefLabel": "Mega Watt",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:MicroGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "µg/l",
+                                "prefLabel": "Microgram per liter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:MilliGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "mg/l",
+                                "prefLabel": "Milligram per liter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:NanoGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "ng/l",
+                                "prefLabel": "Nanogram per liter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:PERCENT",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "%",
+                                "prefLabel": "Percent",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:PPB",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "PPB",
+                                "prefLabel": "ppb",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:PPM",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "PPM",
+                                "prefLabel": "PPM",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            }
+                        ]
+                    },
+                    "code": "m",
+                    "prefLabel": "Meter",
+                    "topConceptOf": "conceptscheme:eenheden"
+                }
+            ],
+            "inScheme": "conceptscheme:meetpunt_eigenschappen",
+            "code": "MEETPUNT_DIEPTE",
+            "prefLabel": "Diepte",
+            "topConceptOf": "conceptscheme:meetpunt_eigenschappen",
+            "isVerplicht": "true",
+            "relevantDataType": "xsd:decimal",
+            "relevantRiepr": [
+                {
+                    "id": "riepr-meetpunt-type:peilput",
+                    "_type": [
+                        "skos:Concept"
+                    ],
+                    "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                    "inScheme": {
+                        "id": "conceptscheme:meetpunt_type",
+                        "_type": [
+                            "skos:ConceptScheme"
+                        ],
+                        "hasTopConcept": [
+                            "riepr-meetpunt-type:peilput",
+                            {
+                                "id": "riepr-meetpunt-type:controleinrichting",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
+                                "inScheme": "conceptscheme:meetpunt_type",
+                                "code": "controleinrichting",
+                                "note": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
+                                "prefLabel": "Controleinrichting",
+                                "topConceptOf": "conceptscheme:meetpunt_type",
+                                "isMeetbaar": "true"
+                            },
+                            {
+                                "id": "riepr-meetpunt-type:debietmeter",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een meetinrichting is een meetpunt voor een pompput.",
+                                "inScheme": "conceptscheme:meetpunt_type",
+                                "code": "debietmeter",
+                                "note": "Een meetinrichting is een meetpunt voor een pompput.",
+                                "prefLabel": "Debietmeter",
+                                "topConceptOf": "conceptscheme:meetpunt_type",
+                                "isMeetbaar": "true"
+                            }
+                        ],
+                        "prefLabel": "Meetpunt types"
+                    },
+                    "code": "peilput",
+                    "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                    "prefLabel": "Peilput",
+                    "topConceptOf": "conceptscheme:meetpunt_type",
+                    "isMeetbaar": "true"
+                }
+            ]
+        },
+        {
+            "id": "riepr-meetpunt-eigenschappen:referentiepunt",
+            "_type": [
+                "skos:Concept"
+            ],
+            "isPartOf": "conceptscheme:systeem_eigenschappen",
+            "definition": "Samengestelde eigenschap voor referentiepunt (naam en hoogte in meter).",
+            "inScheme": "conceptscheme:meetpunt_eigenschappen",
+            "narrower": [
+                "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
+                "riepr-meetpunt-eigenschappen:referentiepunt_naam"
+            ],
+            "narrowerTransitive": [
+                "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
+                "riepr-meetpunt-eigenschappen:referentiepunt_naam"
+            ],
+            "code": "MEETPUNT_REFERENTIEPUNT",
+            "note": "Samengestelde eigenschap voor referentiepunt (naam en hoogte in meter).",
+            "prefLabel": "Referentiepunt",
+            "semanticRelation": [
+                "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
+                "riepr-meetpunt-eigenschappen:referentiepunt_naam"
+            ],
+            "topConceptOf": "conceptscheme:meetpunt_eigenschappen",
+            "isMeervoudig": "true"
+        },
+        {
+            "id": "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
+            "_type": [
+                "skos:Concept"
+            ],
+            "isPartOf": "conceptscheme:systeem_eigenschappen",
+            "isVersionOf": "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
+            "dcterms:modified": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-07-31T08:59:03.638Z"
+            },
+            "relation": "rdfs:value",
+            "relevantUnit": [
+                {
+                    "id": "unit:M",
+                    "_type": [
+                        "qudt:Unit",
+                        "skos:Concept"
+                    ],
+                    "inScheme": {
+                        "id": "conceptscheme:eenheden",
+                        "_type": [
+                            "skos:ConceptScheme"
+                        ],
+                        "hasTopConcept": [
+                            {
+                                "id": "unit:DEG_C",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "°C",
+                                "prefLabel": "Celsius",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:K",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "K",
+                                "prefLabel": "Kelvin",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            "unit:M",
+                            {
+                                "id": "unit:MegaW",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "MW",
+                                "prefLabel": "Mega Watt",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:MicroGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "µg/l",
+                                "prefLabel": "Microgram per liter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:MilliGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "mg/l",
+                                "prefLabel": "Milligram per liter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:NanoGM-PER-L",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "ng/l",
+                                "prefLabel": "Nanogram per liter",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:PERCENT",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "%",
+                                "prefLabel": "Percent",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:PPB",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "PPB",
+                                "prefLabel": "ppb",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            },
+                            {
+                                "id": "unit:PPM",
+                                "_type": [
+                                    "qudt:Unit",
+                                    "skos:Concept"
+                                ],
+                                "inScheme": "conceptscheme:eenheden",
+                                "code": "PPM",
+                                "prefLabel": "PPM",
+                                "topConceptOf": "conceptscheme:eenheden"
+                            }
+                        ]
+                    },
+                    "code": "m",
+                    "prefLabel": "Meter",
+                    "topConceptOf": "conceptscheme:eenheden"
+                }
+            ],
+            "broader": "riepr-meetpunt-eigenschappen:referentiepunt",
+            "broaderTransitive": "riepr-meetpunt-eigenschappen:referentiepunt",
+            "inScheme": "conceptscheme:meetpunt_eigenschappen",
+            "code": "MEETPUNT_REFERENTIEPUNT_DIEPTE",
+            "prefLabel": "Diepte",
+            "semanticRelation": [
+                "riepr-meetpunt-eigenschappen:referentiepunt"
+            ],
+            "topConceptOf": "conceptscheme:meetpunt_eigenschappen",
+            "isMeervoudig": "false",
+            "relevantDataType": "xsd:decimal",
+            "relevantRiepr": [
+                {
+                    "id": "riepr-meetpunt-type:peilput",
+                    "_type": [
+                        "skos:Concept"
+                    ],
+                    "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                    "inScheme": {
+                        "id": "conceptscheme:meetpunt_type",
+                        "_type": [
+                            "skos:ConceptScheme"
+                        ],
+                        "hasTopConcept": [
+                            "riepr-meetpunt-type:peilput",
+                            {
+                                "id": "riepr-meetpunt-type:controleinrichting",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
+                                "inScheme": "conceptscheme:meetpunt_type",
+                                "code": "controleinrichting",
+                                "note": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
+                                "prefLabel": "Controleinrichting",
+                                "topConceptOf": "conceptscheme:meetpunt_type",
+                                "isMeetbaar": "true"
+                            },
+                            {
+                                "id": "riepr-meetpunt-type:debietmeter",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een meetinrichting is een meetpunt voor een pompput.",
+                                "inScheme": "conceptscheme:meetpunt_type",
+                                "code": "debietmeter",
+                                "note": "Een meetinrichting is een meetpunt voor een pompput.",
+                                "prefLabel": "Debietmeter",
+                                "topConceptOf": "conceptscheme:meetpunt_type",
+                                "isMeetbaar": "true"
+                            }
+                        ],
+                        "prefLabel": "Meetpunt types"
+                    },
+                    "code": "peilput",
+                    "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                    "prefLabel": "Peilput",
+                    "topConceptOf": "conceptscheme:meetpunt_type",
+                    "isMeetbaar": "true"
+                }
+            ]
+        },
+        {
+            "id": "riepr-meetpunt-eigenschappen:referentiepunt_naam",
+            "_type": [
+                "skos:Concept"
+            ],
+            "isPartOf": "conceptscheme:systeem_eigenschappen",
+            "relation": "rdfs:label",
+            "broader": "riepr-meetpunt-eigenschappen:referentiepunt",
+            "broaderTransitive": "riepr-meetpunt-eigenschappen:referentiepunt",
+            "inScheme": "conceptscheme:meetpunt_eigenschappen",
+            "code": "MEETPUNT_REFERENTIEPUNT_NAAM",
+            "prefLabel": "Naam",
+            "semanticRelation": [
+                "riepr-meetpunt-eigenschappen:referentiepunt"
+            ],
+            "topConceptOf": "conceptscheme:meetpunt_eigenschappen",
+            "isMeervoudig": "false",
+            "relevantDataType": "xsd:string",
+            "relevantRiepr": [
+                {
+                    "id": "riepr-meetpunt-type:peilput",
+                    "_type": [
+                        "skos:Concept"
+                    ],
+                    "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                    "inScheme": {
+                        "id": "conceptscheme:meetpunt_type",
+                        "_type": [
+                            "skos:ConceptScheme"
+                        ],
+                        "hasTopConcept": [
+                            "riepr-meetpunt-type:peilput",
+                            {
+                                "id": "riepr-meetpunt-type:controleinrichting",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
+                                "inScheme": "conceptscheme:meetpunt_type",
+                                "code": "controleinrichting",
+                                "note": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
+                                "prefLabel": "Controleinrichting",
+                                "topConceptOf": "conceptscheme:meetpunt_type",
+                                "isMeetbaar": "true"
+                            },
+                            {
+                                "id": "riepr-meetpunt-type:debietmeter",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een meetinrichting is een meetpunt voor een pompput.",
+                                "inScheme": "conceptscheme:meetpunt_type",
+                                "code": "debietmeter",
+                                "note": "Een meetinrichting is een meetpunt voor een pompput.",
+                                "prefLabel": "Debietmeter",
+                                "topConceptOf": "conceptscheme:meetpunt_type",
+                                "isMeetbaar": "true"
+                            }
+                        ],
+                        "prefLabel": "Meetpunt types"
+                    },
+                    "code": "peilput",
+                    "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                    "prefLabel": "Peilput",
+                    "topConceptOf": "conceptscheme:meetpunt_type",
+                    "isMeetbaar": "true"
+                }
+            ]
+        },
+        {
             "id": "riepr-meetpunt-type:controleinrichting",
             "_type": [
                 "skos:Concept"
@@ -3147,7 +3631,7 @@
             "isVersionOf": "riepr-onttrekkingspunt-eigenschappen:diepte",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "rdfs:value",
             "relevantUnit": [
@@ -3440,6 +3924,100 @@
             "topConceptOf": "conceptscheme:operationeel_bepalingsmethodeclassificatie"
         },
         {
+            "id": "riepr-operationeel-bestemmingstype:belgisch",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:operationeel_bestemmingstype",
+            "prefLabel": "Belgische vestiging",
+            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
+        },
+        {
+            "id": "riepr-operationeel-bestemmingstype:buitenlands",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:operationeel_bestemmingstype",
+            "prefLabel": "Buitenlandse vestiging",
+            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
+        },
+        {
+            "id": "riepr-operationeel-bestemmingstype:dispers",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:operationeel_bestemmingstype",
+            "prefLabel": "Dispers gebruik",
+            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
+        },
+        {
+            "id": "riepr-operationeel-bestemmingstype:geen_onderneming",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:operationeel_bestemmingstype",
+            "prefLabel": "Geen onderneming",
+            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
+        },
+        {
+            "id": "riepr-operationeel-bestemmingstype:particulier",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:operationeel_bestemmingstype",
+            "prefLabel": "Particulier",
+            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
+        },
+        {
+            "id": "riepr-operationeel-bestemmingstype:werf",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:operationeel_bestemmingstype",
+            "prefLabel": "Werf",
+            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
+        },
+        {
+            "id": "riepr-operationeel-debiet-type:infiltratie",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:operationeel_debiet_type",
+            "code": "DEBIET_TYPE_INFILITRATIE",
+            "prefLabel": "Infiltratie",
+            "topConceptOf": "conceptscheme:operationeel_debiet_type"
+        },
+        {
+            "id": "riepr-operationeel-debiet-type:onttrekking",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:operationeel_debiet_type",
+            "code": "DEBIET_TYPE_ONTTREKKING",
+            "prefLabel": "Onttrekking",
+            "topConceptOf": "conceptscheme:operationeel_debiet_type"
+        },
+        {
+            "id": "riepr-operationeel-debiet-type:spui",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:operationeel_debiet_type",
+            "code": "DEBIET_TYPE_SPUI",
+            "prefLabel": "Spui",
+            "topConceptOf": "conceptscheme:operationeel_debiet_type"
+        },
+        {
+            "id": "riepr-operationeel-debiet-type:totaal_rondgepompd",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:operationeel_debiet_type",
+            "code": "DEBIET_TYPE_TOTAAL_RONDGEPOMPD",
+            "prefLabel": "Totaal rondgepompd",
+            "topConceptOf": "conceptscheme:operationeel_debiet_type"
+        },
+        {
             "id": "riepr-operationeel-grondstoffen:geproduceerd",
             "_type": [
                 "skos:Concept"
@@ -3456,7 +4034,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "inScheme": "conceptscheme:operationeel_grondstoffen",
             "narrower": [
@@ -3506,7 +4084,7 @@
                         "isVersionOf": "conceptscheme:operationeel_grondstoffen",
                         "dcterms:modified": {
                             "_type": "xsd:dateTime",
-                            "_value": "2026-07-30T10:55:52.101Z"
+                            "_value": "2026-07-31T08:59:03.638Z"
                         },
                         "hasTopConcept": [
                             "riepr-operationeel-grondstoffen:geproduceerd",
@@ -3518,7 +4096,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-07-30T10:55:52.101Z"
+                                    "_value": "2026-07-31T08:59:03.638Z"
                                 },
                                 "broader": "riepr-operationeel-grondstoffen:grondstof",
                                 "broaderTransitive": "riepr-operationeel-grondstoffen:grondstof",
@@ -3605,7 +4183,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-07-30T10:55:52.101Z"
+                                    "_value": "2026-07-31T08:59:03.638Z"
                                 },
                                 "relation": "sosa:hasResult",
                                 "relevantUnit": [
@@ -3632,7 +4210,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-07-30T10:55:52.101Z"
+                                    "_value": "2026-07-31T08:59:03.638Z"
                                 },
                                 "broader": "riepr-operationeel-grondstoffen:grondstof",
                                 "broaderTransitive": "riepr-operationeel-grondstoffen:grondstof",
@@ -3656,7 +4234,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-07-30T10:55:52.101Z"
+                                    "_value": "2026-07-31T08:59:03.638Z"
                                 },
                                 "relation": "rdfs:comment",
                                 "broader": "riepr-operationeel-grondstoffen:grondstof",
@@ -3680,7 +4258,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-07-30T10:55:52.101Z"
+                                    "_value": "2026-07-31T08:59:03.638Z"
                                 },
                                 "relation": "rdfs:comment",
                                 "broader": "riepr-operationeel-grondstoffen:grondstof",
@@ -3704,7 +4282,7 @@
                                 ],
                                 "dcterms:created": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-07-30T10:55:52.101Z"
+                                    "_value": "2026-07-31T08:59:03.638Z"
                                 },
                                 "broader": "riepr-operationeel-grondstoffen:grondstof",
                                 "broaderTransitive": "riepr-operationeel-grondstoffen:grondstof",
@@ -3777,7 +4355,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-grondstoffen:grondstof",
             "broaderTransitive": "riepr-operationeel-grondstoffen:grondstof",
@@ -3802,7 +4380,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "sosa:hasResult",
             "relevantUnit": [
@@ -3829,7 +4407,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-grondstoffen:grondstof",
             "broaderTransitive": "riepr-operationeel-grondstoffen:grondstof",
@@ -3853,7 +4431,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "rdfs:comment",
             "broader": "riepr-operationeel-grondstoffen:grondstof",
@@ -3877,7 +4455,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "rdfs:comment",
             "broader": "riepr-operationeel-grondstoffen:grondstof",
@@ -3901,7 +4479,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-grondstoffen:grondstof",
             "broaderTransitive": "riepr-operationeel-grondstoffen:grondstof",
@@ -3927,7 +4505,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:datum",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-grondwater:peilmeting",
             "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -3947,7 +4525,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:diepte",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relevantUnit": [
                 {
@@ -4087,7 +4665,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:duur-stil",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-grondwater:peilmeting",
             "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -4137,7 +4715,7 @@
                     "isVersionOf": "riepr-operationeel-grondwater:pomptoestand",
                     "dcterms:modified": {
                         "_type": "xsd:dateTime",
-                        "_value": "2026-07-30T10:55:52.101Z"
+                        "_value": "2026-07-31T08:59:03.638Z"
                     },
                     "broader": {
                         "id": "riepr-operationeel-grondwater:peilmeting",
@@ -4146,7 +4724,7 @@
                         ],
                         "dcterms:created": {
                             "_type": "xsd:dateTime",
-                            "_value": "2026-07-30T10:55:52.101Z"
+                            "_value": "2026-07-31T08:59:03.638Z"
                         },
                         "definition": "Een peilmeting van een pomp- of peilput.",
                         "inScheme": {
@@ -4157,7 +4735,7 @@
                             "isVersionOf": "conceptscheme:operationeel_grondwater",
                             "dcterms:modified": {
                                 "_type": "xsd:dateTime",
-                                "_value": "2026-07-30T10:55:52.101Z"
+                                "_value": "2026-07-31T08:59:03.638Z"
                             },
                             "hasTopConcept": [
                                 {
@@ -4168,7 +4746,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:datum",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -4189,7 +4767,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:diepte",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "relevantUnit": [
                                         {
@@ -4330,7 +4908,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "definition": "Een kwaliteitsmeting van een pomp- of peilput.",
                                     "inScheme": "conceptscheme:operationeel_grondwater",
@@ -4342,7 +4920,7 @@
                                             ],
                                             "dcterms:created": {
                                                 "_type": "xsd:dateTime",
-                                                "_value": "2026-07-30T10:55:52.101Z"
+                                                "_value": "2026-07-31T08:59:03.638Z"
                                             },
                                             "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                             "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -4384,7 +4962,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "definition": "Een meting van de onttrekking van een pompput.",
                                     "inScheme": "conceptscheme:operationeel_grondwater",
@@ -4396,7 +4974,7 @@
                                             ],
                                             "dcterms:created": {
                                                 "_type": "xsd:dateTime",
-                                                "_value": "2026-07-30T10:55:52.101Z"
+                                                "_value": "2026-07-31T08:59:03.638Z"
                                             },
                                             "broader": "riepr-operationeel-grondwater:onttrekking",
                                             "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
@@ -4425,6 +5003,19 @@
                                                         ],
                                                         "hasTopConcept": [
                                                             {
+                                                                "id": "riepr-meetpunt-type:peilput",
+                                                                "_type": [
+                                                                    "skos:Concept"
+                                                                ],
+                                                                "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                                                                "inScheme": "conceptscheme:meetpunt_type",
+                                                                "code": "peilput",
+                                                                "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                                                                "prefLabel": "Peilput",
+                                                                "topConceptOf": "conceptscheme:meetpunt_type",
+                                                                "isMeetbaar": "true"
+                                                            },
+                                                            {
                                                                 "id": "riepr-meetpunt-type:controleinrichting",
                                                                 "_type": [
                                                                     "skos:Concept"
@@ -4437,20 +5028,7 @@
                                                                 "topConceptOf": "conceptscheme:meetpunt_type",
                                                                 "isMeetbaar": "true"
                                                             },
-                                                            "riepr-meetpunt-type:debietmeter",
-                                                            {
-                                                                "id": "riepr-meetpunt-type:peilput",
-                                                                "_type": [
-                                                                    "skos:Concept"
-                                                                ],
-                                                                "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
-                                                                "inScheme": "conceptscheme:meetpunt_type",
-                                                                "code": "peilput",
-                                                                "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
-                                                                "prefLabel": "Peilput",
-                                                                "topConceptOf": "conceptscheme:meetpunt_type",
-                                                                "isMeetbaar": "true"
-                                                            }
+                                                            "riepr-meetpunt-type:debietmeter"
                                                         ],
                                                         "prefLabel": "Meetpunt types"
                                                     },
@@ -4470,7 +5048,7 @@
                                             "isVersionOf": "riepr-operationeel-grondwater:periode",
                                             "dcterms:modified": {
                                                 "_type": "xsd:dateTime",
-                                                "_value": "2026-07-30T10:55:52.101Z"
+                                                "_value": "2026-07-31T08:59:03.638Z"
                                             },
                                             "broader": "riepr-operationeel-grondwater:onttrekking",
                                             "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
@@ -4490,7 +5068,7 @@
                                             "isVersionOf": "riepr-operationeel-grondwater:type-debiet",
                                             "dcterms:modified": {
                                                 "_type": "xsd:dateTime",
-                                                "_value": "2026-07-30T10:55:52.101Z"
+                                                "_value": "2026-07-31T08:59:03.638Z"
                                             },
                                             "broader": "riepr-operationeel-grondwater:onttrekking",
                                             "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
@@ -4560,7 +5138,7 @@
                                             "isVersionOf": "riepr-operationeel-grondwater:volume",
                                             "dcterms:modified": {
                                                 "_type": "xsd:dateTime",
-                                                "_value": "2026-07-30T10:55:52.101Z"
+                                                "_value": "2026-07-31T08:59:03.638Z"
                                             },
                                             "broader": "riepr-operationeel-grondwater:onttrekking",
                                             "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
@@ -4605,7 +5183,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:peilmethode",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -4664,7 +5242,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -4691,7 +5269,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:referentiepunt",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -4719,7 +5297,6 @@
                                                 "isPartOf": "conceptscheme:systeem_eigenschappen",
                                                 "definition": "Een typering van verschillende eigenschappen voor meetpunten.",
                                                 "hasTopConcept": [
-                                                    "riepr-meetpunt-eigenschappen:referentiepunt",
                                                     {
                                                         "id": "riepr-meetpunt-eigenschappen:diepte",
                                                         "_type": [
@@ -4729,7 +5306,7 @@
                                                         "isVersionOf": "riepr-meetpunt-eigenschappen:diepte",
                                                         "dcterms:modified": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-07-30T10:55:52.101Z"
+                                                            "_value": "2026-07-31T08:59:03.638Z"
                                                         },
                                                         "relation": "rdfs:value",
                                                         "relevantUnit": [
@@ -4745,6 +5322,7 @@
                                                             "riepr-meetpunt-type:peilput"
                                                         ]
                                                     },
+                                                    "riepr-meetpunt-eigenschappen:referentiepunt",
                                                     {
                                                         "id": "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
                                                         "_type": [
@@ -4754,7 +5332,7 @@
                                                         "isVersionOf": "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
                                                         "dcterms:modified": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-07-30T10:55:52.101Z"
+                                                            "_value": "2026-07-31T08:59:03.638Z"
                                                         },
                                                         "relation": "rdfs:value",
                                                         "relevantUnit": [
@@ -4829,7 +5407,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:volume-rust",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "relevantUnit": [
                                         "unit:M3"
@@ -4858,7 +5436,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:volume-werking",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "relevantUnit": [
                                         "unit:M3"
@@ -4943,7 +5521,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "definition": "Een kwaliteitsmeting van een pomp- of peilput.",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -4971,7 +5549,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
             "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -4997,7 +5575,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "definition": "Een meting van de onttrekking van een pompput.",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -5034,7 +5612,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-grondwater:onttrekking",
             "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
@@ -5063,6 +5641,19 @@
                         ],
                         "hasTopConcept": [
                             {
+                                "id": "riepr-meetpunt-type:peilput",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                                "inScheme": "conceptscheme:meetpunt_type",
+                                "code": "peilput",
+                                "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                                "prefLabel": "Peilput",
+                                "topConceptOf": "conceptscheme:meetpunt_type",
+                                "isMeetbaar": "true"
+                            },
+                            {
                                 "id": "riepr-meetpunt-type:controleinrichting",
                                 "_type": [
                                     "skos:Concept"
@@ -5075,20 +5666,7 @@
                                 "topConceptOf": "conceptscheme:meetpunt_type",
                                 "isMeetbaar": "true"
                             },
-                            "riepr-meetpunt-type:debietmeter",
-                            {
-                                "id": "riepr-meetpunt-type:peilput",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
-                                "inScheme": "conceptscheme:meetpunt_type",
-                                "code": "peilput",
-                                "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
-                                "prefLabel": "Peilput",
-                                "topConceptOf": "conceptscheme:meetpunt_type",
-                                "isMeetbaar": "true"
-                            }
+                            "riepr-meetpunt-type:debietmeter"
                         ],
                         "prefLabel": "Meetpunt types"
                     },
@@ -5108,7 +5686,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:peilmethode",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-grondwater:peilmeting",
             "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -5129,7 +5707,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "definition": "Een peilmeting van een pomp- of peilput.",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -5181,7 +5759,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-grondwater:peilmeting",
             "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -5208,7 +5786,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:periode",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-grondwater:onttrekking",
             "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
@@ -5228,7 +5806,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:pomptoestand",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-grondwater:peilmeting",
             "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -5250,7 +5828,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:referentiepunt",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-grondwater:peilmeting",
             "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -5278,7 +5856,6 @@
                         "isPartOf": "conceptscheme:systeem_eigenschappen",
                         "definition": "Een typering van verschillende eigenschappen voor meetpunten.",
                         "hasTopConcept": [
-                            "riepr-meetpunt-eigenschappen:referentiepunt",
                             {
                                 "id": "riepr-meetpunt-eigenschappen:diepte",
                                 "_type": [
@@ -5288,7 +5865,7 @@
                                 "isVersionOf": "riepr-meetpunt-eigenschappen:diepte",
                                 "dcterms:modified": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-07-30T10:55:52.101Z"
+                                    "_value": "2026-07-31T08:59:03.638Z"
                                 },
                                 "relation": "rdfs:value",
                                 "relevantUnit": [
@@ -5430,6 +6007,7 @@
                                                 "skos:ConceptScheme"
                                             ],
                                             "hasTopConcept": [
+                                                "riepr-meetpunt-type:peilput",
                                                 {
                                                     "id": "riepr-meetpunt-type:controleinrichting",
                                                     "_type": [
@@ -5455,8 +6033,7 @@
                                                     "prefLabel": "Debietmeter",
                                                     "topConceptOf": "conceptscheme:meetpunt_type",
                                                     "isMeetbaar": "true"
-                                                },
-                                                "riepr-meetpunt-type:peilput"
+                                                }
                                             ],
                                             "prefLabel": "Meetpunt types"
                                         },
@@ -5468,6 +6045,7 @@
                                     }
                                 ]
                             },
+                            "riepr-meetpunt-eigenschappen:referentiepunt",
                             {
                                 "id": "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
                                 "_type": [
@@ -5477,7 +6055,7 @@
                                 "isVersionOf": "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
                                 "dcterms:modified": {
                                     "_type": "xsd:dateTime",
-                                    "_value": "2026-07-30T10:55:52.101Z"
+                                    "_value": "2026-07-31T08:59:03.638Z"
                                 },
                                 "relation": "rdfs:value",
                                 "relevantUnit": [
@@ -5552,7 +6130,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:type-debiet",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-grondwater:onttrekking",
             "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
@@ -5574,7 +6152,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:volume",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-grondwater:onttrekking",
             "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
@@ -5594,7 +6172,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:volume-rust",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relevantUnit": [
                 "unit:M3"
@@ -5647,7 +6225,7 @@
                     "isVersionOf": "riepr-operationeel-grondwater:pomptoestand",
                     "dcterms:modified": {
                         "_type": "xsd:dateTime",
-                        "_value": "2026-07-30T10:55:52.101Z"
+                        "_value": "2026-07-31T08:59:03.638Z"
                     },
                     "broader": {
                         "id": "riepr-operationeel-grondwater:peilmeting",
@@ -5656,7 +6234,7 @@
                         ],
                         "dcterms:created": {
                             "_type": "xsd:dateTime",
-                            "_value": "2026-07-30T10:55:52.101Z"
+                            "_value": "2026-07-31T08:59:03.638Z"
                         },
                         "definition": "Een peilmeting van een pomp- of peilput.",
                         "inScheme": {
@@ -5667,7 +6245,7 @@
                             "isVersionOf": "conceptscheme:operationeel_grondwater",
                             "dcterms:modified": {
                                 "_type": "xsd:dateTime",
-                                "_value": "2026-07-30T10:55:52.101Z"
+                                "_value": "2026-07-31T08:59:03.638Z"
                             },
                             "hasTopConcept": [
                                 {
@@ -5678,7 +6256,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:datum",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -5699,7 +6277,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:diepte",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "relevantUnit": [
                                         {
@@ -5839,7 +6417,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:duur-stil",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -5865,7 +6443,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "definition": "Een kwaliteitsmeting van een pomp- of peilput.",
                                     "inScheme": "conceptscheme:operationeel_grondwater",
@@ -5877,7 +6455,7 @@
                                             ],
                                             "dcterms:created": {
                                                 "_type": "xsd:dateTime",
-                                                "_value": "2026-07-30T10:55:52.101Z"
+                                                "_value": "2026-07-31T08:59:03.638Z"
                                             },
                                             "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                             "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -5919,7 +6497,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "definition": "Een meting van de onttrekking van een pompput.",
                                     "inScheme": "conceptscheme:operationeel_grondwater",
@@ -5931,7 +6509,7 @@
                                             ],
                                             "dcterms:created": {
                                                 "_type": "xsd:dateTime",
-                                                "_value": "2026-07-30T10:55:52.101Z"
+                                                "_value": "2026-07-31T08:59:03.638Z"
                                             },
                                             "broader": "riepr-operationeel-grondwater:onttrekking",
                                             "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
@@ -5960,6 +6538,19 @@
                                                         ],
                                                         "hasTopConcept": [
                                                             {
+                                                                "id": "riepr-meetpunt-type:peilput",
+                                                                "_type": [
+                                                                    "skos:Concept"
+                                                                ],
+                                                                "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                                                                "inScheme": "conceptscheme:meetpunt_type",
+                                                                "code": "peilput",
+                                                                "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                                                                "prefLabel": "Peilput",
+                                                                "topConceptOf": "conceptscheme:meetpunt_type",
+                                                                "isMeetbaar": "true"
+                                                            },
+                                                            {
                                                                 "id": "riepr-meetpunt-type:controleinrichting",
                                                                 "_type": [
                                                                     "skos:Concept"
@@ -5972,20 +6563,7 @@
                                                                 "topConceptOf": "conceptscheme:meetpunt_type",
                                                                 "isMeetbaar": "true"
                                                             },
-                                                            "riepr-meetpunt-type:debietmeter",
-                                                            {
-                                                                "id": "riepr-meetpunt-type:peilput",
-                                                                "_type": [
-                                                                    "skos:Concept"
-                                                                ],
-                                                                "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
-                                                                "inScheme": "conceptscheme:meetpunt_type",
-                                                                "code": "peilput",
-                                                                "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
-                                                                "prefLabel": "Peilput",
-                                                                "topConceptOf": "conceptscheme:meetpunt_type",
-                                                                "isMeetbaar": "true"
-                                                            }
+                                                            "riepr-meetpunt-type:debietmeter"
                                                         ],
                                                         "prefLabel": "Meetpunt types"
                                                     },
@@ -6005,7 +6583,7 @@
                                             "isVersionOf": "riepr-operationeel-grondwater:periode",
                                             "dcterms:modified": {
                                                 "_type": "xsd:dateTime",
-                                                "_value": "2026-07-30T10:55:52.101Z"
+                                                "_value": "2026-07-31T08:59:03.638Z"
                                             },
                                             "broader": "riepr-operationeel-grondwater:onttrekking",
                                             "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
@@ -6025,7 +6603,7 @@
                                             "isVersionOf": "riepr-operationeel-grondwater:type-debiet",
                                             "dcterms:modified": {
                                                 "_type": "xsd:dateTime",
-                                                "_value": "2026-07-30T10:55:52.101Z"
+                                                "_value": "2026-07-31T08:59:03.638Z"
                                             },
                                             "broader": "riepr-operationeel-grondwater:onttrekking",
                                             "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
@@ -6095,7 +6673,7 @@
                                             "isVersionOf": "riepr-operationeel-grondwater:volume",
                                             "dcterms:modified": {
                                                 "_type": "xsd:dateTime",
-                                                "_value": "2026-07-30T10:55:52.101Z"
+                                                "_value": "2026-07-31T08:59:03.638Z"
                                             },
                                             "broader": "riepr-operationeel-grondwater:onttrekking",
                                             "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
@@ -6140,7 +6718,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:peilmethode",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -6199,7 +6777,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -6226,7 +6804,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:referentiepunt",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -6254,7 +6832,6 @@
                                                 "isPartOf": "conceptscheme:systeem_eigenschappen",
                                                 "definition": "Een typering van verschillende eigenschappen voor meetpunten.",
                                                 "hasTopConcept": [
-                                                    "riepr-meetpunt-eigenschappen:referentiepunt",
                                                     {
                                                         "id": "riepr-meetpunt-eigenschappen:diepte",
                                                         "_type": [
@@ -6264,7 +6841,7 @@
                                                         "isVersionOf": "riepr-meetpunt-eigenschappen:diepte",
                                                         "dcterms:modified": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-07-30T10:55:52.101Z"
+                                                            "_value": "2026-07-31T08:59:03.638Z"
                                                         },
                                                         "relation": "rdfs:value",
                                                         "relevantUnit": [
@@ -6280,6 +6857,7 @@
                                                             "riepr-meetpunt-type:peilput"
                                                         ]
                                                     },
+                                                    "riepr-meetpunt-eigenschappen:referentiepunt",
                                                     {
                                                         "id": "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
                                                         "_type": [
@@ -6289,7 +6867,7 @@
                                                         "isVersionOf": "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
                                                         "dcterms:modified": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-07-30T10:55:52.101Z"
+                                                            "_value": "2026-07-31T08:59:03.638Z"
                                                         },
                                                         "relation": "rdfs:value",
                                                         "relevantUnit": [
@@ -6365,7 +6943,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:volume-werking",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "relevantUnit": [
                                         "unit:M3"
@@ -6451,7 +7029,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:volume-werking",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relevantUnit": [
                 "unit:M3"
@@ -6504,7 +7082,7 @@
                     "isVersionOf": "riepr-operationeel-grondwater:pomptoestand",
                     "dcterms:modified": {
                         "_type": "xsd:dateTime",
-                        "_value": "2026-07-30T10:55:52.101Z"
+                        "_value": "2026-07-31T08:59:03.638Z"
                     },
                     "broader": {
                         "id": "riepr-operationeel-grondwater:peilmeting",
@@ -6513,7 +7091,7 @@
                         ],
                         "dcterms:created": {
                             "_type": "xsd:dateTime",
-                            "_value": "2026-07-30T10:55:52.101Z"
+                            "_value": "2026-07-31T08:59:03.638Z"
                         },
                         "definition": "Een peilmeting van een pomp- of peilput.",
                         "inScheme": {
@@ -6524,7 +7102,7 @@
                             "isVersionOf": "conceptscheme:operationeel_grondwater",
                             "dcterms:modified": {
                                 "_type": "xsd:dateTime",
-                                "_value": "2026-07-30T10:55:52.101Z"
+                                "_value": "2026-07-31T08:59:03.638Z"
                             },
                             "hasTopConcept": [
                                 {
@@ -6535,7 +7113,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:datum",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -6556,7 +7134,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:diepte",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "relevantUnit": [
                                         {
@@ -6696,7 +7274,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:duur-stil",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -6722,7 +7300,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "definition": "Een kwaliteitsmeting van een pomp- of peilput.",
                                     "inScheme": "conceptscheme:operationeel_grondwater",
@@ -6734,7 +7312,7 @@
                                             ],
                                             "dcterms:created": {
                                                 "_type": "xsd:dateTime",
-                                                "_value": "2026-07-30T10:55:52.101Z"
+                                                "_value": "2026-07-31T08:59:03.638Z"
                                             },
                                             "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                             "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -6776,7 +7354,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "definition": "Een meting van de onttrekking van een pompput.",
                                     "inScheme": "conceptscheme:operationeel_grondwater",
@@ -6788,7 +7366,7 @@
                                             ],
                                             "dcterms:created": {
                                                 "_type": "xsd:dateTime",
-                                                "_value": "2026-07-30T10:55:52.101Z"
+                                                "_value": "2026-07-31T08:59:03.638Z"
                                             },
                                             "broader": "riepr-operationeel-grondwater:onttrekking",
                                             "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
@@ -6817,6 +7395,19 @@
                                                         ],
                                                         "hasTopConcept": [
                                                             {
+                                                                "id": "riepr-meetpunt-type:peilput",
+                                                                "_type": [
+                                                                    "skos:Concept"
+                                                                ],
+                                                                "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                                                                "inScheme": "conceptscheme:meetpunt_type",
+                                                                "code": "peilput",
+                                                                "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                                                                "prefLabel": "Peilput",
+                                                                "topConceptOf": "conceptscheme:meetpunt_type",
+                                                                "isMeetbaar": "true"
+                                                            },
+                                                            {
                                                                 "id": "riepr-meetpunt-type:controleinrichting",
                                                                 "_type": [
                                                                     "skos:Concept"
@@ -6829,20 +7420,7 @@
                                                                 "topConceptOf": "conceptscheme:meetpunt_type",
                                                                 "isMeetbaar": "true"
                                                             },
-                                                            "riepr-meetpunt-type:debietmeter",
-                                                            {
-                                                                "id": "riepr-meetpunt-type:peilput",
-                                                                "_type": [
-                                                                    "skos:Concept"
-                                                                ],
-                                                                "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
-                                                                "inScheme": "conceptscheme:meetpunt_type",
-                                                                "code": "peilput",
-                                                                "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
-                                                                "prefLabel": "Peilput",
-                                                                "topConceptOf": "conceptscheme:meetpunt_type",
-                                                                "isMeetbaar": "true"
-                                                            }
+                                                            "riepr-meetpunt-type:debietmeter"
                                                         ],
                                                         "prefLabel": "Meetpunt types"
                                                     },
@@ -6862,7 +7440,7 @@
                                             "isVersionOf": "riepr-operationeel-grondwater:periode",
                                             "dcterms:modified": {
                                                 "_type": "xsd:dateTime",
-                                                "_value": "2026-07-30T10:55:52.101Z"
+                                                "_value": "2026-07-31T08:59:03.638Z"
                                             },
                                             "broader": "riepr-operationeel-grondwater:onttrekking",
                                             "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
@@ -6882,7 +7460,7 @@
                                             "isVersionOf": "riepr-operationeel-grondwater:type-debiet",
                                             "dcterms:modified": {
                                                 "_type": "xsd:dateTime",
-                                                "_value": "2026-07-30T10:55:52.101Z"
+                                                "_value": "2026-07-31T08:59:03.638Z"
                                             },
                                             "broader": "riepr-operationeel-grondwater:onttrekking",
                                             "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
@@ -6952,7 +7530,7 @@
                                             "isVersionOf": "riepr-operationeel-grondwater:volume",
                                             "dcterms:modified": {
                                                 "_type": "xsd:dateTime",
-                                                "_value": "2026-07-30T10:55:52.101Z"
+                                                "_value": "2026-07-31T08:59:03.638Z"
                                             },
                                             "broader": "riepr-operationeel-grondwater:onttrekking",
                                             "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
@@ -6997,7 +7575,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:peilmethode",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -7056,7 +7634,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -7083,7 +7661,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:referentiepunt",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -7111,7 +7689,6 @@
                                                 "isPartOf": "conceptscheme:systeem_eigenschappen",
                                                 "definition": "Een typering van verschillende eigenschappen voor meetpunten.",
                                                 "hasTopConcept": [
-                                                    "riepr-meetpunt-eigenschappen:referentiepunt",
                                                     {
                                                         "id": "riepr-meetpunt-eigenschappen:diepte",
                                                         "_type": [
@@ -7121,7 +7698,7 @@
                                                         "isVersionOf": "riepr-meetpunt-eigenschappen:diepte",
                                                         "dcterms:modified": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-07-30T10:55:52.101Z"
+                                                            "_value": "2026-07-31T08:59:03.638Z"
                                                         },
                                                         "relation": "rdfs:value",
                                                         "relevantUnit": [
@@ -7137,6 +7714,7 @@
                                                             "riepr-meetpunt-type:peilput"
                                                         ]
                                                     },
+                                                    "riepr-meetpunt-eigenschappen:referentiepunt",
                                                     {
                                                         "id": "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
                                                         "_type": [
@@ -7146,7 +7724,7 @@
                                                         "isVersionOf": "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
                                                         "dcterms:modified": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-07-30T10:55:52.101Z"
+                                                            "_value": "2026-07-31T08:59:03.638Z"
                                                         },
                                                         "relation": "rdfs:value",
                                                         "relevantUnit": [
@@ -7221,7 +7799,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:volume-rust",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-07-30T10:55:52.101Z"
+                                        "_value": "2026-07-31T08:59:03.638Z"
                                     },
                                     "relevantUnit": [
                                         "unit:M3"
@@ -7308,7 +7886,7 @@
             "isVersionOf": "riepr-operationeel-lucht:afvalproduct",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "definition": "Afvalproduct",
             "inScheme": "conceptscheme:operationeel_lucht_rapportering",
@@ -7341,7 +7919,7 @@
             "isVersionOf": "riepr-operationeel-lucht:afvalproduct_aard",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-lucht:afvalproduct",
             "broaderTransitive": "riepr-operationeel-lucht:afvalproduct",
@@ -7364,7 +7942,7 @@
             "isVersionOf": "riepr-operationeel-lucht:afvalproduct_hoeveelheid",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relevantUnit": [
                 "http://TODO"
@@ -7387,7 +7965,7 @@
             "isVersionOf": "riepr-operationeel-lucht:afvalproduct_naam",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-lucht:afvalproduct",
             "broaderTransitive": "riepr-operationeel-lucht:afvalproduct",
@@ -7410,7 +7988,7 @@
             "isVersionOf": "riepr-operationeel-lucht:brandstof",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "definition": "Geef de verbruikte brondstoffen op.",
             "inScheme": "conceptscheme:operationeel_lucht_rapportering",
@@ -7446,7 +8024,7 @@
             "isVersionOf": "riepr-operationeel-lucht:brandstof_as",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-lucht:brandstof",
             "broaderTransitive": "riepr-operationeel-lucht:brandstof",
@@ -7467,7 +8045,7 @@
             "isVersionOf": "riepr-operationeel-lucht:brandstof_naam",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-lucht:brandstof",
             "broaderTransitive": "riepr-operationeel-lucht:brandstof",
@@ -7490,7 +8068,7 @@
             "isVersionOf": "riepr-operationeel-lucht:brandstof_s",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-lucht:brandstof",
             "broaderTransitive": "riepr-operationeel-lucht:brandstof",
@@ -7511,7 +8089,7 @@
             "isVersionOf": "riepr-operationeel-lucht:brandstof_verbruik",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relevantUnit": [
                 "qudt-unit:GigaJ"
@@ -7536,15 +8114,15 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "sosa:hasFeatureOfInterest",
             "seeAlso": "conceptscheme:operationeel_lucht_rapportering",
             "definition": "Selecteer de bron(nen) waarop je wil rapporteren.",
-            "inScheme": "conceptscheme:operationeel_lucht",
+            "inScheme": "conceptscheme:operationeel_lucht_bron",
             "note": "Selecteer de bron(nen) waarop je wil rapporteren.",
             "prefLabel": "Bron(nen)",
-            "topConceptOf": "conceptscheme:operationeel_lucht",
+            "topConceptOf": "conceptscheme:operationeel_lucht_bron",
             "adms:status": {
                 "id": "https://purl.archive.org/adms/status/Active"
             },
@@ -7561,9 +8139,10 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "sosa:hasFeatureOfInterest",
+            "seeAlso": "conceptscheme:operationeel_lucht_bron",
             "definition": "Selecteer het emissiepunt waarop je wil rapporteren.",
             "inScheme": "conceptscheme:operationeel_lucht",
             "note": "Selecteer het emissiepunt waarop je wil rapporteren.",
@@ -7704,7 +8283,7 @@
             "isVersionOf": "riepr-operationeel-lucht:geproduceerde_stof",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "definition": "Geproduceerde stof.",
             "inScheme": "conceptscheme:operationeel_lucht_rapportering",
@@ -7737,7 +8316,7 @@
             "isVersionOf": "riepr-operationeel-lucht:geproduceerde_stof_aard",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-lucht:geproduceerde_stof",
             "broaderTransitive": "riepr-operationeel-lucht:geproduceerde_stof",
@@ -7760,7 +8339,7 @@
             "isVersionOf": "riepr-operationeel-lucht:geproduceerde_stof_hoeveelheid",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relevantUnit": [
                 "http://TODO"
@@ -7783,7 +8362,7 @@
             "isVersionOf": "riepr-operationeel-lucht:geproduceerde_stof_naam",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-lucht:geproduceerde_stof",
             "broaderTransitive": "riepr-operationeel-lucht:geproduceerde_stof",
@@ -7806,7 +8385,7 @@
             "isVersionOf": "riepr-operationeel-lucht:verbruikte_stof",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "definition": "Geef de verbruikte stoffen op.",
             "inScheme": "conceptscheme:operationeel_lucht_rapportering",
@@ -7839,7 +8418,7 @@
             "isVersionOf": "riepr-operationeel-lucht:verbruikte_stof_aard",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-lucht:verbruikte_stof",
             "broaderTransitive": "riepr-operationeel-lucht:verbruikte_stof",
@@ -7862,7 +8441,7 @@
             "isVersionOf": "riepr-operationeel-lucht:verbruikte_stof_hoeveelheid",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relevantUnit": [
                 "http://TODO"
@@ -7886,7 +8465,7 @@
             "isVersionOf": "riepr-operationeel-lucht:verbruikte_stof_naam",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-lucht:verbruikte_stof",
             "broaderTransitive": "riepr-operationeel-lucht:verbruikte_stof",
@@ -7952,6 +8531,36 @@
             "topConceptOf": "conceptscheme:operationeel_pomptoestand"
         },
         {
+            "id": "riepr-operationeel-toepassingwijze:brandstof",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:operationeel_toepassingwijze",
+            "code": "TOEPASSINGSWIJZE_BRANDSTOF",
+            "prefLabel": "Gebruik als brandstof",
+            "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
+        },
+        {
+            "id": "riepr-operationeel-toepassingwijze:dispers",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:operationeel_toepassingwijze",
+            "code": "TOEPASSINGSWIJZE_DISPERS",
+            "prefLabel": "Dispers gebruik",
+            "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
+        },
+        {
+            "id": "riepr-operationeel-toepassingwijze:overige",
+            "_type": [
+                "skos:Concept"
+            ],
+            "inScheme": "conceptscheme:operationeel_toepassingwijze",
+            "code": "TOEPASSINGSWIJZE_OVERIGE",
+            "prefLabel": "Ander gebruik in de ingedeelde inrichting",
+            "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
+        },
+        {
             "id": "riepr-operationeel-water:abnormale-lozing",
             "_type": [
                 "skos:Concept"
@@ -7959,7 +8568,7 @@
             "isVersionOf": "riepr-operationeel-water:abnormale-lozing",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "inScheme": "conceptscheme:operationeel_water_lozing",
             "narrower": [
@@ -7993,7 +8602,7 @@
             "isVersionOf": "riepr-operationeel-water:abnormale-lozing-jaarvracht",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "sosa:hasResult",
             "relevantUnit": [
@@ -8017,7 +8626,7 @@
             "isVersionOf": "riepr-operationeel-water:abnormale-lozing-lozingsduur",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "sosa:hasResult",
             "relevantUnit": [
@@ -8042,7 +8651,7 @@
             "isVersionOf": "riepr-operationeel-water:abnormale-lozing-stof",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-water:abnormale-lozing",
             "broaderTransitive": "riepr-operationeel-water:abnormale-lozing",
@@ -8066,7 +8675,7 @@
             "isVersionOf": "riepr-operationeel-water:abnormale-lozing-verklaring",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "sosa:hasResult",
             "broader": "riepr-operationeel-water:abnormale-lozing",
@@ -8086,7 +8695,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "sosa:hasFeatureOfInterest",
             "seeAlso": "conceptscheme:operationeel_water_lozing",
@@ -8100,7 +8709,57 @@
             },
             "relevantClass": "sosa:FeatureOfInterest",
             "isMeervoudig": "true",
-            "isVerplicht": "true"
+            "isVerplicht": "true",
+            "relevantRiepr": [
+                {
+                    "id": "riepr-meetpunt-type:controleinrichting",
+                    "_type": [
+                        "skos:Concept"
+                    ],
+                    "definition": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
+                    "inScheme": {
+                        "id": "conceptscheme:meetpunt_type",
+                        "_type": [
+                            "skos:ConceptScheme"
+                        ],
+                        "hasTopConcept": [
+                            {
+                                "id": "riepr-meetpunt-type:peilput",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                                "inScheme": "conceptscheme:meetpunt_type",
+                                "code": "peilput",
+                                "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                                "prefLabel": "Peilput",
+                                "topConceptOf": "conceptscheme:meetpunt_type",
+                                "isMeetbaar": "true"
+                            },
+                            "riepr-meetpunt-type:controleinrichting",
+                            {
+                                "id": "riepr-meetpunt-type:debietmeter",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een meetinrichting is een meetpunt voor een pompput.",
+                                "inScheme": "conceptscheme:meetpunt_type",
+                                "code": "debietmeter",
+                                "note": "Een meetinrichting is een meetpunt voor een pompput.",
+                                "prefLabel": "Debietmeter",
+                                "topConceptOf": "conceptscheme:meetpunt_type",
+                                "isMeetbaar": "true"
+                            }
+                        ],
+                        "prefLabel": "Meetpunt types"
+                    },
+                    "code": "controleinrichting",
+                    "note": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
+                    "prefLabel": "Controleinrichting",
+                    "topConceptOf": "conceptscheme:meetpunt_type",
+                    "isMeetbaar": "true"
+                }
+            ]
         },
         {
             "id": "riepr-operationeel-water:lozing",
@@ -8110,7 +8769,7 @@
             "isVersionOf": "riepr-operationeel-water:lozing",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "inScheme": "conceptscheme:operationeel_water_lozing",
             "narrower": [
@@ -8157,7 +8816,7 @@
             "isVersionOf": "riepr-operationeel-water:lozing-bepalingsmethode",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "concept:TODO",
             "broader": "riepr-operationeel-water:lozing",
@@ -8180,7 +8839,7 @@
             "isVersionOf": "riepr-operationeel-water:lozing-bepalingsmethodeclassificatie",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "concept:TODO",
             "broader": "riepr-operationeel-water:lozing",
@@ -8203,7 +8862,7 @@
             "isVersionOf": "riepr-operationeel-water:lozing-concentratie",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "sosa:hasResult",
             "relevantUnit": [
@@ -8227,7 +8886,7 @@
             "isVersionOf": "riepr-operationeel-water:lozing-dagen",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "sosa:hasResult",
             "relevantUnit": [
@@ -8252,7 +8911,7 @@
             "isVersionOf": "riepr-operationeel-water:lozing-debiet",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "sosa:hasResult",
             "relevantUnit": [
@@ -8277,7 +8936,7 @@
             "isVersionOf": "riepr-operationeel-water:lozing-jaarvracht",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "sosa:hasResult",
             "relevantUnit": [
@@ -8301,7 +8960,7 @@
             "isVersionOf": "riepr-operationeel-water:lozing-meetfrequentie",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "concept:TODO",
             "broader": "riepr-operationeel-water:lozing",
@@ -8325,7 +8984,7 @@
             "isVersionOf": "riepr-operationeel-water:lozing-stof",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-water:lozing",
             "broaderTransitive": "riepr-operationeel-water:lozing",
@@ -8349,7 +9008,7 @@
             "isVersionOf": "riepr-operationeel-zelfcontrole-lucht:datum",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-zelfcontrole-lucht:meting",
             "broaderTransitive": "riepr-operationeel-zelfcontrole-lucht:meting",
@@ -8371,9 +9030,10 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "sosa:hasFeatureOfInterest",
+            "seeAlso": "conceptscheme:operationeel_zelfcontrole_lucht_meting",
             "inScheme": "concept:Controleinrichting",
             "prefLabel": "De controleinrichting waarop gerapporteed moet worden.",
             "topConceptOf": "concept:Controleinrichting",
@@ -8383,7 +9043,56 @@
             "relevantClass": "sosa:FeatureOfInterest",
             "isMeervoudig": "true",
             "isVerplicht": "true",
-            "relevantDataType": "conceptscheme:operationeel_zelfcontrole_lucht_meting"
+            "relevantRiepr": [
+                {
+                    "id": "riepr-meetpunt-type:controleinrichting",
+                    "_type": [
+                        "skos:Concept"
+                    ],
+                    "definition": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
+                    "inScheme": {
+                        "id": "conceptscheme:meetpunt_type",
+                        "_type": [
+                            "skos:ConceptScheme"
+                        ],
+                        "hasTopConcept": [
+                            {
+                                "id": "riepr-meetpunt-type:peilput",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                                "inScheme": "conceptscheme:meetpunt_type",
+                                "code": "peilput",
+                                "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                                "prefLabel": "Peilput",
+                                "topConceptOf": "conceptscheme:meetpunt_type",
+                                "isMeetbaar": "true"
+                            },
+                            "riepr-meetpunt-type:controleinrichting",
+                            {
+                                "id": "riepr-meetpunt-type:debietmeter",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een meetinrichting is een meetpunt voor een pompput.",
+                                "inScheme": "conceptscheme:meetpunt_type",
+                                "code": "debietmeter",
+                                "note": "Een meetinrichting is een meetpunt voor een pompput.",
+                                "prefLabel": "Debietmeter",
+                                "topConceptOf": "conceptscheme:meetpunt_type",
+                                "isMeetbaar": "true"
+                            }
+                        ],
+                        "prefLabel": "Meetpunt types"
+                    },
+                    "code": "controleinrichting",
+                    "note": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
+                    "prefLabel": "Controleinrichting",
+                    "topConceptOf": "conceptscheme:meetpunt_type",
+                    "isMeetbaar": "true"
+                }
+            ]
         },
         {
             "id": "riepr-operationeel-zelfcontrole-lucht:labo",
@@ -8393,7 +9102,7 @@
             "isVersionOf": "riepr-operationeel-zelfcontrole-lucht:labo",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht_meting",
             "narrower": [
@@ -8419,7 +9128,7 @@
             "isVersionOf": "riepr-operationeel-zelfcontrole-lucht:labo-id",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-zelfcontrole-lucht:labo",
             "broaderTransitive": "riepr-operationeel-zelfcontrole-lucht:labo",
@@ -8439,7 +9148,7 @@
             "isVersionOf": "riepr-operationeel-zelfcontrole-lucht:labo-naam",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-zelfcontrole-lucht:labo",
             "broaderTransitive": "riepr-operationeel-zelfcontrole-lucht:labo",
@@ -8462,7 +9171,7 @@
             "isVersionOf": "riepr-operationeel-zelfcontrole-lucht:meting",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht_meting",
             "narrower": [
@@ -8486,7 +9195,7 @@
             "isVersionOf": "riepr-operationeel-zelfcontrole-lucht:parameter",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht_meting",
             "prefLabel": "Parameter",
@@ -8501,7 +9210,7 @@
             "isVersionOf": "riepr-operationeel-zelfcontrole-water:datum",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-zelfcontrole-water:meting",
             "broaderTransitive": "riepr-operationeel-zelfcontrole-water:meting",
@@ -8523,7 +9232,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "relation": "sosa:hasFeatureOfInterest",
             "seeAlso": "conceptscheme:operationeel_zelfcontrole_water_meting",
@@ -8537,7 +9246,57 @@
             },
             "relevantClass": "sosa:FeatureOfInterest",
             "isMeervoudig": "true",
-            "isVerplicht": "true"
+            "isVerplicht": "true",
+            "relevantRiepr": [
+                {
+                    "id": "riepr-meetpunt-type:controleinrichting",
+                    "_type": [
+                        "skos:Concept"
+                    ],
+                    "definition": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
+                    "inScheme": {
+                        "id": "conceptscheme:meetpunt_type",
+                        "_type": [
+                            "skos:ConceptScheme"
+                        ],
+                        "hasTopConcept": [
+                            {
+                                "id": "riepr-meetpunt-type:peilput",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                                "inScheme": "conceptscheme:meetpunt_type",
+                                "code": "peilput",
+                                "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+                                "prefLabel": "Peilput",
+                                "topConceptOf": "conceptscheme:meetpunt_type",
+                                "isMeetbaar": "true"
+                            },
+                            "riepr-meetpunt-type:controleinrichting",
+                            {
+                                "id": "riepr-meetpunt-type:debietmeter",
+                                "_type": [
+                                    "skos:Concept"
+                                ],
+                                "definition": "Een meetinrichting is een meetpunt voor een pompput.",
+                                "inScheme": "conceptscheme:meetpunt_type",
+                                "code": "debietmeter",
+                                "note": "Een meetinrichting is een meetpunt voor een pompput.",
+                                "prefLabel": "Debietmeter",
+                                "topConceptOf": "conceptscheme:meetpunt_type",
+                                "isMeetbaar": "true"
+                            }
+                        ],
+                        "prefLabel": "Meetpunt types"
+                    },
+                    "code": "controleinrichting",
+                    "note": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
+                    "prefLabel": "Controleinrichting",
+                    "topConceptOf": "conceptscheme:meetpunt_type",
+                    "isMeetbaar": "true"
+                }
+            ]
         },
         {
             "id": "riepr-operationeel-zelfcontrole-water:labo",
@@ -8547,7 +9306,7 @@
             "isVersionOf": "riepr-operationeel-zelfcontrole-water:labo",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "inScheme": "conceptscheme:operationeel_zelfcontrole_water_meting",
             "narrower": [
@@ -8573,7 +9332,7 @@
             "isVersionOf": "riepr-operationeel-zelfcontrole-water:labo-id",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-zelfcontrole-water:labo",
             "broaderTransitive": "riepr-operationeel-zelfcontrole-water:labo",
@@ -8593,7 +9352,7 @@
             "isVersionOf": "riepr-operationeel-zelfcontrole-water:labo-naam",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "broader": "riepr-operationeel-zelfcontrole-water:labo",
             "broaderTransitive": "riepr-operationeel-zelfcontrole-water:labo",
@@ -8616,7 +9375,7 @@
             "isVersionOf": "riepr-operationeel-zelfcontrole-water:meting",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "inScheme": "conceptscheme:operationeel_zelfcontrole_water_meting",
             "narrower": [
@@ -8640,7 +9399,7 @@
             "isVersionOf": "riepr-operationeel-zelfcontrole-water:parameter",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "inScheme": "conceptscheme:operationeel_zelfcontrole_water_meting",
             "prefLabel": "Parameter",
@@ -8841,7 +9600,7 @@
             "isVersionOf": "riepr-thema-type:grondstoffen",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "seeAlso": "conceptscheme:operationeel_grondstoffen",
             "inScheme": "conceptscheme:thema_type",
@@ -8857,7 +9616,7 @@
             "isVersionOf": "riepr-thema-type:grondwater",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "seeAlso": "conceptscheme:operationeel_grondwater",
             "inScheme": "conceptscheme:thema_type",
@@ -8873,7 +9632,7 @@
             "isVersionOf": "riepr-thema-type:lucht",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "seeAlso": "conceptscheme:operationeel_lucht",
             "inScheme": "conceptscheme:thema_type",
@@ -8889,7 +9648,7 @@
             "isVersionOf": "riepr-thema-type:water",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "seeAlso": "conceptscheme:operationeel_water",
             "inScheme": "conceptscheme:thema_type",
@@ -8905,7 +9664,7 @@
             "isVersionOf": "riepr-thema-type:zelfcontrole-lucht",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "seeAlso": "conceptscheme:operationeel_zelfcontrole_lucht",
             "inScheme": "conceptscheme:thema_type",
@@ -8921,7 +9680,7 @@
             "isVersionOf": "riepr-thema-type:zelfcontrole-water",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "seeAlso": "conceptscheme:operationeel_zelfcontrole_water",
             "inScheme": "conceptscheme:thema_type",
@@ -9097,8 +9856,8 @@
             "isPartOf": "conceptscheme:systeem_eigenschappen",
             "definition": "Een typering van verschillende eigenschappen voor meetpunten.",
             "hasTopConcept": [
-                "riepr-meetpunt-eigenschappen:referentiepunt",
                 "riepr-meetpunt-eigenschappen:diepte",
+                "riepr-meetpunt-eigenschappen:referentiepunt",
                 "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
                 "riepr-meetpunt-eigenschappen:referentiepunt_naam"
             ],
@@ -9111,9 +9870,9 @@
                 "skos:ConceptScheme"
             ],
             "hasTopConcept": [
+                "riepr-meetpunt-type:peilput",
                 "riepr-meetpunt-type:controleinrichting",
-                "riepr-meetpunt-type:debietmeter",
-                "riepr-meetpunt-type:peilput"
+                "riepr-meetpunt-type:debietmeter"
             ],
             "prefLabel": "Meetpunt types"
         },
@@ -9203,7 +9962,7 @@
             "isVersionOf": "conceptscheme:operationeel_grondstoffen",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "hasTopConcept": [
                 "riepr-operationeel-grondstoffen:geproduceerd",
@@ -9225,7 +9984,7 @@
             "isVersionOf": "conceptscheme:operationeel_grondwater",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "hasTopConcept": [
                 "riepr-operationeel-grondwater:datum",
@@ -9255,10 +10014,9 @@
             "isVersionOf": "conceptscheme:operationeel_lucht",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "hasTopConcept": [
-                "riepr-operationeel-lucht:feature_bron",
                 "riepr-operationeel-lucht:feature_ep"
             ],
             "prefLabel": "Operationele gegevens"
@@ -9270,8 +10028,11 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
+            "hasTopConcept": [
+                "riepr-operationeel-lucht:feature_bron"
+            ],
             "adms:status": {
                 "id": "https://purl.archive.org/adms/status/Active"
             }
@@ -9283,7 +10044,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "hasTopConcept": [
                 "riepr-operationeel-lucht:afvalproduct",
@@ -9351,7 +10112,7 @@
             "isVersionOf": "conceptscheme:operationeel_water",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "definition": "Selecteer de controleinrichting waarop je de lozing wil rapporteren.",
             "hasTopConcept": [
@@ -9367,7 +10128,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "hasTopConcept": [
                 "riepr-operationeel-water:abnormale-lozing-jaarvracht",
@@ -9397,7 +10158,7 @@
             "isVersionOf": "conceptscheme:operationeel_zelfcontrole_lucht",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "prefLabel": "Operationele gegevens",
             "relevantRiepr": [
@@ -9530,7 +10291,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "hasTopConcept": [
                 "riepr-operationeel-zelfcontrole-lucht:datum",
@@ -9552,62 +10313,12 @@
             "isVersionOf": "conceptscheme:operationeel_zelfcontrole_water",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "hasTopConcept": [
                 "riepr-operationeel-zelfcontrole-water:feature"
             ],
-            "prefLabel": "Operationele gegevens",
-            "relevantRiepr": [
-                {
-                    "id": "riepr-meetpunt-type:controleinrichting",
-                    "_type": [
-                        "skos:Concept"
-                    ],
-                    "definition": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
-                    "inScheme": {
-                        "id": "conceptscheme:meetpunt_type",
-                        "_type": [
-                            "skos:ConceptScheme"
-                        ],
-                        "hasTopConcept": [
-                            "riepr-meetpunt-type:controleinrichting",
-                            {
-                                "id": "riepr-meetpunt-type:debietmeter",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "definition": "Een meetinrichting is een meetpunt voor een pompput.",
-                                "inScheme": "conceptscheme:meetpunt_type",
-                                "code": "debietmeter",
-                                "note": "Een meetinrichting is een meetpunt voor een pompput.",
-                                "prefLabel": "Debietmeter",
-                                "topConceptOf": "conceptscheme:meetpunt_type",
-                                "isMeetbaar": "true"
-                            },
-                            {
-                                "id": "riepr-meetpunt-type:peilput",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
-                                "inScheme": "conceptscheme:meetpunt_type",
-                                "code": "peilput",
-                                "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
-                                "prefLabel": "Peilput",
-                                "topConceptOf": "conceptscheme:meetpunt_type",
-                                "isMeetbaar": "true"
-                            }
-                        ],
-                        "prefLabel": "Meetpunt types"
-                    },
-                    "code": "controleinrichting",
-                    "note": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
-                    "prefLabel": "Controleinrichting",
-                    "topConceptOf": "conceptscheme:meetpunt_type",
-                    "isMeetbaar": "true"
-                }
-            ]
+            "prefLabel": "Operationele gegevens"
         },
         {
             "id": "conceptscheme:operationeel_zelfcontrole_water_meting",
@@ -9616,7 +10327,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "hasTopConcept": [
                 "riepr-operationeel-zelfcontrole-water:datum",
@@ -9683,7 +10394,7 @@
             "isVersionOf": "conceptscheme:thema_type",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
+                "_value": "2026-07-31T08:59:03.638Z"
             },
             "hasTopConcept": [
                 "riepr-thema-type:grondstoffen",
@@ -9717,608 +10428,6 @@
             ],
             "note": "Een typering van verschillende soorten installaties.",
             "prefLabel": "Uitwisselpunt types"
-        },
-        {
-            "id": "riepr-meetpunt-eigenschappen:diepte",
-            "_type": [
-                "skos:Concept"
-            ],
-            "isPartOf": "conceptscheme:systeem_eigenschappen",
-            "isVersionOf": "riepr-meetpunt-eigenschappen:diepte",
-            "dcterms:modified": {
-                "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
-            },
-            "relation": "rdfs:value",
-            "relevantUnit": [
-                {
-                    "id": "unit:M",
-                    "_type": [
-                        "qudt:Unit",
-                        "skos:Concept"
-                    ],
-                    "inScheme": {
-                        "id": "conceptscheme:eenheden",
-                        "_type": [
-                            "skos:ConceptScheme"
-                        ],
-                        "hasTopConcept": [
-                            {
-                                "id": "unit:DEG_C",
-                                "_type": [
-                                    "qudt:Unit",
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:eenheden",
-                                "code": "°C",
-                                "prefLabel": "Celsius",
-                                "topConceptOf": "conceptscheme:eenheden"
-                            },
-                            {
-                                "id": "unit:K",
-                                "_type": [
-                                    "qudt:Unit",
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:eenheden",
-                                "code": "K",
-                                "prefLabel": "Kelvin",
-                                "topConceptOf": "conceptscheme:eenheden"
-                            },
-                            "unit:M",
-                            {
-                                "id": "unit:MegaW",
-                                "_type": [
-                                    "qudt:Unit",
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:eenheden",
-                                "code": "MW",
-                                "prefLabel": "Mega Watt",
-                                "topConceptOf": "conceptscheme:eenheden"
-                            },
-                            {
-                                "id": "unit:MicroGM-PER-L",
-                                "_type": [
-                                    "qudt:Unit",
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:eenheden",
-                                "code": "µg/l",
-                                "prefLabel": "Microgram per liter",
-                                "topConceptOf": "conceptscheme:eenheden"
-                            },
-                            {
-                                "id": "unit:MilliGM-PER-L",
-                                "_type": [
-                                    "qudt:Unit",
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:eenheden",
-                                "code": "mg/l",
-                                "prefLabel": "Milligram per liter",
-                                "topConceptOf": "conceptscheme:eenheden"
-                            },
-                            {
-                                "id": "unit:NanoGM-PER-L",
-                                "_type": [
-                                    "qudt:Unit",
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:eenheden",
-                                "code": "ng/l",
-                                "prefLabel": "Nanogram per liter",
-                                "topConceptOf": "conceptscheme:eenheden"
-                            },
-                            {
-                                "id": "unit:PERCENT",
-                                "_type": [
-                                    "qudt:Unit",
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:eenheden",
-                                "code": "%",
-                                "prefLabel": "Percent",
-                                "topConceptOf": "conceptscheme:eenheden"
-                            },
-                            {
-                                "id": "unit:PPB",
-                                "_type": [
-                                    "qudt:Unit",
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:eenheden",
-                                "code": "PPB",
-                                "prefLabel": "ppb",
-                                "topConceptOf": "conceptscheme:eenheden"
-                            },
-                            {
-                                "id": "unit:PPM",
-                                "_type": [
-                                    "qudt:Unit",
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:eenheden",
-                                "code": "PPM",
-                                "prefLabel": "PPM",
-                                "topConceptOf": "conceptscheme:eenheden"
-                            }
-                        ]
-                    },
-                    "code": "m",
-                    "prefLabel": "Meter",
-                    "topConceptOf": "conceptscheme:eenheden"
-                }
-            ],
-            "inScheme": "conceptscheme:meetpunt_eigenschappen",
-            "code": "MEETPUNT_DIEPTE",
-            "prefLabel": "Diepte",
-            "topConceptOf": "conceptscheme:meetpunt_eigenschappen",
-            "isVerplicht": "true",
-            "relevantDataType": "xsd:decimal",
-            "relevantRiepr": [
-                {
-                    "id": "riepr-meetpunt-type:peilput",
-                    "_type": [
-                        "skos:Concept"
-                    ],
-                    "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
-                    "inScheme": {
-                        "id": "conceptscheme:meetpunt_type",
-                        "_type": [
-                            "skos:ConceptScheme"
-                        ],
-                        "hasTopConcept": [
-                            {
-                                "id": "riepr-meetpunt-type:controleinrichting",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "definition": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
-                                "inScheme": "conceptscheme:meetpunt_type",
-                                "code": "controleinrichting",
-                                "note": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
-                                "prefLabel": "Controleinrichting",
-                                "topConceptOf": "conceptscheme:meetpunt_type",
-                                "isMeetbaar": "true"
-                            },
-                            {
-                                "id": "riepr-meetpunt-type:debietmeter",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "definition": "Een meetinrichting is een meetpunt voor een pompput.",
-                                "inScheme": "conceptscheme:meetpunt_type",
-                                "code": "debietmeter",
-                                "note": "Een meetinrichting is een meetpunt voor een pompput.",
-                                "prefLabel": "Debietmeter",
-                                "topConceptOf": "conceptscheme:meetpunt_type",
-                                "isMeetbaar": "true"
-                            },
-                            "riepr-meetpunt-type:peilput"
-                        ],
-                        "prefLabel": "Meetpunt types"
-                    },
-                    "code": "peilput",
-                    "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
-                    "prefLabel": "Peilput",
-                    "topConceptOf": "conceptscheme:meetpunt_type",
-                    "isMeetbaar": "true"
-                }
-            ]
-        },
-        {
-            "id": "riepr-meetpunt-eigenschappen:referentiepunt",
-            "_type": [
-                "skos:Concept"
-            ],
-            "isPartOf": "conceptscheme:systeem_eigenschappen",
-            "definition": "Samengestelde eigenschap voor referentiepunt (naam en hoogte in meter).",
-            "inScheme": "conceptscheme:meetpunt_eigenschappen",
-            "narrower": [
-                "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
-                "riepr-meetpunt-eigenschappen:referentiepunt_naam"
-            ],
-            "narrowerTransitive": [
-                "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
-                "riepr-meetpunt-eigenschappen:referentiepunt_naam"
-            ],
-            "code": "MEETPUNT_REFERENTIEPUNT",
-            "note": "Samengestelde eigenschap voor referentiepunt (naam en hoogte in meter).",
-            "prefLabel": "Referentiepunt",
-            "semanticRelation": [
-                "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
-                "riepr-meetpunt-eigenschappen:referentiepunt_naam"
-            ],
-            "topConceptOf": "conceptscheme:meetpunt_eigenschappen",
-            "isMeervoudig": "true"
-        },
-        {
-            "id": "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
-            "_type": [
-                "skos:Concept"
-            ],
-            "isPartOf": "conceptscheme:systeem_eigenschappen",
-            "isVersionOf": "riepr-meetpunt-eigenschappen:referentiepunt_diepte",
-            "dcterms:modified": {
-                "_type": "xsd:dateTime",
-                "_value": "2026-07-30T10:55:52.101Z"
-            },
-            "relation": "rdfs:value",
-            "relevantUnit": [
-                {
-                    "id": "unit:M",
-                    "_type": [
-                        "qudt:Unit",
-                        "skos:Concept"
-                    ],
-                    "inScheme": {
-                        "id": "conceptscheme:eenheden",
-                        "_type": [
-                            "skos:ConceptScheme"
-                        ],
-                        "hasTopConcept": [
-                            {
-                                "id": "unit:DEG_C",
-                                "_type": [
-                                    "qudt:Unit",
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:eenheden",
-                                "code": "°C",
-                                "prefLabel": "Celsius",
-                                "topConceptOf": "conceptscheme:eenheden"
-                            },
-                            {
-                                "id": "unit:K",
-                                "_type": [
-                                    "qudt:Unit",
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:eenheden",
-                                "code": "K",
-                                "prefLabel": "Kelvin",
-                                "topConceptOf": "conceptscheme:eenheden"
-                            },
-                            "unit:M",
-                            {
-                                "id": "unit:MegaW",
-                                "_type": [
-                                    "qudt:Unit",
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:eenheden",
-                                "code": "MW",
-                                "prefLabel": "Mega Watt",
-                                "topConceptOf": "conceptscheme:eenheden"
-                            },
-                            {
-                                "id": "unit:MicroGM-PER-L",
-                                "_type": [
-                                    "qudt:Unit",
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:eenheden",
-                                "code": "µg/l",
-                                "prefLabel": "Microgram per liter",
-                                "topConceptOf": "conceptscheme:eenheden"
-                            },
-                            {
-                                "id": "unit:MilliGM-PER-L",
-                                "_type": [
-                                    "qudt:Unit",
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:eenheden",
-                                "code": "mg/l",
-                                "prefLabel": "Milligram per liter",
-                                "topConceptOf": "conceptscheme:eenheden"
-                            },
-                            {
-                                "id": "unit:NanoGM-PER-L",
-                                "_type": [
-                                    "qudt:Unit",
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:eenheden",
-                                "code": "ng/l",
-                                "prefLabel": "Nanogram per liter",
-                                "topConceptOf": "conceptscheme:eenheden"
-                            },
-                            {
-                                "id": "unit:PERCENT",
-                                "_type": [
-                                    "qudt:Unit",
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:eenheden",
-                                "code": "%",
-                                "prefLabel": "Percent",
-                                "topConceptOf": "conceptscheme:eenheden"
-                            },
-                            {
-                                "id": "unit:PPB",
-                                "_type": [
-                                    "qudt:Unit",
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:eenheden",
-                                "code": "PPB",
-                                "prefLabel": "ppb",
-                                "topConceptOf": "conceptscheme:eenheden"
-                            },
-                            {
-                                "id": "unit:PPM",
-                                "_type": [
-                                    "qudt:Unit",
-                                    "skos:Concept"
-                                ],
-                                "inScheme": "conceptscheme:eenheden",
-                                "code": "PPM",
-                                "prefLabel": "PPM",
-                                "topConceptOf": "conceptscheme:eenheden"
-                            }
-                        ]
-                    },
-                    "code": "m",
-                    "prefLabel": "Meter",
-                    "topConceptOf": "conceptscheme:eenheden"
-                }
-            ],
-            "broader": "riepr-meetpunt-eigenschappen:referentiepunt",
-            "broaderTransitive": "riepr-meetpunt-eigenschappen:referentiepunt",
-            "inScheme": "conceptscheme:meetpunt_eigenschappen",
-            "code": "MEETPUNT_REFERENTIEPUNT_DIEPTE",
-            "prefLabel": "Diepte",
-            "semanticRelation": [
-                "riepr-meetpunt-eigenschappen:referentiepunt"
-            ],
-            "topConceptOf": "conceptscheme:meetpunt_eigenschappen",
-            "isMeervoudig": "false",
-            "relevantDataType": "xsd:decimal",
-            "relevantRiepr": [
-                {
-                    "id": "riepr-meetpunt-type:peilput",
-                    "_type": [
-                        "skos:Concept"
-                    ],
-                    "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
-                    "inScheme": {
-                        "id": "conceptscheme:meetpunt_type",
-                        "_type": [
-                            "skos:ConceptScheme"
-                        ],
-                        "hasTopConcept": [
-                            {
-                                "id": "riepr-meetpunt-type:controleinrichting",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "definition": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
-                                "inScheme": "conceptscheme:meetpunt_type",
-                                "code": "controleinrichting",
-                                "note": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
-                                "prefLabel": "Controleinrichting",
-                                "topConceptOf": "conceptscheme:meetpunt_type",
-                                "isMeetbaar": "true"
-                            },
-                            {
-                                "id": "riepr-meetpunt-type:debietmeter",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "definition": "Een meetinrichting is een meetpunt voor een pompput.",
-                                "inScheme": "conceptscheme:meetpunt_type",
-                                "code": "debietmeter",
-                                "note": "Een meetinrichting is een meetpunt voor een pompput.",
-                                "prefLabel": "Debietmeter",
-                                "topConceptOf": "conceptscheme:meetpunt_type",
-                                "isMeetbaar": "true"
-                            },
-                            "riepr-meetpunt-type:peilput"
-                        ],
-                        "prefLabel": "Meetpunt types"
-                    },
-                    "code": "peilput",
-                    "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
-                    "prefLabel": "Peilput",
-                    "topConceptOf": "conceptscheme:meetpunt_type",
-                    "isMeetbaar": "true"
-                }
-            ]
-        },
-        {
-            "id": "riepr-meetpunt-eigenschappen:referentiepunt_naam",
-            "_type": [
-                "skos:Concept"
-            ],
-            "isPartOf": "conceptscheme:systeem_eigenschappen",
-            "relation": "rdfs:label",
-            "broader": "riepr-meetpunt-eigenschappen:referentiepunt",
-            "broaderTransitive": "riepr-meetpunt-eigenschappen:referentiepunt",
-            "inScheme": "conceptscheme:meetpunt_eigenschappen",
-            "code": "MEETPUNT_REFERENTIEPUNT_NAAM",
-            "prefLabel": "Naam",
-            "semanticRelation": [
-                "riepr-meetpunt-eigenschappen:referentiepunt"
-            ],
-            "topConceptOf": "conceptscheme:meetpunt_eigenschappen",
-            "isMeervoudig": "false",
-            "relevantDataType": "xsd:string",
-            "relevantRiepr": [
-                {
-                    "id": "riepr-meetpunt-type:peilput",
-                    "_type": [
-                        "skos:Concept"
-                    ],
-                    "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
-                    "inScheme": {
-                        "id": "conceptscheme:meetpunt_type",
-                        "_type": [
-                            "skos:ConceptScheme"
-                        ],
-                        "hasTopConcept": [
-                            {
-                                "id": "riepr-meetpunt-type:controleinrichting",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "definition": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
-                                "inScheme": "conceptscheme:meetpunt_type",
-                                "code": "controleinrichting",
-                                "note": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
-                                "prefLabel": "Controleinrichting",
-                                "topConceptOf": "conceptscheme:meetpunt_type",
-                                "isMeetbaar": "true"
-                            },
-                            {
-                                "id": "riepr-meetpunt-type:debietmeter",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "definition": "Een meetinrichting is een meetpunt voor een pompput.",
-                                "inScheme": "conceptscheme:meetpunt_type",
-                                "code": "debietmeter",
-                                "note": "Een meetinrichting is een meetpunt voor een pompput.",
-                                "prefLabel": "Debietmeter",
-                                "topConceptOf": "conceptscheme:meetpunt_type",
-                                "isMeetbaar": "true"
-                            },
-                            "riepr-meetpunt-type:peilput"
-                        ],
-                        "prefLabel": "Meetpunt types"
-                    },
-                    "code": "peilput",
-                    "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
-                    "prefLabel": "Peilput",
-                    "topConceptOf": "conceptscheme:meetpunt_type",
-                    "isMeetbaar": "true"
-                }
-            ]
-        },
-        {
-            "id": "riepr-operationeel-bestemmingstype:belgisch",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-            "prefLabel": "Belgische vestiging",
-            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-        },
-        {
-            "id": "riepr-operationeel-bestemmingstype:buitenlands",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-            "prefLabel": "Buitenlandse vestiging",
-            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-        },
-        {
-            "id": "riepr-operationeel-bestemmingstype:dispers",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-            "prefLabel": "Dispers gebruik",
-            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-        },
-        {
-            "id": "riepr-operationeel-bestemmingstype:geen_onderneming",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-            "prefLabel": "Geen onderneming",
-            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-        },
-        {
-            "id": "riepr-operationeel-bestemmingstype:particulier",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-            "prefLabel": "Particulier",
-            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-        },
-        {
-            "id": "riepr-operationeel-bestemmingstype:werf",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-            "prefLabel": "Werf",
-            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-        },
-        {
-            "id": "riepr-operationeel-debiet-type:infiltratie",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:operationeel_debiet_type",
-            "code": "DEBIET_TYPE_INFILITRATIE",
-            "prefLabel": "Infiltratie",
-            "topConceptOf": "conceptscheme:operationeel_debiet_type"
-        },
-        {
-            "id": "riepr-operationeel-debiet-type:onttrekking",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:operationeel_debiet_type",
-            "code": "DEBIET_TYPE_ONTTREKKING",
-            "prefLabel": "Onttrekking",
-            "topConceptOf": "conceptscheme:operationeel_debiet_type"
-        },
-        {
-            "id": "riepr-operationeel-debiet-type:spui",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:operationeel_debiet_type",
-            "code": "DEBIET_TYPE_SPUI",
-            "prefLabel": "Spui",
-            "topConceptOf": "conceptscheme:operationeel_debiet_type"
-        },
-        {
-            "id": "riepr-operationeel-debiet-type:totaal_rondgepompd",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:operationeel_debiet_type",
-            "code": "DEBIET_TYPE_TOTAAL_RONDGEPOMPD",
-            "prefLabel": "Totaal rondgepompd",
-            "topConceptOf": "conceptscheme:operationeel_debiet_type"
-        },
-        {
-            "id": "riepr-operationeel-toepassingwijze:brandstof",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:operationeel_toepassingwijze",
-            "code": "TOEPASSINGSWIJZE_BRANDSTOF",
-            "prefLabel": "Gebruik als brandstof",
-            "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
-        },
-        {
-            "id": "riepr-operationeel-toepassingwijze:dispers",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:operationeel_toepassingwijze",
-            "code": "TOEPASSINGSWIJZE_DISPERS",
-            "prefLabel": "Dispers gebruik",
-            "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
-        },
-        {
-            "id": "riepr-operationeel-toepassingwijze:overige",
-            "_type": [
-                "skos:Concept"
-            ],
-            "inScheme": "conceptscheme:operationeel_toepassingwijze",
-            "code": "TOEPASSINGSWIJZE_OVERIGE",
-            "prefLabel": "Ander gebruik in de ingedeelde inrichting",
-            "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
         }
     ]
 }

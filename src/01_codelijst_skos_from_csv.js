@@ -258,6 +258,94 @@ function printValidationErrors() {
 
 
 /**
+ * Well-known RDF / SKOS / SHACL vocabulary prefixes handled natively by
+ * JSON-LD processors — these do NOT need to be declared in config.yml.
+ */
+const WELL_KNOWN_PREFIXES = new Set([
+    // Core RDF
+    'rdf', 'rdfs', 'owl',
+    // SKOS family
+    'skos', 'xkos',
+    // DC family
+    'dc', 'dcterms', 'dcmitype',
+    // Data / cube
+    'dcat', 'qb', 'sdmx-attribute', 'sdmx-dimension', 'sdmx-measure',
+    // Types & units
+    'xsd', 'qudt', 'qudt-schema', 'qudt-unit', 'unit', 'xkos',
+    // Observation / sensing
+    'sosa', 'ssn', 'ssn-system',
+    // Geometry / location
+    'gml', 'gsp', 'locn',
+    // Metadata / provenance
+    'prov', 'foaf', 'vcard', 'org', 'rov', 'adms',
+    // Constraints / shapes
+    'sh',
+    // Time
+    'time',
+    // Misc vocabularies
+    'dbo', 'schema', 'spdx', 'void', 'ssd',
+]);
+
+/**
+ * Validate that every CURIE prefix found in CSV cells is declared in config.yml.
+ *
+ * Scans all cell values for `prefix:local` patterns, filters out well-known
+ * standard-vocabulary prefixes (skos:, xsd:, …), and checks the remainder
+ * against the merged prefix map from config.yml (`skos.prefixes + prefixes`).
+ *
+ * @param {Array}  rows       - Parsed CSV rows (after separateString)
+ * @param {Object} declaredPrefixes - Merged prefix map from config.yml
+ * @returns {{ errors: string[], undeclared: Set<string> }}
+ */
+function validateDeclaredPrefixes(rows, declaredPrefixes) {
+    const declared = new Set(Object.keys(declaredPrefixes || {}));
+    const undeclared = new Map(); // prefix → [{file, row, col, value}]
+
+    const curieRe = /^[a-zA-Z][a-zA-Z0-9_-]+:[a-zA-Z0-9_/.:-]+$/;
+
+    rows.forEach((row, idx) => {
+        const file = row.__source || 'unknown';
+        Object.entries(row).forEach(([col, rawVal]) => {
+            if (col === '__source') return;
+            const values = Array.isArray(rawVal) ? rawVal : [rawVal];
+            values.forEach(val => {
+                if (typeof val !== 'string' || !val.includes(':')) return;
+                // Skip full URIs entirely — they don't need prefix resolution
+                if (/^https?:\/\//.test(val.trim())) return;
+                // Split on pipe for multi-value cells; also split on comma when both sides look like references
+                const parts = val.includes('|')
+                    ? val.split('|').map(s => s.trim()).filter(Boolean)
+                    : [val.trim()];
+                parts.forEach(part => {
+                    // Re-check: skip any fragment that is itself a URI
+                    if (/^https?:\/\//.test(part)) return;
+                    if (!curieRe.test(part)) return;
+                    const sepIdx = part.indexOf(':');
+                    const pfx = part.substring(0, sepIdx);
+                    if (WELL_KNOWN_PREFIXES.has(pfx)) return;
+                    if (declared.has(pfx)) return;
+                    if (!undeclared.has(pfx)) undeclared.set(pfx, []);
+                    undeclared.get(pfx).push({ file, row: idx + 1, col, value: part });
+                });
+            });
+        });
+    });
+
+    const errors = [];
+    for (const [pfx, occurrences] of undeclared) {
+        const firstThree = occurrences.slice(0, 3).map(
+            o => `    ${o.file}:${o.row} [${o.col}] → "${o.value}"`
+        );
+        const more = occurrences.length > 3 ? `    …and ${occurrences.length - 3} more` : '';
+        errors.push(
+            `Undeclared prefix '${pfx}' used in CSV but not declared in config.yml:\n${firstThree.join('\n')}${more ? '\n' + more : ''}`
+        );
+    }
+
+    return { errors, undeclared: new Set(undeclared.keys()) };
+}
+
+/**
  * Validates that all relevantRiepr references point to existing concept IDs.
  * @param {Array} concepts - Array of concept objects with _id and relevantRiepr fields
  * @returns {{ errors: string[] }}
@@ -299,7 +387,7 @@ function validateRelevantRiepr(concepts) {
 
 /**
  * MODIFIED: om versionering toe te laten
- * 
+ *
  * Generates SKOS (Simple Knowledge Organization System) files from CSV.
  * Converts CSV to JSON-LD, applies N3 reasoning, and outputs in various formats.
  * @async
@@ -343,6 +431,20 @@ async function generate_skos(options, skosSource ) {
         });
         return object;
     });
+
+    // Validate that all CURIE prefixes used in CSV cells are declared in config.yml.
+    // Catches typos and missing prefix definitions before they silently produce
+    // non-URI literals in the output RDF.
+    const prefixValidation = validateDeclaredPrefixes(new_json, skosSource.prefixes);
+    if (prefixValidation.errors.length > 0) {
+        console.error('\n=== Undeclared Prefix Errors ===');
+        prefixValidation.errors.forEach(err => console.error(`\n${err}\n`));
+        console.error(`Add the following prefixes to config.yml under "prefixes:":`);
+        for (const p of prefixValidation.undeclared) {
+            console.error(`  ${p}: <YOUR_URI_BASE>/${p.replace('riepr-', '').replace(/-/g, '/')}/`);
+        }
+        throw new Error(`${prefixValidation.undeclared.size} undeclared prefix(es) found in source CSVs.`);
+    }
 
     // Validate that all relevantRiepr references point to existing concepts
     const validation = validateRelevantRiepr(new_json);

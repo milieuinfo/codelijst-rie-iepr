@@ -4,8 +4,9 @@ import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const pocRoot = resolve(__dirname, '..')
+const repoRoot = resolve(pocRoot, '../..')
 
-const SRC_PATH = resolve(pocRoot, '../src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld')
+const SRC_PATH = resolve(repoRoot, 'src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld')
 const DST_DIR = resolve(pocRoot, 'public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr')
 const DST_PATH = join(DST_DIR, 'rie-iepr.jsonld')
 

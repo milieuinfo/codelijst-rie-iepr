@@ -5,7 +5,7 @@ import type { Concept, Scheme } from '../models/skos-models.js'
  * `@id`/`@type` (JSON-LD keywords) and `id`/`_type` (compacted aliases used by
  * this particular export) for the same thing, and the same node can appear
  * both flattened at the top level of `graph` and re-embedded inline wherever
- * something else references it (e.g. a thema's `relevantRiepr` embeds the
+ * something else references it (e.g. a thema's `seeAlso` embeds the
  * full operationeel conceptscheme, which embeds its top concepts, which embed
  * their narrower children...). Any field can therefore hold either a bare id
  * string or a fully inlined node.
@@ -37,6 +37,11 @@ const CONCEPT_TYPES = ['skos:Concept']
  * exposes typed views (schemes/concepts) and reference-resolution helpers on
  * top of that index. New conceptschemes or properties added to the source
  * data need no code changes here.
+ *
+ * **seeAlso-based navigation:** The updated codelist format uses `seeAlso`
+ * instead of `relevantRiepr` for theme→scheme navigation and for chaining
+ * multi-step flows within operational schemes. Use `getSeeAlsoRefs()` to
+ * resolve these links.
  */
 export class CodelistService {
   private readonly baseUrl: string = '/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/'
@@ -166,6 +171,7 @@ export class CodelistService {
       definition: this.getValue(node, ['definition', 'has_definition']) as string | undefined,
       note: this.getValue(node, ['note', 'has_note']) as string | undefined,
       relevantRiepr: this.idsOf(this.getValue(node, ['relevantRiepr', 'relevant_riepr'])),
+      seeAlso: this.idsOf(this.getValue(node, ['seeAlso', 'see_also'])),
     }
   }
 
@@ -204,30 +210,47 @@ export class CodelistService {
     concept.relevantRiepr = this.idsOf(this.getValue(node, ['relevantRiepr', 'relevant_riepr']))
     concept.relevantUnit = this.idsOf(this.getValue(node, ['relevantUnit', 'relevant_unit']))
 
+    // New properties from updated codelist format (seeAlso navigation model)
+    concept.seeAlso = this.idsOf(this.getValue(node, ['seeAlso', 'see_also']))
+    concept.relevantClass = typeof this.getValue(node, ['relevantClass', 'relevant_class']) === 'string'
+      ? String(this.getValue(node, ['relevantClass', 'relevant_class']))
+      : undefined
+
     if (normalizeBooleans) {
       concept.isVerplicht = this.parseBoolean(this.getValue(node, ['isVerplicht', 'is_verplicht']))
       concept.isMeervoudig = this.parseBoolean(this.getValue(node, ['isMeervoudig', 'is_meervoudig']))
       concept.isMeetbaar = this.parseBoolean(this.getValue(node, ['isMeetbaar', 'is_meetbaar']))
       concept.isOnzichtbaar = this.parseBoolean(this.getValue(node, ['isOnzichtbaar', 'is_onzichtbaar']))
+      concept.isMultiselect = this.parseBoolean(this.getValue(node, ['isMultiselect', 'is_multiselect']))
     } else {
       concept.isVerplicht = this.getValue(node, ['isVerplicht', 'is_verplicht']) as string | undefined
       concept.isMeervoudig = this.getValue(node, ['isMeervoudig', 'is_meervoudig']) as string | undefined
       concept.isMeetbaar = this.getValue(node, ['isMeetbaar', 'is_meetbaar']) as string | undefined
       concept.isOnzichtbaar = this.getValue(node, ['isOnzichtbaar', 'is_onzichtbaar']) as string | undefined
+      concept.isMultiselect = this.getValue(node, ['isMultiselect', 'is_multiselect']) as string | undefined
     }
 
     return concept
   }
 
-  /**
-   * Normalizes a single ref or array-of-refs field down to an array of ids.
-   * @param value - The raw reference value (string id, object with @id, or array thereof).
-   * @returns Array of resolved id strings, or undefined if no valid refs found.
-   */
+   /**
+    * Normalizes a single ref or array-of-refs field down to an array of ids.
+    * Handles embedded objects ({@id}), plain strings, and comma-separated
+    * strings within array elements (e.g. "type:a,type:b" → ["type:a","type:b"]).
+    * @param value - The raw reference value.
+    * @returns Array of resolved id strings, or undefined if no valid refs found.
+    */
   private idsOf(value: unknown): string[] | undefined {
     if (value === undefined || value === null) return undefined
     const arr = Array.isArray(value) ? value : [value]
-    const ids = arr.map(v => this.idOf(v)).filter((v): v is string => v !== undefined)
+    // Expand comma-separated strings before extracting IDs
+    const expanded = arr.flatMap(v => {
+      if (typeof v === 'string' && v.includes(',')) {
+        return v.split(',').map(s => s.trim()).filter(Boolean)
+      }
+      return [v]
+    })
+    const ids = expanded.map(v => this.idOf(v)).filter((v): v is string => v !== undefined)
     return ids.length > 0 ? ids : undefined
   }
 
@@ -349,6 +372,8 @@ export class CodelistService {
 
   /**
    * Resolves a `relevantRiepr` ref list (on a scheme or a concept) to whatever node they point to.
+   * Kept for backward compatibility with older codelist formats where relevantRiepr was used
+   * for theme→scheme navigation. New format uses seeAlso instead.
    * @param result - The parsed codelist result containing schemes and concepts for lookup.
    * @param node - The scheme or concept whose relevantRiepr refs to resolve.
    * @returns Array of resolved scheme/concept objects for each valid ref.
@@ -358,5 +383,44 @@ export class CodelistService {
     return node.relevantRiepr
       .map(id => result.schemes.get(id) ?? result.concepts.get(id))
       .filter((n): n is Scheme | Concept => n !== undefined)
+  }
+
+  /**
+   * Resolves `seeAlso` references on a concept or scheme to their target nodes.
+   * In the updated codelist format, `seeAlso` is used for:
+   * - Theme → operationeel scheme navigation (replacing relevantRiepr for this purpose)
+   * - Multi-step flow chaining within operational schemes (e.g., feature_bron → lucht_rapportering)
+   *
+   * External references (ADMS status URIs, etc.) that don't resolve to local
+   * schemes or concepts are silently dropped.
+   * @param result - The parsed codelist result containing schemes and concepts for lookup.
+   * @param node - The scheme or concept whose seeAlso refs to resolve.
+   * @returns Array of resolved scheme/concept objects for each valid ref.
+   */
+  getSeeAlsoRefs(result: CodelistResult, node: Scheme | Concept): (Scheme | Concept)[] {
+    if (!node.seeAlso) return []
+    return node.seeAlso
+      .map(id => result.schemes.get(id) ?? result.concepts.get(id))
+      .filter((n): n is Scheme | Concept => n !== undefined)
+  }
+
+  /**
+   * Resolves the operationeel scheme id from a thema concept using `seeAlso`.
+   * Falls back to `relevantRiepr` for backward compatibility with older codelists.
+   * @param result - The parsed codelist result.
+   * @param themeConcept - The selected thema concept.
+   * @returns The operationeel scheme id if found, otherwise undefined.
+   */
+  resolveOperationeelSchemeId(result: CodelistResult, themeConcept: Concept): string | undefined {
+    // Primary: use seeAlso (new format)
+    const seeAlsoSchemes = this.getSeeAlsoRefs(result, themeConcept).filter(
+      ref => ref.type?.includes('skos:ConceptScheme'),
+    ) as Scheme[]
+    if (seeAlsoSchemes.length > 0) return seeAlsoSchemes[0].id
+
+    // Fallback: use relevantRiepr (old format)
+    const rieprRefs = this.getRelevantRieprRefs(result, themeConcept)
+    const scheme = rieprRefs.find(ref => ref.type?.includes('skos:ConceptScheme'))
+    return scheme?.id
   }
 }

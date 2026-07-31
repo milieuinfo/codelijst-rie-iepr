@@ -46,6 +46,26 @@ const SEEDED_INSTANCES: Record<string, string[]> = {
     'Pompput 3 (VT verzending)',
   ],
   'riepr-onttrekkingspunt-type:opnamepunt': ['Opgenomen oppervlaktewater'],
+  // Generic installation type aliases (used by operationeel-lucht feature_bron)
+  // Codelist references this as 'riepr:Installatie' but the actual concept ID uses a different prefix.
+  // Seed both formats so either lookup path resolves to mock data.
+  'riepr:Installatie': [
+    'GLASOVEN',
+    'Centrifuge',
+    'Demi-installatie glasfabriek',
+    'ETSLIJN 1 etsafdeling',
+  ],
+  'https://data.vlaanderen.be/ns/rie-pr#Installatie': [
+    'GLASOVEN',
+    'Centrifuge',
+    'Demi-installatie glasfabriek',
+    'ETSLIJN 1 etsafdeling',
+  ],
+  // Filter types used in groundwater schemes
+  'riepr-filter-type:peil': ['Peilfilter PF-01', 'Peilfilter PF-02'],
+  'riepr-filter-type:pomp': ['Pompput PP-01', 'Pompput PP-02', 'Pompput PP-03'],
+  // Meetpunt eigenschappen
+  'riepr-meetpunt-eigenschappen:referentiepunt': ['Referentiepunt RPT-01 (terrasniveau)'],
 }
 
 /**

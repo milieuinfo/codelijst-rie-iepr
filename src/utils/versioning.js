@@ -198,11 +198,38 @@ export class ConceptVersioning {
             );
         }
 
-        const previousNt = ntEntry.getData().toString('utf8');
+        let previousNt = ntEntry.getData().toString('utf8');
         if (!previousNt || previousNt.trim().length === 0) return [];
+
+        // Older published releases can contain concept IRIs that were never expanded
+        // from their CSV `prefix:suffix` form — typically because the prefix was only
+        // added to config.yml after that release went out. jsonld.js refuses to compact
+        // such a literal value once the prefix becomes a real, usable term ("Absolute
+        // IRI ... confused with prefix ..."), so repair them here using the same prefix
+        // map the current graph resolves against, before framing.
+        previousNt = this._expandLegacyPrefixedIris(previousNt, frame['@context']);
 
         const previousJson = await rdf_to_jsonld(previousNt, frame);
         return Array.isArray(previousJson.graph) ? previousJson.graph : [];
+    }
+
+    /**
+     * Expand `<prefix:suffix>` node references in an N-Triples/N-Quads string back to
+     * their full IRI, for any `prefix` that resolves to a simple string mapping in the
+     * given JSON-LD context (i.e. every custom prefix declared in config.yml). Valid
+     * absolute IRIs like `<http://...>` are untouched since `http`/`https` are never
+     * context terms.
+     * @private
+     * @param {string} ntText - Raw N-Triples/N-Quads content.
+     * @param {Object} context - JSON-LD `@context` object to resolve prefixes against.
+     * @returns {string} The N-Triples content with legacy unexpanded CURIEs repaired.
+     */
+    _expandLegacyPrefixedIris(ntText, context) {
+        if (!context) return ntText;
+        return ntText.replace(/<([a-zA-Z][a-zA-Z0-9+.-]*):([^\s<>]+)>/g, (match, prefix, suffix) => {
+            const expansion = context[prefix];
+            return typeof expansion === 'string' ? `<${expansion}${suffix}>` : match;
+        });
     }
 
     /**

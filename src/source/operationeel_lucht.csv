@@ -1,9 +1,9 @@
 _id,_type,topConceptOf,prefLabel,definition,broader,relevantClass,relevantDataType,relation,seeAlso,relevantRiepr,conditionPath,conditionValue,relevantCodeList,relevantUnit,isVerplicht,isMeervoudig,isOnzichtbaar,isMultiselect
 conceptscheme:operationeel_lucht,skos:ConceptScheme,,Operationele gegevens,,,,,,,,,,,,,,,
-riepr-operationeel-lucht:feature_ep,skos:Concept,conceptscheme:operationeel_lucht,Emissiepunt,Selecteer het emissiepunt waarop je wil rapporteren.,,sosa:FeatureOfInterest,,sosa:hasFeatureOfInterest,,riepr-emissiepunt-type:schoorsteen,,,,,,,,
+riepr-operationeel-lucht:feature_ep,skos:Concept,conceptscheme:operationeel_lucht,Emissiepunt,Selecteer het emissiepunt waarop je wil rapporteren.,,sosa:FeatureOfInterest,,sosa:hasFeatureOfInterest,conceptscheme:operationeel_lucht_bron,riepr-emissiepunt-type:schoorsteen,,,,,,,,
 ,,,,,,,,,,,,,,,,,,
 conceptscheme:operationeel_lucht_bron,skos:ConceptScheme,,,,,,,,,,,,,,,,,
-riepr-operationeel-lucht:feature_bron,skos:Concept,conceptscheme:operationeel_lucht,Bron(nen),Selecteer de bron(nen) waarop je wil rapporteren.,,sosa:FeatureOfInterest,,sosa:hasFeatureOfInterest,conceptscheme:operationeel_lucht_rapportering,riepr:Installatie,,,,,,,,true
+riepr-operationeel-lucht:feature_bron,skos:Concept,conceptscheme:operationeel_lucht_bron,Bron(nen),Selecteer de bron(nen) waarop je wil rapporteren.,,sosa:FeatureOfInterest,,sosa:hasFeatureOfInterest,conceptscheme:operationeel_lucht_rapportering,riepr:Installatie,,,,,,,,true
 ,,,,,,,,,,,,,,,,,,
 conceptscheme:operationeel_lucht_rapportering,skos:ConceptScheme,,,,,,,,,,,,,,,,,
 riepr-operationeel-lucht:brandstof,skos:Concept,conceptscheme:operationeel_lucht_rapportering,Verbruikte brandstof,Geef de verbruikte brondstoffen op.,,sosa:Observation,,,,,,,,,,true,,
