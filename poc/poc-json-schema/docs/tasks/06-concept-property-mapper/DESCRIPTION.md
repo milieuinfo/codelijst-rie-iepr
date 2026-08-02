@@ -54,6 +54,41 @@ export class ConceptMapper {
 | *(no type set)* | `"object"` | — (composite container for children) |
 | *(unknown type)* | `"string"` | — (fallback with warning in logs) |
 
+**Numeric types imply hasResult.numericValue:** Any field with a numeric `relevantDataType`
+(`xsd:decimal`, `xsd:integer`) automatically produces a `hasResult.numericValue` sub-property of
+type `number`. This is implied by the type itself and does not require an extra annotation.
+
+#### Range Constraints (`minValue` / `maxValue`)
+
+When present on a concept, map directly to JSON Schema keywords:
+- `minValue` → `minimum` (number)
+- `maxValue` → `maximum` (number)
+
+These columns are declared in context.json (`schema.org/minValue`, `schema.org/maxValue`) but
+are currently missing from most operationeel CSVs. When the upstream data is populated, the mapper
+should pick them up without code changes (content-agnostic parsing).
+
+#### Pattern Constraints (`relevantPattern`)
+
+Proposed new column (ISSUE-COLLECTION-02). When a concept carries `relevantPattern`, map it
+directly to the JSON Schema `pattern` keyword (ECMAScript regex syntax). The property would be
+declared in context.json as:
+```json
+"relevantPattern": { "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantPattern" }
+```
+This lives in the project's own vocab namespace so it can safely have `skos:Concept` as its domain,
+unlike SHACL's `sh:pattern` which requires `sh:PropertyShape`.
+
+#### relevantRiepr Placeholder Strategy
+
+Fields with `relevantRiepr` reference structural types whose actual instances come from a database
+at runtime. During schema generation, use a structured placeholder pattern:
+- Type: `"string"` with format `"iri"`
+- Description notes the expected entity type and lookup source
+- Optional `examples` array with synthetic URIs derived from the referenced concept's base URI
+  prefix, e.g., `["https://data.riepr.omgeving.vlaanderen.be/id/installatie/EXAMPLE-001"]`
+- This enables validation of structure without requiring live database content
+
 #### Required Flag (`isVerplicht`)
 
 - `isVerpflicht = "true"` or `isVerpflicht = true` → `isRequired: true`

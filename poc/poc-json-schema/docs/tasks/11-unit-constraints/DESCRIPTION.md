@@ -1,59 +1,55 @@
-# Task 11 — Unit Constraint Mapping (relevantUnit → hasUnit const/enum)
+# Task 11 — Unit Value Mapping (relevantUnit → hasResult.hasUnit)
 
-Build logic that maps a concept's `relevantUnit` property to JSON Schema constraints on the unit
-value. Following the archived pattern from `lucht/schema.json`, unit information constrains the
-`hasUnit` sub-property within result objects using either `const` (single unit) or `enum` (multiple units).
+Map a concept's `relevantUnit` property directly to the `hasUnit` value in generated schemas.
+This is **not** a "unit constraint derivation" step — it's a straightforward value mapping:
+the selected relevantUnit URI becomes the hasUnit value (`const` for single, `enum` for multiple).
+
+Additionally, when a field has a numeric `relevantDataType` (`xsd:decimal`, `xsd:integer`),
+a `numericValue` sub-property of type `number` is automatically implied within `hasResult`.
+No extra annotation needed beyond the type declaration.
 
 ## Scope
 
-### Class: `UnitConstraintGenerator` (`src/services/unit-constraint-generator.ts`)
+### Logic Location (folded into ConceptMapper, Task 06)
+
+This task's logic is **not a separate service** — it is folded directly into `ConceptMapper.mapConcept()`
+(Task 06). When mapping a concept that carries `relevantUnit` and/or a numeric type:
+
+1. If `relevantDataType` is numeric (`xsd:decimal`, `xsd:integer`) → automatically generate
+   `hasResult.numericValue` as type `number`. No extra annotation needed; implied by the type.
+2. If `relevantUnit` is present → map its resolved URI(s) directly to `hasResult.hasUnit`:
+   - Single unit → `"const": "<unitUri>"`
+   - Multiple units → `"enum": ["<uri1>", "<uri2>"]`
+3. Unresolved units (`http://TODO`) → skip gracefully with console warning (ISSUE-DATA-01)
 
 ```typescript
-export interface UnitResolution {
-  /** Whether the unit reference was successfully resolved. */
-  resolved: boolean
-  /** Type of constraint: 'const' for single unit, 'enum' for multiple, 'none' if unresolved. */
-  constraintType: 'const' | 'enum' | 'none'
-  /** Single unit value when constraintType is 'const'. */
-  constValue?: string
-  /** Multiple unit values when constraintType is 'enum'. */
-  enumValues?: string[]
-  /** Warning message if resolution failed. */
-  warning?: string
-}
-
-export class UnitConstraintGenerator {
-  /**
-   * Resolve relevantUnit refs on a concept to schema constraints.
-   * @param result - Parsed codelist result
-   * @param concept - Concept with relevantUnit property set
-   * @returns Resolution result describing how to constrain the hasUnit field
-   */
-  resolveUnits(result: CodelistResult, concept: Concept): UnitResolution
-
-  /**
-   * Generate a JSON Schema fragment for constraining a hasUnit property.
-   * @param resolution - The unit resolution from resolveUnits()
-   * @returns JsonSchemaObject suitable as an allOf entry or properties sub-object
-   */
-  toSchemaFragment(resolution: UnitResolution): JsonSchemaObject | null
+// In SchemaField model (Task 02), add:
+export interface SchemaField {
+  // ... existing properties ...
+  /** When relevantUnit resolves successfully: hasUnit constraint for hasResult object. */
+  hasUnitConstraint?: { type: 'const'; value: string } | { type: 'enum'; values: string[] }
+  /** Whether this field implies hasResult.numericValue (true for xsd:decimal, xsd:integer). */
+  hasNumericResult?: boolean
 }
 ```
 
 ### Resolution Logic
 
-1. **Single unit ref**: If `relevantUnit` contains one ref that resolves to a known unit URI
-   (e.g., `qudt-unit:GigaJ`, `http://qudt.org/vocab/unit/PERCENT`), produce `"const": "<unitUri>"`.
+The mapping is straightforward — no complex derivation:
 
-2. **Multiple unit refs**: If `relevantUnit` contains multiple refs, collect all resolved URIs
-   and produce `"enum": ["<uri1>", "<uri2>", ...]`.
+1. **Numeric type implies hasResult.numericValue**: When a concept has `relevantDataType`
+   of `xsd:decimal`, `xsd:integer`, or similar numeric types, the mapper sets
+   `hasNumericResult = true`. This means the generated schema will include `hasResult.numericValue`
+   as type `number`. No extra annotation on the concept needed; it's implied by the data type.
 
-3. **Scheme-level unit ref**: If the ref points to a `skos:ConceptScheme` rather than a direct
-   unit concept, resolve the scheme's top concepts and use their IDs/codes as enum values.
+2. **Single relevantUnit → const**: If `relevantUnit` contains one resolvable URI (e.g.,
+   `qudt-unit:GigaJ`), produce `"const": "<expandedUri>"` on the `hasResult.hasUnit` property.
 
-4. **Unresolved units (`http://TODO`)**: Return `{resolved: false, constraintType: 'none',
-   warning: "Unit reference http://TODO is unresolved"}`. Do NOT include any unit constraint in
-   the generated schema for this field. Log a console warning referencing ISSUE-DATA-01 from ISSUES.md.
+3. **Multiple relevantUnits → enum**: Collect all resolved URIs and produce
+   `"enum": ["<uri1>", "<uri2>"]`.
+
+4. **Unresolved units (`http://TODO`)**: Skip gracefully with console.warn. Do NOT include any
+   hasUnit constraint for this field. Reference ISSUE-DATA-01 from ISSUES.md.
 
 5. **External unit refs**: Same treatment as TODO — silently skip with warning.
 

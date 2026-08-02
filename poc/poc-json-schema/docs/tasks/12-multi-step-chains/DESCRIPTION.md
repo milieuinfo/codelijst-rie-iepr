@@ -56,40 +56,53 @@ export class ChainComposer {
    become root fields. This prevents duplicate rendering of composite children that are already
    nested under their parent.
 
-3. **Merge across schemes**: Concatenate all root field arrays from all schemes into a single flat
-   list. Each scheme contributes independently; there is no nesting between schemes at this stage.
+3. **Group by observation level**: In a seeAlso chain, each level produces its own Observation.
+   The innermost (leaf) scheme generates the primary measurement Observation. Higher levels in
+   the chain generate contextual Observations (structural selection, installation context).
+   Fields are grouped per scheme level rather than merged flat:
+   ```
+   operationeel_lucht (level 1):          → Structural observation: emissiepunt selected
+     operationeel_lucht_bron (level 2):    → Structural observation: bron(nen) selected
+       operationeel_lucht_rapportering     → Primary observation: brandstof/afvalproduct/stof data
+         (level 3, leaf):
+   ```
 
-4. **Deduplicate property names**: If two schemes produce fields with the same derived property
-   name, append a scheme-derived suffix to disambiguate (e.g., `emissiepunt_lucht` vs
-   `emissiepunt_water`). Track collisions and log warnings.
+4. **Build hierarchical output**: The leaf-level scheme's fields form the primary domain schema.
+   Parent levels contribute context schemas that the primary schema references via `$ref` or
+   `allOf`. Each level is self-contained.
 
-5. **Track contributions**: Maintain a per-scheme map so downstream logic can inspect which fields
-   came from which scheme. Useful for debugging and future schema splitting.
+5. **Deduplicate property names within each level**: If two concepts at the same level produce
+   the same derived property name, append a numeric suffix. Cross-level deduplication is not
+   needed since each level has its own schema fragment.
 
-### Chain Structure Reference
+### Chain Structure Reference (Observation-per-Level)
 
-| Theme | Schemes in Chain | Expected Root Field Count |
-|---|---|---|
-| Grondstoffen | 1 scheme | ~7 fields (including grondstof composite + children counted separately) |
-| Grondwater | 1 scheme | ~14+ fields (peilmeting, kwaliteitsmeting, onttrekking composites) |
-| Lucht | 3 schemes | Emissiepunt + Bronnen from base/bron, plus rapportering composites |
-| Water | 2 schemes | Controleinrichting from base, lozing details from sub |
-| Zelfcontrole lucht | 2 schemes | Base fields + meting sub-fields (datum, labo, parameter) |
-| Zelfcontrole water | 2 schemes | Base fields + meting sub-fields (datum, labo, parameter) |
+Each chain level produces its own Observation. The innermost scheme generates the primary
+measurement observation; higher levels produce contextual structural observations.
 
-### Property Name Scoping
+| Theme | Level 1 (context obs.) | Level 2 (structural obs.) | Level 3+ (primary measurement obs.) |
+|---|---|---|---|
+| Grondstoffen | `operationeel_grondstoffen` (= leaf = primary) | — | — |
+| Grondwater | `operationeel_grondwater` (= leaf = primary) | — | — |
+| Lucht | `operationeel_lucht` (emissiepunt) | `operationeel_lucht_bron` (bronnen) | `operationeel_lucht_rapportering` |
+| Water | `operationeel_water` (controleinrichting) | — | `operationeel_water_lozing` |
+| Zelfcontrole lucht | `operationeel_zelfcontrole_lucht` | — | `operationeel_zelfcontrole_lucht_meting` |
+| Zelfcontrole water | `operationeel_zelfcontrole_water` | — | `operationeel_zelfcontrole_water_meting` |
 
-Fields from intermediate schemes may share names with fields from the base scheme. Since all
-fields merge into one flat `properties` object at the theme level, name collisions must be handled:
+### Observation-per-Level Output Structure
 
-- **Strategy**: If two concepts from different schemes produce the same derived property name, use
-  `<name>_<schemeShortName>` format for disambiguation. Example: if both `operationeel_lucht` and
-  `operationeel_lucht_rapportering` have a concept named "Naam", they become `naam_lucht` and
-  `naam_rapportering`.
+The transformation produces separate schema fragments per chain depth:
 
-- **No collision within same parent's children**: Children of different composite parents can share
-  names because they're namespaced under their parent key. Deduplication only applies to root-level
-  properties across schemes.
+1. **Leaf-level schema** (primary observation): Contains the full measurement fields from the
+   innermost scheme (e.g., brandstof/afvalproduct/stof composites from
+   `operationeel_lucht_rapportering`). This is the main domain schema file.
+
+2. **Context-level schemas** (structural observations): Contain fields from higher chain levels
+   that capture contextual selections (which emissiepunt, which bronnen). These are referenced
+   by the primary schema via `$ref` or embedded as context properties.
+
+3. **Theme wrapper**: A top-level schema that ties together all observation levels using `allOf`
+   to compose them into the complete theme validation.
 
 ### Unit Tests (`src/services/chain-composer.test.ts`)
 
