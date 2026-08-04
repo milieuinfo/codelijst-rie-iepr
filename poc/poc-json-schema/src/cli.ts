@@ -87,13 +87,28 @@ async function main() {
     const conditionBlock = conditionalGen.generateAllConditionals(conditions)
 
     // Assemble final domain schema
-    const { domainSchema } = assembler.assemble(themeName, nestedFields, conditionBlock)
+    const { domainSchema } = assembler.assemble(themeName, nestedFields, conditionBlock, chain, result)
 
     // Write output files
     await writer.writeBase(baseSchema)
     await writer.writeTheme(themeName, domainSchema)
   }
 
+  // Step 6: Validate all generated schemas
+  const { SchemaValidator } = await import('./services/schema-validator.js')
+  const validator = new SchemaValidator()
+  const validationResults = await validator.validateAll(outDir)
+
+  const failures = validationResults.filter((r: any) => !r.valid)
+  if (failures.length > 0) {
+    console.error(`Validation failed for ${failures.length} schema(s):`)
+    for (const failure of failures) {
+      console.error(`  ${failure.filePath}: ${failure.errors?.join(', ')}`)
+    }
+    process.exit(1)
+  }
+
+  console.log(`Validated ${validationResults.length} schema(s) successfully.`)
   console.log('Done. Generated schemas written to', outDir)
 }
 

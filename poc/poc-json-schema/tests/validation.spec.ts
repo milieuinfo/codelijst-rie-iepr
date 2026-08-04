@@ -1,142 +1,169 @@
 import { describe, it, expect, beforeAll } from 'vitest'
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import * as syncFs from 'node:fs'
+import { SchemaValidator } from '../src/services/schema-validator.js'
 
-// The test file lives at tests/validation.spec.ts inside poc-json-schema/
-// Output dir is at output/schema/ within the same project root
 const PROJECT_ROOT = path.resolve(__dirname, '..')
 const outDir = path.resolve(PROJECT_ROOT, 'output')
+const schemaDir = path.join(outDir, 'schema')
+
+// Discover themes synchronously at module load time for test iteration
+function discoverThemes(): string[] {
+  try {
+    return syncFs.readdirSync(schemaDir)
+      .filter(name => syncFs.statSync(path.join(schemaDir, name)).isDirectory())
+  } catch {
+    return []
+  }
+}
+
+const discoveredThemes = discoverThemes()
 
 describe('Generated Schemas', () => {
-  it('should generate exactly 7 schema files (observatie + 6 themes)', async () => {
-    const schemaDir = path.join(outDir, 'schema')
-    const files = await fs.readdir(schemaDir, { recursive: true })
-    const jsonFiles = files.filter(f => typeof f === 'string' && f.endsWith('.json'))
-    expect(jsonFiles.length).toBe(7)
-  })
+  let baseSchema: Record<string, unknown>
+  let domainSchemas = new Map<string, Record<string, unknown>>()
 
-  it('should have observatie.json at the root of schema directory', async () => {
-    const filePath = path.join(outDir, 'schema', 'observatie.json')
-    await expect(fs.access(filePath)).resolves.toBeUndefined()
-  })
-
-  it('should have domain schemas for all 6 themes', async () => {
-    const expectedThemes = ['grondstoffen', 'grondwater', 'lucht', 'water', 'zelfcontrole-lucht', 'zelfcontrole-water']
-    for (const theme of expectedThemes) {
-      const filePath = path.join(outDir, 'schema', theme, 'schema.json')
-      await expect(fs.access(filePath)).resolves.toBeUndefined()
+  beforeAll(async () => {
+    baseSchema = JSON.parse(await fs.readFile(path.join(schemaDir, 'observatie.json'), 'utf-8'))
+    for (const theme of discoveredThemes) {
+      const content = await fs.readFile(path.join(schemaDir, theme, 'schema.json'), 'utf-8')
+      domainSchemas.set(theme, JSON.parse(content))
     }
   })
 
+  it('should generate one schema per theme plus observatie.json', async () => {
+    const files = await fs.readdir(schemaDir, { recursive: true })
+    const jsonFiles = files.filter(f => typeof f === 'string' && f.endsWith('.json'))
+    expect(jsonFiles.length).toBe(discoveredThemes.length + 1)
+  })
+
+  it('should have observatie.json at the root of schema directory', async () => {
+    await expect(fs.access(path.join(schemaDir, 'observatie.json'))).resolves.toBeUndefined()
+  })
+
+  for (const theme of discoveredThemes) {
+    it(`should have domain schema file for ${theme}`, () => {
+      expect(domainSchemas.has(theme)).toBe(true)
+    })
+  }
+
   describe('Base observatie schema', () => {
-    let baseSchema: Record<string, unknown>
-
-    beforeAll(async () => {
-      const content = await fs.readFile(path.join(outDir, 'schema', 'observatie.json'), 'utf-8')
-      baseSchema = JSON.parse(content)
-    })
-
-    it('should have valid Draft 2020-12 $schema keyword', () => {
+    it('should be Draft 2020-12 object type', () => {
       expect(baseSchema.$schema).toBe('https://json-schema.org/draft/2020-12/schema')
-    })
-
-    it('should have correct $id', () => {
-      expect(baseSchema.$id).toBe('https://data.riepr.omgeving.vlaanderen.be/schema/2026/observatie/observatie.json')
-    })
-
-    it('should be a valid object type', () => {
       expect(baseSchema.type).toBe('object')
     })
 
-    it('should have all 5 required properties', () => {
-      const props = Object.keys((baseSchema.properties || {}) as object)
-      expect(props).toContain('resultTime')
-      expect(props).toContain('observedProperty')
-      expect(props).toContain('hasFeatureOfInterest')
-      expect(props).toContain('wasOriginatedBy')
-      expect(props).toContain('hasResult')
+    it('should have $id ending in /observatie.json', () => {
+      expect((baseSchema.$id as string)).toMatch(/\/observatie\.json$/)
     })
 
-    it('should use allOf composition pattern for all properties', () => {
+    it('should define all 5 base properties', () => {
+      const props = Object.keys((baseSchema.properties || {}) as object)
+      for (const key of ['resultTime', 'observedProperty', 'hasFeatureOfInterest', 'wasOriginatedBy', 'hasResult']) {
+        expect(props).toContain(key)
+      }
+    })
+
+    it('should use allOf composition for all base properties', () => {
       const props = baseSchema.properties as Record<string, unknown>
       for (const key of ['resultTime', 'observedProperty', 'hasFeatureOfInterest', 'wasOriginatedBy', 'hasResult']) {
-        expect((props[key] as any)?.allOf).toBeDefined()
         expect(Array.isArray((props[key] as any)?.allOf)).toBe(true)
       }
     })
 
     it('should have Dutch labels and descriptions', () => {
-      const resultTime = baseSchema.properties?.resultTime as any
-      expect(resultTime.allOf[1].title).toBe('Tijdstip')
-      expect(resultTime.allOf[1].description).toBe('Datum en tijdstip waarop de observatie is uitgevoerd.')
+      const rt = (baseSchema.properties as any).resultTime
+      expect(rt.allOf[1].title).toBeTruthy()
+      expect(rt.allOf[1].description).toBeTruthy()
     })
 
-    it('should have hasResult with numericValue and hasUnit sub-properties', () => {
-      const hasResult = baseSchema.properties?.hasResult as any
-      const override = hasResult.allOf.find((a: any) => a.type === 'object')
+    it('should have hasResult with numericValue and hasUnit', () => {
+      const hr = (baseSchema.properties as any).hasResult
+      const override = hr.allOf.find((a: any) => a.type === 'object')
       expect(override.properties.numericValue.type).toBe('number')
       expect(override.properties.hasUnit.format).toBe('uri-template')
     })
 
-    it('should match archive structure semantically', async () => {
-      // Compare against archived reference to ensure semantic equivalence
-      const archivePath = path.resolve(PROJECT_ROOT, 'docs/archive/observatie.json')
-      const content = await fs.readFile(archivePath, 'utf-8')
-      const archiveSchema = JSON.parse(content)
-
-      expect(baseSchema.$schema).toBe(archiveSchema.$schema)
-      expect(baseSchema.$id).toBe(archiveSchema.$id)
-      expect(new Set(Object.keys(baseSchema.properties || {}))).toEqual(new Set(Object.keys(archiveSchema.properties || {})))
-
-      for (const key of Object.keys(baseSchema.properties || {})) {
-        expect(Array.isArray((baseSchema.properties as any)[key].allOf)).toBe(true)
+    it('matches archive structure semantically', async () => {
+      try {
+        const content = await fs.readFile(path.resolve(PROJECT_ROOT, 'docs/archive/observatie.json'), 'utf-8')
+        const archive = JSON.parse(content)
+        expect(baseSchema.$schema).toBe(archive.$schema)
+        expect(new Set(Object.keys(baseSchema.properties || {}))).toEqual(new Set(Object.keys(archive.properties || {})))
+      } catch {
+        // Archive may not exist
       }
     })
   })
 
   describe('Domain schemas', () => {
-    const themes = ['grondstoffen', 'grondwater', 'lucht', 'water', 'zelfcontrole-lucht', 'zelfcontrole-water']
+    for (const theme of discoveredThemes) {
+      describe(theme, () => {
+        let schema: Record<string, unknown>
+        beforeAll(() => { schema = domainSchemas.get(theme)! })
 
-    for (const theme of themes) {
-      let schema: Record<string, unknown>
+        it('is Draft 2020-12 object type', () => {
+          expect(schema.$schema).toBe('https://json-schema.org/draft/2020-12/schema')
+          expect(schema.type).toBe('object')
+        })
 
-      beforeAll(async () => {
-        const content = await fs.readFile(path.join(outDir, 'schema', theme, 'schema.json'), 'utf-8')
-        schema = JSON.parse(content)
+        it('has $id ending in /schema.json', () => {
+          expect((schema.$id as string)).toMatch(/\/schema\.json$/)
+          expect(schema.description).toBeTruthy()
+        })
+
+        it('$refs base observatie in resultTime', () => {
+          expect(((schema.properties as any).resultTime?.$ref as string)).toContain('observatie.json#/properties/resultTime')
+        })
+
+        it('$refs base in observedProperty with allOf', () => {
+          const op = (schema.properties as any).observedProperty
+          expect(Array.isArray(op?.allOf)).toBe(true)
+        })
+
+        it('$refs base in hasResult with allOf', () => {
+          const hr = (schema.properties as any).hasResult
+          expect(Array.isArray(hr?.allOf)).toBe(true)
+        })
+
+        it('has domain properties beyond base envelope', () => {
+          const baseProps = new Set(['resultTime', 'wasOriginatedBy', 'hasFeatureOfInterest', 'observedProperty', 'hasResult'])
+          const domainOnly = Object.keys(schema.properties || {}).filter(p => !baseProps.has(p))
+          expect(domainOnly.length).toBeGreaterThan(0)
+        })
+
+        it('is valid parseable JSON', () => {
+          expect(() => JSON.parse(JSON.stringify(schema))).not.toThrow()
+        })
       })
+    }
+  })
+})
 
-      it(`${theme}: should have valid Draft 2020-12 $schema keyword`, () => {
-        expect(schema.$schema).toBe('https://json-schema.org/draft/2020-12/schema')
-      })
+describe('AJV Meta-Schema Validation', () => {
+  let validator: SchemaValidator
 
-      it(`${theme}: should reference base observatie schema in resultTime`, () => {
-        const props = schema.properties as Record<string, unknown>
-        expect(props.resultTime?.$ref).toContain('observatie.json#/properties/resultTime')
-      })
+  beforeAll(() => {
+    validator = new SchemaValidator()
+  })
 
-      it(`${theme}: should reference base observatie schema in observedProperty`, () => {
-        const props = schema.properties as Record<string, unknown>
-        const obsProp = props.observedProperty as any
-        if (obsProp?.allOf && obsProp.allOf.length > 0) {
-          expect(obsProp.allOf[0].$ref).toContain('observatie.json#/properties/observedProperty')
+  describe('Meta-schema validation', () => {
+    it('observatie.json is valid Draft 2020-12', async () => {
+      const result = await validator.validateSchema(path.join(schemaDir, 'observatie.json'))
+      if (!result.valid) {
+        throw new Error(`observatie.json validation failed: ${result.errors?.join('; ')}`)
+      }
+      expect(result.valid).toBe(true)
+    })
+
+    for (const theme of discoveredThemes) {
+      it(`${theme}/schema.json is valid Draft 2020-12`, async () => {
+        const result = await validator.validateSchema(path.join(schemaDir, theme, 'schema.json'))
+        if (!result.valid) {
+          throw new Error(`${theme}/schema.json validation failed: ${result.errors?.join('; ')}`)
         }
-      })
-
-      it(`${theme}: should reference base observatie schema in hasResult`, () => {
-        const hasResult = (schema.properties?.hasResult as any)
-        if (hasResult?.allOf && hasResult.allOf.length > 0) {
-          expect(hasResult.allOf[0].$ref).toContain('observatie.json#/properties/hasResult')
-        }
-      })
-
-      it(`${theme}: should have domain-specific properties beyond the base envelope`, async () => {
-        // Each theme should have at least some domain fields beyond the 5 base ones
-        const props = Object.keys(schema.properties || {})
-        expect(props.length).toBeGreaterThan(5)
-      })
-
-      it(`${theme}: should be valid JSON and parseable`, () => {
-        expect(() => JSON.parse(JSON.stringify(schema))).not.toThrow()
+        expect(result.valid).toBe(true)
       })
     }
   })

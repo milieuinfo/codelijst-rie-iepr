@@ -5,6 +5,8 @@ export interface CodelistResult {
   schemes: Map<string, Scheme>
   concepts: Map<string, Concept>
   topConcepts: Map<string, Concept[]>
+  /** Expand a CURIE ID to its full URI form using the source JSON-LD @context. */
+  expandCurie?(curie: string): string
 }
 
 export interface Scheme {
@@ -43,5 +45,7 @@ export interface Concept {
   relevantClass?: string
   conditionPath?: string
   conditionValue?: string
+  minValue?: number
+  maxValue?: number
   seeAlso?: string[]
 }

@@ -11,12 +11,11 @@ export class CompositeGroupBuilder {
   }
 
   buildNestedStructure(fields: SchemaField[]): SchemaField[] {
-    // Build a map from concept id -> its children fields
+    // Build a map from parent concept ID -> its child fields
     const parentIdToChildren = new Map<string, SchemaField[]>()
 
     for (const field of fields) {
-      if (!field.broader || field.broader.length === 0) continue
-      const parentId = field.broader[0]
+      const parentId = Array.isArray(field.broader) && field.broader.length > 0 ? field.broader[0] : undefined
       if (!parentId) continue
       if (!parentIdToChildren.has(parentId)) {
         parentIdToChildren.set(parentId, [])
@@ -24,50 +23,25 @@ export class CompositeGroupBuilder {
       parentIdToChildren.get(parentId)!.push(field)
     }
 
-    // Build a set of all child property names to exclude from root
-    const childPropertyNames = new Set<string>()
-    for (const field of fields) {
-      if (field.broader && field.broader.length > 0) {
-        childPropertyNames.add(field.propertyName)
-      }
-    }
-
     // Root fields are those without broader references
     const rootFields: SchemaField[] = []
     for (const field of fields) {
-      if (!field.broader || field.broader.length === 0) {
+      if (!Array.isArray(field.broader) || field.broader.length === 0) {
         rootFields.push({ ...field })
       }
     }
 
-    // Attach children to parent composites and mark as object type
-    // We need to match parents by concept ID. Since we don't have conceptId on SchemaField,
-    // we use the propertyName matching: find the root field whose derived name matches
-    // what the parent concept's id would produce.
+    // Attach children to parent composites using conceptId for direct lookup
     for (const field of rootFields) {
-      // Find which concept this field came from by reversing the name derivation
-      const concept = this.findConceptByPropertyName(rootFields.map(f => f.propertyName).includes(field.propertyName) ? field.label : '')
-      if (concept) {
-        const children = parentIdToChildren.get(concept.id)
-        if (children && children.length > 0) {
-          const dedupedChildren = this.deduplicateChildNames(children)
-          field.children = dedupedChildren
-          field.type = 'object' as const
-        }
+      const children = parentIdToChildren.get(field.conceptId)
+      if (children && children.length > 0) {
+        const dedupedChildren = this.deduplicateChildNames(children)
+        field.children = dedupedChildren
+        field.type = 'object' as const
       }
     }
 
     return rootFields
-  }
-
-  private findConceptByPropertyName(propertyName: string): Concept | null {
-    for (const [, concept] of this.result.concepts.entries()) {
-      const expectedName = this.mapper.derivePropertyName(concept)
-      if (expectedName === propertyName) {
-        return concept
-      }
-    }
-    return null
   }
 
   getChildFields(parentId: string): SchemaField[] {

@@ -26,6 +26,8 @@ export interface JsonSchemaObject {
 export type JsonSchemaValue = JsonSchemaObject | string
 
 export interface SchemaField {
+  /** Original SKOS concept ID (e.g. "riepr-operationeel-lucht:feature_ep") */
+  conceptId: string
   propertyName: string
   label: string
   description?: string
@@ -33,18 +35,19 @@ export interface SchemaField {
   isRequired: boolean
   isRepeatable: boolean
   enumValues?: unknown[]
-  unitConstraint?: { type: 'const'; value: string } | { type: 'enum'; values: string[] }
   condition?: { path: string; value: string }
   children?: SchemaField[]
   relevantClass?: string
   extensions?: Record<string, unknown>
-  broader?: string[]
-  narrower?: string[]
+  /** Unit constraint derived from relevantUnit on the concept */
   hasUnitConstraint?: { type: 'const'; value: string } | { type: 'enum'; values: string[] }
+  /** Whether the concept carries a numeric result (xsd:decimal / xsd:integer) */
   hasNumericResult?: boolean
   pattern?: string
   minimum?: number
   maximum?: number
+  broader?: string[]
+  narrower?: string[]
 }
 
 export interface AssembledThemeOutput {

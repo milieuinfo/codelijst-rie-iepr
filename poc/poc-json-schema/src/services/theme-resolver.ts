@@ -1,16 +1,19 @@
 import type { Concept, CodelistResult, Scheme } from '../models/index.js'
+import { config } from '../config.js'
 
 export interface ThemeChain {
   themeConcept: Concept
   schemeIds: string[]
   structuralChains: Map<string, string>
+  /** ID of the leaf scheme in the chain (innermost, typically contains measurement fields) */
+  leafSchemeId: string
 }
 
 export class ThemeResolver {
   resolveAllThemes(result: CodelistResult): Map<string, ThemeChain> {
-    const themaScheme = this.findThemaTypeScheme(result)
+    const themaScheme = this.findThemeTypeScheme(result)
     if (!themaScheme) {
-      console.warn('[ThemeResolver] Could not find thema_type scheme')
+      console.warn('[ThemeResolver] Could not find theme typescheme')
       return new Map()
     }
 
@@ -111,28 +114,34 @@ export class ThemeResolver {
       }
     }
 
-    return { themeConcept, schemeIds, structuralChains }
+    const leafSchemeId = schemeIds[schemeIds.length - 1]
+
+    return { themeConcept, schemeIds, structuralChains, leafSchemeId }
   }
 
   getThemeConcepts(result: CodelistResult): Concept[] {
-    const themaScheme = this.findThemaTypeScheme(result)
+    const themaScheme = this.findThemeTypeScheme(result)
     if (!themaScheme) return []
     return result.topConcepts.get(themaScheme.id) || []
   }
 
-  private findThemaTypeScheme(result: CodelistResult): Scheme | undefined {
-    for (const [, scheme] of result.schemes.entries()) {
-      if (scheme.id === 'conceptscheme:thema_type') {
-        return scheme
-      }
-    }
-    // Fallback: look for any scheme with "thema" in the id
+  /** Find the scheme that serves as the root for thematic streams. */
+  private findThemeTypeScheme(result: CodelistResult): Scheme | undefined {
+    const matches: Scheme[] = []
     for (const [id, scheme] of result.schemes.entries()) {
-      if (id.toLowerCase().includes('thema')) {
-        return scheme
+      if (id.toLowerCase().includes(config.themeSchemePattern)) {
+        matches.push(scheme)
       }
     }
-    return undefined
+    // Prefer the match whose top concepts each have seeAlso pointing to a local scheme
+    for (const candidate of matches) {
+      const tops = result.topConcepts.get(candidate.id) || []
+      if (tops.length > 0 && tops.every(tc => Array.isArray(tc.seeAlso) && tc.seeAlso.length > 0)) {
+        return candidate
+      }
+    }
+    // Fallback: return first pattern match
+    return matches[0] ?? undefined
   }
 
   private slugify(text: string): string {

@@ -28,6 +28,7 @@ export class ConceptMapper {
     const description = concept.definition || concept.note || undefined
 
     const schemaField: SchemaField = {
+      conceptId: concept.id,
       propertyName: finalName,
       label,
       description,
@@ -74,6 +75,10 @@ export class ConceptMapper {
     if (concept.relevantDataType === 'xsd:decimal' || concept.relevantDataType === 'xsd:integer') {
       schemaField.hasNumericResult = true
     }
+
+    // Min/max value constraints from codelist
+    if (concept.minValue !== undefined) schemaField.minimum = concept.minValue
+    if (concept.maxValue !== undefined) schemaField.maximum = concept.maxValue
 
     // Condition path/value for conditional visibility
     if (concept.conditionPath && concept.conditionValue) {

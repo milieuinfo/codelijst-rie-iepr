@@ -26,8 +26,6 @@ export class ChainComposer {
     const fields: SchemaField[] = []
 
     for (const concept of topConcepts) {
-      // Only include concepts without a broader reference as root fields
-      if (concept.broader && concept.broader.length > 0) continue
       const field = mapper.mapConcept(concept)
       if (field) {
         fields.push(field)

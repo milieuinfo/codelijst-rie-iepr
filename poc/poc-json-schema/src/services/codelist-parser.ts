@@ -4,14 +4,21 @@ const SCHEME_TYPES = ['skos:ConceptScheme']
 const CONCEPT_TYPES = ['skos:Concept']
 
 import * as fs from 'node:fs'
+import { CurieExpander } from './curie-expander.js'
 
 export class CodelistParser {
+  private curieExpander: CurieExpander | null = null
+
   loadFromFile(filePath: string): CodelistResult {
     const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
     return this.parseData(data)
   }
 
   parseData(data: Record<string, unknown>): CodelistResult {
+    const context = data['@context'] as Record<string, unknown> | undefined
+    if (context && typeof context === 'object') {
+      this.curieExpander = new CurieExpander(context)
+    }
     const graph = Array.isArray(data['graph']) ? data['graph'] : data['graph'] ? [data['graph']] : []
     const nodesById = this.buildNodeIndex(graph)
     const schemes = new Map<string, Scheme>()
@@ -41,7 +48,14 @@ export class CodelistParser {
       topConcepts.set(schemeId, resolved)
     }
 
-    return { nodesById, schemes, concepts, topConcepts }
+    const result: CodelistResult = {
+      nodesById,
+      schemes,
+      concepts,
+      topConcepts,
+      expandCurie: this.curieExpander ? (curie: string) => this.curieExpander!.expand(curie) : (c) => c,
+    }
+    return result
   }
 
   private buildNodeIndex(root: unknown): Map<string, JsonLdNode> {
@@ -97,12 +111,13 @@ export class CodelistParser {
       prefLabel: this.getValue(node, ['prefLabel', 'has_pref_label']) as string | undefined,
       definition: this.getValue(node, ['definition', 'has_definition']) as string | undefined,
       note: this.getValue(node, ['note', 'has_note']) as string | undefined,
-      relevantRiepr: this.idsOf(this.getValue(node, ['relevantRiepr', 'relevant_riepr'])),
+      relevantRiepr: this.idsOf(this.getValue(node, ['relevantRiepr', 'relevant_riepr']), true),
       seeAlso: this.idsOf(this.getValue(node, ['seeAlso', 'see_also'])),
     }
   }
 
   private toConcept(node: JsonLdNode, normalizeBooleans: boolean): Concept {
+    // Keep internal references as raw CURIEs for map lookups; expand at output time
     const concept: Concept = {
       id: String(this.idOf(node)),
       type: this.getTypes(node),
@@ -127,13 +142,22 @@ export class CodelistParser {
     const cvIds = this.idsOf(this.getValue(node, ['conditionValue', 'condition_value'])) ?? []
     concept.conditionValue = cvIds.length > 0 ? this.normalizeConditionValue(cvIds[0]) : undefined
 
+    // relevantCodeList: keep raw CURIEs for scheme map lookups; expand at enum output time
     concept.relevantCodeList = this.idsOf(this.getValue(node, ['relevantCodeList', 'relevant_code_list']))
+    // relevantRiepr: keep raw CURIEs for internal matching
     concept.relevantRiepr = this.idsOf(this.getValue(node, ['relevantRiepr', 'relevant_riepr']))
-    concept.relevantUnit = this.idsOf(this.getValue(node, ['relevantUnit', 'relevant_unit']))
+    // relevantUnit: expand to full URIs — consumed directly by schema output
+    concept.relevantUnit = this.idsOf(this.getValue(node, ['relevantUnit', 'relevant_unit']), true)
     concept.seeAlso = this.idsOf(this.getValue(node, ['seeAlso', 'see_also']))
     concept.relevantClass = typeof this.getValue(node, ['relevantClass', 'relevant_class']) === 'string'
       ? String(this.getValue(node, ['relevantClass', 'relevant_class']))
       : undefined
+
+    // min/max value constraints (Issue-SCHEMA-01 — once CSV columns are populated)
+    const rawMin = this.getNumeric(node, ['minValue'])
+    if (rawMin !== undefined) concept.minValue = rawMin
+    const rawMax = this.getNumeric(node, ['maxValue'])
+    if (rawMax !== undefined) concept.maxValue = rawMax
 
     if (normalizeBooleans) {
       concept.isVerplicht = this.parseBoolean(this.getValue(node, ['isVerplicht', 'is_verplicht']))
@@ -152,7 +176,7 @@ export class CodelistParser {
     return concept
   }
 
-  private idsOf(value: unknown): string[] | undefined {
+  private idsOf(value: unknown, expand = false): string[] | undefined {
     if (value === undefined || value === null) return undefined
     const arr = Array.isArray(value) ? value : [value]
     const expanded = arr.flatMap(v => {
@@ -161,8 +185,15 @@ export class CodelistParser {
       }
       return [v]
     })
-    const ids = expanded.map(v => this.idOf(v)).filter((v): v is string => v !== undefined)
+    let ids = expanded.map(v => this.idOf(v)).filter((v): v is string => v !== undefined)
+    if (expand) ids = ids.map(id => this.curieExpander!.expand(id))
     return ids.length > 0 ? ids : undefined
+  }
+
+  /** Expand a single optional CURIE to its full URI form (if context has the prefix). */
+  private expandCuries(id: string | undefined): string | undefined {
+    if (!id) return id
+    return this.curieExpander!.expand(id)
   }
 
   private parseBoolean(value: unknown): boolean | undefined {
@@ -200,6 +231,22 @@ export class CodelistParser {
   private getValue(obj: Record<string, unknown>, keys: string[]): unknown {
     for (const key of keys) {
       if (obj[key] !== undefined) return obj[key]
+    }
+    return undefined
+  }
+
+  private getNumeric(obj: Record<string, unknown>, keys: string[]): number | undefined {
+    const raw = this.getValue(obj, keys)
+    if (raw === undefined || raw === null) return undefined
+    // JSON-LD typed literal: { "_type": "xsd:decimal", "_value": "123.4" }
+    if (typeof raw === 'object' && '_value' in raw) {
+      const parsed = Number(String(raw._value))
+      return Number.isFinite(parsed) ? parsed : undefined
+    }
+    if (typeof raw === 'number') return raw
+    if (typeof raw === 'string') {
+      const parsed = Number(raw)
+      return Number.isFinite(parsed) ? parsed : undefined
     }
     return undefined
   }

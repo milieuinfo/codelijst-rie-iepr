@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import { Ajv2020 } from 'ajv/dist/2020.js'
 
 export interface ValidationResult {
   valid: boolean
@@ -13,12 +14,17 @@ export class SchemaValidator {
       const content = await fs.readFile(filePath, 'utf-8')
       const schema = JSON.parse(content)
 
-      // Basic structural validation
       if (typeof schema !== 'object' || schema === null) {
         return { valid: false, filePath, errors: ['Not a valid JSON object'] }
       }
-      if (schema.$schema !== 'https://json-schema.org/draft/2020-12/schema') {
-        return { valid: false, filePath, errors: [`Missing or incorrect $schema: ${schema.$schema}`] }
+
+      const ajv = new Ajv2020({ strict: false })
+      const valid = ajv.validateSchema(schema) as boolean
+      if (!valid && ajv.errors) {
+        const errs = ajv.errors.map(
+          (e: any) => `${e.instancePath || '/'} ${e.message}`,
+        )
+        return { valid: false, filePath, errors: errs.length ? errs : [ajv.errors.toString()] }
       }
 
       return { valid: true, filePath }
@@ -47,11 +53,27 @@ export class SchemaValidator {
     return results
   }
 
-  async validateData(schemaPath: string, sampleData: unknown): Promise<boolean> {
+  async validateData(
+    schemaPath: string,
+    baseSchemaPath: string,
+    sampleData: unknown,
+  ): Promise<boolean> {
     try {
-      const content = await fs.readFile(schemaPath, 'utf-8')
-      JSON.parse(content) // Just verify it's parseable
-      return true
+      const schemaContent = await fs.readFile(schemaPath, 'utf-8')
+      const baseContent = await fs.readFile(baseSchemaPath, 'utf-8')
+      const schema = JSON.parse(schemaContent)
+      const baseSchema = JSON.parse(baseContent)
+
+      const ajv = new Ajv2020({ strict: false })
+      ajv.addSchema(baseSchema, baseSchema.$id || baseSchemaPath)
+      ajv.addSchema(schema, schema.$id || schemaPath)
+
+      const validate = ajv.getSchema(schema.$id || schemaPath)
+      if (!validate) {
+        return false
+      }
+
+      return !!validate(sampleData)
     } catch {
       return false
     }

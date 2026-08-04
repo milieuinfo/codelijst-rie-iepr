@@ -1,4 +1,5 @@
 import type { Concept, CodelistResult, Scheme } from '../models/index.js'
+import { config } from '../config.js'
 
 export interface EnumResolution {
   resolved: boolean
@@ -42,12 +43,10 @@ export class EnumGenerator {
     const firstBadRef = concept.relevantCodeList.find(ref => !this.result.schemes.has(ref))
     if (firstBadRef) {
       let warning = ''
-      if (firstBadRef.includes('TODO')) {
-        warning = `Unresolved relevantCodeList ref "${firstBadRef}" — TODO placeholder`
-      } else if (!firstBadRef.startsWith('http') && firstBadRef.startsWith('conceptscheme-alg:')) {
-        warning = `Unresolvable external prefix in relevantCodeList: "${firstBadRef}"`
-      } else if (firstBadRef.startsWith('https://vito.be')) {
-        warning = `External domain in relevantCodeList: "${firstBadRef}"`
+      if (isPlaceholder(firstBadRef)) {
+        warning = `Unresolved relevantCodeList ref "${firstBadRef}" — placeholder`
+      } else if (isExternalDomain(firstBadRef)) {
+        warning = `External/unresolvable relevantCodeList ref: "${firstBadRef}"`
       } else if (!this.result.schemes.has(firstBadRef)) {
         warning = `relevantCodeList scheme not found locally: "${firstBadRef}"`
       }
@@ -58,13 +57,11 @@ export class EnumGenerator {
   }
 
   resolveSchemeToConcepts(schemeRef: string): { success: true; entries: Map<string, string> } | { success: false; warning: string } {
-    // Check for TODO placeholders
-    if (schemeRef.includes('TODO')) {
-      return { success: false, warning: `Unresolved relevantCodeList ref "${schemeRef}" — TODO placeholder` }
+    if (isPlaceholder(schemeRef)) {
+      return { success: false, warning: `Unresolved relevantCodeList ref "${schemeRef}" — placeholder` }
     }
 
-    // Check external domains
-    if (schemeRef.startsWith('https://vito.be') || schemeRef.startsWith('conceptscheme-alg:')) {
+    if (isExternalDomain(schemeRef)) {
       return { success: false, warning: `External/unresolvable relevantCodeList ref: "${schemeRef}"` }
     }
 
@@ -76,7 +73,8 @@ export class EnumGenerator {
     const topConcepts = this.result.topConcepts.get(scheme.id) || []
     const entries = new Map<string, string>()
     for (const tc of topConcepts) {
-      entries.set(tc.id, tc.prefLabel || tc.id)
+      const expandedId = this.result.expandCurie ? this.result.expandCurie(tc.id) : tc.id
+      entries.set(expandedId, tc.prefLabel || expandedId)
     }
 
     if (entries.size === 0) {
@@ -85,4 +83,14 @@ export class EnumGenerator {
 
     return { success: true, entries }
   }
+}
+
+/** Whether the reference contains a known placeholder marker. */
+function isPlaceholder(ref: string): boolean {
+  return config.placeholderMarkers.some(marker => ref.includes(marker))
+}
+
+/** Whether the reference starts with a known external domain prefix. */
+function isExternalDomain(ref: string): boolean {
+  return config.externalDomainPrefixes.some(prefix => ref.startsWith(prefix))
 }
