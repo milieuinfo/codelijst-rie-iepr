@@ -1,0 +1,19 @@
+{
+  "name": "codelijst-rie-iepr-poc-json-schema",
+  "version": "0.1.0",
+  "description": "Transformation tool that generates JSON Schema (Draft 2020-12) from RIE-IEPR SKOS/JSON-LD codelist",
+  "type": "module",
+  "scripts": {
+    "predev": "node scripts/sync-codelist.mjs",
+    "build": "tsc",
+    "generate": "node dist/cli.js",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.15.17",
+    "ajv": "^8.17.1",
+    "typescript": "~5.8.0",
+    "vitest": "^3.1.8"
+  }
+}
