@@ -38,7 +38,7 @@ export interface Concept {
   /** Reference (id) to another concept/field in the same form whose current value gates visibility of this field. */
   conditionPath?: string
   /** The value that the referenced field's current input must equal for this field to be shown. */
-  conditionValue?: string
+  conditionValue?: string | number  // NaN sentinel: show field when conditionPath has no value
   /** Links to another scheme or concept for multi-step flows. When a structural element is selected,
    * the app transitions to the target scheme referenced here. Points at a `skos:ConceptScheme` id.
    * Replaces the old pattern where `relevantRiepr` was used for theme→scheme navigation. */

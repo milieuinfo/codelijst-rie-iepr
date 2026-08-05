@@ -34,31 +34,6 @@ export class CodelijstApp extends LitElement {
         margin-top: var(--vl-spacing--medium);
         margin-bottom: var(--vl-spacing--large);
       }
-
-      /* ---- Breadcrumb / flow navigation bar ---- */
-      .flow-nav {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: var(--vl-spacing--small);
-        padding: 0.5rem 0;
-      }
-      .flow-nav button {
-        font-size: 0.875rem;
-        color: var(--vl-color--text-alt, #687483);
-        background: none;
-        border: none;
-        cursor: pointer;
-        text-decoration: underline;
-        padding: 0;
-      }
-      .flow-nav button:hover {
-        color: var(--vl-color--primary, #12528a);
-      }
-      .flow-nav .separator {
-        color: var(--vl-color--text-alt, #687483);
-        user-select: none;
-      }
     `,
     vlMarginStyles,
     layoutStyle,
@@ -68,6 +43,7 @@ export class CodelijstApp extends LitElement {
 
   private result?: CodelistResult
   private loadError?: string
+  private selectedYear?: number
   private selectedThemeId?: string
   private selectedSubThemeId?: string
 
@@ -88,10 +64,19 @@ export class CodelijstApp extends LitElement {
     this.requestUpdate()
   }
 
+  private onYearSelect(event: CustomEvent<{ value: string }>) {
+    const val = Number(event.detail.value)
+    if (!Number.isNaN(val) && val > 0) {
+      this.selectedYear = val
+    } else {
+      this.selectedYear = undefined
+    }
+    this.requestUpdate()
+  }
+
   private onThemeSelect(event: CustomEvent<{ themeId?: string; subThemeId?: string }>) {
     this.selectedThemeId = event.detail.themeId
     this.selectedSubThemeId = event.detail.subThemeId
-    // Reset flow stack when theme changes
     this.flowStack = []
     this.resolveBaseScheme()
     this.requestUpdate()
@@ -153,34 +138,34 @@ export class CodelijstApp extends LitElement {
                 ? html`<vl-alert type="error" title="Kon codelijst niet laden" message="${this.loadError}"></vl-alert>`
                 : !this.result
                   ? html`<p>Codelijsten laden...</p>`
-                  : html`
-                      <p class="vl-margin--small">Selecteer een thema om de bijbehorende operationele velden te bekijken.</p>
+            : html`
+                       <vl-form-label for="productie-jaar" label="Productie jaar" block></vl-form-label>
+                       <vl-select
+                         id="productie-jaar"
+                         name="productie-jaar"
+                         placeholder="Selecteer een productie jaar..."
+                         .options="${this.getProductieJaarOptions()}"
+                         .value="${String(this.selectedYear ?? '')}"
+                         @vl-input="${this.onYearSelect}"
+                       ></vl-select>
 
-                      <codelijst-theme-selector
-                        .result="${this.result}"
-                        .selectedThemeId="${this.selectedThemeId}"
-                        .selectedSubThemeId="${this.selectedSubThemeId}"
-                        .codelistService="${this.codelistService}"
-                        @theme-select="${this.onThemeSelect}"
-                      ></codelijst-theme-selector>
-
-                       ${this.currentSchemeId
+                       ${this.selectedYear
                          ? html`
-                             ${this.renderFlowNav()}
-                             <div class="vl-fieldset-wrapper">
-                               <vl-fieldset>
-                                 <span slot="legend">${this.renderLegend()}</span>
-                                 <codelijst-operationeel-fields
-                                   style="margin-top: var(--vl-spacing--xsmall, 0.5rem)"
-                                   .result="${this.result}"
-                                   .schemeId="${this.currentSchemeId}"
-                                   .codelistService="${this.codelistService}"
-                                   @flow-navigate="${this.onFlowNavigate}"
-                                 ></codelijst-operationeel-fields>
-                               </vl-fieldset>
-                             </div>
-                           `
-                         : (this.selectedThemeId ? html`<p>Voor dit thema zijn geen operationele gegevens gedefinieerd.</p>` : nothing)}
+                             <p class="vl-margin--small">Selecteer een thema voor ${this.selectedYear} om de bijbehorende operationele velden te bekijken.</p>
+
+                             <codelijst-theme-selector
+                               .result="${this.result}"
+                               .selectedThemeId="${this.selectedThemeId}"
+                               .selectedSubThemeId="${this.selectedSubThemeId}"
+                               .codelistService="${this.codelistService}"
+                               @theme-select="${this.onThemeSelect}"
+                             ></codelijst-theme-selector>
+
+                  ${this.currentSchemeId
+                    ? html`${this.renderAllFlowSteps()}`
+                : (this.selectedThemeId ? html`<p>Voor dit thema zijn geen operationele gegevens gedefinieerd.</p>` : nothing)}
+                             `
+                         : nothing}
                   `}
             </div>
           </div>
@@ -189,29 +174,47 @@ export class CodelijstApp extends LitElement {
     `
   }
 
-  /** Render breadcrumb navigation when in a sub-flow step. */
-  private renderFlowNav() {
-    if (this.flowStack.length <= 1) return nothing
-
-    const baseStep = this.flowStack[0]
-    const baseScheme = this.result?.schemes.get(baseStep.schemeId)
-    const baseLabel = baseScheme?.prefLabel ?? 'Overzicht'
-
-    return html`
-      <nav class="flow-nav" aria-label="Navigatie">
-        <button @click="${this.goToBase}">← ${baseLabel}</button>
-        <span class="separator">/</span>
-        <span>Huidige stap</span>
-      </nav>
-    `
+  /** Build year options: current year ± range for historical and future reporting periods. */
+  private getProductieJaarOptions(): { value: string; label: string }[] {
+    const currentYear = new Date().getFullYear()
+    const years: { value: string; label: string }[] = []
+    for (let y = currentYear - 5; y <= currentYear + 2; y++) {
+      years.push({ value: String(y), label: String(y) })
+    }
+    return years
   }
 
-  /** Render the fieldset legend with scheme label and flow context. */
-  private renderLegend(): string {
-    const current = this.currentSchemeId
-    if (!current || !this.result) return 'Operationele gegevens'
-    const scheme = this.result.schemes.get(current)
-    return scheme?.prefLabel ? `${scheme.prefLabel}` : 'Operationele gegevens'
+  /** Render ALL flow steps simultaneously so no previous selection disappears. Only the last step listens for flow-navigate. */
+  private renderAllFlowSteps() {
+    return html`
+      ${this.flowStack.map((step, idx) => {
+        const scheme = this.result?.schemes.get(step.schemeId)
+        const isLast = idx === this.flowStack.length - 1
+        return html`
+          <div class="vl-fieldset-wrapper">
+            <vl-fieldset>
+              <span slot="legend">${scheme?.prefLabel ?? 'Operationele gegevens'}</span>
+              <codelijst-operationeel-fields
+                style="margin-top: var(--vl-spacing--xsmall, 0.5rem)"
+                .result="${this.result}"
+                .schemeId="${step.schemeId}"
+                .codelistService="${this.codelistService}"
+                ?data-is-last="${isLast}"
+                @flow-navigate="${isLast ? this.onFlowNavigate : nothing}"
+              ></codelijst-operationeel-fields>
+            </vl-fieldset>
+          </div>
+          ${isLast && this.flowStack.length > 1
+            ? html`
+                <div style="margin-top: var(--vl-spacing--small); display: flex; gap: var(--vl-spacing--small);">
+                  <vl-button secondary @click="${this.goBack}">← Terug naar vorige stap</vl-button>
+                  <vl-button secondary @click="${this.goToBase}">← Terug naar overzicht</vl-button>
+                </div>
+              `
+            : nothing}
+        `
+      })}
+    `
   }
 }
 

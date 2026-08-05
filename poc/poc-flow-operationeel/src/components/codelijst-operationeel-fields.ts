@@ -98,6 +98,11 @@ export class CodelijstOperationeelFields extends LitElement {
         margin-top: 0.25rem;
         font-style: italic;
       }
+
+      /* Spacing between input controls and the verwijder button in meervoudige groups */
+      .codelijst-group__item > vl-button {
+        margin-top: var(--vl-spacing--small, 0.5rem);
+      }
     `,
     vlMarginStyles,
   ]
@@ -681,50 +686,60 @@ export class CodelijstOperationeelFields extends LitElement {
    */
    private _structuralHandlerRunning = false
 
-  /**
-   * Handles vl-input events specifically from structural type pickers that may have seeAlso targets.
-   * After storing the value, checks if the parent field has seeAlso pointing to another scheme
-   * and emits flow-navigate event if so.
-   *
-   * Supports both single-select (<vl-select>) and multi-select (<vl-select-rich multiple>) values:
-   * - Single select: string value stored as-is
-   * - Multi-select: string[] array preserved (not coerced to "val1,val2")
-   */
-  private _onStructuralPickerInput(event: CustomEvent<VlInputElementEventDetail>) {
-    // Guard against re-entrant calls causing infinite loops
-    if (this._structuralHandlerRunning) return
-    this._structuralHandlerRunning = true
+   /**
+    * Handles vl-input events specifically from structural type pickers that may have seeAlso targets.
+    * After storing the value, checks if the parent field has seeAlso pointing to another scheme
+    * and emits flow-navigate event if so.
+    *
+    * Supports both single-select (<vl-select>) and multi-select (<vl-select-rich multiple>) values:
+    * - Single select: string value stored as-is
+    * - Multi-select: string[] array preserved (not coerced to "val1,val2")
+    */
+   private _onStructuralPickerInput(event: CustomEvent<VlInputElementEventDetail>) {
+     // Guard against re-entrant calls causing infinite loops
+     if (this._structuralHandlerRunning) return
+     this._structuralHandlerRunning = true
 
-    try {
-      const component = event.currentTarget! as VlSelectElement | VlInputFieldElement | VlDatepickerElement | VlSelectRichElement
-      const domId = component.id
-      let value: unknown = event.detail?.value
-      if (value === undefined) {
-        value = 'value' in component ? component.value : undefined
-      }
-      this._fieldValues.set(domId, value)
-
-      // Track structural selection using all possible key forms.
-      // Preserve arrays from <vl-select-rich multiple>; coerce single values to strings.
-      const normalisedValue = Array.isArray(value) ? value : String(value ?? '')
-      if (this.result && this.hasSelection(normalisedValue)) {
-        if (this.result.concepts.has(domId)) {
-          this.structuralSelections.set(domId, normalisedValue)
-        } else {
-          for (const [conceptId] of this.result.concepts.entries()) {
-            if (domId.includes(conceptId)) {
-              this.structuralSelections.set(conceptId, normalisedValue)
-              break
-            }
-          }
+      try {
+        const component = event.currentTarget! as VlSelectElement | VlInputFieldElement | VlDatepickerElement | VlSelectRichElement
+        const domId = component.id
+        let value: unknown = event.detail?.value
+        if (value === undefined) {
+          value = 'value' in component ? component.value : undefined
         }
-      }
 
-      // Check if any root-level concept with seeAlso was satisfied by this picker.
-      // The picker's DOM id may contain the concept id it represents; we look up the
-      // parent field from renderRootFieldContent context via embedded picker tracking.
-      this.checkSeeAlsoForPickerDomId(domId, value)
-    } finally {
+        // Guard against infinite re-render loop: skip if stored value hasn't changed
+        const previousValue = this._fieldValues.get(domId)
+        const isSameValue = Array.isArray(value) && Array.isArray(previousValue)
+          ? value.length === previousValue.length && value.every((v, i) => v === previousValue[i])
+          : value === previousValue
+        if (isSameValue) {
+          return
+        }
+
+       this._fieldValues.set(domId, value)
+
+       // Track structural selection using all possible key forms.
+       // Preserve arrays from <vl-select-rich multiple>; coerce single values to strings.
+       const normalisedValue = Array.isArray(value) ? value : String(value ?? '')
+       if (this.result && this.hasSelection(normalisedValue)) {
+         if (this.result.concepts.has(domId)) {
+           this.structuralSelections.set(domId, normalisedValue)
+         } else {
+           for (const [conceptId] of this.result.concepts.entries()) {
+             if (domId.includes(conceptId)) {
+               this.structuralSelections.set(conceptId, normalisedValue)
+               break
+             }
+           }
+         }
+       }
+
+       // Check if any root-level concept with seeAlso was satisfied by this picker.
+       // The picker's DOM id may contain the concept id it represents; we look up the
+       // parent field from renderRootFieldContent context via embedded picker tracking.
+       this.checkSeeAlsoForPickerDomId(domId, value)
+     } finally {
       this.requestUpdate()
       this._structuralHandlerRunning = false
     }
@@ -1040,21 +1055,36 @@ export class CodelijstOperationeelFields extends LitElement {
     this.requestUpdate()
   }
 
-  /**
-   * Checks whether a concept with conditionPath/conditionValue should be rendered.
-   * If no condition is defined the field always shows; otherwise the referenced
-   * field's current tracked value must equal `conditionValue`.
-   *
-   * Handles multiple value formats:
-   * - Checkbox: "true" / "false"
-   * - Select/code list: full concept ID like "riepr-operationeel-pomptoestand:rust"
-   *   where conditionValue normalizes to just "rust"
-   */
-  private matchesCondition(field: Concept): boolean {
-    if (!field.conditionPath || !field.conditionValue) return true
-    const refId = field.conditionPath
-    // Normalize condition value for case-insensitive comparison.
-    const expected = field.conditionValue.toLowerCase().trim()
+   /**
+    * Checks whether a concept with conditionPath/conditionValue should be rendered.
+    * If no condition is defined the field always shows; otherwise the referenced
+    * field's current tracked value must equal `conditionValue`.
+    *
+    * Handles multiple value formats:
+    * - Checkbox: "true" / "false"
+    * - Select/code list: full concept ID like "riepr-operationeel-pomptoestand:rust"
+    *   where conditionValue normalizes to just "rust"
+    * - NaN: show when conditionPath field has no entered value (Number.isNaN check)
+    */
+   private matchesCondition(field: Concept): boolean {
+     if (!field.conditionPath || !field.conditionValue) return true
+     const refId = field.conditionPath
+
+     // NaN sentinel: show when the referenced field has no entered value
+     if (typeof field.conditionValue === 'number' && Number.isNaN(field.conditionValue)) {
+       let stored = this._fieldValues.get(refId)
+       if (stored === undefined || stored === '' || (Array.isArray(stored) && stored.length === 0)) return true
+       // Also check base prefix for repeatable fields beyond #1
+       const basePrefix = refId.replace(/#\d+$/, '')
+       let anyValued = false
+       for (const [key, val] of this._fieldValues.entries()) {
+         if (key.startsWith(basePrefix) && val !== undefined && val !== '') { anyValued = true; break }
+       }
+       return !anyValued
+     }
+
+     // Normalize condition value for case-insensitive comparison.
+     const expected = String(field.conditionValue).toLowerCase().trim()
 
     // Direct id match first (exact control that was rendered).
     let stored = this._fieldValues.get(refId)

@@ -131,6 +131,31 @@ These are design decisions where hardcoding in TypeScript was unavoidable or int
   - **Status:** Open — requires either (a) adding explicit broader relationships in the codelist to make the conditional field truly nested under its trigger, or (b) implementing application-level grouping of conditional siblings under their trigger's card.
   - **Solution for future:** In the source CSV/data, define conditional fields as narrower children of their trigger concept rather than as top-level concepts with conditionPath annotations. This eliminates the need for special sorting logic and creates natural hierarchy.
 
+## Application Logic Conventions (2026-08-05)
+
+These document deliberate design decisions where application-logic values are used outside the codelist data.
+
+- **Issue ID**: CONDITION-VALUE-NaN-SENTINEL
+  - **Description:** `conditionValue` can be set to JavaScript `NaN` (`Number.NaN`) to indicate that a field should only be visible when its `conditionPath` trigger field has **no entered value** (empty/unset). This is the inverse of normal condition matching — instead of requiring a specific value, it requires the absence of any value.
+  - **Rationale:** `NaN` is chosen because it's the idiomatic JavaScript sentinel for "no valid comparison value", it's unambiguous via `Number.isNaN()`, and it semantically conveys "no value present". It's distinct from `undefined` (which means "no condition") and empty string `""` (which could mean "explicitly cleared").
+  - **Alternative considered:** Using a special string like `"__empty__"` or `null`. Rejected because: strings are lossy (`normalizeConditionValue` would process them), `null` in JSON-LD has different semantics. `NaN` is a number type that doesn't collide with string values processed by the normalization pipeline.
+  - **Implementation:** `matchesCondition()` checks `typeof field.conditionValue === 'number' && Number.isNaN(field.conditionValue)` before attempting string normalization. When true, returns `true` if referenced field is unset, `false` otherwise.
+  - **Status:** Resolved.
+  - **Caveat:** In JSON-LD source data, `NaN` would need to be expressed as the literal string `"NaN"` which the service normalizes to the actual `Number.NaN` value during parsing. If future codelist data uses numeric condition values for other purposes, this convention may conflict.
+
+- **Issue ID**: STRUCTURAL-PICKER-INFINITE-RENDER
+  - **Description:** Selecting an emissiepunt in the lucht theme caused a complete browser freeze due to an infinite render loop. The `_onStructuralPickerInput` handler called `requestUpdate()` on every `@vl-input` event, but vl-select's internal `updated()` lifecycle resets `.value` to `''` when `.options` changes, re-firing `@vl-input`, entering `_onStructuralPickerInput` again (guard `_structuralHandlerRunning` had already been released by the `finally` block), creating a tight cycle.
+  - **Impact:** Complete UI freeze — browser tab unresponsive, required force close. Affected all structural pickers using `<vl-select>` (not `<vl-select-rich multiple>` which has different event semantics).
+  - **Status:** Resolved.
+  - **Solution:** Added a value-change guard at the start of `_onStructuralPickerInput`: compare incoming value against previously stored value for the same domId; if identical, return early without calling `requestUpdate()`. This breaks the loop while still processing genuine user selections.
+
+- **Issue ID**: PRODUCTIE-JAAR-SELECTOR
+  - **Description:** Before selecting a thema, user must first select a "Productie jaar" (production year). This field is application-logic and not derived from any codelist data — the codelist does not contain a year dimension.
+  - **Rationale:** Reporting is inherently year-scoped in RIE-IEPR; showing fields without year context is misleading. Placed before thema selection because year selection is independent of tema choice.
+  - **Implementation:** Hardcoded `<vl-select>` in `codelijst-app.ts` with range `currentYear - 5` through `currentYear + 2`. Gates the theme selector and downstream rendering behind non-empty year selection.
+  - **Status:** Resolved.
+  - **Future improvement:** Year range could become configurable (e.g., via `vite-env.d.ts` env vars) rather than hardcoded ±range.
+
 ## Issue Tracking Template
 - **Issue ID**: Unique identifier
 - **Description**: Problem description

@@ -28,7 +28,7 @@ const NO_HANDLER: Record<string, ControlNoHandlerFn> = {
     html`<vl-datepicker id="${i}" name="${n}" label="${l}" ?required="${r}"></vl-datepicker>`,
 
   [DataType.DATETIME]: (i, n, l, r) =>
-    html`<vl-datepicker id="${i}" name="${n}" label="${l}" ?required="${r}"></vl-datepicker>`,
+    html`<vl-datepicker id="${i}" name="${n}" label="${l}" type="date-time" ?required="${r}"></vl-datepicker>`,
 
   [DataType.TEMPORAL_RANGE]: (i, n, l, r) =>
     html`<vl-datepicker id="${i}" name="${n}" label="${l}" type="range" ?required="${r}"></vl-datepicker>`,
@@ -53,7 +53,7 @@ const WITH_HANDLER: Record<string, ControlWithHandlerFn> = {
     html`<vl-datepicker id="${i}" name="${n}" label="${l}" ?required="${r}" @vl-input="${h}"></vl-datepicker>`,
 
   [DataType.DATETIME]: (i, n, l, r, h) =>
-    html`<vl-datepicker id="${i}" name="${n}" label="${l}" ?required="${r}" @vl-input="${h}"></vl-datepicker>`,
+    html`<vl-datepicker id="${i}" name="${n}" label="${l}" type="date-time" ?required="${r}" @vl-input="${h}"></vl-datepicker>`,
 
   [DataType.TEMPORAL_RANGE]: (i, n, l, r, h) =>
     html`<vl-datepicker id="${i}" name="${n}" label="${l}" type="range" ?required="${r}" @vl-input="${h}"></vl-datepicker>`,
