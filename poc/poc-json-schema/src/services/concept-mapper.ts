@@ -38,6 +38,8 @@ export class ConceptMapper {
       broader: concept.broader,
       narrower: concept.narrower,
       relevantClass: concept.relevantClass,
+      isFeatureOfInterest: concept.relation === 'sosa:hasFeatureOfInterest',
+      isHasResult: concept.relation === 'sosa:hasResult',
     }
 
     // Type mapping with format

@@ -48,9 +48,18 @@ export interface SchemaField {
   maximum?: number
   broader?: string[]
   narrower?: string[]
+  isFeatureOfInterest?: boolean
+  /** Whether this concept maps into hasResult (sosa:hasResult relation) */
+  isHasResult?: boolean
+}
+
+export interface SubSchema {
+  name: string
+  schema: JsonSchemaObject
 }
 
 export interface AssembledThemeOutput {
   baseSchema: JsonSchemaObject
   domainSchema: JsonSchemaObject
+  subSchemas?: SubSchema[]
 }

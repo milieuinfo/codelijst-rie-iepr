@@ -18,6 +18,27 @@ export class ChainComposer {
       allFields.push(...rootFields)
     }
 
+    // If multiple FoI fields exist in the chain, keep only the deepest one (innermost scheme wins)
+    const foiFields = allFields.filter(f => f.isFeatureOfInterest === true)
+    if (foiFields.length > 1) {
+      let selectedFoi = foiFields[0]
+      let deepestIndex = -1
+      for (const foi of foiFields) {
+        const concept = result.concepts.get(foi.conceptId)
+        const schemeIdx = concept ? chain.schemeIds.indexOf(concept.inScheme || '') : -1
+        if (schemeIdx > deepestIndex) {
+          deepestIndex = schemeIdx
+          selectedFoi = foi
+        }
+      }
+      for (const foi of foiFields) {
+        if (foi !== selectedFoi) {
+          const idx = allFields.indexOf(foi)
+          if (idx >= 0) allFields.splice(idx, 1)
+        }
+      }
+    }
+
     return { fields: allFields, contributions }
   }
 

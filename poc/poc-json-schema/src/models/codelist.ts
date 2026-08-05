@@ -48,4 +48,5 @@ export interface Concept {
   minValue?: number
   maxValue?: number
   seeAlso?: string[]
+  relation?: string
 }

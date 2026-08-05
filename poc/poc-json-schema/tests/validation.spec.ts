@@ -32,10 +32,10 @@ describe('Generated Schemas', () => {
     }
   })
 
-  it('should generate one schema per theme plus observatie.json', async () => {
+  it('should generate at least one schema per theme plus observatie.json', async () => {
     const files = await fs.readdir(schemaDir, { recursive: true })
     const jsonFiles = files.filter(f => typeof f === 'string' && f.endsWith('.json'))
-    expect(jsonFiles.length).toBe(discoveredThemes.length + 1)
+    expect(jsonFiles.length).toBeGreaterThanOrEqual(discoveredThemes.length + 1)
   })
 
   it('should have observatie.json at the root of schema directory', async () => {
@@ -127,10 +127,20 @@ describe('Generated Schemas', () => {
           expect(Array.isArray(hr?.allOf)).toBe(true)
         })
 
-        it('has domain properties beyond base envelope', () => {
+        it('has domain properties beyond base envelope or delegates to sub-schemas', async () => {
           const baseProps = new Set(['resultTime', 'wasOriginatedBy', 'hasFeatureOfInterest', 'observedProperty', 'hasResult'])
           const domainOnly = Object.keys(schema.properties || {}).filter(p => !baseProps.has(p))
-          expect(domainOnly.length).toBeGreaterThan(0)
+          const themeDir = path.join(schemaDir, theme)
+          const subSchemaDirs = (await fs.readdir(themeDir)).filter(d => {
+            try {
+              return syncFs.statSync(path.join(themeDir, d)).isDirectory()
+            } catch {
+              return false
+            }
+          })
+          if (domainOnly.length === 0 && subSchemaDirs.length === 0) {
+            throw new Error(`Theme ${theme} has neither domain properties nor sub-schemas`)
+          }
         })
 
         it('is valid parseable JSON', () => {

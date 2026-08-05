@@ -153,6 +153,10 @@ export class CodelistParser {
       ? String(this.getValue(node, ['relevantClass', 'relevant_class']))
       : undefined
 
+    concept.relation = typeof this.getValue(node, ['relation']) === 'string'
+      ? String(this.getValue(node, ['relation']))
+      : undefined
+
     // min/max value constraints (Issue-SCHEMA-01 — once CSV columns are populated)
     const rawMin = this.getNumeric(node, ['minValue'])
     if (rawMin !== undefined) concept.minValue = rawMin

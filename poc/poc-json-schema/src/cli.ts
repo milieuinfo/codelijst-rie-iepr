@@ -87,11 +87,17 @@ async function main() {
     const conditionBlock = conditionalGen.generateAllConditionals(conditions)
 
     // Assemble final domain schema
-    const { domainSchema } = assembler.assemble(themeName, nestedFields, conditionBlock, chain, result)
+    const { domainSchema, subSchemas } = assembler.assemble(themeName, nestedFields, conditionBlock, chain, result)
 
     // Write output files
     await writer.writeBase(baseSchema)
     await writer.writeTheme(themeName, domainSchema)
+
+    if (subSchemas) {
+      for (const sub of subSchemas) {
+        await writer.writeSubSchema(themeName, sub.name, sub.schema)
+      }
+    }
   }
 
   // Step 6: Validate all generated schemas
