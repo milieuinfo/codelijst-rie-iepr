@@ -44,13 +44,21 @@ const CONCEPT_TYPES = ['skos:Concept']
  * resolve these links.
  */
 export class CodelistService {
-  private readonly baseUrl: string = '/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/'
+  private readonly resourcePath: string = 'resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/'
   private readonly fileName: string = 'rie-iepr.jsonld'
+
+  /** Resolves the app base from the page URL (e.g. "/" locally, "/codelijst-rie-iepr/" on GitHub Pages). */
+  private getAppBase(): string {
+    const p = window.location.pathname
+    const idx = p.lastIndexOf('/')
+    return p.substring(0, idx + 1) || '/'
+  }
 
   async loadCodelist(options: CodelistOptions = {}): Promise<CodelistResult> {
     const normalizeBooleans = options.normalizeBooleans ?? true
 
-    const response = await fetch(this.baseUrl + this.fileName)
+    const url = this.getAppBase() + this.resourcePath + this.fileName
+    const response = await fetch(url)
 
     if (!response.ok) {
       throw new Error(`Failed to fetch codelist: ${response.status} ${response.statusText}`)
