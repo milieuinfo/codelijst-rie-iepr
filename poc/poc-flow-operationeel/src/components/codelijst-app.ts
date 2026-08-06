@@ -105,13 +105,7 @@ export class CodelijstApp extends LitElement {
     this.requestUpdate()
   }
 
-  /** Navigate back one step in the flow stack. */
-  private goBack(): void {
-    if (this.flowStack.length > 1) {
-      this.flowStack.pop()
-      this.requestUpdate()
-    }
-  }
+
 
   /** Reset to base scheme (pop everything except the first entry). */
   private goToBase(): void {
@@ -206,8 +200,7 @@ export class CodelijstApp extends LitElement {
           </div>
           ${isLast && this.flowStack.length > 1
             ? html`
-                <div style="margin-top: var(--vl-spacing--small); display: flex; gap: var(--vl-spacing--small);">
-                  <vl-button secondary @click="${this.goBack}">← Terug naar vorige stap</vl-button>
+                <div style="margin-top: var(--vl-spacing--small);">
                   <vl-button secondary @click="${this.goToBase}">← Terug naar overzicht</vl-button>
                 </div>
               `

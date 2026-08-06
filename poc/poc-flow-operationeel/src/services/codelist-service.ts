@@ -185,10 +185,9 @@ export class CodelistService {
       altLabel: this.getValue(node, ['altLabel', 'alt_label']) as string[] | undefined,
       definition: this.getValue(node, ['definition', 'has_definition']) as string | undefined,
       note: this.getValue(node, ['note', 'has_note']) as string | undefined,
-      broader: this.idsOf(this.getValue(node, ['broader'])),
+      isPartOf: this.idsOf(this.getValue(node, ['isPartOf', 'broader'])),
       narrower: this.idsOf(this.getValue(node, ['narrower'])),
       topConceptOf: this.idOf(this.getValue(node, ['topConceptOf', 'top_concept_of'])),
-      broaderTransitive: this.idsOf(this.getValue(node, ['broaderTransitive', 'broader_transitive'])),
       narrowerTransitive: this.idsOf(this.getValue(node, ['narrowerTransitive', 'narrower_transitive'])),
       semanticRelation: this.idsOf(this.getValue(node, ['semanticRelation', 'semantic_relation'])),
       relevantProperty: this.getValue(node, ['relevantProperty', 'relevant_property']) as string | undefined,
@@ -334,11 +333,11 @@ export class CodelistService {
 
   /**
    * Returns top-level (root) concepts for a scheme — i.e., hasTopConcept entries
-   * that have no broader reference. Composite children (fields with `broader` set)
+   * that have no isPartOf reference. Composite children (fields with `isPartOf` set)
    * are excluded so they're only rendered as part of their parent's group.
    */
   getTopLevelConcepts(result: CodelistResult, schemeId: string): Concept[] {
-    return this.getTopConceptsForScheme(result, schemeId).filter(concept => !concept.broader?.length)
+    return this.getTopConceptsForScheme(result, schemeId).filter(concept => !concept.isPartOf?.length)
   }
 
   getChildren(result: CodelistResult, concept: Concept): Concept[] {
@@ -349,7 +348,7 @@ export class CodelistService {
   }
 
   getParent(result: CodelistResult, concept: Concept): Concept | null {
-    const parentId = concept.broader?.[0]
+    const parentId = concept.isPartOf?.[0]
     if (!parentId) return null
     return result.concepts.get(parentId) ?? null
   }

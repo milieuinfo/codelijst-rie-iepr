@@ -15,7 +15,7 @@ export class CompositeGroupBuilder {
     const parentIdToChildren = new Map<string, SchemaField[]>()
 
     for (const field of fields) {
-      const parentId = Array.isArray(field.broader) && field.broader.length > 0 ? field.broader[0] : undefined
+      const parentId = Array.isArray(field.isPartOf) && field.isPartOf.length > 0 ? field.isPartOf[0] : undefined
       if (!parentId) continue
       if (!parentIdToChildren.has(parentId)) {
         parentIdToChildren.set(parentId, [])
@@ -23,10 +23,10 @@ export class CompositeGroupBuilder {
       parentIdToChildren.get(parentId)!.push(field)
     }
 
-    // Root fields are those without broader references
+    // Root fields are those without isPartOf references
     const rootFields: SchemaField[] = []
     for (const field of fields) {
-      if (!Array.isArray(field.broader) || field.broader.length === 0) {
+      if (!Array.isArray(field.isPartOf) || field.isPartOf.length === 0) {
         rootFields.push({ ...field })
       }
     }

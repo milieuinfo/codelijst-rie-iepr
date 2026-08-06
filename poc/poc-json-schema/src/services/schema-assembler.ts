@@ -166,7 +166,7 @@ export class SchemaAssembler {
       if (!chain.schemeIds.includes(concept.inScheme ?? '')) continue
       if (concept.isOnzichtbaar === true) continue
       if (!concept.relevantDataType && !concept.relevantUnit) continue
-      if (concept.broader && observationCompositeIds.has(concept.broader[0])) continue
+      if (concept.isPartOf && observationCompositeIds.has(concept.isPartOf[0])) continue
 
       if (!seenIds.has(conceptId)) {
         values.push(result.expandCurie?.(conceptId) ?? conceptId)

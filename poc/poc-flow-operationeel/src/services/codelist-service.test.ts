@@ -88,7 +88,7 @@ describe('CodelistService — fixture parsing', () => {
     })
   })
 
-  describe('broader/narrower — getChildren() and getParent()', () => {
+  describe('isPartOf/narrower — getChildren() and getParent()', () => {
     it('resolves children of a composite parent concept', () => {
       const result = loadFixture()
       const parent = result.concepts.get('riepr-operationeel-lucht:afvalproduct')
@@ -101,15 +101,15 @@ describe('CodelistService — fixture parsing', () => {
       // Each child should be resolvable from the concepts map
       for (const child of children) {
         expect(child.prefLabel).toBeTruthy()
-        expect(child.broader).toContain(parent!.id)
+        expect(child.isPartOf).toContain(parent!.id)
       }
     })
 
-    it('resolves parent via broader reference', () => {
+    it('resolves parent via isPartOf reference', () => {
       const result = loadFixture()
       const child = result.concepts.get('riepr-operationeel-lucht:afvalproduct_aard')
       expect(child).toBeDefined()
-      expect(child!.broader).toBeDefined()
+      expect(child!.isPartOf).toBeDefined()
 
       const parent = CodelistServiceMock.getParent(result, child!)
       expect(parent).not.toBeNull()
@@ -122,7 +122,7 @@ describe('CodelistService — fixture parsing', () => {
       expect(CodelistServiceMock.getChildren(result, leafConcept)).toEqual([])
     })
 
-    it('returns null when concept has no broader ref', () => {
+    it('returns null when concept has no isPartOf ref', () => {
       const result = loadFixture()
       const rootConcept = result.concepts.get('riepr-operationeel-lucht:afvalproduct')!
       expect(CodelistServiceMock.getParent(result, rootConcept)).toBeNull()

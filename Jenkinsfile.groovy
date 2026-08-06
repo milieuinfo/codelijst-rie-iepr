@@ -59,7 +59,7 @@ pipeline {
 
 				stage('Maven verify') {
 					when {
-						expression { !(params.DEPLOY ?: false) }
+						expression { !(params.DEPLOY ) }
 					}
 					steps {
 						script {
@@ -70,7 +70,7 @@ pipeline {
 
 				stage('Maven deploy') {
 					when {
-						expression { params.DEPLOY ?: false }
+						expression { params.DEPLOY }
 					}
 					steps {
 						script {

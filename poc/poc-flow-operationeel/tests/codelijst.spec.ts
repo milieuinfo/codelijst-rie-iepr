@@ -306,7 +306,7 @@ test.describe('Codelijst App', () => {
            const types: string[] = ((node._type ?? node['@type']) as string | undefined)?.toString().split(',') || []
            if (!types.includes('skos:Concept')) continue
            const id: string = (node.id ?? node['@id'] ?? '') as string
-           // lozing-dagen is a ROOT concept (no broader), renders without #1 suffix
+            // lozing-dagen is a ROOT concept (no isPartOf), renders without #1 suffix
            // Its trigger reference points to bepalingsmethode#1 which is inside composite root "lozing"
            if (id === 'riepr-operationeel-water:lozing-dagen') {
              node.condition_path = 'riepr-operationeel-water:lozing-bepalingsmethode#1'
