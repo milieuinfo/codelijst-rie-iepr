@@ -186,13 +186,13 @@ pipeline {
 										cd .gh-pages-deploy
 										git checkout -B "$GH_PAGES_BRANCH"
 
-										rm -rf poc
-										cp -r ../poc/poc-flow-operationeel/dist poc
-										touch poc/.nojekyll
+										find . -mindepth 1 -not -path './.git' -exec rm -rf {} +
+										cp -r ../poc/poc-flow-operationeel/dist/* .
+										touch .nojekyll
 
 										git config user.email "$GIT_USER_EMAIL"
 										git config user.name "$GIT_USER_NAME"
-										git add poc
+										git add -A
 										if ! git diff --cached --quiet; then
 											git commit -m "poc: deploy from ${BUILD_TAG}"
 											git push origin "$GH_PAGES_BRANCH"
