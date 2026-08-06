@@ -51,6 +51,18 @@ export interface SchemaField {
   isFeatureOfInterest?: boolean
   /** Whether this concept maps into hasResult (sosa:hasResult relation) */
   isHasResult?: boolean
+  /** Whether this concept is the observed property (sosa:observedProperty) */
+  isObservedProperty?: boolean
+  /** Whether this concept indicates the procedure used (sosa:usedProcedure) */
+  isUsedProcedure?: boolean
+  /** Whether this concept indicates the sensor/agent (sosa:madeBySensor) */
+  isMadeBySensor?: boolean
+  /** Whether this concept is result time (sosa:resultTime) */
+  isResultTime?: boolean
+  /** Whether this concept is phenomenon time (sosa:phenomenonTime) */
+  isPhenomenonTime?: boolean
+  /** Whether this concept maps to a simple literal result (sosa:hasSimpleResult) */
+  isSimpleResult?: boolean
 }
 
 export interface SubSchema {

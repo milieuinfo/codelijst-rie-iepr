@@ -40,6 +40,12 @@ export class ConceptMapper {
       relevantClass: concept.relevantClass,
       isFeatureOfInterest: concept.relation === 'sosa:hasFeatureOfInterest',
       isHasResult: concept.relation === 'sosa:hasResult',
+      isObservedProperty: concept.relation === 'sosa:observedProperty',
+      isUsedProcedure: concept.relation === 'sosa:usedProcedure',
+      isMadeBySensor: concept.relation === 'sosa:madeBySensor',
+      isResultTime: concept.relation === 'sosa:resultTime',
+      isPhenomenonTime: concept.relation === 'sosa:phenomenonTime',
+      isSimpleResult: concept.relation === 'sosa:hasSimpleResult',
     }
 
     // Type mapping with format

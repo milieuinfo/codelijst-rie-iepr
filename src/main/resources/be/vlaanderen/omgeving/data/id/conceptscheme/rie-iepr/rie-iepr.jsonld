@@ -3980,7 +3980,7 @@
             "isVersionOf": "riepr-operationeel-grondstoffen:grondstof",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "inScheme": "conceptscheme:operationeel_grondstoffen",
             "narrower": [
@@ -4183,6 +4183,15 @@
                                 "_type": [
                                     "skos:Concept"
                                 ],
+                                "isVersionOf": "riepr-operationeel-grondstoffen:grondstof_toepassingswijze",
+                                "dcterms:modified": {
+                                    "_type": "xsd:dateTime",
+                                    "_value": "2026-08-05T15:14:47.175Z"
+                                },
+                                "relation": "sosa:usedProcedure",
+                                "relevantUnit": [
+                                    "concept:true"
+                                ],
                                 "broader": "riepr-operationeel-grondstoffen:grondstof",
                                 "broaderTransitive": "riepr-operationeel-grondstoffen:grondstof",
                                 "inScheme": "conceptscheme:operationeel_grondstoffen",
@@ -4191,8 +4200,7 @@
                                     "riepr-operationeel-grondstoffen:grondstof"
                                 ],
                                 "topConceptOf": "conceptscheme:operationeel_grondstoffen",
-                                "isVerplicht": "true",
-                                "relevantCodeList": [
+                                "conditionValue": [
                                     {
                                         "id": "conceptscheme:operationeel_toepassingwijze",
                                         "_type": [
@@ -4338,6 +4346,15 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "riepr-operationeel-grondstoffen:grondstof_toepassingswijze",
+            "dcterms:modified": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-08-05T15:14:47.175Z"
+            },
+            "relation": "sosa:usedProcedure",
+            "relevantUnit": [
+                "concept:true"
+            ],
             "broader": "riepr-operationeel-grondstoffen:grondstof",
             "broaderTransitive": "riepr-operationeel-grondstoffen:grondstof",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
@@ -4346,9 +4363,46 @@
                 "riepr-operationeel-grondstoffen:grondstof"
             ],
             "topConceptOf": "conceptscheme:operationeel_grondstoffen",
-            "isVerplicht": "true",
-            "relevantCodeList": [
-                "conceptscheme:operationeel_toepassingwijze"
+            "conditionValue": [
+                {
+                    "id": "conceptscheme:operationeel_toepassingwijze",
+                    "_type": [
+                        "skos:ConceptScheme"
+                    ],
+                    "hasTopConcept": [
+                        {
+                            "id": "riepr-operationeel-toepassingwijze:brandstof",
+                            "_type": [
+                                "skos:Concept"
+                            ],
+                            "inScheme": "conceptscheme:operationeel_toepassingwijze",
+                            "code": "TOEPASSINGSWIJZE_BRANDSTOF",
+                            "prefLabel": "Gebruik als brandstof",
+                            "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
+                        },
+                        {
+                            "id": "riepr-operationeel-toepassingwijze:dispers",
+                            "_type": [
+                                "skos:Concept"
+                            ],
+                            "inScheme": "conceptscheme:operationeel_toepassingwijze",
+                            "code": "TOEPASSINGSWIJZE_DISPERS",
+                            "prefLabel": "Dispers gebruik",
+                            "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
+                        },
+                        {
+                            "id": "riepr-operationeel-toepassingwijze:overige",
+                            "_type": [
+                                "skos:Concept"
+                            ],
+                            "inScheme": "conceptscheme:operationeel_toepassingwijze",
+                            "code": "TOEPASSINGSWIJZE_OVERIGE",
+                            "prefLabel": "Ander gebruik in de ingedeelde inrichting",
+                            "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
+                        }
+                    ],
+                    "prefLabel": "Toepassingswijze"
+                }
             ]
         },
         {
@@ -4358,7 +4412,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relevantUnit": [
                 "unit:M3"
@@ -4388,7 +4442,7 @@
                     "isVersionOf": "riepr-operationeel-grondwater:volume",
                     "dcterms:modified": {
                         "_type": "xsd:dateTime",
-                        "_value": "2026-08-05T09:06:53.566Z"
+                        "_value": "2026-08-05T15:14:47.175Z"
                     },
                     "relevantUnit": [
                         "unit:M3"
@@ -4401,7 +4455,7 @@
                         "isVersionOf": "riepr-operationeel-grondwater:onttrekking",
                         "dcterms:modified": {
                             "_type": "xsd:dateTime",
-                            "_value": "2026-08-05T09:06:53.566Z"
+                            "_value": "2026-08-05T15:14:47.175Z"
                         },
                         "definition": "Een meting van de onttrekking van een pompput.",
                         "inScheme": {
@@ -4412,7 +4466,7 @@
                             "isVersionOf": "conceptscheme:operationeel_grondwater",
                             "dcterms:modified": {
                                 "_type": "xsd:dateTime",
-                                "_value": "2026-08-05T09:06:53.566Z"
+                                "_value": "2026-08-05T15:14:47.175Z"
                             },
                             "hasTopConcept": [
                                 "riepr-operationeel-grondwater:begintoestand",
@@ -4426,7 +4480,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:datum",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relation": "sosa:resultTime",
                                     "broader": {
@@ -4446,7 +4500,7 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:diepte",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relation": "sosa:hasResult",
                                                 "relevantUnit": [
@@ -4587,7 +4641,7 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:duur-stil",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relation": "sosa:hasResult",
                                                 "broader": "riepr-operationeel-grondwater:peilmeting",
@@ -4638,7 +4692,7 @@
                                                         "isVersionOf": "riepr-operationeel-grondwater:pomptoestand",
                                                         "dcterms:modified": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "relation": "sosa:hasResult",
                                                         "broader": "riepr-operationeel-grondwater:peilmeting",
@@ -4665,7 +4719,7 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:peilmethode",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relation": "sosa:hasResult",
                                                 "broader": "riepr-operationeel-grondwater:peilmeting",
@@ -4723,6 +4777,12 @@
                                                 "_type": [
                                                     "skos:Concept"
                                                 ],
+                                                "isVersionOf": "riepr-operationeel-grondwater:peilmeting_feature",
+                                                "dcterms:modified": {
+                                                    "_type": "xsd:dateTime",
+                                                    "_value": "2026-08-05T15:14:47.175Z"
+                                                },
+                                                "relation": "sosa:hasFeatureOfInterest",
                                                 "broader": "riepr-operationeel-grondwater:peilmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
                                                 "definition": "Actieve peil- en pompfilters in het productiejaar.",
@@ -4733,6 +4793,7 @@
                                                     "riepr-operationeel-grondwater:peilmeting"
                                                 ],
                                                 "topConceptOf": "conceptscheme:operationeel_grondwater",
+                                                "relevantClass": "sosa:FeatureOfInterest",
                                                 "relevantRiepr": [
                                                     "riepr-filter-type:peil,riepr-filter-type:pomp"
                                                 ]
@@ -4745,7 +4806,7 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:referentiepunt",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:peilmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -4920,7 +4981,7 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:volume-rust",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relation": "sosa:hasResult",
                                                 "relevantUnit": [
@@ -4950,7 +5011,7 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:volume-werking",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relation": "sosa:hasResult",
                                                 "relevantUnit": [
@@ -5020,7 +5081,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relevantUnit": [
                                         "unit:M3"
@@ -5054,7 +5115,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "broader": {
                                         "id": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -5064,7 +5125,7 @@
                                         "isVersionOf": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                         "dcterms:modified": {
                                             "_type": "xsd:dateTime",
-                                            "_value": "2026-08-05T09:06:53.566Z"
+                                            "_value": "2026-08-05T15:14:47.175Z"
                                         },
                                         "definition": "Een kwaliteitsmeting van een pomp- of peilput.",
                                         "inScheme": "conceptscheme:operationeel_grondwater",
@@ -5077,8 +5138,9 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
+                                                "relation": "sosa:phenomenonTime",
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "inScheme": "conceptscheme:operationeel_grondwater",
@@ -5099,7 +5161,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relation": "sosa:hasResult",
                                                 "relevantUnit": [
@@ -5125,7 +5187,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -5139,7 +5201,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-labo",
                                                         "broaderTransitive": [
@@ -5182,7 +5244,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -5204,7 +5266,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -5217,7 +5279,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "relation": "sosa:resultTime",
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
@@ -5244,7 +5306,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
@@ -5269,7 +5331,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
@@ -5294,7 +5356,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
@@ -5320,8 +5382,9 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
+                                                        "relation": "sosa:observedProperty",
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
                                                             "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -5337,7 +5400,7 @@
                                                         "adms:status": {
                                                             "id": "https://purl.archive.org/adms/status/Active"
                                                         },
-                                                        "relevantCodeList": [
+                                                        "conditionPath": [
                                                             "http://TODO"
                                                         ]
                                                     }
@@ -5371,7 +5434,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -5397,7 +5460,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -5418,7 +5481,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "hasTopConcept": [
                                                             {
@@ -5428,7 +5491,7 @@
                                                                 ],
                                                                 "dcterms:created": {
                                                                     "_type": "xsd:dateTime",
-                                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                                 },
                                                                 "inScheme": "conceptscheme:operationeel_techniekmonstername",
                                                                 "prefLabel": "Aftap via monsterkraantje",
@@ -5453,8 +5516,9 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:kwaliteitsmeting_feature",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
+                                                "relation": "sosa:hasFeatureOfInterest",
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "definition": "Actieve peil- en pompfilters in het productiejaar.",
@@ -5465,6 +5529,7 @@
                                                     "riepr-operationeel-grondwater:kwaliteitsmeting"
                                                 ],
                                                 "topConceptOf": "conceptscheme:operationeel_grondwater",
+                                                "relevantClass": "sosa:FeatureOfInterest",
                                                 "isMultiselect": "true",
                                                 "relevantRiepr": [
                                                     "riepr-filter-type:peil,riepr-filter-type:pomp"
@@ -5542,6 +5607,12 @@
                                     "_type": [
                                         "skos:Concept"
                                     ],
+                                    "isVersionOf": "riepr-operationeel-grondwater:onttrekking_feature",
+                                    "dcterms:modified": {
+                                        "_type": "xsd:dateTime",
+                                        "_value": "2026-08-05T15:14:47.175Z"
+                                    },
+                                    "relation": "sosa:hasFeatureOfInterest",
                                     "broader": "riepr-operationeel-grondwater:onttrekking",
                                     "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
                                     "definition": "Actieve debietmeters in het productiejaar.",
@@ -5552,6 +5623,7 @@
                                         "riepr-operationeel-grondwater:onttrekking"
                                     ],
                                     "topConceptOf": "conceptscheme:operationeel_grondwater",
+                                    "relevantClass": "sosa:FeatureOfInterest",
                                     "relevantRiepr": [
                                         "riepr-meetpunt-type:debietmeter"
                                     ]
@@ -5576,6 +5648,12 @@
                                     "_type": [
                                         "skos:Concept"
                                     ],
+                                    "isVersionOf": "riepr-operationeel-grondwater:type-debiet",
+                                    "dcterms:modified": {
+                                        "_type": "xsd:dateTime",
+                                        "_value": "2026-08-05T15:14:47.175Z"
+                                    },
+                                    "relation": "sosa:observedProperty",
                                     "broader": "riepr-operationeel-grondwater:onttrekking",
                                     "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
                                     "inScheme": "conceptscheme:operationeel_grondwater",
@@ -5584,7 +5662,7 @@
                                         "riepr-operationeel-grondwater:onttrekking"
                                     ],
                                     "topConceptOf": "conceptscheme:operationeel_grondwater",
-                                    "relevantCodeList": [
+                                    "conditionValue": [
                                         {
                                             "id": "conceptscheme:operationeel_debiet_type",
                                             "_type": [
@@ -5694,7 +5772,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:datum",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "sosa:resultTime",
             "broader": "riepr-operationeel-grondwater:peilmeting",
@@ -5715,7 +5793,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:diepte",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "sosa:hasResult",
             "relevantUnit": [
@@ -5856,7 +5934,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:duur-stil",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "sosa:hasResult",
             "broader": "riepr-operationeel-grondwater:peilmeting",
@@ -5907,7 +5985,7 @@
                     "isVersionOf": "riepr-operationeel-grondwater:pomptoestand",
                     "dcterms:modified": {
                         "_type": "xsd:dateTime",
-                        "_value": "2026-08-05T09:06:53.566Z"
+                        "_value": "2026-08-05T15:14:47.175Z"
                     },
                     "relation": "sosa:hasResult",
                     "broader": {
@@ -5924,7 +6002,7 @@
                             "isVersionOf": "conceptscheme:operationeel_grondwater",
                             "dcterms:modified": {
                                 "_type": "xsd:dateTime",
-                                "_value": "2026-08-05T09:06:53.566Z"
+                                "_value": "2026-08-05T15:14:47.175Z"
                             },
                             "hasTopConcept": [
                                 {
@@ -5934,7 +6012,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relevantUnit": [
                                         "unit:M3"
@@ -5947,7 +6025,7 @@
                                         "isVersionOf": "riepr-operationeel-grondwater:onttrekking",
                                         "dcterms:modified": {
                                             "_type": "xsd:dateTime",
-                                            "_value": "2026-08-05T09:06:53.566Z"
+                                            "_value": "2026-08-05T15:14:47.175Z"
                                         },
                                         "definition": "Een meting van de onttrekking van een pompput.",
                                         "inScheme": "conceptscheme:operationeel_grondwater",
@@ -5961,7 +6039,7 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:volume",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relevantUnit": [
                                                     "unit:M3"
@@ -5984,7 +6062,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relevantUnit": [
                                                     "unit:M3"
@@ -6016,6 +6094,12 @@
                                                 "_type": [
                                                     "skos:Concept"
                                                 ],
+                                                "isVersionOf": "riepr-operationeel-grondwater:onttrekking_feature",
+                                                "dcterms:modified": {
+                                                    "_type": "xsd:dateTime",
+                                                    "_value": "2026-08-05T15:14:47.175Z"
+                                                },
+                                                "relation": "sosa:hasFeatureOfInterest",
                                                 "broader": "riepr-operationeel-grondwater:onttrekking",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
                                                 "definition": "Actieve debietmeters in het productiejaar.",
@@ -6026,6 +6110,7 @@
                                                     "riepr-operationeel-grondwater:onttrekking"
                                                 ],
                                                 "topConceptOf": "conceptscheme:operationeel_grondwater",
+                                                "relevantClass": "sosa:FeatureOfInterest",
                                                 "relevantRiepr": [
                                                     {
                                                         "id": "riepr-meetpunt-type:debietmeter",
@@ -6097,6 +6182,12 @@
                                                 "_type": [
                                                     "skos:Concept"
                                                 ],
+                                                "isVersionOf": "riepr-operationeel-grondwater:type-debiet",
+                                                "dcterms:modified": {
+                                                    "_type": "xsd:dateTime",
+                                                    "_value": "2026-08-05T15:14:47.175Z"
+                                                },
+                                                "relation": "sosa:observedProperty",
                                                 "broader": "riepr-operationeel-grondwater:onttrekking",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
                                                 "inScheme": "conceptscheme:operationeel_grondwater",
@@ -6105,7 +6196,7 @@
                                                     "riepr-operationeel-grondwater:onttrekking"
                                                 ],
                                                 "topConceptOf": "conceptscheme:operationeel_grondwater",
-                                                "relevantCodeList": [
+                                                "conditionValue": [
                                                     {
                                                         "id": "conceptscheme:operationeel_debiet_type",
                                                         "_type": [
@@ -6210,7 +6301,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:datum",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relation": "sosa:resultTime",
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
@@ -6232,7 +6323,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:diepte",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relation": "sosa:hasResult",
                                     "relevantUnit": [
@@ -6375,7 +6466,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "broader": {
                                         "id": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -6385,7 +6476,7 @@
                                         "isVersionOf": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                         "dcterms:modified": {
                                             "_type": "xsd:dateTime",
-                                            "_value": "2026-08-05T09:06:53.566Z"
+                                            "_value": "2026-08-05T15:14:47.175Z"
                                         },
                                         "definition": "Een kwaliteitsmeting van een pomp- of peilput.",
                                         "inScheme": "conceptscheme:operationeel_grondwater",
@@ -6398,8 +6489,9 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
+                                                "relation": "sosa:phenomenonTime",
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "inScheme": "conceptscheme:operationeel_grondwater",
@@ -6420,7 +6512,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relation": "sosa:hasResult",
                                                 "relevantUnit": [
@@ -6446,7 +6538,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -6460,7 +6552,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-labo",
                                                         "broaderTransitive": [
@@ -6503,7 +6595,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -6525,7 +6617,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -6538,7 +6630,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "relation": "sosa:resultTime",
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
@@ -6565,7 +6657,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
@@ -6590,7 +6682,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
@@ -6615,7 +6707,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
@@ -6641,8 +6733,9 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
+                                                        "relation": "sosa:observedProperty",
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
                                                             "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -6658,7 +6751,7 @@
                                                         "adms:status": {
                                                             "id": "https://purl.archive.org/adms/status/Active"
                                                         },
-                                                        "relevantCodeList": [
+                                                        "conditionPath": [
                                                             "http://TODO"
                                                         ]
                                                     }
@@ -6692,7 +6785,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -6822,7 +6915,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -6843,7 +6936,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "hasTopConcept": [
                                                             {
@@ -6853,7 +6946,7 @@
                                                                 ],
                                                                 "dcterms:created": {
                                                                     "_type": "xsd:dateTime",
-                                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                                 },
                                                                 "inScheme": "conceptscheme:operationeel_techniekmonstername",
                                                                 "prefLabel": "Aftap via monsterkraantje",
@@ -6878,8 +6971,9 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:kwaliteitsmeting_feature",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
+                                                "relation": "sosa:hasFeatureOfInterest",
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "definition": "Actieve peil- en pompfilters in het productiejaar.",
@@ -6890,6 +6984,7 @@
                                                     "riepr-operationeel-grondwater:kwaliteitsmeting"
                                                 ],
                                                 "topConceptOf": "conceptscheme:operationeel_grondwater",
+                                                "relevantClass": "sosa:FeatureOfInterest",
                                                 "isMultiselect": "true",
                                                 "relevantRiepr": [
                                                     "riepr-filter-type:peil,riepr-filter-type:pomp"
@@ -6973,7 +7068,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:peilmethode",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relation": "sosa:hasResult",
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
@@ -7031,6 +7126,12 @@
                                     "_type": [
                                         "skos:Concept"
                                     ],
+                                    "isVersionOf": "riepr-operationeel-grondwater:peilmeting_feature",
+                                    "dcterms:modified": {
+                                        "_type": "xsd:dateTime",
+                                        "_value": "2026-08-05T15:14:47.175Z"
+                                    },
+                                    "relation": "sosa:hasFeatureOfInterest",
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
                                     "definition": "Actieve peil- en pompfilters in het productiejaar.",
@@ -7041,6 +7142,7 @@
                                         "riepr-operationeel-grondwater:peilmeting"
                                     ],
                                     "topConceptOf": "conceptscheme:operationeel_grondwater",
+                                    "relevantClass": "sosa:FeatureOfInterest",
                                     "relevantRiepr": [
                                         "riepr-filter-type:peil,riepr-filter-type:pomp"
                                     ]
@@ -7053,7 +7155,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:referentiepunt",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -7077,7 +7179,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:volume-rust",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relation": "sosa:hasResult",
                                     "relevantUnit": [
@@ -7107,7 +7209,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:volume-werking",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relation": "sosa:hasResult",
                                     "relevantUnit": [
@@ -7190,7 +7292,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relevantUnit": [
                 "unit:M3"
@@ -7220,7 +7322,7 @@
                     "isVersionOf": "riepr-operationeel-grondwater:volume",
                     "dcterms:modified": {
                         "_type": "xsd:dateTime",
-                        "_value": "2026-08-05T09:06:53.566Z"
+                        "_value": "2026-08-05T15:14:47.175Z"
                     },
                     "relevantUnit": [
                         "unit:M3"
@@ -7233,7 +7335,7 @@
                         "isVersionOf": "riepr-operationeel-grondwater:onttrekking",
                         "dcterms:modified": {
                             "_type": "xsd:dateTime",
-                            "_value": "2026-08-05T09:06:53.566Z"
+                            "_value": "2026-08-05T15:14:47.175Z"
                         },
                         "definition": "Een meting van de onttrekking van een pompput.",
                         "inScheme": {
@@ -7244,7 +7346,7 @@
                             "isVersionOf": "conceptscheme:operationeel_grondwater",
                             "dcterms:modified": {
                                 "_type": "xsd:dateTime",
-                                "_value": "2026-08-05T09:06:53.566Z"
+                                "_value": "2026-08-05T15:14:47.175Z"
                             },
                             "hasTopConcept": [
                                 {
@@ -7254,7 +7356,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relevantUnit": [
                                         "unit:M3"
@@ -7291,7 +7393,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:datum",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relation": "sosa:resultTime",
                                     "broader": {
@@ -7311,7 +7413,7 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:diepte",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relation": "sosa:hasResult",
                                                 "relevantUnit": [
@@ -7452,7 +7554,7 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:duur-stil",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relation": "sosa:hasResult",
                                                 "broader": "riepr-operationeel-grondwater:peilmeting",
@@ -7503,7 +7605,7 @@
                                                         "isVersionOf": "riepr-operationeel-grondwater:pomptoestand",
                                                         "dcterms:modified": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "relation": "sosa:hasResult",
                                                         "broader": "riepr-operationeel-grondwater:peilmeting",
@@ -7530,7 +7632,7 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:peilmethode",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relation": "sosa:hasResult",
                                                 "broader": "riepr-operationeel-grondwater:peilmeting",
@@ -7588,6 +7690,12 @@
                                                 "_type": [
                                                     "skos:Concept"
                                                 ],
+                                                "isVersionOf": "riepr-operationeel-grondwater:peilmeting_feature",
+                                                "dcterms:modified": {
+                                                    "_type": "xsd:dateTime",
+                                                    "_value": "2026-08-05T15:14:47.175Z"
+                                                },
+                                                "relation": "sosa:hasFeatureOfInterest",
                                                 "broader": "riepr-operationeel-grondwater:peilmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
                                                 "definition": "Actieve peil- en pompfilters in het productiejaar.",
@@ -7598,6 +7706,7 @@
                                                     "riepr-operationeel-grondwater:peilmeting"
                                                 ],
                                                 "topConceptOf": "conceptscheme:operationeel_grondwater",
+                                                "relevantClass": "sosa:FeatureOfInterest",
                                                 "relevantRiepr": [
                                                     "riepr-filter-type:peil,riepr-filter-type:pomp"
                                                 ]
@@ -7610,7 +7719,7 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:referentiepunt",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:peilmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -7785,7 +7894,7 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:volume-rust",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relation": "sosa:hasResult",
                                                 "relevantUnit": [
@@ -7815,7 +7924,7 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:volume-werking",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relation": "sosa:hasResult",
                                                 "relevantUnit": [
@@ -7886,7 +7995,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "broader": {
                                         "id": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -7896,7 +8005,7 @@
                                         "isVersionOf": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                         "dcterms:modified": {
                                             "_type": "xsd:dateTime",
-                                            "_value": "2026-08-05T09:06:53.566Z"
+                                            "_value": "2026-08-05T15:14:47.175Z"
                                         },
                                         "definition": "Een kwaliteitsmeting van een pomp- of peilput.",
                                         "inScheme": "conceptscheme:operationeel_grondwater",
@@ -7909,8 +8018,9 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
+                                                "relation": "sosa:phenomenonTime",
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "inScheme": "conceptscheme:operationeel_grondwater",
@@ -7931,7 +8041,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relation": "sosa:hasResult",
                                                 "relevantUnit": [
@@ -7957,7 +8067,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -7971,7 +8081,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-labo",
                                                         "broaderTransitive": [
@@ -8014,7 +8124,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -8036,7 +8146,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -8049,7 +8159,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "relation": "sosa:resultTime",
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
@@ -8076,7 +8186,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
@@ -8101,7 +8211,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
@@ -8126,7 +8236,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
@@ -8152,8 +8262,9 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
+                                                        "relation": "sosa:observedProperty",
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
                                                             "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -8169,7 +8280,7 @@
                                                         "adms:status": {
                                                             "id": "https://purl.archive.org/adms/status/Active"
                                                         },
-                                                        "relevantCodeList": [
+                                                        "conditionPath": [
                                                             "http://TODO"
                                                         ]
                                                     }
@@ -8203,7 +8314,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -8229,7 +8340,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -8250,7 +8361,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "hasTopConcept": [
                                                             {
@@ -8260,7 +8371,7 @@
                                                                 ],
                                                                 "dcterms:created": {
                                                                     "_type": "xsd:dateTime",
-                                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                                 },
                                                                 "inScheme": "conceptscheme:operationeel_techniekmonstername",
                                                                 "prefLabel": "Aftap via monsterkraantje",
@@ -8285,8 +8396,9 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:kwaliteitsmeting_feature",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
+                                                "relation": "sosa:hasFeatureOfInterest",
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "definition": "Actieve peil- en pompfilters in het productiejaar.",
@@ -8297,6 +8409,7 @@
                                                     "riepr-operationeel-grondwater:kwaliteitsmeting"
                                                 ],
                                                 "topConceptOf": "conceptscheme:operationeel_grondwater",
+                                                "relevantClass": "sosa:FeatureOfInterest",
                                                 "isMultiselect": "true",
                                                 "relevantRiepr": [
                                                     "riepr-filter-type:peil,riepr-filter-type:pomp"
@@ -8374,6 +8487,12 @@
                                     "_type": [
                                         "skos:Concept"
                                     ],
+                                    "isVersionOf": "riepr-operationeel-grondwater:onttrekking_feature",
+                                    "dcterms:modified": {
+                                        "_type": "xsd:dateTime",
+                                        "_value": "2026-08-05T15:14:47.175Z"
+                                    },
+                                    "relation": "sosa:hasFeatureOfInterest",
                                     "broader": "riepr-operationeel-grondwater:onttrekking",
                                     "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
                                     "definition": "Actieve debietmeters in het productiejaar.",
@@ -8384,6 +8503,7 @@
                                         "riepr-operationeel-grondwater:onttrekking"
                                     ],
                                     "topConceptOf": "conceptscheme:operationeel_grondwater",
+                                    "relevantClass": "sosa:FeatureOfInterest",
                                     "relevantRiepr": [
                                         "riepr-meetpunt-type:debietmeter"
                                     ]
@@ -8408,6 +8528,12 @@
                                     "_type": [
                                         "skos:Concept"
                                     ],
+                                    "isVersionOf": "riepr-operationeel-grondwater:type-debiet",
+                                    "dcterms:modified": {
+                                        "_type": "xsd:dateTime",
+                                        "_value": "2026-08-05T15:14:47.175Z"
+                                    },
+                                    "relation": "sosa:observedProperty",
                                     "broader": "riepr-operationeel-grondwater:onttrekking",
                                     "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
                                     "inScheme": "conceptscheme:operationeel_grondwater",
@@ -8416,7 +8542,7 @@
                                         "riepr-operationeel-grondwater:onttrekking"
                                     ],
                                     "topConceptOf": "conceptscheme:operationeel_grondwater",
-                                    "relevantCodeList": [
+                                    "conditionValue": [
                                         {
                                             "id": "conceptscheme:operationeel_debiet_type",
                                             "_type": [
@@ -8526,7 +8652,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:kwaliteitsmeting",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "definition": "Een kwaliteitsmeting van een pomp- of peilput.",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -8587,7 +8713,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
             "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -8609,8 +8735,9 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
+            "relation": "sosa:phenomenonTime",
             "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
             "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -8631,7 +8758,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "sosa:hasResult",
             "relevantUnit": [
@@ -8774,7 +8901,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
             "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -8805,7 +8932,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-labo",
             "broaderTransitive": [
@@ -8832,7 +8959,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
             "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -8854,7 +8981,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
             "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -8895,7 +9022,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "sosa:resultTime",
             "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
@@ -8922,7 +9049,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
             "broaderTransitive": [
@@ -8947,7 +9074,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
             "broaderTransitive": [
@@ -8972,7 +9099,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
             "broaderTransitive": [
@@ -8998,8 +9125,9 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
+            "relation": "sosa:observedProperty",
             "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
             "broaderTransitive": [
                 "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -9015,7 +9143,7 @@
             "adms:status": {
                 "id": "https://purl.archive.org/adms/status/Active"
             },
-            "relevantCodeList": [
+            "conditionPath": [
                 "http://TODO"
             ]
         },
@@ -9026,7 +9154,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
             "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -9320,7 +9448,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
             "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -9345,8 +9473,9 @@
             "isVersionOf": "riepr-operationeel-grondwater:kwaliteitsmeting_feature",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
+            "relation": "sosa:hasFeatureOfInterest",
             "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
             "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
             "definition": "Actieve peil- en pompfilters in het productiejaar.",
@@ -9357,6 +9486,7 @@
                 "riepr-operationeel-grondwater:kwaliteitsmeting"
             ],
             "topConceptOf": "conceptscheme:operationeel_grondwater",
+            "relevantClass": "sosa:FeatureOfInterest",
             "isMultiselect": "true",
             "relevantRiepr": [
                 "riepr-filter-type:peil,riepr-filter-type:pomp"
@@ -9370,7 +9500,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:onttrekking",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "definition": "Een meting van de onttrekking van een pompput.",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -9408,6 +9538,12 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "riepr-operationeel-grondwater:onttrekking_feature",
+            "dcterms:modified": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-08-05T15:14:47.175Z"
+            },
+            "relation": "sosa:hasFeatureOfInterest",
             "broader": "riepr-operationeel-grondwater:onttrekking",
             "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
             "definition": "Actieve debietmeters in het productiejaar.",
@@ -9418,6 +9554,7 @@
                 "riepr-operationeel-grondwater:onttrekking"
             ],
             "topConceptOf": "conceptscheme:operationeel_grondwater",
+            "relevantClass": "sosa:FeatureOfInterest",
             "relevantRiepr": [
                 {
                     "id": "riepr-meetpunt-type:debietmeter",
@@ -9477,7 +9614,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:peilmethode",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "sosa:hasResult",
             "broader": "riepr-operationeel-grondwater:peilmeting",
@@ -9542,6 +9679,12 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "riepr-operationeel-grondwater:peilmeting_feature",
+            "dcterms:modified": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-08-05T15:14:47.175Z"
+            },
+            "relation": "sosa:hasFeatureOfInterest",
             "broader": "riepr-operationeel-grondwater:peilmeting",
             "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
             "definition": "Actieve peil- en pompfilters in het productiejaar.",
@@ -9552,6 +9695,7 @@
                 "riepr-operationeel-grondwater:peilmeting"
             ],
             "topConceptOf": "conceptscheme:operationeel_grondwater",
+            "relevantClass": "sosa:FeatureOfInterest",
             "relevantRiepr": [
                 "riepr-filter-type:peil,riepr-filter-type:pomp"
             ]
@@ -9579,7 +9723,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:pomptoestand",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "sosa:hasResult",
             "broader": "riepr-operationeel-grondwater:peilmeting",
@@ -9602,7 +9746,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:referentiepunt",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "broader": "riepr-operationeel-grondwater:peilmeting",
             "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -9891,6 +10035,12 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "riepr-operationeel-grondwater:type-debiet",
+            "dcterms:modified": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-08-05T15:14:47.175Z"
+            },
+            "relation": "sosa:observedProperty",
             "broader": "riepr-operationeel-grondwater:onttrekking",
             "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -9899,8 +10049,56 @@
                 "riepr-operationeel-grondwater:onttrekking"
             ],
             "topConceptOf": "conceptscheme:operationeel_grondwater",
-            "relevantCodeList": [
-                "conceptscheme:operationeel_debiet_type"
+            "conditionValue": [
+                {
+                    "id": "conceptscheme:operationeel_debiet_type",
+                    "_type": [
+                        "skos:ConceptScheme"
+                    ],
+                    "hasTopConcept": [
+                        {
+                            "id": "riepr-operationeel-debiet-type:infiltratie",
+                            "_type": [
+                                "skos:Concept"
+                            ],
+                            "inScheme": "conceptscheme:operationeel_debiet_type",
+                            "code": "DEBIET_TYPE_INFILITRATIE",
+                            "prefLabel": "Infiltratie",
+                            "topConceptOf": "conceptscheme:operationeel_debiet_type"
+                        },
+                        {
+                            "id": "riepr-operationeel-debiet-type:onttrekking",
+                            "_type": [
+                                "skos:Concept"
+                            ],
+                            "inScheme": "conceptscheme:operationeel_debiet_type",
+                            "code": "DEBIET_TYPE_ONTTREKKING",
+                            "prefLabel": "Onttrekking",
+                            "topConceptOf": "conceptscheme:operationeel_debiet_type"
+                        },
+                        {
+                            "id": "riepr-operationeel-debiet-type:spui",
+                            "_type": [
+                                "skos:Concept"
+                            ],
+                            "inScheme": "conceptscheme:operationeel_debiet_type",
+                            "code": "DEBIET_TYPE_SPUI",
+                            "prefLabel": "Spui",
+                            "topConceptOf": "conceptscheme:operationeel_debiet_type"
+                        },
+                        {
+                            "id": "riepr-operationeel-debiet-type:totaal_rondgepompd",
+                            "_type": [
+                                "skos:Concept"
+                            ],
+                            "inScheme": "conceptscheme:operationeel_debiet_type",
+                            "code": "DEBIET_TYPE_TOTAAL_RONDGEPOMPD",
+                            "prefLabel": "Totaal rondgepompd",
+                            "topConceptOf": "conceptscheme:operationeel_debiet_type"
+                        }
+                    ],
+                    "prefLabel": "Type debiet"
+                }
             ]
         },
         {
@@ -9911,7 +10109,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:volume",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relevantUnit": [
                 "unit:M3"
@@ -9935,7 +10133,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:volume-rust",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "sosa:hasResult",
             "relevantUnit": [
@@ -9989,7 +10187,7 @@
                     "isVersionOf": "riepr-operationeel-grondwater:pomptoestand",
                     "dcterms:modified": {
                         "_type": "xsd:dateTime",
-                        "_value": "2026-08-05T09:06:53.566Z"
+                        "_value": "2026-08-05T15:14:47.175Z"
                     },
                     "relation": "sosa:hasResult",
                     "broader": {
@@ -10006,7 +10204,7 @@
                             "isVersionOf": "conceptscheme:operationeel_grondwater",
                             "dcterms:modified": {
                                 "_type": "xsd:dateTime",
-                                "_value": "2026-08-05T09:06:53.566Z"
+                                "_value": "2026-08-05T15:14:47.175Z"
                             },
                             "hasTopConcept": [
                                 {
@@ -10016,7 +10214,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relevantUnit": [
                                         "unit:M3"
@@ -10029,7 +10227,7 @@
                                         "isVersionOf": "riepr-operationeel-grondwater:onttrekking",
                                         "dcterms:modified": {
                                             "_type": "xsd:dateTime",
-                                            "_value": "2026-08-05T09:06:53.566Z"
+                                            "_value": "2026-08-05T15:14:47.175Z"
                                         },
                                         "definition": "Een meting van de onttrekking van een pompput.",
                                         "inScheme": "conceptscheme:operationeel_grondwater",
@@ -10043,7 +10241,7 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:volume",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relevantUnit": [
                                                     "unit:M3"
@@ -10066,7 +10264,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relevantUnit": [
                                                     "unit:M3"
@@ -10098,6 +10296,12 @@
                                                 "_type": [
                                                     "skos:Concept"
                                                 ],
+                                                "isVersionOf": "riepr-operationeel-grondwater:onttrekking_feature",
+                                                "dcterms:modified": {
+                                                    "_type": "xsd:dateTime",
+                                                    "_value": "2026-08-05T15:14:47.175Z"
+                                                },
+                                                "relation": "sosa:hasFeatureOfInterest",
                                                 "broader": "riepr-operationeel-grondwater:onttrekking",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
                                                 "definition": "Actieve debietmeters in het productiejaar.",
@@ -10108,6 +10312,7 @@
                                                     "riepr-operationeel-grondwater:onttrekking"
                                                 ],
                                                 "topConceptOf": "conceptscheme:operationeel_grondwater",
+                                                "relevantClass": "sosa:FeatureOfInterest",
                                                 "relevantRiepr": [
                                                     {
                                                         "id": "riepr-meetpunt-type:debietmeter",
@@ -10179,6 +10384,12 @@
                                                 "_type": [
                                                     "skos:Concept"
                                                 ],
+                                                "isVersionOf": "riepr-operationeel-grondwater:type-debiet",
+                                                "dcterms:modified": {
+                                                    "_type": "xsd:dateTime",
+                                                    "_value": "2026-08-05T15:14:47.175Z"
+                                                },
+                                                "relation": "sosa:observedProperty",
                                                 "broader": "riepr-operationeel-grondwater:onttrekking",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
                                                 "inScheme": "conceptscheme:operationeel_grondwater",
@@ -10187,7 +10398,7 @@
                                                     "riepr-operationeel-grondwater:onttrekking"
                                                 ],
                                                 "topConceptOf": "conceptscheme:operationeel_grondwater",
-                                                "relevantCodeList": [
+                                                "conditionValue": [
                                                     {
                                                         "id": "conceptscheme:operationeel_debiet_type",
                                                         "_type": [
@@ -10292,7 +10503,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:datum",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relation": "sosa:resultTime",
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
@@ -10314,7 +10525,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:diepte",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relation": "sosa:hasResult",
                                     "relevantUnit": [
@@ -10455,7 +10666,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:duur-stil",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relation": "sosa:hasResult",
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
@@ -10483,7 +10694,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "broader": {
                                         "id": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -10493,7 +10704,7 @@
                                         "isVersionOf": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                         "dcterms:modified": {
                                             "_type": "xsd:dateTime",
-                                            "_value": "2026-08-05T09:06:53.566Z"
+                                            "_value": "2026-08-05T15:14:47.175Z"
                                         },
                                         "definition": "Een kwaliteitsmeting van een pomp- of peilput.",
                                         "inScheme": "conceptscheme:operationeel_grondwater",
@@ -10506,8 +10717,9 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
+                                                "relation": "sosa:phenomenonTime",
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "inScheme": "conceptscheme:operationeel_grondwater",
@@ -10528,7 +10740,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relation": "sosa:hasResult",
                                                 "relevantUnit": [
@@ -10554,7 +10766,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -10568,7 +10780,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-labo",
                                                         "broaderTransitive": [
@@ -10611,7 +10823,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -10633,7 +10845,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -10646,7 +10858,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "relation": "sosa:resultTime",
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
@@ -10673,7 +10885,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
@@ -10698,7 +10910,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
@@ -10723,7 +10935,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
@@ -10749,8 +10961,9 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
+                                                        "relation": "sosa:observedProperty",
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
                                                             "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -10766,7 +10979,7 @@
                                                         "adms:status": {
                                                             "id": "https://purl.archive.org/adms/status/Active"
                                                         },
-                                                        "relevantCodeList": [
+                                                        "conditionPath": [
                                                             "http://TODO"
                                                         ]
                                                     }
@@ -10800,7 +11013,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -10930,7 +11143,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -10951,7 +11164,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "hasTopConcept": [
                                                             {
@@ -10961,7 +11174,7 @@
                                                                 ],
                                                                 "dcterms:created": {
                                                                     "_type": "xsd:dateTime",
-                                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                                 },
                                                                 "inScheme": "conceptscheme:operationeel_techniekmonstername",
                                                                 "prefLabel": "Aftap via monsterkraantje",
@@ -10986,8 +11199,9 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:kwaliteitsmeting_feature",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
+                                                "relation": "sosa:hasFeatureOfInterest",
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "definition": "Actieve peil- en pompfilters in het productiejaar.",
@@ -10998,6 +11212,7 @@
                                                     "riepr-operationeel-grondwater:kwaliteitsmeting"
                                                 ],
                                                 "topConceptOf": "conceptscheme:operationeel_grondwater",
+                                                "relevantClass": "sosa:FeatureOfInterest",
                                                 "isMultiselect": "true",
                                                 "relevantRiepr": [
                                                     "riepr-filter-type:peil,riepr-filter-type:pomp"
@@ -11081,7 +11296,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:peilmethode",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relation": "sosa:hasResult",
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
@@ -11139,6 +11354,12 @@
                                     "_type": [
                                         "skos:Concept"
                                     ],
+                                    "isVersionOf": "riepr-operationeel-grondwater:peilmeting_feature",
+                                    "dcterms:modified": {
+                                        "_type": "xsd:dateTime",
+                                        "_value": "2026-08-05T15:14:47.175Z"
+                                    },
+                                    "relation": "sosa:hasFeatureOfInterest",
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
                                     "definition": "Actieve peil- en pompfilters in het productiejaar.",
@@ -11149,6 +11370,7 @@
                                         "riepr-operationeel-grondwater:peilmeting"
                                     ],
                                     "topConceptOf": "conceptscheme:operationeel_grondwater",
+                                    "relevantClass": "sosa:FeatureOfInterest",
                                     "relevantRiepr": [
                                         "riepr-filter-type:peil,riepr-filter-type:pomp"
                                     ]
@@ -11161,7 +11383,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:referentiepunt",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -11186,7 +11408,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:volume-werking",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relation": "sosa:hasResult",
                                     "relevantUnit": [
@@ -11270,7 +11492,7 @@
             "isVersionOf": "riepr-operationeel-grondwater:volume-werking",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "sosa:hasResult",
             "relevantUnit": [
@@ -11324,7 +11546,7 @@
                     "isVersionOf": "riepr-operationeel-grondwater:pomptoestand",
                     "dcterms:modified": {
                         "_type": "xsd:dateTime",
-                        "_value": "2026-08-05T09:06:53.566Z"
+                        "_value": "2026-08-05T15:14:47.175Z"
                     },
                     "relation": "sosa:hasResult",
                     "broader": {
@@ -11341,7 +11563,7 @@
                             "isVersionOf": "conceptscheme:operationeel_grondwater",
                             "dcterms:modified": {
                                 "_type": "xsd:dateTime",
-                                "_value": "2026-08-05T09:06:53.566Z"
+                                "_value": "2026-08-05T15:14:47.175Z"
                             },
                             "hasTopConcept": [
                                 {
@@ -11351,7 +11573,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relevantUnit": [
                                         "unit:M3"
@@ -11364,7 +11586,7 @@
                                         "isVersionOf": "riepr-operationeel-grondwater:onttrekking",
                                         "dcterms:modified": {
                                             "_type": "xsd:dateTime",
-                                            "_value": "2026-08-05T09:06:53.566Z"
+                                            "_value": "2026-08-05T15:14:47.175Z"
                                         },
                                         "definition": "Een meting van de onttrekking van een pompput.",
                                         "inScheme": "conceptscheme:operationeel_grondwater",
@@ -11378,7 +11600,7 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:volume",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relevantUnit": [
                                                     "unit:M3"
@@ -11401,7 +11623,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relevantUnit": [
                                                     "unit:M3"
@@ -11433,6 +11655,12 @@
                                                 "_type": [
                                                     "skos:Concept"
                                                 ],
+                                                "isVersionOf": "riepr-operationeel-grondwater:onttrekking_feature",
+                                                "dcterms:modified": {
+                                                    "_type": "xsd:dateTime",
+                                                    "_value": "2026-08-05T15:14:47.175Z"
+                                                },
+                                                "relation": "sosa:hasFeatureOfInterest",
                                                 "broader": "riepr-operationeel-grondwater:onttrekking",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
                                                 "definition": "Actieve debietmeters in het productiejaar.",
@@ -11443,6 +11671,7 @@
                                                     "riepr-operationeel-grondwater:onttrekking"
                                                 ],
                                                 "topConceptOf": "conceptscheme:operationeel_grondwater",
+                                                "relevantClass": "sosa:FeatureOfInterest",
                                                 "relevantRiepr": [
                                                     {
                                                         "id": "riepr-meetpunt-type:debietmeter",
@@ -11514,6 +11743,12 @@
                                                 "_type": [
                                                     "skos:Concept"
                                                 ],
+                                                "isVersionOf": "riepr-operationeel-grondwater:type-debiet",
+                                                "dcterms:modified": {
+                                                    "_type": "xsd:dateTime",
+                                                    "_value": "2026-08-05T15:14:47.175Z"
+                                                },
+                                                "relation": "sosa:observedProperty",
                                                 "broader": "riepr-operationeel-grondwater:onttrekking",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:onttrekking",
                                                 "inScheme": "conceptscheme:operationeel_grondwater",
@@ -11522,7 +11757,7 @@
                                                     "riepr-operationeel-grondwater:onttrekking"
                                                 ],
                                                 "topConceptOf": "conceptscheme:operationeel_grondwater",
-                                                "relevantCodeList": [
+                                                "conditionValue": [
                                                     {
                                                         "id": "conceptscheme:operationeel_debiet_type",
                                                         "_type": [
@@ -11627,7 +11862,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:datum",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relation": "sosa:resultTime",
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
@@ -11649,7 +11884,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:diepte",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relation": "sosa:hasResult",
                                     "relevantUnit": [
@@ -11790,7 +12025,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:duur-stil",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relation": "sosa:hasResult",
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
@@ -11818,7 +12053,7 @@
                                     ],
                                     "dcterms:created": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "broader": {
                                         "id": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -11828,7 +12063,7 @@
                                         "isVersionOf": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                         "dcterms:modified": {
                                             "_type": "xsd:dateTime",
-                                            "_value": "2026-08-05T09:06:53.566Z"
+                                            "_value": "2026-08-05T15:14:47.175Z"
                                         },
                                         "definition": "Een kwaliteitsmeting van een pomp- of peilput.",
                                         "inScheme": "conceptscheme:operationeel_grondwater",
@@ -11841,8 +12076,9 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
+                                                "relation": "sosa:phenomenonTime",
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "inScheme": "conceptscheme:operationeel_grondwater",
@@ -11863,7 +12099,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "relation": "sosa:hasResult",
                                                 "relevantUnit": [
@@ -11889,7 +12125,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -11903,7 +12139,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-labo",
                                                         "broaderTransitive": [
@@ -11946,7 +12182,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -11968,7 +12204,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -11981,7 +12217,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "relation": "sosa:resultTime",
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
@@ -12008,7 +12244,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
@@ -12033,7 +12269,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
@@ -12058,7 +12294,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
@@ -12084,8 +12320,9 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
+                                                        "relation": "sosa:observedProperty",
                                                         "broader": "riepr-operationeel-grondwater:kwaliteitsmeting-parameter",
                                                         "broaderTransitive": [
                                                             "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -12101,7 +12338,7 @@
                                                         "adms:status": {
                                                             "id": "https://purl.archive.org/adms/status/Active"
                                                         },
-                                                        "relevantCodeList": [
+                                                        "conditionPath": [
                                                             "http://TODO"
                                                         ]
                                                     }
@@ -12135,7 +12372,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -12265,7 +12502,7 @@
                                                 ],
                                                 "dcterms:created": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
@@ -12286,7 +12523,7 @@
                                                         ],
                                                         "dcterms:created": {
                                                             "_type": "xsd:dateTime",
-                                                            "_value": "2026-08-05T09:06:53.566Z"
+                                                            "_value": "2026-08-05T15:14:47.175Z"
                                                         },
                                                         "hasTopConcept": [
                                                             {
@@ -12296,7 +12533,7 @@
                                                                 ],
                                                                 "dcterms:created": {
                                                                     "_type": "xsd:dateTime",
-                                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                                 },
                                                                 "inScheme": "conceptscheme:operationeel_techniekmonstername",
                                                                 "prefLabel": "Aftap via monsterkraantje",
@@ -12321,8 +12558,9 @@
                                                 "isVersionOf": "riepr-operationeel-grondwater:kwaliteitsmeting_feature",
                                                 "dcterms:modified": {
                                                     "_type": "xsd:dateTime",
-                                                    "_value": "2026-08-05T09:06:53.566Z"
+                                                    "_value": "2026-08-05T15:14:47.175Z"
                                                 },
+                                                "relation": "sosa:hasFeatureOfInterest",
                                                 "broader": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "broaderTransitive": "riepr-operationeel-grondwater:kwaliteitsmeting",
                                                 "definition": "Actieve peil- en pompfilters in het productiejaar.",
@@ -12333,6 +12571,7 @@
                                                     "riepr-operationeel-grondwater:kwaliteitsmeting"
                                                 ],
                                                 "topConceptOf": "conceptscheme:operationeel_grondwater",
+                                                "relevantClass": "sosa:FeatureOfInterest",
                                                 "isMultiselect": "true",
                                                 "relevantRiepr": [
                                                     "riepr-filter-type:peil,riepr-filter-type:pomp"
@@ -12416,7 +12655,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:peilmethode",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relation": "sosa:hasResult",
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
@@ -12474,6 +12713,12 @@
                                     "_type": [
                                         "skos:Concept"
                                     ],
+                                    "isVersionOf": "riepr-operationeel-grondwater:peilmeting_feature",
+                                    "dcterms:modified": {
+                                        "_type": "xsd:dateTime",
+                                        "_value": "2026-08-05T15:14:47.175Z"
+                                    },
+                                    "relation": "sosa:hasFeatureOfInterest",
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
                                     "definition": "Actieve peil- en pompfilters in het productiejaar.",
@@ -12484,6 +12729,7 @@
                                         "riepr-operationeel-grondwater:peilmeting"
                                     ],
                                     "topConceptOf": "conceptscheme:operationeel_grondwater",
+                                    "relevantClass": "sosa:FeatureOfInterest",
                                     "relevantRiepr": [
                                         "riepr-filter-type:peil,riepr-filter-type:pomp"
                                     ]
@@ -12496,7 +12742,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:referentiepunt",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "broader": "riepr-operationeel-grondwater:peilmeting",
                                     "broaderTransitive": "riepr-operationeel-grondwater:peilmeting",
@@ -12520,7 +12766,7 @@
                                     "isVersionOf": "riepr-operationeel-grondwater:volume-rust",
                                     "dcterms:modified": {
                                         "_type": "xsd:dateTime",
-                                        "_value": "2026-08-05T09:06:53.566Z"
+                                        "_value": "2026-08-05T15:14:47.175Z"
                                     },
                                     "relation": "sosa:hasResult",
                                     "relevantUnit": [
@@ -12651,7 +12897,7 @@
             "isVersionOf": "riepr-operationeel-lucht:afvalproduct_hoeveelheid",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "sosa:hasResult",
             "relevantUnit": [
@@ -12675,7 +12921,7 @@
             "isVersionOf": "riepr-operationeel-lucht:afvalproduct_naam",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "rdfs:label",
             "broader": "riepr-operationeel-lucht:afvalproduct",
@@ -12730,7 +12976,7 @@
             "isVersionOf": "riepr-operationeel-lucht:brandstof_as",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "sosa:hasResult",
             "broader": "riepr-operationeel-lucht:brandstof",
@@ -12752,7 +12998,7 @@
             "isVersionOf": "riepr-operationeel-lucht:brandstof_naam",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "rdfs:label",
             "broader": "riepr-operationeel-lucht:brandstof",
@@ -12776,7 +13022,7 @@
             "isVersionOf": "riepr-operationeel-lucht:brandstof_s",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "sosa:hasResult",
             "broader": "riepr-operationeel-lucht:brandstof",
@@ -12798,7 +13044,7 @@
             "isVersionOf": "riepr-operationeel-lucht:brandstof_verbruik",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "sosa:hasResult",
             "relevantUnit": [
@@ -13025,7 +13271,7 @@
             "isVersionOf": "riepr-operationeel-lucht:geproduceerde_stof_hoeveelheid",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "sosa:hasResult",
             "relevantUnit": [
@@ -13049,7 +13295,7 @@
             "isVersionOf": "riepr-operationeel-lucht:geproduceerde_stof_naam",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "rdfs:label",
             "broader": "riepr-operationeel-lucht:geproduceerde_stof",
@@ -13119,7 +13365,7 @@
             "isVersionOf": "riepr-operationeel-lucht:verbruikte_stof_hoeveelheid",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "sosa:hasResult",
             "relevantUnit": [
@@ -13144,7 +13390,7 @@
             "isVersionOf": "riepr-operationeel-lucht:verbruikte_stof_naam",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "rdfs:label",
             "broader": "riepr-operationeel-lucht:verbruikte_stof",
@@ -13217,7 +13463,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "inScheme": "conceptscheme:operationeel_techniekmonstername",
             "prefLabel": "Aftap via monsterkraantje",
@@ -13264,7 +13510,7 @@
             "isVersionOf": "riepr-operationeel-water:abnormale-lozing",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "inScheme": "conceptscheme:operationeel_water_lozing",
             "narrower": [
@@ -13338,8 +13584,9 @@
             "isVersionOf": "riepr-operationeel-water:abnormale-lozing-stof",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
+            "relation": "sosa:observedProperty",
             "broader": "riepr-operationeel-water:abnormale-lozing",
             "broaderTransitive": "riepr-operationeel-water:abnormale-lozing",
             "inScheme": "conceptscheme:operationeel_water_lozing",
@@ -13349,7 +13596,7 @@
             ],
             "topConceptOf": "conceptscheme:operationeel_water_lozing",
             "isVerplicht": "true",
-            "relevantCodeList": [
+            "relevantRiepr": [
                 "conceptscheme-alg:csor/variabele"
             ]
         },
@@ -13358,7 +13605,12 @@
             "_type": [
                 "skos:Concept"
             ],
-            "relation": "sosa:hasResult",
+            "isVersionOf": "riepr-operationeel-water:abnormale-lozing-verklaring",
+            "dcterms:modified": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-08-05T15:14:47.175Z"
+            },
+            "relation": "sosa:hasSimpleResult",
             "broader": "riepr-operationeel-water:abnormale-lozing",
             "broaderTransitive": "riepr-operationeel-water:abnormale-lozing",
             "inScheme": "conceptscheme:operationeel_water_lozing",
@@ -13482,7 +13734,12 @@
             "_type": [
                 "skos:Concept"
             ],
-            "relation": "concept:TODO",
+            "isVersionOf": "riepr-operationeel-water:lozing-bepalingsmethode",
+            "dcterms:modified": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-08-05T15:14:47.175Z"
+            },
+            "relation": "sosa:usedProcedure",
             "broader": "riepr-operationeel-water:lozing",
             "broaderTransitive": "riepr-operationeel-water:lozing",
             "inScheme": "conceptscheme:operationeel_water_lozing",
@@ -13500,7 +13757,12 @@
             "_type": [
                 "skos:Concept"
             ],
-            "relation": "concept:TODO",
+            "isVersionOf": "riepr-operationeel-water:lozing-bepalingsmethodeclassificatie",
+            "dcterms:modified": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-08-05T15:14:47.175Z"
+            },
+            "relation": "sosa:usedProcedure",
             "broader": "riepr-operationeel-water:lozing",
             "broaderTransitive": "riepr-operationeel-water:lozing",
             "inScheme": "conceptscheme:operationeel_water_lozing",
@@ -13615,6 +13877,12 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "riepr-operationeel-water:lozing-stof",
+            "dcterms:modified": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-08-05T15:14:47.175Z"
+            },
+            "relation": "sosa:observedProperty",
             "broader": "riepr-operationeel-water:lozing",
             "broaderTransitive": "riepr-operationeel-water:lozing",
             "inScheme": "conceptscheme:operationeel_water_lozing",
@@ -13625,7 +13893,7 @@
             "topConceptOf": "conceptscheme:operationeel_water_lozing",
             "relevantClass": "sosa:Observation",
             "isVerplicht": "true",
-            "relevantCodeList": [
+            "relevantRiepr": [
                 "conceptscheme-alg:csor/variabele"
             ]
         },
@@ -13633,6 +13901,15 @@
             "id": "riepr-operationeel-zelfcontrole-lucht:datum",
             "_type": [
                 "skos:Concept"
+            ],
+            "isVersionOf": "riepr-operationeel-zelfcontrole-lucht:datum",
+            "dcterms:modified": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-08-05T15:14:47.175Z"
+            },
+            "relation": "sosa:resultTime",
+            "relevantUnit": [
+                "concept:true"
             ],
             "broader": "riepr-operationeel-zelfcontrole-lucht:meting",
             "broaderTransitive": "riepr-operationeel-zelfcontrole-lucht:meting",
@@ -13644,7 +13921,6 @@
                 "riepr-operationeel-zelfcontrole-lucht:meting"
             ],
             "topConceptOf": "conceptscheme:operationeel_zelfcontrole_lucht_meting",
-            "isVerplicht": "true",
             "relevantDataType": "xsd:date"
         },
         {
@@ -13655,7 +13931,7 @@
             "isVersionOf": "riepr-operationeel-zelfcontrole-lucht:feature",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relation": "sosa:hasFeatureOfInterest",
             "seeAlso": "conceptscheme:operationeel_zelfcontrole_lucht_meting",
@@ -13798,8 +14074,9 @@
             "isVersionOf": "riepr-operationeel-zelfcontrole-lucht:labo",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
+            "relation": "sosa:madeBySensor",
             "broader": "riepr-operationeel-zelfcontrole-lucht:meting",
             "broaderTransitive": "riepr-operationeel-zelfcontrole-lucht:meting",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht_meting",
@@ -13827,7 +14104,7 @@
             "isVersionOf": "riepr-operationeel-zelfcontrole-lucht:labo-id",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "broader": "riepr-operationeel-zelfcontrole-lucht:labo",
             "broaderTransitive": [
@@ -13851,7 +14128,7 @@
             "isVersionOf": "riepr-operationeel-zelfcontrole-lucht:labo-naam",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "broader": "riepr-operationeel-zelfcontrole-lucht:labo",
             "broaderTransitive": [
@@ -13878,7 +14155,7 @@
             "isVersionOf": "riepr-operationeel-zelfcontrole-lucht:meting",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht_meting",
             "narrower": [
@@ -13922,7 +14199,7 @@
             "isVersionOf": "riepr-operationeel-zelfcontrole-lucht:parameter",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "broader": "riepr-operationeel-zelfcontrole-lucht:meting",
             "broaderTransitive": "riepr-operationeel-zelfcontrole-lucht:meting",
@@ -13960,8 +14237,9 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
+            "relation": "sosa:hasResult",
             "broader": "riepr-operationeel-zelfcontrole-lucht:parameter",
             "broaderTransitive": [
                 "riepr-operationeel-zelfcontrole-lucht:meting",
@@ -13985,7 +14263,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "broader": "riepr-operationeel-zelfcontrole-lucht:parameter",
             "broaderTransitive": [
@@ -14010,7 +14288,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "relevantUnit": [
                 {
@@ -14156,8 +14434,9 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
+            "relation": "sosa:observedProperty",
             "broader": "riepr-operationeel-zelfcontrole-lucht:parameter",
             "broaderTransitive": [
                 "riepr-operationeel-zelfcontrole-lucht:meting",
@@ -14173,9 +14452,11 @@
             "adms:status": {
                 "id": "https://purl.archive.org/adms/status/Active"
             },
-            "isVerplicht": "true",
-            "relevantCodeList": [
+            "conditionPath": [
                 "http://TODO"
+            ],
+            "relevantCodeList": [
+                "concept:true"
             ]
         },
         {
@@ -14185,7 +14466,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "broader": "riepr-operationeel-zelfcontrole-lucht:parameter",
             "broaderTransitive": [
@@ -14209,6 +14490,15 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "riepr-operationeel-zelfcontrole-water:datum",
+            "dcterms:modified": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-08-05T15:14:47.175Z"
+            },
+            "relation": "sosa:resultTime",
+            "relevantUnit": [
+                "concept:true"
+            ],
             "broader": "riepr-operationeel-zelfcontrole-water:meting",
             "broaderTransitive": "riepr-operationeel-zelfcontrole-water:meting",
             "definition": "Datum van de meting of startdatum indien de meting over meerdere dagen heeft plaatsgevonden.",
@@ -14219,7 +14509,6 @@
                 "riepr-operationeel-zelfcontrole-water:meting"
             ],
             "topConceptOf": "conceptscheme:operationeel_zelfcontrole_water_meting",
-            "isVerplicht": "true",
             "relevantDataType": "xsd:date"
         },
         {
@@ -14293,6 +14582,12 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "riepr-operationeel-zelfcontrole-water:labo",
+            "dcterms:modified": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-08-05T15:14:47.175Z"
+            },
+            "relation": "sosa:madeBySensor",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_water_meting",
             "narrower": [
                 "riepr-operationeel-zelfcontrole-water:labo-id",
@@ -14724,6 +15019,20 @@
             "prefLabel": "Filter type"
         },
         {
+            "id": "conceptscheme:herkomst_water",
+            "_type": [
+                "skos:ConceptScheme"
+            ],
+            "dcterms:created": {
+                "_type": "xsd:dateTime",
+                "_value": "2026-08-05T15:14:47.175Z"
+            },
+            "prefLabel": "Herkomst water",
+            "adms:status": {
+                "id": "https://purl.archive.org/adms/status/Active"
+            }
+        },
+        {
             "id": "conceptscheme:installatie_eigenschappen",
             "_type": [
                 "skos:ConceptScheme"
@@ -14914,7 +15223,7 @@
             "isVersionOf": "conceptscheme:operationeel_grondwater",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "hasTopConcept": [
                 "riepr-operationeel-grondwater:begintoestand",
@@ -15026,7 +15335,7 @@
             ],
             "dcterms:created": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "hasTopConcept": [
                 "riepr-operationeel-techniekmonstername:aftap"
@@ -15090,7 +15399,7 @@
             "isVersionOf": "conceptscheme:operationeel_zelfcontrole_lucht",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "hasTopConcept": [
                 "riepr-operationeel-zelfcontrole-lucht:feature"
@@ -15105,7 +15414,7 @@
             "isVersionOf": "conceptscheme:operationeel_zelfcontrole_lucht_meting",
             "dcterms:modified": {
                 "_type": "xsd:dateTime",
-                "_value": "2026-08-05T09:06:53.566Z"
+                "_value": "2026-08-05T15:14:47.175Z"
             },
             "hasTopConcept": [
                 "riepr-operationeel-zelfcontrole-lucht:datum",
