@@ -158,6 +158,7 @@ pipeline {
 						container('node') {
 							sh '''
 								cd poc/poc-flow-operationeel
+								npm install -g tsc
 								npm i --legacy-peer-deps
 								npm run build
 							'''
