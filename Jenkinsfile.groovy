@@ -181,10 +181,11 @@ pipeline {
 										set -e
 										rm -rf .gh-pages-deploy /tmp/deploy-staging
 										mkdir -p .gh-pages-deploy && cd .gh-pages-deploy
-										git init --initial-branch="$GH_PAGES_BRANCH"
+										git init
 										git remote add origin "https://github.com/${GITHUB_REPO}.git"
-										git fetch origin --depth 1 "$GH_PAGES_BRANCH:$GH_PAGES_BRANCH"
-										git checkout "$GH_PAGES_BRANCH"
+										git fetch origin --depth 1 "$GH_PAGES_BRANCH"
+										git checkout --orphan "$GH_PAGES_BRANCH"
+										git reset --hard FETCH_HEAD
 
 										find . -mindepth 1 -not -path './.git' -exec rm -rf {} +
 										cp -r ../poc/poc-flow-operationeel/dist/* .
