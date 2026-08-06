@@ -48,8 +48,8 @@ export class ConceptMapper {
       isSimpleResult: concept.relation === 'sosa:hasSimpleResult',
     }
 
-    // Type mapping with format
-    if (type === 'string' && concept.relevantDataType) {
+    // Type mapping with format (skip for enum/relevantRiepr concepts where relevantDataType is always string)
+    if (type === 'string' && concept.relevantDataType && !concept.relevantCodeList?.length && !concept.relevantRiepr?.length) {
       if (concept.relevantDataType.includes('date') && !concept.relevantDataType.includes('dateTime')) {
         schemaField.extensions = { ...(schemaField.extensions || {}), 'x-jsonld-type': 'http://www.w3.org/2001/XMLSchema#date' }
       } else if (concept.relevantDataType.includes('dateTime')) {
@@ -79,8 +79,8 @@ export class ConceptMapper {
       }
     }
 
-    // Numeric data types imply hasResult.numericValue
-    if (concept.relevantDataType === 'xsd:decimal' || concept.relevantDataType === 'xsd:integer') {
+    // Numeric data types imply hasResult.numericValue (skip for enum/relevantRiepr concepts)
+    if (!concept.relevantCodeList?.length && !concept.relevantRiepr?.length && (concept.relevantDataType === 'xsd:decimal' || concept.relevantDataType === 'xsd:integer')) {
       schemaField.hasNumericResult = true
     }
 
@@ -136,6 +136,10 @@ export class ConceptMapper {
         // Composite concept without explicit type → object container for children
         if (concept.narrower && concept.narrower.length > 0) {
           return 'object'
+        }
+        // Enum and relevantRiepr concepts always resolve to string — no warning needed
+        if (concept.relevantCodeList?.length || concept.relevantRiepr?.length) {
+          return 'string'
         }
         console.warn(`[ConceptMapper] Unknown relevantDataType for "${concept.id}", falling back to string`)
         return 'string'

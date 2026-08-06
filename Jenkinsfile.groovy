@@ -1,11 +1,27 @@
 @Library('Cumulus@1.2-stable') _
 
+def nodePodSpec = '''
+spec:
+  containers:
+    - name: node
+      image: acd-docker.repository.milieuinfo.be/library/node:20-alpine
+      command:
+        - cat
+      tty: true
+      resources:
+        requests:
+          memory: "512Mi"
+          cpu: "250m"
+        limits:
+          memory: "2Gi"
+'''
+
 pipeline {
 
 	agent {
 		kubernetes {
 			inheritFrom 'jenkins-jenkins-agent'
-			yaml podBuilder.from([maven.podSpec(25), sonar.podSpec(), trivy.podSpec()])
+			yaml podBuilder.from([dind.podSpec(), nodePodSpec, maven.podSpec(25), sonar.podSpec(), trivy.podSpec()])
 		}
 	}
 
@@ -15,6 +31,8 @@ pipeline {
 
 	environment {
 		SONAR_PROJECT_KEY = 'be.vlaanderen.omgeving.data.id.graph:codelijst-rie-iepr'
+		GH_PAGES_BRANCH   = 'gh-pages'
+		GITHUB_REPO       = 'milieuinfo/codelijst-rie-iepr'
 	}
 
 	stages {
@@ -131,6 +149,63 @@ pipeline {
 								version  : env.VERSION,
 								skipTests: true
 							])
+						}
+					}
+				}
+
+				stage('Build POC') {
+					steps {
+						container('node') {
+							sh '''
+								set -e
+								export NPM_CONFIG_LOGLEVEL=warn
+								cd poc/poc-flow-operationeel
+								if [ -f package-lock.json ]; then
+									npm ci --no-audit --no-fund || exit 1
+								else
+									npm install --no-audit --no-fund || exit 1
+								fi
+								npm run build
+							'''
+						}
+					}
+					post {
+						always {
+							archiveArtifacts artifacts: 'poc/poc-flow-operationeel/dist/**', allowEmptyArchive: true, fingerprint: true
+						}
+					}
+				}
+
+				stage('Deploy POC to GitHub Pages') {
+					steps {
+						container('jnlp') {
+							script {
+								git.withGitAuth {
+									sh '''
+										set -e
+										rm -rf .gh-pages-deploy
+										git clone --depth 1 --branch "$GH_PAGES_BRANCH" "https://github.com/${GITHUB_REPO}.git" .gh-pages-deploy \
+											|| git clone --depth 1 "https://github.com/${GITHUB_REPO}.git" .gh-pages-deploy
+
+										cd .gh-pages-deploy
+										git checkout -B "$GH_PAGES_BRANCH"
+
+										rm -rf poc
+										cp -r ../poc/poc-flow-operationeel/dist poc
+										touch poc/.nojekyll
+
+										git config user.email "$GIT_USER_EMAIL"
+										git config user.name "$GIT_USER_NAME"
+										git add poc
+										if ! git diff --cached --quiet; then
+											git commit -m "poc: deploy from ${BUILD_TAG}"
+											git push origin "$GH_PAGES_BRANCH"
+										else
+											echo "No changes to deploy"
+										fi
+									'''
+								}
+							}
 						}
 					}
 				}
