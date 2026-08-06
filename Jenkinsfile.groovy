@@ -157,12 +157,9 @@ pipeline {
 					steps {
 						container('node') {
 							sh '''
-								export NPM_CONFIG_LOGLEVEL=warn
-								export NODE_OPTIONS="--max-old-space-size=2048"
 								cd poc/poc-flow-operationeel
-								rm -rf node_modules
-								npm install --no-audit --no-fund --legacy-peer-deps || exit 1
-								./node_modules/.bin/tsc && ./node_modules/.bin/vite build
+								npm i --legacy-peer-deps
+								npm run build
 							'''
 						}
 					}
