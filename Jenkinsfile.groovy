@@ -179,25 +179,34 @@ pipeline {
 								git.withGitAuth {
 									sh '''
 										set -e
-										rm -rf .gh-pages-deploy
-										git clone --depth 1 --branch "$GH_PAGES_BRANCH" "https://github.com/${GITHUB_REPO}.git" .gh-pages-deploy \
-											|| git clone --depth 1 "https://github.com/${GITHUB_REPO}.git" .gh-pages-deploy
 
-										cd .gh-pages-deploy
-										git checkout -B "$GH_PAGES_BRANCH"
+										DIST="$PWD/poc/poc-flow-operationeel/dist"
+										WORK="$PWD/.gh-pages-deploy"
 
-										find . -mindepth 1 -not -path './.git' -exec rm -rf {} +
-										cp -r ../poc/poc-flow-operationeel/dist/* .
-										touch .nojekyll
-
-										git config user.email "$GIT_USER_EMAIL"
-										git config user.name "$GIT_USER_NAME"
-										git add -A
-										if ! git diff --cached --quiet; then
-											git commit -m "poc: deploy from ${BUILD_TAG}"
-											git push origin "$GH_PAGES_BRANCH"
+										rm -rf "$WORK"
+										if git clone --depth 1 --branch "$GH_PAGES_BRANCH" "https://github.com/${GITHUB_REPO}.git" "$WORK"; then
+											git -C "$WORK" checkout -B "$GH_PAGES_BRANCH"
 										else
+											git clone --depth 1 "https://github.com/${GITHUB_REPO}.git" "$WORK"
+											git -C "$WORK" checkout --orphan "$GH_PAGES_BRANCH"
+											git -C "$WORK" rm -rq --cached .
+										fi
+
+										# Alleen de top-level entries wissen, .git expliciet overslaan.
+										# (find zonder -maxdepth daalt af in .git en sloopt de repo.)
+										find "$WORK" -mindepth 1 -maxdepth 1 -not -name .git -exec rm -rf {} +
+
+										cp -r "$DIST"/. "$WORK"/
+										touch "$WORK/.nojekyll"
+
+										git -C "$WORK" config user.email "$GIT_USER_EMAIL"
+										git -C "$WORK" config user.name "$GIT_USER_NAME"
+										git -C "$WORK" add -A
+										if git -C "$WORK" diff --cached --quiet; then
 											echo "No changes to deploy"
+										else
+											git -C "$WORK" commit -m "poc: deploy from ${BUILD_TAG}"
+											git -C "$WORK" push origin "HEAD:$GH_PAGES_BRANCH"
 										fi
 									'''
 								}
