@@ -157,15 +157,11 @@ pipeline {
 					steps {
 						container('node') {
 							sh '''
-								set -e
 								export NPM_CONFIG_LOGLEVEL=warn
 								cd poc/poc-flow-operationeel
-								if [ -f package-lock.json ]; then
-								npm ci --no-audit --no-fund --legacy-peer-deps || exit 1
-							else
+								rm -rf node_modules
 								npm install --no-audit --no-fund --legacy-peer-deps || exit 1
-								fi
-								npm run build
+								npx tsc && npx vite build
 							'''
 						}
 					}
