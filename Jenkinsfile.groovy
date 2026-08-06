@@ -158,6 +158,7 @@ pipeline {
 						container('node') {
 							sh '''
 								cd poc/poc-flow-operationeel
+								npm config set registry https://repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/
 								npm install -g tsc
 								npm i --legacy-peer-deps
 								npm run build
