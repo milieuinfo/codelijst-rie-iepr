@@ -179,12 +179,12 @@ pipeline {
 								git.withGitAuth {
 									sh '''
 										set -e
-										rm -rf .gh-pages-deploy
-										git clone --depth 1 --branch "$GH_PAGES_BRANCH" "https://github.com/${GITHUB_REPO}.git" .gh-pages-deploy \
-											|| git clone --depth 1 "https://github.com/${GITHUB_REPO}.git" .gh-pages-deploy
-
-										cd .gh-pages-deploy
-										git checkout -B "$GH_PAGES_BRANCH"
+										rm -rf .gh-pages-deploy /tmp/deploy-staging
+										mkdir -p .gh-pages-deploy && cd .gh-pages-deploy
+										git init --initial-branch="$GH_PAGES_BRANCH"
+										git remote add origin "https://github.com/${GITHUB_REPO}.git"
+										git fetch origin --depth 1 "$GH_PAGES_BRANCH:$GH_PAGES_BRANCH"
+										git checkout "$GH_PAGES_BRANCH"
 
 										find . -mindepth 1 -not -path './.git' -exec rm -rf {} +
 										cp -r ../poc/poc-flow-operationeel/dist/* .
