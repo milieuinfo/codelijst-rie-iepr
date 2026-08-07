@@ -1,7 +1,7 @@
 /**
  * @file Theme selector component: step 1 of the user flow. Lets the
  * user pick a thema from the `thema-type` conceptscheme and, when the
- * selected thema has narrower concepts, a sub-thema from among those.
+  * selected thema has child concepts, a sub-thema from among those.
  */
 
 import { LitElement, html, css } from 'lit'

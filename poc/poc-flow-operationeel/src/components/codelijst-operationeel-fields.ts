@@ -1,7 +1,7 @@
 /**
  * @file Renders the operationeel-* conceptscheme an installation's
  * thema/sub-thema resolves to (steps 2-6 of the user flow): composite
- * (narrower) attribute groups, per-field input controls driven by
+  * (hasPart) attribute groups, per-field input controls driven by
  * relevantDataType/relevantCodeList, required/repeatable markers, and a
  * structural-element picker when the scheme's relevantRiepr points at a
  * type such as `riepr-meetpunt-type:debietmeter`.
@@ -282,7 +282,7 @@ export class CodelijstOperationeelFields extends LitElement {
     if (!this.result) return nothing
 
     // Check composite group-level condition before rendering anything.
-    // Root fields with narrower children (composite groups) still need their own
+     // Root fields with hasPart children (composite groups) still need their own
     // conditionPath/conditionValue evaluated — e.g., "Grondstof" group depends on
     // checkbox "Heeft u grondstoffen geproduceerd?".
     if (!this.matchesCondition(field)) return nothing
@@ -291,7 +291,7 @@ export class CodelijstOperationeelFields extends LitElement {
     let groupPicker: ReturnType<typeof html> | typeof nothing = nothing
 
     // Case A: No direct children but has relevantRiepr → check whether to expand or render as picker.
-    // Only expand the referenced concept's narrower children into a composite group when at least one
+     // Only expand the referenced concept's hasPart children into a composite group when at least one
     // grandchild carries meaningful form properties (relevantDataType, relevantCodeList). If all
     // grandchildren are pure type concepts (no form props), treat this field as a simple structural
     // picker instead — e.g., feature_ep → schoorsteen should show a "Kies Schoorsteen" dropdown,
@@ -468,7 +468,7 @@ export class CodelijstOperationeelFields extends LitElement {
     return resolved
   }
 
-  private renderFieldControl(field: Concept, idSuffix: string, parentFieldId?: string) {
+  private renderFieldControl(field: Concept, idSuffix: string, parentFieldId?: string): ReturnType<typeof html> | typeof nothing {
     if (!this.result) return nothing
 
     // Conditional visibility check — hide field when conditionPath is set but unmet.
@@ -477,6 +477,20 @@ export class CodelijstOperationeelFields extends LitElement {
     const id = `${field.id}${idSuffix}`
     const required = field.isVerplicht === true
     const plainLabel = field.prefLabel ?? field.id
+
+    // Nested composite — expand hasPart children into a sub-fieldset instead of
+    // falling through to createControl which would render a meaningless text input.
+    // This handles cases like bestemmingsidentificatie-be which is itself a composite
+    // inside the grondstof group.
+    const nestedChildren = this._service.getChildren(this.result, field)
+    if (nestedChildren.length > 0 && !field.relevantDataType && !field.relevantCodeList) {
+      return html`
+        <vl-fieldset>
+          <span slot="legend">${plainLabel}${required ? ' *' : ''}</span>
+          ${nestedChildren.map(child => html`<div class="codelijst-group__child">${this.renderFieldControl(child, idSuffix, field.id)}</div>`)}
+        </vl-fieldset>
+      `
+    }
 
     // --- Handle relevantRiepr at the field level (structural type picker) ---
     // When a concept has relevantRiepr pointing to skos:Concept type nodes and NO
@@ -1020,7 +1034,7 @@ export class CodelijstOperationeelFields extends LitElement {
           prefLabel: concept.prefLabel ?? concept.id,
           definition: concept.definition,
           relevantRiepr: [concept.id],
-          narrower: children.length > 0 ? children.map(c => c.id) : undefined,
+           hasPart: children.length > 0 ? children.map(c => c.id) : undefined,
         })
       }
     }

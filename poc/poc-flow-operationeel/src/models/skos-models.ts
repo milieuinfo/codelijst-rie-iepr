@@ -19,9 +19,8 @@ export interface Concept {
   definition?: string
   note?: string
   isPartOf?: string[]
-  narrower?: string[]
+  hasPart?: string[]
   topConceptOf?: string
-  narrowerTransitive?: string[]
   semanticRelation?: string[]
 
   // RIE-IEPR specific properties

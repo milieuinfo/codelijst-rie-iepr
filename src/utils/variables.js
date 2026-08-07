@@ -56,6 +56,10 @@ const frame_skos_prefixes = {
         "@embed": "@never",
         "@omitDefault": true
     },
+    "hasPart": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
     "relation":{
         "@embed": "@never",
             "@omitDefault": true
@@ -139,7 +143,19 @@ const frame_skos_prefixes = {
     "intervalcategorie": {
         "@embed": "@never",
         "@omitDefault": true
-    }
+    },
+    "conditionPath": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "conditionValue": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "relevantRiepr":  {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
 }
 
 
@@ -290,6 +306,10 @@ const frame_skos_no_prefixes = {
         "@omitDefault": true
     },
     "isPartOf": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "hasPart": {
         "@embed": "@never",
         "@omitDefault": true
     },

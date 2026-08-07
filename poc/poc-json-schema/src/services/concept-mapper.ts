@@ -16,13 +16,15 @@ export class ConceptMapper {
     if (concept.isOnzichtbaar === true) return null
     if (!concept.id || !concept.prefLabel) return null
 
-    const propertyName = this.derivePropertyName(concept)
     const type = this.mapDataType(concept)
     const isRequired = concept.isVerplicht === true
     const isRepeatable = concept.isMeervoudig === true
 
-    // Handle duplicate property names within same scheme
-    const finalName = this.trackName(propertyName)
+    // Property name derived from relation predicate if present, else from concept ID
+    const propertyName = concept.relation ? this.derivePropertyNameFromRelation(concept.relation) : this.derivePropertyName(concept)
+
+    // Handle duplicate property names within same scheme (only for non-relation names; relations are deduped at assembly time)
+    const finalName = concept.relation ? propertyName : this.trackName(propertyName)
 
     const label = concept.prefLabel
     const description = concept.definition || concept.note || undefined
@@ -46,6 +48,17 @@ export class ConceptMapper {
       isResultTime: concept.relation === 'sosa:resultTime',
       isPhenomenonTime: concept.relation === 'sosa:phenomenonTime',
       isSimpleResult: concept.relation === 'sosa:hasSimpleResult',
+    }
+
+    // JSON-LD annotations from relation (x-jsonld-id, x-jsonld-type)
+    if (concept.relation) {
+      const expandedUri = this.result.expandCurie?.(concept.relation) ?? concept.relation
+      schemaField.relationUri = expandedUri
+      schemaField.extensions = {
+        ...(schemaField.extensions || {}),
+        'x-jsonld-id': expandedUri,
+        'x-jsonld-type': this.mapXJsonLdType(concept.relevantDataType, type),
+      }
     }
 
     // Type mapping with format (skip for enum/relevantRiepr concepts where relevantDataType is always string)
@@ -109,6 +122,12 @@ export class ConceptMapper {
     return this.toCamelCase(localPart.replace(/[-_]/g, '_'))
   }
 
+  /** Derive JSON property name from a relation predicate (e.g. "sosa:usedProcedure" → "usedProcedure"). */
+  derivePropertyNameFromRelation(relation: string): string {
+    const localPart = relation.split(':').pop() || relation
+    return localPart
+  }
+
   private trackName(name: string): string {
     const count = this.nameCount.get(name) || 0
     this.nameCount.set(name, count + 1)
@@ -148,5 +167,27 @@ export class ConceptMapper {
 
   private toCamelCase(str: string): string {
     return str.toLowerCase().replace(/_([a-z])/g, (_, c) => c.toUpperCase())
+  }
+
+  /** Map xsd type to x-jsonld-type range URI for JSON-LD serialization. */
+  private mapXJsonLdType(relevantDataType: string | undefined, schemaType: SchemaField['type']): string {
+    const xsd = 'http://www.w3.org/2001/XMLSchema#'
+    if (relevantDataType) {
+      switch (relevantDataType) {
+        case 'xsd:string': return `${xsd}string`
+        case 'xsd:boolean': return `${xsd}boolean`
+        case 'xsd:decimal': return `${xsd}double`
+        case 'xsd:integer': return `${xsd}integer`
+        case 'xsd:date': return `${xsd}date`
+        case 'xsd:dateTime': return `${xsd}dateTime`
+        case 'xsd:duration': return `${xsd}duration`
+        default: break
+      }
+    }
+    // Fallback for concepts without explicit xsd type
+    if (schemaType === 'number') return `${xsd}double`
+    if (schemaType === 'boolean') return `${xsd}boolean`
+    if (schemaType === 'object') return '@id'
+    return `${xsd}string`
   }
 }

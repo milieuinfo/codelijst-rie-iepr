@@ -148,10 +148,20 @@ export class CompositeGroupBuilder {
   }
 
   private deduplicateChildNames(children: SchemaField[]): SchemaField[] {
+    // Only deduplicate non-relation children; relation-bearing ones are deduplicated at assembly time with CURIE prefix
     const nameCount = new Map<string, number>()
+    const seenCount = new Map<string, number>()
+    for (const child of children) {
+      if (!child.relationUri) {
+        const c = nameCount.get(child.propertyName) || 0
+        nameCount.set(child.propertyName, c + 1)
+      }
+    }
+
     return children.map(child => {
-      const count = nameCount.get(child.propertyName) || 0
-      nameCount.set(child.propertyName, count + 1)
+      if (child.relationUri) return child
+      const count = seenCount.get(child.propertyName) || 0
+      seenCount.set(child.propertyName, count + 1)
       if (count > 0) {
         return { ...child, propertyName: `${child.propertyName}${count}` }
       }

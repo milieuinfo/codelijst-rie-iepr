@@ -98,15 +98,15 @@ Operationele gegevens beginnen vanaf de codelijst met de verschillende thematisc
 - `seeAlso` is een link tussen een concept en concept scheme en bepaald welke stap volgt
 - `conditionPath`/`conditionValue` bepalen dat een concept getoond mag worden indien het concept op het pad (`conditionPath`) een bepaalde waarde (`conditionValue`) heeft
 - `relevantDataType` bepaald het data type van een concept. `xsd:*` en `dcterms:*` zijn mogelijke data types
-- `broader` relaties (en de inverse `narrower`) worden gebruikt om aan te geven dat een concept composite is en bestaat uit meerdere andere concepten die ingevuld moeten worden
+- `isPartOf` relaties (en de inverse `hasPart`) worden gebruikt om aan te geven dat een concept composite is en bestaat uit meerdere andere concepten die ingevuld moeten worden
 - `isMeervoudig` bepaald dat iets meerdere keren kan toegevoegd worden
-    - een meervoudig concept dat ook verplicht is wordt standaard al 1 weergegeven (met composite concepten indien narrower relatie bestaat), anders is het een knop om dit toe te voegen
+    - een meervoudig concept dat ook verplicht is wordt standaard al 1 weergegeven (met composite concepten indien `hasPart` relatie bestaat), anders is het een knop om dit toe te voegen
 - `isMultiselect` geeft aan (bij gebruikt `relevantCodeList` of `relevantRiepr` of `relevantUnit`) waarbij er een selectie gemaakt moet worden dat er meerdere items geselecteerd kunnen worden
 - `isVerplicht` bepaald dat een veld verplicht is
 - `isOnzichtbaar` is een kolom die momenteel niet in gebruik is voor operationele gegevens, het geeft aan dat een concept niet zichtbaar is (bijvoorbeeld als de opsplitsing gemaakt is voor structurele redenen)
 - `relevantCodeList` geeft aan dat in plaats van een vrij invoerveld, we een selectie willen tonen van een andere lijst. Dit zal steeds naar een `skos:ConceptScheme` verwijzen
 - `relevantUnit` geeft aan dat een veld (hoogstwaarschijnlijk een numeriek veld) een bepaalde eenheid heeft. Het kan echter ook verwijzen naar een `skos:ConceptScheme` met lijst van eenheden zodat er een selectie gemaakt moet worden
-- `relevantClass` geeft aan naar welke classe een concept gemapped moet worden. Bijvoorbeeld naar observatie, ...
+- `relevantClass` geeft aan naar welke classe een concept gemapped moet worden. Bijvoorbeeld naar observatie, feature of interest, ...
 - `relevantRiepr` geeft aan dat een selectie gemaakt moet worden van systemen/processen/... die actief waren in het productiejaar. In het geval dit start met `riepr:*` zoeken we op alle instanties van een concept (Installatie, Emisisepunt, ...). In het geval het start met een concept dan geven we aan dat het alle (sub)types zijn.
     - :warning: **Belangrijk:**
 
@@ -125,11 +125,11 @@ Operationele gegevens beginnen vanaf de codelijst met de verschillende thematisc
 
 #### Grondstoffen
 4.  De grondstoffen stroom `conceptscheme:operationeel_grondstoffen` vereist eerst dat je eenvinkt of je grondstoffen hebt geproduceerd (`riepr-operationeel-grondstoffen:geproduceerd`)
-5.  Het toevoegen/rapporteren van grondstoffen (`riepr-operationeel-grondstoffen:grondstof`) is een meervoudige composite concept (via narrower) dat enkel toont als `riepr-operationeel-grondstoffen:geproduceerd` = `true` (a.h.v. `conditionPath`/`conditionValue`)
+5.  Het toevoegen/rapporteren van grondstoffen (`riepr-operationeel-grondstoffen:grondstof`) is een meervoudige composite concept (via `hasPart`) dat enkel toont als `riepr-operationeel-grondstoffen:geproduceerd` = `true` (a.h.v. `conditionPath`/`conditionValue`)
 6.  Elementen die selecties uit een codelijst vereisen zoals toepassingswijze refereren naar een andere `skos:ConceptScheme`
 
 #### Grondwater
-4.  De stroom grondwater `conceptscheme:operationeel_grondwater` vereist eerst dat je specifieert welke meting je wil uitvoeren; kwaliteitsmeting, peilmeting of onttrekking/infiltratie. Dit zijn `skos:Concept`en die meervoudig zijn en via de narrower relatie opgedeeld in de gevraagde gegevens
+4.  De stroom grondwater `conceptscheme:operationeel_grondwater` vereist eerst dat je specifieert welke meting je wil uitvoeren; kwaliteitsmeting, peilmeting of onttrekking/infiltratie. Dit zijn `skos:Concept`en die meervoudig zijn en via de `hasPart` relatie opgedeeld in de gevraagde gegevens
 5.  Bijvoorbeeld. Peilmeting heeft een `relevantRiepr` met `riepr-filter-type:peil,riepr-filter-type:pomp`. In de JSON(-LD) zal dit als twee relaties komen te staan waardoor we dus zowel alle peil- en pompputten willen weergeven.
 
 #### Lucht

@@ -2,9 +2,9 @@
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
 @prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
 
-{ 
+{
     ?code skos:topConceptOf ?codelijst .
     ?codelijst dcterms:isPartOf ?verzameling .
-} => { 
-    ?code dcterms:isPartOf ?verzameling . 
+} => {
+    ?code dcterms:isPartOf ?verzameling .
 } .

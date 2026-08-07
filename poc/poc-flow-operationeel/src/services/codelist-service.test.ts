@@ -88,13 +88,13 @@ describe('CodelistService — fixture parsing', () => {
     })
   })
 
-  describe('isPartOf/narrower — getChildren() and getParent()', () => {
+  describe('isPartOf/hasPart — getChildren() and getParent()', () => {
     it('resolves children of a composite parent concept', () => {
       const result = loadFixture()
       const parent = result.concepts.get('riepr-operationeel-lucht:afvalproduct')
       expect(parent).toBeDefined()
-      expect(parent!.narrower).toBeDefined()
-      expect(parent!.narrower!.length).toBeGreaterThan(0)
+      expect(parent!.hasPart).toBeDefined()
+      expect(parent!.hasPart!.length).toBeGreaterThan(0)
 
       const children = CodelistServiceMock.getChildren(result, parent!)
       expect(children.length).toBeGreaterThan(0)
@@ -116,7 +116,7 @@ describe('CodelistService — fixture parsing', () => {
       expect(parent!.id).toBe('riepr-operationeel-lucht:afvalproduct')
     })
 
-    it('returns empty array when concept has no narrower refs', () => {
+    it('returns empty array when concept has no hasPart refs', () => {
       const result = loadFixture()
       const leafConcept = result.concepts.get('riepr-operationeel-lucht:afvalproduct_aard')!
       expect(CodelistServiceMock.getChildren(result, leafConcept)).toEqual([])
@@ -130,13 +130,13 @@ describe('CodelistService — fixture parsing', () => {
 
     /**
      * In the updated codelist format, grondwater theme no longer has sub-themes via
-     * narrower at the thema level. Instead, the composite measurement types
+     * hasPart at the thema level. Instead, the composite measurement types
      * (kwaliteitsmeting, peilmeting, onttrekking/infiltratie) live as top-level
-     * concepts inside operationeel_grondwater scheme with their own narrower children.
+     * concepts inside operationeel_grondwater scheme with their own hasPart children.
      */
     it('handles grondwater composite hierarchy inside operationeel_grondwater scheme', () => {
       const result = loadFixture()
-      // Grondwater theme now uses seeAlso instead of narrower for navigation
+      // Grondwater theme now uses seeAlso for navigation
       const grondwaterThema = result.concepts.get('riepr-thema-type:grondwater')
       expect(grondwaterThema).toBeDefined()
       expect(grondwaterThema!.seeAlso).toContain('conceptscheme:operationeel_grondwater')
@@ -144,8 +144,8 @@ describe('CodelistService — fixture parsing', () => {
       // The composite measurement types are inside the operationeel_grondwater scheme
       const peilmeting = result.concepts.get('riepr-operationeel-grondwater:peilmeting')
       expect(peilmeting).toBeDefined()
-      expect(peilmeting!.narrower).toBeDefined()
-      expect(peilmeting!.narrower!.length).toBeGreaterThan(0)
+      expect(peilmeting!.hasPart).toBeDefined()
+      expect(peilmeting!.hasPart!.length).toBeGreaterThan(0)
 
       const children = CodelistServiceMock.getChildren(result, peilmeting!)
       expect(children.length).toBeGreaterThan(1)

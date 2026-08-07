@@ -7,7 +7,7 @@ import type { Concept, Scheme } from '../models/skos-models.js'
  * both flattened at the top level of `graph` and re-embedded inline wherever
  * something else references it (e.g. a thema's `seeAlso` embeds the
  * full operationeel conceptscheme, which embeds its top concepts, which embed
- * their narrower children...). Any field can therefore hold either a bare id
+ * their hasPart children...). Any field can therefore hold either a bare id
  * string or a fully inlined node.
  */
 export type JsonLdNode = Record<string, unknown>
@@ -193,11 +193,10 @@ export class CodelistService {
       altLabel: this.getValue(node, ['altLabel', 'alt_label']) as string[] | undefined,
       definition: this.getValue(node, ['definition', 'has_definition']) as string | undefined,
       note: this.getValue(node, ['note', 'has_note']) as string | undefined,
-      isPartOf: this.idsOf(this.getValue(node, ['isPartOf', 'broader'])),
-      narrower: this.idsOf(this.getValue(node, ['narrower'])),
-      topConceptOf: this.idOf(this.getValue(node, ['topConceptOf', 'top_concept_of'])),
-      narrowerTransitive: this.idsOf(this.getValue(node, ['narrowerTransitive', 'narrower_transitive'])),
-      semanticRelation: this.idsOf(this.getValue(node, ['semanticRelation', 'semantic_relation'])),
+       isPartOf: this.idsOf(this.getValue(node, ['isPartOf'])),
+       hasPart: this.idsOf(this.getValue(node, ['hasPart'])),
+       topConceptOf: this.idOf(this.getValue(node, ['topConceptOf', 'top_concept_of'])),
+       semanticRelation: this.idsOf(this.getValue(node, ['semanticRelation', 'semantic_relation'])),
       relevantProperty: this.getValue(node, ['relevantProperty', 'relevant_property']) as string | undefined,
     }
 
@@ -348,9 +347,9 @@ export class CodelistService {
     return this.getTopConceptsForScheme(result, schemeId).filter(concept => !concept.isPartOf?.length)
   }
 
-  getChildren(result: CodelistResult, concept: Concept): Concept[] {
-    if (!concept.narrower) return []
-    return concept.narrower
+   getChildren(result: CodelistResult, concept: Concept): Concept[] {
+    if (!concept.hasPart) return []
+    return concept.hasPart
       .map(id => result.concepts.get(id))
       .filter((c): c is Concept => c !== undefined)
   }

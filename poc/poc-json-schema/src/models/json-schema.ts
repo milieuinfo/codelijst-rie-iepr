@@ -63,6 +63,8 @@ export interface SchemaField {
   isPhenomenonTime?: boolean
   /** Whether this concept maps to a simple literal result (sosa:hasSimpleResult) */
   isSimpleResult?: boolean
+  /** Expanded predicate URI from concept's relation (e.g. sosa:usedProcedure → http://www.w3.org/ns/sosa/usedProcedure) */
+  relationUri?: string
 }
 
 export interface SubSchema {

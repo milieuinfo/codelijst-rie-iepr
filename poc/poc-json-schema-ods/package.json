@@ -1,0 +1,20 @@
+{
+  "name": "codelijst-rie-iepr-poc-json-schema-ods",
+  "version": "0.1.0",
+  "description": "Transform JSON Schema outputs into OpenDocument Spreadsheet (ODS) templates with enriched dropdown labels from codelist data",
+  "type": "module",
+  "scripts": {
+    "predev": "node scripts/sync-schemas.mjs",
+    "build": "tsc",
+    "generate": "node dist/cli.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.17",
+    "typescript": "~5.8.0",
+    "vitest": "^3.1.8"
+  }
+}

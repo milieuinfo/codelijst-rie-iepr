@@ -107,12 +107,22 @@ export class SchemaAssembler {
     properties.hasResult = { allOf: hasResultAllOf }
 
     // Add domain fields as additional top-level properties
+    // Also promote relation-bearing children from composites up to domain level
+    const allPromotedDomain: SchemaField[] = []
     for (const field of regularDomainFields) {
       if (field.isFeatureOfInterest) continue
+      if (field.type === 'object' && field.children?.length) {
+        for (const child of field.children) {
+          if (child.relationUri) allPromotedDomain.push(child)
+        }
+      }
       const fieldSchema = this.buildFieldSchema(field)
       if (fieldSchema && Object.keys(fieldSchema).length > 0) {
         properties[field.propertyName] = fieldSchema as JsonSchemaValue
       }
+    }
+    for (const [key, pf] of this.deduplicateRelationFields(allPromotedDomain)) {
+      properties[key] = this.buildChildSchema(pf) as JsonSchemaValue
     }
 
     // Build allOf array: base ref + conditionals
@@ -319,6 +329,13 @@ export class SchemaAssembler {
       return null
     }
 
+    // Merge extensions (x-jsonld-id, x-jsonld-type, etc.) into the schema object
+    if (field.extensions && Object.keys(field.extensions).length > 0) {
+      for (const [key, val] of Object.entries(field.extensions)) {
+        schemaObj[key] = val
+      }
+    }
+
     // Wrap in array for repeatable fields
     if (field.isRepeatable) {
       const wrapped: JsonSchemaObject = { type: 'array', items: schemaObj }
@@ -339,15 +356,30 @@ export class SchemaAssembler {
     const childProps: Record<string, JsonSchemaValue> = {}
     const childRequired: string[] = []
     const hasResultChildren: SchemaField[] = []
+    // Promote relation-bearing children from nested composites to sub-schema root level
+    const promotedRelationFields: SchemaField[] = []
+
     for (const child of obsField.children || []) {
       if (child.isHasResult === true) {
         hasResultChildren.push(child)
         continue
       }
-      const childSchema = this.buildChildSchema(child)
-      if (childSchema && Object.keys(childSchema).length > 0) {
-        childProps[child.propertyName] = childSchema as JsonSchemaValue
-        if (child.isRequired) childRequired.push(child.propertyName)
+      // Extract relation-bearing children from nested composites and promote them
+      if (child.type === 'object' && child.children?.length) {
+        for (const grandchild of child.children) {
+          if (grandchild.relationUri) {
+            promotedRelationFields.push(grandchild)
+          }
+        }
+      }
+      if (child.relationUri) {
+        promotedRelationFields.push(child)
+      } else {
+        const childSchema = this.buildChildSchema(child)
+        if (childSchema && Object.keys(childSchema).length > 0) {
+          childProps[child.propertyName] = childSchema as JsonSchemaValue
+          if (child.isRequired) childRequired.push(child.propertyName)
+        }
       }
     }
 
@@ -370,6 +402,13 @@ export class SchemaAssembler {
       })
     }
 
+    // Build promoted relation field schemas with extensions (deduplicate on collision)
+    const promotedDeduped = this.deduplicateRelationFields(promotedRelationFields)
+    const promotedProps: Record<string, JsonSchemaValue> = {}
+    for (const [key, pf] of promotedDeduped) {
+      promotedProps[key] = this.buildChildSchema(pf) as JsonSchemaValue
+    }
+
     return {
       name: subName,
       schema: {
@@ -389,6 +428,7 @@ export class SchemaAssembler {
           hasResult: {
             allOf: hasResultAllOf,
           },
+          ...promotedProps,
           ...childProps,
         },
         allOf: [
@@ -400,8 +440,43 @@ export class SchemaAssembler {
     }
   }
 
-  private toKebabCase(str: string): string {
+   private toKebabCase(str: string): string {
     return str.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)
+  }
+
+  /** Deduplicate property names: only prefix with CURIE when there is a collision. */
+  private deduplicateRelationFields(fields: SchemaField[]): Map<string, SchemaField> {
+    const nameCount = new Map<string, number>()
+    for (const f of fields) nameCount.set(f.propertyName, (nameCount.get(f.propertyName) || 0) + 1)
+    const result = new Map<string, SchemaField>()
+    for (const f of fields) {
+      const count = nameCount.get(f.propertyName)!
+      const key = count > 1 && f.relationUri ? this.toPrefixedName(f.relationUri, f.propertyName) : f.propertyName
+      result.set(key, f)
+    }
+    return result
+  }
+
+  /** Derive prefixed name from URI (e.g. "http://www.w3.org/2000/01/rdf-schema#comment" → "rdfs-comment"). */
+  private toPrefixedName(uri: string, localPart: string): string {
+    // Walk known relation prefixes in reverse length order for best match
+    const prefixes = [
+      ['schema.org/comment', 'schema'],
+      ['https://schema.org/', 'schema'],
+      ['http://purl.org/dc/terms/', 'dcterms'],
+      ['http://purl.org/dc/elements/1.1/', 'dc'],
+      ['http://www.w3.org/ns/sosa/', 'sosa'],
+      ['http://www.w3.org/2000/01/rdf-schema#', 'rdfs'],
+      ['http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'rdf'],
+    ]
+    for (const [suffix, prefix] of prefixes) {
+      if (uri.includes(suffix)) return `${prefix}-${localPart}`
+    }
+    // Last resort: use concept ID prefix
+    const idx = uri.lastIndexOf('#')
+    const base = idx >= 0 ? uri.substring(0, idx + 1) : uri
+    const name = base.length > 0 ? base.replace(/[^a-zA-Z0-9#]/g, '-') + localPart : localPart
+    return name
   }
 
   private collectSubObservedPropertyValues(children: SchemaField[], result: CodelistResult): string[] {
@@ -446,6 +521,12 @@ export class SchemaAssembler {
     if (child.minimum !== undefined) schema.minimum = child.minimum
     if (child.maximum !== undefined) schema.maximum = child.maximum
     if (child.pattern) schema.pattern = child.pattern
+    // Merge extensions (x-jsonld-id, x-jsonld-type, etc.) into the schema object
+    if (child.extensions && Object.keys(child.extensions).length > 0) {
+      for (const [key, val] of Object.entries(child.extensions)) {
+        schema[key] = val
+      }
+    }
     if (child.isRepeatable) {
       schema = { type: 'array', items: schema }
       if (child.isRequired) schema.minItems = 1
