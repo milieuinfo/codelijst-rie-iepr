@@ -99,6 +99,7 @@ Operationele gegevens beginnen vanaf de codelijst met de verschillende thematisc
 - `conditionPath`/`conditionValue` bepalen dat een concept getoond mag worden indien het concept op het pad (`conditionPath`) een bepaalde waarde (`conditionValue`) heeft
 - `relevantDataType` bepaald het data type van een concept. `xsd:*` en `dcterms:*` zijn mogelijke data types
 - `isPartOf` relaties (en de inverse `hasPart`) worden gebruikt om aan te geven dat een concept composite is en bestaat uit meerdere andere concepten die ingevuld moeten worden
+- `related` (`skos:related`) geeft aan dat concepten alternatieve varianten zijn van één logische groep (bv. de vier `bestemmingsidentificatie-*` composieten voor een grondstof). Consumer applicaties tonen zo'n gerelateerde groep als één gegroepeerd veld: de velden van de varianten worden samengevoegd en gedupliceerde velden (bv. `naam`) worden slechts één keer getoond. Een gedeeld veld is enkel verplicht als álle varianten het verplicht maken; een veld dat in één variant voorkomt is verplicht telkens die variant actief is (`conditionPath`/`conditionValue`)
 - `isMeervoudig` bepaald dat iets meerdere keren kan toegevoegd worden
     - een meervoudig concept dat ook verplicht is wordt standaard al 1 weergegeven (met composite concepten indien `hasPart` relatie bestaat), anders is het een knop om dit toe te voegen
 - `isMultiselect` geeft aan (bij gebruikt `relevantCodeList` of `relevantRiepr` of `relevantUnit`) waarbij er een selectie gemaakt moet worden dat er meerdere items geselecteerd kunnen worden
@@ -127,6 +128,7 @@ Operationele gegevens beginnen vanaf de codelijst met de verschillende thematisc
 4.  De grondstoffen stroom `conceptscheme:operationeel_grondstoffen` vereist eerst dat je eenvinkt of je grondstoffen hebt geproduceerd (`riepr-operationeel-grondstoffen:geproduceerd`)
 5.  Het toevoegen/rapporteren van grondstoffen (`riepr-operationeel-grondstoffen:grondstof`) is een meervoudige composite concept (via `hasPart`) dat enkel toont als `riepr-operationeel-grondstoffen:geproduceerd` = `true` (a.h.v. `conditionPath`/`conditionValue`)
 6.  Elementen die selecties uit een codelijst vereisen zoals toepassingswijze refereren naar een andere `skos:ConceptScheme`
+7.  De bestemmingsidentificatie van een grondstof is één logische groep die bestaat uit vier gerelateerde varianten (`related`): Belgische vestiging, buitenlandse vestiging, geen onderneming en werf. Afhankelijk van de gekozen `grondstof_bestemming_type` toont de applicatie één "Bestemmingsidentificatie"-groep met de juiste velden (naam, ondernemings-/vestigingsnummer, BTW-nummer of adres)
 
 #### Grondwater
 4.  De stroom grondwater `conceptscheme:operationeel_grondwater` vereist eerst dat je specifieert welke meting je wil uitvoeren; kwaliteitsmeting, peilmeting of onttrekking/infiltratie. Dit zijn `skos:Concept`en die meervoudig zijn en via de `hasPart` relatie opgedeeld in de gevraagde gegevens

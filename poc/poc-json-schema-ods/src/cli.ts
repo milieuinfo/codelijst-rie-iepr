@@ -1,4 +1,4 @@
-import { writeFileSync, mkdirSync, existsSync, readdirSync } from 'fs';
+import { writeFileSync, mkdirSync, existsSync, readdirSync, readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { CodelistEnricher } from './services/codelist-enricher.js';
@@ -160,6 +160,9 @@ async function processTheme(
 
   writeFileSync(odsPath, Buffer.from(buffer));
   console.log(`  Written: ${odsPath}`);
+
+  // Process sub-schemas under this theme
+  await processSubSchemas(theme, schemaDir, outputDir, enricher, generator, dryRun);
 }
 
 function getAvailableThemes(schemaDir: string): string[] {
@@ -175,6 +178,98 @@ function getAvailableThemes(schemaDir: string): string[] {
 function getThemeDisplayName(enricher: CodelistEnricher, theme: string): string {
   const concept = enricher.getAllConcepts().find((c) => c.id.includes(`thema-type:${theme}`));
   return concept?.prefLabel || theme;
+}
+
+function getAvailableSubSchemas(schemaDir: string, theme: string): string[] {
+  const themeSchemaDir = join(schemaDir, theme);
+  if (!existsSync(themeSchemaDir)) return [];
+
+  const subs: string[] = [];
+  for (const entry of readdirSync(themeSchemaDir).sort()) {
+    const subPath = join(themeSchemaDir, entry);
+    try {
+      const entries = readdirSync(subPath);
+      if (!entry.endsWith('.json') && entries.includes('schema.json')) {
+        subs.push(entry);
+      }
+    } catch {
+      // skip non-directory entries
+    }
+  }
+  return subs;
+}
+
+async function processSubSchemas(
+  theme: string,
+  schemaDir: string,
+  outputDir: string,
+  enricher: CodelistEnricher,
+  generator: ODSGenerator,
+  dryRun: boolean,
+): Promise<void> {
+  const subNames = getAvailableSubSchemas(schemaDir, theme);
+  if (subNames.length === 0) return;
+
+  for (const subName of subNames) {
+    console.log(`\nProcessing sub-schema: ${theme}/${subName}`);
+
+    const flattener = new SchemaFlattener();
+    flattener.loadBaseSchema(join(schemaDir, 'observatie.json'));
+    const splitter = new SheetSplitter();
+
+    const subSchemaPath = join(schemaDir, theme, subName, 'schema.json');
+    const columns = flattener.flatten(subSchemaPath);
+    console.log(`  Extracted ${columns.length} columns`);
+
+    for (const col of columns) {
+      if (col.dropdownUris && col.dropdownUris.length > 0) {
+        const enriched = enricher.resolveMany(col.dropdownUris);
+        col.dropdownLabels = enriched.map((e) => e.displayLabel);
+
+        const unresolvedCount = enriched.filter((e) => !e.resolved).length;
+        if (unresolvedCount > 0) {
+          console.log(`  [warn] ${col.title}: ${unresolvedCount}/${enriched.length} labels unresolved`);
+        } else {
+          console.log(`  [ok]   ${col.title}: enriched ${enriched.length} values`);
+        }
+      }
+    }
+
+    if (dryRun) continue;
+
+    // Determine document title from sub-schema description/title or fallback to subName
+    const subSchemaObj = JSON.parse(
+      readFileSync(join(schemaDir, theme, subName, 'schema.json'), 'utf-8'),
+    ) as Record<string, unknown>;
+    let docTitle: string;
+    if (typeof subSchemaObj.description === 'string') {
+      docTitle = subSchemaObj.description;
+    } else if (typeof subSchemaObj.title === 'string') {
+      docTitle = subSchemaObj.title;
+    } else {
+      docTitle = `${theme} - ${subName}`;
+    }
+
+    const sheets = splitter.split(columns, docTitle);
+    console.log(`  Sheets: ${sheets.map((s) => s.sheetName).join(', ')}`);
+
+    const subOutputDir = join(outputDir, theme);
+    mkdirSync(subOutputDir, { recursive: true });
+    const odsPath = join(subOutputDir, `${subName}.ods`);
+
+    const sheetConfigs: SheetConfig[] = sheets.map((s) => ({
+      sheetName: s.sheetName,
+      columns: s.columns,
+    }));
+
+    const buffer = await generator.generate({
+      documentTitle: docTitle,
+      sheets: sheetConfigs,
+    });
+
+    writeFileSync(odsPath, Buffer.from(buffer));
+    console.log(`  Written: ${odsPath}`);
+  }
 }
 
 main().catch((err) => {

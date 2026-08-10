@@ -5,6 +5,8 @@ import { config } from '../config.js'
 export class SchemaAssembler {
   private readonly baseSchema: JsonSchemaObject
   private readonly baseRef: string
+  /** concept ID → final JSON property name, built per theme from the nested field tree */
+  private conceptToPropertyName = new Map<string, string>()
 
   constructor(baseSchema: JsonSchemaObject) {
     this.baseSchema = baseSchema
@@ -18,6 +20,7 @@ export class SchemaAssembler {
     chain: ThemeChain,
     result: CodelistResult,
   ): { baseSchema: JsonSchemaObject; domainSchema: JsonSchemaObject; subSchemas?: SubSchema[] } {
+    this.conceptToPropertyName = this.buildConceptPropertyMap(domainFields, result)
     const themeSlug = themeName.toLowerCase()
       .replace(/[^\w\s-]/g, '')
       .replace(/\s+/g, '-')
@@ -130,7 +133,33 @@ export class SchemaAssembler {
       { $ref: this.baseRef },
     ]
 
-    if (conditionalBlock) {
+    if (conditionalBlock && conditionalBlock.allOf) {
+      // Collect sub-schema property names to exclude from domain schema conditionals
+      const subSchemaProps = new Set<string>()
+      for (const obsField of observationCompositeFields) {
+        const walkSubProps = (fs: SchemaField[]) => {
+          for (const f of fs) {
+            subSchemaProps.add(f.propertyName)
+            if (f.children) walkSubProps(f.children)
+          }
+        }
+        walkSubProps(obsField.children || [])
+      }
+
+      // Filter out conditions targeting sub-schema properties
+      const filteredAllOf = (conditionalBlock.allOf as JsonSchemaObject[]).filter(block => {
+        const thenProps = block.then?.properties
+        if (!thenProps) return true
+        for (const propName of Object.keys(thenProps)) {
+          if (subSchemaProps.has(propName)) return false
+        }
+        return true
+      })
+
+      if (filteredAllOf.length > 0) {
+        allOf.push({ allOf: filteredAllOf })
+      }
+    } else if (conditionalBlock) {
       allOf.push(conditionalBlock)
     }
 
@@ -221,6 +250,53 @@ export class SchemaAssembler {
 
     walk(fields)
     return [...uriSet]
+  }
+
+  /** Build concept ID → final property name map from the composed nested field tree. */
+  private buildConceptPropertyMap(fields: SchemaField[], result: CodelistResult): Map<string, string> {
+    const map = new Map<string, string>()
+    const walk = (fs: SchemaField[]) => {
+      for (const f of fs) {
+        if (f.conceptId) {
+          map.set(f.conceptId, f.propertyName)
+        }
+        if (f.children) walk(f.children)
+      }
+    }
+    walk(fields)
+
+    // Fallback: concepts folded into the SOSA envelope (FoI / observedProperty / resultTime /
+    // hasResult) map to their envelope property name, even when the field itself was removed
+    // (e.g. deepest-FoI-wins dedup in the chain composer).
+    const envelopeRelations: Record<string, string> = {
+      'sosa:hasFeatureOfInterest': 'hasFeatureOfInterest',
+      'sosa:observedProperty': 'observedProperty',
+      'sosa:resultTime': 'resultTime',
+      'sosa:hasResult': 'hasResult',
+    }
+    for (const [conceptId, concept] of result.concepts.entries()) {
+      if (map.has(conceptId)) continue
+      const envName = concept.relation ? envelopeRelations[concept.relation] : undefined
+      if (envName) {
+        map.set(conceptId, envName)
+      }
+    }
+    return map
+  }
+
+  /** Emit x-ui-first / x-ui-after UI ordering extensions onto a schema object. */
+  private applyUiOrdering(schema: JsonSchemaObject, field: SchemaField): void {
+    if (field.uiFirst) {
+      schema['x-ui-first'] = true
+    }
+    if (field.uiAfterConceptId) {
+      const target = this.conceptToPropertyName.get(field.uiAfterConceptId)
+      if (target) {
+        schema['x-ui-after'] = target
+      } else {
+        console.warn(`[SchemaAssembler] Unresolved x-ui-after reference for "${field.label}" -> ${field.uiAfterConceptId}`)
+      }
+    }
   }
 
   /** Build an if/then block that constrains numericValue and/or hasUnit based on observed property. */
@@ -317,7 +393,7 @@ export class SchemaAssembler {
       schemaObj.properties = childProps
       if (childRequired.length > 0) schemaObj.required = childRequired
     } else if (!field.condition || !field.condition.path) {
-      // Leaf types
+      // Leaf types — emit normally only when no condition blocks visibility at domain level
       schemaObj.type = field.type
       if (field.enumValues !== undefined && field.enumValues!.length > 0) {
         schemaObj.enum = field.enumValues
@@ -336,10 +412,14 @@ export class SchemaAssembler {
       }
     }
 
+    // UI ordering annotations (x-ui-first / x-ui-after)
+    this.applyUiOrdering(schemaObj, field)
+
     // Wrap in array for repeatable fields
     if (field.isRepeatable) {
       const wrapped: JsonSchemaObject = { type: 'array', items: schemaObj }
       if (field.isRequired) wrapped.minItems = 1
+      this.applyUiOrdering(wrapped, field)
       return wrapped
     }
 
@@ -364,7 +444,18 @@ export class SchemaAssembler {
         hasResultChildren.push(child)
         continue
       }
-      // Extract relation-bearing children from nested composites and promote them
+      // Skip promotion for merged groups (objects with condition + children): emit as normal nested properties
+      const hasChildren = !!child.children && child.children.length > 0
+      const isMergedGroup = child.type === 'object' && hasChildren && !!child.condition
+      if (isMergedGroup) {
+        const childSchema = this.buildChildSchema(child)
+        if (childSchema && Object.keys(childSchema).length > 0) {
+          childProps[child.propertyName] = childSchema as JsonSchemaValue
+          if (child.isRequired) childRequired.push(child.propertyName)
+        }
+        continue
+      }
+      // Extract relation-bearing children from non-merged nested composites and promote them
       if (child.type === 'object' && child.children?.length) {
         for (const grandchild of child.children) {
           if (grandchild.relationUri) {
@@ -382,6 +473,9 @@ export class SchemaAssembler {
         }
       }
     }
+
+    // Generate conditional-required blocks for merged groups in sub-schema allOf
+    const requiredConditionals = this.collectRequiredConditionals(obsField.children || [])
 
     const observedPropAllOf: JsonSchemaValue[] = [
       { $ref: `${this.baseRef}#/properties/observedProperty` },
@@ -435,6 +529,7 @@ export class SchemaAssembler {
           { $ref: this.baseRef },
           { $ref: parentSchemaId },
           ...hasResultChildren.map(c => this.buildHasResultConditional(c, result.expandCurie)).filter((x): x is JsonSchemaObject => x !== null),
+          ...requiredConditionals,
         ],
       },
     }
@@ -513,23 +608,108 @@ export class SchemaAssembler {
     return [...uriSet]
   }
 
+  /** Collect conditional-required blocks from merged groups in an observation composite's child tree. */
+  private collectRequiredConditionals(fields: SchemaField[]): JsonSchemaObject[] {
+    const conditionals: JsonSchemaObject[] = []
+
+    // Resolve a condition trigger (raw concept id) to its real JSON property name in this schema.
+    const resolveTrigger = (path: string): string => {
+      const mapped = this.conceptToPropertyName.get(path)
+      if (mapped) return mapped
+      const localPart = path.split(':').pop() || path
+      return localPart.replace(/[-_]/g, '_').toLowerCase().replace(/_([a-z])/g, (_, c) => c.toUpperCase())
+    }
+
+    // Find merged groups (objects with condition + children) and their child fields with requiredConditions
+    const walk = (fs: SchemaField[]): void => {
+      for (const f of fs) {
+        const groupHasChildren = !!f.children && f.children.length > 0
+        if (f.type === 'object' && groupHasChildren && f.condition) {
+          const triggerProperty = resolveTrigger(f.condition.path)
+
+          // This is a merged group — emit visibility conditional first
+          const triggerValues = f.condition.values ?? []
+          if (triggerValues.length > 0) {
+            const thenProps: Record<string, JsonSchemaValue> = {}
+            thenProps[f.propertyName] = {} as JsonSchemaValue
+            conditionals.push({
+              if: {
+                properties: { [triggerProperty]: triggerValues.length === 1 ? { const: triggerValues[0] } : { anyOf: triggerValues.map(v => ({ const: v })) } },
+              },
+              then: { properties: thenProps },
+            })
+          }
+
+          // Now process children that have requiredConditions
+          const reqByValue = new Map<string, Set<string>>()
+          for (const child of f.children!) {
+            if (child.requiredConditions && child.requiredConditions.length > 0) {
+              for (const val of child.requiredConditions) {
+                if (!reqByValue.has(val)) reqByValue.set(val, new Set())
+                reqByValue.get(val)!.add(child.propertyName)
+              }
+            }
+          }
+          for (const [val, propNames] of reqByValue) {
+            conditionals.push({
+              if: {
+                properties: { [triggerProperty]: { const: val } },
+              },
+              then: {
+                properties: {
+                  [f.propertyName]: { required: [...propNames] },
+                },
+              },
+            })
+          }
+        }
+        if (f.children) {
+          walk(f.children)
+        }
+      }
+    }
+
+    walk(fields)
+    return conditionals
+  }
+
   private buildChildSchema(child: SchemaField): JsonSchemaObject {
     let schema: JsonSchemaObject = { title: child.label }
     if (child.description) schema.description = child.description
-    schema.type = child.type
-    if (child.enumValues && child.enumValues.length > 0) schema.enum = child.enumValues
-    if (child.minimum !== undefined) schema.minimum = child.minimum
-    if (child.maximum !== undefined) schema.maximum = child.maximum
-    if (child.pattern) schema.pattern = child.pattern
+
+    // Handle nested object with children (merged groups or recursive composites)
+    if (child.type === 'object' && child.children) {
+      schema.type = 'object'
+      const nestedProps: Record<string, JsonSchemaValue> = {}
+      const nestedRequired: string[] = []
+      for (const grandchild of child.children) {
+        nestedProps[grandchild.propertyName] = this.buildChildSchema(grandchild) as JsonSchemaValue
+        if (grandchild.isRequired) nestedRequired.push(grandchild.propertyName)
+      }
+      schema.properties = nestedProps
+      if (nestedRequired.length > 0) schema.required = nestedRequired
+    } else {
+      schema.type = child.type
+      if (child.enumValues && child.enumValues.length > 0) schema.enum = child.enumValues
+      if (child.minimum !== undefined) schema.minimum = child.minimum
+      if (child.maximum !== undefined) schema.maximum = child.maximum
+      if (child.pattern) schema.pattern = child.pattern
+    }
+
     // Merge extensions (x-jsonld-id, x-jsonld-type, etc.) into the schema object
     if (child.extensions && Object.keys(child.extensions).length > 0) {
       for (const [key, val] of Object.entries(child.extensions)) {
         schema[key] = val
       }
     }
+    // UI ordering annotations (x-ui-first / x-ui-after) — skip warnings for unresolved merged children
+    const wasSilentUiAfter = child.uiAfterConceptId
+    this.applyUiOrdering(schema, child)
+
     if (child.isRepeatable) {
       schema = { type: 'array', items: schema }
       if (child.isRequired) schema.minItems = 1
+      this.applyUiOrdering(schema, child)
     }
     return schema
   }

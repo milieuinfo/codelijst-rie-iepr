@@ -153,9 +153,13 @@ export class CodelistParser {
       ? String(this.getValue(node, ['relevantClass', 'relevant_class']))
       : undefined
 
-    concept.relation = typeof this.getValue(node, ['relation']) === 'string'
-      ? String(this.getValue(node, ['relation']))
-      : undefined
+    const rawRelation = this.getValue(node, ['relation'])
+    if (typeof rawRelation === 'string') {
+      concept.relation = rawRelation
+    } else if (rawRelation && typeof rawRelation === 'object') {
+      const id = this.idOf(rawRelation)
+      concept.relation = id ?? undefined
+    }
 
     // min/max value constraints (Issue-SCHEMA-01 — once CSV columns are populated)
     const rawMin = this.getNumeric(node, ['minValue'])
@@ -169,13 +173,23 @@ export class CodelistParser {
       concept.isMeetbaar = this.parseBoolean(this.getValue(node, ['isMeetbaar', 'is_meetbaar']))
       concept.isOnzichtbaar = this.parseBoolean(this.getValue(node, ['isOnzichtbaar', 'is_onzichtbaar']))
       concept.isMultiselect = this.parseBoolean(this.getValue(node, ['isMultiselect', 'is_multiselect']))
+      // UI ordering annotations
+      concept.uiFirst = this.parseBoolean(this.getValue(node, ['_ui_first', 'ui_first']))
+      concept.uiAfter = this.idOf(this.getValue(node, ['_ui_after', 'ui_after']))
     } else {
       concept.isVerplicht = this.getValue(node, ['isVerplicht', 'is_verplicht']) as string | undefined
       concept.isMeervoudig = this.getValue(node, ['isMeervoudig', 'is_meervoudig']) as string | undefined
       concept.isMeetbaar = this.getValue(node, ['isMeetbaar', 'is_meetbaar']) as string | undefined
       concept.isOnzichtbaar = this.getValue(node, ['isOnzichtbaar', 'is_onzichtbaar']) as string | undefined
       concept.isMultiselect = this.getValue(node, ['isMultiselect', 'is_multiselect']) as string | undefined
+      // UI ordering annotations
+      const rawUiAfter = this.getValue(node, ['_ui_after', 'ui_after'])
+      concept.uiAfter = typeof rawUiAfter === 'string' ? rawUiAfter : this.idOf(rawUiAfter)
+      concept.uiFirst = this.parseBoolean(this.getValue(node, ['_ui_first', 'ui_first']))
     }
+
+    // related: alternative composite variant concept IDs
+    concept.related = this.idsOf(this.getValue(node, ['related']))
 
     return concept
   }

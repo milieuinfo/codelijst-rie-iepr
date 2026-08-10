@@ -33,6 +33,7 @@ import type { CodelistResult } from '../services/codelist-service.js'
 import { createControl, DataType } from '../services/field-control-factory.js'
 import { getMockInstances } from '../services/mock-data.service.js'
 import { resolveUnitLabel } from '../services/unit-labels.js'
+import { sortByUiOrder } from '../services/ui-sort.js'
 import { vlMarginStyles } from '@domg-wc/styles/layout/margin/vl-margin.css.js'
 import type { Concept, Scheme } from '../models/skos-models.js'
 
@@ -142,22 +143,19 @@ export class CodelijstOperationeelFields extends LitElement {
   }
 
   /**
-   * Sorts root fields so that fields with conditionPath dependencies
-   * always render AFTER their trigger fields. This is necessary because
-   * the codelist may define both the trigger and the conditional field
-   * as top-level concepts (siblings in hasTopConcept), but the application
-   * must enforce display order for conditions to work correctly.
+   * Sorts a group of sibling fields by their relative UI ordering annotations
+   * (_uiFirst, _uiAfter), with conditionPath-dependent fields placed last.
+   * Composite children are sorted within their own group at the same hierarchy level.
    */
-  private sortRootFieldsByConditionDependencies(fields: Concept[]): Concept[] {
-    // Build a map of conditionPath → target concept id
-    const conditionMap = new Map<string, string>() // conditionValueTargetId → conditionPathSourceId
+  private applyUiOrdering(fields: Concept[]): Concept[] {
+    // First resolve condition dependencies so conditional fields render after triggers
+    const conditionMap = new Map<string, string>()
     for (const f of fields) {
       if (f.conditionPath && f.conditionValue) {
         conditionMap.set(f.conditionPath, f.id)
       }
     }
 
-    // Separate into dependency-free (can render first) and dependent fields
     const independent: Concept[] = []
     const dependent: Concept[] = []
 
@@ -169,8 +167,11 @@ export class CodelijstOperationeelFields extends LitElement {
       }
     }
 
-    // Dependent fields come after all independent ones
-    return [...independent, ...dependent]
+    // Apply relative UI ordering within each group
+    const sortedIndependent = sortByUiOrder(independent)
+    const sortedDependent = sortByUiOrder(dependent)
+
+    return [...sortedIndependent, ...sortedDependent]
   }
 
    override render() {
@@ -188,8 +189,8 @@ export class CodelijstOperationeelFields extends LitElement {
       rootFields = this.expandSchemeRelevantRieprToFields(scheme)
     }
     
-    // Sort so conditional fields appear AFTER their trigger fields.
-    rootFields = this.sortRootFieldsByConditionDependencies(rootFields)
+    // Sort root fields: condition-dependent last, UI ordering within groups.
+    rootFields = this.applyUiOrdering(rootFields)
 
     const structuralPicker = this.renderStructuralPicker(scheme)
 
@@ -287,7 +288,7 @@ export class CodelijstOperationeelFields extends LitElement {
     // checkbox "Heeft u grondstoffen geproduceerd?".
     if (!this.matchesCondition(field)) return nothing
 
-    let children = this._service.getChildren(this.result, field)
+    let children = this._service.getChildrenMerged(this.result, field)
     let groupPicker: ReturnType<typeof html> | typeof nothing = nothing
 
     // Case A: No direct children but has relevantRiepr → check whether to expand or render as picker.
@@ -300,7 +301,7 @@ export class CodelijstOperationeelFields extends LitElement {
       const referencedConcepts = field.relevantRiepr.map(id => this.result!.concepts.get(id)).filter((c): c is Concept => c !== undefined)
       if (referencedConcepts.length > 0) {
         // Check if any grandchild has meaningful form properties worth expanding into a composite group
-        let allGrandchildren = referencedConcepts.flatMap(rc => this._service.getChildren(this.result!, rc))
+        const allGrandchildren = referencedConcepts.flatMap(rc => this._service.getChildren(this.result!, rc))
         const hasFormProperties = allGrandchildren.some(
           gc => gc.relevantDataType || gc.relevantCodeList || gc.relevantUnit || gc.isVerplicht !== undefined
         )
@@ -340,7 +341,6 @@ export class CodelijstOperationeelFields extends LitElement {
 
     // Check if this field has a seeAlso reference to another scheme (multi-step flow trigger)
     const targetSchemeId = this.resolveSeeAlsoTargetScheme(field)
-    const isMultiselectField = field.isMultiselect === true
 
     // Render instances and filter out hidden ones (conditionPath/conditionValue)
     const visibleInstances: ReturnType<typeof html>[] = []
@@ -367,7 +367,7 @@ export class CodelijstOperationeelFields extends LitElement {
               <vl-fieldset>
                 <span slot="legend">${field.prefLabel ?? field.id}${isRepeatable ? ` ${index + 1}` : ''}</span>
                 ${groupPicker}
-                ${children.map(child => html`<div class="codelijst-group__child">${this.renderFieldControl(child, suffix, field.id)}</div>`)}
+                 ${this.applyUiOrdering(children).map(child => html`<div class="codelijst-group__child">${this.renderFieldControl(child, suffix, field.id)}</div>`)}
                 ${targetSchemeId && hasEmbeddedSelection ? html`<p class="seealso-hint">↑ Selecteer een item hierboven om verder te gaan met de gedetailleerde rapportering.</p>` : nothing}
               </vl-fieldset>
             `
@@ -482,12 +482,12 @@ export class CodelijstOperationeelFields extends LitElement {
     // falling through to createControl which would render a meaningless text input.
     // This handles cases like bestemmingsidentificatie-be which is itself a composite
     // inside the grondstof group.
-    const nestedChildren = this._service.getChildren(this.result, field)
+    const nestedChildren = this._service.getChildrenMerged(this.result, field)
     if (nestedChildren.length > 0 && !field.relevantDataType && !field.relevantCodeList) {
       return html`
         <vl-fieldset>
           <span slot="legend">${plainLabel}${required ? ' *' : ''}</span>
-          ${nestedChildren.map(child => html`<div class="codelijst-group__child">${this.renderFieldControl(child, idSuffix, field.id)}</div>`)}
+           ${this.applyUiOrdering(nestedChildren).map(child => html`<div class="codelijst-group__child">${this.renderFieldControl(child, idSuffix, field.id)}</div>`)}
         </vl-fieldset>
       `
     }
@@ -1005,7 +1005,7 @@ export class CodelijstOperationeelFields extends LitElement {
 
     for (const refId of scheme.relevantRiepr) {
       // Try resolving as a Concept first
-      let concept = this.result.concepts.get(refId)
+      const concept = this.result.concepts.get(refId)
       
       // If not found, check if it resolves to a ConceptScheme and create a unified type picker
       if (!concept) {
@@ -1081,12 +1081,42 @@ export class CodelijstOperationeelFields extends LitElement {
     * - NaN: show when conditionPath field has no entered value (Number.isNaN check)
     */
    private matchesCondition(field: Concept): boolean {
-     if (!field.conditionPath || !field.conditionValue) return true
-     const refId = field.conditionPath
+      const hasConditionValues = !!field.conditionValues && field.conditionValues.length > 0
+      if (!field.conditionPath || (!field.conditionValue && !hasConditionValues)) return true
+      const refId = field.conditionPath
 
-     // NaN sentinel: show when the referenced field has no entered value
-     if (typeof field.conditionValue === 'number' && Number.isNaN(field.conditionValue)) {
-       let stored = this._fieldValues.get(refId)
+      // If conditionValues array is set, check ANY of them against the current value of the conditionPath field.
+      const conditionValues = field.conditionValues ?? []
+      if (hasConditionValues) {
+        for (const expected of conditionValues) {
+          // NaN sentinel: show when the referenced field has no entered value
+          if (expected === 'NaN') {
+            const stored = this._fieldValues.get(refId)
+            if (stored === undefined || stored === '' || (Array.isArray(stored) && stored.length === 0)) return true
+            const basePrefix = refId.replace(/#\d+$/, '')
+            let anyValued = false
+            for (const [key, val] of this._fieldValues.entries()) {
+              if (key.startsWith(basePrefix) && val !== undefined && val !== '') { anyValued = true; break }
+            }
+            if (!anyValued) return true
+            continue
+          }
+          const normExpected = expected.toLowerCase().trim()
+          const stored = this._fieldValues.get(refId)
+          if (stored !== undefined && this.valueMatchesExpected(String(stored), normExpected)) return true
+          const basePrefix = refId.replace(/#\d+$/, '')
+          for (const [key, val] of this._fieldValues.entries()) {
+            if (key.startsWith(basePrefix) && this.valueMatchesExpected(String(val), normExpected)) {
+              return true
+            }
+          }
+        }
+        return false
+      }
+
+      // NaN sentinel: show when the referenced field has no entered value
+      if (typeof field.conditionValue === 'number' && Number.isNaN(field.conditionValue)) {
+       const stored = this._fieldValues.get(refId)
        if (stored === undefined || stored === '' || (Array.isArray(stored) && stored.length === 0)) return true
        // Also check base prefix for repeatable fields beyond #1
        const basePrefix = refId.replace(/#\d+$/, '')
@@ -1101,7 +1131,7 @@ export class CodelijstOperationeelFields extends LitElement {
      const expected = String(field.conditionValue).toLowerCase().trim()
 
     // Direct id match first (exact control that was rendered).
-    let stored = this._fieldValues.get(refId)
+    const stored = this._fieldValues.get(refId)
     if (stored !== undefined && this.valueMatchesExpected(String(stored), expected)) return true
 
     // Strip any instance suffix from the reference to get the base prefix.

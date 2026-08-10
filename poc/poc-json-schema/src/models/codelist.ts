@@ -49,4 +49,10 @@ export interface Concept {
   maxValue?: number
   seeAlso?: string[]
   relation?: string
+  /** UI ordering annotation: whether this concept renders as the first UI element */
+  uiFirst?: boolean
+  /** UI ordering annotation: concept ID this element renders visually after */
+  uiAfter?: string
+  /** Related composite concepts (alternative variants of one logical group) */
+  related?: string[]
 }

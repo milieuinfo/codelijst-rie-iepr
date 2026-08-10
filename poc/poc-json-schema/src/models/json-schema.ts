@@ -25,6 +25,12 @@ export interface JsonSchemaObject {
 
 export type JsonSchemaValue = JsonSchemaObject | string
 
+/** Tracks source-variant appearances of a merged child (conditionValue + required flag) */
+export interface AppearanceInfo {
+  value: string
+  required: boolean
+}
+
 export interface SchemaField {
   /** Original SKOS concept ID (e.g. "riepr-operationeel-lucht:feature_ep") */
   conceptId: string
@@ -35,7 +41,11 @@ export interface SchemaField {
   isRequired: boolean
   isRepeatable: boolean
   enumValues?: unknown[]
-  condition?: { path: string; value: string }
+  condition?: { path: string; values: string[] }
+  /** Trigger values under which this field is required (for merged children) */
+  requiredConditions?: string[]
+  /** Source variant appearances for merged children */
+  appearances?: AppearanceInfo[]
   children?: SchemaField[]
   relevantClass?: string
   extensions?: Record<string, unknown>
@@ -65,6 +75,10 @@ export interface SchemaField {
   isSimpleResult?: boolean
   /** Expanded predicate URI from concept's relation (e.g. sosa:usedProcedure → http://www.w3.org/ns/sosa/usedProcedure) */
   relationUri?: string
+  /** UI ordering annotation: render as the first UI element */
+  uiFirst?: boolean
+  /** UI ordering annotation: raw concept ID this element renders visually after (resolved to a property name at assembly) */
+  uiAfterConceptId?: string
 }
 
 export interface SubSchema {

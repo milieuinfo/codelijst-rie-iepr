@@ -11,6 +11,17 @@ const FIXTURE_PATH = path.resolve(
 let cachedResult: CodelistResult | null = null
 
 /**
+ * Test helper: expose the protected parseData on CodelistService without `any` casts.
+ */
+interface AccessibleCodelistService {
+  parseData(data: Record<string, unknown>, normalizeBooleans: boolean): CodelistResult
+}
+
+const access = (service: CodelistService): CodelistService & AccessibleCodelistService =>
+  service as unknown as CodelistService & AccessibleCodelistService
+
+
+/**
  * Load and parse the real rie-iepr.jsonld fixture, caching the result for subsequent calls.
  * @returns The parsed codelist result object.
  */
@@ -19,7 +30,7 @@ function loadFixture(): CodelistResult {
   const raw = readFileSync(FIXTURE_PATH, 'utf-8')
   const data = JSON.parse(raw) as Record<string, unknown>
   const service = new CodelistService()
-   cachedResult = (service as any).parseData(data, true) as CodelistResult
+   cachedResult = access(service).parseData(data, true) as CodelistResult
   return cachedResult
 }
 
@@ -263,7 +274,7 @@ describe('CodelistService — fixture parsing', () => {
       const raw = readFileSync(FIXTURE_PATH, 'utf-8')
       const data = JSON.parse(raw) as Record<string, unknown>
       const service = new CodelistService()
-      const result = (service as any).parseData(data, true)
+      const result = access(service).parseData(data, true)
 
       // Find any concept with boolean fields set in the fixture
       let foundBooleanField = false
@@ -321,7 +332,7 @@ describe('conditionPath / conditionValue parsing', () => {
 
     function parse(nodes: JsonLdNode[]): CodelistResult {
       const service = new CodelistService()
-      return (service as any).parseData({ graph: nodes }, true)
+      return access(service).parseData({ graph: nodes }, true)
     }
 
     it('parses standard camelCase keys (conditionPath, conditionValue)', () => {
@@ -376,6 +387,243 @@ describe('conditionPath / conditionValue parsing', () => {
     })
   })
 
+  describe('related / conditionValues array parsing', () => {
+    function makeNode(id: string, props: Record<string, unknown>): JsonLdNode {
+      return { id, '@type': ['skos:Concept'], ...props }
+    }
+
+    function parse(nodes: JsonLdNode[]): CodelistResult {
+      const service = new CodelistService()
+      return access(service).parseData({ graph: nodes }, true)
+    }
+
+    it('parses related as string[] from inline {@id} nodes', () => {
+      const result = parse([makeNode('a', {}), makeNode('b', {
+        related: [{ '@id': 'a' }],
+      })])
+      const b = result.concepts.get('b')!
+      expect(b.related).toEqual(['a'])
+    })
+
+    it('parses related from plain string IDs', () => {
+      const result = parse([makeNode('x', {}), makeNode('y', {
+        related: ['x'],
+      })])
+      const y = result.concepts.get('y')!
+      expect(y.related).toEqual(['x'])
+    })
+
+    it('leaves related undefined when not present', () => {
+      const result = parse([makeNode('plain', {})])
+      expect(result.concepts.get('plain')!.related).toBeUndefined()
+    })
+
+    it('parses multiple conditionValues into an array', () => {
+      const result = parse([makeNode('trigger', {}), makeNode('dependent', {
+        conditionPath: 'trigger',
+        conditionValue: [
+          { '@id': 'riepr-type:belgisch' },
+          { '@id': 'riepr-type:buitenlands' },
+        ],
+      })])
+      const dep = result.concepts.get('dependent')!
+      expect(dep.conditionValues).toEqual(['belgisch', 'buitenlands'])
+      // Single value path still works for backward compat
+      expect(dep.conditionValue).toBe('belgisch')
+    })
+
+    it('conditionValues contains one element when only a single conditionValue exists', () => {
+      const result = parse([makeNode('trigger', {}), makeNode('dependent', {
+        conditionPath: 'trigger',
+        conditionValue: 'single-value',
+      })])
+      const dep = result.concepts.get('dependent')!
+      expect(dep.conditionValues).toEqual(['single-value'])
+      // Single value path still works for backward compat
+      expect(dep.conditionValue).toBe('single-value')
+    })
+  })
+
+  describe('getChildrenMerged()', () => {
+    function buildConcept(id: string, opts?: Partial<Concept>): Concept {
+      return { id, type: ['skos:Concept'], prefLabel: id.split(':').pop() ?? id, ...opts } as Concept
+    }
+
+    it('returns empty array when concept has no children', () => {
+      const result = access(svc).parseData({ graph: [{ id: 'leaf', '@type': ['skos:Concept'] }] }, true)
+      const leafConcept = result.concepts.get('leaf')!
+      expect(svc.getChildrenMerged(result, leafConcept)).toEqual([])
+    })
+
+    it('returns original children when no member has related refs (no merge needed)', () => {
+      const parentData: JsonLdNode = {
+        id: 'parent',
+        '@type': ['skos:Concept'],
+        prefLabel: 'Parent',
+        hasPart: [
+          { id: 'child-a' },
+          { id: 'child-b' },
+        ],
+      }
+      const childA: JsonLdNode = {
+        id: 'child-a',
+        '@type': ['skos:Concept'],
+        isPartOf: 'parent',
+        prefLabel: 'A',
+      }
+      const childB: JsonLdNode = {
+        id: 'child-b',
+        '@type': ['skos:Concept'],
+        isPartOf: 'parent',
+        prefLabel: 'B',
+      }
+      const result = access(svc).parseData({ graph: [parentData, childA, childB] }, true)
+      const parentConcept = result.concepts.get('parent')!
+      expect(parentConcept.hasPart).toBeDefined()
+      expect(parentConcept.hasPart!.length).toBe(2)
+      const merged = svc.getChildrenMerged(result, parentConcept)
+      expect(merged.length).toBe(2)
+    })
+
+    it('merges two related children into one synthetic group with deduped children', () => {
+      const sharedConditionPath = 'trigger-field'
+
+      function makeChild(id: string, label: string, verplicht: boolean, relation?: string): JsonLdNode {
+        return {
+          id,
+          '@type': ['skos:Concept'],
+          isPartOf: 'parent',
+          inScheme: 'scheme:test',
+          prefLabel: label,
+          relation: relation ?? '',
+          isVerplicht: String(verplicht),
+          relevantDataType: 'xsd:string',
+        } as unknown as JsonLdNode
+      }
+
+      const parentData: JsonLdNode = {
+        id: 'parent',
+        '@type': ['skos:Concept'],
+        hasPart: [{ id: 'variant-a' }, { id: 'variant-b' }],
+      }
+
+      const variantAChildren = [
+        makeChild('variant-a-child-naam', 'Naam', false, 'rdfs:label'),
+        makeChild('variant-a-child-on', 'Ondernemingsnummer', true, 'rdfs:label'),
+      ]
+
+      const variantBChildren = [
+        makeChild('variant-b-child-naam', 'Naam', false, 'rdfs:label'),
+        makeChild('variant-b-child-btw', 'BTW-nummer', true, 'rdfs:label'),
+      ]
+
+      const variantA: JsonLdNode = {
+        id: 'variant-a',
+        '@type': ['skos:Concept'],
+        isPartOf: 'parent',
+        inScheme: 'scheme:test',
+        prefLabel: 'Variant A (Belgisch)',
+        related: ['variant-b'],
+        hasPart: [...variantAChildren],
+        conditionPath: sharedConditionPath,
+        conditionValue: [{ '@id': 'riepr-type:belgisch' }],
+      } as unknown as JsonLdNode
+
+      const variantB: JsonLdNode = {
+        id: 'variant-b',
+        '@type': ['skos:Concept'],
+        isPartOf: 'parent',
+        inScheme: 'scheme:test',
+        prefLabel: 'Variant B (Buitenlands)',
+        related: ['variant-a'],
+        hasPart: [...variantBChildren],
+        conditionPath: sharedConditionPath,
+        conditionValue: [{ '@id': 'riepr-type:buitenlands' }],
+      } as unknown as JsonLdNode
+
+      const result = access(svc).parseData(
+        { graph: [parentData, variantA, variantB, ...variantAChildren, ...variantBChildren] },
+        true,
+      )
+      const merged = svc.getChildrenMerged(result, result.concepts.get('parent')!)
+
+      // One synthetic group replacing the two variants.
+      expect(merged).toHaveLength(1)
+      expect(merged[0].prefLabel).toBe('Variant A (Belgisch)')
+      expect(merged[0].id).toBe('variant')
+
+      // Children deduped: naam (shared), on (belgisch), btw (buitenlands).
+      const mergedChildren = merged[0].hasPart!.map(id => result.concepts.get(id)!.id)
+      expect(mergedChildren).toHaveLength(3)
+
+      const naam = result.concepts.get(merged[0].hasPart![0])!
+      expect(naam.conditionValues).toEqual(['belgisch', 'buitenlands'])
+      // Shared child required only when required in ALL appearances → naam is optional.
+      expect(naam.isVerplicht).toBe(false)
+
+      const on = result.concepts.get(merged[0].hasPart![1])!
+      expect(on.conditionValues).toEqual(['belgisch'])
+      expect(on.isVerplicht).toBe(true)
+    })
+
+    it('deduplicates children by relation::prefLabel across variants', () => {
+      function makeChild(id: string, label: string, verplicht: boolean): JsonLdNode {
+        return {
+          id,
+          '@type': ['skos:Concept'],
+          isPartOf: 'parent',
+          inScheme: 'scheme:test',
+          prefLabel: label,
+          relation: '',
+          isVerplicht: String(verplicht),
+          relevantDataType: 'xsd:string',
+        } as unknown as JsonLdNode
+      }
+
+      const parentData: JsonLdNode = {
+        id: 'parent',
+        '@type': ['skos:Concept'],
+        hasPart: [{ id: 'v-a' }, { id: 'v-b' }],
+      }
+
+      const vAChildren = [
+        makeChild('v-a-c1', 'Naam', false),
+        makeChild('v-a-c2', 'Nummer', true),
+      ]
+
+      const vBChildren = [
+        makeChild('v-b-c3', 'Naam', true),
+        makeChild('v-b-c4', 'Adres', true),
+      ]
+
+      const va: JsonLdNode = {
+        id: 'v-a', '@type': ['skos:Concept'], isPartOf: 'parent', inScheme: 'scheme:test',
+        prefLabel: 'Variant A', related: ['v-b'],
+        hasPart: [...vAChildren], conditionValue: [{ '@id': 'riepr-type:a' }],
+      } as unknown as JsonLdNode
+
+      const vb: JsonLdNode = {
+        id: 'v-b', '@type': ['skos:Concept'], isPartOf: 'parent', inScheme: 'scheme:test',
+        prefLabel: 'Variant B', related: ['v-a'],
+        hasPart: [...vBChildren], conditionValue: [{ '@id': 'riepr-type:b' }],
+      } as unknown as JsonLdNode
+
+      const result = access(svc).parseData(
+        { graph: [parentData, va, vb, ...vAChildren, ...vBChildren] },
+        true,
+      )
+      const merged = svc.getChildrenMerged(result, result.concepts.get('parent')!)
+
+      expect(merged).toHaveLength(1)
+
+      // Naam appears in BOTH variants (required in v-b only) → not required per the all-appearances rule.
+      const children = merged[0].hasPart!.map(id => result.concepts.get(id)!)
+      const naam = children.find(c => c.prefLabel === 'Naam')!
+      expect(naam.conditionValues).toEqual(['a', 'b'])
+      expect(naam.isVerplicht).toBe(false)
+    })
+  })
+
 // Convenience wrapper so tests don't need to import CodelistService separately
 const svc = new CodelistService()
 const CodelistServiceMock = {
@@ -384,6 +632,7 @@ const CodelistServiceMock = {
   getConcept: (r: CodelistResult, id: string) => svc.getConcept(r, id),
   getTopConceptsForScheme: (r: CodelistResult, id: string) => svc.getTopConceptsForScheme(r, id),
   getChildren: (r: CodelistResult, c: Concept) => svc.getChildren(r, c),
+  getChildrenMerged: (r: CodelistResult, c: Concept) => svc.getChildrenMerged(r, c),
   getParent: (r: CodelistResult, c: Concept) => svc.getParent(r, c),
   getCodeListSchemes: (r: CodelistResult, c: Concept) => svc.getCodeListSchemes(r, c),
   getRelevantRieprRefs: (r: CodelistResult, n: Scheme | Concept) => svc.getRelevantRieprRefs(r, n),
