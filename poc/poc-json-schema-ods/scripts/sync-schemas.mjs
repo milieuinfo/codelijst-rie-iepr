@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -64,6 +64,28 @@ async function main() {
       console.log(`Copied schema: ${theme}/schema.json`);
     } else {
       console.warn(`Schema not found for theme: ${theme}`);
+    }
+
+    // Copy sub-schemas (composites) under each theme
+    const themeSrcDir = join(schemaSource, theme);
+    if (existsSync(themeSrcDir)) {
+      for (const entry of readdirSync(themeSrcDir).sort()) {
+        const compPath = join(themeSrcDir, entry);
+        if (entry !== 'schema.json' && existsSync(compPath)) {
+          try {
+            const entries = readdirSync(compPath);
+            if (entries.includes('schema.json')) {
+              const srcFile = join(themeSrcDir, entry, 'schema.json');
+              const destDir = join(inputDir, 'schema', theme, entry);
+              mkdirSync(destDir, { recursive: true });
+              writeFileSync(join(destDir, 'schema.json'), readFileSync(srcFile));
+              console.log(`Copied schema: ${theme}/${entry}/schema.json`);
+            }
+          } catch {
+            // skip non-directory entries
+          }
+        }
+      }
     }
   }
 

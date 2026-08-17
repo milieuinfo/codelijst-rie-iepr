@@ -80,7 +80,7 @@ Each generated file is valid JSON Schema Draft 2020-12. Domain schemas extend th
 4. **ConceptMapper** — Maps individual concepts to intermediate SchemaField representations (type mapping, enums, conditions, units)
 5. **EnumGenerator** — Resolves `relevantCodeList` refs to enum values from local concept schemes
 6. **ConditionalValidatorGenerator** — Converts `conditionPath`/`conditionValue` annotations to if/then blocks
-7. **CompositeGroupBuilder** — Groups child concepts under parent composites using broader/narrower relationships
+7. **CompositeGroupBuilder** — Groups child concepts under parent composites using broader/narrower relationships; merges mutually `related` sibling composites (e.g. the four `bestemmingsidentificatie-*` variants) into a single nested object property with per-type conditional required
 8. **ChainComposer** — Merges fields from all schemes in a theme's seeAlso chain
 9. **SchemaAssembler** — Assembles final domain schemas with $ref composition
 10. **SchemaWriter** — Writes pretty-printed JSON files to output directory

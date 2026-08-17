@@ -20,6 +20,12 @@ export interface ColumnDefinition {
   xUiFirst?: boolean;
   /** UI ordering annotation from x-ui-after: property name to place after */
   xUiAfter?: string;
+  /** Relative UI ordering: this column should render after the column with this id/jsonPath */
+  uiAfter?: string;
+  /** Relative UI ordering: this column should render first among its siblings */
+  uiFirst?: boolean | string;
+  /** jsonPath of the nearest array ancestor this column belongs to (undefined = object member → main sheet) */
+  parentArray?: string;
 }
 
 /** A single sheet in a multi-sheet ODS document. */

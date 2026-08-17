@@ -9,28 +9,26 @@ export interface ConditionBlock {
 export class ConditionalValidatorGenerator {
   collectConditions(fields: SchemaField[]): ConditionBlock[] {
     const conditions: ConditionBlock[] = []
+    this.walkFields(fields, conditions)
+    return conditions
+  }
+
+  private walkFields(fields: SchemaField[], conditions: ConditionBlock[]): void {
     for (const field of fields) {
-      if (field.condition) {
-        conditions.push({
-          triggerProperty: field.condition.path,
-          triggerValue: field.condition.value,
-          conditionedProperty: field.propertyName,
-        })
-      }
-      // Recurse into children
-      if (field.children) {
-        for (const child of field.children) {
-          if (child.condition) {
-            conditions.push({
-              triggerProperty: child.condition.path,
-              triggerValue: child.condition.value,
-              conditionedProperty: child.propertyName,
-            })
-          }
+      if (field.condition?.values) {
+        for (const value of field.condition.values) {
+          conditions.push({
+            triggerProperty: field.condition.path,
+            triggerValue: value,
+            conditionedProperty: field.propertyName,
+          })
         }
       }
+      // Recurse into ALL nested children levels
+      if (field.children) {
+        this.walkFields(field.children, conditions)
+      }
     }
-    return conditions
   }
 
   generateIfThen(condition: ConditionBlock): JsonSchemaObject {

@@ -211,6 +211,11 @@ export class CodelistService {
 
     const cvIds = this.idsOf(this.getValue(node, ['conditionValue', 'condition_value'])) ?? []
     concept.conditionValue = cvIds.length > 0 ? this.normalizeConditionValue(cvIds[0]) : undefined
+    if (cvIds.length > 0) {
+      concept.conditionValues = cvIds.map(v => this.normalizeConditionValue(v))
+    }
+
+    concept.related = this.idsOf(this.getValue(node, ['related']))
 
     concept.relevantCodeList = this.idsOf(this.getValue(node, ['relevantCodeList', 'relevant_code_list']))
     concept.relevantRiepr = this.idsOf(this.getValue(node, ['relevantRiepr', 'relevant_riepr']))
@@ -228,12 +233,20 @@ export class CodelistService {
       concept.isMeetbaar = this.parseBoolean(this.getValue(node, ['isMeetbaar', 'is_meetbaar']))
       concept.isOnzichtbaar = this.parseBoolean(this.getValue(node, ['isOnzichtbaar', 'is_onzichtbaar']))
       concept.isMultiselect = this.parseBoolean(this.getValue(node, ['isMultiselect', 'is_multiselect']))
+    // UI ordering annotations
+    concept.uiAfter = this.idOf(this.getValue(node, ['_ui_after', 'ui_after']))
+    concept.uiFirst = this.parseBoolean(this.getValue(node, ['_ui_first', 'ui_first']))
     } else {
       concept.isVerplicht = this.getValue(node, ['isVerplicht', 'is_verplicht']) as string | undefined
       concept.isMeervoudig = this.getValue(node, ['isMeervoudig', 'is_meervoudig']) as string | undefined
       concept.isMeetbaar = this.getValue(node, ['isMeetbaar', 'is_meetbaar']) as string | undefined
       concept.isOnzichtbaar = this.getValue(node, ['isOnzichtbaar', 'is_onzichtbaar']) as string | undefined
       concept.isMultiselect = this.getValue(node, ['isMultiselect', 'is_multiselect']) as string | undefined
+      // UI ordering annotations
+      const rawUiAfter = this.getValue(node, ['_ui_after', 'ui_after'])
+      const uiAfterId = typeof rawUiAfter === 'string' ? rawUiAfter : (Array.isArray(rawUiAfter) && rawUiAfter.length > 0 ? String(rawUiAfter[0]) : undefined)
+      concept.uiAfter = uiAfterId
+      concept.uiFirst = this.getValue(node, ['_ui_first', 'ui_first']) as string | undefined
     }
 
     return concept
@@ -348,11 +361,152 @@ export class CodelistService {
   }
 
    getChildren(result: CodelistResult, concept: Concept): Concept[] {
-    if (!concept.hasPart) return []
-    return concept.hasPart
-      .map(id => result.concepts.get(id))
-      .filter((c): c is Concept => c !== undefined)
-  }
+     if (!concept.hasPart) return []
+     return concept.hasPart
+       .map(id => result.concepts.get(id))
+       .filter((c): c is Concept => c !== undefined)
+   }
+
+   /**
+    * Returns children of a composite concept with mutually `related` concepts merged into
+    * synthetic groups. For example, bestemmingsidentificatie-be/buitenland/none/werf are
+    * replaced by one "Bestemmingsidentificatie" group whose children are deduped and ordered
+    * by first appearance. The merge is driven entirely by the `related` annotation in the
+    * codelist; no concept names are hardcoded here.
+    */
+   getChildrenMerged(result: CodelistResult, concept: Concept): Concept[] {
+     const rawChildren = this.getChildren(result, concept)
+     if (rawChildren.length < 2) return rawChildren
+
+     // Connected components among siblings via `related` (BFS restricted to the sibling set).
+     const childIds = new Set(rawChildren.map(c => c.id))
+     const components: Concept[][] = []
+     const visited = new Set<string>()
+
+     for (const child of rawChildren) {
+       if (visited.has(child.id)) continue
+       const component: Concept[] = [child]
+       visited.add(child.id)
+       const queue: string[] = [...(child.related ?? [])]
+       while (queue.length > 0) {
+         const neighborId = queue.shift()!
+         if (!neighborId || !childIds.has(neighborId) || visited.has(neighborId)) continue
+         visited.add(neighborId)
+         const neighbor = result.concepts.get(neighborId)
+         if (!neighbor) continue
+         component.push(neighbor)
+         for (const ref of neighbor.related ?? []) {
+           if (childIds.has(ref) && !visited.has(ref)) queue.push(ref)
+         }
+       }
+       components.push(component)
+     }
+
+     const out: Concept[] = []
+     for (const component of components) {
+       if (component.length === 1) {
+         out.push(component[0])
+       } else {
+         out.push(this.mergeRelatedGroup(result, component))
+       }
+     }
+     return out
+   }
+
+   /**
+    * Merge a component of mutually `related` sibling composites into one synthetic group
+    * concept. Children are the deduplicated union of the members' children; a child that
+    * appears in multiple members is required only when ALL its appearances require it.
+    */
+   private mergeRelatedGroup(result: CodelistResult, members: Concept[]): Concept {
+     const ids = members.map(m => m.id)
+     const first = members[0]
+
+     // Merged id: longest common prefix of the local parts, scheme prefix restored once.
+     const schemePrefix = ids[0].substring(0, ids[0].lastIndexOf(':') + 1)
+     const localParts = ids.map(id => id.substring(schemePrefix.length))
+     const commonLocal = this.longestCommonPrefix(localParts).replace(/-+$/, '')
+     const mergedId = `${schemePrefix}${commonLocal}`
+
+     const sharedConditionPath = members.find(m => m.conditionPath)?.conditionPath
+
+     // Distinct union of condition values across members.
+     const groupValues = new Set<string>()
+     for (const m of members) {
+       for (const cv of m.conditionValues ?? []) groupValues.add(cv)
+       if (typeof m.conditionValue === 'string') groupValues.add(m.conditionValue)
+     }
+
+     // Dedupe children across members by (relation + lowercase prefLabel), tracking per-variant appearances.
+     type Appearance = { conditionValue: string | undefined; required: boolean }
+     const childByKey = new Map<string, { child: Concept; appearances: Appearance[] }>()
+     for (const member of members) {
+       const variantConditionValue = typeof member.conditionValue === 'string' ? member.conditionValue : undefined
+       for (const gc of this.getChildren(result, member)) {
+         const key = `${gc.relation ?? ''}::${(gc.prefLabel ?? '').trim().toLowerCase()}`
+         const entry = childByKey.get(key)
+         if (entry) {
+           entry.appearances.push({ conditionValue: variantConditionValue, required: gc.isVerplicht === true })
+         } else {
+           childByKey.set(key, {
+             child: gc,
+             appearances: [{ conditionValue: variantConditionValue, required: gc.isVerplicht === true }],
+           })
+         }
+       }
+     }
+
+     // Merged children, ordered by first appearance across members (data order).
+     const mergedChildren: Concept[] = []
+     for (const [key, { child, appearances }] of childByKey) {
+       const values = new Set<string>()
+       for (const a of appearances) if (a.conditionValue) values.add(a.conditionValue)
+       const multiVariant = appearances.length > 1
+       const allRequired = appearances.every(a => a.required)
+       mergedChildren.push({
+         id: `merged::${key}`,
+         type: ['skos:Concept'],
+         prefLabel: child.prefLabel,
+         relation: child.relation,
+         relevantDataType: child.relevantDataType,
+         conditionPath: sharedConditionPath,
+         conditionValues: [...values],
+         // Shared children: required iff required in ALL appearances. Single-variant: its own flag.
+         isVerplicht: multiVariant ? allRequired : appearances[0].required,
+         uiFirst: child.uiFirst,
+         uiAfter: child.uiAfter,
+       })
+     }
+
+     // Register the synthetic group and its children so getChildren() can resolve them on re-render.
+     const synthetic: Concept = {
+       id: mergedId,
+       type: ['skos:Concept'],
+       prefLabel: first.prefLabel,
+       definition: first.definition,
+       hasPart: mergedChildren.map(c => c.id),
+       conditionPath: sharedConditionPath,
+       conditionValues: [...groupValues],
+       isVerplicht: false,
+       isMeervoudig: first.isMeervoudig,
+       uiFirst: first.uiFirst,
+       uiAfter: first.uiAfter,
+     }
+     for (const c of mergedChildren) result.concepts.set(c.id, c)
+     result.concepts.set(synthetic.id, synthetic)
+     return synthetic
+   }
+   private longestCommonPrefix(strings: string[]): string {
+     if (strings.length === 0) return ''
+     let prefix = strings[0]
+     for (let i = 1; i < strings.length; i++) {
+       while (!strings[i].startsWith(prefix)) {
+         prefix = prefix.slice(0, -1)
+         if (prefix === '') return ''
+       }
+     }
+     return prefix
+   }
 
   getParent(result: CodelistResult, concept: Concept): Concept | null {
     const parentId = concept.isPartOf?.[0]

@@ -6,34 +6,22 @@ export class SheetSplitter {
     const nestedGroups = new Map<string, { title: string; columns: ColumnDefinition[]; parentPath: string }>();
 
     for (const col of columns) {
-      const segments = col.jsonPath.split('/').filter(Boolean);
-
-      if (segments.length <= 1) {
-        // Top-level property → main sheet
+      if (!col.parentArray) {
         mainColumns.push(col);
-      } else if (segments.length === 2) {
-        // /parent/child → "parent" sheet
-        const parentKey = segments[0];
-        const parentTitle = this.findColumnTitle(columns, `/${parentKey}`) || segments[0];
-        let group = nestedGroups.get(parentKey);
-        if (!group) {
-          group = { title: parentTitle, columns: [], parentPath: `/${parentKey}` };
-          nestedGroups.set(parentKey, group);
-        }
-        group.columns.push(col);
-      } else {
-        // /parent/child/grandchild → "child" sheet nested under parent
-        const parentKey = segments[0];
-        const childKey = segments[1];
-        const childTitle = this.findColumnTitle(columns, `/${parentKey}/${childKey}`) || childKey;
-        const compositeKey = `${parentKey}__${childKey}`;
-        let group = nestedGroups.get(compositeKey);
-        if (!group) {
-          group = { title: childTitle, columns: [], parentPath: `/${parentKey}` };
-          nestedGroups.set(compositeKey, group);
-        }
-        group.columns.push(col);
+        continue;
       }
+
+      const pathSegments = col.parentArray.split('/').filter(Boolean);
+      const topKey = pathSegments[0];
+      const topPath = '/' + topKey;
+      const title = this.findColumnTitle(columns, topPath) || topKey;
+
+      let group = nestedGroups.get(topKey);
+      if (!group) {
+        group = { title, columns: [], parentPath: topPath };
+        nestedGroups.set(topKey, group);
+      }
+      group.columns.push(col);
     }
 
     // Build final sheets array

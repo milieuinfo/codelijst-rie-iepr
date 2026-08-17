@@ -106,8 +106,16 @@ export class ConceptMapper {
       const triggerPropertyName = this.derivePropertyNameFromId(concept.conditionPath)
       schemaField.condition = {
         path: triggerPropertyName,
-        value: concept.conditionValue,
+        values: [concept.conditionValue],
       }
+    }
+
+    // UI ordering annotations (x-ui-first / x-ui-after)
+    if (concept.uiFirst === true) {
+      schemaField.uiFirst = true
+    }
+    if (concept.uiAfter) {
+      schemaField.uiAfterConceptId = concept.uiAfter
     }
 
     return schemaField

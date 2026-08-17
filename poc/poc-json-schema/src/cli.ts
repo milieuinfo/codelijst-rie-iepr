@@ -82,12 +82,15 @@ async function main() {
     // Build nested structure (composite grouping)
     const nestedFields = compositeBuilder.buildNestedStructure(fieldSet.fields)
 
+    // Merge related sibling composites into single groups
+    const mergedFields = compositeBuilder.mergeRelatedGroups(nestedFields)
+
     // Collect conditions from composed + nested fields
-    const conditions = conditionalGen.collectConditions(nestedFields)
+    const conditions = conditionalGen.collectConditions(mergedFields)
     const conditionBlock = conditionalGen.generateAllConditionals(conditions)
 
     // Assemble final domain schema
-    const { domainSchema, subSchemas } = assembler.assemble(themeName, nestedFields, conditionBlock, chain, result)
+    const { domainSchema, subSchemas } = assembler.assemble(themeName, mergedFields, conditionBlock, chain, result)
 
     // Write output files
     await writer.writeBase(baseSchema)
