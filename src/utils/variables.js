@@ -175,6 +175,15 @@ const frame_skos_no_prefixes = {
         "@embed": "@never",
         "@omitDefault": true
     },
+    "related": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "_ui_after": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+
     "applicableUnit": {
         "@embed": "@never",
         "@omitDefault": true
@@ -328,7 +337,6 @@ const frame_skos_no_prefixes = {
 }
 
 
-const xsdOptions = {"file": config.skos.path + config.skos.name + '/' + config.skos.name + config.skos.xsd, "urn": ('urn:' + metadataOptions.groupId + ':' + metadataOptions.artifactId)}
 
 const turtlePath = config.skos.path + config.skos.name + '/' + config.skos.name + config.skos.turtle
 
@@ -403,9 +411,13 @@ const versioning = {
 // frame_skos_prefixes (context_prefixes) compacts those same properties to these terms/CURIEs
 // when framing. Override ConceptVersioning with these so it reads its own previously-written
 // metadata correctly instead of treating every concept as edited on every run.
+// "created" and "modified" are explicit terms in context.json (with a fixed xsd:dateTime type,
+// so the JSON/JSON-LD output serializes them as flat strings instead of nested {"_type","_value"}
+// objects) — a term always wins over dcterms: CURIE compaction, so these must match "created"/
+// "modified", not "dcterms:created"/"dcterms:modified".
 const versioningPropertyKeys = {
-    dctCreated: 'dcterms:created',
-    dctModified: 'dcterms:modified',
+    dctCreated: 'created',
+    dctModified: 'modified',
     dctIsVersionOf: 'isVersionOf',
     admsStatus: 'adms:status',
 }
