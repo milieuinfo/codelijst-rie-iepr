@@ -127,11 +127,13 @@ export class ODSGenerator {
 
         const labels = col.dropdownLabels.map((l) => `"${this.xmlEscape(l)}"`).join(';');
         const helpText = col.description || 'Selecteer een waarde uit de lijst.';
-        const cellRef = `${sanitizedName}.B3`; // B3 = first data row, column 2 (A is index 0)
+        // Anchor the validation to the first data row (row 3) of the column that
+        // actually carries the validation, so the dropdown works in every empty row.
+        const cellRef = `${sanitizedName}.${this.columnLetter(i)}3`;
         const validationName = `val_${sanitizedName}_${i}`;
 
         validations.push(
-          `<table:content-validation table:name="${validationName}" table:condition="of:cell-content-is-in-list(${labels})" table:allow-empty-cell="true" table:base-cell-address="${cellRef}">` +
+          `<table:content-validation table:name="${validationName}" table:condition="of:cell-content-is-in-list(${labels})" table:allow-empty-cell="true" table:display-list="sort-ascending" table:base-cell-address="${cellRef}">` +
             `<table:help-message table:title="${this.xmlEscape(this.getHeaderLabel(col))}" table:display="true"><text:p>${this.xmlEscape(helpText)}</text:p></table:help-message>` +
             `<table:error-message table:message-type="stop" table:title="Ongeldige invoer" table:display="true"><text:p>De ingevoerde waarde staat niet in de lijst met toegestane waardes.</text:p></table:error-message>` +
           `</table:content-validation>`,
@@ -195,6 +197,17 @@ export class ODSGenerator {
 
   private getHeaderLabel(col: ColumnDefinition): string {
     return col.uiType === 'dropdown' ? `${col.title} ▾` : col.title;
+  }
+
+  /** Zero-based column index → spreadsheet column letter (0 → A, 25 → Z, 26 → AA). */
+  private columnLetter(index: number): string {
+    let letter = '';
+    let n = index;
+    while (n >= 0) {
+      letter = String.fromCharCode(65 + (n % 26)) + letter;
+      n = Math.floor(n / 26) - 1;
+    }
+    return letter;
   }
 
   private sanitizeSheetName(name: string): string {

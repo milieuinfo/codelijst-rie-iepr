@@ -68,6 +68,14 @@ const frame_skos_prefixes = {
         "@embed": "@never",
         "@omitDefault": true
     },
+    "broaderPartitive": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "narrowerPartitive": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
     "broadMatch" : {
         "@embed": "@never",
         "@omitDefault": true
@@ -193,6 +201,14 @@ const frame_skos_no_prefixes = {
         "@omitDefault": true
     },
     "broader": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "broaderPartitive": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "narrowerPartitive": {
         "@embed": "@never",
         "@omitDefault": true
     },

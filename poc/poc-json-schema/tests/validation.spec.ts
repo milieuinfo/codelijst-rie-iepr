@@ -2,6 +2,7 @@ import { describe, it, expect, beforeAll } from 'vitest'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import * as syncFs from 'node:fs'
+import { Ajv2020 } from 'ajv/dist/2020.js'
 import { SchemaValidator } from '../src/services/schema-validator.js'
 
 const PROJECT_ROOT = path.resolve(__dirname, '..')
@@ -186,6 +187,130 @@ describe('AJV Meta-Schema Validation', () => {
         }
         expect(result.valid).toBe(true)
       })
+    }
+  })
+})
+
+describe('Observation collection envelope', () => {
+  const envelopePath = path.join(schemaDir, 'observatie-verzameling.json')
+  let envelope: any
+
+  beforeAll(async () => {
+    envelope = JSON.parse(await fs.readFile(envelopePath, 'utf-8'))
+  })
+
+  it('should have observatie-verzameling.json at the root of schema directory', async () => {
+    await expect(fs.access(envelopePath)).resolves.toBeUndefined()
+  })
+
+  it('should be Draft 2020-12 object type with ObservationCollection annotation', () => {
+    expect(envelope.$schema).toBe('https://json-schema.org/draft/2020-12/schema')
+    expect(envelope.type).toBe('object')
+    expect(envelope['x-jsonld-type']).toBe('http://www.w3.org/ns/sosa/ObservationCollection')
+  })
+
+  it('should $id end in /observatie-verzameling.json', () => {
+    expect(envelope.$id as string).toMatch(/\/observatie-verzameling\.json$/)
+  })
+
+  it('should require hasFeatureOfInterest and hasMember', () => {
+    expect(new Set(envelope.required as string[])).toEqual(new Set(['hasFeatureOfInterest', 'hasMember']))
+  })
+
+  it('should define hasMember as an array (minItems 1) of observatie.json refs', () => {
+    const hasMember = envelope.properties.hasMember as any
+    expect(hasMember.type).toBe('array')
+    expect(hasMember.minItems).toBe(1)
+    expect(hasMember['x-jsonld-id']).toBe('http://www.w3.org/ns/sosa/hasMember')
+    expect(hasMember.items.$ref).toMatch(/\/observatie\.json$/)
+  })
+
+  it('should carry hoisted member properties at collection level (optional)', () => {
+    const props = Object.keys(envelope.properties)
+    for (const key of [
+      'created',
+      'observedProperty',
+      'resultTime',
+      'wasOriginatedBy',
+      'phenomenonTime',
+      'madeBySensor',
+      'usedProcedure',
+      'hasUltimateFeatureOfInterest',
+    ]) {
+      expect(props).toContain(key)
+    }
+  })
+
+  it('enforces hasMember: collection with members valid, missing/empty hasMember invalid', () => {
+    // Build a self-contained schema from the generated envelope's required + hasMember
+    // constraints. External SOSA $refs are not resolvable offline, so members are
+    // validated as plain objects while the required/minItems come from the schema.
+    const ajv = new Ajv2020({ strict: false })
+    const hasMember = envelope.properties.hasMember as any
+    const validate = ajv.compile({
+      type: 'object',
+      required: envelope.required,
+      properties: {
+        hasFeatureOfInterest: { type: 'string' },
+        hasMember: { type: 'array', minItems: hasMember.minItems, items: { type: 'object' } },
+      },
+    })
+
+    expect(validate({ hasFeatureOfInterest: 'https://example.org/ep', hasMember: [{}, {}] })).toBe(true)
+    expect(validate({ hasFeatureOfInterest: 'https://example.org/ep' })).toBe(false)
+    expect(validate({ hasFeatureOfInterest: 'https://example.org/ep', hasMember: [] })).toBe(false)
+  })
+})
+
+describe('Collection sub-schemas', () => {
+  interface CollectionSubSchema {
+    theme: string
+    name: string
+    schema: any
+  }
+
+  async function discoverCollectionSubSchemas(): Promise<CollectionSubSchema[]> {
+    const found: CollectionSubSchema[] = []
+    for (const theme of discoveredThemes) {
+      const themeDir = path.join(schemaDir, theme)
+      let entries: string[] = []
+      try {
+        entries = await fs.readdir(themeDir)
+      } catch {
+        continue
+      }
+      for (const name of entries) {
+        const subPath = path.join(themeDir, name, 'schema.json')
+        try {
+          const schema = JSON.parse(await fs.readFile(subPath, 'utf-8'))
+          if (schema['x-jsonld-type'] === 'http://www.w3.org/ns/sosa/ObservationCollection') {
+            found.push({ theme, name, schema })
+          }
+        } catch {
+          // Not a sub-schema (e.g. the theme's own schema.json)
+        }
+      }
+    }
+    return found
+  }
+
+  it('generates at least one collection sub-schema', async () => {
+    const collections = await discoverCollectionSubSchemas()
+    expect(collections.length).toBeGreaterThanOrEqual(1)
+  })
+
+  it('each collection sub-schema wraps members under hasMember', async () => {
+    const collections = await discoverCollectionSubSchemas()
+    for (const { theme, name, schema } of collections) {
+      expect(new Set(schema.required), `${theme}/${name} required`).toEqual(
+        new Set(['hasFeatureOfInterest', 'hasMember']),
+      )
+      const hasMember = schema.properties.hasMember as any
+      expect(hasMember.type, `${theme}/${name} hasMember.type`).toBe('array')
+      expect(hasMember.minItems, `${theme}/${name} hasMember.minItems`).toBe(1)
+      expect(hasMember['x-jsonld-id'], `${theme}/${name} hasMember id`).toBe('http://www.w3.org/ns/sosa/hasMember')
+      expect(hasMember.items.type, `${theme}/${name} member type`).toBe('object')
+      expect(hasMember.items.required, `${theme}/${name} member required`).toContain('hasResult')
     }
   })
 })

@@ -26,6 +26,8 @@ export interface ColumnDefinition {
   uiFirst?: boolean | string;
   /** jsonPath of the nearest array ancestor this column belongs to (undefined = object member → main sheet) */
   parentArray?: string;
+  /** Dutch title of the nearest array ancestor, used to name the nested sheet (e.g. "Observaties") */
+  arrayTitle?: string;
 }
 
 /** A single sheet in a multi-sheet ODS document. */

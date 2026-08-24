@@ -36,9 +36,12 @@ export class SchemaAssembler {
     // Find FoI field in domain fields
     const foiField = domainFields.find(f => f.isFeatureOfInterest === true)
 
-    // Split domain fields into regular vs Observation composites (sub-schemas)
-    const observationCompositeFields = domainFields.filter(f => f.relevantClass === 'sosa:Observation')
-    const regularDomainFields = domainFields.filter(f => f.relevantClass !== 'sosa:Observation')
+    // Split domain fields into regular vs Observation composites (sub-schemas).
+    // sosa:ObservationCollection composites become collection envelopes;
+    // sosa:Observation composites stay single-observation sub-schemas.
+    const isComposite = (f: SchemaField) => f.relevantClass === 'sosa:Observation' || f.relevantClass === 'sosa:ObservationCollection'
+    const observationCompositeFields = domainFields.filter(f => isComposite(f))
+    const regularDomainFields = domainFields.filter(f => !isComposite(f))
 
     // Collect hasUnit enum: aggregate unique unit URIs from regular fields only
     const unitUris = this.collectUnitUris(regularDomainFields, result)
@@ -58,29 +61,7 @@ export class SchemaAssembler {
     properties.wasOriginatedBy = { $ref: `${this.baseRef}#/properties/wasOriginatedBy` }
 
     // hasFeatureOfInterest: use FoI concept metadata or fallback to generic
-    if (foiField) {
-      const foiConcept = result.concepts.get(foiField.conceptId)
-      let foiPropSchema: JsonSchemaObject | undefined
-      const foiBase: JsonSchemaObject = { title: foiField.label }
-      if (foiField.description) {
-        foiBase.description = foiField.description
-      }
-      const isMultiselect = foiConcept?.isMultiselect === true
-      if (foiField.type === 'array' || foiField.isRepeatable || isMultiselect) {
-        foiBase.type = 'array'
-        foiBase.items = { $ref: `${this.baseRef}#/properties/hasFeatureOfInterest` }
-      } else {
-        foiBase.type = 'string'
-        foiBase.allOf = [{ $ref: `${this.baseRef}#/properties/hasFeatureOfInterest` }] as JsonSchemaValue[]
-      }
-      foiPropSchema = foiBase
-      properties.hasFeatureOfInterest = foiPropSchema as JsonSchemaValue
-    } else {
-      properties.hasFeatureOfInterest = {
-        type: 'string',
-        allOf: [{ $ref: `${this.baseRef}#/properties/hasFeatureOfInterest` }] as JsonSchemaValue[],
-      }
-    }
+    properties.hasFeatureOfInterest = this.buildFoIProperty(foiField, result)
 
     // observedProperty: base $ref + theme-specific enum of measurable concepts
     const observedPropAllOf: JsonSchemaValue[] = [
@@ -188,7 +169,7 @@ export class SchemaAssembler {
     // Generate sub-schemas for sosa:Observation composite fields
     const subSchemas: SubSchema[] = []
     for (const obsField of observationCompositeFields) {
-      const subSchema = this.buildSubSchema(domainId, themeSlug, obsField, result)
+      const subSchema = this.buildSubSchema(domainId, themeSlug, obsField, result, chain, foiField)
       subSchemas.push(subSchema)
     }
 
@@ -205,7 +186,7 @@ export class SchemaAssembler {
       if (!chain.schemeIds.includes(concept.inScheme ?? '')) continue
       if (concept.isOnzichtbaar === true) continue
       if (!concept.relevantDataType && !concept.relevantUnit) continue
-      if (concept.isPartOf && observationCompositeIds.has(concept.isPartOf[0])) continue
+      if (concept.broaderPartitive && observationCompositeIds.has(concept.broaderPartitive[0])) continue
 
       if (!seenIds.has(conceptId)) {
         values.push(result.expandCurie?.(conceptId) ?? conceptId)
@@ -216,11 +197,11 @@ export class SchemaAssembler {
     return values
   }
 
-  /** Collect IDs of all concepts whose relevantClass is sosa:Observation. */
+  /** Collect IDs of all concepts whose relevantClass is an observation composite. */
   private collectObservationCompositeConceptIds(result: CodelistResult): Set<string> {
     const ids = new Set<string>()
     for (const concept of result.concepts.values()) {
-      if (concept.relevantClass === 'sosa:Observation') {
+      if (concept.relevantClass === 'sosa:Observation' || concept.relevantClass === 'sosa:ObservationCollection') {
         ids.add(concept.id)
       }
     }
@@ -426,7 +407,50 @@ export class SchemaAssembler {
     return schemaObj
   }
 
-  private buildSubSchema(parentSchemaId: string, themeSlug: string, obsField: SchemaField, result: CodelistResult): SubSchema {
+  /** Build the hasFeatureOfInterest property from the theme's FoI field (codelist-driven label). */
+  private buildFoIProperty(foiField: SchemaField | undefined, result: CodelistResult): JsonSchemaValue {
+    if (!foiField) {
+      return {
+        type: 'string',
+        allOf: [{ $ref: `${this.baseRef}#/properties/hasFeatureOfInterest` }] as JsonSchemaValue[],
+      }
+    }
+    const foiConcept = result.concepts.get(foiField.conceptId)
+    const foiBase: JsonSchemaObject = { title: foiField.label }
+    if (foiField.description) {
+      foiBase.description = foiField.description
+    }
+    const isMultiselect = foiConcept?.isMultiselect === true
+    if (foiField.type === 'array' || foiField.isRepeatable || isMultiselect) {
+      foiBase.type = 'array'
+      foiBase.items = { $ref: `${this.baseRef}#/properties/hasFeatureOfInterest` }
+    } else {
+      foiBase.type = 'string'
+      foiBase.allOf = [{ $ref: `${this.baseRef}#/properties/hasFeatureOfInterest` }] as JsonSchemaValue[]
+    }
+    return foiBase
+  }
+
+  /**
+   * Look up the theme's codelist concept for an envelope relation (leaf scheme wins)
+   * and return a title/description override block, or null when the codelist has none.
+   */
+  private codelistLabelBlock(relation: string, chain: ThemeChain, result: CodelistResult): JsonSchemaObject | null {
+    for (let i = chain.schemeIds.length - 1; i >= 0; i--) {
+      const schemeId = chain.schemeIds[i]
+      for (const concept of result.concepts.values()) {
+        if (concept.inScheme !== schemeId || concept.relation !== relation) continue
+        if (concept.isOnzichtbaar === true) continue
+        if (!concept.prefLabel) continue
+        const block: JsonSchemaObject = { title: concept.prefLabel }
+        if (concept.definition) block.description = concept.definition
+        return block
+      }
+    }
+    return null
+  }
+
+  private buildSubSchema(parentSchemaId: string, themeSlug: string, obsField: SchemaField, result: CodelistResult, chain: ThemeChain, foiField: SchemaField | undefined): SubSchema {
     const subName = this.toKebabCase(obsField.propertyName)
     const subId = `${parentSchemaId.replace(/\/schema\.json$/, '')}/${subName}/schema.json`
 
@@ -503,6 +527,88 @@ export class SchemaAssembler {
       promotedProps[key] = this.buildChildSchema(pf) as JsonSchemaValue
     }
 
+    const memberProperties: Record<string, JsonSchemaValue> = {
+      resultTime: { $ref: `${this.baseRef}#/properties/resultTime` },
+      wasOriginatedBy: { $ref: `${this.baseRef}#/properties/wasOriginatedBy` },
+      hasFeatureOfInterest: { $ref: `${this.baseRef}#/properties/hasFeatureOfInterest` },
+      observedProperty: {
+        type: 'string',
+        allOf: observedPropAllOf,
+      },
+      hasResult: {
+        allOf: hasResultAllOf,
+      },
+      ...promotedProps,
+      ...childProps,
+    }
+    const memberAllOf: JsonSchemaValue[] = [
+      { $ref: this.baseRef },
+      ...hasResultChildren.map(c => this.buildHasResultConditional(c, result.expandCurie)).filter((x): x is JsonSchemaObject => x !== null),
+      ...requiredConditionals,
+    ]
+
+    if (obsField.relevantClass === 'sosa:ObservationCollection') {
+      // Collection envelope: shared feature of interest + hoisted (optional) member
+      // properties at collection level, with the individual observations wrapped
+      // under hasMember. Hoisted props stay optional on members (collection may
+      // supply them); hasResult stays required per member.
+      // Hoisted envelope labels come from the theme's codelist when it names the
+      // relation; the label block precedes the base $ref so it wins in allOf merges.
+      const hoistedObservedLabel = this.codelistLabelBlock('sosa:observedProperty', chain, result)
+      const hoistedResultTimeLabel = this.codelistLabelBlock('sosa:resultTime', chain, result)
+      const hoistedObservedAllOf: JsonSchemaValue[] = [
+        ...(hoistedObservedLabel ? [hoistedObservedLabel] : []),
+        { $ref: `${this.baseRef}#/properties/observedProperty` },
+      ]
+      if (subObservedPropertyValues.length > 0) {
+        hoistedObservedAllOf.push({ enum: subObservedPropertyValues })
+      }
+      const hoistedResultTime: JsonSchemaValue = hoistedResultTimeLabel
+        ? { allOf: [hoistedResultTimeLabel, { $ref: `${this.baseRef}#/properties/resultTime` }] }
+        : { $ref: `${this.baseRef}#/properties/resultTime` }
+      return {
+        name: subName,
+        schema: {
+          $schema: 'https://json-schema.org/draft/2020-12/schema',
+          $id: subId,
+          description: `RIE-IEPR observatieverzameling voor ${obsField.label}`,
+          type: 'object',
+          'x-jsonld-type': 'http://www.w3.org/ns/sosa/ObservationCollection',
+          required: [...new Set(['hasFeatureOfInterest', 'hasMember'])],
+          properties: {
+            hasFeatureOfInterest: this.buildFoIProperty(foiField, result),
+            created: {
+              title: 'Gemaakt op',
+              description: 'Creatietijdstip van de verzameling.',
+              type: 'string',
+              format: 'date-time',
+              'x-jsonld-id': 'http://purl.org/dc/terms/created',
+              'x-jsonld-type': 'http://www.w3.org/2001/XMLSchema#dateTime',
+            },
+            observedProperty: {
+              type: 'string',
+              allOf: hoistedObservedAllOf,
+            },
+            resultTime: hoistedResultTime,
+            wasOriginatedBy: { $ref: `${this.baseRef}#/properties/wasOriginatedBy` },
+            hasMember: {
+              title: 'Observaties',
+              description: 'De individuele observaties die deel uitmaken van deze verzameling.',
+              type: 'array',
+              minItems: 1,
+              'x-jsonld-id': 'http://www.w3.org/ns/sosa/hasMember',
+              items: {
+                type: 'object',
+                required: [...new Set(['hasResult', ...childRequired])],
+                properties: memberProperties,
+                allOf: memberAllOf,
+              },
+            },
+          },
+        },
+      }
+    }
+
     return {
       name: subName,
       schema: {
@@ -511,25 +617,10 @@ export class SchemaAssembler {
         description: `RIE-IEPR observatie voor ${obsField.label}`,
         type: 'object',
         required: [...new Set(['resultTime', 'observedProperty', 'hasFeatureOfInterest', 'hasResult', ...childRequired])],
-        properties: {
-          resultTime: { $ref: `${this.baseRef}#/properties/resultTime` },
-          wasOriginatedBy: { $ref: `${this.baseRef}#/properties/wasOriginatedBy` },
-          hasFeatureOfInterest: { $ref: `${this.baseRef}#/properties/hasFeatureOfInterest` },
-          observedProperty: {
-            type: 'string',
-            allOf: observedPropAllOf,
-          },
-          hasResult: {
-            allOf: hasResultAllOf,
-          },
-          ...promotedProps,
-          ...childProps,
-        },
+        properties: memberProperties,
         allOf: [
-          { $ref: this.baseRef },
           { $ref: parentSchemaId },
-          ...hasResultChildren.map(c => this.buildHasResultConditional(c, result.expandCurie)).filter((x): x is JsonSchemaObject => x !== null),
-          ...requiredConditionals,
+          ...memberAllOf,
         ],
       },
     }

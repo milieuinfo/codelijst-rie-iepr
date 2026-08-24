@@ -56,7 +56,7 @@ export interface SchemaField {
   pattern?: string
   minimum?: number
   maximum?: number
-  isPartOf?: string[]
+  broaderPartitive?: string[]
   narrower?: string[]
   isFeatureOfInterest?: boolean
   /** Whether this concept maps into hasResult (sosa:hasResult relation) */

@@ -1,4 +1,4 @@
-import type { Concept } from '../models/skos-models.js'
+import type { Concept } from '../models/index.js'
 
 /**
  * Sorts a group of concept fields by their relative UI ordering annotations
@@ -36,6 +36,40 @@ export function sortByUiOrder(fields: Concept[]): Concept[] {
 
   // Stable order: uiFirst first, then topologically sorted, then unconstrained
   return [...firstFields, ...sorted, ...freeFields]
+}
+
+/**
+ * Sorts a group of sibling fields by their relative UI ordering annotations
+ * (_uiFirst, _uiAfter), with conditionPath-dependent fields placed last so a
+ * field renders after the trigger that controls its visibility.
+ * @param fields - Array of sibling fields at the same hierarchy level.
+ * @returns Sorted array with condition-dependent fields appended last.
+ */
+export function applyUiOrdering(fields: Concept[]): Concept[] {
+  // First resolve condition dependencies so conditional fields render after triggers
+  const conditionMap = new Map<string, string>()
+  for (const f of fields) {
+    if (f.conditionPath && f.conditionValue) {
+      conditionMap.set(f.conditionPath, f.id)
+    }
+  }
+
+  const independent: Concept[] = []
+  const dependent: Concept[] = []
+
+  for (const f of fields) {
+    if (!f.conditionPath || !conditionMap.has(f.conditionPath)) {
+      independent.push(f)
+    } else {
+      dependent.push(f)
+    }
+  }
+
+  // Apply relative UI ordering within each group
+  const sortedIndependent = sortByUiOrder(independent)
+  const sortedDependent = sortByUiOrder(dependent)
+
+  return [...sortedIndependent, ...sortedDependent]
 }
 
 /**

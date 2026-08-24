@@ -61,7 +61,7 @@ describe('CompositeGroupBuilder merges related variant groups', () => {
         prefLabel: 'TestGroup',
         conditionPath: `trigger:${localPart}`,
         conditionValue: localPart,
-        isPartOf: [],
+        broaderPartitive: [],
         related: parentIds.filter(id => id !== parentId),
       }
     }
@@ -74,7 +74,7 @@ describe('CompositeGroupBuilder merges related variant groups', () => {
           prefLabel: child.label,
           isVerplicht: child.isVerplicht === true ? 'true' : undefined,
           relation: child.relation || undefined,
-          isPartOf: parentId,
+          broaderPartitive: parentId,
         }
       }
     }
@@ -110,7 +110,7 @@ describe('CompositeGroupBuilder merges related variant groups', () => {
     const mergedFields = compositeBuilder.mergeRelatedGroups(nestedFields)
 
     // Find the merged group — it should be a single field named after common prefix
-    const mergedGroup = mergedFields.find(f => !Array.isArray(f.isPartOf) || f.isPartOf.length === 0)
+    const mergedGroup = mergedFields.find(f => !Array.isArray(f.broaderPartitive) || f.broaderPartitive.length === 0)
     expect(mergedGroup).toBeDefined()
     expect(mergedGroup?.children).toBeDefined()
     expect(mergedGroup?.children!.length).toBeGreaterThan(1)
@@ -145,7 +145,7 @@ describe('CompositeGroupBuilder merges related variant groups', () => {
     const mergedFields = compositeBuilder.mergeRelatedGroups(nestedFields)
 
     // Find the merged group
-    const mergedGroup = mergedFields.find(f => !Array.isArray(f.isPartOf) || f.isPartOf.length === 0)
+    const mergedGroup = mergedFields.find(f => !Array.isArray(f.broaderPartitive) || f.broaderPartitive.length === 0)
     expect(mergedGroup).toBeDefined()
     expect(mergedGroup?.type).toBe('object')
     expect(mergedGroup?.children).toBeDefined()
@@ -186,7 +186,7 @@ describe('CompositeGroupBuilder merges related variant groups', () => {
     let nestedFields = compositeBuilder.buildNestedStructure(allFields)
     const mergedFields = compositeBuilder.mergeRelatedGroups(nestedFields)
 
-    const mergedGroup = mergedFields.find(f => !Array.isArray(f.isPartOf) || f.isPartOf.length === 0)
+    const mergedGroup = mergedFields.find(f => !Array.isArray(f.broaderPartitive) || f.broaderPartitive.length === 0)
     expect(mergedGroup).toBeDefined()
     expect(mergedGroup?.children!.length).toBe(3) // Naam + Ondernemingsnummer + BTW-nummer (deduped)
 

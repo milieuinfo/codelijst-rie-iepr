@@ -127,7 +127,7 @@ export class CodelistParser {
       altLabel: this.getValue(node, ['altLabel', 'alt_label']) as string[] | undefined,
       definition: this.getValue(node, ['definition', 'has_definition']) as string | undefined,
       note: this.getValue(node, ['note', 'has_note']) as string | undefined,
-      isPartOf: this.idsOf(this.getValue(node, ['isPartOf', 'broader'])),
+      broaderPartitive: this.idsOf(this.getValue(node, ['broaderPartitive'])),
       narrower: this.idsOf(this.getValue(node, ['narrower'])),
       topConceptOf: this.idOf(this.getValue(node, ['topConceptOf', 'top_concept_of'])),
       relevantProperty: this.getValue(node, ['relevantProperty', 'relevant_property']) as string | undefined,

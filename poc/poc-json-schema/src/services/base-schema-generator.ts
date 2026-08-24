@@ -1,4 +1,5 @@
 import type { JsonSchemaObject } from '../models/index.js'
+import { config } from '../config.js'
 
 export class BaseSchemaGenerator {
   generate(): JsonSchemaObject {
@@ -79,6 +80,103 @@ export class BaseSchemaGenerator {
               },
             },
           ],
+        },
+      },
+    }
+  }
+
+  /**
+   * Generate the generic observation-collection envelope base schema.
+   * A collection wraps one or more member observations (sosa:hasMember) and
+   * carries a shared feature of interest plus optionally hoisted member
+   * properties (created, observedProperty, resultTime, ...).
+   */
+  generateCollection(): JsonSchemaObject {
+    const sosaRef = 'https://opengeospatial.github.io/ogcapi-sosa/build/annotated/sosa/properties/observation-owa/schema.json'
+    const baseObservatieRef = `${config.baseSchemaUrl}/observatie.json`
+
+    return {
+      $schema: 'https://json-schema.org/draft/2020-12/schema',
+      $id: `${config.baseSchemaUrl.replace(/observatie$/, 'observatie-verzameling')}/observatie-verzameling.json`,
+      description: 'RIE-IEPR observatieverzameling: envelope rond een of meer observaties.',
+      type: 'object',
+      'x-jsonld-type': 'http://www.w3.org/ns/sosa/ObservationCollection',
+      required: ['hasFeatureOfInterest', 'hasMember'],
+      properties: {
+        hasFeatureOfInterest: {
+          allOf: [
+            { $ref: `${sosaRef}/#/properties/hasFeatureOfInterest` },
+            {
+              title: 'Meetpunt',
+              description: 'Het meetpunt waarvoor het blok geldt.',
+            },
+          ],
+        },
+        created: {
+          title: 'Gemaakt op',
+          description: 'Creatietijdstip van de verzameling.',
+          type: 'string',
+          format: 'date-time',
+          'x-jsonld-id': 'http://purl.org/dc/terms/created',
+          'x-jsonld-type': 'http://www.w3.org/2001/XMLSchema#dateTime',
+        },
+        hasMember: {
+          title: 'Observaties',
+          description: 'De individuele observaties die deel uitmaken van deze verzameling.',
+          type: 'array',
+          minItems: 1,
+          'x-jsonld-id': 'http://www.w3.org/ns/sosa/hasMember',
+          items: { $ref: baseObservatieRef },
+        },
+        observedProperty: {
+          allOf: [
+            { $ref: `${sosaRef}/#/properties/observedProperty` },
+            {
+              title: 'Geobserveerde eigenschap',
+            },
+          ],
+        },
+        resultTime: {
+          allOf: [
+            { $ref: `${sosaRef}/#/properties/resultTime` },
+            {
+              title: 'Tijdstip',
+            },
+          ],
+        },
+        wasOriginatedBy: {
+          allOf: [
+            { $ref: `${sosaRef}/#/x-jsonld-extra-terms/wasOriginatedBy` },
+            {
+              title: 'Oorzaak emissie',
+              type: 'string',
+            },
+          ],
+        },
+        phenomenonTime: {
+          title: 'Fenomeentijd',
+          type: 'string',
+          format: 'date-time',
+          'x-jsonld-id': 'http://www.w3.org/ns/sosa/phenomenonTime',
+          'x-jsonld-type': 'http://www.w3.org/2001/XMLSchema#dateTime',
+        },
+        madeBySensor: {
+          title: 'Sensor',
+          type: 'string',
+          format: 'uri',
+          'x-jsonld-id': 'http://www.w3.org/ns/prov/madeBySensor',
+        },
+        usedProcedure: {
+          title: 'Procedure',
+          type: 'string',
+          format: 'uri',
+          'x-jsonld-id': 'http://www.w3.org/ns/prov/usedProcedure',
+        },
+        hasUltimateFeatureOfInterest: {
+          title: 'Uitgaand meetpunt',
+          type: 'string',
+          format: 'uri',
+          'x-jsonld-id': 'http://www.w3.org/ns/sosa/hasUltimateFeatureOfInterest',
         },
       },
     }

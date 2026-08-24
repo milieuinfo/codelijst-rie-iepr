@@ -28,7 +28,7 @@ export interface Concept {
   altLabel?: string[]
   definition?: string
   note?: string
-  isPartOf?: string[]
+  broaderPartitive?: string[]
   narrower?: string[]
   topConceptOf?: string
 

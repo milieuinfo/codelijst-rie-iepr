@@ -37,7 +37,7 @@ export class ConceptMapper {
       type,
       isRequired,
       isRepeatable,
-      isPartOf: concept.isPartOf,
+      broaderPartitive: concept.broaderPartitive,
       narrower: concept.narrower,
       relevantClass: concept.relevantClass,
       isFeatureOfInterest: concept.relation === 'sosa:hasFeatureOfInterest',

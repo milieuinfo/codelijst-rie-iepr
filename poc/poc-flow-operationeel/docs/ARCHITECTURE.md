@@ -20,9 +20,14 @@ poc/
 │   ├── components/     # Lit web components
 │   │   └── *.ts       # Individual component implementations
 │   ├── services/       # Data services
-│   │   └── codelist-service.ts  # Codelist parsing and querying
+│   │   ├── codelist-service.ts  # Thin façade (stable public API)
+│   │   ├── codelist-parse.ts    # JSON-LD flattening + typed views
+│   │   └── concept-query.ts     # Pure query helpers over the result
 │   ├── models/         # TypeScript interfaces and types
-│   │   └── skos-models.ts       # SKOS/RDF data models
+│   │   ├── concept.interface.ts # Concept
+│   │   ├── scheme.interface.ts  # Scheme
+│   │   ├── codelist-result.ts   # CodelistResult / JsonLdNode
+│   │   └── index.ts             # Barrel re-exports
 │   ├── pages/          # Page-level components (none yet)
 │   └── styles/         # CSS styles (minimal, using vl-* tokens)
 ├── docs/
@@ -55,7 +60,7 @@ Located in `src/services/codelist-service.ts`, this service handles:
 
 ## Data Models
 
-See `src/models/skos-models.ts` for TypeScript interfaces:
+See `src/models/` (`concept.interface.ts`, `scheme.interface.ts`) for TypeScript interfaces:
 
 - **Concept** - Represents a SKOS concept with properties like prefLabel, broader, narrower, relevantDataType, etc.
 - **Scheme** - Represents a SKOS concept scheme containing related concepts

@@ -223,10 +223,11 @@ export class SchemaFlattener {
     requiredSet: Set<string>,
     columns: ColumnDefinition[],
     arrayPath?: string,
+    arrayTitle?: string,
   ): void {
     for (const [key, prop] of Object.entries(properties)) {
       const path = `${prefix}${key}`;
-      this.processSingleProperty(key, prop, path, requiredSet, columns, arrayPath);
+      this.processSingleProperty(key, prop, path, requiredSet, columns, arrayPath, arrayTitle);
     }
   }
 
@@ -238,6 +239,7 @@ export class SchemaFlattener {
     requiredSet: Set<string>,
     columns: ColumnDefinition[],
     arrayPath?: string,
+    arrayTitle?: string,
   ): void {
     // Resolve refs to get effective schema
     const resolved = this.resolveEffective(prop);
@@ -253,7 +255,7 @@ export class SchemaFlattener {
     // Handle object with nested properties — recurse
     if (resolved.properties && !this.isLeafType(types)) {
       const childRequired = new Set(resolved.required || []);
-      this.processProperties(resolved.properties, `${path}/`, childRequired, columns, arrayPath);
+      this.processProperties(resolved.properties, `${path}/`, childRequired, columns, arrayPath, arrayTitle);
       return;
     }
 
@@ -262,7 +264,7 @@ export class SchemaFlattener {
       const itemsResolved = this.resolveEffective(resolved.items);
       if (itemsResolved.properties && !this.isLeafType(['object'])) {
         const childRequired = new Set(itemsResolved.required || []);
-        this.processProperties(itemsResolved.properties, `${path}/`, childRequired, columns, path);
+        this.processProperties(itemsResolved.properties, `${path}/`, childRequired, columns, path, resolved.title || arrayTitle);
         return;
       }
     }
@@ -288,6 +290,7 @@ export class SchemaFlattener {
       xUiFirst: resolved.xUiFirst ?? resolved['x-ui-first'] ?? false,
       xUiAfter: resolved.xUiAfter ?? resolved['x-ui-after'],
       parentArray: arrayPath,
+      arrayTitle,
     });
   }
 

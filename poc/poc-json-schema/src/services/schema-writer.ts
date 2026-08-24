@@ -16,6 +16,13 @@ export class SchemaWriter {
     await fs.writeFile(filePath, JSON.stringify(schema, null, 2) + '\n', 'utf-8')
   }
 
+  async writeCollection(schema: JsonSchemaObject): Promise<void> {
+    const dir = path.resolve(this.outDir, 'schema')
+    await fs.mkdir(dir, { recursive: true })
+    const filePath = path.join(dir, 'observatie-verzameling.json')
+    await fs.writeFile(filePath, JSON.stringify(schema, null, 2) + '\n', 'utf-8')
+  }
+
   async writeTheme(themeName: string, domainSchema: JsonSchemaObject): Promise<void> {
     const themeSlug = themeName.toLowerCase()
       .replace(/[^\w\s-]/g, '')

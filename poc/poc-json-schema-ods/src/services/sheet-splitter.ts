@@ -14,10 +14,12 @@ export class SheetSplitter {
       const pathSegments = col.parentArray.split('/').filter(Boolean);
       const topKey = pathSegments[0];
       const topPath = '/' + topKey;
-      const title = this.findColumnTitle(columns, topPath) || topKey;
 
       let group = nestedGroups.get(topKey);
       if (!group) {
+        // Prefer a leaf column at the array path, else the array's Dutch title
+        // (e.g. "Observaties" for sosa:hasMember), else the raw key.
+        const title = this.findColumnTitle(columns, topPath) || col.arrayTitle || topKey;
         group = { title, columns: [], parentPath: topPath };
         nestedGroups.set(topKey, group);
       }

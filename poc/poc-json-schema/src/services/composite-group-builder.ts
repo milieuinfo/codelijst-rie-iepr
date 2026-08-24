@@ -16,11 +16,11 @@ export class CompositeGroupBuilder {
   }
 
   buildNestedStructure(fields: SchemaField[]): SchemaField[] {
-    // Build a map from parent concept ID -> its child fields (via isPartOf or narrower concept refs)
+    // Build a map from parent concept ID -> its child fields (via broaderPartitive or narrower concept refs)
     const parentIdToChildren = new Map<string, SchemaField[]>()
 
     for (const field of fields) {
-      const parentId = Array.isArray(field.isPartOf) && field.isPartOf.length > 0 ? field.isPartOf[0] : undefined
+      const parentId = Array.isArray(field.broaderPartitive) && field.broaderPartitive.length > 0 ? field.broaderPartitive[0] : undefined
       if (!parentId) continue
       if (!parentIdToChildren.has(parentId)) {
         parentIdToChildren.set(parentId, [])
@@ -28,10 +28,10 @@ export class CompositeGroupBuilder {
       parentIdToChildren.get(parentId)!.push(field)
     }
 
-    // Root fields are those without isPartOf references
+    // Root fields are those without broaderPartitive references
     const rootFields: SchemaField[] = []
     for (const field of fields) {
-      if (!Array.isArray(field.isPartOf) || field.isPartOf.length === 0) {
+      if (!Array.isArray(field.broaderPartitive) || field.broaderPartitive.length === 0) {
         rootFields.push({ ...field })
       }
     }
@@ -54,7 +54,7 @@ export class CompositeGroupBuilder {
     }
 
     // Recurse into any child that is itself a composite (i.e. has children to attach),
-    // regardless of how the mapper typed it — a concept with isPartOf children is a composite.
+    // regardless of how the mapper typed it — a concept with broaderPartitive children is a composite.
     if (field.children) {
       for (const child of field.children) {
         if (parentIdToChildren.has(child.conceptId)) {
@@ -271,7 +271,7 @@ export class CompositeGroupBuilder {
       children: mergedChildren,
       extensions: variants[0].extensions ? { ...variants[0].extensions } : undefined,
       narrower: variants.flatMap(v => v.narrower ?? []).filter((v, i, a) => a.indexOf(v) === i),
-      isPartOf: variants[0].isPartOf,
+      broaderPartitive: variants[0].broaderPartitive,
     }
 
     return mergedField

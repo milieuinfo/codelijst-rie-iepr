@@ -92,6 +92,11 @@ Verbindingsgegevens voor de Virtuoso-triplestore worden ingelezen vanuit een `.e
 ## Interpretatie
 Deze sectie bevat informatie over de interpretatie van de codelijsten.
 
+### Structurele gegevens
+Structurele gegevens zijn opgedeeld in meerdere CSV bestanden voor de verschillende structurele types in het datamodel. Met name, emissiepunten, installaties, filters, meetpunten, meetinstrumenten en uitwisselpunten. Elk van deze types heeft een eigen CSV-bestand voor de relevante eigenschappen die de vaste attributen van het datamodel aanvullen.
+
+
+
 ### Operationele gegevens
 Operationele gegevens beginnen vanaf de codelijst met de verschillende thematische stromen waarop met kan rapporteren. Deze sectie bevat voorbeelden van de verschillende stromen die aangeven hoe de relaties tussen de codelijsten tot stand komt. Het is gebaseerd op volgende algemene assumpties:
 - `skos:ConceptScheme` voor elk scherm/stap dat we aan de gebruiker willen tonen
@@ -108,6 +113,7 @@ Operationele gegevens beginnen vanaf de codelijst met de verschillende thematisc
 - `relevantCodeList` geeft aan dat in plaats van een vrij invoerveld, we een selectie willen tonen van een andere lijst. Dit zal steeds naar een `skos:ConceptScheme` verwijzen
 - `relevantUnit` geeft aan dat een veld (hoogstwaarschijnlijk een numeriek veld) een bepaalde eenheid heeft. Het kan echter ook verwijzen naar een `skos:ConceptScheme` met lijst van eenheden zodat er een selectie gemaakt moet worden
 - `relevantClass` geeft aan naar welke classe een concept gemapped moet worden. Bijvoorbeeld naar observatie, feature of interest, ...
+    - De top-level operationele concepten (bv. `grondstof`, `brandstof`, `lozing`, `meting`) mappen op `sosa:ObservationCollection`: een observatieverzameling die de rapportage over een emissie- of onttrekkingsgebeurtenis in een periode of op een moment bundelt. De geneste rapportageconcepten daaronder mappen op `sosa:Observation` en worden als lid-observaties (`sosa:hasMember`) deel van die verzameling
 - `relevantRiepr` geeft aan dat een selectie gemaakt moet worden van systemen/processen/... die actief waren in het productiejaar. In het geval dit start met `riepr:*` zoeken we op alle instanties van een concept (Installatie, Emisisepunt, ...). In het geval het start met een concept dan geven we aan dat het alle (sub)types zijn.
     - :warning: **Belangrijk:**
 

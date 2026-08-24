@@ -49,8 +49,11 @@ async function main() {
 
   mkdirSync(inputDir, { recursive: true });
 
-  // Copy base schema
+  // Copy base schema + observation-collection envelope base
   copyJson('observatie.json', join(inputDir, 'schema'));
+  if (existsSync(join(schemaSource, 'observatie-verzameling.json'))) {
+    copyJson('observatie-verzameling.json', join(inputDir, 'schema'));
+  }
 
   // Copy all theme schemas
   const themes = ['grondstoffen', 'grondwater', 'lucht', 'water', 'zelfcontrole-lucht', 'zelfcontrole-water'];

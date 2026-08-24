@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { CodelistService, type CodelistResult, type JsonLdNode } from './codelist-service.js'
-import type { Concept, Scheme } from '../models/skos-models.js'
+import type { Concept, Scheme } from '../models/index.js'
 
 const FIXTURE_PATH = path.resolve(
   __dirname,
@@ -99,7 +99,7 @@ describe('CodelistService — fixture parsing', () => {
     })
   })
 
-  describe('isPartOf/hasPart — getChildren() and getParent()', () => {
+  describe('broaderPartitive/hasPart — getChildren() and getParent()', () => {
     it('resolves children of a composite parent concept', () => {
       const result = loadFixture()
       const parent = result.concepts.get('riepr-operationeel-lucht:afvalproduct')
@@ -112,15 +112,15 @@ describe('CodelistService — fixture parsing', () => {
       // Each child should be resolvable from the concepts map
       for (const child of children) {
         expect(child.prefLabel).toBeTruthy()
-        expect(child.isPartOf).toContain(parent!.id)
+        expect(child.broaderPartitive).toContain(parent!.id)
       }
     })
 
-    it('resolves parent via isPartOf reference', () => {
+    it('resolves parent via broaderPartitive reference', () => {
       const result = loadFixture()
       const child = result.concepts.get('riepr-operationeel-lucht:afvalproduct_aard')
       expect(child).toBeDefined()
-      expect(child!.isPartOf).toBeDefined()
+      expect(child!.broaderPartitive).toBeDefined()
 
       const parent = CodelistServiceMock.getParent(result, child!)
       expect(parent).not.toBeNull()
@@ -133,7 +133,7 @@ describe('CodelistService — fixture parsing', () => {
       expect(CodelistServiceMock.getChildren(result, leafConcept)).toEqual([])
     })
 
-    it('returns null when concept has no isPartOf ref', () => {
+    it('returns null when concept has no broaderPartitive ref', () => {
       const result = loadFixture()
       const rootConcept = result.concepts.get('riepr-operationeel-lucht:afvalproduct')!
       expect(CodelistServiceMock.getParent(result, rootConcept)).toBeNull()
@@ -313,7 +313,7 @@ describe('CodelistService — fixture parsing', () => {
       const result = loadFixture()
       const concept = result.concepts.get('riepr-operationeel-lucht:afvalproduct')
       expect(concept).toBeDefined()
-      expect(concept!.relevantClass).toBe('sosa:Observation')
+      expect(concept!.relevantClass).toBe('sosa:ObservationCollection')
     })
 
     it('parses relevantClass for FeatureOfInterest concepts', () => {
@@ -323,6 +323,7 @@ describe('CodelistService — fixture parsing', () => {
       expect(concept!.relevantClass).toBe('sosa:FeatureOfInterest')
     })
   })
+
 })
 
 describe('conditionPath / conditionValue parsing', () => {
@@ -445,10 +446,6 @@ describe('conditionPath / conditionValue parsing', () => {
   })
 
   describe('getChildrenMerged()', () => {
-    function buildConcept(id: string, opts?: Partial<Concept>): Concept {
-      return { id, type: ['skos:Concept'], prefLabel: id.split(':').pop() ?? id, ...opts } as Concept
-    }
-
     it('returns empty array when concept has no children', () => {
       const result = access(svc).parseData({ graph: [{ id: 'leaf', '@type': ['skos:Concept'] }] }, true)
       const leafConcept = result.concepts.get('leaf')!
@@ -468,13 +465,13 @@ describe('conditionPath / conditionValue parsing', () => {
       const childA: JsonLdNode = {
         id: 'child-a',
         '@type': ['skos:Concept'],
-        isPartOf: 'parent',
+        broaderPartitive: 'parent',
         prefLabel: 'A',
       }
       const childB: JsonLdNode = {
         id: 'child-b',
         '@type': ['skos:Concept'],
-        isPartOf: 'parent',
+        broaderPartitive: 'parent',
         prefLabel: 'B',
       }
       const result = access(svc).parseData({ graph: [parentData, childA, childB] }, true)
@@ -492,7 +489,7 @@ describe('conditionPath / conditionValue parsing', () => {
         return {
           id,
           '@type': ['skos:Concept'],
-          isPartOf: 'parent',
+          broaderPartitive: 'parent',
           inScheme: 'scheme:test',
           prefLabel: label,
           relation: relation ?? '',
@@ -520,7 +517,7 @@ describe('conditionPath / conditionValue parsing', () => {
       const variantA: JsonLdNode = {
         id: 'variant-a',
         '@type': ['skos:Concept'],
-        isPartOf: 'parent',
+        broaderPartitive: 'parent',
         inScheme: 'scheme:test',
         prefLabel: 'Variant A (Belgisch)',
         related: ['variant-b'],
@@ -532,7 +529,7 @@ describe('conditionPath / conditionValue parsing', () => {
       const variantB: JsonLdNode = {
         id: 'variant-b',
         '@type': ['skos:Concept'],
-        isPartOf: 'parent',
+        broaderPartitive: 'parent',
         inScheme: 'scheme:test',
         prefLabel: 'Variant B (Buitenlands)',
         related: ['variant-a'],
@@ -571,7 +568,7 @@ describe('conditionPath / conditionValue parsing', () => {
         return {
           id,
           '@type': ['skos:Concept'],
-          isPartOf: 'parent',
+          broaderPartitive: 'parent',
           inScheme: 'scheme:test',
           prefLabel: label,
           relation: '',
@@ -597,13 +594,13 @@ describe('conditionPath / conditionValue parsing', () => {
       ]
 
       const va: JsonLdNode = {
-        id: 'v-a', '@type': ['skos:Concept'], isPartOf: 'parent', inScheme: 'scheme:test',
+        id: 'v-a', '@type': ['skos:Concept'], broaderPartitive: 'parent', inScheme: 'scheme:test',
         prefLabel: 'Variant A', related: ['v-b'],
         hasPart: [...vAChildren], conditionValue: [{ '@id': 'riepr-type:a' }],
       } as unknown as JsonLdNode
 
       const vb: JsonLdNode = {
-        id: 'v-b', '@type': ['skos:Concept'], isPartOf: 'parent', inScheme: 'scheme:test',
+        id: 'v-b', '@type': ['skos:Concept'], broaderPartitive: 'parent', inScheme: 'scheme:test',
         prefLabel: 'Variant B', related: ['v-a'],
         hasPart: [...vBChildren], conditionValue: [{ '@id': 'riepr-type:b' }],
       } as unknown as JsonLdNode

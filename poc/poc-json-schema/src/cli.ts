@@ -38,6 +38,7 @@ async function main() {
   const { BaseSchemaGenerator } = await import('./services/base-schema-generator.js')
   const baseGen = new BaseSchemaGenerator()
   const baseSchema = baseGen.generate()
+  const collectionSchema = baseGen.generateCollection()
 
   // Step 3: Resolve themes
   const { ThemeResolver } = await import('./services/theme-resolver.js')
@@ -94,6 +95,7 @@ async function main() {
 
     // Write output files
     await writer.writeBase(baseSchema)
+    await writer.writeCollection(collectionSchema)
     await writer.writeTheme(themeName, domainSchema)
 
     if (subSchemas) {

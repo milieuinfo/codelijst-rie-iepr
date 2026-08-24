@@ -100,7 +100,7 @@ The current scheme being rendered is always `flowStack[flowStack.length - 1].sch
 The POC must stay generic so that new flows can be added later per `docs/PROJECT_OUTLINE.md`. To add another step or handle new codelist properties:
 
 ### Step A: Add any new data resolution logic
-If the new step needs to resolve references from the codelist (e.g. a new property on Concept or Scheme), extend `CodelistService` with a helper method and/or update the typed models in `src/models/skos-models.ts`. The service is designed to handle new properties without breaking existing ones.
+If the new step needs to resolve references from the codelist (e.g. a new property on Concept or Scheme), extend `CodelistService` with a helper method and/or update the typed models in `src/models/` (`concept.interface.ts`, `scheme.interface.ts`). The service is designed to handle new properties without breaking existing ones.
 
 ### Step B: Create a new Lit component
 Create `src/components/codelijst-new-step.ts`:

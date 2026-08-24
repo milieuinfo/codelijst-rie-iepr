@@ -33,9 +33,24 @@ import type { CodelistResult } from '../services/codelist-service.js'
 import { createControl, DataType } from '../services/field-control-factory.js'
 import { getMockInstances } from '../services/mock-data.service.js'
 import { resolveUnitLabel } from '../services/unit-labels.js'
-import { sortByUiOrder } from '../services/ui-sort.js'
+import { applyUiOrdering } from '../services/ui-sort.js'
+import {
+  matchesCondition,
+  hasValueForConcept,
+  hasSelection,
+  anyStructuralSelected,
+} from '../services/field-state.js'
+import {
+  resolveSeeAlsoTargetScheme,
+  getFieldStructuralRefs,
+  getEmbeddedPickerIds,
+  collectAllStructuralConceptIds,
+  expandSchemeRelevantRieprToFields,
+  getGateInstructionMessage,
+  getFieldGateMessage,
+} from '../services/structural-refs.js'
 import { vlMarginStyles } from '@domg-wc/styles/layout/margin/vl-margin.css.js'
-import type { Concept, Scheme } from '../models/skos-models.js'
+import type { Concept, Scheme } from '../models/index.js'
 
 export class CodelijstOperationeelFields extends LitElement {
   static override styles = [
@@ -142,38 +157,6 @@ export class CodelijstOperationeelFields extends LitElement {
     return this.codelistService ??= new CodelistService()
   }
 
-  /**
-   * Sorts a group of sibling fields by their relative UI ordering annotations
-   * (_uiFirst, _uiAfter), with conditionPath-dependent fields placed last.
-   * Composite children are sorted within their own group at the same hierarchy level.
-   */
-  private applyUiOrdering(fields: Concept[]): Concept[] {
-    // First resolve condition dependencies so conditional fields render after triggers
-    const conditionMap = new Map<string, string>()
-    for (const f of fields) {
-      if (f.conditionPath && f.conditionValue) {
-        conditionMap.set(f.conditionPath, f.id)
-      }
-    }
-
-    const independent: Concept[] = []
-    const dependent: Concept[] = []
-
-    for (const f of fields) {
-      if (!f.conditionPath || !conditionMap.has(f.conditionPath)) {
-        independent.push(f)
-      } else {
-        dependent.push(f)
-      }
-    }
-
-    // Apply relative UI ordering within each group
-    const sortedIndependent = sortByUiOrder(independent)
-    const sortedDependent = sortByUiOrder(dependent)
-
-    return [...sortedIndependent, ...sortedDependent]
-  }
-
    override render() {
     if (!this.result || !this.schemeId) return nothing
 
@@ -186,11 +169,11 @@ export class CodelijstOperationeelFields extends LitElement {
     // These are "structural-only" schemes where the entire content is driven by type selection.
     // We expand any referenced type schemes into synthetic field groups for rendering.
     if (rootFields.length === 0 && scheme.relevantRiepr?.length) {
-      rootFields = this.expandSchemeRelevantRieprToFields(scheme)
+      rootFields = expandSchemeRelevantRieprToFields(this.result!, scheme)
     }
     
     // Sort root fields: condition-dependent last, UI ordering within groups.
-    rootFields = this.applyUiOrdering(rootFields)
+    rootFields = applyUiOrdering(rootFields)
 
     const structuralPicker = this.renderStructuralPicker(scheme)
 
@@ -198,7 +181,7 @@ export class CodelijstOperationeelFields extends LitElement {
     // Only gate if at least one visible picker was rendered (pickers require seeded mock data).
     const hasVisiblePickers = structuralPicker !== nothing
     const allStructuralIds = new Set<string>()
-    for (const id of this.collectAllStructuralConceptIds(scheme, rootFields)) {
+    for (const id of collectAllStructuralConceptIds(this.result!, scheme, rootFields)) {
       allStructuralIds.add(id)
     }
     const needsGating = hasVisiblePickers && allStructuralIds.size > 0
@@ -218,8 +201,8 @@ export class CodelijstOperationeelFields extends LitElement {
     }
 
     // Gate children behind structural selection when relevantRiepr defines structural types.
-    if (needsGating && !this.anyStructuralSelected()) {
-      const gateMessage = this.getGateInstructionMessage(scheme, rootFields)
+    if (needsGating && !anyStructuralSelected(this.structuralSelections)) {
+      const gateMessage = getGateInstructionMessage(this.result!, scheme, rootFields)
       return html`
         ${structuralPicker}
         <p class="vl-margin--small">${gateMessage}</p>
@@ -228,7 +211,7 @@ export class CodelijstOperationeelFields extends LitElement {
 
     return html`
       ${structuralPicker}
-      ${renderedGroups.map(group => html`<div class="codelijst-group ${group.repeatable ? 'codelijst-repeatable-group' : ''}">${group.content}</div>`)}
+      ${renderedGroups.map(group => html`<div class="codelijst-group ${group.repeatable ? 'codelijst-repeatable-group' : ''}" title=${group.tooltip ?? nothing}>${group.content}</div>`)}
     `
 
   }
@@ -279,14 +262,18 @@ export class CodelijstOperationeelFields extends LitElement {
   }
 
   /** Returns the rendered content for a root field (or nothing if hidden by conditions). */
-  private renderRootFieldContent(field: Concept): { content: ReturnType<typeof html>; repeatable: boolean } | typeof nothing {
+  private renderRootFieldContent(field: Concept): { content: ReturnType<typeof html>; repeatable: boolean; tooltip?: string } | typeof nothing {
     if (!this.result) return nothing
 
     // Check composite group-level condition before rendering anything.
      // Root fields with hasPart children (composite groups) still need their own
     // conditionPath/conditionValue evaluated — e.g., "Grondstof" group depends on
     // checkbox "Heeft u grondstoffen geproduceerd?".
-    if (!this.matchesCondition(field)) return nothing
+    if (!matchesCondition(field, this._fieldValues)) return nothing
+
+    // relevantClass is pure side information in this POC — shown as a hover
+    // tooltip on the group, never driving rendering behavior.
+    const tooltip = field.relevantClass ? `relevantClass: ${field.relevantClass}` : undefined
 
     let children = this._service.getChildrenMerged(this.result, field)
     let groupPicker: ReturnType<typeof html> | typeof nothing = nothing
@@ -319,7 +306,7 @@ export class CodelijstOperationeelFields extends LitElement {
     }
 
     // Case B: Has direct children → check for embedded procedural pickers on grandchildren
-    const embeddedPickerIds = this.getEmbeddedPickerIds(field)
+    const embeddedPickerIds = getEmbeddedPickerIds(this.result!, field)
     if (embeddedPickerIds.length > 0 && !groupPicker) {
       // Render pickers for each embedded procedural concept
       groupPicker = html`
@@ -340,7 +327,7 @@ export class CodelijstOperationeelFields extends LitElement {
     const count = isRepeatable ? this.repeatCounts.get(field.id) ?? 1 : 1
 
     // Check if this field has a seeAlso reference to another scheme (multi-step flow trigger)
-    const targetSchemeId = this.resolveSeeAlsoTargetScheme(field)
+    const targetSchemeId = resolveSeeAlsoTargetScheme(this.result!, field)
 
     // Render instances and filter out hidden ones (conditionPath/conditionValue)
     const visibleInstances: ReturnType<typeof html>[] = []
@@ -358,16 +345,16 @@ export class CodelijstOperationeelFields extends LitElement {
         ? groupPicker !== nothing && !hasEmbeddedSelection
           ? html`
               <vl-fieldset>
-                <span slot="legend">${field.prefLabel ?? field.id}${isRepeatable ? ` ${index + 1}` : ''}</span>
+                <span slot="legend" title=${tooltip ?? nothing}>${field.prefLabel ?? field.id}${isRepeatable ? ` ${index + 1}` : ''}</span>
                 ${groupPicker}
-                <p class="vl-margin--small" style="font-size:0.875rem;color:var(--vl-color--text-alt,#687483);margin-top:0.5rem;margin-bottom:0;">${this.getFieldGateMessage(field)}</p>
+                <p class="vl-margin--small" style="font-size:0.875rem;color:var(--vl-color--text-alt,#687483);margin-top:0.5rem;margin-bottom:0;">${getFieldGateMessage(this.result!, field)}</p>
               </vl-fieldset>
             `
           : html`
               <vl-fieldset>
-                <span slot="legend">${field.prefLabel ?? field.id}${isRepeatable ? ` ${index + 1}` : ''}</span>
+                <span slot="legend" title=${tooltip ?? nothing}>${field.prefLabel ?? field.id}${isRepeatable ? ` ${index + 1}` : ''}</span>
                 ${groupPicker}
-                 ${this.applyUiOrdering(children).map(child => html`<div class="codelijst-group__child">${this.renderFieldControl(child, suffix, field.id)}</div>`)}
+                 ${applyUiOrdering(children).map(child => html`<div class="codelijst-group__child">${this.renderFieldControl(child, suffix, field.id)}</div>`)}
                 ${targetSchemeId && hasEmbeddedSelection ? html`<p class="seealso-hint">↑ Selecteer een item hierboven om verder te gaan met de gedetailleerde rapportering.</p>` : nothing}
               </vl-fieldset>
             `
@@ -377,7 +364,7 @@ export class CodelijstOperationeelFields extends LitElement {
       const fieldWithHint = !isComposite && targetSchemeId
         ? html`
             ${body}
-            ${this.hasValueForConcept(field.id)
+            ${hasValueForConcept(this._fieldValues, field.id)
               ? html`<p class="seealso-hint">Een waarde is geselecteerd — de volgende stap wordt automatisch geladen.</p>`
               : nothing}
           `
@@ -401,78 +388,14 @@ export class CodelijstOperationeelFields extends LitElement {
       ? html`<vl-button secondary @click="${() => this.addInstance(field.id)}">+ Nog ${(field.prefLabel ?? 'item').toLowerCase()} toevoegen</vl-button>`
       : nothing
 
-    return { content: html`${visibleInstances}${addButton}`, repeatable: isRepeatable }
-  }
-
-  /** Check if a concept has any stored value. */
-  private hasValueForConcept(conceptId: string): boolean {
-    const val = this._fieldValues.get(conceptId)
-    if (val === undefined || val === '') return false
-    // For multiselect fields, check array length
-    if (Array.isArray(val)) return val.length > 0 && val.some(v => v !== '')
-    return true
-  }
-
-  /** Resolve seeAlso to a target scheme id if present on a concept. Returns undefined for external refs. */
-  private resolveSeeAlsoTargetScheme(concept: Concept): string | undefined {
-    if (!this.result || !concept.seeAlso) return undefined
-    for (const refId of concept.seeAlso) {
-      const target = this.result.schemes.get(refId)
-      if (target) return target.id
-    }
-    return undefined
-  }
-
-  /**
-   * Resolves relevantRiepr refs on a field to structural type concepts that can be used as pickers.
-   * Filters out refs that don't resolve to local skos:Concept nodes or have no mock data available.
-   * Also handles cases where the ref ID doesn't match any concept in result.concepts but still has
-   * seeded mock data (e.g., "riepr:Installatie" which lacks a corresponding skos:Concept node).
-   */
-  private getFieldStructuralRefs(field: Concept): Concept[] {
-    if (!this.result || !field.relevantRiepr) return []
-    const resolved: Concept[] = []
-    for (const id of field.relevantRiepr) {
-      // Try exact match first
-      let concept = this.result!.concepts.get(id)
-      
-      // If not found, check if it's a compacted URI reference and try expanded form
-      if (!concept) {
-        // Handle compacted prefixes like "riepr:Installatie" vs full URIs
-        for (const [cid, c] of this.result!.concepts.entries()) {
-          const cidLocal = cid.split('#')[1]?.split('/').pop() ?? cid.split(':').pop()
-          const refLocal = id.split('#')[1]?.split('/').pop() ?? id.split(':').pop()
-          if (cidLocal && refLocal && cidLocal.toLowerCase() === refLocal.toLowerCase()) {
-            concept = c
-            break
-          }
-        }
-      }
-      
-      if (concept && Array.isArray(concept.type) && concept.type.includes('skos:Concept')) {
-        const instances = getMockInstances(concept.id, concept.prefLabel ?? concept.id)
-        if (instances.length > 0) resolved.push(concept)
-      } else {
-        // Fallback: even without a matching Concept node, if mock data is seeded for this ID,
-        // create a synthetic concept so the picker can still render.
-        const instances = getMockInstances(id, id.split(':').pop() ?? id)
-        if (instances.length > 0) {
-          resolved.push({
-            id,
-            type: ['skos:Concept'],
-            prefLabel: id.split(':').pop() ?? id,
-          } as Concept)
-        }
-      }
-    }
-    return resolved
+    return { content: html`${visibleInstances}${addButton}`, repeatable: isRepeatable, tooltip }
   }
 
   private renderFieldControl(field: Concept, idSuffix: string, parentFieldId?: string): ReturnType<typeof html> | typeof nothing {
     if (!this.result) return nothing
 
     // Conditional visibility check — hide field when conditionPath is set but unmet.
-    if (!this.matchesCondition(field)) return nothing
+    if (!matchesCondition(field, this._fieldValues)) return nothing
 
     const id = `${field.id}${idSuffix}`
     const required = field.isVerplicht === true
@@ -487,7 +410,7 @@ export class CodelijstOperationeelFields extends LitElement {
       return html`
         <vl-fieldset>
           <span slot="legend">${plainLabel}${required ? ' *' : ''}</span>
-           ${this.applyUiOrdering(nestedChildren).map(child => html`<div class="codelijst-group__child">${this.renderFieldControl(child, idSuffix, field.id)}</div>`)}
+            ${applyUiOrdering(nestedChildren).map(child => html`<div class="codelijst-group__child">${this.renderFieldControl(child, idSuffix, field.id)}</div>`)}
         </vl-fieldset>
       `
     }
@@ -497,7 +420,7 @@ export class CodelijstOperationeelFields extends LitElement {
     // relevantDataType/relevantCodeList, it should render as a mock-data structural
     // picker dropdown instead of a text input. This covers feature concepts like
     // feature_ep (schoorsteen), kwaliteitsmeting_feature (peilput/pomp), etc.
-    const structuralRefs = this.getFieldStructuralRefs(field)
+    const structuralRefs = getFieldStructuralRefs(this.result!, field)
     if (structuralRefs.length > 0 && !field.relevantDataType && !field.relevantCodeList) {
       const isMultiSelect = field.isMultiselect === true
       let pickerHtml: ReturnType<typeof html>
@@ -736,7 +659,7 @@ export class CodelijstOperationeelFields extends LitElement {
        // Track structural selection using all possible key forms.
        // Preserve arrays from <vl-select-rich multiple>; coerce single values to strings.
        const normalisedValue = Array.isArray(value) ? value : String(value ?? '')
-       if (this.result && this.hasSelection(normalisedValue)) {
+        if (this.result && hasSelection(normalisedValue)) {
          if (this.result.concepts.has(domId)) {
            this.structuralSelections.set(domId, normalisedValue)
          } else {
@@ -759,12 +682,6 @@ export class CodelijstOperationeelFields extends LitElement {
     }
   }
 
-  /** Returns true when a stored structural value counts as "something selected". */
-  private hasSelection(val: string | string[]): boolean {
-    if (Array.isArray(val)) return val.some(v => v && v !== '')
-    return val !== ''
-  }
-
   /** When a structural picker gets a value, check if its owning field has seeAlso → flow-navigate. */
   private checkSeeAlsoForPickerDomId(domId: string, value: unknown): void {
     if (!this.result) return
@@ -777,7 +694,7 @@ export class CodelijstOperationeelFields extends LitElement {
     // Try exact match first
     const directConcept = this.result.concepts.get(domId)
     if (directConcept) {
-      const targetSchemeId = this.resolveSeeAlsoTargetScheme(directConcept)
+      const targetSchemeId = resolveSeeAlsoTargetScheme(this.result!, directConcept)
       if (targetSchemeId) {
         this.dispatchEvent(
           new CustomEvent('flow-navigate', {
@@ -793,7 +710,7 @@ export class CodelijstOperationeelFields extends LitElement {
     // For compound IDs (parent__child), find any concept whose ID is contained in domId
     for (const [conceptId, concept] of this.result.concepts.entries()) {
       if (domId.includes(conceptId)) {
-        const targetSchemeId = this.resolveSeeAlsoTargetScheme(concept)
+        const targetSchemeId = resolveSeeAlsoTargetScheme(this.result!, concept)
         if (targetSchemeId) {
           this.dispatchEvent(
             new CustomEvent('flow-navigate', {
@@ -806,240 +723,6 @@ export class CodelijstOperationeelFields extends LitElement {
         }
       }
     }
-  }
-
-  /** When a structural/feature field with seeAlso gets a value, emit flow-navigate event. */
-  private checkSeeAlsoNavigation(conceptId: string, value: unknown): void {
-    if (!this.result) return
-    const hasValue = Array.isArray(value)
-      ? value.some(v => v && v !== '')
-      : !!value && String(value) !== ''
-    if (!hasValue) return
-
-    const concept = this.result.concepts.get(conceptId)
-    if (!concept) return
-
-    const targetSchemeId = this.resolveSeeAlsoTargetScheme(concept)
-    if (!targetSchemeId) return
-
-    // Emit flow-navigate event for the parent app to handle
-    this.dispatchEvent(
-      new CustomEvent('flow-navigate', {
-        bubbles: true,
-        composed: true,
-        detail: { schemeId: targetSchemeId, triggerConceptId: concept.id },
-      })
-    )
-  }
-
-  /**
-   * Returns true when any structural element has been selected by the user.
-   */
-  private anyStructuralSelected(): boolean {
-    for (const val of this.structuralSelections.values()) {
-      if (Array.isArray(val)) {
-        if (val.some(v => v && v !== '')) return true
-      } else if (val && val !== '') {
-        return true
-      }
-    }
-    return false
-  }
-
-  /**
-   * Collects all structural concept IDs needed by this scheme — both
-   * scheme-level relevantRiepr refs and root-field level embedded procedural pickers.
-   */
-  private collectAllStructuralConceptIds(scheme: Scheme, rootFields: Concept[]): Set<string> {
-    const result = this.result!
-    const ids = new Set<string>()
-
-    // Scheme-level relevantRiepr → structural concepts rendered at top
-    for (const ref of this._service.getRelevantRieprRefs(result, scheme)) {
-      if ((ref as Concept).type?.includes('skos:Concept')) {
-        ids.add(ref.id)
-      }
-    }
-
-    // Root fields with embedded procedural pickers via relevantRiepr → grandchildren's relevantRiepr
-    for (const field of rootFields) {
-      // Field-level relevantRiepr on non-composite fields → the field itself IS a picker
-      const fieldRefs = this.getFieldStructuralRefs(field)
-      if (fieldRefs.length > 0) {
-        for (const ref of fieldRefs) {
-          ids.add(ref.id)
-        }
-      }
-
-      if (field.relevantRiepr?.length) {
-        const referencedConcept = field.relevantRiepr.map(id => result.concepts.get(id)).find((c): c is Concept => c !== undefined)
-        if (referencedConcept) {
-          const grandchildren = this._service.getChildren(result, referencedConcept)
-          for (const gc of grandchildren) {
-            for (const rieprId of gc.relevantRiepr ?? []) {
-              const rieprConcept = result.concepts.get(rieprId)
-              if (rieprConcept && (rieprConcept.type ?? []).includes('skos:Concept')) {
-                ids.add(rieprId)
-              }
-            }
-          }
-        }
-      }
-    }
-
-    return ids
-  }
-
-  /**
-   * Derives a "select first" instruction message from data rather than hardcoding.
-   * Priority: (1) field's own selecteerEerstMessage, (2) relatedRiepr concept's definition,
-   * (3) relatedRiepr concept's prefLabel, (4) scheme-level relatedRiepr info.
-   */
-  private getGateInstructionMessage(scheme: Scheme, rootFields: Concept[]): string {
-    const result = this.result!
-
-    // Check if any composite field has its own message or relevantRiepr with useful definition
-    for (const f of rootFields) {
-      if (f.selecteerEerstMessage && f.selecteerEerstMessage.trim()) {
-        return f.selecteerEerstMessage.trim()
-      }
-      // Use the relatedRiepr concept's definition as instructional text
-      if (f.relevantRiepr?.length) {
-        for (const rid of f.relevantRiepr) {
-          const ref = result.concepts.get(rid)
-          if (ref?.definition) return ref.definition
-          if (ref?.prefLabel) return `Selecteer eerst een ${ref.prefLabel.toLowerCase()} om de velden te bekijken.`
-        }
-      }
-    }
-
-    // Fall back to scheme-level relatedRiepr info
-    for (const ref of this._service.getRelevantRieprRefs(result, scheme)) {
-      if ((ref as Concept).type?.includes('skos:Concept')) {
-        const c = ref as Concept
-        if (c.definition) return c.definition
-        if (c.prefLabel) return `Selecteer eerst een ${c.prefLabel.toLowerCase()}.`
-      }
-    }
-
-    // Ultimate fallback — generic Dutch instruction derived from context
-    return 'Selecteer eerst een type in de bovenstaande lijst.'
-  }
-
-  /** Derives the "select first" message for a specific field's embedded picker gating. */
-  private getFieldGateMessage(field: Concept): string {
-    // Field-level custom message takes priority
-    if (field.selecteerEerstMessage?.trim()) return field.selecteerEerstMessage.trim()
-
-    // Try relatedRiepr concepts on this field or its children for instructional text
-    const result = this.result!
-    for (const rid of field.relevantRiepr ?? []) {
-      const ref = result.concepts.get(rid)
-      if (ref?.definition) return ref.definition
-      if (ref?.prefLabel) return `Selecteer eerst een ${ref.prefLabel.toLowerCase()} om deze velden te bekijken.`
-    }
-    // Check grandchildren too
-    for (const child of this._service.getChildren(result, field)) {
-      for (const rid of child.relevantRiepr ?? []) {
-        const ref = result.concepts.get(rid)
-        if (ref?.definition) return ref.definition
-        if (ref?.prefLabel) return `Selecteer eerst een ${ref.prefLabel.toLowerCase()}.`
-      }
-    }
-
-    return 'Selecteer eerst een type om de velden te bekijken.'
-  }
-
-  /**
-   * Collects embedded procedural picker concept IDs from a composite field,
-   * including grandchildren's relevantRiepr even when the field has direct children.
-   */
-  private getEmbeddedPickerIds(field: Concept): string[] {
-    const result = this.result!
-    const ids: string[] = []
-
-    // Case A: No direct children → expand via relevantRiepr referenced concept
-    const directChildren = this._service.getChildren(result, field)
-    if (directChildren.length === 0 && field.relevantRiepr?.length) {
-      const referencedConcept = field.relevantRiepr.map(id => result.concepts.get(id)).find((c): c is Concept => c !== undefined)
-      if (referencedConcept) {
-        const grandchildren = this._service.getChildren(result, referencedConcept)
-        for (const gc of grandchildren) {
-          for (const rieprId of gc.relevantRiepr ?? []) {
-            const rieprConcept = result.concepts.get(rieprId)
-            if (rieprConcept && (rieprConcept.type ?? []).includes('skos:Concept') && getMockInstances(rieprConcept.id, rieprConcept.prefLabel ?? rieprConcept.id).length > 0) {
-              ids.push(rieprConcept.id)
-            }
-          }
-        }
-      }
-    }
-
-    // Case B: Has direct children → check grandchildren's relevantRiepr for procedural pickers
-    for (const child of directChildren) {
-      for (const rieprId of child.relevantRiepr ?? []) {
-        const rieprConcept = result.concepts.get(rieprId)
-        if (rieprConcept && (rieprConcept.type ?? []).includes('skos:Concept') && getMockInstances(rieprConcept.id, rieprConcept.prefLabel ?? rieprConcept.id).length > 0) {
-          if (!ids.includes(rieprConcept.id)) {
-            ids.push(rieprConcept.id)
-          }
-        }
-      }
-    }
-
-    return ids
-  }
-
-  /**
-   * Expands a scheme's relevantRiepr refs into synthetic field concepts when the scheme
-   * has no hasTopConcept of its own. This handles "structural-only" schemes like
-   * operationeel_zelfcontrole_lucht where content is driven entirely by type selection.
-   *
-   * For ConceptScheme refs: creates one synthetic picker field per type scheme that lists
-   * all top concepts as dropdown options (e.g., "Kies emissiepunt type" → schoorsteen/lozingspunt).
-   * For direct Concept refs: creates a synthetic field with narrowed children as sub-fields.
-   */
-  private expandSchemeRelevantRieprToFields(scheme: Scheme): Concept[] {
-    if (!this.result || !scheme.relevantRiepr) return []
-    const fields: Concept[] = []
-
-    for (const refId of scheme.relevantRiepr) {
-      // Try resolving as a Concept first
-      const concept = this.result.concepts.get(refId)
-      
-      // If not found, check if it resolves to a ConceptScheme and create a unified type picker
-      if (!concept) {
-        const maybeScheme = this.result.schemes.get(refId)
-        if (maybeScheme) {
-          // Create ONE synthetic field whose relevantCodeList points to the type scheme.
-          // This renders as a vl-select populated from the scheme's top concepts.
-          const label = maybeScheme.prefLabel ?? 'Type'
-          fields.push({
-            id: `${scheme.id}:type-picker-${refId.split(':').pop() ?? refId}`,
-            type: ['skos:Concept'],
-            prefLabel: `Kies ${label.toLowerCase()}`,
-            definition: maybeScheme.definition,
-            relevantCodeList: [refId],
-          })
-          continue
-        }
-      }
-
-      // Direct concept ref — create synthetic field with its children expanded
-      if (concept && Array.isArray(concept.type) && concept.type.includes('skos:Concept')) {
-        const children = this._service.getChildren(this.result, concept)
-        fields.push({
-          id: `${scheme.id}:${concept.id.split(':').pop() ?? concept.id}`,
-          type: ['skos:Concept'],
-          prefLabel: concept.prefLabel ?? concept.id,
-          definition: concept.definition,
-          relevantRiepr: [concept.id],
-           hasPart: children.length > 0 ? children.map(c => c.id) : undefined,
-        })
-      }
-    }
-
-    return fields
   }
 
   /**
@@ -1067,105 +750,6 @@ export class CodelijstOperationeelFields extends LitElement {
     }
 
     this.requestUpdate()
-  }
-
-   /**
-    * Checks whether a concept with conditionPath/conditionValue should be rendered.
-    * If no condition is defined the field always shows; otherwise the referenced
-    * field's current tracked value must equal `conditionValue`.
-    *
-    * Handles multiple value formats:
-    * - Checkbox: "true" / "false"
-    * - Select/code list: full concept ID like "riepr-operationeel-pomptoestand:rust"
-    *   where conditionValue normalizes to just "rust"
-    * - NaN: show when conditionPath field has no entered value (Number.isNaN check)
-    */
-   private matchesCondition(field: Concept): boolean {
-      const hasConditionValues = !!field.conditionValues && field.conditionValues.length > 0
-      if (!field.conditionPath || (!field.conditionValue && !hasConditionValues)) return true
-      const refId = field.conditionPath
-
-      // If conditionValues array is set, check ANY of them against the current value of the conditionPath field.
-      const conditionValues = field.conditionValues ?? []
-      if (hasConditionValues) {
-        for (const expected of conditionValues) {
-          // NaN sentinel: show when the referenced field has no entered value
-          if (expected === 'NaN') {
-            const stored = this._fieldValues.get(refId)
-            if (stored === undefined || stored === '' || (Array.isArray(stored) && stored.length === 0)) return true
-            const basePrefix = refId.replace(/#\d+$/, '')
-            let anyValued = false
-            for (const [key, val] of this._fieldValues.entries()) {
-              if (key.startsWith(basePrefix) && val !== undefined && val !== '') { anyValued = true; break }
-            }
-            if (!anyValued) return true
-            continue
-          }
-          const normExpected = expected.toLowerCase().trim()
-          const stored = this._fieldValues.get(refId)
-          if (stored !== undefined && this.valueMatchesExpected(String(stored), normExpected)) return true
-          const basePrefix = refId.replace(/#\d+$/, '')
-          for (const [key, val] of this._fieldValues.entries()) {
-            if (key.startsWith(basePrefix) && this.valueMatchesExpected(String(val), normExpected)) {
-              return true
-            }
-          }
-        }
-        return false
-      }
-
-      // NaN sentinel: show when the referenced field has no entered value
-      if (typeof field.conditionValue === 'number' && Number.isNaN(field.conditionValue)) {
-       const stored = this._fieldValues.get(refId)
-       if (stored === undefined || stored === '' || (Array.isArray(stored) && stored.length === 0)) return true
-       // Also check base prefix for repeatable fields beyond #1
-       const basePrefix = refId.replace(/#\d+$/, '')
-       let anyValued = false
-       for (const [key, val] of this._fieldValues.entries()) {
-         if (key.startsWith(basePrefix) && val !== undefined && val !== '') { anyValued = true; break }
-       }
-       return !anyValued
-     }
-
-     // Normalize condition value for case-insensitive comparison.
-     const expected = String(field.conditionValue).toLowerCase().trim()
-
-    // Direct id match first (exact control that was rendered).
-    const stored = this._fieldValues.get(refId)
-    if (stored !== undefined && this.valueMatchesExpected(String(stored), expected)) return true
-
-    // Strip any instance suffix from the reference to get the base prefix.
-    const basePrefix = refId.replace(/#\d+$/, '')
-
-    // Check ALL stored values whose key starts with the base prefix,
-    // so repeatable-fields on instances beyond #1 also satisfy conditions.
-    for (const [key, val] of this._fieldValues.entries()) {
-      if (key.startsWith(basePrefix) && this.valueMatchesExpected(String(val), expected)) {
-        return true
-      }
-    }
-
-    return false
-  }
-
-  /**
-   * Checks whether a stored form-control value satisfies an expected condition value.
-   * Handles:
-   * - Exact string match (e.g. checkbox "true" === "true")
-   * - Colon-prefixed concept IDs (e.g. "riepr-op:pomptoestand:rust" matches "rust")
-   * - Hash fragments (e.g. "http://...#rust" matches "rust")
-   */
-  private valueMatchesExpected(stored: string, expected: string): boolean {
-    const s = stored.toLowerCase().trim()
-    // 1. Exact match (checkboxes, plain values)
-    if (s === expected) return true
-    // 2. Colon-suffix match: full concept ID like "prefix:rust" vs local name "rust"
-    if (s.endsWith(`:${expected}`)) return true
-    // 3. Hash fragment match: URI like "http://...#rust" vs local name "rust"
-    if (s.endsWith(`#${expected}`)) return true
-    // 4. Stored is the raw conditionValue with prefix (e.g. stored="concept:true", expected="true")
-    if (s.includes(':') && s.split(':').pop()!.toLowerCase() === expected) return true
-    return false
   }
 }
 
