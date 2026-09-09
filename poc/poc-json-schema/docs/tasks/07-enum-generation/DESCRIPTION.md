@@ -48,7 +48,7 @@ export class EnumGenerator {
    retrieve its top concepts via `result.topConcepts.get(schemeId)`.
 
 3. **Extract enum values**: For each top concept in the referenced scheme:
-   - Use the concept's full ID (e.g., `riepr-emissiepunt-type:schoorsteen`) as the enum value
+   - Use the concept's full ID (e.g., `emissiepunt:schoorsteen`) as the enum value
    - Store the `prefLabel` alongside for potential description enrichment
 
 4. **Handle multiple code lists**: A concept can have multiple `relevantCodeList` refs. Merge all

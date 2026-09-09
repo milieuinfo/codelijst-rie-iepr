@@ -121,7 +121,7 @@ export class CodelistEnricher {
     }
   }
 
-  /** Expand a CURIE like "riepr-operationeel-lucht:temperatuur" to full URI. */
+  /** Expand a CURIE like "lucht:temperatuur" to full URI. */
   expandCurie(curie: string): string {
     // Already a full URI
     if (curie.startsWith('http://') || curie.startsWith('https://')) {

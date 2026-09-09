@@ -4,7 +4,7 @@
   * (hasPart) attribute groups, per-field input controls driven by
  * relevantDataType/relevantCodeList, required/repeatable markers, and a
  * structural-element picker when the scheme's relevantRiepr points at a
- * type such as `riepr-meetpunt-type:debietmeter`.
+ * type such as `meetpunt:debietmeter`.
  *
  * Multi-step flows: when a concept has `seeAlso` pointing to another
  * conceptscheme, selecting a value for that concept triggers navigation

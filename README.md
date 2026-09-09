@@ -89,6 +89,63 @@ De configuratie staat in `src/source/config.yml`. Hierin worden onder andere de 
 
 Verbindingsgegevens voor de Virtuoso-triplestore worden ingelezen vanuit een `.env`-bestand (niet ingecheckt in de repository).
 
+### Codelijst-prefixen (CURIEs)
+
+Concepten worden in de bron-CSVs aangeduid met een korte prefix gevolgd door de code,
+bv. `installatie:stookinstallatie` of `installatie-eigenschappen:geinstalleerd_vermogen`.
+De prefixen zijn bewust kort en herkenbaar gehouden: de naam van de codelijst zonder
+technische voor- of achtervoegsels (`riepr-`, `-type`, `operationeel-`).
+
+Nieuwe prefixen worden gedeclareerd bovenaan het `prefixes:`-blok in `src/source/config.yml`;
+een prefix die in een CSV gebruikt wordt maar daar niet gedeclareerd is, laat `npm run generate_skos` falen.
+De onderliggende URIs zijn ongewijzigd — enkel de korte naam verandert, dus gepubliceerde
+identificatoren blijven geldig.
+
+| Prefix | Codelijst (pad onder `.../id/concept/riepr/`) |
+| --- | --- |
+| `aangifte:` | `aangifte-type/` |
+| `aangifte-status:` | `aangifte-status/` |
+| `bandbreedte:` | `norm_bandbreedte/` |
+| `bepalingsmethode:` | `operationeel-bepalingsmethode/` |
+| `bepalingsmethodeclassificatie:` | `operationeel-bepalingsmethodeclassificatie/` |
+| `bestemming:` | `operationeel-bestemmingstype/` |
+| `contextueel:` | `operationeel-contextueel/` |
+| `debiet:` | `operationeel-debiet-type/` |
+| `emissie:` | `emissie-type/` |
+| `emissiepunt:` | `emissiepunt-type/` |
+| `emissiepunt-eigenschappen:` | `emissiepunt-eigenschappen/` |
+| `emissiepunt-selectiemogelijkheden:` | `emissiepunt-eigenschappen-selectiemogelijkheden/` |
+| `filter:` | `filter-type/` |
+| `grondstoffen:` | `operationeel-grondstoffen/` |
+| `grondwater:` | `operationeel-grondwater/` |
+| `installatie:` | `installatie-type/` |
+| `installatie-eigenschappen:` | `installatie-eigenschappen/` |
+| `lozingsplaats:` | `lozingspunt-lozingsplaats/` |
+| `lucht:` | `operationeel-lucht/` |
+| `meetfrequentie:` | `operationeel-meetfrequentie/` |
+| `meetinstrument:` | `meetinstrument-type/` |
+| `meetpunt:` | `meetpunt-type/` |
+| `meetpunt-eigenschappen:` | `meetpunt-eigenschappen/` |
+| `onttrekkingspunt:` | `onttrekkingspunt-type/` |
+| `onttrekkingspunt-eigenschappen:` | `onttrekkingspunt-eigenschappen/` |
+| `peilmethode:` | `operationeel-peilmethode/` |
+| `pomptoestand:` | `operationeel-pomptoestand/` |
+| `procedure:` | `procedure-type/` |
+| `procesvariabele:` | `procesvariabele-type/` |
+| `rubriek:` | `rubriek-type/` |
+| `status-type:` | `status-type/` |
+| `techniekmonstername:` | `operationeel-techniekmonstername/` |
+| `thema:` | `thema-type/` |
+| `toepassingswijze:` | `operationeel-toepassingswijze/` |
+| `toestand-indicator:` | `operationeel-toestand-indicator/` |
+| `uitwisselpunt:` | `uitwisselpunt-type/` |
+| `uitwisselpunt-eigenschappen:` | `uitwisselpunt-eigenschappen/` |
+| `water:` | `operationeel-water/` |
+| `zelfcontrole-lucht:` | `operationeel-zelfcontrole-lucht/` |
+| `zelfcontrole-water:` | `operationeel-zelfcontrole-water/` |
+
+> `status-type:` heet niet `status:` omdat `status` al een term is in `context.json` (`adms:status`).
+
 ## Interpretatie
 Deze sectie bevat informatie over de interpretatie van de codelijsten.
 
@@ -131,19 +188,19 @@ Operationele gegevens beginnen vanaf de codelijst met de verschillende thematisc
 7.  Rapportering op activiteit bevat bijvoorbeeld het productievolume
 
 #### Grondstoffen
-4.  De grondstoffen stroom `conceptscheme:operationeel_grondstoffen` vereist eerst dat je eenvinkt of je grondstoffen hebt geproduceerd (`riepr-operationeel-grondstoffen:geproduceerd`)
-5.  Het toevoegen/rapporteren van grondstoffen (`riepr-operationeel-grondstoffen:grondstof`) is een meervoudige composite concept (via `hasPart`) dat enkel toont als `riepr-operationeel-grondstoffen:geproduceerd` = `true` (a.h.v. `conditionPath`/`conditionValue`)
+4.  De grondstoffen stroom `conceptscheme:operationeel_grondstoffen` vereist eerst dat je eenvinkt of je grondstoffen hebt geproduceerd (`grondstoffen:geproduceerd`)
+5.  Het toevoegen/rapporteren van grondstoffen (`grondstoffen:grondstof`) is een meervoudige composite concept (via `hasPart`) dat enkel toont als `grondstoffen:geproduceerd` = `true` (a.h.v. `conditionPath`/`conditionValue`)
 6.  Elementen die selecties uit een codelijst vereisen zoals toepassingswijze refereren naar een andere `skos:ConceptScheme`
 7.  De bestemmingsidentificatie van een grondstof is één logische groep die bestaat uit vier gerelateerde varianten (`related`): Belgische vestiging, buitenlandse vestiging, geen onderneming en werf. Afhankelijk van de gekozen `grondstof_bestemming_type` toont de applicatie één "Bestemmingsidentificatie"-groep met de juiste velden (naam, ondernemings-/vestigingsnummer, BTW-nummer of adres)
 
 #### Grondwater
 4.  De stroom grondwater `conceptscheme:operationeel_grondwater` vereist eerst dat je specifieert welke meting je wil uitvoeren; kwaliteitsmeting, peilmeting of onttrekking/infiltratie. Dit zijn `skos:Concept`en die meervoudig zijn en via de `hasPart` relatie opgedeeld in de gevraagde gegevens
-5.  Bijvoorbeeld. Peilmeting heeft een `relevantRiepr` met `riepr-filter-type:peil,riepr-filter-type:pomp`. In de JSON(-LD) zal dit als twee relaties komen te staan waardoor we dus zowel alle peil- en pompputten willen weergeven.
+5.  Bijvoorbeeld. Peilmeting heeft een `relevantRiepr` met `filter:peil,filter:pomp`. In de JSON(-LD) zal dit als twee relaties komen te staan waardoor we dus zowel alle peil- en pompputten willen weergeven.
 
 #### Lucht
 4.  De stroom lucht `conceptscheme:operationeel_lucht` vereist als eerste stap dat je een emissiepunt (voor lucht) selecteerd
 5.  Vervolgens moet je als multiselect bronnen selecteren (`riepr:Installatie`) verbonden met het emissiepunt. We weten dat we niet alle installaties zoeken omdat bij de selectie van het emissiepunt we als `relevantClass` = `sosa:FeatureOfInterest` hebben en dus binnen deze feature moeten zoeken
-6.  Onderliggende rapportering zoals `riepr-operationeel-lucht:brandstof` wordt op de bron+emissiepunt combinatie uitgevoerd en zijn composite concepten
+6.  Onderliggende rapportering zoals `lucht:brandstof` wordt op de bron+emissiepunt combinatie uitgevoerd en zijn composite concepten
 
 ## Licentie
 

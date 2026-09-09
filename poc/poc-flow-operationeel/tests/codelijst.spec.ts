@@ -21,7 +21,7 @@ async function selectProductionYear(page: Page) {
  * composite groups). Returns the last (active) operationeel-fields locator.
  */
 async function selectWaterLozing(page: Page) {
-  await page.selectOption('select#thema', { value: 'riepr-thema-type:water' })
+  await page.selectOption('select#thema', { value: 'thema:water' })
   const opFields = page.locator('codelijst-operationeel-fields')
   await expect(opFields).toBeVisible()
   // feature → controleinrichting single-select (flow-navigate to operationeel_water_lozing)
@@ -80,12 +80,12 @@ test.describe('Codelijst App', () => {
     await expect(page.locator('select#thema')).toBeVisible()
 
     // Grondwater → operationeel_grondwater (no sub-thema)
-    await page.selectOption('select#thema', { value: 'riepr-thema-type:grondwater' })
+    await page.selectOption('select#thema', { value: 'thema:grondwater' })
     await expect(page.locator('select#sub-thema')).not.toBeVisible()
     await expect(page.locator('codelijst-operationeel-fields')).toBeVisible()
 
     // Lucht → operationeel_lucht (still no sub-thema)
-    await page.selectOption('select#thema', { value: 'riepr-thema-type:lucht' })
+    await page.selectOption('select#thema', { value: 'thema:lucht' })
     await expect(page.locator('select#sub-thema')).not.toBeVisible()
     await expect(page.locator('codelijst-operationeel-fields')).toBeVisible()
   })
@@ -93,7 +93,7 @@ test.describe('Codelijst App', () => {
   test('selecting a thema without children that maps to operationeel scheme renders fields', async ({ page }) => {
     // Lucht has no sub-themas but its relevantRiepr -> conceptscheme:operationeel_lucht
     await expect(page.locator('select#thema')).toBeVisible()
-    await page.selectOption('select#thema', { value: 'riepr-thema-type:lucht' })
+    await page.selectOption('select#thema', { value: 'thema:lucht' })
 
     // Wait for the operationeel-fields component to appear and render vl-* controls
     const opFields = page.locator('codelijst-operationeel-fields')
@@ -112,7 +112,7 @@ test.describe('Codelijst App', () => {
   test('selecting the water thema renders its operationeel feature picker', async ({ page }) => {
     // Flat model: water → operationeel_water, whose single top concept is the
     // `feature` (Controlleinrichting) structural picker. No sub-thema is involved.
-    await page.selectOption('select#thema', { value: 'riepr-thema-type:water' })
+    await page.selectOption('select#thema', { value: 'thema:water' })
     await expect(page.locator('select#sub-thema')).not.toBeVisible()
 
     const opFields = page.locator('codelijst-operationeel-fields')
@@ -124,7 +124,7 @@ test.describe('Codelijst App', () => {
 
   test('repeatable field add button works without console errors', async ({ page }) => {
     // Afvalproduct in lucht scheme has isMeervoudig=true and renders a "+ Nog afvalproduct toevoegen" button
-    await page.selectOption('select#thema', { value: 'riepr-thema-type:lucht' })
+    await page.selectOption('select#thema', { value: 'thema:lucht' })
 
     const opFields = page.locator('codelijst-operationeel-fields')
     await expect(opFields).toBeVisible()
@@ -148,12 +148,12 @@ test.describe('Codelijst App', () => {
     // With the hierarchy flattened, the thema selector must contain exactly the six
     // leaf thema concepts — no sub-themas and no operationeel/concept-scheme leakage.
     const expected = [
-      'riepr-thema-type:grondstoffen',
-      'riepr-thema-type:grondwater',
-      'riepr-thema-type:lucht',
-      'riepr-thema-type:water',
-      'riepr-thema-type:zelfcontrole-lucht',
-      'riepr-thema-type:zelfcontrole-water',
+      'thema:grondstoffen',
+      'thema:grondwater',
+      'thema:lucht',
+      'thema:water',
+      'thema:zelfcontrole-lucht',
+      'thema:zelfcontrole-water',
     ]
     const optionValues = await page
       .locator('select#thema option:not([value=""])')
@@ -169,17 +169,17 @@ test.describe('Codelijst App', () => {
     await expect(page.locator('select#thema option:not([value=""])').first()).toBeAttached()
 
     // Select a thema — value should persist, not revert to empty string (placeholder)
-    await page.selectOption('select#thema', { value: 'riepr-thema-type:lucht' })
+    await page.selectOption('select#thema', { value: 'thema:lucht' })
     let themaValue = await page.inputValue('select#thema')
     expect(themaValue).not.toBe('')
-    expect(themaValue).toBe('riepr-thema-type:lucht')
+    expect(themaValue).toBe('thema:lucht')
 
     // Switching to another flat thema must also persist (and reveal no sub-thema)
-    await page.selectOption('select#thema', { value: 'riepr-thema-type:grondwater' })
+    await page.selectOption('select#thema', { value: 'thema:grondwater' })
     await expect(page.locator('select#sub-thema')).not.toBeVisible()
     themaValue = await page.inputValue('select#thema')
     expect(themaValue).not.toBe('')
-    expect(themaValue).toBe('riepr-thema-type:grondwater')
+    expect(themaValue).toBe('thema:grondwater')
   })
 
   test('visible labels are present for thema and operationeel fields', async ({ page }) => {
@@ -189,7 +189,7 @@ test.describe('Codelijst App', () => {
     await expect(themaLabel).toBeVisible()
 
     // Lucht has no sub-themas, its relevantRiepr resolves to an operationeel scheme with rendered fields
-    await page.selectOption('select#thema', { value: 'riepr-thema-type:lucht' })
+    await page.selectOption('select#thema', { value: 'thema:lucht' })
 
     const opFields = page.locator('codelijst-operationeel-fields')
     await expect(opFields).toBeVisible()
@@ -208,7 +208,7 @@ test.describe('Codelijst App', () => {
     const opFields = await selectWaterLozing(page)
 
     // "Aantal dagen per jaar" is a required xsd:string field → vl-input-field type="text" ?required=true
-    const requiredInput = opFields.locator('vl-input-field#riepr-operationeel-water\\:lozing-dagen\\#1')
+    const requiredInput = opFields.locator('vl-input-field#water\\:lozing-dagen\\#1')
     await expect(requiredInput).toBeVisible()
     const requiredAttr = await requiredInput.getAttribute('required')
     const requiredProp = await requiredInput.evaluate(el => (el as HTMLElement & { required?: boolean }).required ?? false)
@@ -221,7 +221,7 @@ test.describe('Codelijst App', () => {
     // "Verklaring" (abnormale-lozing-verklaring) has no isVerplicht → NOT required.
     const opFields = await selectWaterLozing(page)
 
-    const nonRequiredInput = opFields.locator('vl-input-field#riepr-operationeel-water\\:abnormale-lozing-verklaring\\#1')
+    const nonRequiredInput = opFields.locator('vl-input-field#water\\:abnormale-lozing-verklaring\\#1')
     await expect(nonRequiredInput).toBeVisible()
     const attr = await nonRequiredInput.getAttribute('required')
     const prop = await nonRequiredInput.evaluate(el => (el as HTMLElement & { required?: boolean }).required ?? false)
@@ -234,7 +234,7 @@ test.describe('Codelijst App', () => {
     // → renders as vl-input-field type="number" with required. Inside repeatable composite → #1 suffix.
     const opFields = await selectWaterLozing(page)
 
-    const reqNumber = opFields.locator('vl-input-field#riepr-operationeel-water\\:abnormale-lozing-lozingsduur\\#1')
+    const reqNumber = opFields.locator('vl-input-field#water\\:abnormale-lozing-lozingsduur\\#1')
     await expect(reqNumber).toBeVisible()
     const attr = await reqNumber.getAttribute('required')
     const prop = await reqNumber.evaluate(el => (el as HTMLElement & { required?: boolean }).required ?? false)
@@ -247,7 +247,7 @@ test.describe('Codelijst App', () => {
     // has no isVerplicht, relevantCodeList→operationeel_bepalingsmethode (internal scheme) → populated select.
     const opFields = await selectWaterLozing(page)
 
-    const nonReqSelect = opFields.locator('vl-select#riepr-operationeel-water\\:lozing-bepalingsmethode\\#1')
+    const nonReqSelect = opFields.locator('vl-select#water\\:lozing-bepalingsmethode\\#1')
     await expect(nonReqSelect).toBeVisible()
     const attr = await nonReqSelect.getAttribute('required')
     const prop = await nonReqSelect.evaluate(el => (el as HTMLElement & { required?: boolean }).required ?? false)
@@ -261,7 +261,7 @@ test.describe('Codelijst App', () => {
     // vl-input-field type="number" with required, in the first instance (#1).
     const opFields = await selectWaterLozing(page)
 
-    const reqDecimal = opFields.locator('vl-input-field#riepr-operationeel-water\\:lozing-debiet\\#1')
+    const reqDecimal = opFields.locator('vl-input-field#water\\:lozing-debiet\\#1')
     await expect(reqDecimal).toBeVisible()
     const attr = await reqDecimal.getAttribute('required')
     const prop = await reqDecimal.evaluate(el => (el as HTMLElement & { required?: boolean }).required ?? false)
@@ -277,13 +277,13 @@ test.describe('Codelijst App', () => {
     const opFields = await selectWaterLozing(page)
 
     // Select a value in the relevantCodeList select (lozing-bepalingsmethode#1)
-    const bepalingSelect = opFields.locator('vl-select#riepr-operationeel-water\\:lozing-bepalingsmethode\\#1')
+    const bepalingSelect = opFields.locator('vl-select#water\\:lozing-bepalingsmethode\\#1')
     await expect(bepalingSelect).toBeVisible()
-    await page.selectOption('select#riepr-operationeel-water\\:lozing-bepalingsmethode\\#1', { value: 'riepr-operationeel-bepalingsmethode:gemeten' })
+    await page.selectOption('select#water\\:lozing-bepalingsmethode\\#1', { value: 'bepalingsmethode:gemeten' })
 
     // Verify initial selection persisted
-    let selectValue = await page.inputValue('select#riepr-operationeel-water\\:lozing-bepalingsmethode\\#1')
-    expect(selectValue).toBe('riepr-operationeel-bepalingsmethode:gemeten')
+    let selectValue = await page.inputValue('select#water\\:lozing-bepalingsmethode\\#1')
+    expect(selectValue).toBe('bepalingsmethode:gemeten')
 
     // Trigger a full re-render of ALL fields by clicking a button in the same component tree.
     // The addInstance/removeInstance methods call requestUpdate() which re-renders all fields,
@@ -302,8 +302,8 @@ test.describe('Codelijst App', () => {
 
     // After the re-render caused by typing in the unrelated field,
     // the relevantCodeList select must STILL show its previously selected value.
-    selectValue = await page.inputValue('select#riepr-operationeel-water\\:lozing-bepalingsmethode\\#1')
-    expect(selectValue).toBe('riepr-operationeel-bepalingsmethode:gemeten')
+    selectValue = await page.inputValue('select#water\\:lozing-bepalingsmethode\\#1')
+    expect(selectValue).toBe('bepalingsmethode:gemeten')
   })
 
    test('conditional visibility — conditionPath/conditionValue shows/hides fields based on trigger field value', async ({ page }) => {
@@ -319,14 +319,14 @@ test.describe('Codelijst App', () => {
            const id: string = (node.id ?? node['@id'] ?? '') as string
                // lozing-dagen is a child of the repeatable "Lozing" group (renders with #1 suffix)
              // Its trigger reference points to bepalingsmethode#1, a sibling child of the same group
-            if (id === 'riepr-operationeel-water:lozing-dagen') {
-             node.condition_path = 'riepr-operationeel-water:lozing-bepalingsmethode#1'
-             node.condition_value = 'riepr-operationeel-bepalingsmethode:gemeten'
+            if (id === 'water:lozing-dagen') {
+             node.condition_path = 'water:lozing-bepalingsmethode#1'
+             node.condition_value = 'bepalingsmethode:gemeten'
            }
            // lozing-debiet same pattern — root concept, no suffix; uses geschat as trigger value
-           if (id === 'riepr-operationeel-water:lozing-debiet') {
-             node.condition_path = 'riepr-operationeel-water:lozing-bepalingsmethode#1'
-             node.condition_value = 'riepr-operationeel-bepalingsmethode:geschat'
+           if (id === 'water:lozing-debiet') {
+             node.condition_path = 'water:lozing-bepalingsmethode#1'
+             node.condition_value = 'bepalingsmethode:geschat'
            }
          }
        }
@@ -338,21 +338,21 @@ test.describe('Codelijst App', () => {
       // Navigate into operationeel_water_lozing (feature → controleinrichting), where
       // "Lozing" is a repeatable composite group carrying the conditioned child
       // fields (lozing-dagen / lozing-debiet) with a #1 suffix.
-      await page.selectOption('select#thema', { value: 'riepr-thema-type:water' })
+      await page.selectOption('select#thema', { value: 'thema:water' })
       const opFields = page.locator('codelijst-operationeel-fields')
       await expect(opFields).toBeVisible()
       await opFields.last().locator('select').first().selectOption({ index: 1 })
       await expect(opFields).toHaveCount(2)
 
       // Conditioned fields — neither should be visible initially (no trigger value selected yet)
-      const dagenField = opFields.locator('vl-input-field#riepr-operationeel-water\\:lozing-dagen\\#1')
-      const debietField = opFields.locator('vl-input-field#riepr-operationeel-water\\:lozing-debiet\\#1')
+      const dagenField = opFields.locator('vl-input-field#water\\:lozing-dagen\\#1')
+      const debietField = opFields.locator('vl-input-field#water\\:lozing-debiet\\#1')
      await expect(dagenField).not.toBeVisible()
      await expect(debietField).not.toBeVisible()
 
      // Select matching value for lozing-dagen's condition (trigger has #1 suffix as child of composite root)
-     await page.selectOption('select#riepr-operationeel-water\\:lozing-bepalingsmethode\\#1', {
-       value: 'riepr-operationeel-bepalingsmethode:gemeten',
+     await page.selectOption('select#water\\:lozing-bepalingsmethode\\#1', {
+       value: 'bepalingsmethode:gemeten',
      })
 
      // lozing-dagen should NOW appear, but lozing-debiet should still hide
@@ -360,8 +360,8 @@ test.describe('Codelijst App', () => {
      await expect(debietField).not.toBeVisible()
 
      // Switch to a different option that matches lozing-debiet's condition
-     await page.selectOption('select#riepr-operationeel-water\\:lozing-bepalingsmethode\\#1', {
-       value: 'riepr-operationeel-bepalingsmethode:geschat',
+     await page.selectOption('select#water\\:lozing-bepalingsmethode\\#1', {
+       value: 'bepalingsmethode:geschat',
      })
 
       // Now lozing-debiet should show and lozing-dagen should hide (exact-match logic)
@@ -392,7 +392,7 @@ test.describe('Codelijst App', () => {
           if (!value || typeof value !== 'object') return
           if (Array.isArray(value)) { value.forEach(patch); return }
           const node = value as Record<string, unknown>
-          if (node.id === 'riepr-operationeel-lucht:feature_bron' || node['@id'] === 'riepr-operationeel-lucht:feature_bron') {
+          if (node.id === 'lucht:feature_bron' || node['@id'] === 'lucht:feature_bron') {
             node.isMultiselect = 'false'
             node.is_multiselect = 'false'
           }
@@ -404,7 +404,7 @@ test.describe('Codelijst App', () => {
 
       await page.goto('/')
       await selectProductionYear(page)
-      await page.selectOption('select#thema', { value: 'riepr-thema-type:lucht' })
+      await page.selectOption('select#thema', { value: 'thema:lucht' })
       const opFields = page.locator('codelijst-operationeel-fields')
       await expect(opFields).toBeVisible()
 
@@ -436,14 +436,14 @@ test.describe('Codelijst App', () => {
 
       // The group's first instance carries its own child fields with a #1 suffix:
       // naam (first), aard, hoeveelheid.
-      await expect(afvalGroup.locator('vl-input-field#riepr-operationeel-lucht\\:afvalproduct_naam\\#1')).toBeVisible()
-      await expect(afvalGroup.locator('vl-input-field#riepr-operationeel-lucht\\:afvalproduct_aard\\#1')).toBeVisible()
-      await expect(afvalGroup.locator('vl-input-field#riepr-operationeel-lucht\\:afvalproduct_hoeveelheid\\#1')).toBeVisible()
+      await expect(afvalGroup.locator('vl-input-field#lucht\\:afvalproduct_naam\\#1')).toBeVisible()
+      await expect(afvalGroup.locator('vl-input-field#lucht\\:afvalproduct_aard\\#1')).toBeVisible()
+      await expect(afvalGroup.locator('vl-input-field#lucht\\:afvalproduct_hoeveelheid\\#1')).toBeVisible()
 
       // The brandstof group renders its own fields as well (naam, as, s, verbruik).
       const brandstofGroup = rapportering.locator('.codelijst-group', { hasText: 'Verbruikte brandstof' })
-      await expect(brandstofGroup.locator('vl-input-field#riepr-operationeel-lucht\\:brandstof_naam\\#1')).toBeVisible()
-      await expect(brandstofGroup.locator('vl-input-field#riepr-operationeel-lucht\\:brandstof_verbruik\\#1')).toBeVisible()
+      await expect(brandstofGroup.locator('vl-input-field#lucht\\:brandstof_naam\\#1')).toBeVisible()
+      await expect(brandstofGroup.locator('vl-input-field#lucht\\:brandstof_verbruik\\#1')).toBeVisible()
 
       // "+ Nog afvalproduct toevoegen" grows only this group's instance list.
       const instancesBefore = await afvalGroup.locator('vl-fieldset').count()
@@ -452,7 +452,7 @@ test.describe('Codelijst App', () => {
       expect(instancesAfter).toBe(instancesBefore + 1)
       // The new instance's fields appear with a #2 suffix; the original #1 fields persist.
       await expect(afvalGroup.locator('span[slot="legend"]', { hasText: 'Afvalproduct 2' })).toBeVisible()
-      await expect(afvalGroup.locator('vl-input-field#riepr-operationeel-lucht\\:afvalproduct_aard\\#2')).toBeVisible()
-      await expect(afvalGroup.locator('vl-input-field#riepr-operationeel-lucht\\:afvalproduct_aard\\#1')).toBeVisible()
+      await expect(afvalGroup.locator('vl-input-field#lucht\\:afvalproduct_aard\\#2')).toBeVisible()
+      await expect(afvalGroup.locator('vl-input-field#lucht\\:afvalproduct_aard\\#1')).toBeVisible()
     })
   })

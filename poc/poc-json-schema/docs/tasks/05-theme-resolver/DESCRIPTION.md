@@ -29,7 +29,7 @@ export class ThemeResolver {
   /**
    * Resolve a single theme by its concept ID.
    * @param result - Parsed codelist
-   * @param themeConceptId - ID of the thema concept (e.g., 'riepr-thema-type:lucht')
+   * @param themeConceptId - ID of the thema concept (e.g., 'thema:lucht')
    * @returns Resolved chain or undefined if not found
    */
   resolveTheme(result: CodelistResult, themeConceptId: string): ThemeChain | undefined

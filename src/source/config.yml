@@ -171,6 +171,52 @@ metadata :
       release_url: https://repo.omgeving.vlaanderen.be/ui/api/v1/download/contentBrowsing/release/be/vlaanderen/omgeving/data/id/graph/codelijst-rie-iepr
 
 prefixes :
+  # Codelijst-prefixen (CURIEs). Korte, herkenbare namen voor de business:
+  # gebruik ze in de bron-CSVs als <prefix>:<concept>, bv. installatie:stookinstallatie
+  # of installatie-eigenschappen:geinstalleerd_vermogen. De onderliggende URIs
+  # blijven ongewijzigd — enkel de korte naam verandert.
+  # NB: "status-type" heet niet "status" omdat "status" al een term is in context.json (adms:status).
+  aangifte-status: https://data.omgeving.vlaanderen.be/id/concept/riepr/aangifte-status/
+  aangifte: https://data.omgeving.vlaanderen.be/id/concept/riepr/aangifte-type/
+  bandbreedte: https://data.omgeving.vlaanderen.be/id/concept/riepr/norm_bandbreedte/
+  bepalingsmethode: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bepalingsmethode/
+  bepalingsmethodeclassificatie: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bepalingsmethodeclassificatie/
+  bestemming: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/
+  contextueel: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-contextueel/
+  debiet: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-debiet-type/
+  emissie: https://data.omgeving.vlaanderen.be/id/concept/riepr/emissie-type/
+  emissiepunt-eigenschappen: https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/
+  emissiepunt-selectiemogelijkheden: https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen-selectiemogelijkheden/
+  emissiepunt: https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/
+  filter: https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/
+  grondstoffen: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/
+  grondwater: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/
+  installatie-eigenschappen: https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/
+  installatie: https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/
+  lozingsplaats: https://data.omgeving.vlaanderen.be/id/concept/riepr/lozingspunt-lozingsplaats/
+  lucht: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/
+  meetfrequentie: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-meetfrequentie/
+  meetinstrument: https://data.omgeving.vlaanderen.be/id/concept/riepr/meetinstrument-type/
+  meetpunt-eigenschappen: https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen/
+  meetpunt: https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/
+  onttrekkingspunt-eigenschappen: https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunt-eigenschappen/
+  onttrekkingspunt: https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunt-type/
+  peilmethode: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-peilmethode/
+  pomptoestand: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/
+  procedure: https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/
+  procesvariabele: https://data.omgeving.vlaanderen.be/id/concept/riepr/procesvariabele-type/
+  rubriek: https://data.omgeving.vlaanderen.be/id/concept/riepr/rubriek-type/
+  status-type: https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/
+  techniekmonstername: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-techniekmonstername/
+  thema: https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/
+  toepassingswijze: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toepassingswijze/
+  toestand-indicator: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toestand-indicator/
+  uitwisselpunt-eigenschappen: https://data.omgeving.vlaanderen.be/id/concept/riepr/uitwisselpunt-eigenschappen/
+  uitwisselpunt: https://data.omgeving.vlaanderen.be/id/concept/riepr/uitwisselpunt-type/
+  water: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/
+  zelfcontrole-lucht: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/
+  zelfcontrole-water: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/
+
   csor: https://data.omgeving.vlaanderen.be/id/conceptscheme/csor/
   access_right: http://publications.europa.eu/resource/authority/access-right/
   adms: http://www.w3.org/ns/adms#
@@ -200,48 +246,8 @@ prefixes :
   platform: https://data.riepr.omgeving.vlaanderen.be/id/platform/
   licence: http://data.vlaanderen.be/id/licentie/modellicentie-gratis-hergebruik/
   locn: http://www.w3.org/ns/locn#
-  riepr-bandbreedte: https://data.omgeving.vlaanderen.be/id/concept/riepr/norm_bandbreedte/
   riepr: https://data.riepr.omgeving.vlaanderen.be/ns/riepr#
-  riepr-emissiepunt-type: https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/
-  riepr-procedure-type: https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/
-  riepr-procesvariabele-type: https://data.omgeving.vlaanderen.be/id/concept/riepr/procesvariabele-type/
-  riepr-meetpunt-type: https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/
-  riepr-onttrekkingspunt-type: https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunt-type/
-  riepr-rubriek-type: https://data.omgeving.vlaanderen.be/id/concept/riepr/rubriek-type/
-  riepr-filter-type: https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/
-  riepr-installatie-type: https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/
-  riepr-installatie-eigenschappen: https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/
-  riepr-emissiepunt-eigenschappen: https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/
-  riepr-emissiepunt-eigenschappen-selectiemogelijkheden: https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen-selectiemogelijkheden/
-  riepr-onttrekkingspunt-eigenschappen: https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunt-eigenschappen/
-  riepr-meetinstrument-type: https://data.omgeving.vlaanderen.be/id/concept/riepr/meetinstrument-type/
-  riepr-status-type: https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/
-  riepr-lozingspunt-lozingsplaats: https://data.omgeving.vlaanderen.be/id/concept/riepr/lozingspunt-lozingsplaats/
-  riepr-uitwisselpunt-type: https://data.omgeving.vlaanderen.be/id/concept/riepr/uitwisselpunt-type/
-  riepr-uitwisselpunt-eigenschappen: https://data.omgeving.vlaanderen.be/id/concept/riepr/uitwisselpunt-eigenschappen/
   riepr-vocab: https://data.riepr.omgeving.vlaanderen.be/ns/vocab#
-  riepr-aangifte-type: https://data.omgeving.vlaanderen.be/id/concept/riepr/aangifte-type/
-  riepr-aangifte-status: https://data.omgeving.vlaanderen.be/id/concept/riepr/aangifte-status/
-  riepr-operationeel-water: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/
-  riepr-operationeel-lucht: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/
-  riepr-operationeel-grondwater: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/
-  riepr-operationeel-grondstoffen: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/
-  riepr-operationeel-zelfcontrole-lucht: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/
-  riepr-operationeel-zelfcontrole-water: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/
-  riepr-operationeel-toestand-indicator: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toestand-indicator/
-  riepr-thema-type: https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/
-  riepr-operationeel-bepalingsmethode: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bepalingsmethode/
-  riepr-operationeel-bepalingsmethodeclassificatie: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bepalingsmethodeclassificatie/
-  riepr-operationeel-peilmethode: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-peilmethode/
-  riepr-operationeel-pomptoestand: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/
-  riepr-operationeel-meetfrequentie: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-meetfrequentie/
-  riepr-emissie-type: https://data.omgeving.vlaanderen.be/id/concept/riepr/emissie-type/
-  riepr-meetpunt-eigenschappen: https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen/
-  riepr-operationeel-bestemmingstype: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/
-  riepr-operationeel-contextueel: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-contextueel/
-  riepr-operationeel-debiet-type: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-debiet-type/
-  riepr-operationeel-toepassingwijze: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toepassingswijze/
-  riepr-operationeel-techniekmonstername: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-techniekmonstername/
   metadata: https://data.omgeving.vlaanderen.be/ns/metadata#
   observatie: https://data.riepr.omgeving.vlaanderen.be/id/observation/
   omg_catalog_doc: https://data.omgeving.vlaanderen.be/doc/catalog/
@@ -265,7 +271,7 @@ prefixes :
   org: http://www.w3.org/ns/org#
   ovo: http://data.vlaanderen.be/id/organisatie/
   owl: http://www.w3.org/2002/07/owl#
-  procedure: https://data.omgeving.vlaanderen.be/id/concept/observatieprocedure/
+  observatieprocedure: https://data.omgeving.vlaanderen.be/id/concept/observatieprocedure/
   property: https://id.erfgoed.net/property/
   provenancestatement: https://data.omgeving.vlaanderen.be/id/provenancestatement/dataset/
   prov: http://www.w3.org/ns/prov#

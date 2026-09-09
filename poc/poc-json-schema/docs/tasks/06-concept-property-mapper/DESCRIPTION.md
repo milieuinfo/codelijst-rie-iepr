@@ -25,7 +25,7 @@ export class ConceptMapper {
   /**
    * Derive a property name from a concept ID.
    * Strips the prefix to get the local part, then converts snake_case to camelCase.
-   * E.g., 'riepr-operationeel-lucht:brandstof_verbruik' → 'brandstofVerbruik'
+   * E.g., 'lucht:brandstof_verbruik' → 'brandstofVerbruik'
    */
   derivePropertyName(concept: Concept): string
 }

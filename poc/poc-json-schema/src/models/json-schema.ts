@@ -32,7 +32,7 @@ export interface AppearanceInfo {
 }
 
 export interface SchemaField {
-  /** Original SKOS concept ID (e.g. "riepr-operationeel-lucht:feature_ep") */
+  /** Original SKOS concept ID (e.g. "lucht:feature_ep") */
   conceptId: string
   propertyName: string
   label: string

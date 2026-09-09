@@ -102,7 +102,7 @@ describe('CodelistService — fixture parsing', () => {
   describe('broaderPartitive/hasPart — getChildren() and getParent()', () => {
     it('resolves children of a composite parent concept', () => {
       const result = loadFixture()
-      const parent = result.concepts.get('riepr-operationeel-lucht:afvalproduct')
+      const parent = result.concepts.get('lucht:afvalproduct')
       expect(parent).toBeDefined()
       expect(parent!.hasPart).toBeDefined()
       expect(parent!.hasPart!.length).toBeGreaterThan(0)
@@ -118,24 +118,24 @@ describe('CodelistService — fixture parsing', () => {
 
     it('resolves parent via broaderPartitive reference', () => {
       const result = loadFixture()
-      const child = result.concepts.get('riepr-operationeel-lucht:afvalproduct_aard')
+      const child = result.concepts.get('lucht:afvalproduct_aard')
       expect(child).toBeDefined()
       expect(child!.broaderPartitive).toBeDefined()
 
       const parent = CodelistServiceMock.getParent(result, child!)
       expect(parent).not.toBeNull()
-      expect(parent!.id).toBe('riepr-operationeel-lucht:afvalproduct')
+      expect(parent!.id).toBe('lucht:afvalproduct')
     })
 
     it('returns empty array when concept has no hasPart refs', () => {
       const result = loadFixture()
-      const leafConcept = result.concepts.get('riepr-operationeel-lucht:afvalproduct_aard')!
+      const leafConcept = result.concepts.get('lucht:afvalproduct_aard')!
       expect(CodelistServiceMock.getChildren(result, leafConcept)).toEqual([])
     })
 
     it('returns null when concept has no broaderPartitive ref', () => {
       const result = loadFixture()
-      const rootConcept = result.concepts.get('riepr-operationeel-lucht:afvalproduct')!
+      const rootConcept = result.concepts.get('lucht:afvalproduct')!
       expect(CodelistServiceMock.getParent(result, rootConcept)).toBeNull()
     })
 
@@ -148,12 +148,12 @@ describe('CodelistService — fixture parsing', () => {
     it('handles grondwater composite hierarchy inside operationeel_grondwater scheme', () => {
       const result = loadFixture()
       // Grondwater theme now uses seeAlso for navigation
-      const grondwaterThema = result.concepts.get('riepr-thema-type:grondwater')
+      const grondwaterThema = result.concepts.get('thema:grondwater')
       expect(grondwaterThema).toBeDefined()
       expect(grondwaterThema!.seeAlso).toContain('conceptscheme:operationeel_grondwater')
 
       // The composite measurement types are inside the operationeel_grondwater scheme
-      const peilmeting = result.concepts.get('riepr-operationeel-grondwater:peilmeting')
+      const peilmeting = result.concepts.get('grondwater:peilmeting')
       expect(peilmeting).toBeDefined()
       expect(peilmeting!.hasPart).toBeDefined()
       expect(peilmeting!.hasPart!.length).toBeGreaterThan(0)
@@ -169,7 +169,7 @@ describe('CodelistService — fixture parsing', () => {
   describe('unresolvable / dangling refs degrade gracefully', () => {
     it('getCodeListSchemes returns [] for external URL refs (ISSUES.md CODELIST-UNRESOLVABLE-REFS)', () => {
       const result = loadFixture()
-      const concept = result.concepts.get('riepr-installatie-eigenschappen:verwijderingsrendement_stof')
+      const concept = result.concepts.get('installatie-eigenschappen:verwijderingsrendement_stof')
       expect(concept).toBeDefined()
       const schemes = CodelistServiceMock.getCodeListSchemes(result, concept!)
       expect(schemes).toEqual([])
@@ -177,7 +177,7 @@ describe('CodelistService — fixture parsing', () => {
 
     it('getCodeListSchemes returns [] for TODO placeholder refs', () => {
       const result = loadFixture()
-      const concept = result.concepts.get('riepr-operationeel-water:lozing-meetfrequentie')
+      const concept = result.concepts.get('water:lozing-meetfrequentie')
       expect(concept).toBeDefined()
       const schemes = CodelistServiceMock.getCodeListSchemes(result, concept!)
       expect(schemes).toEqual([])
@@ -191,7 +191,7 @@ describe('CodelistService — fixture parsing', () => {
     it('getSeeAlsoRefs resolves theme → operationeel scheme navigation', () => {
       const result = loadFixture()
       // zelfcontrole-water's seeAlso points at operationeel_zelfcontrole_water scheme
-      const concept = result.concepts.get('riepr-thema-type:zelfcontrole-water')
+      const concept = result.concepts.get('thema:zelfcontrole-water')
       expect(concept).toBeDefined()
       expect(concept!.seeAlso).toBeDefined()
       expect(concept!.seeAlso!).toContain('conceptscheme:operationeel_zelfcontrole_water')
@@ -211,7 +211,7 @@ describe('CodelistService — fixture parsing', () => {
     it('getSeeAlsoRefs drops external URI references (ADMS status links)', () => {
       const result = loadFixture()
       // Status type concepts have seeAlso pointing at external ADMS URIs
-      const concept = result.concepts.get('riepr-status-type:in_dienst')
+      const concept = result.concepts.get('status-type:in_dienst')
       expect(concept).toBeDefined()
       expect(concept!.seeAlso).toBeDefined()
 
@@ -222,7 +222,7 @@ describe('CodelistService — fixture parsing', () => {
 
     it('getCodeListSchemes returns [] when all relevantCodeList refs are unresolvable', () => {
       const result = loadFixture()
-      const concept = result.concepts.get('riepr-operationeel-water:lozing-stof')
+      const concept = result.concepts.get('water:lozing-stof')
       expect(concept).toBeDefined()
       const schemes = CodelistServiceMock.getCodeListSchemes(result, concept!)
       expect(schemes).toEqual([])
@@ -236,14 +236,14 @@ describe('CodelistService — fixture parsing', () => {
      */
     it('resolves operationeel scheme via seeAlso (new format)', () => {
       const result = loadFixture()
-      const luchtThema = result.concepts.get('riepr-thema-type:lucht')!
+      const luchtThema = result.concepts.get('thema:lucht')!
       const schemeId = svc.resolveOperationeelSchemeId(result, luchtThema)
       expect(schemeId).toBe('conceptscheme:operationeel_lucht')
     })
 
     it('resolves operationeel scheme via seeAlso for grondstoffen', () => {
       const result = loadFixture()
-      const grondstoffenThema = result.concepts.get('riepr-thema-type:grondstoffen')!
+      const grondstoffenThema = result.concepts.get('thema:grondstoffen')!
       const schemeId = svc.resolveOperationeelSchemeId(result, grondstoffenThema)
       expect(schemeId).toBe('conceptscheme:operationeel_grondstoffen')
     })
@@ -251,7 +251,7 @@ describe('CodelistService — fixture parsing', () => {
     it('returns undefined when no seeAlso or relevantRiepr points to a scheme', () => {
       const result = loadFixture()
       // A leaf concept without schema references
-      const leafConcept = result.concepts.get('riepr-operationeel-lucht:afvalproduct_aard')!
+      const leafConcept = result.concepts.get('lucht:afvalproduct_aard')!
       const schemeId = svc.resolveOperationeelSchemeId(result, leafConcept)
       expect(schemeId).toBeUndefined()
     })
@@ -260,7 +260,7 @@ describe('CodelistService — fixture parsing', () => {
   describe('getConcept()', () => {
     it('returns a concept by id or undefined for unknown ids', () => {
       const result = loadFixture()
-      const known = CodelistServiceMock.getConcept(result, 'riepr-operationeel-lucht:afvalproduct')
+      const known = CodelistServiceMock.getConcept(result, 'lucht:afvalproduct')
       expect(known).toBeDefined()
       expect(known!.prefLabel).toBe('Afvalproduct')
 
@@ -296,14 +296,14 @@ describe('CodelistService — fixture parsing', () => {
     it('parses seeAlso on a concept that chains to a sub-scheme', () => {
       const result = loadFixture()
       // feature_bron has seeAlso → operationeel_lucht_rapportering
-      const concept = result.concepts.get('riepr-operationeel-lucht:feature_bron')
+      const concept = result.concepts.get('lucht:feature_bron')
       expect(concept).toBeDefined()
       expect(concept!.seeAlso).toContain('conceptscheme:operationeel_lucht_rapportering')
     })
 
     it('parses isMultiselect as boolean when normalizeBooleans is true', () => {
       const result = loadFixture()
-      const concept = result.concepts.get('riepr-operationeel-lucht:feature_bron')
+      const concept = result.concepts.get('lucht:feature_bron')
       expect(concept).toBeDefined()
       // isMultiselect: "true" in the source data → parsed as boolean true
       expect(concept!.isMultiselect).toBe(true)
@@ -311,14 +311,14 @@ describe('CodelistService — fixture parsing', () => {
 
     it('parses relevantClass string property', () => {
       const result = loadFixture()
-      const concept = result.concepts.get('riepr-operationeel-lucht:afvalproduct')
+      const concept = result.concepts.get('lucht:afvalproduct')
       expect(concept).toBeDefined()
       expect(concept!.relevantClass).toBe('sosa:ObservationCollection')
     })
 
     it('parses relevantClass for FeatureOfInterest concepts', () => {
       const result = loadFixture()
-      const concept = result.concepts.get('riepr-operationeel-lucht:feature_ep')
+      const concept = result.concepts.get('lucht:feature_ep')
       expect(concept).toBeDefined()
       expect(concept!.relevantClass).toBe('sosa:FeatureOfInterest')
     })

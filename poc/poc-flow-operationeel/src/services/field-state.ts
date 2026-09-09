@@ -35,7 +35,7 @@ export function valueMatchesExpected(stored: string, expected: string): boolean 
  *
  * Handles multiple value formats:
  * - Checkbox: "true" / "false"
- * - Select/code list: full concept ID like "riepr-operationeel-pomptoestand:rust"
+ * - Select/code list: full concept ID like "pomptoestand:rust"
  *   where conditionValue normalizes to just "rust"
  * - NaN: show when conditionPath field has no entered value (Number.isNaN check)
  * @param field - The concept whose condition to evaluate.

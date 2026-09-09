@@ -58,10 +58,10 @@ export const grondstoffenSample = {
   heeftUGrondstoffenGeproduceerd: true,
   grondstof: [
     {
-      bestemmingType: "riepr-operationeel-bestemmingstype:belgisch",
+      bestemmingType: "bestemming:belgisch",
       hoeveelheid: 100.5,
       omschrijving: "Test grondstof",
-      toepassingswijze: "riepr-operationeel-toepassingwijze:brandstof"
+      toepassingswijze: "toepassingswijze:brandstof"
     }
   ]
 }

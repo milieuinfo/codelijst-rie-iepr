@@ -41,7 +41,7 @@ The updated codelist uses `seeAlso` for two purposes:
 
 1. **Theme → operationeel scheme navigation:** Each thema concept has `seeAlso` pointing at its corresponding operationeel conceptscheme. Use `CodelistService.resolveOperationeelSchemeId()` which tries `seeAlso` first, then falls back to `relevantRiepr` for backward compatibility.
 
-2. **Multi-step flow chaining:** Within operational schemes, structural/feature concepts can have `seeAlso` pointing to sub-schemes. When the user selects a value for such a concept, the app navigates to the target scheme via a `flow-navigate` custom event. Example: `riepr-operationeel-lucht:feature_bron` has `seeAlso: "conceptscheme:operationeel_lucht_rapportering"`. After selecting bronnen, the app transitions to render the detailed reporting fields from that sub-scheme.
+2. **Multi-step flow chaining:** Within operational schemes, structural/feature concepts can have `seeAlso` pointing to sub-schemes. When the user selects a value for such a concept, the app navigates to the target scheme via a `flow-navigate` custom event. Example: `lucht:feature_bron` has `seeAlso: "conceptscheme:operationeel_lucht_rapportering"`. After selecting bronnen, the app transitions to render the detailed reporting fields from that sub-scheme.
 
 Service methods:
 - `getSeeAlsoRefs(result, node)` — resolves `seeAlso` refs to Scheme or Concept objects (external URIs silently dropped)
@@ -71,7 +71,7 @@ Look at those TypeScript declaration files to find which `<vl-*>` elements exist
 
 ## 4. Mock Data for Structural Lookups
 
-When an operationeel scheme's `relevantRiepr` points at a structural type concept (e.g. `riepr-meetpunt-type:debietmeter`), the app renders a mock dropdown of physical instances. This stands in for what would otherwise be a database lookup against previously reported installations/emission/measuring points.
+When an operationeel scheme's `relevantRiepr` points at a structural type concept (e.g. `meetpunt:debietmeter`), the app renders a mock dropdown of physical instances. This stands in for what would otherwise be a database lookup against previously reported installations/emission/measuring points.
 
 **File:** `src/services/mock-data.service.ts`
 

@@ -7,29 +7,29 @@ instruction to report rather than silently work around them.
 ## Data-quality gaps in rie-iepr.jsonld
 
 - **Issue ID**: CODELIST-UNRESOLVABLE-REFS
-  - **Description**: Several fields' `relevantCodeList` point outside this document: an external domain (`https://vito.be/codelijst/techniek`), a different/non-existent prefix (`conceptscheme-alg:chemische_stof`, `conceptscheme-alg:csor/variabele`), or the literal placeholder `http://TODO` (e.g. `riepr-operationeel-water:lozing-meetfrequentie`).
+  - **Description**: Several fields' `relevantCodeList` point outside this document: an external domain (`https://vito.be/codelijst/techniek`), a different/non-existent prefix (`conceptscheme-alg:chemische_stof`, `conceptscheme-alg:csor/variabele`), or the literal placeholder `http://TODO` (e.g. `water:lozing-meetfrequentie`).
   - **Impact**: Those fields would have no options to choose from.
   - **Status**: Open (upstream data).
   - **Solution**: `CodelistService.getCodeListSchemes()` resolves refs against the in-document scheme index and simply returns `[]` for anything it can't find; `codelijst-operationeel-fields.ts` still renders the `<vl-select>` (with only its placeholder option) rather than erroring out, per the "silently ignore, still show a selection" rule in PROJECT_OUTLINE.md.
 
 - **Issue ID**: HASTOPCONCEPT-INCLUDES-CHILDREN
-  - **Description**: `hasTopConcept` on an operationeel-* scheme lists every concept in the scheme, including composite children (a field's own `narrower` concepts), not just the top-level questions. E.g. `conceptscheme:operationeel_lucht`'s `hasTopConcept` contains both `riepr-operationeel-lucht:afvalproduct` (a composite root) and its children `..._aard`/`..._hoeveelheid`/`..._naam` as siblings.
+  - **Description**: `hasTopConcept` on an operationeel-* scheme lists every concept in the scheme, including composite children (a field's own `narrower` concepts), not just the top-level questions. E.g. `conceptscheme:operationeel_lucht`'s `hasTopConcept` contains both `lucht:afvalproduct` (a composite root) and its children `..._aard`/`..._hoeveelheid`/`..._naam` as siblings.
   - **Impact**: Naively rendering every `hasTopConcept` entry as a top-level field would duplicate composite children as standalone fields.
   - **Status**: Resolved in code.
   - **Solution**: `codelijst-operationeel-fields.ts` derives root fields as `getTopConceptsForScheme(...).filter(field => !field.broader)` — a concept with `broader` set is a composite child, never a root question. See AGENTS.md for details.
 
-**Note**: two previously-tracked data-quality issues — a missing `prefLabel` on `conceptscheme:thema_type`, and a pluralization typo in `riepr-thema-type:grondwater-kwaliteitsmeting`'s `relevantRiepr` — were confirmed fixed upstream after the 2026-07-27 codelist refresh and removed from this list.
+**Note**: two previously-tracked data-quality issues — a missing `prefLabel` on `conceptscheme:thema_type`, and a pluralization typo in `thema:grondwater-kwaliteitsmeting`'s `relevantRiepr` — were confirmed fixed upstream after the 2026-07-27 codelist refresh and removed from this list.
 
 ## Frontend rendering fixes (2026-07-27)
 
 - **Issue ID**: TEMPORAL-DATA-TYPE-RANGE
-  - **Description**: Fields with `relevantDataType=dcterms:temporal` (e.g. `riepr-operationeel-grondwater:periode`, "Periode van onttrekking") rendered as plain `<vl-input-field type="text">` instead of a date range picker.
+  - **Description**: Fields with `relevantDataType=dcterms:temporal` (e.g. `grondwater:periode`, "Periode van onttrekking") rendered as plain `<vl-input-field type="text">` instead of a date range picker.
   - **Impact**: Users could not select a start/end date range; had to type text manually without validation.
   - **Status**: Resolved.
   - **Solution**: Added `case 'dcterms:temporal':` in `renderFieldControl()` → renders `<vl-datepicker type="range" ...>`. Mirrors the existing `xsd:date`/`xsd:dateTime` pattern.
 
 - **Issue ID**: DURATION-DATA-TYPE-PATTERN
-  - **Description**: Fields with `relevantDataType=xsd:duration` (e.g. `riepr-operationeel-grondwater:duur-stil`, "Duur pompen stil") rendered as plain text input without format guidance for `dd:hh:mm:ss` duration values.
+  - **Description**: Fields with `relevantDataType=xsd:duration` (e.g. `grondwater:duur-stil`, "Duur pompen stil") rendered as plain text input without format guidance for `dd:hh:mm:ss` duration values.
   - **Impact**: No visual hint or validation for the expected format.
   - **Status**: Resolved.
   - **Solution**: Added `case 'xsd:duration':` → renders `<vl-input-field type="text" pattern="[0-9]+:[0-2][0-9]:[0-5][0-9]:[0-5][0-9]" placeholder="dd:hh:mm:ss">`. No dedicated duration component exists in `@domg-wc/components/form/`; a text field with an HTML5 pattern is the best available approach.
@@ -80,7 +80,7 @@ These issues were discovered during additional hands-on testing after the initia
 
 - **Issue ID**: FEEDBACK-CHECKBOX-LABEL
   - **Description**: Fields with `relevantDataType=xsd:boolean` render as `<vl-checkbox>` controls but the prefLabel text does not appear visibly next to the checkbox in the UI. The `label` attribute is set on the component, but vl-checkbox may handle label display differently than other form controls.
-  - **Affected fields**: "Heeft u grondstoffen geproduceerd?" (`riepr-operationeel-grondstoffen:geproduceerd`) and any other xsd:boolean fields.
+  - **Affected fields**: "Heeft u grondstoffen geproduceerd?" (`grondstoffen:geproduceerd`) and any other xsd:boolean fields.
   - **Impact:** Users cannot see what question the checkbox answers — critical usability issue.
   - **Status:** Open → Task 11 created.
   - **Solution:** Research vl-checkbox API declarations; fix rendering to show visible label alongside checkbox control.

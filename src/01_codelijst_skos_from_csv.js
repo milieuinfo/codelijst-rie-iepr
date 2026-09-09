@@ -441,7 +441,7 @@ async function generate_skos(options, skosSource ) {
         prefixValidation.errors.forEach(err => console.error(`\n${err}\n`));
         console.error(`Add the following prefixes to config.yml under "prefixes:":`);
         for (const p of prefixValidation.undeclared) {
-            console.error(`  ${p}: <YOUR_URI_BASE>/${p.replace('riepr-', '').replace(/-/g, '/')}/`);
+            console.error(`  ${p}: <YOUR_URI_BASE>/${p}/`);
         }
         throw new Error(`${prefixValidation.undeclared.size} undeclared prefix(es) found in source CSVs.`);
     }

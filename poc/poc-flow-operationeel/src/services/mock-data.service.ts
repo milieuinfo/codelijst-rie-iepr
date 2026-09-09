@@ -1,7 +1,7 @@
 /**
  * Provides dummy "structural element" instances for fields whose
  * `relevantRiepr` points at a structural type concept (e.g.
- * `riepr-meetpunt-type:debietmeter`) rather than at another operationeel
+ * `meetpunt:debietmeter`) rather than at another operationeel
  * conceptscheme. Per the POC's non-functional requirements there is no
  * backend, so these stand in for what would otherwise be a lookup against a
  * previously reported installation/emission point/measuring point.
@@ -20,32 +20,32 @@ export interface MockInstance {
 }
 
 const SEEDED_INSTANCES: Record<string, string[]> = {
-  'riepr-meetpunt-type:debietmeter': [
+  'meetpunt:debietmeter': [
     'Debietmeter DM-01 (Pompput 1 - FL koeltoren)',
     'Debietmeter DM-02 (Pompput 2 - onderhoud)',
     'Debietmeter DM-03 (Pompput 3 - VT verzending)',
   ],
-  'riepr-meetpunt-type:controleinrichting': [
+  'meetpunt:controleinrichting': [
     'Controleinrichting LP01 Industrieel glasfabriek',
     'Controleinrichting LP02 Industrieel Kempenglas',
     'Controleinrichting LP07 Industrieel Coater',
   ],
-  'riepr-meetpunt-type:peilput': ['Peilput PP-01', 'Peilput PP-02'],
-  'riepr-installatie-type:installatie': ['GLASOVEN', 'Centrifuge', 'Demi-installatie glasfabriek', 'ETSLIJN 1 etsafdeling'],
-  'riepr-installatie-type:waterzuivering': ['Waterzuiveringsinstallatie'],
-  'riepr-installatie-type:luchtzuivering': ['Electrofilter', 'SCR', 'Wastoren etslijn 1', 'Naverbrander'],
-  'riepr-emissiepunt-type:lozingspunt': [
+  'meetpunt:peilput': ['Peilput PP-01', 'Peilput PP-02'],
+  'installatie:installatie': ['GLASOVEN', 'Centrifuge', 'Demi-installatie glasfabriek', 'ETSLIJN 1 etsafdeling'],
+  'installatie:waterzuivering': ['Waterzuiveringsinstallatie'],
+  'installatie:luchtzuivering': ['Electrofilter', 'SCR', 'Wastoren etslijn 1', 'Naverbrander'],
+  'emissiepunt:lozingspunt': [
     'LP01 Industrieel glasfabriek',
     'LP02 Industrieel Kempenglas',
     'LP07 Industrieel Coater',
   ],
-  'riepr-emissiepunt-type:schoorsteen': ['Schouw glasoven', 'Schouw naverbrander'],
-  'riepr-onttrekkingspunt-type:pompput': [
+  'emissiepunt:schoorsteen': ['Schouw glasoven', 'Schouw naverbrander'],
+  'onttrekkingspunt:pompput': [
     'Pompput 1 (FL koeltoren)',
     'Pompput 2 (onderhoud)',
     'Pompput 3 (VT verzending)',
   ],
-  'riepr-onttrekkingspunt-type:opnamepunt': ['Opgenomen oppervlaktewater'],
+  'onttrekkingspunt:opnamepunt': ['Opgenomen oppervlaktewater'],
   // Generic installation type aliases (used by operationeel-lucht feature_bron)
   // Codelist references this as 'riepr:Installatie' but the actual concept ID uses a different prefix.
   // Seed both formats so either lookup path resolves to mock data.
@@ -62,17 +62,17 @@ const SEEDED_INSTANCES: Record<string, string[]> = {
     'ETSLIJN 1 etsafdeling',
   ],
   // Filter types used in groundwater schemes
-  'riepr-filter-type:peil': ['Peilfilter PF-01', 'Peilfilter PF-02'],
-  'riepr-filter-type:pomp': ['Pompput PP-01', 'Pompput PP-02', 'Pompput PP-03'],
+  'filter:peil': ['Peilfilter PF-01', 'Peilfilter PF-02'],
+  'filter:pomp': ['Pompput PP-01', 'Pompput PP-02', 'Pompput PP-03'],
   // Meetpunt eigenschappen
-  'riepr-meetpunt-eigenschappen:referentiepunt': ['Referentiepunt RPT-01 (terrasniveau)'],
+  'meetpunt-eigenschappen:referentiepunt': ['Referentiepunt RPT-01 (terrasniveau)'],
 }
 
 /**
  * Returns dummy instances for a structural type concept. `fallbackLabel`
  * (typically the concept's own prefLabel) seeds a generic "<label> 1/2/3"
  * list for any type not explicitly seeded above.
- * @param conceptId - The structural type concept id (e.g. `riepr-meetpunt-type:debietmeter`).
+ * @param conceptId - The structural type concept id (e.g. `meetpunt:debietmeter`).
  * @param fallbackLabel - Label to use when generating numbered fallback instances.
  * @returns Array of mock instance objects with id and label properties.
  */

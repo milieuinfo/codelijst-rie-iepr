@@ -48,7 +48,7 @@ export class ConditionalValidatorGenerator {
 
 A concept with `conditionPath` and `conditionValue`:
 - `conditionPath` points to another concept ID (the trigger field)
-- `conditionValue` is the value that must match (already normalized by the parser, e.g., `"true"` or `"riepr-operationeel-pomptoestand:rust"`)
+- `conditionValue` is the value that must match (already normalized by the parser, e.g., `"true"` or `"pomptoestand:rust"`)
 
 The mapper derives the trigger property name from the target concept's ID using the same
 derivation logic as Task 06 (`derivePropertyName`).
@@ -87,9 +87,9 @@ condition being met does not affect another.
 | Conditioned Field | Trigger Field | Trigger Value | Scheme |
 |---|---|---|---|
 | Grondstof | geproduceerd | `"true"` | operationeel_grondstoffen |
-| Duur pompen stil | pomptoestand | `"riepr-operationeel-pomptoestand:rust"` | operationeel_grondwater |
-| Volume (8u voor stilstand) | pomptoestand | `"riepr-operationeel-pomptoestand:rust"` | operationeel_grondwater |
-| Volume (1 uur voor meting) | pomptoestand | `"riepr-operationeel-pomptoestand:werking"` | operationeel_grondwater |
+| Duur pompen stil | pomptoestand | `"pomptoestand:rust"` | operationeel_grondwater |
+| Volume (8u voor stilstand) | pomptoestand | `"pomptoestand:rust"` | operationeel_grondwater |
+| Volume (1 uur voor meting) | pomptoestand | `"pomptoestand:werking"` | operationeel_grondwater |
 
 ### Unit Tests (`src/services/conditional-validator.test.ts`)
 
