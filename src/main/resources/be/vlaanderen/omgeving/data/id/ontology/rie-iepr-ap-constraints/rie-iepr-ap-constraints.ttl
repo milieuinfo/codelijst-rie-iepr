@@ -69,7 +69,7 @@ ons:collection
     sh:description   "Verzamelingen bundelen systemen met gelijkaardige eigenschappen, analysemethoden of systemen waarin ze gemeten worden."@en ;
     rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
     sh:property      omg_ps:prefLabel, omg_ps:collection_member,
-                     omg_ps:inScheme, omg_ps:rdf_type;
+                     omg_ps:rdf_type;
 
     sh:targetClass   skos:Collection .
 
@@ -174,9 +174,8 @@ omg_ps:collection_member
     a                sh:PropertyShape ;
     rdfs:label       "onderdeel"@en ;
     sh:name          "onderdeel"@en ;
-    sh:description   "Een collectie heeft minstens 1 onderdeel."@en ;
+    sh:description   "Een collectie heeft minstens 1 onderdeel. Onderdelen mogen externe concepten zijn (bv. CSOR) en worden daarom niet lokaal op klasse gevalideerd."@en ;
     rdfs:isDefinedBy omg_ont:rie-iepr-ap-constraints, omg_voc:rie-iepr-ap-constraints ;
-    sh:class         skos:Concept ;
     sh:minCount      1 ;
     sh:nodeKind      sh:IRI ;
     sh:path          skos:member .

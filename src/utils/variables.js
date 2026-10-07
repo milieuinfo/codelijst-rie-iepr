@@ -11,12 +11,28 @@ const prefixes = Object.assign( {}, config.skos.prefixes, config.prefixes, { '@b
 const context = JSON.parse(fs.readFileSync(config.source.path + config.source.context));
 const context_prefixes = Object.assign({},context , prefixes)
 
+// context.json uses CURIEs (e.g. "@type": "xsd:dateTime"), but the no-prefix frame (JSON/CSV/parquet)
+// must not declare prefixes, or output IRIs get compacted to CURIEs. Expand the CURIEs in the
+// term definitions instead, so typed terms like "created" still match and serialize as flat values.
+const expandCurie = (value) => {
+    if (typeof value !== 'string') return value;
+    const idx = value.indexOf(':');
+    const prefix = idx > 0 ? value.substring(0, idx) : undefined;
+    return prefix && prefixes[prefix] ? prefixes[prefix] + value.substring(idx + 1) : value;
+}
+const context_expanded = Object.fromEntries(Object.entries(context).map(([term, definition]) => [
+    term,
+    typeof definition === 'object' && definition !== null
+        ? Object.fromEntries(Object.entries(definition).map(([k, v]) => [k, expandCurie(v)]))
+        : expandCurie(definition)
+]))
+
 
 const frame_skos_prefixes = {
     "@context": context_prefixes,
-    "@type": ["rdfs:Resource", "skos:ConceptScheme", "skos:Concept", "http://qudt.org/schema/qudt/QuantityKind"],
+    "@type": ["rdfs:Resource", "skos:ConceptScheme", "skos:Concept", "skos:Collection", "http://qudt.org/schema/qudt/QuantityKind"],
+    // No "@type" filter: members may be external concepts (e.g. CSOR) that are not typed in this graph.
     "member": {
-        "@type": "skos:Concept",
         "@embed": "@never",
         "@omitDefault": true
     },
@@ -136,6 +152,14 @@ const frame_skos_prefixes = {
         "@embed": "@never",
         "@omitDefault": true
     },
+    "relevantUnit": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "_ui_after": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
     "normstatus": {
         "@embed": "@never",
         "@omitDefault": true
@@ -168,10 +192,10 @@ const frame_skos_prefixes = {
 
 
 const frame_skos_no_prefixes = {
-    "@context": context,
+    "@context": context_expanded,
     "type": ["http://www.w3.org/2004/02/skos/core#ConceptScheme", "http://www.w3.org/2004/02/skos/core#Concept", "http://qudt.org/schema/qudt/QuantityKind"],
+    // No "@type" filter: members may be external concepts (e.g. CSOR) that are not typed in this graph.
     "member": {
-        "@type": "http://www.w3.org/2004/02/skos/core#Concept",
         "@embed": "@never",
         "@omitDefault": true
     },

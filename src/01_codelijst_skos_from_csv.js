@@ -1,7 +1,7 @@
 'use strict';
 import { output } from '@milieuinfo/maven-metadata-generator-npm';
 import csv from 'csvtojson';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync, readFileSync, rmSync } from 'fs';
 import path from 'path';
 import {
     skosOptions,
@@ -475,6 +475,9 @@ async function generate_skos(options, skosSource ) {
         previousReleaseUrl: versioning.enabled ? versioning.release_url : undefined,
     });
     console.log('Versioning result:', result);
+    // output() only writes a validation report on failure, so remove any stale
+    // report from a previous run before printing violations below.
+    rmSync(VALIDATION_JSON_PATH, { force: true });
     await output(skosSource, updated_nt, options);
 
     // After output(), check for SHACL validation errors and print them clearly
