@@ -4,7 +4,7 @@ water:feature,skos:Concept,conceptscheme:operationeel_water,conceptscheme:operat
 ,,,,,,,,,,,,,,,,,,,,,
 conceptscheme:operationeel_water_lozing,skos:ConceptScheme,,,,,,,,,,,,,,,,,,,,
 water:lozing,skos:Concept,conceptscheme:operationeel_water_lozing,conceptscheme:operationeel_water_lozing,Lozing,,,riepr:ObservatieVerzameling,riepr:Emissie,,,,,,,,,true,true,,,true
-water:lozing-debiet,skos:Concept,,conceptscheme:operationeel_water_lozing,Debiet per jaar,,water:lozing,,,xsd:decimal,sosa:hasResult,,,,,,https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_50,true,,,,true
+water:lozing-debiet,skos:Concept,,conceptscheme:operationeel_water_lozing,Debiet per jaar,,water:lozing,,,xsd:decimal,sosa:hasResult,,,,,,csor_eenheden:E_50,true,,,,true
 water:lozing-dagen,skos:Concept,,conceptscheme:operationeel_water_lozing,Aantal dagen per jaar,,water:lozing,,,xsd:integer,sosa:hasResult,,,,,,http://TODO,true,,,water:lozing-debiet,
 water:lozing-stof,skos:Concept,,conceptscheme:operationeel_water_lozing,Verontreinigende stof,,water:lozing,,,,riepr:parameter,,https://data.omgeving.vlaanderen.be/id/conceptscheme/csor/variabele,,,,,true,,,water:lozing-dagen,
 water:lozing-meetfrequentie,skos:Concept,,conceptscheme:operationeel_water_lozing,Meetfrequentie,,water:lozing,,,xsd:decimal,dcterms:accrualPeriodicity,,,,,conceptscheme:operationeel_zelfcontrole_meetfrequentie,,,,,water:lozing-stof,
@@ -15,7 +15,7 @@ water:lozing-bepalingsmethodeclassificatie,skos:Concept,,conceptscheme:operation
 ,,,,,,,,,,,,,,,,,,,,,
 water:abnormale-lozing,skos:Concept,conceptscheme:operationeel_water_lozing,conceptscheme:operationeel_water_lozing,Abnormale lozing,,,riepr:Observatie,,,,,,,,,,false,true,,water:lozing,
 water:abnormale-lozing-stof,skos:Concept,,conceptscheme:operationeel_water_lozing,Verontreinigende stof,,water:abnormale-lozing,,,,riepr:parameter,,https://data.omgeving.vlaanderen.be/id/conceptscheme/csor/variabele,,,,,true,,,,true
-water:abnormale-lozing-lozingsduur,skos:Concept,,conceptscheme:operationeel_water_lozing,Lozingsduur,,water:abnormale-lozing,,,xsd:integer,sosa:hasResult,,,,,,https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_94,true,,,water:abnormale-lozing-stof,
+water:abnormale-lozing-lozingsduur,skos:Concept,,conceptscheme:operationeel_water_lozing,Lozingsduur,,water:abnormale-lozing,,,xsd:integer,sosa:hasResult,,,,,,csor_eenheden:E_94,true,,,water:abnormale-lozing-stof,
 water:abnormale-lozing-jaarvracht,skos:Concept,,conceptscheme:operationeel_water_lozing,Jaarvracht,,water:abnormale-lozing,,,xsd:decimal,qudt:numericResult,,,,,,http://TODO,,,,water:abnormale-lozing-lozingsduur,
 water:abnormale-lozing-verklaring,skos:Concept,,conceptscheme:operationeel_water_lozing,Verklaring,,water:abnormale-lozing,,,xsd:string,rdfs:comment,,,,,,,,,,water:abnormale-lozing-jaarvracht,
 ,,,,,,,,,,,,,,,,,,,,,
