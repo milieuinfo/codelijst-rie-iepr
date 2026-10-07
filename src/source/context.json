@@ -47,8 +47,8 @@
     "@type": "@id"
   },
   "boolean_value": {
-    "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#value",
-    "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+    "@id": "rdf:value",
+    "@type": "xsd:boolean"
   },
   "broader": {
     "@id": "http://www.w3.org/2004/02/skos/core#broader",
@@ -71,7 +71,7 @@
     "@type": "@id"
   },
   "casNumber": {
-    "@id": "http://dbpedia.org/ontology/casNumber"
+    "@id": "dbo:casNumber"
   },
   "closeMatch": {
     "@id": "http://www.w3.org/2004/02/skos/core#closeMatch",
@@ -85,7 +85,7 @@
     "@reverse": "member"
   },
   "comment": {
-    "@id": "http://www.w3.org/2000/01/rdf-schema#comment",
+    "@id": "rdfs:comment",
     "@language": "nl"
   },
   "compressFormat": {
@@ -109,7 +109,7 @@
   },
   "created": {
     "@id": "http://purl.org/dc/terms/created",
-    "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    "@type": "xsd:dateTime"
   },
   "dataset": {
     "@id": "http://www.w3.org/ns/dcat#dataset",
@@ -117,11 +117,11 @@
   },
   "dateAccepted": {
     "@id": "http://purl.org/dc/terms/dateAccepted",
-    "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    "@type": "xsd:dateTime"
   },
   "datum": {
     "@id": "http://purl.org/dc/terms/date",
-    "@type": "http://www.w3.org/2001/XMLSchema#date"
+    "@type": "xsd:date"
   },
   "dc_identifier": {
     "@id": "http://purl.org/dc/elements/1.1/identifier"
@@ -239,7 +239,7 @@
     "@type": "@id"
   },
   "hasResult": {
-    "@id": "http://www.w3.org/ns/sosa/hasResult",
+    "@id": "sosa:hasResult",
     "@type": "@id"
   },
   "hasTopConcept": {
@@ -279,15 +279,15 @@
     "@id": "http://www.w3.org/2004/02/skos/core#notation"
   },
   "integer_value": {
-    "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#value",
-    "@type": "http://www.w3.org/2001/XMLSchema#integer"
+    "@id": "rdf:value",
+    "@type": "xsd:integer"
   },
   "intervalcategorie": {
     "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#intervalcategorie"
   },
   "inXSDDateTime": {
     "@id": "http://www.w3.org/2006/time#inXSDDateTime",
-    "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    "@type": "xsd:dateTime"
   },
   "hasPart": {
     "@id": "http://purl.org/dc/terms/hasPart",
@@ -311,23 +311,23 @@
   },
   "issued": {
     "@id": "http://purl.org/dc/terms/issued",
-    "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    "@type": "xsd:dateTime"
   },
   "isVersionOf": {
     "@id": "http://purl.org/dc/terms/isVersionOf",
     "@type": "@id"
   },
   "kwalitatieve_waarde": {
-    "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#value",
+    "@id": "rdf:value",
     "@type": "@id"
   },
   "label": {
-    "@id": "http://www.w3.org/2000/01/rdf-schema#label",
+    "@id": "rdfs:label",
     "@language": "nl"
   },
   "modified": {
     "@id": "http://purl.org/dc/terms/modified",
-    "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    "@type": "xsd:dateTime"
   },
   "language": "http://publications.europa.eu/resource/authority/language/",
   "landingPage": {
@@ -350,7 +350,7 @@
     "@type": "@id"
   },
   "madeBySensor": {
-    "@id": "http://www.w3.org/ns/sosa/madeBySensor",
+    "@id": "sosa:madeBySensor",
     "@type": "@id"
   },
   "mappingRelation": {
@@ -359,7 +359,7 @@
   },
   "maxValue": {
     "@id": "https://schema.org/maxValue",
-    "@type": "http://www.w3.org/2001/XMLSchema#decimal"
+    "@type": "xsd:decimal"
   },
   "mediaType": {
     "@id": "http://www.w3.org/ns/dcat#mediaType",
@@ -371,7 +371,7 @@
   },
   "minValue": {
     "@id": "https://schema.org/minValue",
-    "@type": "http://www.w3.org/2001/XMLSchema#decimal"
+    "@type": "xsd:decimal"
   },
   "naam": {
     "@id": "http://www.w3.org/2004/02/skos/core#prefLabel"
@@ -410,14 +410,14 @@
     "@language": "nl"
   },
   "numerieke_waarde": {
-    "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#value",
-    "@type": "http://www.w3.org/2001/XMLSchema#decimal"
+    "@id": "rdf:value",
+    "@type": "xsd:decimal"
   },
   "nummer": {
     "@id": "http://www.w3.org/ns/locn#locatorDesignator"
   },
   "observedProperty": {
-    "@id": "http://www.w3.org/ns/sosa/observedProperty",
+    "@id": "sosa:observedProperty",
     "@type": "@id"
   },
   "ondernemingsnummer": {
@@ -445,8 +445,8 @@
     "@type": "@id"
   },
   "phenomenonTime": {
-    "@id": "http://www.w3.org/ns/sosa/phenomenonTime",
-    "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    "@id": "sosa:phenomenonTime",
+    "@type": "xsd:dateTime"
   },
   "postcode": {
     "@id": "http://www.w3.org/ns/locn#postCode"
@@ -532,12 +532,12 @@
     "@type": "@id"
   },
   "result": {
-    "@id": "http://www.w3.org/ns/sosa/hasResult",
+    "@id": "sosa:hasResult",
     "@type": "@id"
   },
   "resultTime": {
-    "@id": "http://www.w3.org/ns/sosa/resultTime",
-    "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    "@id": "sosa:resultTime",
+    "@type": "xsd:dateTime"
   },
   "rightsHolder": {
     "@id": "http://purl.org/dc/terms/rightsHolder",
@@ -555,7 +555,7 @@
     "@language": "nl"
   },
   "seeAlso": {
-    "@id": "http://www.w3.org/2000/01/rdf-schema#seeAlso",
+    "@id": "rdfs:seeAlso",
     "@type": "@id"
   },
   "semanticRelation": {
@@ -576,7 +576,7 @@
     "@type": "@id"
   },
   "simple_result": {
-    "@id": "http://www.w3.org/ns/sosa/hasSimpleResult"
+    "@id": "sosa:hasSimpleResult"
   },
   "source": {
     "@id": "http://purl.org/dc/terms/source",
@@ -611,7 +611,7 @@
   },
   "technischefiche": {
     "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#technischefiche",
-    "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+    "@type": "xsd:boolean"
   },
   "temporal": {
     "@id": "http://purl.org/dc/terms/temporal",
@@ -623,7 +623,7 @@
   },
   "timePeriod": {
     "@id": "http://purl.org/linked-data/sdmx/2009/dimension#timePeriod",
-    "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    "@type": "xsd:dateTime"
   },
   "title": {
     "@id": "http://purl.org/dc/terms/title",
@@ -647,12 +647,12 @@
     "@type": "@id"
   },
   "usedProcedure": {
-    "@id": "http://www.w3.org/ns/sosa/usedProcedure",
+    "@id": "sosa:usedProcedure",
     "@type": "@id"
   },
   "value": {
     "@id": "https://schema.org/value",
-    "@type": "http://www.w3.org/2001/XMLSchema#decimal"
+    "@type": "xsd:decimal"
   },
   "_value": "@value",
   "variabele": {
@@ -670,23 +670,23 @@
   },
   "isVerplicht": {
     "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#isVerplicht",
-    "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+    "@type": "xsd:boolean"
   },
   "isMeervoudig": {
     "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#isMeervoudig",
-    "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+    "@type": "xsd:boolean"
   },
   "isMultiselect": {
     "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#isMultiselect",
-    "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+    "@type": "xsd:boolean"
   },
   "isMeetbaar": {
     "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#isMeetbaar",
-    "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+    "@type": "xsd:boolean"
   },
   "isOnzichtbaar": {
     "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#isOnzichtbaar",
-    "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+    "@type": "xsd:boolean"
   },
   "wasAssociatedWith": {
     "@id": "http://www.w3.org/ns/prov#wasAssociatedWith",
@@ -712,6 +712,6 @@
   },
   "_ui_first": {
     "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#uiFirst",
-    "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+    "@type": "xsd:boolean"
   }
 }
