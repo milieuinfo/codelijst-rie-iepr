@@ -52,33 +52,34 @@
         <configuration>
           <serverId>repo.omgeving.vlaanderen.be</serverId>
           <nodeDownloadRoot>${acd.repository.node.dist.url}</nodeDownloadRoot>
-          <npmDownloadRoot>${acd.repository.npm.dist.url}</npmDownloadRoot>
+          <pnpmDownloadRoot>${acd.repository.pnpm.dist.url}</pnpmDownloadRoot>
         </configuration>
         <executions>
           <execution>
-            <id>install node and npm</id>
+            <id>install node and pnpm</id>
             <goals>
-              <goal>install-node-and-npm</goal>
+              <goal>install-node-and-pnpm</goal>
             </goals>
             <configuration>
               <nodeVersion>v22.13.0</nodeVersion>
-              <npmVersion>9.1.3</npmVersion>
+              <pnpmVersion>9.15.9</pnpmVersion>
               <installDirectory>target/</installDirectory>
             </configuration>
           </execution>
           <execution>
-            <id>npm install</id>
+            <id>pnpm install</id>
             <goals>
-              <goal>npm</goal>
+              <goal>pnpm</goal>
             </goals>
             <configuration>
+              <arguments>install --frozen-lockfile</arguments>
               <installDirectory>target/</installDirectory>
             </configuration>
           </execution>
           <execution>
             <id>create metadata</id>
             <goals>
-              <goal>npm</goal>
+              <goal>pnpm</goal>
             </goals>
             <configuration>
               <arguments>run create_metadata</arguments>
