@@ -8,12 +8,32 @@ spec:
       command:
         - cat
       tty: true
+      env:
+        - name: npm_config_cache
+          value: /tmp/npm-cache
+        - name: COREPACK_NPM_REGISTRY
+          value: https://repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm
+        - name: COREPACK_NPM_USERNAME
+          value: jenkins-systeemgebruiker
+        - name: COREPACK_NPM_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: jenkins-secrets
+              key: artifactory_password
+      volumeMounts:
+        - mountPath: /root/.npmrc
+          subPath: .npmrc
+          name: js-settings
       resources:
         requests:
           memory: "512Mi"
           cpu: "250m"
         limits:
           memory: "2Gi"
+  volumes:
+    - name: js-settings
+      secret:
+        secretName: jenkins-secrets
 '''
 
 pipeline {
