@@ -1,0 +1,31 @@
+{
+  "name": "codelijst-rie-iepr-mcp",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "MCP server voor het beheren van systeemtypes en eigenschappen in de RIE-IEPR codelijsten",
+  "main": "dist/index.js",
+  "bin": {
+    "codelijst-rie-iepr-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "prepare": "tsc -p .",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.test.json",
+    "test": "npm run typecheck && npm run build && vitest run"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "js-yaml": "^5.4.3",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.4"
+  }
+}

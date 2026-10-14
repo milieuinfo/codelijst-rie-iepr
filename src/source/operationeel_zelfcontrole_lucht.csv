@@ -1,17 +1,17 @@
-_id,_type,topConceptOf,inScheme,prefLabel,definition,broaderPartitive,relevantClass,relevantFeatureClass,relevantDataType,relation,seeAlso,relevantRiepr,conditionPath,conditionValue,relevantCodeList,relevantUnit,isVerplicht,isMeervoudig,isOnzichtbaar,_ui_after,_ui_first
-conceptscheme:operationeel_zelfcontrole_lucht,skos:ConceptScheme,,,Operationele gegevens,,,,,,,,,,,,,,,,,
-zelfcontrole-lucht:feature,skos:Concept,conceptscheme:operationeel_zelfcontrole_lucht,conceptscheme:operationeel_zelfcontrole_lucht,Emissiepunt,Het emissiepunt waarop gerapporteed moet worden.,,sosa:FeatureOfInterest,,,sosa:hasFeatureOfInterest,conceptscheme:operationeel_zelfcontrole_lucht_meting,conceptscheme:emissiepunt_type,,,,,true,true,,,true
-,,,,,,,,,,,,,,,,,,,,,
-conceptscheme:operationeel_zelfcontrole_lucht_meting,skos:ConceptScheme,,,,,,,,,,,,,,,,,,,,
-zelfcontrole-lucht:meting,skos:Concept,conceptscheme:operationeel_zelfcontrole_lucht_meting,conceptscheme:operationeel_zelfcontrole_lucht_meting,Meting,,,riepr:ObservatieVerzameling,riepr:Emissie,,,,,,,,,,true,,,true
-zelfcontrole-lucht:datum,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,Datum van meting,Datum van de meting of startdatum indien de meting over meerdere dagen heeft plaatsgevonden.,zelfcontrole-lucht:meting,,,xsd:date,sosa:resultTime,,,,,,true,,,,,true
-zelfcontrole-lucht:labo,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,Labo,,zelfcontrole-lucht:meting,prov:Agent,,,sosa:madeBySensor,,,,,,,,,,zelfcontrole-lucht:datum,
-zelfcontrole-lucht:labo-naam,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,Naam,De naam van het labo.,zelfcontrole-lucht:labo,,,xsd:string,rdfs:label,,,,,,,true,,,,true
-zelfcontrole-lucht:labo-id,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,KBO nummer of BTW nummer,,zelfcontrole-lucht:labo,,,xsd:string,rov:registration,,,,,,,,,,zelfcontrole-lucht:labo-naam,
-zelfcontrole-lucht:parameter,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,Parameter,,zelfcontrole-lucht:meting,riepr:Observatie,,,,,,,,,,,true,,zelfcontrole-lucht:labo,
-zelfcontrole-lucht:parameter-soort,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,Soort monster,,zelfcontrole-lucht:parameter,riepr:Resultaat,,xsd:string,,,,,,,,,,,,true
-zelfcontrole-lucht:parameter-parameter,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,Parameter,,zelfcontrole-lucht:parameter,riepr:Resultaat,,,riepr:parameter,,,http://TODO,,true,,,,,zelfcontrole-lucht:parameter-soort,
-zelfcontrole-lucht:parameter-concentratie,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,Concentratie,,zelfcontrole-lucht:parameter,riepr:Resultaat,,xsd:decimal,qudt:numericValue,,,,,,,,,,zelfcontrole-lucht:parameter-parameter,
-zelfcontrole-lucht:parameter-meetonzekerheid,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,Meetonzekerheid,,zelfcontrole-lucht:parameter,riepr:Resultaat,,xsd:decimal,qudt:standardUncertainty,,,,,,csor_eenheid:E_43,,,,zelfcontrole-lucht:parameter-concentratie,
-zelfcontrole-lucht:parameter-meetfrequentie,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,Meetfrequentie,,zelfcontrole-lucht:parameter,,,,dcterms:accrualPeriodicity,,,,,conceptscheme:operationeel_zelfcontrole_meetfrequentie,,,,,zelfcontrole-lucht:parameter-meetonzekerheid,
-,,,,,,,,,,,,,,,,,,,,,
+_id,_type,topConceptOf,inScheme,prefLabel,definition,broaderPartitive,relevantClass,relevantFeatureClass,relevantDataType,relation,seeAlso,relevantRiepr,conditionPath,conditionValue,relevantCodeList,relevantUnit,kwantiteitsAspect,drager,soortWaartbepaling,isVerplicht,isMeervoudig,isOnzichtbaar,_ui_after,_ui_first
+conceptscheme:operationeel_zelfcontrole_lucht,skos:ConceptScheme,,,Operationele gegevens,,,,,,,,,,,,,,,,,,,,
+zelfcontrole-lucht:feature,skos:Concept,conceptscheme:operationeel_zelfcontrole_lucht,conceptscheme:operationeel_zelfcontrole_lucht,Emissiepunt,Het emissiepunt waarop gerapporteed moet worden.,,sosa:FeatureOfInterest,,,sosa:hasFeatureOfInterest,conceptscheme:operationeel_zelfcontrole_lucht_meting,conceptscheme:emissiepunt_type,,,,,,,,true,true,,,true
+,,,,,,,,,,,,,,,,,,,,,,,,
+conceptscheme:operationeel_zelfcontrole_lucht_meting,skos:ConceptScheme,,,,,,,,,,,,,,,,,,,,,,,
+zelfcontrole-lucht:meting,skos:Concept,conceptscheme:operationeel_zelfcontrole_lucht_meting,conceptscheme:operationeel_zelfcontrole_lucht_meting,Meting,,,riepr:ObservatieVerzameling,riepr:Emissie,,,,,,,,,,,,,true,,,true
+zelfcontrole-lucht:datum,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,Datum van meting,Datum van de meting of startdatum indien de meting over meerdere dagen heeft plaatsgevonden.,zelfcontrole-lucht:meting,,,xsd:date,sosa:resultTime,,,,,,true,,,,,,,,true
+zelfcontrole-lucht:labo,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,Labo,,zelfcontrole-lucht:meting,prov:Agent,,,sosa:madeBySensor,,,,,,,,,,,,,zelfcontrole-lucht:datum,
+zelfcontrole-lucht:labo-naam,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,Naam,De naam van het labo.,zelfcontrole-lucht:labo,,,xsd:string,rdfs:label,,,,,,,,,,true,,,,true
+zelfcontrole-lucht:labo-id,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,KBO nummer of BTW nummer,,zelfcontrole-lucht:labo,,,xsd:string,rov:registration,,,,,,,,,,,,,zelfcontrole-lucht:labo-naam,
+zelfcontrole-lucht:parameter,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,Parameter,,zelfcontrole-lucht:meting,riepr:Observatie,,,,,,,,,,,,,,true,,zelfcontrole-lucht:labo,
+zelfcontrole-lucht:parameter-soort,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,Soort monster,,zelfcontrole-lucht:parameter,riepr:Resultaat,,xsd:string,,,,,,,,,,,,,,,true
+zelfcontrole-lucht:parameter-parameter,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,Parameter,,zelfcontrole-lucht:parameter,riepr:Resultaat,,,riepr:parameter,,,http://TODO,,true,,,,,,,,zelfcontrole-lucht:parameter-soort,
+zelfcontrole-lucht:parameter-concentratie,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,Concentratie,,zelfcontrole-lucht:parameter,riepr:Resultaat,,xsd:decimal,qudt:numericValue,,,,,,,,,,,,,zelfcontrole-lucht:parameter-parameter,
+zelfcontrole-lucht:parameter-meetonzekerheid,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,Meetonzekerheid,,zelfcontrole-lucht:parameter,riepr:Resultaat,,xsd:decimal,qudt:standardUncertainty,,,,,,csor_eenheid:E_43,,,,,,,zelfcontrole-lucht:parameter-concentratie,
+zelfcontrole-lucht:parameter-meetfrequentie,skos:Concept,,conceptscheme:operationeel_zelfcontrole_lucht_meting,Meetfrequentie,,zelfcontrole-lucht:parameter,,,,dcterms:accrualPeriodicity,,,,,conceptscheme:operationeel_zelfcontrole_meetfrequentie,,,,,,,,zelfcontrole-lucht:parameter-meetonzekerheid,
+,,,,,,,,,,,,,,,,,,,,,,,,
