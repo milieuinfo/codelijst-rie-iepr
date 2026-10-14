@@ -6,6 +6,8 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import { z } from 'zod';
+import { addField, addFlow, addStep, deleteField, deleteStep, reorderFields, updateFlowItem } from './flows-edit.js';
+import { getFlow, getOperationalConcept, getStep, listFlows, OPERATIONAL_DATATYPES, validateFlows } from './flows.js';
 import { addProperty, deleteProperty, listProperties, updateProperty, type CodeListSource } from './eigenschappen.js';
 import {
     addSelectionList, deleteSelectionList, findCodeLists, removeListEntries, updateSelectionList,
@@ -22,7 +24,8 @@ const server = new McpServer(
     {
         instructions:
             'Answers questions about and manages the systeemtypes (<systeem>_type.csv) and eigenschappen (<systeem>_eigenschappen.csv) ' +
-            `code lists for the systems ${SYSTEMS.join(', ')}, including the inline selection lists they use. ` +
+            `code lists for the systems ${SYSTEMS.join(', ')}, including the inline selection lists they use, and the ` +
+            'operationele flows (thema_type.csv, operationeel_*.csv: themas, steps, fields and the form they produce). ' +
             'Always look at the existing entries first, run every write tool with dryRun=true, show the preview to the user, ' +
             'and only then write with dryRun=false. Every real write is validated with `npm run generate_skos` and rolled back when it fails. ' +
             'Identifiers are published URIs and cannot be renamed; deleted concepts are published as withdrawn. ' +
@@ -152,12 +155,13 @@ server.registerTool('get_property', {
 server.registerTool('search_codelists', {
     title: 'Zoeken in types en eigenschappen',
     description:
-        'Free-text search (case- and accent-insensitive) over types, eigenschappen and selection options of all six systems. ' +
+        'Free-text search (case- and accent-insensitive) over types, eigenschappen and selection options of all six systems, ' +
+        'and over the operationele themas, steps and fields (kind=operational; not combined with system). ' +
         'Use it when a name does not resolve directly or to find where a term is used.',
     inputSchema: {
         query: z.string(),
         system: system.optional(),
-        kind: z.enum(['all', 'type', 'property', 'option']).default('all'),
+        kind: z.enum(['all', 'type', 'property', 'option', 'operational']).default('all'),
     },
     annotations: readOnly,
 }, respond(args => searchCodelists(args)));
@@ -415,5 +419,178 @@ server.registerTool('delete_selection_list', {
     inputSchema: { system, list, dryRun },
     annotations: destructive,
 }, respond(write(args => deleteSelectionList(args))));
+
+// ---------------------------------------------------------------------------
+// Operationele gegevens: flows, steps and fields
+// ---------------------------------------------------------------------------
+
+server.registerTool('list_flows', {
+    title: 'Operationele flows',
+    description:
+        'List the thematische stromen (thema_type.csv) with the steps of each flow. A flow starts at the thema, whose seeAlso ' +
+        'is the first step (a concept scheme in operationeel_*.csv); fields with seeAlso lead to the next step. Also reports ' +
+        'steps no thema reaches, option lists (used and unused) and operationeel_*.csv files missing from config.yml.',
+    inputSchema: {},
+    annotations: readOnly,
+}, respond(() => listFlows()));
+
+server.registerTool('get_flow', {
+    title: 'Een flow bekijken',
+    description:
+        'The whole flow of a thema ("lucht", "thema:grondwater", "Zelfcontrole water") or starting at a step: a readable ' +
+        '`outline` (steps, fields in display order, controls, required/repeatable, conditions, next steps, problems) and ' +
+        'the full UI description of every step. Show the outline to the user.',
+    inputSchema: { flow: z.string().describe('Thema (code, id, label or notation) or a step id.') },
+    annotations: readOnly,
+}, respond(args => getFlow(args)));
+
+const step = z.string().describe('Step: concept scheme id (conceptscheme:operationeel_…) or its name (operationeel_lucht_bron or lucht_bron).');
+
+server.registerTool('get_step', {
+    title: 'Formulier van een stap',
+    description:
+        'UI description of one step: its fields in display order (_ui_first/_ui_after, conditional fields after their trigger) ' +
+        'with control (select, feature-picker, number with unit, date-range, group, ...), required, repeatable, hidden, ' +
+        'options, units, visibleWhen, variants (related), next step and data model mapping, plus which fields lead to it.',
+    inputSchema: { step },
+    annotations: readOnly,
+}, respond(args => getStep(args)));
+
+server.registerTool('get_flow_item', {
+    title: 'Een thema, stap of veld in detail',
+    description: 'The CSV record (file and line), the UI description and every row that refers to a thema, step, field or option.',
+    inputSchema: { concept: z.string().describe('Id (e.g. lucht:brandstof), code or label.') },
+    annotations: readOnly,
+}, respond(args => getOperationalConcept(args)));
+
+server.registerTool('validate_flows', {
+    title: 'Validate operationele flows',
+    description:
+        'Quick check of thema_type.csv and operationeel_*.csv: seeAlso targets, conditions, parts, ordering (_ui_after siblings, ' +
+        'cycles, several _ui_first), symmetric related, code lists, placeholders (http://TODO), unreachable steps, unused option ' +
+        'lists and files missing from config.yml.',
+    inputSchema: {},
+    annotations: readOnly,
+}, respond(() => validateFlows()));
+
+const fieldSchema = {
+    prefLabel: prefLabel.describe('Label shown in the form (Dutch, capital first letter).'),
+    definition: z.string().describe('Help text / definition (Dutch).'),
+    parent: z.string().describe('Composite field this is a part of (broaderPartitive); same step.'),
+    datatype: z.enum(OPERATIONAL_DATATYPES).describe('relevantDataType: xsd:string (text), xsd:decimal/xsd:integer (number), xsd:boolean (checkbox), xsd:date, xsd:dateTime, xsd:duration, dcterms:temporal (period).'),
+    relation: relation.describe('How the value maps onto the observation, e.g. qudt:numericValue, rdfs:label, rdfs:comment, sosa:hasResult, sosa:hasFeatureOfInterest, dcterms:type.'),
+    codeList: codeList.describe('relevantCodeList: list to choose from (renders a select); e.g. conceptscheme:operationeel_peilmethode.'),
+    unit: unit,
+    relevantClass: z.string().describe('Class the field maps to: sosa:FeatureOfInterest (select the system to report on), riepr:ObservatieVerzameling (top-level report), riepr:Observatie, riepr:Resultaat, prov:Agent, ...'),
+    relevantFeatureClass: z.array(z.string()).describe('relevantFeatureClass, e.g. riepr:Verbruik, riepr:Emissie, riepr:Onttrekking.'),
+    relevantRiepr: z.array(z.string()).describe('Systems to select: types (emissiepunt:schoorsteen), type schemes, riepr:<Klasse> (riepr:Installatie), or an eigenschap (value taken from the selected system).'),
+    seeAlso: z.array(z.string()).describe('Next step(s) after this field (concept scheme ids).'),
+    conditionPath: z.string().describe('Field that controls the visibility of this field (same step).'),
+    conditionValue: z.string().describe('Value of conditionPath for which this field is shown (an option id, or true/false for a checkbox).'),
+    related: z.array(z.string()).describe('Variants of the same logical field (kept symmetric automatically).'),
+    kwantiteitsAspect: z.string(),
+    drager: z.string(),
+    soortWaartbepaling: z.string(),
+    isVerplicht: z.boolean(),
+    isMeervoudig: z.boolean().describe('May be added several times.'),
+    isMultiselect: z.boolean(),
+    isOnzichtbaar: z.boolean().describe('Hidden in the form (structural only).'),
+    uiAfter: z.string().describe('Show directly after this sibling field (_ui_after).'),
+    uiFirst: z.boolean().describe('Show first among its siblings (_ui_first).'),
+};
+
+server.registerTool('add_flow', {
+    title: 'Nieuwe thematische stroom',
+    description:
+        'Create a new flow: a thema in thema_type.csv, a new src/source/operationeel_<code>.csv with its first step, the file ' +
+        'in config.yml (source.codelijst_csv) and the id prefix <code>: in config.yml and README.md. Then add fields with add_field.',
+    inputSchema: {
+        code: z.string().describe('Lowercase with hyphens, e.g. "afval" or "zelfcontrole-afval"; becomes thema:<code> and the field prefix.'),
+        prefLabel: prefLabel.describe('Name of the thema, e.g. "Afval".'),
+        definition: definition.optional(),
+        notation: z.string().optional().describe('Defaults to THEMA_<CODE>.'),
+        stepLabel: z.string().optional().describe('Label of the first step; defaults to the thema label.'),
+        dryRun,
+    },
+}, respond(write(args => addFlow(args))));
+
+server.registerTool('add_step', {
+    title: 'Stap toevoegen',
+    description:
+        'Add a step (concept scheme) to a flow file. With `from`, the given field (or thema) leads to it via seeAlso. ' +
+        'Then add its fields with add_field.',
+    inputSchema: {
+        name: z.string().describe('snake_case, by convention operationeel_<flow>_<step>, e.g. operationeel_lucht_emissie.'),
+        prefLabel: z.string().optional(),
+        definition: z.string().optional(),
+        from: z.string().optional().describe('Field or thema that leads to this step (sets its seeAlso).'),
+        file: z.string().optional().describe('operationeel_*.csv to put it in; defaults to the file of `from`.'),
+        replaceNext: z.boolean().default(false).describe('Replace an existing seeAlso of `from`.'),
+        dryRun,
+    },
+}, respond(write(args => addStep(args))));
+
+server.registerTool('add_field', {
+    title: 'Veld toevoegen aan een stap',
+    description:
+        'Add a field (concept) to a step. Give a datatype (input), a codeList (select), relevantRiepr (system picker) or ' +
+        'add parts later with parent=<this field> (group). Without uiFirst/uiAfter the field is shown last among its siblings. ' +
+        'Conditions (conditionPath/conditionValue), variants (related) and the next step (seeAlso) are checked against the step.',
+    inputSchema: {
+        step,
+        code: z.string().describe('Lowercase id part (a-z, 0-9, _ or -), e.g. brandstof_naam; the prefix follows the step.'),
+        prefix: z.string().optional().describe('Id prefix, only when it cannot be derived from the step.'),
+        ...Object.fromEntries(Object.entries(fieldSchema).map(([k, v]) => [k, k === 'prefLabel' ? v : v.optional()])) as {
+            [K in keyof typeof fieldSchema]: K extends 'prefLabel' ? (typeof fieldSchema)[K] : z.ZodOptional<(typeof fieldSchema)[K]>
+        },
+        dryRun,
+    },
+}, respond(write(args => addField(args))));
+
+server.registerTool('update_flow_item', {
+    title: 'Thema, stap of veld aanpassen',
+    description:
+        'Change a field (any property of add_field), a step (prefLabel, definition) or a thema (prefLabel, definition, notation, ' +
+        'seeAlso = first step). Only the keys in `set` change; null clears. Ids cannot change. Related variants stay symmetric.',
+    inputSchema: {
+        id: z.string().describe('Id of the thema, step or field.'),
+        set: z.object({
+            ...Object.fromEntries(Object.entries(fieldSchema).map(([k, v]) => [k, k === 'prefLabel' ? v.optional() : v.nullable().optional()])),
+            notation: z.string().nullable().optional().describe('Thema only.'),
+        }),
+        dryRun,
+    },
+}, respond(write(args => updateFlowItem(args as Parameters<typeof updateFlowItem>[0]))));
+
+server.registerTool('reorder_fields', {
+    title: 'Volgorde van velden',
+    description:
+        'Set the display order of the fields at one level of a step (top level, or the parts of `parent`) by rewriting ' +
+        '_ui_first/_ui_after. `order` lists every sibling exactly once. Conditional fields always render after their trigger.',
+    inputSchema: {
+        step,
+        parent: z.string().optional().describe('Composite field whose parts to reorder; omit for the top level.'),
+        order: z.array(z.string()).min(1),
+        dryRun,
+    },
+}, respond(write(args => reorderFields(args))));
+
+server.registerTool('delete_field', {
+    title: 'Veld verwijderen',
+    description:
+        'Delete a field with its parts. Refused while another row uses it (e.g. as conditionPath); the ordering of the ' +
+        'remaining siblings and related variants are fixed automatically. Confirm with the user first.',
+    inputSchema: { field: z.string(), dryRun },
+    annotations: destructive,
+}, respond(write(args => deleteField(args))));
+
+server.registerTool('delete_step', {
+    title: 'Stap verwijderen',
+    description:
+        'Delete a step with all its fields. Refused while other rows use it or its fields; seeAlso links to the step are ' +
+        'removed with unlink=true. Confirm with the user first.',
+    inputSchema: { step, unlink: z.boolean().default(false), dryRun },
+    annotations: destructive,
+}, respond(write(args => deleteStep(args))));
 
 await server.connect(new StdioServerTransport());

@@ -1,12 +1,17 @@
 # codelijst-rie-iepr MCP server
 
-MCP server (TypeScript) om systeemtypes en eigenschappen van de structurele codelijsten op te
-vragen en te beheren (`emissiepunt`, `filter`, `installatie`, `meetpunt`, `uitwisselpunt`,
-`onttrekkingspunt`), inclusief de inline selectielijsten die ze via `relevantCodeList` of
-`relevantUnit` gebruiken. Andere codelijsten (operationeel, thema, ...) vallen buiten scope.
+MCP server (TypeScript) om de RIE-IEPR codelijsten op te vragen en te beheren:
 
-De server schrijft enkel in `src/source/`: `<systeem>_type.csv`, `<systeem>_eigenschappen.csv`
-en, wanneer een nieuwe prefix nodig is, `config.yml` en de prefixtabel in `README.md`.
+- de structurele codelijsten: systeemtypes en eigenschappen van `emissiepunt`, `filter`,
+  `installatie`, `meetpunt`, `uitwisselpunt` en `onttrekkingspunt`, inclusief de inline
+  selectielijsten die ze via `relevantCodeList` of `relevantUnit` gebruiken;
+- de operationele gegevens: de thematische stromen (`thema_type.csv`), hun stappen en velden
+  (`operationeel_*.csv`) en het formulier (UI) dat eruit volgt.
+
+Andere codelijsten (procedure, rubriek, status, aangifte, ...) vallen buiten scope.
+
+De server schrijft enkel in `src/source/` (de betrokken CSV's, `config.yml` voor nieuwe prefixen
+en bestanden) en in de prefixtabel van `README.md`.
 Enkel de betrokken regels worden ingevoegd, vervangen of verwijderd, zodat de git-diff minimaal
 blijft. Bij het toevoegen van een kolom (`collections`, `isMultiselect`) krijgt elke regel een
 extra komma.
@@ -18,8 +23,11 @@ cd mcp
 npm install    # installeert en bouwt naar mcp/dist/ (publieke npm registry, zie mcp/.npmrc)
 ```
 
-Registreer de server in je agent of editor als stdio-server met `node mcp/dist/index.js` vanuit
-de root van de repository (zie `AGENTS.md`). De bijhorende skills staan in `.agents/skills/`:
+Agents starten de server via `node mcp/bin/codelijst-mcp.js`. Dat startscript (zonder
+dependencies) voert bij de eerste start `npm ci` uit en bouwt opnieuw wanneer `mcp/src/` nieuwer
+is dan `mcp/dist/`; alle npm-uitvoer gaat naar stderr zodat stdout vrij blijft voor MCP. De
+server is geregistreerd voor opencode, Codex, Gemini CLI, Cursor, VS Code, GitHub Copilot CLI en
+Claude Code; de configuratiebestanden staan opgesomd in `AGENTS.md`. De bijhorende skills staan in `.agents/skills/`:
 `codelijst-opvragen`, `codelijst-systeemtype`, `codelijst-eigenschap` en `codelijst-wijzigen`.
 
 ## Tools
@@ -44,6 +52,25 @@ de root van de repository (zie `AGENTS.md`). De bijhorende skills staan in `.age
 | Type | `add_type` | `update_type` | `delete_type` |
 | Eigenschap | `add_property` | `update_property` | `delete_property` |
 | Inline selectielijst | `add_selection_list` (`extend: true` voegt opties/leden toe) | `update_selection_list` (lijst en opties) | `remove_list_entries`, `delete_selection_list` |
+
+### Operationele flows
+
+| Tool | Doel |
+|---|---|
+| `list_flows` | Thematische stromen met hun stappen; onbereikbare stappen, (ongebruikte) optielijsten, bestanden die niet in `config.yml` staan |
+| `get_flow` | Volledige flow van een thema als leesbare outline + UI-beschrijving per stap |
+| `get_step` | Formulier van één stap: velden in weergavevolgorde, control, verplicht/meervoudig, opties, eenheden, voorwaarden, varianten, volgende stap |
+| `get_flow_item` | Record, UI-beschrijving en verwijzingen van een thema, stap, veld of optie |
+| `validate_flows` | seeAlso, voorwaarden, onderdelen, volgorde, `related`, codelijsten, placeholders (`http://TODO`) |
+| `add_flow` | Nieuwe stroom: thema, `operationeel_<code>.csv` met eerste stap, `config.yml` en prefix |
+| `add_step` | Stap toevoegen, gekoppeld via `seeAlso` vanuit een veld |
+| `add_field` | Veld of onderdeel toevoegen; komt standaard achteraan bij de broers/zussen |
+| `update_flow_item` | Veld, stap(label) of thema aanpassen |
+| `reorder_fields` | Volgorde van velden zetten (`_ui_first`/`_ui_after`) |
+| `delete_field`, `delete_step` | Verwijderen; volgorde en `related` worden bijgewerkt, `unlink` haalt `seeAlso`-links weg |
+
+De UI-beschrijving volgt de interpretatie van `poc/poc-flow-operationeel` (volgorde volgens
+`ui-sort.ts`, controls zoals `field-control-factory.ts`).
 
 Alle schrijvende tools staan standaard op `dryRun: true` en tonen de regels die ze zouden
 invoegen, wijzigen of verwijderen. Pas met `dryRun: false` wordt er geschreven.
@@ -93,11 +120,14 @@ ondersteunt, en anders weigert de tool met de vraag om het na te vragen.
 | `src/eigenschappen.ts` | Eigenschappen: oplijsten, toevoegen, aanpassen, verwijderen |
 | `src/lists.ts` | Inline selectielijsten en het zoeken naar bestaande codelijsten |
 | `src/query.ts` | Vragen over types en eigenschappen (overerving, zoeken) |
+| `src/flows.ts` | Operationele flows lezen: stappen, UI-volgorde en -beschrijving, validatie |
+| `src/flows-edit.ts` | Flows, stappen en velden toevoegen, aanpassen, herschikken en verwijderen |
 | `src/references.ts` | Verwijzingen zoeken en hulpfuncties voor aanpassen/verwijderen |
 | `src/rules.ts` | Gedeelde conventies en controles |
 | `src/validate.ts` | `validate_codelists` |
 | `src/pipeline.ts` | `npm run generate_skos` uitvoeren en terugzetten bij fouten |
 | `src/csv.ts`, `src/repo.ts` | Regelbehoudend CSV-bewerken, paden en prefixen |
+| `bin/codelijst-mcp.js` | Startscript voor agents: installeert en bouwt indien nodig |
 
 ```bash
 cd mcp

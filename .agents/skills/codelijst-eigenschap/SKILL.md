@@ -1,6 +1,6 @@
 ---
 name: codelijst-eigenschap
-description: Add a new eigenschap (property) for emissiepunten, filters, installaties, meetpunten, uitwisselpunten or onttrekkingspunten to src/source/<systeem>_eigenschappen.csv, including composite properties, units and selection lists (relevantCodeList). Use when the user asks to add a property, field, attribuut or eigenschap to one of these system types, e.g. "voeg de hoogte toe aan een fakkel", "een installatie moet een brandstoftype kunnen kiezen".
+description: 'Add a new eigenschap (property) for emissiepunten, filters, installaties, meetpunten, uitwisselpunten or onttrekkingspunten to src/source/<systeem>_eigenschappen.csv, including composite properties, units and selection lists (relevantCodeList). Use when the user asks to add a property, field, attribuut or eigenschap to one of these system types, e.g. "voeg de hoogte toe aan een fakkel", "een installatie moet een brandstoftype kunnen kiezen".'
 ---
 
 # Add an eigenschap
@@ -48,4 +48,4 @@ Properties live in `src/source/<systeem>_eigenschappen.csv` (`conceptscheme:<sys
 - New inline concept schemes get the id `conceptscheme:<systeem>_<name>`, their options `<systeem>-selectiemogelijkheden:<code>`. The tool declares that prefix in `config.yml` and the README prefix table the first time. Options share that prefix across all lists of a system, so choose specific codes.
 - Adding a list or `isMultiselect` to a file that lacks the `collections`/`isMultiselect` column appends that column, which touches every line of the CSV. Mention this when showing the preview.
 - Ids become published URIs and cannot be renamed. To change or delete existing eigenschappen, lists or options, follow `.agents/skills/codelijst-wijzigen/SKILL.md`.
-- If the MCP tools are unavailable, tell the user the `codelijst-rie-iepr` server is not connected (`.mcp.json`, needs `npm install` in `mcp/`, which also builds it) rather than editing the CSV by hand. If you have to edit a CSV by hand anyway, run `npm run generate_skos` from the repo root afterwards and only finish when it passes.
+- If the MCP tools are unavailable, tell the user the `codelijst-rie-iepr` server is not connected (see the MCP table in `AGENTS.md` for the config file of each agent) rather than editing the CSV by hand. If you have to edit a CSV by hand anyway, run `npm run generate_skos` from the repo root afterwards and only finish when it passes.

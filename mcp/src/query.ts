@@ -2,6 +2,7 @@
 // "Welke typen installaties bestaan er?" or "Wat zijn de eigenschappen van een fakkel?".
 
 import type { CsvRecord } from './csv.js';
+import { isOperationalFile, Repo, THEMA_FILE } from './flows.js';
 import { describeList, type InlineList } from './lists.js';
 import { openCsv, splitValues, SYSTEMS, systemNames, type System, type SystemNames } from './repo.js';
 import { LIST_TYPES, ValidationError } from './rules.js';
@@ -205,7 +206,7 @@ export function getProperty({ property, system }: { property: string; system?: S
     };
 }
 
-export type SearchKind = 'all' | 'type' | 'property' | 'option';
+export type SearchKind = 'all' | 'type' | 'property' | 'option' | 'operational';
 
 export function searchCodelists({ query, system, kind = 'all' }: { query: string; system?: System; kind?: SearchKind }) {
     const q = normalize(query);
@@ -240,6 +241,19 @@ export function searchCodelists({ query, system, kind = 'all' }: { query: string
                 for (const m of list.members.filter(m => m.prefLabel)) {
                     add('option', { _id: m.id, prefLabel: m.prefLabel ?? '', definition: m.definition ?? '' }, { list: list.id });
                 }
+            }
+        }
+    }
+    if (!system && (kind === 'all' || kind === 'operational')) {
+        for (const at of new Repo().rows.filter(r => isOperationalFile(r.file) && r.record._type)) {
+            const s = score(at.record);
+            if (s > 0) {
+                hits.push({
+                    score: s, kind: 'operational', id: at.record._id, prefLabel: at.record.prefLabel || undefined,
+                    definition: at.record.definition || undefined,
+                    what: at.file === THEMA_FILE ? 'thema' : at.record._type === 'skos:ConceptScheme' ? 'step or option list' : 'field or option',
+                    step: at.record.inScheme || undefined, file: `src/source/${at.file}`,
+                });
             }
         }
     }

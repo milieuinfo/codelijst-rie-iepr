@@ -15,9 +15,11 @@ test('server exposes the tools over stdio', async () => {
     try {
         const { tools } = await client.listTools();
         assert.deepEqual(tools.map(t => t.name).sort(), [
-            'add_property', 'add_selection_list', 'add_type', 'delete_property', 'delete_selection_list', 'delete_type',
-            'find_code_lists', 'generate_skos', 'get_property', 'get_type_properties', 'list_properties', 'list_types',
-            'remove_list_entries', 'search_codelists', 'update_property', 'update_selection_list', 'update_type', 'validate_codelists',
+            'add_field', 'add_flow', 'add_property', 'add_selection_list', 'add_step', 'add_type',
+            'delete_field', 'delete_property', 'delete_selection_list', 'delete_step', 'delete_type',
+            'find_code_lists', 'generate_skos', 'get_flow', 'get_flow_item', 'get_property', 'get_step', 'get_type_properties',
+            'list_flows', 'list_properties', 'list_types', 'remove_list_entries', 'reorder_fields', 'search_codelists',
+            'update_flow_item', 'update_property', 'update_selection_list', 'update_type', 'validate_codelists', 'validate_flows',
         ]);
         const result = await client.callTool({ name: 'list_types', arguments: { system: 'filter' } }) as CallToolResult;
         const text = (result.content[0] as { text: string }).text;

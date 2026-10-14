@@ -37,13 +37,30 @@ For `emissiepunt`, `filter`, `installatie`, `meetpunt`, `uitwisselpunt` and `ont
   `.agents/skills/codelijst-wijzigen/SKILL.md`.
 
 Use the tools of the `codelijst-rie-iepr` MCP server for these changes instead of editing the CSVs by
-hand; they enforce the conventions and keep diffs minimal. Register it as a stdio server in your
-agent or editor:
+hand; they enforce the conventions and keep diffs minimal. If its tools are not available, do not
+fall back to editing the CSVs: tell the user the server is not connected (see below).
 
-- command: `node`
-- args: `["mcp/dist/index.js"]` (working directory: repository root; run `npm install` in `mcp/` first, which builds `dist/`)
+The server is started with `node mcp/bin/codelijst-mcp.js` from the repository root. That launcher
+installs and builds `mcp/` on first start (and rebuilds after changes to `mcp/src/`), so no manual
+`npm install` is needed. It is registered for these agents:
 
-Other code lists (operationeel_*, thema, procedure, ...) are not covered by the server or skills.
+| Agent | MCP config | Note |
+|---|---|---|
+| opencode | `opencode.json` | |
+| Codex | `.codex/config.toml` | Loaded only after trusting the project; start Codex from the repo root |
+| Gemini CLI | `.gemini/settings.json` | Also makes Gemini read this `AGENTS.md`; start from the repo root |
+| Cursor | `.cursor/mcp.json` | |
+| VS Code (Copilot Chat) | `.vscode/mcp.json` | |
+| GitHub Copilot CLI, Claude Code | `.mcp.json` | |
+
+Any other agent: register a stdio server with command `node` and args
+`["<repo>/mcp/bin/codelijst-mcp.js"]`. Skills in `.agents/skills/` are discovered by opencode, Codex,
+Gemini CLI, Cursor, VS Code and Copilot CLI.
+
+The operationele gegevens (thematische stromen in `thema_type.csv`, their steps and fields in
+`operationeel_*.csv`, and the form they produce): follow `.agents/skills/codelijst-flows/SKILL.md`.
+
+Other code lists (procedure, rubriek, status, aangifte, ...) are not covered by the server or skills.
 
 ## Rules
 

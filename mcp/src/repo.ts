@@ -109,6 +109,12 @@ export function isDeclaredPrefix(prefix: string, root = repoRoot()): boolean {
     return WELL_KNOWN_PREFIXES.has(prefix) || Object.hasOwn(declaredPrefixes(root), prefix);
 }
 
+/** Term names defined in src/source/context.json (valid CSV column names). */
+export function contextTerms(root = repoRoot()): Set<string> {
+    const context = JSON.parse(fs.readFileSync(path.join(sourceDir(root), 'context.json'), 'utf8')) as Record<string, unknown>;
+    return new Set(Object.keys(context));
+}
+
 /** Splits a multi-valued cell the way the generator does ("a|b" or "a,b"). */
 export function splitValues(value: string | undefined): string[] {
     if (!value) return [];
@@ -135,13 +141,26 @@ export function conceptIndex(root = repoRoot()): Map<string, IndexEntry[]> {
  * Declares `<prefix>: <uri>` in config.yml next to the other codelijst prefixes
  * and adds the matching row to the prefix table in README.md.
  */
-export function declarePrefix({ prefix, uri, after }: { prefix: string; uri: string; after: string }, root = repoRoot()): string[] {
+export function declarePrefix({ prefix, uri, after }: { prefix: string; uri: string; after?: string }, root = repoRoot()): string[] {
     const changes: string[] = [];
     const configPath = path.join(sourceDir(root), 'config.yml');
     const configLines = fs.readFileSync(configPath, 'utf8').split('\n');
-    const anchor = configLines.findIndex(l => l.startsWith(`  ${after}:`));
-    if (anchor < 0) throw new Error(`Could not find prefix '${after}' in config.yml to insert '${prefix}' after.`);
-    configLines.splice(anchor + 1, 0, `  ${prefix}: ${uri}`);
+    let at: number;
+    if (after) {
+        const anchor = configLines.findIndex(l => l.startsWith(`  ${after}:`));
+        if (anchor < 0) throw new Error(`Could not find prefix '${after}' in config.yml to insert '${prefix}' after.`);
+        at = anchor + 1;
+    } else {
+        // Alphabetically among the codelijst prefixes (`  name: <CONCEPT_BASE>...`).
+        const block = configLines.flatMap((line, index) => {
+            const match = /^  ([a-zA-Z0-9_-]+): (\S+)$/.exec(line);
+            return match && match[2].startsWith(CONCEPT_BASE) ? [{ index, name: match[1] }] : [];
+        });
+        if (block.length === 0) throw new Error('Could not find the codelijst prefixes in config.yml.');
+        const next = block.find(b => `${b.name}:` > `${prefix}:`);
+        at = next ? next.index : block[block.length - 1].index + 1;
+    }
+    configLines.splice(at, 0, `  ${prefix}: ${uri}`);
     fs.writeFileSync(configPath, configLines.join('\n'), 'utf8');
     changes.push(`src/source/config.yml: declared prefix ${prefix}: ${uri}`);
 

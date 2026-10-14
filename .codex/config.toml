@@ -1,0 +1,8 @@
+# Project configuration for Codex (loaded once the project is trusted).
+# The first start installs and builds mcp/ (npm), hence the longer startup timeout;
+# writes run `npm run generate_skos`, hence the longer tool timeout.
+[mcp_servers.codelijst-rie-iepr]
+command = "node"
+args = ["mcp/bin/codelijst-mcp.js"]
+startup_timeout_sec = 120
+tool_timeout_sec = 300

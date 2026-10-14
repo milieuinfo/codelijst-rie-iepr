@@ -1,6 +1,6 @@
 ---
 name: codelijst-opvragen
-description: Answer questions about the RIE-IEPR systeemtypes and eigenschappen of emissiepunten, filters, installaties, meetpunten, uitwisselpunten and onttrekkingspunten, e.g. "Welke typen installaties bestaan er?", "Wat zijn de eigenschappen van een fakkel?", "Welke lozingsplaatsen kan ik kiezen?", "Welke installaties hebben een geïnstalleerd vermogen?".
+description: 'Answer questions about the RIE-IEPR systeemtypes and eigenschappen of emissiepunten, filters, installaties, meetpunten, uitwisselpunten and onttrekkingspunten, e.g. "Welke typen installaties bestaan er?", "Wat zijn de eigenschappen van een fakkel?", "Welke lozingsplaatsen kan ik kiezen?", "Welke installaties hebben een geïnstalleerd vermogen?".'
 ---
 
 # Answer questions about types and eigenschappen

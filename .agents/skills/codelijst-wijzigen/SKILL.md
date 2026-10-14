@@ -1,6 +1,6 @@
 ---
 name: codelijst-wijzigen
-description: Edit or delete existing systeemtypes, eigenschappen and the inline selection lists (concept schemes/collections used via relevantCodeList or relevantUnit) of emissiepunten, filters, installaties, meetpunten, uitwisselpunten and onttrekkingspunten. Use when the user asks to change, rename the label of, correct, move, remove or delete a type, eigenschap, list or option, e.g. "pas de definitie van fakkel aan", "verwijder het type gebouw", "maak lozingsplaats meervoudig", "haal riool uit de lozingsplaatsen".
+description: 'Edit or delete existing systeemtypes, eigenschappen and the inline selection lists (concept schemes/collections used via relevantCodeList or relevantUnit) of emissiepunten, filters, installaties, meetpunten, uitwisselpunten and onttrekkingspunten. Use when the user asks to change, rename the label of, correct, move, remove or delete a type, eigenschap, list or option, e.g. "pas de definitie van fakkel aan", "verwijder het type gebouw", "maak lozingsplaats meervoudig", "haal riool uit de lozingsplaatsen".'
 ---
 
 # Edit or delete types, eigenschappen and selection lists
