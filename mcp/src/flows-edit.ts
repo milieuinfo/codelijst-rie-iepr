@@ -19,8 +19,8 @@ const FIELD_CODE = /^[a-z][a-z0-9_-]*$/;
 const OPERATIONAL_HEADER = [
     '_id', '_type', 'topConceptOf', 'inScheme', 'prefLabel', 'definition', 'broaderPartitive', 'relevantClass',
     'relevantFeatureClass', 'relevantDataType', 'relation', 'seeAlso', 'relevantRiepr', 'conditionPath', 'conditionValue',
-    'relevantCodeList', 'relevantUnit', 'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'isVerplicht', 'isMeervoudig',
-    'isMultiselect', 'isOnzichtbaar', '_ui_after', '_ui_first', 'related',
+    'relevantCodeList', 'relevantUnit', 'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'variabele', 'isVerplicht',
+    'isMeervoudig', 'isMultiselect', 'isOnzichtbaar', '_ui_after', '_ui_first', 'related',
 ];
 
 export interface FieldProperties {
@@ -43,6 +43,8 @@ export interface FieldProperties {
     kwantiteitsAspect?: string;
     drager?: string;
     soortWaartbepaling?: string;
+    /** Field of the same step where the stof (CSOR variabele) of this value is selected. */
+    variabele?: string;
     isVerplicht?: boolean;
     isMeervoudig?: boolean;
     isMultiselect?: boolean;
@@ -71,6 +73,7 @@ const COLUMNS: Record<keyof FieldProperties, string> = {
     kwantiteitsAspect: 'kwantiteitsAspect',
     drager: 'drager',
     soortWaartbepaling: 'soortWaartbepaling',
+    variabele: 'variabele',
     isVerplicht: 'isVerplicht',
     isMeervoudig: 'isMeervoudig',
     isMultiselect: 'isMultiselect',
@@ -126,7 +129,10 @@ class Files {
         for (const [column, value] of Object.entries(record)) {
             if (!value || csv.hasColumn(column)) continue;
             if (!terms.has(column)) throw new ValidationError(`Column '${column}' is not a term in src/source/context.json.`);
-            csv.addColumn(column);
+            // Keep the column order of OPERATIONAL_HEADER: after the nearest preceding column the file has.
+            const known = OPERATIONAL_HEADER.indexOf(column);
+            const after = known > 0 ? OPERATIONAL_HEADER.slice(0, known).reverse().find(c => csv.hasColumn(c)) : undefined;
+            csv.addColumn(column, after);
             changes.push({ file: `src/source/${file}`, note: `added column ${column}` });
         }
     }
@@ -219,6 +225,13 @@ function checkField(repo: Repo, scheme: string, id: string, p: FieldProperties):
         if (value) checkReference(value, field, errors);
     }
     for (const value of p.relevantFeatureClass ?? []) checkReference(value, 'relevantFeatureClass', errors);
+    if (p.variabele) {
+        const selector = repo.byId.get(p.variabele)?.record;
+        if (p.variabele === id) errors.push('variabele cannot point to the field itself.');
+        else if (!inStep.has(p.variabele)) errors.push(`variabele ${p.variabele} is not a field of ${scheme}.`);
+        else if (!selector?.relevantCodeList) errors.push(`variabele ${p.variabele} has no relevantCodeList, so no stof is selected there.`);
+        else if (selector.broaderPartitive !== (p.parent ?? '')) warnings.push(`variabele ${p.variabele} is not a part of the same group as this field.`);
+    }
 
     if (Boolean(p.conditionPath) !== Boolean(p.conditionValue)) errors.push('conditionPath and conditionValue go together.');
     if (p.conditionPath) {
@@ -635,5 +648,67 @@ export function addFlow(params: { code: string; prefLabel: string; definition?: 
     return writeResult({
         action: `add flow ${themaId}`, file: `src/source/${file}`, insertedLines: [header, schemeLine], changes, otherChanges, warnings, dryRun,
         use: `Add the fields of the first step with add_field step='${schemeId}' (ids get the prefix '${code}:'), and further steps with add_step.`,
+    });
+}
+
+// ---------------------------------------------------------------------------
+// Option lists
+// ---------------------------------------------------------------------------
+
+/** File with the option lists shared by the flows. */
+export const FLOW_LISTS_FILE = 'operationeel_misc.csv';
+
+/**
+ * A collection of published concepts (e.g. CSOR variabelen) in operationeel_misc.csv, for use as codeList of a
+ * field. With `extend`, members are added to an existing collection there.
+ */
+export function addFlowCollection(params: {
+    name: string;
+    prefLabel?: string;
+    definition?: string;
+    members: string[];
+    extend?: boolean;
+    dryRun?: boolean;
+}): WriteResult {
+    const { name, prefLabel, definition, members, extend = false, dryRun = true } = params;
+    const repo = new Repo();
+    const listId = name.includes(':') ? name : `collectie:${name}`;
+    const errors: string[] = [];
+    const warnings: string[] = [];
+    if (prefixOf(listId) !== 'collectie') errors.push("A collection id must use the 'collectie:' prefix.");
+    else if (!FIELD_CODE.test(listId.split(':')[1])) errors.push(`name '${listId.split(':')[1]}' must be lowercase (a-z, 0-9, _ or -).`);
+
+    const existing = repo.byId.get(listId);
+    const current = existing ? repo.listMembers(listId).map(m => m.id) : [];
+    if (extend) {
+        if (!existing || existing.file !== FLOW_LISTS_FILE || existing.record._type !== 'skos:Collection') errors.push(`extend=true but ${listId} is not a collection in ${FLOW_LISTS_FILE}.`);
+    } else {
+        if (existing) errors.push(`${listId} already exists in ${existing.file}; pass extend=true to add members to it.`);
+        checkTexts({ prefLabel, definition }, errors, warnings);
+    }
+    if (members.length === 0) errors.push('A collection needs at least one member (CURIE or URL of an existing, published concept).');
+    for (const member of members) {
+        checkReference(member, 'member', errors);
+        if (current.includes(member)) errors.push(`${member} is already a member of ${listId}.`);
+    }
+    if (new Set(members).size !== members.length) errors.push('members contains duplicates.');
+    fail(errors);
+
+    const files = new Files();
+    const changes: LineChange[] = [];
+    const rows: CsvInput[] = members.map(member => ({ _id: member, collections: listId }));
+    files.ensureColumns(FLOW_LISTS_FILE, rows[0], changes);
+    const csv = files.get(FLOW_LISTS_FILE);
+    let lines: string[];
+    if (extend) {
+        const last = csv.rows.filter(r => !r.blank && (r.record._id === listId || splitValues(r.record.collections).includes(listId))).at(-1)!;
+        lines = csv.insertAfter(last.index, rows);
+    } else {
+        lines = csv.appendBlock([{ _id: listId, _type: 'skos:Collection', prefLabel: prefLabel?.trim(), definition: definition?.trim() }, ...rows]);
+    }
+    files.saveAll(dryRun);
+    return writeResult({
+        action: `${extend ? 'extend' : 'add'} collection ${listId}`, file: `src/source/${FLOW_LISTS_FILE}`, insertedLines: lines, changes, warnings, dryRun,
+        use: `Reference it from add_field/update_flow_item with codeList=['${listId}'].`,
     });
 }

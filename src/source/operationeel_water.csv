@@ -1,22 +1,22 @@
-_id,_type,topConceptOf,inScheme,prefLabel,definition,broaderPartitive,relevantClass,relevantFeatureClass,relevantDataType,relation,seeAlso,relevantRiepr,conditionPath,conditionValue,relevantCodeList,relevantUnit,kwantiteitsAspect,drager,soortWaartbepaling,isVerplicht,isMeervoudig,isOnzichtbaar,_ui_after,_ui_first
-conceptscheme:operationeel_water,skos:ConceptScheme,,,Operationele gegevens,Selecteer de controleinrichting waarop je de lozing wil rapporteren.,,,,,,,,,,,,,,,,,,,
-water:feature,skos:Concept,conceptscheme:operationeel_water,conceptscheme:operationeel_water,Controleinrichting,De controleinrichting waarop gerapporteed moet worden.,,sosa:FeatureOfInterest,,,sosa:hasFeatureOfInterest,conceptscheme:operationeel_water_lozing,meetpunt:controleinrichting,,,,,,,,true,true,,,true
-,,,,,,,,,,,,,,,,,,,,,,,,
-conceptscheme:operationeel_water_lozing,skos:ConceptScheme,,,,,,,,,,,,,,,,,,,,,,,
-water:lozing,skos:Concept,conceptscheme:operationeel_water_lozing,conceptscheme:operationeel_water_lozing,Lozing,,,riepr:ObservatieVerzameling,riepr:Emissie,,,,,,,,,,,,true,true,,,true
-water:lozing-debiet,skos:Concept,,conceptscheme:operationeel_water_lozing,Debiet per jaar,,water:lozing,,,xsd:decimal,sosa:hasResult,,,,,,csor_eenheid:E_50,,,,true,,,,true
-water:lozing-dagen,skos:Concept,,conceptscheme:operationeel_water_lozing,Aantal dagen per jaar,,water:lozing,,,xsd:integer,sosa:hasResult,,,,,,http://TODO,,,,true,,,water:lozing-debiet,
-water:lozing-stof,skos:Concept,,conceptscheme:operationeel_water_lozing,Verontreinigende stof,,water:lozing,,,,riepr:parameter,,https://data.omgeving.vlaanderen.be/id/conceptscheme/csor/variabele,,,,,,,,true,,,water:lozing-dagen,
-water:lozing-meetfrequentie,skos:Concept,,conceptscheme:operationeel_water_lozing,Meetfrequentie,,water:lozing,,,xsd:decimal,dcterms:accrualPeriodicity,,,,,conceptscheme:operationeel_zelfcontrole_meetfrequentie,,,,,,,,water:lozing-stof,
-water:lozing-concentratie,skos:Concept,,conceptscheme:operationeel_water_lozing,Gemiddelde concentratie,,water:lozing,riepr:Observatie,,xsd:decimal,qudt:numericValue,,,,,,http://TODO,,,,,,,water:lozing-meetfrequentie,
-water:lozing-jaarvracht,skos:Concept,,conceptscheme:operationeel_water_lozing,Totale jaarvracht,,water:lozing,riepr:Observatie,,xsd:decimal,qudt:numericValue,,,,,,http://TODO,,,,,,,water:lozing-concentratie,
-water:lozing-bepalingsmethode,skos:Concept,,conceptscheme:operationeel_water_lozing,Bepalingsmethode,,water:lozing,,,,sosa:usedProcedure,,,,,conceptscheme:operationeel_bepalingsmethode,,,,,,,,water:lozing-jaarvracht,
-water:lozing-bepalingsmethodeclassificatie,skos:Concept,,conceptscheme:operationeel_water_lozing,Bepalingsmethodeclassificatie,,water:lozing,,,,sosa:usedProcedure,,,,,conceptscheme:operationeel_bepalingsmethodeclassificatie,,,,,,,,water:lozing-bepalingsmethode,
-,,,,,,,,,,,,,,,,,,,,,,,,
-water:abnormale-lozing,skos:Concept,conceptscheme:operationeel_water_lozing,conceptscheme:operationeel_water_lozing,Abnormale lozing,,,riepr:Observatie,,,,,,,,,,,,,false,true,,water:lozing,
-water:abnormale-lozing-stof,skos:Concept,,conceptscheme:operationeel_water_lozing,Verontreinigende stof,,water:abnormale-lozing,,,,riepr:parameter,,https://data.omgeving.vlaanderen.be/id/conceptscheme/csor/variabele,,,,,,,,true,,,,true
-water:abnormale-lozing-lozingsduur,skos:Concept,,conceptscheme:operationeel_water_lozing,Lozingsduur,,water:abnormale-lozing,,,xsd:integer,sosa:hasResult,,,,,,csor_eenheid:E_94,,,,true,,,water:abnormale-lozing-stof,
-water:abnormale-lozing-jaarvracht,skos:Concept,,conceptscheme:operationeel_water_lozing,Jaarvracht,,water:abnormale-lozing,,,xsd:decimal,qudt:numericResult,,,,,,http://TODO,,,,,,,water:abnormale-lozing-lozingsduur,
-water:abnormale-lozing-verklaring,skos:Concept,,conceptscheme:operationeel_water_lozing,Verklaring,,water:abnormale-lozing,,,xsd:string,rdfs:comment,,,,,,,,,,,,,water:abnormale-lozing-jaarvracht,
-,,,,,,,,,,,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,,,,,,,,,,,
+_id,_type,topConceptOf,inScheme,prefLabel,definition,broaderPartitive,relevantClass,relevantFeatureClass,relevantDataType,relation,seeAlso,relevantRiepr,conditionPath,conditionValue,relevantCodeList,relevantUnit,kwantiteitsAspect,drager,soortWaartbepaling,variabele,isVerplicht,isMeervoudig,isOnzichtbaar,_ui_after,_ui_first
+conceptscheme:operationeel_water,skos:ConceptScheme,,,Operationele gegevens,Selecteer de controleinrichting waarop je de lozing wil rapporteren.,,,,,,,,,,,,,,,,,,,,
+water:feature,skos:Concept,conceptscheme:operationeel_water,conceptscheme:operationeel_water,Controleinrichting,De controleinrichting waarop gerapporteed moet worden.,,sosa:FeatureOfInterest,,,sosa:hasFeatureOfInterest,conceptscheme:operationeel_water_lozing,meetpunt:controleinrichting,,,,,,,,,true,true,,,true
+,,,,,,,,,,,,,,,,,,,,,,,,,
+conceptscheme:operationeel_water_lozing,skos:ConceptScheme,,,,,,,,,,,,,,,,,,,,,,,,
+water:lozing,skos:Concept,conceptscheme:operationeel_water_lozing,conceptscheme:operationeel_water_lozing,Lozing,,,riepr:ObservatieVerzameling,riepr:Emissie,,,,,,,,,,,,,true,true,,,true
+water:lozing-debiet,skos:Concept,,conceptscheme:operationeel_water_lozing,Debiet per jaar,,water:lozing,,,xsd:decimal,sosa:hasResult,,,,,,csor_eenheid:E_50,,,,,true,,,,true
+water:lozing-dagen,skos:Concept,,conceptscheme:operationeel_water_lozing,Aantal dagen per jaar,,water:lozing,,,xsd:integer,sosa:hasResult,,,,,,csor_eenheid:E_83,,,,,true,,,water:lozing-debiet,
+water:lozing-stof,skos:Concept,,conceptscheme:operationeel_water_lozing,Verontreinigende stof,,water:lozing,,,,riepr:parameter,,,,,collectie:operationeel_stoffen_water,,,,,,true,,,water:lozing-dagen,
+water:lozing-meetfrequentie,skos:Concept,,conceptscheme:operationeel_water_lozing,Meetfrequentie,,water:lozing,,,xsd:decimal,dcterms:accrualPeriodicity,,,,,conceptscheme:operationeel_zelfcontrole_meetfrequentie,,,,,,,,,water:lozing-stof,
+water:lozing-concentratie,skos:Concept,,conceptscheme:operationeel_water_lozing,Gemiddelde concentratie,,water:lozing,riepr:Observatie,,xsd:decimal,qudt:numericValue,,,,,,csor_eenheid:E_1,csor_kwantificeerbaaraspect:KWA_1,csor_drager:DR_1,csor_soortwaardebepaling:SWB_1,water:lozing-stof,,,,water:lozing-meetfrequentie,
+water:lozing-jaarvracht,skos:Concept,,conceptscheme:operationeel_water_lozing,Totale jaarvracht,,water:lozing,riepr:Observatie,,xsd:decimal,qudt:numericValue,,,,,,csor_eenheid:E_12,csor_kwantificeerbaaraspect:KWA_2,csor_drager:DR_1,csor_soortwaardebepaling:SWB_1,water:lozing-stof,,,,water:lozing-concentratie,
+water:lozing-bepalingsmethode,skos:Concept,,conceptscheme:operationeel_water_lozing,Bepalingsmethode,,water:lozing,,,,sosa:usedProcedure,,,,,conceptscheme:operationeel_bepalingsmethode,,,,,,,,,water:lozing-jaarvracht,
+water:lozing-bepalingsmethodeclassificatie,skos:Concept,,conceptscheme:operationeel_water_lozing,Bepalingsmethodeclassificatie,,water:lozing,,,,sosa:usedProcedure,,,,,conceptscheme:operationeel_bepalingsmethodeclassificatie,,,,,,,,,water:lozing-bepalingsmethode,
+,,,,,,,,,,,,,,,,,,,,,,,,,
+water:abnormale-lozing,skos:Concept,conceptscheme:operationeel_water_lozing,conceptscheme:operationeel_water_lozing,Abnormale lozing,,,riepr:Observatie,,,,,,,,,,,,,,false,true,,water:lozing,
+water:abnormale-lozing-stof,skos:Concept,,conceptscheme:operationeel_water_lozing,Verontreinigende stof,,water:abnormale-lozing,,,,riepr:parameter,,,,,collectie:operationeel_stoffen_water,,,,,,true,,,,true
+water:abnormale-lozing-lozingsduur,skos:Concept,,conceptscheme:operationeel_water_lozing,Lozingsduur,,water:abnormale-lozing,,,xsd:integer,sosa:hasResult,,,,,,csor_eenheid:E_94,,,,,true,,,water:abnormale-lozing-stof,
+water:abnormale-lozing-jaarvracht,skos:Concept,,conceptscheme:operationeel_water_lozing,Jaarvracht,,water:abnormale-lozing,,,xsd:decimal,qudt:numericResult,,,,,,csor_eenheid:E_12,csor_kwantificeerbaaraspect:KWA_2,csor_drager:DR_1,csor_soortwaardebepaling:SWB_1,water:abnormale-lozing-stof,,,,water:abnormale-lozing-lozingsduur,
+water:abnormale-lozing-verklaring,skos:Concept,,conceptscheme:operationeel_water_lozing,Verklaring,,water:abnormale-lozing,,,xsd:string,rdfs:comment,,,,,,,,,,,,,,water:abnormale-lozing-jaarvracht,
+,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,

@@ -16,7 +16,7 @@ beforeEach(() => {
 });
 
 const { getFlow, getStep, listFlows, validateFlows, getOperationalConcept } = await import('../src/flows.js');
-const { addField, addFlow, addStep, deleteField, deleteStep, reorderFields, updateFlowItem } = await import('../src/flows-edit.js');
+const { addField, addFlow, addFlowCollection, addStep, deleteField, deleteStep, reorderFields, updateFlowItem } = await import('../src/flows-edit.js');
 // Number of validate_flows errors in the current sources; a new flow must not add any.
 process.env.CODELIJST_ROOT = realRoot;
 const validateFlowsBaseline = validateFlows().errors;
@@ -125,11 +125,34 @@ test('steps: add with a link, refuse to delete while linked unless unlink', () =
 });
 
 test('update_flow_item edits fields, steps and themas within their allowed properties', () => {
-    updateFlowItem({ id: 'grondwater:type-debiet', set: { codeList: ['conceptscheme:operationeel_debiet_type'], conditionValue: null }, dryRun: false });
-    assert.equal(getOperationalConcept({ concept: 'grondwater:type-debiet' }).ui?.control, 'select');
+    updateFlowItem({ id: 'grondwater:type-debiet', set: { isVerplicht: true }, dryRun: false });
+    assert.equal(getOperationalConcept({ concept: 'grondwater:type-debiet' }).ui?.required, true);
     updateFlowItem({ id: 'conceptscheme:operationeel_lucht_bron', set: { prefLabel: 'Bronnen' }, dryRun: false });
     assert.match(getFlow({ flow: 'lucht' }).outline, /Stap 2: Bronnen/);
     updateFlowItem({ id: 'thema:lucht', set: { prefLabel: 'Lucht (emissies)' }, dryRun: false });
     assert.throws(() => updateFlowItem({ id: 'conceptscheme:operationeel_lucht_bron', set: { datatype: 'xsd:string' } }), /only prefLabel, definition/);
     assert.throws(() => updateFlowItem({ id: 'lucht:brandstof_naam', set: { code: 'x' } as never }), /published URI/);
+});
+
+test('add_flow_collection and variabele: a value field points to the field where its stof is selected', () => {
+    addFlowCollection({ name: 'test_stoffen', prefLabel: 'Teststoffen', members: ['csor_variabele:V_424', 'csor_variabele:V_46'], dryRun: false });
+    assert.match(read('operationeel_misc.csv'), /\ncollectie:test_stoffen,skos:Collection,/);
+    assert.match(read('operationeel_misc.csv'), /\ncsor_variabele:V_46,[^\n]*collectie:test_stoffen/);
+    assert.throws(() => addFlowCollection({ name: 'test_stoffen', members: ['csor_variabele:V_46'], extend: true }), /already a member/);
+    addFlowCollection({ name: 'test_stoffen', members: ['csor_variabele:V_231'], extend: true, dryRun: false });
+
+    assert.throws(() => updateFlowItem({ id: 'water:lozing-jaarvracht', set: { variabele: 'water:lozing-debiet' } }), /has no relevantCodeList/);
+    assert.throws(() => updateFlowItem({ id: 'water:lozing-jaarvracht', set: { variabele: 'grondwater:volume' } }), /not a field of/);
+    updateFlowItem({ id: 'water:lozing-stof', set: { codeList: ['collectie:test_stoffen'], relevantRiepr: null }, dryRun: false });
+    updateFlowItem({ id: 'water:lozing-jaarvracht', set: { variabele: null }, dryRun: false });
+    updateFlowItem({ id: 'water:lozing-jaarvracht', set: { variabele: 'water:lozing-stof', drager: 'csor_drager:DR_1' }, dryRun: false });
+    const header = read('operationeel_water.csv').split('\n')[0].split(',');
+    assert.equal(header[header.indexOf('soortWaartbepaling') + 1], 'variabele');
+    const rows = read('operationeel_water.csv').split('\n');
+    // Every row keeps its cells under the right column after the column is inserted.
+    const jaarvracht = rows.find(l => l.startsWith('water:lozing-jaarvracht,'))!.split(',');
+    assert.equal(jaarvracht[header.indexOf('variabele')], 'water:lozing-stof');
+    assert.equal(jaarvracht[header.indexOf('_ui_after')], 'water:lozing-concentratie');
+    assert.equal(getOperationalConcept({ concept: 'water:lozing-jaarvracht' }).ui?.semantics?.variabele, 'water:lozing-stof');
+    assert.deepEqual(getOperationalConcept({ concept: 'water:lozing-stof' }).ui?.options?.items?.map(i => i.id), ['csor_variabele:V_424', 'csor_variabele:V_46', 'csor_variabele:V_231']);
 });

@@ -262,7 +262,7 @@ export function describeField(repo: Repo, field: Located, all: Located[]): UiFie
     const next = splitValues(r.seeAlso);
     if (next.length) ui.nextStep = refs(repo, next);
     const semantics: Record<string, string | string[]> = {};
-    for (const key of ['relevantClass', 'relevantFeatureClass', 'relation', 'kwantiteitsAspect', 'drager', 'soortWaartbepaling']) {
+    for (const key of ['relevantClass', 'relevantFeatureClass', 'relation', 'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'variabele']) {
         if (r[key]) semantics[key] = splitValues(r[key]).length > 1 ? splitValues(r[key]) : r[key];
     }
     if (Object.keys(semantics).length) ui.semantics = semantics;
@@ -496,6 +496,12 @@ export function validateFlows() {
         for (const list of splitValues(r.relevantCodeList)) {
             if (/TODO/i.test(list)) report('warning', at, `relevantCodeList is a placeholder (${list}).`);
             else if (['conceptscheme', 'collectie'].includes(prefixOf(list) ?? '') && !repo.isList(list)) report('error', at, `relevantCodeList ${list} does not exist in this repo.`);
+        }
+        if (r.variabele) {
+            const selector = repo.byId.get(r.variabele);
+            if (!selector) report('error', at, `variabele ${r.variabele} does not exist.`);
+            else if (selector.record.inScheme !== r.inScheme) report('error', at, `variabele ${r.variabele} is not a field of the same step.`);
+            else if (!selector.record.relevantCodeList) report('warning', at, `variabele ${r.variabele} has no relevantCodeList to select the stof.`);
         }
         for (const unit of splitValues(r.relevantUnit)) if (/TODO/i.test(unit)) report('warning', at, `relevantUnit is a placeholder (${unit}).`);
         if (r.relevantUnit && r.relevantDataType && !NUMERIC_DATATYPES.includes(r.relevantDataType)) report('warning', at, `unit on a non-numeric datatype (${r.relevantDataType}).`);

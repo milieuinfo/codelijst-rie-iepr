@@ -53,6 +53,22 @@ export function parseCsvLine(line: string): string[] {
     return fields;
 }
 
+/** Character offset where field `index` (0-based) of a raw CSV line starts, or undefined when the line is shorter. */
+function fieldOffset(line: string, index: number): number | undefined {
+    if (index === 0) return 0;
+    let field = 0;
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i += 1) {
+        const char = line[i];
+        if (char === '"') inQuotes = !inQuotes;
+        else if (char === ',' && !inQuotes) {
+            field += 1;
+            if (field === index) return i + 1;
+        }
+    }
+    return undefined;
+}
+
 export function escapeCsvField(value: string | undefined | null): string {
     const text = value ?? '';
     return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
@@ -103,14 +119,27 @@ export class CsvFile {
         return this.header.includes(column);
     }
 
-    /** Appends a column at the end of the header and pads every non-empty line. */
-    addColumn(column: string): boolean {
+    /**
+     * Adds a column, at the end of the header or directly after the column `after`,
+     * and pads every non-empty line. Lines that end before the new column are left as they are.
+     */
+    addColumn(column: string, after?: string): boolean {
         if (this.hasColumn(column)) return false;
-        this.lines = this.lines.map((line, index) => {
-            if (index === 0) return `${line},${column}`;
-            return line.trim() === '' ? line : `${line},`;
-        });
-        this.header.push(column);
+        const position = after && this.hasColumn(after) ? this.header.indexOf(after) + 1 : this.header.length;
+        if (position === this.header.length) {
+            this.lines = this.lines.map((line, index) => {
+                if (index === 0) return `${line},${column}`;
+                return line.trim() === '' ? line : `${line},`;
+            });
+        } else {
+            this.lines = this.lines.map((line, index) => {
+                if (line.trim() === '') return line;
+                const offset = fieldOffset(line, position);
+                if (offset === undefined) return line;
+                return `${line.slice(0, offset)}${index === 0 ? column : ''},${line.slice(offset)}`;
+            });
+        }
+        this.header.splice(position, 0, column);
         return true;
     }
 

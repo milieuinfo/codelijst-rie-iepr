@@ -6,7 +6,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import { z } from 'zod';
-import { addField, addFlow, addStep, deleteField, deleteStep, reorderFields, updateFlowItem } from './flows-edit.js';
+import { addField, addFlow, addFlowCollection, addStep, deleteField, deleteStep, reorderFields, updateFlowItem } from './flows-edit.js';
 import { getFlow, getOperationalConcept, getStep, listFlows, OPERATIONAL_DATATYPES, validateFlows } from './flows.js';
 import { addProperty, deleteProperty, listProperties, updateProperty, type CodeListSource } from './eigenschappen.js';
 import {
@@ -488,9 +488,10 @@ const fieldSchema = {
     conditionPath: z.string().describe('Field that controls the visibility of this field (same step).'),
     conditionValue: z.string().describe('Value of conditionPath for which this field is shown (an option id, or true/false for a checkbox).'),
     related: z.array(z.string()).describe('Variants of the same logical field (kept symmetric automatically).'),
-    kwantiteitsAspect: z.string(),
-    drager: z.string(),
-    soortWaartbepaling: z.string(),
+    kwantiteitsAspect: z.string().describe('CSOR kwantificeerbaar aspect of the value, e.g. csor_kwantificeerbaaraspect:KWA_5 (vracht), KWA_1 (massaconcentratie).'),
+    drager: z.string().describe('CSOR drager of the value, e.g. csor_drager:DR_1 (water), csor_drager:DR_8 (lucht).'),
+    soortWaartbepaling: z.string().describe('CSOR soort waardebepaling, usually csor_soortwaardebepaling:SWB_1 (standaard).'),
+    variabele: z.string().describe('Field of the same step where the stof (CSOR variabele) of this value is selected, e.g. water:lozing-stof.'),
     isVerplicht: z.boolean(),
     isMeervoudig: z.boolean().describe('May be added several times.'),
     isMultiselect: z.boolean(),
@@ -561,6 +562,22 @@ server.registerTool('update_flow_item', {
         dryRun,
     },
 }, respond(write(args => updateFlowItem(args as Parameters<typeof updateFlowItem>[0]))));
+
+server.registerTool('add_flow_collection', {
+    title: 'Collectie voor een veld van een flow',
+    description:
+        'Create (or with extend=true, add members to) a collection of published concepts in operationeel_misc.csv, e.g. ' +
+        'the CSOR variabelen (stoffen) a field may select. Id collectie:<name>; members are listed through the collections ' +
+        'column. Then use it as codeList of the field with update_flow_item or add_field.',
+    inputSchema: {
+        name: z.string().describe('Name in snake_case (e.g. "operationeel_stoffen_water") or the full CURIE.'),
+        prefLabel: prefLabel.optional().describe('Dutch label of the collection (required unless extend=true).'),
+        definition: definition.optional(),
+        members: z.array(z.string()).min(1).describe('CURIEs or URLs of published concepts, e.g. csor_variabele:V_424.'),
+        extend: z.boolean().default(false),
+        dryRun,
+    },
+}, respond(write(args => addFlowCollection(args))));
 
 server.registerTool('reorder_fields', {
     title: 'Volgorde van velden',

@@ -15,7 +15,7 @@ test('server exposes the tools over stdio', async () => {
     try {
         const { tools } = await client.listTools();
         assert.deepEqual(tools.map(t => t.name).sort(), [
-            'add_field', 'add_flow', 'add_property', 'add_selection_list', 'add_step', 'add_type',
+            'add_field', 'add_flow', 'add_flow_collection', 'add_property', 'add_selection_list', 'add_step', 'add_type',
             'delete_field', 'delete_property', 'delete_selection_list', 'delete_step', 'delete_type',
             'find_code_lists', 'generate_skos', 'get_flow', 'get_flow_item', 'get_property', 'get_step', 'get_type_properties',
             'list_flows', 'list_properties', 'list_types', 'remove_list_entries', 'reorder_fields', 'search_codelists',

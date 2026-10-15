@@ -160,6 +160,10 @@ const frame_skos_prefixes = {
         "@embed": "@never",
         "@omitDefault": true
     },
+    "variabele": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
     "normstatus": {
         "@embed": "@never",
         "@omitDefault": true
@@ -212,6 +216,10 @@ const frame_skos_no_prefixes = {
         "@omitDefault": true
     },
     "_ui_after": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "variabele": {
         "@embed": "@never",
         "@omitDefault": true
     },

@@ -16,6 +16,7 @@ Use the `codelijst-rie-iepr` MCP server tools; do not edit `thema_type.csv` or `
 - `conditionPath`/`conditionValue` show a field only when another field of the step has that value.
 - `related` lists alternative **variants** of one logical field (shown as one group, the active variant follows the condition).
 - `_ui_first`/`_ui_after` set the **order** among siblings; conditional fields are always shown after their trigger.
+- A value about a stof (concentratie, jaarvracht, ...) carries `kwantiteitsAspect` (`csor_kwantificeerbaaraspect:`), `drager` (`csor_drager:`, e.g. DR_1 water, DR_8 lucht), `soortWaartbepaling` (`csor_soortwaardebepaling:`, usually SWB_1 standaard) and `variabele`: the field of the same group where the stof is selected (whose `relevantCodeList` is a collection of CSOR variabelen).
 - `relevantDataType` → input control, `relevantCodeList` → select, `relevantRiepr` → picker of systems (with `relevantClass sosa:FeatureOfInterest`: the system the report is about), `relevantUnit` → unit.
 
 ## Viewing
@@ -38,6 +39,7 @@ Explain flows in the user's language (usually Dutch) with labels, step by step: 
 | New thematische stroom (thema + file + first step) | `add_flow` |
 | New step, linked from a field | `add_step` with `from` |
 | New field / part of a group | `add_field` (with `parent` for a part) |
+| New collection of CSOR concepts (e.g. stoffen) for a field, in `operationeel_misc.csv` | `add_flow_collection` |
 | Change a field, step label or thema | `update_flow_item` (only keys in `set`; `null` clears) |
 | Change the order of fields | `reorder_fields` |
 | Delete a field (with its parts) / a step | `delete_field` / `delete_step` |
