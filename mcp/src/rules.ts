@@ -69,6 +69,11 @@ export function flag(value: boolean | undefined): string {
     return value ? 'true' : '';
 }
 
+/** Flag of a type or eigenschap concept: always explicit, so `false` instead of an empty cell. */
+export function explicitFlag(value: boolean | undefined): string {
+    return value ? 'true' : 'false';
+}
+
 /** Index of the last row of the first block (rows before the first blank separator row). */
 export function firstBlockEnd(csv: CsvFile): number {
     let end = 0;

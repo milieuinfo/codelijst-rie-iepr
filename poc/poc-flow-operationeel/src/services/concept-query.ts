@@ -8,6 +8,7 @@
  */
 
 import type { CodelistResult, Concept, Scheme } from '../models/index.js'
+import { resolveCsorLabel } from './csor-labels.js'
 
 /**
  * All schemes in the parsed codelist.
@@ -274,6 +275,71 @@ export function getCodeListSchemes(result: CodelistResult, concept: Concept): Sc
   return concept.relevantCodeList
     .map(id => result.schemes.get(id))
     .filter((s): s is Scheme => s !== undefined)
+}
+
+/** One selectable value of a `relevantCodeList`. */
+export interface CodeListOption {
+  value: string
+  label: string
+}
+
+/**
+ * Label of a value that may live outside this codelist: a local concept's
+ * prefLabel, else a known CSOR label, else the id's local name.
+ * @param result - The parsed codelist result.
+ * @param id - The concept id (e.g. `pomptoestand:rust` or `csor_variabele:V_46`).
+ * @returns A display label.
+ */
+export function getValueLabel(result: CodelistResult, id: string): string {
+  return result.concepts.get(id)?.prefLabel ?? resolveCsorLabel(id) ?? (id.split(/[:/#]/).pop() || id)
+}
+
+/**
+ * The selectable values of a field's `relevantCodeList`: the top concepts of a
+ * referenced `skos:ConceptScheme`, or the members of a referenced
+ * `skos:Collection` (e.g. a selection of CSOR variabelen). Unresolvable refs
+ * contribute nothing.
+ * @param result - The parsed codelist result.
+ * @param concept - The field whose relevantCodeList to resolve.
+ * @returns The options in codelist order, without duplicates.
+ */
+export function getCodeListOptions(result: CodelistResult, concept: Concept): CodeListOption[] {
+  const options = new Map<string, CodeListOption>()
+  for (const ref of concept.relevantCodeList ?? []) {
+    const ids = result.schemes.has(ref)
+      ? getTopConceptsForScheme(result, ref).map(c => c.id)
+      : result.collections.get(ref) ?? []
+    for (const id of ids) {
+      if (!options.has(id)) options.set(id, { value: id, label: getValueLabel(result, id) })
+    }
+  }
+  return Array.from(options.values())
+}
+
+/**
+ * Describes what a value field measures, from its CSOR semantics
+ * (`kwantiteitsAspect`, `soortWaartbepaling`, `drager`) and the stof chosen in
+ * its `variabele` field, e.g. "massaconcentratie van Fosfor in water" or
+ * "standaard deviatie van percentage van de verontreinigende stof in lucht".
+ * @param result - The parsed codelist result.
+ * @param concept - The value field.
+ * @param stofId - The value currently selected in the `variabele` field, if any.
+ * @returns The description, or undefined when the field has no CSOR semantics.
+ */
+export function describeVariabele(result: CodelistResult, concept: Concept, stofId?: string): string | undefined {
+  if (!concept.kwantiteitsAspect && !concept.variabele) return undefined
+  const label = (id: string) => getValueLabel(result, id)
+  const variabeleField = concept.variabele ? result.concepts.get(concept.variabele) : undefined
+  const stof = stofId
+    ? label(stofId)
+    : variabeleField?.prefLabel ? `de ${variabeleField.prefLabel.toLowerCase()}` : undefined
+
+  let text = concept.kwantiteitsAspect ? label(concept.kwantiteitsAspect) : 'waarde'
+  const swb = concept.soortWaartbepaling
+  if (swb && swb !== 'csor_soortwaardebepaling:SWB_1') text = `${label(swb)} van ${text}`
+  if (stof) text += ` van ${stof}`
+  if (concept.drager) text += ` in ${label(concept.drager)}`
+  return text.charAt(0).toUpperCase() + text.slice(1)
 }
 
 /**

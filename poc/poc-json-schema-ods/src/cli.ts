@@ -5,6 +5,7 @@ import { CodelistEnricher } from './services/codelist-enricher.js';
 import { SchemaFlattener } from './services/schema-flattener.js';
 import { SheetSplitter } from './services/sheet-splitter.js';
 import { ODSGenerator } from './services/ods-generator.js';
+import { collectCsorUris, fetchCsorLabels, CSOR_SPARQL_ENDPOINT } from './services/csor-labels.js';
 import type { SheetConfig } from './services/ods-generator.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -56,6 +57,18 @@ async function main(): Promise<void> {
 
   // Initialize services
   const enricher = new CodelistEnricher(codelistPath);
+
+  // CSOR concepts (stoffen of a collection, eenheden) are not in the codelist: look up their labels
+  const csorUris = collectCsorUris(schemaDir);
+  if (csorUris.length > 0) {
+    try {
+      const labels = await fetchCsorLabels(csorUris);
+      enricher.addExternalLabels(labels);
+      console.log(`CSOR labels loaded: ${labels.length}/${csorUris.length} from ${CSOR_SPARQL_ENDPOINT}`);
+    } catch (err) {
+      console.warn(`[warn] CSOR labels not loaded (${(err as Error).message}); falling back to URI fragments`);
+    }
+  }
   const flattener = new SchemaFlattener();
   flattener.loadBaseSchema(join(schemaDir, 'observatie.json'));
   const splitter = new SheetSplitter();

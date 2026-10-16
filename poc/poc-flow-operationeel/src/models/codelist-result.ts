@@ -21,6 +21,8 @@ export interface CodelistResult {
   schemes: Map<string, Scheme>
   concepts: Map<string, Concept>
   topConcepts: Map<string, Concept[]>
+  /** Member ids of every `skos:Collection`, keyed by collection id (members may be external, e.g. CSOR variabelen). */
+  collections: Map<string, string[]>
 }
 
 /** Options controlling how the codelist JSON-LD is parsed. */

@@ -5,7 +5,7 @@ import { applyMembershipEdits, describeList, isOwnListRow, listRowIndexes } from
 import { assertNoRename, conceptRow, describeReferences, findReferences, merge, newProblems, type Changes, type LineChange } from './references.js';
 import { conceptIndex, openCsv, prefixOf, splitValues, systemNames, type SystemNames } from './repo.js';
 import {
-    checkCode, checkReference, checkTexts, DATATYPES, fail, firstBlockEnd, flag, KNOWN_RELATIONS, LIST_TYPES,
+    checkCode, checkReference, checkTexts, DATATYPES, fail, explicitFlag, firstBlockEnd, flag, KNOWN_RELATIONS, LIST_TYPES,
     NUMERIC_DATATYPES, toId, ValidationError, writeResult, type Problems, type WriteResult,
 } from './rules.js';
 import { listTypes } from './systeemtypes.js';
@@ -116,8 +116,18 @@ export async function buildProperty(
         if (!code.startsWith(`${parentCode}_`)) {
             warnings.push(`By convention a part's code starts with its parent's code: '${parentCode}_<part>'.`);
         }
+        if (parentRecord && !parentRecord.relevantRiepr && appliesTo.length === 0) {
+            warnings.push(`${parentId} has no appliesTo itself, so this part applies to no type: give it appliesTo (relevantRiepr).`);
+        }
     } else if (appliesTo.length === 0) {
-        errors.push(`appliesTo (relevantRiepr) is required for a top-level property: give one or more types of ${names.typeFile}, or '${names.typeScheme}' for all types.`);
+        // A composite (parts point to it with broaderPartitive) may carry relevantRiepr on its parts
+        // instead, e.g. meetpunt-eigenschappen:referentiepunt with _naam and _diepte on meetpunt:peilput.
+        const partsApply = existingId !== undefined && records.some(r => r.broaderPartitive === existingId && r.relevantRiepr);
+        if (!composite) {
+            errors.push(`appliesTo (relevantRiepr) is required for a top-level property: give one or more types of ${names.typeFile}, or '${names.typeScheme}' for all types.`);
+        } else if (!partsApply) {
+            warnings.push(`${id} applies to no type yet: give appliesTo on the composite, or on each of its parts.`);
+        }
     }
 
     const appliesToIds = appliesTo.map(v => (v === 'all' ? names.typeScheme : toId(v, names.typePrefix)));
@@ -196,8 +206,8 @@ export async function buildProperty(
         relevantRiepr: appliesToIds.join('|'),
         relevantProperty,
         relevantUnit: unit.join('|'),
-        isVerplicht: flag(isVerplicht),
-        isMeervoudig: flag(isMeervoudig),
+        isVerplicht: explicitFlag(isVerplicht),
+        isMeervoudig: explicitFlag(isMeervoudig),
         isMultiselect: flag(isMultiselect),
     };
     return { record, errors, warnings };

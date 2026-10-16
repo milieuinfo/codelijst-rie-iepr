@@ -129,7 +129,7 @@ server.registerTool('get_type_properties', {
     title: 'Eigenschappen van een type',
     description:
         'Answer "Wat zijn de eigenschappen van een <type>?": resolves a type by label, code or CURIE (e.g. "fakkel", ' +
-        '"directe stookinstallatie", "emissiepunt:fakkel") across all systems and returns every eigenschap that applies to it, ' +
+        '"directe stookinstallatie", "installatie:fakkel") across all systems and returns every eigenschap that applies to it, ' +
         'directly, inherited from a broader type, or because it applies to all types of the system, including composite ' +
         'parts, datatypes, units and the options of selection lists. Properties that only apply to its subtypes are listed separately.',
     inputSchema: {
@@ -209,17 +209,20 @@ server.registerTool('add_type', {
     description:
         'Add a type (skos:Concept) to <systeem>_type.csv. The id becomes <systeem>:<code>; a top-level type gets ' +
         'topConceptOf=conceptscheme:<systeem>_type, a subtype gets broader=<parent> instead. isMeetbaar defaults to true ' +
-        '(every systeemtype so far is meetbaar); set isOnzichtbaar only for structural types users should not pick.',
+        '(every systeemtype so far is meetbaar); set isOnzichtbaar only for structural types users should not pick. ' +
+        'Set isAanpasbaar when the type of an existing system may still be changed afterwards (e.g. the subtypes of ' +
+        'emissiepunt:emissiepunt_lucht, which used to be a selection eigenschap "Type emissiepunt").',
     inputSchema: {
         system,
         code,
         prefLabel,
         definition,
-        broader: z.string().optional().describe('Existing type this is a subtype of (code or CURIE, e.g. "schoorsteen").'),
+        broader: z.string().optional().describe('Existing type this is a subtype of (code or CURIE, e.g. "stookinstallatie").'),
         altLabel: z.string().optional(),
         scopeNote: z.string().optional(),
         isOnzichtbaar: z.boolean().default(false),
         isMeetbaar: z.boolean().default(true),
+        isAanpasbaar: z.boolean().default(false).describe('The type of an existing system may still be changed afterwards.'),
         dryRun,
     },
 }, respond(write(args => addType(args))));
@@ -241,6 +244,7 @@ server.registerTool('update_type', {
             broader: z.string().nullable().optional().describe('New broader type, or null to make it a top-level type.'),
             isOnzichtbaar: z.boolean().optional(),
             isMeetbaar: z.boolean().optional(),
+            isAanpasbaar: z.boolean().optional(),
         }),
         dryRun,
     },
@@ -276,7 +280,7 @@ server.registerTool('add_property', {
         'means a new conceptscheme/collection in the same CSV that you create first with add_selection_list.\n' +
         '- Composite (several fields filled in together, e.g. naam + diepte): add the parent with composite=true ' +
         '(usually isMeervoudig=true), then each part with parent=<parent code> and code <parent>_<part>.\n' +
-        'Top-level properties need appliesTo (relevantRiepr): the types they apply to, or "all".',
+        'Top-level properties need appliesTo (relevantRiepr): the types they apply to, or "all". A composite may instead carry appliesTo on each of its parts (broaderPartitive points from part to composite).',
     inputSchema: {
         system,
         code,
@@ -483,7 +487,7 @@ const fieldSchema = {
     unit: unit,
     relevantClass: z.string().describe('Class the field maps to: sosa:FeatureOfInterest (select the system to report on), riepr:ObservatieVerzameling (top-level report), riepr:Observatie, riepr:Resultaat, prov:Agent, ...'),
     relevantFeatureClass: z.array(z.string()).describe('relevantFeatureClass, e.g. riepr:Verbruik, riepr:Emissie, riepr:Onttrekking.'),
-    relevantRiepr: z.array(z.string()).describe('Systems to select: types (emissiepunt:schoorsteen), type schemes, riepr:<Klasse> (riepr:Installatie), or an eigenschap (value taken from the selected system).'),
+    relevantRiepr: z.array(z.string()).describe('Systems to select: types (emissiepunt:emissiepunt_lucht), type schemes, riepr:<Klasse> (riepr:Installatie), or an eigenschap (value taken from the selected system).'),
     seeAlso: z.array(z.string()).describe('Next step(s) after this field (concept scheme ids).'),
     conditionPath: z.string().describe('Field that controls the visibility of this field (same step).'),
     conditionValue: z.string().describe('Value of conditionPath for which this field is shown (an option id, or true/false for a checkbox).'),

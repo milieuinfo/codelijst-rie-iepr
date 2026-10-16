@@ -29,11 +29,18 @@ test('dry run does not write', () => {
 });
 
 test('subtype is placed below its broader type without topConceptOf', () => {
-    addType({ system: 'installatie', code: 'indirecte_stookinstallatie', prefLabel: 'Indirecte stookinstallatie', definition: 'Een indirecte stookinstallatie.', broader: 'stookinstallatie', dryRun: false });
+    addType({ system: 'installatie', code: 'condensatie_stookinstallatie', prefLabel: 'Condensatie stookinstallatie', definition: 'Een condenserende stookinstallatie.', broader: 'stookinstallatie', dryRun: false });
     const lines = read('installatie_type.csv').split('\n');
-    const at = lines.findIndex(l => l.startsWith('installatie:indirecte_stookinstallatie,'));
-    assert.ok(lines[at - 1].startsWith('installatie:directe_stookinstallatie,'));
-    assert.match(lines[at], /,skos:Concept,,conceptscheme:installatie_type,.*,installatie:stookinstallatie,,true$/);
+    const at = lines.findIndex(l => l.startsWith('installatie:condensatie_stookinstallatie,'));
+    assert.ok(lines[at - 1].startsWith('installatie:indirecte_stookinstallatie,'));
+    assert.match(lines[at], /,skos:Concept,,conceptscheme:installatie_type,.*,installatie:stookinstallatie,false,true,false$/);
+});
+
+test('isAanpasbaar is written explicitly and listed', () => {
+    addType({ system: 'emissiepunt', code: 'wasser', prefLabel: 'Wasser', definition: 'Een wasser.', broader: 'emissiepunt_lucht', isAanpasbaar: true, dryRun: false });
+    assert.match(read('emissiepunt_type.csv'), /\nemissiepunt:wasser,.*,emissiepunt:emissiepunt_lucht,false,true,true\n/);
+    const result = addType({ system: 'emissiepunt', code: 'ander', prefLabel: 'Ander', definition: 'Een ander punt.' });
+    assert.match(result.insertedLines![0], /,false,true,false$/);
 });
 
 test('rejects duplicate ids, bad codes and unknown broader', () => {

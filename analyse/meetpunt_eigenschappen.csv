@@ -1,0 +1,17 @@
+_id,_type,topConceptOf,inScheme,isPartOf,prefLabel,altLabel,definition,scopeNote,broaderPartitive,relation,relevantDataType,relevantCodeList,relevantRiepr,relevantProperty,relevantUnit,isVerplicht,isMeervoudig
+conceptscheme:meetpunt_eigenschappen,skos:ConceptScheme,,,conceptscheme:systeem_eigenschappen,Meetpunt eigenschappen,,Een typering van verschillende eigenschappen voor meetpunten.,,,,,,,,,,
+meetpunt-eigenschappen:referentiepunt,skos:Concept,conceptscheme:meetpunt_eigenschappen,conceptscheme:meetpunt_eigenschappen,,Referentiepunt,,Samengestelde eigenschap voor referentiepunt (naam en hoogte in meter).,,,,,,,,,true,true
+meetpunt-eigenschappen:referentiepunt_naam,skos:Concept,,conceptscheme:meetpunt_eigenschappen,,Naam,,De naam van het referentiepunt,,meetpunt-eigenschappen:referentiepunt,rdfs:label,,,meetpunt:peilput,,Conceptscheme:referentiepunt_naam,,
+meetpunt-eigenschappen:referentiepunt_diepte,skos:Concept,,conceptscheme:meetpunt_eigenschappen,,Hoogte,,De hoogte waarmee de referentie uitsteekt ten op zichte van het maaiveld,,meetpunt-eigenschappen:referentiepunt,rdfs:value,xsd:decimal,,meetpunt:peilput,,csor_eenheid:E_59,,
+meetpunt-eigenschappen:serienummer,skos:Concept,conceptscheme:meetpunt_eigenschappen,conceptscheme:meetpunt_eigenschappen,,serienummer,,Het serienummer van de debietmeter,,,,,,meetpunt:debietmeter,,,,
+meetpunt-eigenschappen:merk,skos:Concept,conceptscheme:meetpunt_eigenschappen,conceptscheme:meetpunt_eigenschappen,,merk,,Het merk van de debietmeter,,,,,,meetpunt:debietmeter,,,,
+meetpunt-eigenschappen:putnummer,skos:Concept,conceptscheme:meetpunt_eigenschappen,conceptscheme:meetpunt_eigenschappen,,VMM meetputnummer,,Het identificatienummer waaronder de controleinrichting bij VMM gekend is,,,,,,meetpunt: controleinrichting,,,,
+meetpunt-eigenschappen:diepte,skos:Concept,conceptscheme:meetpunt_eigenschappen,conceptscheme:meetpunt_eigenschappen,,Diepte,,De diepte van de peilput tov het maaiveld,,,rdfs:value,xsd:decimal,,meetpunt:peilput,,csor_eenheid:E_59,,
+,,,,,,,,,,,,,,,,,
+Conceptscheme:referentiepunt_naam,skos:ConceptScheme,,,,,,,,,,,,,,,,
+Referentiepunt-selectiemogelijkheden:maaiveld,skos:Concept,Conceptscheme:referentiepunt_naam,Conceptscheme:referentiepunt_naam,,maaiveld,,,,,,,,,,,,
+Referentiepunt-selectiemogelijkheden:bovenkant_peilbuis,skos:Concept,Conceptscheme:referentiepunt_naam,Conceptscheme:referentiepunt_naam,,Bovenkant peilbuis,,,,,,,,,,,,
+Referentiepunt-selectiemogelijkheden:bovenkant_beschermbuis,skos:Concept,Conceptscheme:referentiepunt_naam,Conceptscheme:referentiepunt_naam,,Bovenkant beschermbuis,,,,,,,,,,,,
+Referentiepunt-selectiemogelijkheden:bovenkant_straatpot,skos:Concept,Conceptscheme:referentiepunt_naam,Conceptscheme:referentiepunt_naam,,Bovenkant straatpot,,,,,,,,,,,,
+Referentiepunt-selectiemogelijkheden:ander_referentiepunt,skos:Concept,Conceptscheme:referentiepunt_naam,Conceptscheme:referentiepunt_naam,,Ander referentiepunt,,,,,,,,,,,,
+Referentiepunt-selectiemogelijkheden:onbekend,skos:Concept,Conceptscheme:referentiepunt_naam,Conceptscheme:referentiepunt_naam,,Onbekend,,,,,,,,,,,,

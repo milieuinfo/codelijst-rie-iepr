@@ -40,7 +40,7 @@ export class EnumGenerator {
     }
 
     // Check if we had any refs at all but none resolved
-    const firstBadRef = concept.relevantCodeList.find(ref => !this.result.schemes.has(ref))
+    const firstBadRef = concept.relevantCodeList.find(ref => !this.result.schemes.has(ref) && !this.result.collections.has(ref))
     if (firstBadRef) {
       let warning = ''
       if (isPlaceholder(firstBadRef)) {
@@ -63,6 +63,20 @@ export class EnumGenerator {
 
     if (isExternalDomain(schemeRef)) {
       return { success: false, warning: `External/unresolvable relevantCodeList ref: "${schemeRef}"` }
+    }
+
+    // A skos:Collection selects concepts from one or more (possibly external) schemes, e.g. CSOR variabelen
+    const members = this.result.collections.get(schemeRef)
+    if (members) {
+      const entries = new Map<string, string>()
+      for (const member of members) {
+        const expandedId = this.result.expandCurie ? this.result.expandCurie(member) : member
+        entries.set(expandedId, this.result.concepts.get(member)?.prefLabel || expandedId)
+      }
+      if (entries.size === 0) {
+        return { success: false, warning: `Collection "${schemeRef}" has no members` }
+      }
+      return { success: true, entries }
     }
 
     const scheme = this.result.schemes.get(schemeRef)

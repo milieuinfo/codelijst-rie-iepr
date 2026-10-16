@@ -110,6 +110,22 @@ export class ConceptMapper {
       }
     }
 
+    // CSOR semantics of the value: what is measured (kwantificeerbaar aspect), in which
+    // drager and how (soort waardebepaling), of the stof selected in the variabele field
+    const csor: Record<string, string | undefined> = {
+      'x-kwantiteitsaspect': concept.kwantiteitsAspect,
+      'x-drager': concept.drager,
+      'x-soortwaardebepaling': concept.soortWaartbepaling,
+    }
+    for (const [key, curie] of Object.entries(csor)) {
+      if (curie) {
+        schemaField.extensions = { ...(schemaField.extensions || {}), [key]: this.result.expandCurie?.(curie) ?? curie }
+      }
+    }
+    if (concept.variabele) {
+      schemaField.variabeleConceptId = concept.variabele
+    }
+
     // UI ordering annotations (x-ui-first / x-ui-after)
     if (concept.uiFirst === true) {
       schemaField.uiFirst = true
@@ -134,6 +150,11 @@ export class ConceptMapper {
   derivePropertyNameFromRelation(relation: string): string {
     const localPart = relation.split(':').pop() || relation
     return localPart
+  }
+
+  /** Forget the property names handed out so far (names are unique per generated theme, not globally). */
+  resetNames(): void {
+    this.nameCount.clear()
   }
 
   private trackName(name: string): string {

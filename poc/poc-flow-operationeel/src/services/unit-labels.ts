@@ -11,6 +11,8 @@
  * be layered on top later without breaking existing behavior.
  */
 
+import { resolveCsorUnitSymbol } from './csor-labels.js'
+
 export const UNIT_LABELS: Record<string, string> = {
   // --- Common measurement units (referenced but not locally-defined) ---
   'unit:M3': 'm³',
@@ -33,5 +35,7 @@ export const UNIT_LABELS: Record<string, string> = {
 export function resolveUnitLabel(unitId: string): string | undefined {
   const entry = UNIT_LABELS[unitId]
   // Empty-string entries mean "we know this ref but have no good label for it"
-  return typeof entry === 'string' && entry !== '' ? entry : undefined
+  if (typeof entry === 'string') return entry !== '' ? entry : undefined
+  // CSOR eenheden (csor_eenheid:E_*) are shown by their symbol
+  return resolveCsorUnitSymbol(unitId)
 }

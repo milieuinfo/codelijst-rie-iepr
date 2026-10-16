@@ -2,6 +2,7 @@ import type { Concept, CodelistResult, JsonLdNode, Scheme } from '../models/inde
 
 const SCHEME_TYPES = ['skos:ConceptScheme']
 const CONCEPT_TYPES = ['skos:Concept']
+const COLLECTION_TYPES = ['skos:Collection']
 
 import * as fs from 'node:fs'
 import { CurieExpander } from './curie-expander.js'
@@ -23,6 +24,7 @@ export class CodelistParser {
     const nodesById = this.buildNodeIndex(graph)
     const schemes = new Map<string, Scheme>()
     const concepts = new Map<string, Concept>()
+    const collections = new Map<string, string[]>()
 
     for (const [id, node] of nodesById.entries()) {
       const types = this.getTypes(node)
@@ -31,6 +33,9 @@ export class CodelistParser {
       }
       if (types.some(t => CONCEPT_TYPES.includes(t))) {
         concepts.set(id, this.toConcept(node, true))
+      }
+      if (types.some(t => COLLECTION_TYPES.includes(t))) {
+        collections.set(id, this.idsOf(this.getValue(node, ['member'])) ?? [])
       }
     }
 
@@ -53,6 +58,7 @@ export class CodelistParser {
       schemes,
       concepts,
       topConcepts,
+      collections,
       expandCurie: this.curieExpander ? (curie: string) => this.curieExpander!.expand(curie) : (c) => c,
     }
     return result
@@ -128,7 +134,7 @@ export class CodelistParser {
       definition: this.getValue(node, ['definition', 'has_definition']) as string | undefined,
       note: this.getValue(node, ['note', 'has_note']) as string | undefined,
       broaderPartitive: this.idsOf(this.getValue(node, ['broaderPartitive'])),
-      narrower: this.idsOf(this.getValue(node, ['narrower'])),
+      narrower: this.idsOf(this.getValue(node, ['narrowerPartitive', 'hasPart', 'narrower'])),
       topConceptOf: this.idOf(this.getValue(node, ['topConceptOf', 'top_concept_of'])),
       relevantProperty: this.getValue(node, ['relevantProperty', 'relevant_property']) as string | undefined,
     }
@@ -187,6 +193,12 @@ export class CodelistParser {
       concept.uiAfter = typeof rawUiAfter === 'string' ? rawUiAfter : this.idOf(rawUiAfter)
       concept.uiFirst = this.parseBoolean(this.getValue(node, ['_ui_first', 'ui_first']))
     }
+
+    // CSOR semantics of a value field (kept as CURIEs; expanded at output time)
+    concept.kwantiteitsAspect = this.idOf(this.getValue(node, ['kwantiteitsAspect']))
+    concept.drager = this.idOf(this.getValue(node, ['drager']))
+    concept.soortWaartbepaling = this.idOf(this.getValue(node, ['soortWaartbepaling']))
+    concept.variabele = this.idOf(this.getValue(node, ['variabele']))
 
     // related: alternative composite variant concept IDs
     concept.related = this.idsOf(this.getValue(node, ['related']))

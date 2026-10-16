@@ -306,6 +306,26 @@ test.describe('Codelijst App', () => {
     expect(selectValue).toBe('bepalingsmethode:gemeten')
   })
 
+  test('stof select lists the CSOR variabelen of its collection and value fields describe the chosen variabele', async ({ page }) => {
+    // water:lozing-stof has relevantCodeList → collectie:operationeel_stoffen_water (a skos:Collection
+    // of CSOR variabelen); water:lozing-concentratie points at it through `variabele` and carries
+    // kwantiteitsAspect massaconcentratie, drager water and unit csor_eenheid:E_1.
+    const opFields = await selectWaterLozing(page)
+    const stofSelect = opFields.locator('select#water\\:lozing-stof\\#1')
+    await expect(stofSelect.locator('option', { hasText: 'Fosfor' })).toHaveCount(1)
+
+    const concentratieLabel = opFields.locator('vl-form-label[for="water:lozing-concentratie#1"]')
+    const annotation = () => concentratieLabel.evaluate(el => (el as unknown as { annotation: string }).annotation)
+    await expect.poll(annotation).toBe('Massaconcentratie van de verontreinigende stof in water')
+
+    await page.selectOption('select#water\\:lozing-stof\\#1', { value: 'csor_variabele:V_46' })
+    await expect.poll(annotation).toBe('Massaconcentratie van Fosfor in water')
+
+    // CSOR eenheden are shown by their symbol
+    const concentratieGroup = opFields.locator('.vl-input-group', { has: page.locator('vl-input-field#water\\:lozing-concentratie\\#1') })
+    await expect(concentratieGroup.locator('.vl-input-addon')).toHaveText('mg/L')
+  })
+
    test('conditional visibility — conditionPath/conditionValue shows/hides fields based on trigger field value', async ({ page }) => {
      // Inject synthetic conditionPath/conditionValue into the real codelist data via page.route()
      // so we can exercise this code path end-to-end without modifying files on disk.
@@ -375,7 +395,7 @@ test.describe('Codelijst App', () => {
       // Lucht → operationeel_lucht (feature_ep) → operationeel_lucht_bron (feature_bron)
       // → operationeel_lucht_rapportering, whose top-level concepts (afvalproduct,
       // geproduceerde_stof, brandstof, verbruikte_stof) all carry
-      // relevantClass: sosa:ObservationCollection + isMeervoudig. The POC ignores
+      // relevantClass (riepr:Observatie, riepr:ObservatieVerzameling) + isMeervoudig. The POC ignores
       // relevantClass behaviorally — each concept renders as a plain repeatable
       // composite group with its own child fields, no synthesized
       // emissiepunt/meetpunt or periode controls, no lid-observatie nesting.
@@ -426,8 +446,8 @@ test.describe('Codelijst App', () => {
 
       // relevantClass is side information only: exposed as a hover tooltip on the
       // group (and its fieldset legend), never as rendered form controls.
-      await expect(afvalGroup).toHaveAttribute('title', 'relevantClass: sosa:ObservationCollection')
-      await expect(afvalGroup.locator('span[slot="legend"]', { hasText: 'Afvalproduct 1' })).toHaveAttribute('title', 'relevantClass: sosa:ObservationCollection')
+      await expect(afvalGroup).toHaveAttribute('title', 'relevantClass: riepr:Observatie')
+      await expect(afvalGroup.locator('span[slot="legend"]', { hasText: 'Afvalproduct 1' })).toHaveAttribute('title', 'relevantClass: riepr:Observatie')
 
       // No synthesized envelope controls and no lid-observatie nesting.
       await expect(rapportering.locator('vl-input-field[id$="__hasFeatureOfInterest"]')).toHaveCount(0)

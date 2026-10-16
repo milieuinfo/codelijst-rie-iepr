@@ -121,11 +121,13 @@ that would make the generated schemas useful for data validation beyond structur
 | Pomptoestand | `conceptscheme:operationeel_pomptoestand` | Scheme exists but ref resolution fails |
 | Type debiet | `conceptscheme:operationeel_debiet_type` | Scheme exists but ref resolution fails |
 | Peilmethode | `conceptscheme:operationeel_peilmethode` | Scheme exists but ref resolution fails fails |
-| Verontreinigende stof (×2) | `conceptscheme-alg:csor/variabele` | External prefix not defined |
 | Bepalingsmethode | `conceptscheme:operationeel_bepalingsmethode` | Scheme exists but ref resolution fails failures |
 | Bepalingsmethodeclassificatie | `conceptscheme:operationeel_bepalingsmethodeclassificatie` | Scheme exists but ref resolution failures |
 | Meetfrequentie | `http://TODO` | Placeholder |
 
+- **Update (2026-10)**: the stof fields (`Verontreinigende stof`, `Parameter`, ...) now point at a
+  `skos:Collection` of CSOR variabelen (e.g. `collectie:operationeel_stoffen_water`); its members
+  become the `enum` (expanded CSOR URIs).
 - **Impact**: Generated schemas will have `"enum": []` for these fields — technically valid JSON
   Schema but functionally useless (no value can ever pass validation).
 - **Status**: Open — upstream data. Some schemes exist in the document but reference resolution

@@ -76,6 +76,7 @@ async function main() {
     if (themeFilter && themeName !== themeFilter) continue
 
     console.log(`Generating schema for theme: ${themeName}`)
+    mapper.resetNames()
 
     // Compose fields from all schemes in the chain
     const fieldSet = composer.composeThemeFields(result, chain, mapper)

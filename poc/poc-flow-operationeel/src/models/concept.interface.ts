@@ -55,6 +55,14 @@ export interface Concept {
    * When absent, a default message derived from the relatedRiepr concept's definition or prefLabel is used.
    */
   selecteerEerstMessage?: string
+  /** CSOR kwantificeerbaar aspect of the value (e.g. `csor_kwantificeerbaaraspect:KWA_1` massaconcentratie). */
+  kwantiteitsAspect?: string
+  /** CSOR drager the value is measured in (e.g. `csor_drager:DR_1` water). */
+  drager?: string
+  /** CSOR soort waardebepaling of the value (e.g. `csor_soortwaardebepaling:SWB_1` standaard). */
+  soortWaartbepaling?: string
+  /** Id of the field in the same group where the stof (CSOR variabele) is selected that this value is about. */
+  variabele?: string
   /** This field should render after the referenced concept/field id (relative UI ordering). */
   uiAfter?: string
   /** This field should render first among its siblings at the same hierarchy level. */

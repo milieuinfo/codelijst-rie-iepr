@@ -35,14 +35,16 @@ The authoritative specification lives in the root [`README.md`](../../../../READ
 |---|---|---|
 | `relevantDataType` | `type` / `format` | `xsd:string` → `"string"`, `xsd:boolean` → `"boolean"`, `xsd:decimal` → `"number"`, `xsd:date` → `"string"/"date"`, `xsd:dateTime` → `"string"/"date-time"` |
 | `isVerplicht` | `required[]` | When `"true"`, add property key to parent's `required` array |
-| `relevantCodeList` | `enum` of concept IDs | Resolved against local schemes; unresolvable refs produce empty enum (documented issue) |
+| `relevantCodeList` | `enum` of concept IDs | Resolved against local schemes (top concepts) and `skos:Collection`s (members, e.g. CSOR variabelen); unresolvable refs produce empty enum (documented issue) |
+| `kwantiteitsAspect` / `drager` / `soortWaartbepaling` | `x-kwantiteitsaspect` / `x-drager` / `x-soortwaardebepaling` | CSOR URIs describing what a value field measures (e.g. massaconcentratie in water, standaard) |
+| `variabele` | `x-variabele` | Property name of the sibling stof field whose selected CSOR variabele the value is about |
 | `relevantUnit` | Direct value for `hasResult.hasUnit` | Single unit → `const` with URI; multiple units → `enum` of URIs; selected unit becomes hasUnit value directly |
 | `conditionPath` + `conditionValue` | `if/then` conditional validation | Field shown only when trigger field matches value |
 | `minValue` / `maxValue` | `minimum` / `maximum` on numeric fields | Declared in context.json but columns missing from most CSVs (ISSUE-COLLECTION-01) |
 | `broader` / `narrower` | Nested object via `properties` | Composite concepts group children under parent as sub-object |
 | `isMeervoudig` | `type: "array"` with `items` | Repeatable composite or field — 23 concepts use this across all schemes |
 | `seeAlso` | Multi-level observation generation | Each level of the chain produces its own Observation schema; innermost = primary measurement |
-| `relevantClass` | Metadata annotation | SOSA class mapping (`sosa:Observation`, `sosa:FeatureOfInterest`) — informational, not a validation rule |
+| `relevantClass` | Sub-schema / collection envelope | `riepr:Observatie` (or `sosa:Observation`) composites become observation sub-schemas, `riepr:ObservatieVerzameling` (or `sosa:ObservationCollection`) composites become collection envelopes (see `config.ts`) |
 | `relevantRiepr` | Placeholder IRI reference | Dynamic database lookup — transformation uses placeholder URIs with descriptive metadata |
 
 ---

@@ -1,5 +1,6 @@
 import { readFileSync, existsSync } from 'fs';
 import type { EnrichedValue } from '../models/index.js';
+import type { CsorLabel } from './csor-labels.js';
 
 interface ConceptEntry {
   id: string;
@@ -78,6 +79,17 @@ export class CodelistEnricher {
     return this.fallbackForUri(uri);
   }
 
+  /**
+   * Register labels of concepts that live outside the codelist (CSOR variabelen,
+   * eenheden, ...). Concepts from the codelist itself keep priority.
+   */
+  addExternalLabels(labels: CsorLabel[]): void {
+    for (const { uri, prefLabel, symbol } of labels) {
+      if (this.concepts.has(uri)) continue;
+      this.concepts.set(uri, { id: uri, expandedUri: uri, prefLabel, code: symbol });
+    }
+  }
+
   /** Resolve multiple URIs at once. */
   resolveMany(uris: string[]): EnrichedValue[] {
     return uris.map((uri) => this.resolve(uri));
@@ -146,8 +158,7 @@ export class CodelistEnricher {
   /** Pick the best display label: code (symbol) for units, prefLabel for concepts. */
   private pickDisplayLabel(concept: ConceptEntry): string {
     // Units: prefer code ("%","°C", "K") over prefLabel ("Percent", "Celsius")
-    const types = this.concepts.get(concept.expandedUri);
-    if (concept.code && concept.expandedUri.includes('qudt')) {
+    if (concept.code && (concept.expandedUri.includes('qudt') || concept.expandedUri.includes('/csor/eenheid/'))) {
       return concept.code;
     }
     return concept.prefLabel || concept.code || concept.id;

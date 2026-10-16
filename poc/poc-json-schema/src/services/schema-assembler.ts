@@ -1,6 +1,6 @@
 import type { Concept, CodelistResult, JsonSchemaObject, JsonSchemaValue, SchemaField, SubSchema } from '../models/index.js'
 import type { ThemeChain } from './theme-resolver.js'
-import { config } from '../config.js'
+import { config, isCollectionClass, isObservationClass } from '../config.js'
 
 export class SchemaAssembler {
   private readonly baseSchema: JsonSchemaObject
@@ -37,9 +37,9 @@ export class SchemaAssembler {
     const foiField = domainFields.find(f => f.isFeatureOfInterest === true)
 
     // Split domain fields into regular vs Observation composites (sub-schemas).
-    // sosa:ObservationCollection composites become collection envelopes;
-    // sosa:Observation composites stay single-observation sub-schemas.
-    const isComposite = (f: SchemaField) => f.relevantClass === 'sosa:Observation' || f.relevantClass === 'sosa:ObservationCollection'
+    // Observation-collection composites (riepr:ObservatieVerzameling) become collection
+    // envelopes; observation composites (riepr:Observatie) stay single-observation sub-schemas.
+    const isComposite = (f: SchemaField) => isObservationClass(f.relevantClass)
     const observationCompositeFields = domainFields.filter(f => isComposite(f))
     const regularDomainFields = domainFields.filter(f => !isComposite(f))
 
@@ -201,7 +201,7 @@ export class SchemaAssembler {
   private collectObservationCompositeConceptIds(result: CodelistResult): Set<string> {
     const ids = new Set<string>()
     for (const concept of result.concepts.values()) {
-      if (concept.relevantClass === 'sosa:Observation' || concept.relevantClass === 'sosa:ObservationCollection') {
+      if (isObservationClass(concept.relevantClass)) {
         ids.add(concept.id)
       }
     }
@@ -265,7 +265,7 @@ export class SchemaAssembler {
     return map
   }
 
-  /** Emit x-ui-first / x-ui-after UI ordering extensions onto a schema object. */
+  /** Emit x-ui-first / x-ui-after UI ordering and x-variabele references onto a schema object. */
   private applyUiOrdering(schema: JsonSchemaObject, field: SchemaField): void {
     if (field.uiFirst) {
       schema['x-ui-first'] = true
@@ -276,6 +276,14 @@ export class SchemaAssembler {
         schema['x-ui-after'] = target
       } else {
         console.warn(`[SchemaAssembler] Unresolved x-ui-after reference for "${field.label}" -> ${field.uiAfterConceptId}`)
+      }
+    }
+    if (field.variabeleConceptId) {
+      const target = this.conceptToPropertyName.get(field.variabeleConceptId)
+      if (target) {
+        schema['x-variabele'] = target
+      } else {
+        console.warn(`[SchemaAssembler] Unresolved x-variabele reference for "${field.label}" -> ${field.variabeleConceptId}`)
       }
     }
   }
@@ -547,7 +555,7 @@ export class SchemaAssembler {
       ...requiredConditionals,
     ]
 
-    if (obsField.relevantClass === 'sosa:ObservationCollection') {
+    if (isCollectionClass(obsField.relevantClass)) {
       // Collection envelope: shared feature of interest + hoisted (optional) member
       // properties at collection level, with the individual observations wrapped
       // under hasMember. Hoisted props stay optional on members (collection may
@@ -630,17 +638,36 @@ export class SchemaAssembler {
     return str.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)
   }
 
-  /** Deduplicate property names: only prefix with CURIE when there is a collision. */
+  /**
+   * Deduplicate property names: only prefix with CURIE when there is a collision.
+   * Fields sharing the same relation (e.g. concentratie and jaarvracht, both
+   * qudt:numericValue) cannot be told apart by prefix and get a name derived from
+   * their concept ID instead. Renamed fields are registered so x-ui-after /
+   * x-variabele references to them resolve to the final key.
+   */
   private deduplicateRelationFields(fields: SchemaField[]): Map<string, SchemaField> {
     const nameCount = new Map<string, number>()
-    for (const f of fields) nameCount.set(f.propertyName, (nameCount.get(f.propertyName) || 0) + 1)
+    const relationCount = new Map<string, number>()
+    for (const f of fields) {
+      nameCount.set(f.propertyName, (nameCount.get(f.propertyName) || 0) + 1)
+      if (f.relationUri) relationCount.set(f.relationUri, (relationCount.get(f.relationUri) || 0) + 1)
+    }
     const result = new Map<string, SchemaField>()
     for (const f of fields) {
-      const count = nameCount.get(f.propertyName)!
-      const key = count > 1 && f.relationUri ? this.toPrefixedName(f.relationUri, f.propertyName) : f.propertyName
+      let key = f.propertyName
+      if (nameCount.get(f.propertyName)! > 1 && f.relationUri) {
+        key = relationCount.get(f.relationUri)! > 1 ? this.conceptLocalName(f.conceptId) : this.toPrefixedName(f.relationUri, f.propertyName)
+      }
+      if (key !== f.propertyName) this.conceptToPropertyName.set(f.conceptId, key)
       result.set(key, f)
     }
     return result
+  }
+
+  /** camelCase local name of a concept ID (e.g. "water:lozing-jaarvracht" → "lozingJaarvracht"). */
+  private conceptLocalName(conceptId: string): string {
+    const localPart = conceptId.split(':').pop() || conceptId
+    return localPart.toLowerCase().replace(/[-_]([a-z0-9])/g, (_, c: string) => c.toUpperCase())
   }
 
   /** Derive prefixed name from URI (e.g. "http://www.w3.org/2000/01/rdf-schema#comment" → "rdfs-comment"). */

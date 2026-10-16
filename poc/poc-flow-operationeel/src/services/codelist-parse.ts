@@ -13,6 +13,7 @@ import type { CodelistResult, JsonLdNode, Scheme, Concept } from '../models/inde
 
 const SCHEME_TYPES = ['skos:ConceptScheme']
 const CONCEPT_TYPES = ['skos:Concept']
+const COLLECTION_TYPES = ['skos:Collection']
 
 /**
  * Recursively walks every object/array in the graph and indexes every node
@@ -145,6 +146,12 @@ function toConcept(node: JsonLdNode, normalizeBooleans: boolean): Concept {
   concept.relevantRiepr = idsOf(getValue(node, ['relevantRiepr', 'relevant_riepr']))
   concept.relevantUnit = idsOf(getValue(node, ['relevantUnit', 'relevant_unit']))
 
+  // CSOR semantics of a value field and the field holding its stof
+  concept.kwantiteitsAspect = idOf(getValue(node, ['kwantiteitsAspect']))
+  concept.drager = idOf(getValue(node, ['drager']))
+  concept.soortWaartbepaling = idOf(getValue(node, ['soortWaartbepaling']))
+  concept.variabele = idOf(getValue(node, ['variabele']))
+
   // New properties from updated codelist format (seeAlso navigation model)
   concept.seeAlso = idsOf(getValue(node, ['seeAlso', 'see_also']))
   concept.relevantClass = typeof getValue(node, ['relevantClass', 'relevant_class']) === 'string'
@@ -269,7 +276,7 @@ function getValue(obj: Record<string, unknown>, keys: string[]): unknown {
  * Parse the raw codelist JSON-LD document into a `CodelistResult`.
  * @param data - The parsed JSON-LD document (top-level `graph` expected).
  * @param normalizeBooleans - Coerce string `"true"`/`"false"` to booleans for flag fields.
- * @returns The parsed CodelistResult (nodesById, schemes, concepts, topConcepts).
+ * @returns The parsed CodelistResult (nodesById, schemes, concepts, topConcepts, collections).
  */
 export function parseCodelist(data: Record<string, unknown>, normalizeBooleans: boolean): CodelistResult {
   const graph = Array.isArray(data['graph']) ? data['graph'] : data['graph'] ? [data['graph']] : []
@@ -278,6 +285,7 @@ export function parseCodelist(data: Record<string, unknown>, normalizeBooleans: 
 
   const schemes = new Map<string, Scheme>()
   const concepts = new Map<string, Concept>()
+  const collections = new Map<string, string[]>()
 
   for (const [id, node] of nodesById.entries()) {
     const types = getTypes(node)
@@ -290,6 +298,10 @@ export function parseCodelist(data: Record<string, unknown>, normalizeBooleans: 
     // schemes and concepts are not mutually exclusive checks.
     if (types.some(t => CONCEPT_TYPES.includes(t))) {
       concepts.set(id, toConcept(node, normalizeBooleans))
+    }
+
+    if (types.some(t => COLLECTION_TYPES.includes(t))) {
+      collections.set(id, idsOf(getValue(node, ['member'])) ?? [])
     }
   }
 
@@ -312,5 +324,5 @@ export function parseCodelist(data: Record<string, unknown>, normalizeBooleans: 
     topConcepts.set(schemeId, resolved)
   }
 
-  return { nodesById, schemes, concepts, topConcepts }
+  return { nodesById, schemes, concepts, topConcepts, collections }
 }

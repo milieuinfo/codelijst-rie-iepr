@@ -4,7 +4,7 @@ import type { CsvFile, CsvInput } from './csv.js';
 import { assertNoRename, describeReferences, findReferences, conceptRow, merge, newProblems, type Changes, type LineChange } from './references.js';
 import { conceptIndex, openCsv, splitValues, systemNames, type SystemNames } from './repo.js';
 import {
-    checkCode, checkTexts, fail, firstBlockEnd, flag, toId, ValidationError, writeResult, type Problems, type WriteResult,
+    checkCode, checkTexts, fail, explicitFlag, firstBlockEnd, toId, ValidationError, writeResult, type Problems, type WriteResult,
 } from './rules.js';
 
 export interface TypeFields {
@@ -16,6 +16,8 @@ export interface TypeFields {
     broader?: string;
     isOnzichtbaar?: boolean;
     isMeetbaar?: boolean;
+    /** The type of an existing system may still be changed afterwards (to another aanpasbaar type). */
+    isAanpasbaar?: boolean;
 }
 
 export type EditableTypeFields = Omit<TypeFields, 'code'>;
@@ -35,6 +37,7 @@ export function listTypes(system: string) {
             broader: r.broader || undefined,
             isOnzichtbaar: r.isOnzichtbaar || undefined,
             isMeetbaar: r.isMeetbaar || undefined,
+            isAanpasbaar: r.isAanpasbaar || undefined,
         })),
     };
 }
@@ -47,7 +50,7 @@ export function buildType(
     fields: TypeFields,
     { names, csv, existingId }: { names: SystemNames; csv: CsvFile; existingId?: string },
 ): Problems & { record: CsvInput } {
-    const { code, prefLabel, definition, altLabel, scopeNote, broader, isOnzichtbaar = false, isMeetbaar = true } = fields;
+    const { code, prefLabel, definition, altLabel, scopeNote, broader, isOnzichtbaar = false, isMeetbaar = true, isAanpasbaar = false } = fields;
     const errors: string[] = [];
     const warnings: string[] = [];
 
@@ -88,8 +91,9 @@ export function buildType(
         definition: definition?.trim(),
         scopeNote,
         broader: broaderId,
-        isOnzichtbaar: flag(isOnzichtbaar),
-        isMeetbaar: flag(isMeetbaar),
+        isOnzichtbaar: explicitFlag(isOnzichtbaar),
+        isMeetbaar: explicitFlag(isMeetbaar),
+        isAanpasbaar: explicitFlag(isAanpasbaar),
     };
     return { record, errors, warnings };
 }
@@ -128,6 +132,7 @@ function typeFields(record: Record<string, string>, names: SystemNames): TypeFie
         broader: record.broader || undefined,
         isOnzichtbaar: record.isOnzichtbaar === 'true',
         isMeetbaar: record.isMeetbaar === 'true',
+        isAanpasbaar: record.isAanpasbaar === 'true',
     };
 }
 

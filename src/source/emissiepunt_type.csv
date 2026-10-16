@@ -1,9 +1,10 @@
-_id,_type,topConceptOf,inScheme,isPartOf,prefLabel,altLabel,definition,scopeNote,broader,isOnzichtbaar,isMeetbaar
-conceptscheme:emissiepunt_type,skos:ConceptScheme,,,conceptscheme:systeem_type,Emissiepunt types,,Een typering van verschillende soorten emissiepunten.,,,,
-emissiepunt:emissiepunt,skos:Concept,conceptscheme:emissiepunt_type,conceptscheme:emissiepunt_type,,Emissiepunt,,Een regulier emissiepunt.,,,,true
-emissiepunt:lozingspunt,skos:Concept,conceptscheme:emissiepunt_type,conceptscheme:emissiepunt_type,,Lozingspunt,,Een lozing naar water.,,,,true
-emissiepunt:schoorsteen,skos:Concept,conceptscheme:emissiepunt_type,conceptscheme:emissiepunt_type,,Schoorsteen,,Een schoorsteen.,,,,true
-emissiepunt:schoorsteen_verticale_uitstroom,skos:Concept,,conceptscheme:emissiepunt_type,,Schoorsteen met verticale uitstroom,,Een schoorsteen met een verticale uitstroom,,emissiepunt:schoorsteen,,true
-emissiepunt:schoorsteen_horizontale_uitstroom,skos:Concept,,conceptscheme:emissiepunt_type,,Schoorsteen met horizontale uitstroom,,Een schoorsteen met een horizontale uitstroom,,emissiepunt:schoorsteen,,true
-emissiepunt:fakkel,skos:Concept,conceptscheme:emissiepunt_type,conceptscheme:emissiepunt_type,,Fakkel,,Een apparaat bestemd voor de afgassen in noodsituaties,,,,true
-emissiepunt:gebouw,skos:Concept,conceptscheme:emissiepunt_type,conceptscheme:emissiepunt_type,,Gebouw,,ongeleide emissie uit een gebouw,,,,true
+_id,_type,topConceptOf,inScheme,isPartOf,prefLabel,altLabel,definition,scopeNote,broader,isOnzichtbaar,isMeetbaar,isAanpasbaar
+conceptscheme:emissiepunt_type,skos:ConceptScheme,,,conceptscheme:systeem_type,Emissiepunt types,,Een typering van verschillende soorten emissiepunten.,,,,,
+emissiepunt:lozingspunt,skos:Concept,conceptscheme:emissiepunt_type,conceptscheme:emissiepunt_type,,Lozingspunt,,Een lozing naar water.,,,false,true,false
+emissiepunt:emissiepunt_lucht,skos:Concept,conceptscheme:emissiepunt_type,conceptscheme:emissiepunt_type,,Emissiepunt lucht,,Een emissie naar de lucht.,,,false,true,false
+emissiepunt:schoorsteen,skos:Concept,,conceptscheme:emissiepunt_type,,Schoorsteen,,Een schoorsteen.,,emissiepunt:emissiepunt_lucht,false,true,true
+emissiepunt:schoorsteen_verticale_uitstroom,skos:Concept,,conceptscheme:emissiepunt_type,,Schoorsteen met verticale uitstroom,,Een schoorsteen met een verticale uitstroom.,,emissiepunt:schoorsteen,false,true,true
+emissiepunt:schoorsteen_horizontale_uitstroom,skos:Concept,,conceptscheme:emissiepunt_type,,Schoorsteen met horizontale uitstroom,,Een schoorsteen met een horizontale uitstroom.,,emissiepunt:schoorsteen,false,true,true
+emissiepunt:fakkel,skos:Concept,,conceptscheme:emissiepunt_type,,Fakkel,,Een apparaat bestemd voor de afgassen in een noodsituatie.,,emissiepunt:emissiepunt_lucht,false,true,true
+emissiepunt:installatie,skos:Concept,,conceptscheme:emissiepunt_type,,Installatie,,Emissie uit een installatie.,,emissiepunt:emissiepunt_lucht,false,true,true
+emissiepunt:gebouw,skos:Concept,,conceptscheme:emissiepunt_type,,Gebouw,,Emissie uit een gebouw.,,emissiepunt:emissiepunt_lucht,false,true,true

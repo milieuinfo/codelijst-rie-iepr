@@ -49,6 +49,8 @@ export interface SchemaField {
   children?: SchemaField[]
   relevantClass?: string
   extensions?: Record<string, unknown>
+  /** Concept ID of the stof field this value is about (resolved to x-variabele at assembly time) */
+  variabeleConceptId?: string
   /** Unit constraint derived from relevantUnit on the concept */
   hasUnitConstraint?: { type: 'const'; value: string } | { type: 'enum'; values: string[] }
   /** Whether the concept carries a numeric result (xsd:decimal / xsd:integer) */

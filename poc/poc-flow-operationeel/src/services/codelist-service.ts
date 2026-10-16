@@ -100,6 +100,14 @@ export class CodelistService {
     return query.getCodeListSchemes(result, concept)
   }
 
+  getCodeListOptions(result: CodelistResult, concept: Concept): query.CodeListOption[] {
+    return query.getCodeListOptions(result, concept)
+  }
+
+  describeVariabele(result: CodelistResult, concept: Concept, stofId?: string): string | undefined {
+    return query.describeVariabele(result, concept, stofId)
+  }
+
   getRelevantRieprRefs(result: CodelistResult, node: Scheme | Concept): (Scheme | Concept)[] {
     return query.getRelevantRieprRefs(result, node)
   }

@@ -53,7 +53,7 @@ test('get_step describes the form in display order, with conditions and options'
 test('get_flow gives a readable outline', () => {
     const { outline } = getFlow({ flow: 'Lucht' });
     assert.match(outline, /Stap 1: .*operationeel_lucht\)/);
-    assert.match(outline, /- Emissiepunt \(feature-picker, kies uit Schoorsteen\) → stap 2/);
+    assert.match(outline, /- Emissiepunt \(feature-picker, kies uit Emissiepunt lucht\) → stap 2/);
     assert.match(outline, /Verbruik \(number, verplicht, eenheid csor_eenheid:E_89\)/);
 });
 

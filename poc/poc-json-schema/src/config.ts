@@ -18,6 +18,12 @@ export interface TransformConfig {
 
   /** Year used in $id URLs. */
   readonly schemaYear: number
+
+  /** relevantClass values of a single-observation composite (sub-schema). */
+  readonly observationClasses: readonly string[]
+
+  /** relevantClass values of an observation-collection composite (collection envelope). */
+  readonly collectionClasses: readonly string[]
 }
 
 export const config: TransformConfig = {
@@ -29,4 +35,16 @@ export const config: TransformConfig = {
   placeholderMarkers: ['TODO'],
   baseSchemaUrl: 'https://data.riepr.omgeving.vlaanderen.be/schema/2026/observatie',
   schemaYear: 2026,
+  observationClasses: ['riepr:Observatie', 'sosa:Observation'],
+  collectionClasses: ['riepr:ObservatieVerzameling', 'sosa:ObservationCollection'],
+}
+
+/** Whether a relevantClass marks an observation collection composite. */
+export function isCollectionClass(relevantClass: string | undefined): boolean {
+  return !!relevantClass && config.collectionClasses.includes(relevantClass)
+}
+
+/** Whether a relevantClass marks an observation (or observation collection) composite. */
+export function isObservationClass(relevantClass: string | undefined): boolean {
+  return !!relevantClass && (config.observationClasses.includes(relevantClass) || isCollectionClass(relevantClass))
 }

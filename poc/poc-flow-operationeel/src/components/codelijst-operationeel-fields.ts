@@ -460,13 +460,10 @@ export class CodelijstOperationeelFields extends LitElement {
 
     // relevantCodeList takes priority — renders as a vl-select.
     if (field.relevantCodeList) {
-      const codeListSchemes = this._service.getCodeListSchemes(this.result, field)
       const fieldValue = String(this._fieldValues.get(id) ?? '')
-      const options = codeListSchemes.flatMap(codeListScheme =>
-        this._service
-          .getTopConceptsForScheme(this.result!, codeListScheme.id)
-          .map(concept => ({ value: concept.id, label: concept.prefLabel ?? concept.id, selected: concept.id === fieldValue }))
-      )
+      const options = this._service
+        .getCodeListOptions(this.result, field)
+        .map(option => ({ ...option, selected: option.value === fieldValue }))
       const displayLabel = plainLabel + (required ? ' *' : '')
       const formLabel = html`<vl-form-label for="${id}" label="${displayLabel}" block .annotation="${field.definition ?? ''}"></vl-form-label>`
       const control = html`<vl-select id="${id}" name="${id}" label="${displayLabel}" placeholder="Selecteer..." ?required="${required}" .value="${fieldValue}" .options="${options}" @vl-input="${this._onControlInput}"></vl-select>`
@@ -525,8 +522,14 @@ export class CodelijstOperationeelFields extends LitElement {
     const control = createControl(id, id, plainLabel, required, field.relevantDataType, this._onControlInput)
     const displayLabel = plainLabel + (required ? ' *' : '')
 
+    // Value fields with CSOR semantics describe what they measure, using the stof
+    // currently selected in their variabele field (same instance, so same suffix).
+    const stofValue = field.variabele ? this._fieldValues.get(`${field.variabele}${idSuffix}`) : undefined
+    const variabeleText = this._service.describeVariabele(this.result, field, stofValue ? String(stofValue) : undefined)
+    const annotation = [field.definition, variabeleText].filter(Boolean).join(' — ')
+
     // build a <vl-form-label> with the asterisk baked into the label text
-    const formLabel = html`<vl-form-label for="${id}" label="${displayLabel}" block .annotation="${field.definition ?? ''}"></vl-form-label>`
+    const formLabel = html`<vl-form-label for="${id}" label="${displayLabel}" block .annotation="${annotation}"></vl-form-label>`
     return this.renderWithUnit(formLabel, control, singleUnitConcept, resolvedUnitId, fallbackUnitText)
   }
 

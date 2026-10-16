@@ -66,6 +66,7 @@ function describeType(model: SystemModel, record: CsvRecord) {
         broader: ancestors(model.types, record._id).map(id => ({ id, prefLabel: label(id) })),
         subtypes: descendants(model.types, record._id).map(id => ({ id, prefLabel: label(id) })),
         isOnzichtbaar: record.isOnzichtbaar === 'true' || undefined,
+        isAanpasbaar: record.isAanpasbaar === 'true' || undefined,
     };
 }
 
@@ -122,7 +123,7 @@ function describeProperty(
     };
 }
 
-/** Resolves "fakkel", "Fakkel", "emissiepunt:fakkel" or "Directe Stookinstallatie" to one candidate. */
+/** Resolves "fakkel", "Fakkel", "installatie:fakkel" or "Directe Stookinstallatie" to one candidate. */
 function resolve(candidates: Candidate[], query: string, what: 'type' | 'property'): Candidate {
     const q = normalize(query);
     const code = (c: Candidate) => normalize(c.record._id.split(':')[1]);

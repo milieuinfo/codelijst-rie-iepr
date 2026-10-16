@@ -78,6 +78,7 @@ describe('ConceptMapper UI ordering propagation', () => {
       schemes: new Map(),
       concepts: new Map(),
       topConcepts: new Map(),
+      collections: new Map(),
     }
   }
 
@@ -130,8 +131,8 @@ describe('Generated schema x-ui-first / x-ui-after annotations', () => {
   it('grondstoffen/grondstof/schema.json has material (grondstofMateriaalcode) with x-ui-first', async () => {
     const content = await fs.readFile(path.join(PROJECT_ROOT, 'output/schema/grondstoffen/grondstof/schema.json'), 'utf-8')
     const schema = JSON.parse(content) as Record<string, unknown>
-    // grondstof is an observation collection: member props live under hasMember.items
-    const props = (schema.properties as any)?.hasMember?.items?.properties as Record<string, unknown> | undefined
+    // grondstof is a single observation (riepr:Observatie): its props live at the root
+    const props = schema.properties as Record<string, unknown> | undefined
     expect(props).toBeDefined()
     const field = (props as any)?.material as Record<string, unknown> | undefined
     expect(field).toBeDefined()
@@ -141,30 +142,30 @@ describe('Generated schema x-ui-first / x-ui-after annotations', () => {
   it('grondstoffen/grondstof/schema.json has rdfs-comment (grondstofOmschrijving) with x-ui-after pointing to material', async () => {
     const content = await fs.readFile(path.join(PROJECT_ROOT, 'output/schema/grondstoffen/grondstof/schema.json'), 'utf-8')
     const schema = JSON.parse(content) as Record<string, unknown>
-    // grondstof is an observation collection: member props live under hasMember.items
-    const props = (schema.properties as any)?.hasMember?.items?.properties as Record<string, unknown> | undefined
+    // grondstof is a single observation (riepr:Observatie): its props live at the root
+    const props = schema.properties as Record<string, unknown> | undefined
     expect(props).toBeDefined()
     const field = (props as any)?.['rdfs-comment'] as Record<string, unknown> | undefined
     expect(field).toBeDefined()
     expect(field['x-ui-after']).toBe('material')
   })
 
-  it('grondstoffen/grondstof/schema.json has usedProcedure (grondstofToepassingswijze) with x-ui-after pointing to hasResult', async () => {
+  it('grondstoffen/grondstof/schema.json has usedProcedure (grondstofToepassingswijze) with x-ui-after pointing to numericValue', async () => {
     const content = await fs.readFile(path.join(PROJECT_ROOT, 'output/schema/grondstoffen/grondstof/schema.json'), 'utf-8')
     const schema = JSON.parse(content) as Record<string, unknown>
-    // grondstof is an observation collection: member props live under hasMember.items
-    const props = (schema.properties as any)?.hasMember?.items?.properties as Record<string, unknown> | undefined
+    // grondstof is a single observation (riepr:Observatie): its props live at the root
+    const props = schema.properties as Record<string, unknown> | undefined
     expect(props).toBeDefined()
     const field = (props as any)?.usedProcedure as Record<string, unknown> | undefined
     expect(field).toBeDefined()
-    expect(field['x-ui-after']).toBe('hasResult')
+    expect(field['x-ui-after']).toBe('numericValue')
   })
 
   it('grondstoffen/grondstof/schema.json has type with x-ui-after pointing to usedProcedure', async () => {
     const content = await fs.readFile(path.join(PROJECT_ROOT, 'output/schema/grondstoffen/grondstof/schema.json'), 'utf-8')
     const schema = JSON.parse(content) as Record<string, unknown>
-    // grondstof is an observation collection: member props live under hasMember.items
-    const props = (schema.properties as any)?.hasMember?.items?.properties as Record<string, unknown> | undefined
+    // grondstof is a single observation (riepr:Observatie): its props live at the root
+    const props = schema.properties as Record<string, unknown> | undefined
     expect(props).toBeDefined()
     const field = (props as any)?.type as Record<string, unknown> | undefined
     expect(field).toBeDefined()

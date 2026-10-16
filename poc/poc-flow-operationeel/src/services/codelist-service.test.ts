@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { CodelistService, type CodelistResult, type JsonLdNode } from './codelist-service.js'
 import type { Concept, Scheme } from '../models/index.js'
+import { resolveUnitLabel } from './unit-labels.js'
 
 const FIXTURE_PATH = path.resolve(
   __dirname,
@@ -177,10 +178,12 @@ describe('CodelistService — fixture parsing', () => {
 
     it('getCodeListSchemes returns [] for TODO placeholder refs', () => {
       const result = loadFixture()
-      const concept = result.concepts.get('water:lozing-meetfrequentie')
+      const concept = result.concepts.get('grondstoffen:grondstof_materiaalcode')
       expect(concept).toBeDefined()
+      expect(concept!.relevantCodeList).toContain('http://TODO')
       const schemes = CodelistServiceMock.getCodeListSchemes(result, concept!)
       expect(schemes).toEqual([])
+      expect(CodelistServiceMock.getCodeListOptions(result, concept!)).toEqual([])
     })
 
     /**
@@ -313,7 +316,7 @@ describe('CodelistService — fixture parsing', () => {
       const result = loadFixture()
       const concept = result.concepts.get('lucht:afvalproduct')
       expect(concept).toBeDefined()
-      expect(concept!.relevantClass).toBe('sosa:ObservationCollection')
+      expect(concept!.relevantClass).toBe('riepr:Observatie')
     })
 
     it('parses relevantClass for FeatureOfInterest concepts', () => {
@@ -324,6 +327,61 @@ describe('CodelistService — fixture parsing', () => {
     })
   })
 
+})
+
+describe('CSOR collections and variabele', () => {
+  it('indexes skos:Collection members', () => {
+    const result = loadFixture()
+    const members = result.collections.get('collectie:operationeel_stoffen_water')
+    expect(members).toBeDefined()
+    expect(members).toContain('csor_variabele:V_46')
+  })
+
+  it('getCodeListOptions resolves a collection of CSOR variabelen with their labels', () => {
+    const result = loadFixture()
+    const stof = result.concepts.get('water:lozing-stof')!
+    expect(stof.relevantCodeList).toEqual(['collectie:operationeel_stoffen_water'])
+    const options = CodelistServiceMock.getCodeListOptions(result, stof)
+    expect(options).toContainEqual({ value: 'csor_variabele:V_46', label: 'Fosfor' })
+    expect(options.every(o => o.label && !o.label.startsWith('V_'))).toBe(true)
+  })
+
+  it('getCodeListOptions still resolves a conceptscheme to its top concepts', () => {
+    const result = loadFixture()
+    const meetfrequentie = result.concepts.get('water:lozing-meetfrequentie')!
+    const options = CodelistServiceMock.getCodeListOptions(result, meetfrequentie)
+    const topConcepts = CodelistServiceMock.getTopConceptsForScheme(result, 'conceptscheme:operationeel_zelfcontrole_meetfrequentie')
+    expect(options.map(o => o.value)).toEqual(topConcepts.map(c => c.id))
+  })
+
+  it('parses the CSOR semantics of a value field', () => {
+    const result = loadFixture()
+    const concentratie = result.concepts.get('water:lozing-concentratie')!
+    expect(concentratie.kwantiteitsAspect).toBe('csor_kwantificeerbaaraspect:KWA_1')
+    expect(concentratie.drager).toBe('csor_drager:DR_1')
+    expect(concentratie.soortWaartbepaling).toBe('csor_soortwaardebepaling:SWB_1')
+    expect(concentratie.variabele).toBe('water:lozing-stof')
+  })
+
+  it('describeVariabele names the measured variable, with or without a selected stof', () => {
+    const result = loadFixture()
+    const concentratie = result.concepts.get('water:lozing-concentratie')!
+    expect(CodelistServiceMock.describeVariabele(result, concentratie)).toBe('Massaconcentratie van de verontreinigende stof in water')
+    expect(CodelistServiceMock.describeVariabele(result, concentratie, 'csor_variabele:V_46')).toBe('Massaconcentratie van Fosfor in water')
+
+    const afwijking = result.concepts.get('lucht:emissie_parameter_standaardafwijking')!
+    expect(CodelistServiceMock.describeVariabele(result, afwijking, 'csor_variabele:V_1057')).toBe('Standaard deviatie van percentage van Stikstofoxiden in lucht')
+
+    const naam = result.concepts.get('lucht:brandstof_naam')!
+    expect(CodelistServiceMock.describeVariabele(result, naam)).toBeUndefined()
+  })
+
+  it('resolves CSOR eenheden to their symbol', () => {
+    expect(resolveUnitLabel('csor_eenheid:E_1')).toBe('mg/L')
+    expect(resolveUnitLabel('csor_eenheid:E_12')).toBe('kg/jr')
+    expect(resolveUnitLabel('unit:DAY')).toBe('dag')
+    expect(resolveUnitLabel('http://TODO')).toBeUndefined()
+  })
 })
 
 describe('conditionPath / conditionValue parsing', () => {
@@ -632,6 +690,8 @@ const CodelistServiceMock = {
   getChildrenMerged: (r: CodelistResult, c: Concept) => svc.getChildrenMerged(r, c),
   getParent: (r: CodelistResult, c: Concept) => svc.getParent(r, c),
   getCodeListSchemes: (r: CodelistResult, c: Concept) => svc.getCodeListSchemes(r, c),
+  getCodeListOptions: (r: CodelistResult, c: Concept) => svc.getCodeListOptions(r, c),
+  describeVariabele: (r: CodelistResult, c: Concept, stofId?: string) => svc.describeVariabele(r, c, stofId),
   getRelevantRieprRefs: (r: CodelistResult, n: Scheme | Concept) => svc.getRelevantRieprRefs(r, n),
   getSeeAlsoRefs: (r: CodelistResult, n: Scheme | Concept) => svc.getSeeAlsoRefs(r, n),
 }

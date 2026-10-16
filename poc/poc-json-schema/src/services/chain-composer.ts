@@ -43,10 +43,15 @@ export class ChainComposer {
   }
 
   getSchemeRootFields(result: CodelistResult, schemeId: string, mapper: ConceptMapper): SchemaField[] {
-    const topConcepts = result.topConcepts.get(schemeId) || []
+    // hasTopConcept lists only the top-level concepts; their composite children are
+    // in the same scheme (inScheme) and get nested later via broaderPartitive.
+    const concepts = new Set(result.topConcepts.get(schemeId) || [])
+    for (const concept of result.concepts.values()) {
+      if (concept.inScheme === schemeId) concepts.add(concept)
+    }
     const fields: SchemaField[] = []
 
-    for (const concept of topConcepts) {
+    for (const concept of concepts) {
       const field = mapper.mapConcept(concept)
       if (field) {
         fields.push(field)
