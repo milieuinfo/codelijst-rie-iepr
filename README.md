@@ -170,7 +170,6 @@ Operationele gegevens beginnen vanaf de codelijst met de verschillende thematisc
 - `isVerplicht` bepaald dat een veld verplicht is
 - `isOnzichtbaar` is een kolom die momenteel niet in gebruik is voor operationele gegevens, het geeft aan dat een concept niet zichtbaar is (bijvoorbeeld als de opsplitsing gemaakt is voor structurele redenen)
 - `isMeetbaar` geeft aan dat een systeemtype meetbaar is; voor de systeemtype-codelijsten wordt deze expliciet op `true` gezet
-- `isAanpasbaar` geeft aan dat het type van een bestaand systeem achteraf nog gewijzigd mag worden (naar een ander aanpasbaar type), zoals de subtypes van `emissiepunt:emissiepunt_lucht` (schoorsteen, fakkel, installatie, gebouw) die eerder als selectie-eigenschap "Type emissiepunt" gemodelleerd waren; voor de overige systeemtypes staat deze expliciet op `false`
 - `relevantCodeList` geeft aan dat in plaats van een vrij invoerveld, we een selectie willen tonen van een andere lijst. Dit zal steeds naar een `skos:ConceptScheme` verwijzen
 - `relevantUnit` geeft aan dat een veld (hoogstwaarschijnlijk een numeriek veld) een bepaalde eenheid heeft. Het kan echter ook verwijzen naar een `skos:ConceptScheme` met lijst van eenheden zodat er een selectie gemaakt moet worden
 - `relevantClass` geeft aan naar welke classe een concept gemapped moet worden. Bijvoorbeeld naar observatie, feature of interest, ...

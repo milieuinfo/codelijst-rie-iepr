@@ -9,6 +9,7 @@ import {
     NUMERIC_DATATYPES, toId, ValidationError, writeResult, type Problems, type WriteResult,
 } from './rules.js';
 import { listTypes } from './systeemtypes.js';
+import { typeringProblems } from './typering.js';
 
 export type CodeListSource = 'published' | 'inline';
 
@@ -188,6 +189,14 @@ export async function buildProperty(
                 }
             }
         }
+    }
+
+    if (!composite) {
+        // A selection between kinds of the system itself is a typering, not an eigenschap.
+        const options = codeList.flatMap(list => describeList(csv, list)?.members ?? []);
+        const typering = typeringProblems(names, { id, prefLabel, code, appliesTo: appliesToIds, hasCodeList: codeList.length > 0, options });
+        errors.push(...typering.errors);
+        warnings.push(...typering.warnings);
     }
 
     const record: CsvInput = {

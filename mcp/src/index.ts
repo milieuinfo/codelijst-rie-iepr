@@ -209,9 +209,7 @@ server.registerTool('add_type', {
     description:
         'Add a type (skos:Concept) to <systeem>_type.csv. The id becomes <systeem>:<code>; a top-level type gets ' +
         'topConceptOf=conceptscheme:<systeem>_type, a subtype gets broader=<parent> instead. isMeetbaar defaults to true ' +
-        '(every systeemtype so far is meetbaar); set isOnzichtbaar only for structural types users should not pick. ' +
-        'Set isAanpasbaar when the type of an existing system may still be changed afterwards (e.g. the subtypes of ' +
-        'emissiepunt:emissiepunt_lucht, which used to be a selection eigenschap "Type emissiepunt").',
+        '(every systeemtype so far is meetbaar); set isOnzichtbaar only for structural types users should not pick.',
     inputSchema: {
         system,
         code,
@@ -222,7 +220,6 @@ server.registerTool('add_type', {
         scopeNote: z.string().optional(),
         isOnzichtbaar: z.boolean().default(false),
         isMeetbaar: z.boolean().default(true),
-        isAanpasbaar: z.boolean().default(false).describe('The type of an existing system may still be changed afterwards.'),
         dryRun,
     },
 }, respond(write(args => addType(args))));
@@ -244,7 +241,6 @@ server.registerTool('update_type', {
             broader: z.string().nullable().optional().describe('New broader type, or null to make it a top-level type.'),
             isOnzichtbaar: z.boolean().optional(),
             isMeetbaar: z.boolean().optional(),
-            isAanpasbaar: z.boolean().optional(),
         }),
         dryRun,
     },
@@ -274,6 +270,8 @@ server.registerTool('add_property', {
     title: 'Add an eigenschap',
     description:
         'Add a property (eigenschap) to <systeem>_eigenschappen.csv. The id becomes <systeem>-eigenschappen:<code>.\n' +
+        '- Typering: a selection between kinds of the system itself ("Type emissiepunt", "Type stookinstallatie", or options ' +
+        'that are existing or withdrawn types) is refused: those are subtypes, add them with add_type.\n' +
         '- Simple value: give datatype (and unit for numbers); relation defaults to rdfs:value.\n' +
         '- Selection: give codeList instead of datatype, plus codeListSource. If you do not know whether the list is ' +
         'already published, ASK THE USER: \'published\' references an existing list (see find_code_lists), \'inline\' ' +
@@ -359,6 +357,7 @@ server.registerTool('add_selection_list', {
     description:
         'Create (or with extend=true, add entries to) a selection list inside <systeem>_eigenschappen.csv, for use as ' +
         'codeList (or unit) of a property. Only use this when the user confirmed the list is NOT already published.\n' +
+        'Refused for a typering (a list of kinds of the system or one of its types): add subtypes with add_type instead.\n' +
         '- kind=conceptscheme: new options defined here. Id conceptscheme:<systeem>_<name>; options get the prefix ' +
         '<systeem>-selectiemogelijkheden: (declared in config.yml and README.md if needed).\n' +
         '- kind=collection: a subset of existing published concepts (e.g. CSOR stoffen or eenheden). Id collectie:<name>; ' +

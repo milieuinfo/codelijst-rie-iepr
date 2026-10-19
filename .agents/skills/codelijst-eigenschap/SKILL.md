@@ -7,6 +7,15 @@ description: 'Add a new eigenschap (property) for emissiepunten, filters, instal
 
 Properties live in `src/source/<systeem>_eigenschappen.csv` (`conceptscheme:<systeem>_eigenschappen`). Each property says which types it applies to (`relevantRiepr`), what kind of value it holds (`relevantDataType` or `relevantCodeList`), and how (`relation`). Use the `codelijst-rie-iepr` MCP server tools; do not edit the CSV by hand.
 
+## Typering or eigenschap?
+
+A choice between kinds of the system itself is a **typering**, not an eigenschap: "Type emissiepunt"
+(schoorsteen, fakkel, gebouw, ...) or "Type stookinstallatie" (boiler, gasmotor, WKK, ...) are subtypes
+in `<systeem>_type.csv`, added with `add_type` (broader = the type they are kinds of). The MCP refuses a selection eigenschap or list that names the
+system or one of its types ("Type …", "Soort …", "Typering …", "Categorie …", "… type"), or whose options
+are existing or withdrawn types; free text with such a name only gets a warning. A selection of something
+else (fuel, technique, lozingsplaats, ...) stays an eigenschap: "Type brandstof" is fine.
+
 ## Workflow
 
 1. **Look at what exists.** Call `list_properties` for the system. It lists the current properties (good examples to copy), the inline selection lists and the available types. Make sure the property does not already exist; if an existing one applies to other types, ask whether to extend that one instead (`update_property` with a new `appliesTo`, see the `codelijst-wijzigen` skill).

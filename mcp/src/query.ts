@@ -66,7 +66,6 @@ function describeType(model: SystemModel, record: CsvRecord) {
         broader: ancestors(model.types, record._id).map(id => ({ id, prefLabel: label(id) })),
         subtypes: descendants(model.types, record._id).map(id => ({ id, prefLabel: label(id) })),
         isOnzichtbaar: record.isOnzichtbaar === 'true' || undefined,
-        isAanpasbaar: record.isAanpasbaar === 'true' || undefined,
     };
 }
 

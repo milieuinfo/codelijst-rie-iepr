@@ -12,6 +12,7 @@ import {
 import {
     checkCode, checkReference, checkTexts, fail, LIST_TYPES, toId, ValidationError, writeResult, type WriteResult,
 } from './rules.js';
+import { typeringProblems } from './typering.js';
 
 export type ListKind = 'conceptscheme' | 'collection';
 
@@ -107,6 +108,14 @@ export function addSelectionList(params: {
         }
         if (csv.addColumn('collections')) changes.push(`${names.propertyFile}: added column collections`);
         rows.push(...members.map(member => ({ _id: member, collections: listId })));
+    }
+    if (kind === 'conceptscheme') {
+        // Options that are kinds of the system belong in <systeem>_type.csv as subtypes.
+        const typering = typeringProblems(names, {
+            id: listId, prefLabel: prefLabel ?? existing?.prefLabel, code: listId.split(':')[1].replace(new RegExp(`^${system}_`), ''),
+            appliesTo: [], hasCodeList: true, options: concepts,
+        });
+        errors.push(...typering.errors);
     }
     fail(errors);
 

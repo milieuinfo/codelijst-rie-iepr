@@ -4,6 +4,8 @@
 import type { CsvFile } from './csv.js';
 import { isDeclaredPrefix, openCsv, prefixOf, splitValues, systemNames, type System } from './repo.js';
 import { NUMERIC_DATATYPES } from './rules.js';
+import { describeList } from './lists.js';
+import { typeringProblems } from './typering.js';
 
 export interface Issue {
     level: 'error' | 'warning';
@@ -76,6 +78,16 @@ export function validate(systems: readonly System[]) {
             if (!isComposite && !r.relevantDataType && !r.relevantCodeList) report('warning', names.propertyFile, line, `${r._id} has neither relevantDataType nor relevantCodeList.`);
             if (r.relevantUnit && !NUMERIC_DATATYPES.includes(r.relevantDataType)) report('warning', names.propertyFile, line, `${r._id} has a unit but datatype '${r.relevantDataType || '(none)'}'.`);
             if (!r.definition) report('warning', names.propertyFile, line, `${r._id} has no definition.`);
+            if (!isComposite) {
+                const codeList = splitValues(r.relevantCodeList);
+                const typering = typeringProblems(names, {
+                    id: r._id, prefLabel: r.prefLabel, code: r._id.slice(names.propertyPrefix.length + 1),
+                    appliesTo: splitValues(r.relevantRiepr), hasCodeList: codeList.length > 0,
+                    options: codeList.flatMap(list => describeList(propCsv, list)?.members ?? []),
+                });
+                typering.errors.forEach(message => report('error', names.propertyFile, line, message));
+                typering.warnings.forEach(message => report('warning', names.propertyFile, line, message));
+            }
         }
     }
 
