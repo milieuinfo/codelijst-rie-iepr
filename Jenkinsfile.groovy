@@ -1,5 +1,11 @@
 @Library('Cumulus@1.3-stable')
 
+def projectName = 'codelijst-rie-iepr'
+def sonarProjectKey = 'be.vlaanderen.omgeving.data.id.graph:codelijst-rie-iepr'
+def isMainBranch = env.BRANCH_IS_PRIMARY
+def isDailyBuild = !currentBuild.getBuildCauses('hudson.triggers.TimerTrigger$TimerTriggerCause').isEmpty()
+def branchName = env.CHANGE_BRANCH ?: env.BRANCH_NAME
+
 def nodePodSpec = '''
 spec:
   containers:
@@ -238,6 +244,42 @@ pipeline {
 	}
 
 	post {
+		failure {
+			script {
+				if (!isDailyBuild) {
+					rocketchat.notifyAuthor([
+						message       : "🚨 ${branchName} ${env.JOB_NAME} #${env.BUILD_NUMBER} is gebroken!",
+						includeSummary: true,
+						sonarProjectKey: sonarProjectKey
+					])
+				}
+			}
+		}
+		regression {
+			script {
+				if (isMainBranch) {
+					rocketchat.send([
+						channel        : '#jenkins-apocow',
+						message        : "🚨 *${projectName}* ${branchName} #${env.BUILD_NUMBER} is gebroken!",
+						includeSummary : true,
+						sonarProjectKey: sonarProjectKey
+					])
+				}
+			}
+		}
+		fixed {
+			script {
+				if (!isDailyBuild) {
+					rocketchat.notifyAuthor([message: "✅ ${branchName} ${env.JOB_NAME} is terug succesvol."])
+				}
+				if (isMainBranch) {
+					rocketchat.send([
+						channel: '#jenkins-apocow',
+						message: "✅ *${projectName}* ${branchName} is terug succesvol."
+					])
+				}
+			}
+		}
 		always {
 			script {
 				pipelineSummary([sonarProjectKey: env.BRANCH_IS_PRIMARY ? env.SONAR_PROJECT_KEY : null])

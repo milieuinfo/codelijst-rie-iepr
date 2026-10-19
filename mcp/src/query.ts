@@ -192,11 +192,12 @@ export function getProperty({ property, system }: { property: string; system?: S
     const parts = model.properties.filter(p => p.broaderPartitive === owner._id);
     const targets = [owner, ...parts].flatMap(p => splitValues(p.relevantRiepr));
     const label = (id: string) => model.types.find(t => t._id === id)?.prefLabel;
+    const isHidden = (id: string) => model.types.find(t => t._id === id)?.isOnzichtbaar === 'true';
     const appliesTo = targets.includes(model.names.typeScheme)
-        ? model.types.map(t => ({ id: t._id, prefLabel: t.prefLabel, via: `all ${model.names.system} types` }))
+        ? model.types.map(t => ({ id: t._id, prefLabel: t.prefLabel, via: `all ${model.names.system} types`, isOnzichtbaar: isHidden(t._id) || undefined }))
         : [...new Set(targets)].flatMap(t => [
-            { id: t, prefLabel: label(t), via: 'direct' },
-            ...descendants(model.types, t).map(d => ({ id: d, prefLabel: label(d), via: `subtype of ${t}` })),
+            { id: t, prefLabel: label(t), via: 'direct', isOnzichtbaar: isHidden(t) || undefined },
+            ...descendants(model.types, t).map(d => ({ id: d, prefLabel: label(d), via: `subtype of ${t}`, isOnzichtbaar: isHidden(d) || undefined })),
         ]);
     return {
         system: model.names.system,
@@ -231,7 +232,7 @@ export function searchCodelists({ query, system, kind = 'all' }: { query: string
             }
         };
         if (kind === 'all' || kind === 'type') {
-            model.types.forEach(r => add('type', r, { broader: r.broader || undefined }));
+            model.types.forEach(r => add('type', r, { broader: r.broader || undefined, isOnzichtbaar: r.isOnzichtbaar === 'true' || undefined }));
         }
         if (kind === 'all' || kind === 'property') {
             model.properties.forEach(r => add('property', r, { partOf: r.broaderPartitive || undefined, appliesTo: splitValues(r.relevantRiepr) }));

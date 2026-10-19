@@ -12,7 +12,7 @@ import { addProperty, deleteProperty, listProperties, updateProperty, type CodeL
 import {
     addSelectionList, deleteSelectionList, findCodeLists, removeListEntries, updateSelectionList,
 } from './lists.js';
-import { runGenerateSkos, validatedWrite } from './pipeline.js';
+import { runCsvFix, runGenerateSkos, validatedWrite } from './pipeline.js';
 import { getProperty, getTypeProperties, searchCodelists } from './query.js';
 import { SYSTEMS } from './repo.js';
 import { DATATYPES, KNOWN_RELATIONS, ValidationError } from './rules.js';
@@ -27,7 +27,8 @@ const server = new McpServer(
             `code lists for the systems ${SYSTEMS.join(', ')}, including the inline selection lists they use, and the ` +
             'operationele flows (thema_type.csv, operationeel_*.csv: themas, steps, fields and the form they produce). ' +
             'Always look at the existing entries first, run every write tool with dryRun=true, show the preview to the user, ' +
-            'and only then write with dryRun=false. Every real write is validated with `npm run generate_skos` and rolled back when it fails. ' +
+            'and only then write with dryRun=false. Every real write runs npm run csv:fix, is validated with `npm run generate_skos` and rolled back when it fails. ' +
+            'Inline concept schemes in eigenschappen use the id conceptscheme:<object>_<list> where object is the system or a type, e.g. conceptscheme:lozingspunt_lozingsplaats. Collections use collectie:<name>. ' +
             'Identifiers are published URIs and cannot be renamed; deleted concepts are published as withdrawn. ' +
             'All labels and definitions are in Dutch.',
     },
@@ -195,9 +196,11 @@ server.registerTool('generate_skos', {
         'use this to check the current state, e.g. after a manual edit.',
     inputSchema: {},
 }, respond(async () => {
+    const csvResult = await runCsvFix();
+    if (!csvResult.ok) throw new Error(`npm run csv:fix failed (exit ${csvResult.exitCode}).\n\n${csvResult.summary}`);
     const { ok, exitCode, durationMs, summary } = await runGenerateSkos();
     if (!ok) throw new Error(`npm run generate_skos failed (exit ${exitCode}).\n\n${summary}`);
-    return { ok, durationMs, summary };
+    return { csvFix: { ok: true, durationMs: csvResult.durationMs, summary: csvResult.summary, fixedLines: csvResult.fixedLines }, ok, durationMs, summary };
 }));
 
 // ---------------------------------------------------------------------------
@@ -209,7 +212,7 @@ server.registerTool('add_type', {
     description:
         'Add a type (skos:Concept) to <systeem>_type.csv. The id becomes <systeem>:<code>; a top-level type gets ' +
         'topConceptOf=conceptscheme:<systeem>_type, a subtype gets broader=<parent> instead. isMeetbaar defaults to true ' +
-        '(every systeemtype so far is meetbaar); set isOnzichtbaar only for structural types users should not pick.',
+        '(every systeemtype so far is meetbaar); set isOnzichtbaar for structural types users should not pick, or for hierarchical grouping parents like schoorsteen.',
     inputSchema: {
         system,
         code,
@@ -358,14 +361,14 @@ server.registerTool('add_selection_list', {
         'Create (or with extend=true, add entries to) a selection list inside <systeem>_eigenschappen.csv, for use as ' +
         'codeList (or unit) of a property. Only use this when the user confirmed the list is NOT already published.\n' +
         'Refused for a typering (a list of kinds of the system or one of its types): add subtypes with add_type instead.\n' +
-        '- kind=conceptscheme: new options defined here. Id conceptscheme:<systeem>_<name>; options get the prefix ' +
+        '- kind=conceptscheme: new options defined here. Id conceptscheme:<object>_<list>, where object is the system or a type of the system. Example: conceptscheme:lozingspunt_lozingsplaats. Options get the prefix ' +
         '<systeem>-selectiemogelijkheden: (declared in config.yml and README.md if needed).\n' +
         '- kind=collection: a subset of existing published concepts (e.g. CSOR stoffen or eenheden). Id collectie:<name>; ' +
         'members are listed through the collections column.',
     inputSchema: {
         system,
         kind: z.enum(['conceptscheme', 'collection']),
-        name: z.string().describe('Name in snake_case (e.g. "lozingsplaats", "verwijderingsrendement_stoffen"), or the full CURIE.'),
+        name: z.string().describe('Name in snake_case (e.g. "lozingsplaats", "lozingspunt_lozingsplaats", "verwijderingsrendement_stoffen"), or the full CURIE.'),
         prefLabel: prefLabel.optional().describe('Dutch label of the list (required unless extend=true).'),
         definition: definition.optional(),
         concepts: z.array(z.object({ code, prefLabel, definition })).default([]).describe('Options of a conceptscheme.'),

@@ -16,6 +16,36 @@ export interface Generation {
     summary: string;
 }
 
+export interface CsvFixResult {
+    ok: boolean;
+    exitCode: number | null;
+    durationMs: number;
+    output: string;
+    summary: string;
+    fixedLines: string[];
+}
+
+export function runCsvFix(root = repoRoot()): Promise<CsvFixResult> {
+    return new Promise(resolve => {
+        const started = Date.now();
+        const child = spawn('npm', ['run', 'csv:fix'], { cwd: root, env: process.env });
+        let output = '';
+        child.stdout.on('data', (chunk: Buffer) => { output += chunk; });
+        child.stderr.on('data', (chunk: Buffer) => { output += chunk; });
+        const timer = setTimeout(() => {
+            output += `\nTimed out after ${TIMEOUT_MS / 1000}s.`;
+            child.kill('SIGTERM');
+        }, TIMEOUT_MS);
+        child.on('error', error => { output += `\n${error.message}`; });
+        child.on('close', exitCode => {
+            clearTimeout(timer);
+            const ok = exitCode === 0;
+            const fixedLines = output.split('\n').filter(l => l.includes('line') && l.includes('columns') && l.includes('fixed'));
+            resolve({ ok, exitCode, durationMs: Date.now() - started, output, summary: summarize(output, ok), fixedLines });
+        });
+    });
+}
+
 export function runGenerateSkos(root = repoRoot()): Promise<Generation> {
     return new Promise(resolve => {
         const started = Date.now();
@@ -101,7 +131,7 @@ export class GenerationError extends Error {
  */
 export async function validatedWrite<T>(
     write: () => T | Promise<T>,
-    { root = repoRoot(), generate = runGenerateSkos }: { root?: string; generate?: (root: string) => Promise<Generation> } = {},
+    { root = repoRoot(), generate = runGenerateSkos, csvFix = runCsvFix }: { root?: string; generate?: (root: string) => Promise<Generation>; csvFix?: (root: string) => Promise<CsvFixResult> } = {},
 ) {
     const before = snapshot(root);
     let value: T;
@@ -110,6 +140,11 @@ export async function validatedWrite<T>(
     } catch (error) {
         restore(before);
         throw error;
+    }
+    const csvResult = await csvFix(root);
+    if (!csvResult.ok) {
+        restore(before);
+        throw new Error(`npm run csv:fix failed (exit ${csvResult.exitCode}); the change was rolled back.\n\n${csvResult.summary}`);
     }
     const generation = await generate(root);
     if (!generation.ok) {
@@ -121,7 +156,8 @@ export async function validatedWrite<T>(
     }
     return {
         ...(typeof value === 'object' && value !== null ? value : {}),
-        status: 'written and validated with npm run generate_skos',
+        status: 'written, csv fixed and validated with npm run generate_skos',
+        csvFix: { ok: true, durationMs: csvResult.durationMs, summary: csvResult.summary, fixedLines: csvResult.fixedLines },
         generateSkos: { ok: true, durationMs: generation.durationMs, summary: generation.summary },
         next: 'Run validate_codelists for warnings, then review the diff (sources and regenerated output) with the user.',
     };

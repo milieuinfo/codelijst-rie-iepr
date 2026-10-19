@@ -67,7 +67,29 @@ export function addSelectionList(params: {
     const changes: string[] = [];
 
     const listPrefix = kind === 'conceptscheme' ? 'conceptscheme' : 'collectie';
-    const listId = name.includes(':') ? name : `${listPrefix}:${kind === 'conceptscheme' ? `${system}_` : ''}${name}`;
+    let listId: string;
+    if (name.includes(':')) {
+        listId = name;
+    } else if (kind === 'conceptscheme') {
+        const firstUnderscore = name.indexOf('_');
+        // Check if the name is already <object>_<list> where object is system or a type code
+        if (firstUnderscore >= 0) {
+            const firstSegment = name.slice(0, firstUnderscore);
+            const typeCodes = openCsv(names.typeFile).records.filter(r => r._type === 'skos:Concept').map(r => r._id.split(':')[1]);
+            const isSystemObject = firstSegment === system;
+            const isTypeObject = typeCodes.includes(firstSegment);
+            if (isSystemObject || isTypeObject) {
+                listId = `${listPrefix}:${name}`;
+            } else {
+                // Default to system prefix if the first segment is not recognized
+                listId = `${listPrefix}:${system}_${name}`;
+            }
+        } else {
+            listId = `${listPrefix}:${system}_${name}`;
+        }
+    } else {
+        listId = `${listPrefix}:${name}`;
+    }
     if (prefixOf(listId) !== listPrefix) errors.push(`A ${kind} id must use the '${listPrefix}:' prefix.`);
     else checkCode(listId.split(':')[1], 'name', errors);
 
@@ -111,8 +133,19 @@ export function addSelectionList(params: {
     }
     if (kind === 'conceptscheme') {
         // Options that are kinds of the system belong in <systeem>_type.csv as subtypes.
+        const localPart = listId.split(':')[1];
+        // Strip object prefix (system or type) for typering check
+        const firstUnderscore = localPart.indexOf('_');
+        let codeForTypering = localPart;
+        if (firstUnderscore >= 0) {
+            const objectSegment = localPart.slice(0, firstUnderscore);
+            const typeCodes = openCsv(names.typeFile).records.filter(r => r._type === 'skos:Concept').map(r => r._id.split(':')[1]);
+            if (objectSegment === system || typeCodes.includes(objectSegment)) {
+                codeForTypering = localPart.slice(firstUnderscore + 1);
+            }
+        }
         const typering = typeringProblems(names, {
-            id: listId, prefLabel: prefLabel ?? existing?.prefLabel, code: listId.split(':')[1].replace(new RegExp(`^${system}_`), ''),
+            id: listId, prefLabel: prefLabel ?? existing?.prefLabel, code: codeForTypering,
             appliesTo: [], hasCodeList: true, options: concepts,
         });
         errors.push(...typering.errors);

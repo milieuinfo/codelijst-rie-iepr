@@ -39,7 +39,7 @@ else (fuel, technique, lozingsplaats, ...) stays an eigenschap: "Type brandstof"
    - `relevantProperty`: optional external property it corresponds to: `dbo:height`, `dbo:depth`, `dbo:diameter`.
    - `isVerplicht` (required), `isMeervoudig` (may be added several times).
 5. **Preview.** Call the tools with `dryRun: true` (selection list first, then the property, then parts) and show the user all CSV lines together.
-6. **Write.** After the user confirms, repeat the calls with `dryRun: false` in the same order. `add_property` refuses an inline code list that does not exist yet, so the list must be written first. Every write runs `npm run generate_skos`; if that fails, that write is rolled back (earlier writes in the sequence stay) and the tool returns the generator errors. Fix the cause and retry, or report the errors to the user. Never consider a change done without a passing `generate_skos`.
+6. **Write.** After the user confirms, repeat the calls with `dryRun: false` in the same order. `add_property` refuses an inline code list that does not exist yet, so the list must be written first. Every write runs `npm run csv:fix` and `npm run generate_skos`; if that fails, that write is rolled back (earlier writes in the sequence stay) and the tool returns the generator errors. Fix the cause and retry, or report the errors to the user. Never consider a change done without a passing `generate_skos`.
 7. **Check.** Call `validate_codelists` for the system (only new warnings matter; existing ones are known). Tell the user that the regenerated files in `src/main/resources/` are part of the change.
 
 ## Examples from the code lists
@@ -54,7 +54,7 @@ else (fuel, technique, lozingsplaats, ...) stays an eigenschap: "Type brandstof"
 
 ## Notes
 
-- New inline concept schemes get the id `conceptscheme:<systeem>_<name>`, their options `<systeem>-selectiemogelijkheden:<code>`. The tool declares that prefix in `config.yml` and the README prefix table the first time. Options share that prefix across all lists of a system, so choose specific codes.
+- New inline concept schemes get the id `conceptscheme:<object>_<list>`, where object is the system or a type of the system, e.g. `conceptscheme:lozingspunt_lozingsplaats`. Their options use the prefix `<systeem>-selectiemogelijkheden:<code>`. The tool declares that prefix in `config.yml` and the README prefix table the first time. Options share that prefix across all lists of a system, so choose specific codes.
 - Adding a list or `isMultiselect` to a file that lacks the `collections`/`isMultiselect` column appends that column, which touches every line of the CSV. Mention this when showing the preview.
 - Ids become published URIs and cannot be renamed. To change or delete existing eigenschappen, lists or options, follow `.agents/skills/codelijst-wijzigen/SKILL.md`.
 - If the MCP tools are unavailable, tell the user the `codelijst-rie-iepr` server is not connected (see the MCP table in `AGENTS.md` for the config file of each agent) rather than editing the CSV by hand. If you have to edit a CSV by hand anyway, run `npm run generate_skos` from the repo root afterwards and only finish when it passes.
