@@ -244,7 +244,6 @@ describe('ConditionalValidatorGenerator handles condition.values array', () => {
   })
 
   it('generates if/then blocks with anyOf for multiple trigger values', () => {
-    const cond: ConditionalValidatorGenerator['generateAllConditionals'].prototype extends never ? never : any = null
     const gen = new ConditionalValidatorGenerator()
     const block = gen.generateIfThen({
       triggerProperty: 'type',
