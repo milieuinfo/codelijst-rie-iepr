@@ -4,7 +4,7 @@
 @prefix iso25964: <http://purl.org/iso25964/skos-thes#> .
 
 {
-    ?code skos:topConceptOf ?codelijst .
+    ?code skos:inScheme ?codelijst .
     ?codelijst dcterms:isPartOf ?verzameling .
 } => {
     ?code dcterms:isPartOf ?verzameling .

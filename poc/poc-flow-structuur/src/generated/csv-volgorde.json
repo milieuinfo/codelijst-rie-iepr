@@ -1,0 +1,143 @@
+{
+  "schemes": {
+    "conceptscheme:emissiepunt_type": [
+      "emissiepunt:lozingspunt",
+      "emissiepunt:emissiepunt_lucht",
+      "emissiepunt:schoorsteen",
+      "emissiepunt:schoorsteen_verticale_uitstroom",
+      "emissiepunt:schoorsteen_horizontale_uitstroom",
+      "emissiepunt:fakkel",
+      "emissiepunt:installatie",
+      "emissiepunt:gebouw"
+    ],
+    "conceptscheme:emissiepunt_eigenschappen": [
+      "emissiepunt-eigenschappen:lozingspunt-lozingsplaats",
+      "emissiepunt-eigenschappen:hoogte",
+      "emissiepunt-eigenschappen:diameter",
+      "emissiepunt-eigenschappen:aantal_punten"
+    ],
+    "conceptscheme:lozingspunt_lozingsplaats": [
+      "emissiepunt-selectiemogelijkheden:oppervlaktewater",
+      "emissiepunt-selectiemogelijkheden:riool",
+      "emissiepunt-selectiemogelijkheden:grondwater",
+      "emissiepunt-selectiemogelijkheden:collector",
+      "emissiepunt-selectiemogelijkheden:externe_waterzuivering",
+      "emissiepunt-selectiemogelijkheden:regenwaterriool"
+    ],
+    "conceptscheme:filter_type": [
+      "filter:peil",
+      "filter:pomp",
+      "filter:injectie",
+      "filter:omkeerbaar",
+      "filter:filter"
+    ],
+    "conceptscheme:filter_eigenschappen": [
+      "filter-eigenschappen:diepte",
+      "filter-eigenschappen:lengte",
+      "filter-eigenschappen:watervoerendeLaag",
+      "filter-eigenschappen:diepte_pomp"
+    ],
+    "conceptscheme:installatie_type": [
+      "installatie:stookinstallatie",
+      "installatie:directe_stookinstallatie",
+      "installatie:indirecte_stookinstallatie",
+      "installatie:luchtzuivering",
+      "installatie:gpbv",
+      "installatie:waterzuivering",
+      "installatie:opslag_overslag",
+      "installatie:geothermisch",
+      "installatie:productie_installatie",
+      "installatie:fakkel"
+    ],
+    "conceptscheme:installatie_eigenschappen": [
+      "installatie-eigenschappen:verwijderingsrendement",
+      "installatie-eigenschappen:verwijderingsrendement_stof",
+      "installatie-eigenschappen:verwijderingsrendement_percentage",
+      "installatie-eigenschappen:luchtzuiverings_techniek",
+      "installatie-eigenschappen:geinstalleerde_productiecapaciteit",
+      "installatie-eigenschappen:waterzuiveringstechniek",
+      "installatie-eigenschappen:waterzuiveringstechniek_ingebruikvan",
+      "installatie-eigenschappen:waterzuiveringstechniek_techniek",
+      "installatie-eigenschappen:nominaal_thermisch_vermogen",
+      "installatie-eigenschappen:type_stookinstallatie",
+      "installatie-eigenschappen:soort_opgewekte_energie",
+      "installatie-eigenschappen:geinstalleerde_opslag_overslagcapaciteit",
+      "installatie-eigenschappen:type_opslag_overslag",
+      "installatie-eigenschappen:opslagen_overgeslagen_stof",
+      "installatie-eigenschappen:technische_kenmerken",
+      "installatie-eigenschappen:omschrijving",
+      "installatie-eigenschappen:geproduceerde_stof_of_product"
+    ],
+    "conceptscheme:installatie_type_stookinstallatie": [
+      "installatie-selectiemogelijkheden:boiler",
+      "installatie-selectiemogelijkheden:dieselmotor",
+      "installatie-selectiemogelijkheden:gasmotor",
+      "installatie-selectiemogelijkheden:gasturbine",
+      "installatie-selectiemogelijkheden:dual_fuel_motor",
+      "installatie-selectiemogelijkheden:andere_motor",
+      "installatie-selectiemogelijkheden:andere_stookinstallatie",
+      "installatie-selectiemogelijkheden:wkk"
+    ],
+    "conceptscheme:installatie_soort_opgewekte_energie": [
+      "installatie-selectiemogelijkheden:warme_lucht",
+      "installatie-selectiemogelijkheden:warm_water",
+      "installatie-selectiemogelijkheden:druk",
+      "installatie-selectiemogelijkheden:elektriciteit",
+      "installatie-selectiemogelijkheden:stoom",
+      "installatie-selectiemogelijkheden:mechanische_energie",
+      "installatie-selectiemogelijkheden:andere"
+    ],
+    "conceptscheme:meetpunt_type": [
+      "meetpunt:controleinrichting",
+      "meetpunt:debietmeter",
+      "meetpunt:peilput"
+    ],
+    "conceptscheme:meetpunt_eigenschappen": [
+      "meetpunt-eigenschappen:referentiepunt",
+      "meetpunt-eigenschappen:referentiepunt_naam",
+      "meetpunt-eigenschappen:referentiepunt_diepte",
+      "meetpunt-eigenschappen:diepte",
+      "meetpunt-eigenschappen:serienummer",
+      "meetpunt-eigenschappen:merk",
+      "meetpunt-eigenschappen:putnummer"
+    ],
+    "conceptscheme:meetpunt_referentiepunt_naam": [
+      "meetpunt-selectiemogelijkheden:maaiveld",
+      "meetpunt-selectiemogelijkheden:bovenkant_peilbuis",
+      "meetpunt-selectiemogelijkheden:bovenkant_beschermbuis",
+      "meetpunt-selectiemogelijkheden:bovenkant_straatpot",
+      "meetpunt-selectiemogelijkheden:ander_referentiepunt",
+      "meetpunt-selectiemogelijkheden:onbekend"
+    ],
+    "conceptscheme:uitwisselpunt_type": [
+      "uitwisselpunt:pompput"
+    ],
+    "conceptscheme:uitwisselpunt_eigenschappen": [
+      "uitwisselpunt-eigenschappen:diepte"
+    ],
+    "conceptscheme:onttrekkingspunt_type": [
+      "onttrekkingspunt:opnamepunt"
+    ],
+    "conceptscheme:onttrekkingspunt_eigenschappen": [
+      "onttrekkingspunt-eigenschappen:omschrijving"
+    ]
+  },
+  "collections": {
+    "collectie:verwijderingsrendement_stoffen": [
+      "csor_variabele:V_2217",
+      "csor_variabele:V_1096"
+    ],
+    "collectie:vermogen_eenheden": [
+      "csor_eenheid:E_92"
+    ],
+    "collectie:productiecapaciteit_eenheden": [
+      "csor_eenheid:E_15"
+    ],
+    "collectie:opslagcapaciteit_eenheden": [
+      "csor_eenheid:E_83",
+      "csor_eenheid:E_32",
+      "csor_eenheid:E_33",
+      "csor_eenheid:E_41"
+    ]
+  }
+}

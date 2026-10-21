@@ -154,6 +154,40 @@ Deze sectie bevat informatie over de interpretatie van de codelijsten.
 ### Structurele gegevens
 Structurele gegevens zijn opgedeeld in meerdere CSV bestanden voor de verschillende structurele types in het datamodel. Met name, emissiepunten, installaties, filters, meetpunten, meetinstrumenten en uitwisselpunten. Elk van deze types heeft een eigen CSV-bestand voor de relevante eigenschappen die de vaste attributen van het datamodel aanvullen.
 
+#### Types en eigenschappen
+Elk systeem (`emissiepunt`, `filter`, `installatie`, `meetpunt`, `uitwisselpunt`, `onttrekkingspunt`) heeft twee codelijsten:
+- `<systeem>_type.csv`: de soorten van dat systeem, als hiërarchie via `broader` (bv. `emissiepunt:schoorsteen` is een `emissiepunt:emissiepunt_lucht`). `isOnzichtbaar = true` verbergt een type voor selectie (bv. omdat het enkel een structurele groepering is); de subtypes blijven wel selecteerbaar en erven de eigenschappen. `isMeetbaar = true` geeft aan dat het systeemtype meetbaar is.
+- `<systeem>_eigenschappen.csv`: de systeemeigenschappen die de vaste attributen uit het datamodel (`riepr.ttl`: naam, beschrijving, ...) aanvullen. De vaste attributen staan dus niet in de CSV's.
+
+#### Welke eigenschappen gelden voor welk type?
+`relevantRiepr` op een eigenschap bepaalt voor welke types ze geldt. De waarde bevat één of meer types, gescheiden door `|` of `,`.
+
+1. **Direct**: de eigenschap geldt voor elk type dat in `relevantRiepr` staat.
+2. **Overerving**: ze geldt ook voor alle subtypes van die types (`broader`-keten). Een eigenschap op `emissiepunt:emissiepunt_lucht` geldt dus ook voor `emissiepunt:schoorsteen`. Een eigenschap die enkel op een subtype staat, geldt niet voor het bovenliggende type.
+3. **Alle types**: de waarde `conceptscheme:<systeem>_type` (bv. `conceptscheme:installatie_type`) betekent alle types van dat systeem.
+4. **Leeg**: een eigenschap zonder `relevantRiepr` geldt voor **geen enkel type**. Dit is dus niet "alles". Enige uitzondering zijn onderdelen van een composite (zie hieronder).
+5. **Onzichtbare types**: `isOnzichtbaar` beïnvloedt enkel of een type gekozen kan worden, niet welke eigenschappen het erft of doorgeeft.
+
+##### Composite eigenschappen
+Een composite eigenschap bestaat uit een ouder en onderdelen die naar de ouder verwijzen via `broaderPartitive`. De ouder heeft zelf geen waarde, de onderdelen vormen samen één invulbare groep.
+- De ouder en onderdelen worden als één geheel getoond. Het type waarvoor de groep geldt, mag op de ouder, op de onderdelen of op beide staan; de scope van de groep is de unie van al die waarden. Een onderdeel zonder eigen `relevantRiepr` erft de scope van de groep en wordt nooit apart gefilterd.
+- Voorbeelden uit de data:
+
+| Composite | `relevantRiepr` op de ouder | `relevantRiepr` op de onderdelen |
+|---|---|---|
+| `installatie-eigenschappen:verwijderingsrendement` | leeg | `_stof`: `installatie:luchtzuivering`, `_percentage`: leeg |
+| `meetpunt-eigenschappen:referentiepunt` | leeg | `_naam` en `_diepte`: `meetpunt:peilput` |
+
+- Een composite waarvan noch de ouder, noch een onderdeel een `relevantRiepr` heeft, geldt voor geen enkel type en wordt als fout gerapporteerd.
+- `isMeervoudig` op de ouder maakt de hele groep herhaalbaar: elke rij bevat alle onderdelen. Is de ouder ook `isVerplicht`, dan start de groep met één rij; anders is er enkel een knop om een rij toe te voegen.
+
+##### Waardebepaling van een onderdeel
+- `relevantDataType` bepaalt het type invoer (`xsd:decimal`, `xsd:integer`, ...). Zonder datatype en zonder lijst is het een vrije tekst.
+- `relevantUnit` verwijst naar één CSOR-eenheid (`csor_eenheid:E_59`) of naar een `collectie:*` met meerdere eenheden waaruit gekozen wordt.
+- `relevantCodeList` verwijst naar een lijst om uit te kiezen: een `conceptscheme:*` in dezelfde CSV (selectiemogelijkheden) of een `collectie:*` met CSOR-concepten (bv. stoffen). Labels en definities van CSOR-concepten komen uit de publieke lijsten [codelijst-csor-eenheid](https://github.com/milieuinfo/codelijst-csor-eenheid) en [codelijst-csor-variabele](https://github.com/milieuinfo/codelijst-csor-variabele).
+
+> De MCP-server (`mcp/`) past exact deze regels toe in `get_type_properties`, `get_property` en `validate_codelists`.
+
 
 
 ### Operationele gegevens
