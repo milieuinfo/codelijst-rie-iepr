@@ -19,6 +19,21 @@ pnpm build
 
 `predev` en `prebuild` synchroniseren automatisch de codelijst, de CSOR-labels en de systeemvelden.
 
+## Deployment
+
+De Jenkins-pipeline bouwt deze POC samen met `poc-flow-operationeel` en `poc-landing` en publiceert
+ze op GitHub Pages:
+
+```
+/                  ← poc-landing
+/operationeel/     ← poc-flow-operationeel
+/structuur/        ← deze POC
+```
+
+De Vite-build gebruikt `base: './'`, zodat de assets relatief laden en dezelfde build zowel op GitHub
+Pages (`https://milieuinfo.github.io/codelijst-rie-iepr/`) als achter een ander subpad werkt. De
+lokale dev-server blijft op `/` draaien.
+
 ## Documentatie
 
 - [`docs/plans/`](docs/plans/) — de plannen (01–07) die deze POC implementeert, met de bronkeuzes en

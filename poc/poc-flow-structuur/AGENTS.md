@@ -110,3 +110,19 @@ API-referentie staat in `node_modules/@domg-wc/components/**/*.component.d.ts`. 
 - `pnpm test` — Playwright-smoke per systeem, plus rij toevoegen/verwijderen bij
   `verwijderingsrendement` en de verplichte meervoudige `referentiepunt`.
 - `pnpm lint` en `pnpm build` moeten groen zijn vóór een commit.
+
+## 8. Deployment
+
+De Jenkins-pipeline (`Jenkinsfile.groovy`, stage "Build POCs") bouwt `poc-landing`,
+`poc-flow-operationeel` en deze POC en publiceert ze op GitHub Pages:
+
+```
+/                  ← poc-landing
+/operationeel/     ← poc-flow-operationeel
+/structuur/        ← deze POC
+```
+
+Alle drie gebruiken `base: './'` (relatieve assets) en `pnpm install --frozen-lockfile`. De
+lockfiles zijn gecommitte; `src/generated/*` en `public/resources/*` moeten mee gecommitte zijn,
+want de pipeline heeft geen sibling-checkout van `../RIE-IEPR` (het bouwscript houdt dan de
+gecommitte `systeemvelden.json`).

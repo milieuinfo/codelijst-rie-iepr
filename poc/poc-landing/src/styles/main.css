@@ -1,0 +1,22 @@
+/**
+ * Base styles for the RIE-IEPR POC landing page.
+ * The same design-system tokens as the two POCs, so the page looks like the
+ * applications it links to.
+ */
+
+/* ---- Design-system token variables (pure CSS, Vite-resolvable) ---- */
+@import '@domg-wc/styles/base/var/vl-color.raw.css';
+@import '@domg-wc/styles/base/var/vl-color-foundation-v2.raw.css';
+@import '@domg-wc/styles/base/var/vl-color-domg.raw.css';
+@import '@domg-wc/styles/base/var/vl-typography.raw.css';
+@import '@domg-wc/styles/base/var/vl-spacing.raw.css';
+@import '@domg-wc/styles/base/var/vl-z-layer.raw.css';
+@import '@domg-wc/styles/base/var/vl-general.raw.css';
+@import '@domg-wc/styles/layout/grid/vl-grid.raw.css';
+@import '@domg-wc/styles/layout/section/vl-section.raw.css';
+
+html {
+  font-family: var(--vl-font, 'Flanders Art Sans', Arial, sans-serif);
+  color: var(--vl-color--text, #333332);
+  background: var(--vl-color--background, #fff);
+}

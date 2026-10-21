@@ -68,11 +68,23 @@ af van de andere composites, waar minstens één kind de scope draagt.
 - Impact: geen.
 - Gewenst: de scope expliciet op de kinderen zetten, voor consistentie.
 
-## 7. Geen CI-pipeline in de zuster-POC
+## 7. CI en deployment
 
-Plan 07 vermeldt "dezelfde stappen als `poc-flow-operationeel` (indien daar een pipeline voor
-bestaat)". Die pipeline bestaat niet in deze repository (geen `.gitlab-ci.yml` of vergelijkbaar), dus
-er is geen CI toegevoegd. De stappen staan in `AGENTS.md` en `README.md`:
+De Jenkins-pipeline (`Jenkinsfile.groovy`, stage "Build POCs") bouwt drie projecten en publiceert ze
+op GitHub Pages:
+
+```
+/                  ← poc/poc-landing
+/operationeel/     ← poc/poc-flow-operationeel
+/structuur/        ← poc/poc-flow-structuur
+```
+
+Alle drie de builds gebruiken `base: './'` (relatieve assets), zodat dezelfde build zowel op
+`https://milieuinfo.github.io/codelijst-rie-iepr/` als achter een ander subpad werkt.
+
+De pipeline draait enkel `pnpm install --frozen-lockfile && pnpm run build`; lint en tests worden
+lokaal uitgevoerd. `pnpm lint` kan niet als pipeline-stap worden toegevoegd zolang de operationele
+POC 43 bestaande ESLint-waarschuwingen heeft (de config gebruikt `--max-warnings=0`).
 
 ```bash
 pnpm lint && pnpm build && pnpm test:unit && pnpm test

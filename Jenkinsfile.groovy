@@ -179,20 +179,21 @@ pipeline {
 					}
 				}
 
-				stage('Build POC') {
+				stage('Build POCs') {
 					steps {
 						container('node') {
 							sh '''
-								cd poc/poc-flow-operationeel
 								corepack enable
-								pnpm install --frozen-lockfile
-								pnpm run build
+								for project in poc/poc-flow-operationeel poc/poc-flow-structuur poc/poc-landing; do
+									echo "Building ${project}"
+									(cd "$project" && pnpm install --frozen-lockfile && pnpm run build)
+								done
 							'''
 						}
 					}
 					post {
 						always {
-							archiveArtifacts artifacts: 'poc/poc-flow-operationeel/dist/**', allowEmptyArchive: true, fingerprint: true
+							archiveArtifacts artifacts: 'poc/poc-flow-operationeel/dist/**,poc/poc-flow-structuur/dist/**,poc/poc-landing/dist/**', allowEmptyArchive: true, fingerprint: true
 						}
 					}
 				}
@@ -205,10 +206,18 @@ pipeline {
 									sh '''
 										set -e
 
-										DIST="$PWD/poc/poc-flow-operationeel/dist"
+										# Assemble the site: the landing page at the root, each POC in its own subfolder.
+										# All three Vite builds use base './', so their assets load relatively.
+										SITE="$PWD/.gh-pages-site"
 										WORK="$PWD/.gh-pages-deploy"
 
-										rm -rf "$WORK"
+										rm -rf "$SITE" "$WORK"
+										mkdir -p "$SITE/operationeel" "$SITE/structuur"
+										cp -r "$PWD/poc/poc-landing/dist"/. "$SITE"/
+										cp -r "$PWD/poc/poc-flow-operationeel/dist"/. "$SITE/operationeel"/
+										cp -r "$PWD/poc/poc-flow-structuur/dist"/. "$SITE/structuur"/
+										touch "$SITE/.nojekyll"
+
 										if git clone --depth 1 --branch "$GH_PAGES_BRANCH" "https://github.com/${GITHUB_REPO}.git" "$WORK"; then
 											git -C "$WORK" checkout -B "$GH_PAGES_BRANCH"
 										else
@@ -221,8 +230,7 @@ pipeline {
 										# (find zonder -maxdepth daalt af in .git en sloopt de repo.)
 										find "$WORK" -mindepth 1 -maxdepth 1 -not -name .git -exec rm -rf {} +
 
-										cp -r "$DIST"/. "$WORK"/
-										touch "$WORK/.nojekyll"
+										cp -r "$SITE"/. "$WORK"/
 
 										git -C "$WORK" config user.email "$GIT_USER_EMAIL"
 										git -C "$WORK" config user.name "$GIT_USER_NAME"
@@ -230,7 +238,7 @@ pipeline {
 										if git -C "$WORK" diff --cached --quiet; then
 											echo "No changes to deploy"
 										else
-											git -C "$WORK" commit -m "poc: deploy from ${BUILD_TAG}"
+											git -C "$WORK" commit -m "poc: deploy landing, operationeel and structuur from ${BUILD_TAG}"
 											git -C "$WORK" push origin "HEAD:$GH_PAGES_BRANCH"
 										fi
 									'''
