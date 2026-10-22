@@ -35,6 +35,11 @@ export class StructuurEigenschapInput extends LitElement {
         min-width: 0;
       }
 
+      /* A numeric field with a unit stays compact, so the unit sits next to the value. */
+      .structuur-input--met-eenheid > div:first-child {
+        flex: 0 1 16rem;
+      }
+
       .structuur-eenheid {
         display: inline-flex;
         align-items: center;
@@ -83,6 +88,8 @@ export class StructuurEigenschapInput extends LitElement {
     const opties = this.opties
     const eenheden = this.eenheden
     const heeftOpties = opties.length > 0
+    const heeftEenheid = eenheden.length > 0
+    const compact = heeftEenheid && getalType(eigenschap.dataType) !== undefined
     // A checkbox renders its own visible label; the other controls use `label` as aria-label only.
     const toonEigenLabel = this.toonLabel && eigenschap.dataType !== 'xsd:boolean'
     const extern =
@@ -102,7 +109,7 @@ export class StructuurEigenschapInput extends LitElement {
             ></vl-form-label>`
           : nothing}
 
-        <div class="structuur-input" title="${this.tooltip}">
+        <div class="structuur-input ${compact ? 'structuur-input--met-eenheid' : ''}" title="${this.tooltip}">
           <div @vl-input="${this.onWaarde}" @vl-change="${this.onWaarde}">
             ${heeftOpties
               ? html`<vl-select-rich

@@ -49,6 +49,24 @@ const CSOR_LIJSTEN = {
     repo: 'codelijst-csor-variabele',
     pad: 'src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/csor/variabele/variabele.ttl',
   },
+  csor_kwantificeerbaaraspect: {
+    bestand: 'kwantificeerbaaraspect.ttl',
+    basis: 'https://data.omgeving.vlaanderen.be/id/concept/csor/kwantificeerbaaraspect/',
+    repo: 'codelijst-csor-kwantificeerbaar-aspect',
+    pad: 'src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/csor/kwantificeerbaaraspect/kwantificeerbaaraspect.ttl',
+  },
+  csor_drager: {
+    bestand: 'drager.ttl',
+    basis: 'https://data.omgeving.vlaanderen.be/id/concept/csor/drager/',
+    repo: 'codelijst-csor-drager',
+    pad: 'src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/csor/drager/drager.ttl',
+  },
+  csor_soortwaardebepaling: {
+    bestand: 'soortwaardebepaling.ttl',
+    basis: 'https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/',
+    repo: 'codelijst-csor-soort-waardebepaling',
+    pad: 'src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/csor/soortwaardebepaling/soortwaardebepaling.ttl',
+  },
 }
 
 const EIGENSCHAPPEN_FILES = [

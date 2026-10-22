@@ -2,6 +2,7 @@
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
 @prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
 @prefix iso25964: <http://purl.org/iso25964/skos-thes#> .
+@prefix riepr: <https://data.riepr.omgeving.vlaanderen.be/ns/riepr#> .
 
 {
     ?code skos:inScheme ?codelijst .
@@ -14,4 +15,11 @@
     ?child iso25964:broaderPartitive ?parent .
 } => {
     ?parent iso25964:narrowerPartitive ?child .
+} .
+
+{
+    ?eigenschap <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantRiepr> ?type .
+    ?type skos:narrower ?subtype .
+} => {
+    ?eigenschap <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantRiepr> ?subtype .
 } .

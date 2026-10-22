@@ -57,6 +57,16 @@ export class StructuurMeervoudigeEigenschap extends LitElement {
         display: block;
         margin-bottom: var(--vl-spacing--small, 0.75rem);
       }
+
+      /*
+       * Zelfde correctie als in structuur-app: het veld is genest in een
+       * vl-fieldset die de form-label-styles adopteert (host-regel
+       * font-size: 62.5%), waardoor de tekst en de keuzelijsten per niveau
+       * kleiner worden.
+       */
+      vl-fieldset {
+        font-size: inherit;
+      }
     `,
     vlGridStyles,
   ]

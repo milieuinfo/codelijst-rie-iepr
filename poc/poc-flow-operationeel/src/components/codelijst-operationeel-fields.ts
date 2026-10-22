@@ -119,6 +119,17 @@ export class CodelijstOperationeelFields extends LitElement {
       .codelijst-group__item > vl-button {
         margin-top: var(--vl-spacing--small, 0.5rem);
       }
+
+      /*
+       * @domg-wc/components 2.16: vl-fieldset adopts the form-label styles, whose
+       * :host rule "font-size: 62.5%" shrinks the font of everything inside the
+       * fieldset (nested fieldsets compound it). Text that inherits — such as the
+       * options of a vl-select-rich — becomes unreadably small. Restore the
+       * inherited body size on the fieldset host.
+       */
+      vl-fieldset {
+        font-size: inherit;
+      }
     `,
     vlMarginStyles,
   ]
@@ -458,58 +469,84 @@ export class CodelijstOperationeelFields extends LitElement {
       return pickerHtml
     }
 
-    // relevantCodeList takes priority — renders as a vl-select.
+    // relevantCodeList: an inline scheme or a CSOR collection renders as a
+    // selection; an external or not-yet-published list falls back to free text
+    // (the same rule as the structuur POC).
     if (field.relevantCodeList) {
-      const fieldValue = String(this._fieldValues.get(id) ?? '')
+      const displayLabel = plainLabel + (required ? ' *' : '')
       const options = this._service
         .getCodeListOptions(this.result, field)
-        .map(option => ({ ...option, selected: option.value === fieldValue }))
-      const displayLabel = plainLabel + (required ? ' *' : '')
-      const formLabel = html`<vl-form-label for="${id}" label="${displayLabel}" block .annotation="${field.definition ?? ''}"></vl-form-label>`
-      const control = html`<vl-select id="${id}" name="${id}" label="${displayLabel}" placeholder="Selecteer..." ?required="${required}" .value="${fieldValue}" .options="${options}" @vl-input="${this._onControlInput}"></vl-select>`
-      return html`${formLabel}${control}`
+        .map(option => ({ ...option, selected: option.value === String(this._fieldValues.get(id) ?? '') }))
+
+      if (options.length > 0) {
+        const fieldValue = String(this._fieldValues.get(id) ?? '')
+        const formLabel = html`<vl-form-label for="${id}" label="${displayLabel}" block .annotation="${field.definition ?? ''}"></vl-form-label>`
+        const control = html`<vl-select id="${id}" name="${id}" label="${displayLabel}" placeholder="Selecteer..." ?required="${required}" .value="${fieldValue}" .options="${options}" @vl-input="${this._onControlInput}"></vl-select>`
+        return html`${formLabel}${control}`
+      }
+
+      // No options: an external URL or the `http://TODO` placeholder in the source data.
+      const refs = field.relevantCodeList
+      const alleenTodo = refs.every(ref => ref === 'http://TODO')
+      const toelichting = alleenTodo
+        ? 'Deze keuzelijst is nog niet gepubliceerd (TODO in de bron); vrije tekst.'
+        : `Deze keuzelijst wordt extern gepubliceerd (${refs.join(', ')}); vrije tekst.`
+      const formLabel = html`<vl-form-label for="${id}" label="${displayLabel}" block .annotation="${[field.definition, toelichting].filter(Boolean).join(' — ')}"></vl-form-label>`
+      const control = createControl(id, id, plainLabel, required, field.relevantDataType, this._onControlInput)
+      return html`${formLabel}${control}<vl-text annotation small>${toelichting}</vl-text>`
     }
 
-    // Check whether relevantUnit resolves to a conceptscheme (multiple units → dropdown),
-    // or a single concept, or falls back to local whitelist / raw ID fragments.
+    // Check whether relevantUnit resolves to a conceptscheme or a collection
+    // (multiple units → dropdown), or to a single concept or CSOR eenheid.
     const unitIds = field.relevantUnit ?? []
     let unitScheme: Scheme | undefined
+    let unitCollection: string[] | undefined
     let singleUnitConcept: Concept | undefined
-    let resolvedUnitId: string | undefined // raw unit ID used for whitelist lookup
-    let fallbackUnitText: string | undefined
-    let isUnitScheme = false
+    let resolvedUnitId: string | undefined // raw unit ID used for the CSOR/whitelist lookup
 
-    if (unitIds.length > 0) {
-      for (const uid of unitIds) {
-        const maybeScheme = this.result.schemes.get(uid)
-        if (maybeScheme) {
-          unitScheme = maybeScheme
-          isUnitScheme = true
+    for (const uid of unitIds) {
+      // `http://TODO` is a placeholder in the source data: no unit is shown.
+      if (uid === 'http://TODO') continue
+
+      const maybeScheme = this.result.schemes.get(uid)
+      if (maybeScheme) {
+        unitScheme = maybeScheme
+        break
+      }
+
+      if (uid.startsWith('collectie:')) {
+        const leden = this.result.collections.get(uid) ?? []
+        if (leden.length > 0) {
+          unitCollection = leden
           break
         }
-        const maybeConcept = this.result.concepts.get(uid)
-        if (maybeConcept && !isUnitScheme) {
-          singleUnitConcept = maybeConcept
-          resolvedUnitId = uid
-        }
-        // Build fallback text from unresolvable refs so the user sees something useful.
-        if (!singleUnitConcept && !isUnitScheme) {
-          fallbackUnitText = uid.split(':').pop() || uid
-          resolvedUnitId = uid
-        }
+      }
+
+      const maybeConcept = this.result.concepts.get(uid)
+      if (maybeConcept) {
+        singleUnitConcept = maybeConcept
+        resolvedUnitId = uid
+      } else if (!singleUnitConcept) {
+        resolvedUnitId = uid
       }
     }
 
-      // Unit scheme → render vl-select populated from that scheme's top concepts.
-    if (isUnitScheme && unitScheme) {
+    // Unit scheme/collection → render a vl-select populated from its concepts or members.
+    if (unitScheme || unitCollection) {
       const fieldValue = String(this._fieldValues.get(id) ?? '')
-      const options = this._service
-        .getTopConceptsForScheme(this.result, unitScheme.id)
-        .map(concept => ({ value: concept.id, label: concept.prefLabel ?? concept.id, selected: concept.id === fieldValue }))
-      const displayLabel = plainLabel + (required ? ' *' : '')
-      const formLabel = html`<vl-form-label for="${id}" label="${displayLabel}" block .annotation="${field.definition ?? ''}"></vl-form-label>`
-      const control = html`<vl-select id="${id}" name="${id}" label="${displayLabel}" placeholder="Selecteer eenheid..." ?required="${required}" .value="${fieldValue}" .options="${options}" @vl-input="${this._onControlInput}"></vl-select>`
-      return html`${formLabel}${control}`
+      const options = (unitScheme
+        ? this._service
+            .getTopConceptsForScheme(this.result, unitScheme.id)
+            .map(concept => ({ value: concept.id, label: concept.prefLabel ?? concept.id }))
+        : (unitCollection ?? []).map(unitId => ({ value: unitId, label: resolveUnitLabel(unitId) ?? unitId }))
+      ).map(option => ({ ...option, selected: option.value === fieldValue }))
+
+      if (options.length > 0) {
+        const displayLabel = plainLabel + (required ? ' *' : '')
+        const formLabel = html`<vl-form-label for="${id}" label="${displayLabel}" block .annotation="${field.definition ?? ''}"></vl-form-label>`
+        const control = html`<vl-select id="${id}" name="${id}" label="${displayLabel}" placeholder="Selecteer eenheid..." ?required="${required}" .value="${fieldValue}" .options="${options}" @vl-input="${this._onControlInput}"></vl-select>`
+        return html`${formLabel}${control}`
+      }
     }
 
     // Boolean checkbox — explicit <vl-form-label> alongside control for consistent rendering
@@ -530,7 +567,7 @@ export class CodelijstOperationeelFields extends LitElement {
 
     // build a <vl-form-label> with the asterisk baked into the label text
     const formLabel = html`<vl-form-label for="${id}" label="${displayLabel}" block .annotation="${annotation}"></vl-form-label>`
-    return this.renderWithUnit(formLabel, control, singleUnitConcept, resolvedUnitId, fallbackUnitText)
+    return this.renderWithUnit(formLabel, control, singleUnitConcept, resolvedUnitId)
   }
 
   /** Wraps a control + unit addon in an input-group container; label stays outside. */
@@ -539,23 +576,14 @@ export class CodelijstOperationeelFields extends LitElement {
     control: ReturnType<typeof html>,
     unitConcept: Concept | undefined,
     resolvedUnitId?: string,
-    fallbackUnitText?: string,
   ) {
     let unitText: string | undefined
     if (unitConcept) {
       unitText = unitConcept.code ?? unitConcept.prefLabel ?? unitConcept.id
-    } else {
-      // Priority 1: check local whitelist for human-readable label
-      if (resolvedUnitId) {
-        const wlLabel = resolveUnitLabel(resolvedUnitId)
-        if (wlLabel !== undefined && wlLabel !== '') {
-          unitText = wlLabel
-        }
-      }
-      // Priority 2: fall back to raw ID fragment from unresolvable ref
-      if (!unitText && fallbackUnitText) {
-        unitText = fallbackUnitText
-      }
+    } else if (resolvedUnitId) {
+      // CSOR eenheden (csor_eenheid:E_*) come from the generated csor.json and are
+      // shown by their symbol; the small whitelist covers the remaining local ids.
+      unitText = resolveUnitLabel(resolvedUnitId)
     }
 
     if (!unitText) return html`${formLabel}${control}`

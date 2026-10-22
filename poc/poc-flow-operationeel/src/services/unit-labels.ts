@@ -1,17 +1,19 @@
 /**
- * @file Local mapping of common unit IDs to human-readable display labels.
+ * @file Display labels for `relevantUnit` references.
  *
- * This whitelist covers all units referenced by `relevantUnit` in the RIE-IEPR
- * codelist that are not defined inline in the local JSON-LD document. Units
- * defined in the codelist itself (`result.concepts.get(uid)`) take priority;
- * this map is consulted only when concept lookup fails.
+ * CSOR eenheden (`csor_eenheid:E_*`) are resolved from the generated
+ * `csor.json` (see `scripts/sync-csor.mjs`): they are shown by their symbol
+ * (e.g. `mg/L`). Units defined in the local JSON-LD document take priority in
+ * the caller; the small whitelist below only covers the remaining local ids
+ * that are not part of the document, plus the `http://TODO` placeholder.
  *
  * Extensible — add new entries as previously-unresolvable units appear in
- * future versions of the source data. Remote resolution via rdfs:label can
- * be layered on top later without breaking existing behavior.
+ * future versions of the source data.
  */
 
-import { resolveCsorUnitSymbol } from './csor-labels.js'
+import { CsorService } from './csor.js'
+
+const csor = new CsorService()
 
 export const UNIT_LABELS: Record<string, string> = {
   // --- Common measurement units (referenced but not locally-defined) ---
@@ -20,22 +22,20 @@ export const UNIT_LABELS: Record<string, string> = {
   'unit:DAY': 'dag',
   'qudt-unit:GigaJ': 'GJ',
 
-  // --- Frequently-used fallbacks for unresolvable refs ---
-  'http://TODO': '', // placeholder → no label shown
+  // --- Placeholder in the source data: no unit shown ---
+  'http://TODO': '',
 }
 
 /**
  * Resolves a unit ID to a human-readable display label.
- * Returns undefined if the unit is not found in the local whitelist,
- * allowing callers to fall back to raw ID fragments or other strategies.
- * 
- * Entries with empty-string values (e.g. 'http://TODO') are treated as
- * "no label available" and also return undefined.
+ * @param unitId - The `relevantUnit` reference.
+ * @returns The label or symbol, or undefined when no label is available.
  */
 export function resolveUnitLabel(unitId: string): string | undefined {
   const entry = UNIT_LABELS[unitId]
   // Empty-string entries mean "we know this ref but have no good label for it"
   if (typeof entry === 'string') return entry !== '' ? entry : undefined
   // CSOR eenheden (csor_eenheid:E_*) are shown by their symbol
-  return resolveCsorUnitSymbol(unitId)
+  if (unitId.startsWith('csor_')) return csor.resolveUnitLabel(unitId)
+  return undefined
 }

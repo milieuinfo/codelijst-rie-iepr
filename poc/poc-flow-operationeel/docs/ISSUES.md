@@ -10,13 +10,19 @@ instruction to report rather than silently work around them.
   - **Description**: A few fields' `relevantCodeList` still point outside this document: an external domain (`https://vito.be/codelijst/techniek`) or the literal placeholder `http://TODO` (e.g. `grondstoffen:grondstof_materiaalcode`).
   - **Impact**: Those fields have no options to choose from.
   - **Status**: Open (upstream data).
-  - **Solution**: `CodelistService.getCodeListOptions()` resolves refs against the in-document schemes and collections and contributes nothing for anything it can't find; `codelijst-operationeel-fields.ts` still renders the `<vl-select>` (with only its placeholder option) rather than erroring out, per the "silently ignore, still show a selection" rule in PROJECT_OUTLINE.md.
+  - **Solution**: `CodelistService.getCodeListOptions()` resolves refs against the in-document schemes and collections and contributes nothing for anything it can't find. `codelijst-operationeel-fields.ts` then renders a free-text field with a short note ("extern gepubliceerd" or "nog niet gepubliceerd (TODO)") instead of an empty dropdown, per the "silently ignore, still show a field" rule in PROJECT_OUTLINE.md.
 
 - **Issue ID**: CSOR-COLLECTIONS
   - **Description**: The stof fields of the operationele flows (e.g. `water:lozing-stof`, `lucht:emissie_parameter_parameter`) have a `relevantCodeList` pointing at a `skos:Collection` (e.g. `collectie:operationeel_stoffen_water`) whose members are CSOR variabelen (`csor_variabele:V_46`). The value fields of the same group (concentratie, jaarvracht, ...) carry `kwantiteitsAspect`, `drager`, `soortWaartbepaling` (CSOR) and `variabele` (the id of the stof field). CSOR concepts (variabelen, eenheden, ...) are not part of this document, so their labels are unknown locally.
   - **Impact**: Without collection support the stof selects were empty, and CSOR units showed as raw ids (`E_1`).
   - **Status**: Resolved in code.
-  - **Solution**: `parseCodelist()` indexes `skos:Collection` members in `result.collections`; `getCodeListOptions()` returns the top concepts of a scheme or the members of a collection. CSOR labels and unit symbols come from the local map in `src/services/csor-labels.ts` (fetched from the CSOR SPARQL endpoint; unknown ids fall back to their local name). `describeVariabele()` turns the CSOR semantics plus the selected stof into the annotation of the value field's label, e.g. "Massaconcentratie van Fosfor in water".
+  - **Solution**: `parseCodelist()` indexes `skos:Collection` members in `result.collections`; `getCodeListOptions()` returns the top concepts of a scheme or the members of a collection. The labels, definitions and unit symbols come from `src/generated/csor.json`, which `scripts/sync-csor.mjs` generates from the published GitHub lists (`codelijst-csor-eenheid`, `-variabele`, `-kwantificeerbaar-aspect`, `-drager`, `-soort-waardebepaling`). `describeVariabele()` turns the CSOR semantics plus the selected stof into the annotation of the value field's label, e.g. "Massaconcentratie van Fosfor in water".
+
+- **Issue ID**: TODO-UNITS
+  - **Description**: A few quantity fields carry the placeholder `http://TODO` as `relevantUnit` (`grondstoffen:grondstof_hoeveelheid`, `lucht:verbruikte_stof_hoeveelheid`, `lucht:geproduceerde_stof_hoeveelheid`, `lucht:afvalproduct_hoeveelheid`).
+  - **Impact**: The unit of those values is not published.
+  - **Status**: Open (upstream data).
+  - **Solution**: The placeholder is skipped, so the field renders without a unit addon (previously the raw `//TODO` fragment was shown).
 
 - **Issue ID**: HASTOPCONCEPT-INCLUDES-CHILDREN
   - **Description**: `hasTopConcept` on an operationeel-* scheme lists every concept in the scheme, including composite children (a field's own `narrower` concepts), not just the top-level questions. E.g. `conceptscheme:operationeel_lucht`'s `hasTopConcept` contains both `lucht:afvalproduct` (a composite root) and its children `..._aard`/`..._hoeveelheid`/`..._naam` as siblings.

@@ -59,6 +59,8 @@ Service methods:
 
 4. **No hand-written component styling.** Layout and spacing come entirely from the `@domg-wc/styles` token variables and the vl-* components' own shadow-DOM styles.
 
+5. **`vl-fieldset` shrinks inherited text.** In `@domg-wc/components` 2.16, `vl-fieldset` adopts the form-label styles, whose `:host` rule sets `font-size: 62.5%`. Everything that inherits — for example the options of a `vl-select-rich` — becomes 11.25px, and nested fieldsets 7px. Every component that renders a `vl-fieldset` therefore adds `vl-fieldset { font-size: inherit }` to its `static styles` (`codelijst-app` and `codelijst-operationeel-fields`). Document CSS cannot fix this, because the fieldset lives inside the component's shadow root.
+
 ### Finding available components and props
 
 There is no locally bundled Storybook. The authoritative API reference lives in:
@@ -123,14 +125,29 @@ Only if design tokens need updating — import additional `@domg-wc/styles/.../*
 
 The POC reads `rie-iepr.jsonld` from its own copy at `public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld`, served by Vite as a static asset. This file is **not** the canonical source — the authoritative version lives in the parent project at `../../src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld`.
 
-A no-dependency Node script (`scripts/sync-codelist.mjs`) copies the upstream file into place before every dev server start and build:
+A no-dependency Node script (`scripts/sync-codelist.mjs`) copies the upstream file into place before every dev server start and build.
 
-- **`npm run predev`** → runs `node scripts/sync-codelist.mjs` → then `vite` starts with fresh data.
-- **`npm run prebuild`** → same sync → then `tsc && vite build` compiles against it.
+### CSOR lists (`scripts/sync-csor.mjs`)
 
-If the source file is missing, the script logs a warning to stdout and exits 0 (the existing destination copy, if any, is left untouched). No new npm dependencies are needed — the script uses only Node.js built-ins (`fs`, `path`).
+CSOR concepts (eenheden, variabelen, kwantificeerbare aspecten, dragers, soorten waardebepaling) are published in separate GitHub repositories and are not part of `rie-iepr.jsonld`. `scripts/sync-csor.mjs` scans every CSV in `src/source` for `csor_*` CURIEs (including collection members and the CSOR semantics columns) and downloads only the lists that are needed:
 
-This ensures the POC always runs against the latest codelist without a human remembering to copy the file manually.
+| Prefix | GitHub repository |
+|---|---|
+| `csor_eenheid` | `milieuinfo/codelijst-csor-eenheid` |
+| `csor_variabele` | `milieuinfo/codelijst-csor-variabele` |
+| `csor_kwantificeerbaaraspect` | `milieuinfo/codelijst-csor-kwantificeerbaar-aspect` |
+| `csor_drager` | `milieuinfo/codelijst-csor-drager` |
+| `csor_soortwaardebepaling` | `milieuinfo/codelijst-csor-soort-waardebepaling` |
+
+The result is `src/generated/csor.json` (label, definition, unit symbol, notation). The script always downloads from GitHub (`raw.githubusercontent.com`, branch `main`); a local checkout is never used. The download is cached in `.cache/csor/` and only serves as a fallback when GitHub is unreachable (`--offline` uses the cache without trying the network). Without network and cache it fails loudly, except with `--allow-stale`, which keeps the committed `csor.json`.
+
+- **`npm run predev`** → `sync-codelist.mjs` → `sync-csor.mjs --allow-stale` → then `vite` starts with fresh data.
+- **`npm run prebuild`** → same syncs → then `tsc && vite build` compiles against it.
+- **`npm run sync:csor`** → refresh `csor.json` manually (fails loudly when GitHub and the cache are both unavailable).
+
+If the codelist source file is missing, `sync-codelist.mjs` logs a warning and exits 0 (the existing destination copy is left untouched). `sync-csor.mjs` needs `n3` (devDependency) to parse Turtle; the sync-codelist script uses only Node.js built-ins.
+
+This ensures the POC always runs against the latest codelist and CSOR labels without a human remembering to copy files manually.
 
 ## 8. Developer Guide — Reading Codelists (Dutch)
 

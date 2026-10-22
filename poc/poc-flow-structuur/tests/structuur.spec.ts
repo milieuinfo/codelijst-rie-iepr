@@ -162,6 +162,30 @@ test.describe('meervoudige en composite eigenschappen', () => {
     expect(opties).toEqual(['#', 'm³', 'L', 'ton'])
   })
 
+  test('houdt de eenheid naast het numerieke veld en de keuzelijstopties leesbaar', async ({ page }) => {
+    await openApp(page)
+    await kiesType(page, 'Schoorsteen met verticale uitstroom')
+
+    const invoer = await page.locator('vl-input-field[name="emissiepunt-eigenschappen:hoogte__waarde"]').boundingBox()
+    const eenheid = await page.locator('vl-text.structuur-eenheid', { hasText: 'm' }).first().boundingBox()
+
+    expect(invoer).not.toBeNull()
+    expect(eenheid).not.toBeNull()
+    // De eenheid staat direct naast het invoerveld, niet aan de rand van de pagina.
+    expect(eenheid!.x - (invoer!.x + invoer!.width)).toBeLessThan(40)
+    expect(invoer!.width).toBeLessThan(300)
+
+    await kiesType(page, 'Lozingspunt')
+    const optieFont = await page
+      .locator('vl-select-rich[data-eigenschap="emissiepunt-eigenschappen:lozingspunt-lozingsplaats"]')
+      .evaluate((element) => {
+        const optie = element.shadowRoot?.querySelector('.vl-select__item--choice')
+        return optie ? parseFloat(getComputedStyle(optie).fontSize) : 0
+      })
+    // vl-fieldset verkleint geërfde tekst in @domg-wc/components 2.16; dit bewaakt de workaround.
+    expect(optieFont).toBeGreaterThanOrEqual(16)
+  })
+
   test('toont eenheden en keuzelijsten met labels uit de codelijsten', async ({ page }) => {
     await openApp(page)
     await kiesType(page, 'Schoorsteen met verticale uitstroom')

@@ -174,9 +174,18 @@ npm run test:unit
 
 The POC consumes the RIE-IEPR codelist (`rie-iepr.jsonld`) from its own copy under `public/resources/...`, served by Vite as a static asset. The authoritative source lives at `../src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld` (the sibling Java/Maven project).
 
-Before every `npm run dev` or `npm run build`, npm automatically runs the `predev` / `prebuild` lifecycle scripts which invoke `scripts/sync-codelist.mjs`. This Node script (no extra dependencies — uses only `fs` and `path`) copies the canonical file into `poc/public/resources/...`, creating parent directories as needed. If the source is missing, it logs a warning and exits 0 gracefully.
+Before every `npm run dev` or `npm run build`, npm automatically runs the `predev` / `prebuild` lifecycle scripts, which:
 
-See AGENTS.md section 6 for full details.
+1. invoke `scripts/sync-codelist.mjs` — a Node script (no extra dependencies; uses only `fs` and `path`) that copies the canonical codelist into `poc/public/resources/...`, creating parent directories as needed. If the source is missing, it logs a warning and exits 0 gracefully;
+2. invoke `scripts/sync-csor.mjs --allow-stale` — downloads the CSOR lists that the operationele velden refer to from GitHub (`codelijst-csor-eenheid`, `-variabele`, `-kwantificeerbaar-aspect`, `-drager`, `-soort-waardebepaling`) and writes `src/generated/csor.json` with their labels, definitions, unit symbols and notations.
+
+CSOR is always fetched from the published GitHub sources (never from a local checkout); a download is cached in `.cache/csor/` as an offline fallback (`--offline` uses only the cache). Without network and cache the script fails loudly, unless `--allow-stale` is passed, in which case the committed `src/generated/csor.json` is kept.
+
+See AGENTS.md section 7 for full details.
+
+## CSOR data
+
+`src/services/csor.ts` resolves the CURIE references against the generated subset: `relevantCodeList` collections (`collectie:*`, e.g. the stoffenlijsten), `relevantUnit` eenheden (shown by their `csor:symbool`, e.g. `mg/L`) and the CSOR semantics used in the label annotation (`kwantiteitsAspect`, `drager`, `soortWaartbepaling`). Unknown ids fall back to their local name and log one warning; external or `http://TODO` references render as free text / without a unit.
 
 ## Known Issues
 

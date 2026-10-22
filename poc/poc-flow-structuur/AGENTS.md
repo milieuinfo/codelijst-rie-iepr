@@ -91,6 +91,12 @@ API-referentie staat in `node_modules/@domg-wc/components/**/*.component.d.ts`. 
 
 - `vl-select-rich` is pas doorzoekbaar met het `search`-attribuut; zonder `not-deletable` kan de
   gebruiker een selectie wissen.
+- **`vl-fieldset` verkleint de tekst.** In `@domg-wc/components` 2.16 adopteert `vl-fieldset` de
+  form-label-styles met een `:host`-regel `font-size: 62.5%`; alles wat erin erft (o.a. de opties van
+  een `vl-select-rich`) wordt daardoor 11,25px, en geneste fieldsets zelfs 7px. Elk component dat een
+  `vl-fieldset` rendert, zet daarom `vl-fieldset { font-size: inherit }` in zijn `static styles`
+  (zie `structuur-app` en `structuur-meervoudige-eigenschap`). Document-CSS bereikt de fieldset niet,
+  want die zit in de shadow root.
 - Klik in tests op `[part="vl-select-rich__combobox"]` voordat je typt; de native `select` is
   verborgen door Choices.js.
 - `vl-button` gebruikt `label` als toegankelijke naam voor icoonknoppen.

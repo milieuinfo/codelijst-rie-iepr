@@ -8,7 +8,10 @@
  */
 
 import type { CodelistResult, Concept, Scheme } from '../models/index.js'
-import { resolveCsorLabel } from './csor-labels.js'
+import { CsorService } from './csor.js'
+
+/** Resolves CSOR labels from the generated subset (`scripts/sync-csor.mjs`). */
+const csor = new CsorService()
 
 /**
  * All schemes in the parsed codelist.
@@ -291,7 +294,10 @@ export interface CodeListOption {
  * @returns A display label.
  */
 export function getValueLabel(result: CodelistResult, id: string): string {
-  return result.concepts.get(id)?.prefLabel ?? resolveCsorLabel(id) ?? (id.split(/[:/#]/).pop() || id)
+  const local = result.concepts.get(id)?.prefLabel
+  if (local) return local
+  if (id.startsWith('csor_')) return csor.resolveLabel(id)
+  return id.split(/[:/#]/).pop() || id
 }
 
 /**
@@ -307,7 +313,10 @@ export function getCodeListOptions(result: CodelistResult, concept: Concept): Co
   const options = new Map<string, CodeListOption>()
   for (const ref of concept.relevantCodeList ?? []) {
     const ids = result.schemes.has(ref)
-      ? getTopConceptsForScheme(result, ref).map(c => c.id)
+      ? (getTopConceptsForScheme(result, ref).length > 0
+          ? getTopConceptsForScheme(result, ref)
+          : getConceptsForScheme(result, ref)
+        ).map(c => c.id)
       : result.collections.get(ref) ?? []
     for (const id of ids) {
       if (!options.has(id)) options.set(id, { value: id, label: getValueLabel(result, id) })

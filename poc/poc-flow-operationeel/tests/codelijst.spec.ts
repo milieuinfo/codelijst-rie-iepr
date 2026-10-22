@@ -30,6 +30,48 @@ async function selectWaterLozing(page: Page) {
   return opFields.last()
 }
 
+/**
+ * Navigates to `operationeel_lucht_rapportering`: lucht → emissiepunt (feature_ep)
+ * → bron (feature_bron) → rapportering. `feature_bron` is a multiselect in the
+ * real codelist (a hidden `<select multiple>`, awkward to drive headlessly), so
+ * it is downgraded to a single-select via a route patch to keep the navigation
+ * deterministic.
+ */
+async function selectLuchtRapportering(page: Page) {
+  await page.route('**/rie-iepr.jsonld', async route => {
+    const response = await route.fetch()
+    const json = await response.json() as Record<string, unknown>
+    const patch = (value: unknown): void => {
+      if (!value || typeof value !== 'object') return
+      if (Array.isArray(value)) { value.forEach(patch); return }
+      const node = value as Record<string, unknown>
+      if (node.id === 'lucht:feature_bron' || node['@id'] === 'lucht:feature_bron') {
+        node.isMultiselect = 'false'
+        node.is_multiselect = 'false'
+      }
+      for (const v of Object.values(node)) patch(v)
+    }
+    patch(json)
+    await route.fulfill({ response, json })
+  })
+
+  await page.goto('/')
+  await selectProductionYear(page)
+  await page.selectOption('select#thema', { value: 'thema:lucht' })
+  const opFields = page.locator('codelijst-operationeel-fields')
+  await expect(opFields).toBeVisible()
+
+  // Step 1: feature_ep → schoorsteen structural picker (flow-navigate to bron)
+  await opFields.last().locator('select').first().selectOption({ index: 1 })
+  await expect(opFields).toHaveCount(2)
+
+  // Step 2: feature_bron → installatie structural picker (flow-navigate to rapportering)
+  await opFields.last().locator('select').first().selectOption({ index: 1 })
+  await expect(opFields).toHaveCount(3)
+
+  return opFields.last()
+}
+
 test.describe('Codelijst App', () => {
   let consoleErrors: ConsoleError[] = []
 
@@ -400,44 +442,7 @@ test.describe('Codelijst App', () => {
       // composite group with its own child fields, no synthesized
       // emissiepunt/meetpunt or periode controls, no lid-observatie nesting.
       // The relevantClass value is shown as a hover tooltip (title attribute) only.
-      //
-      // feature_bron is a multiselect in the real codelist (hidden <select multiple>),
-      // awkward to drive headlessly. The scenario only needs the flow to reach the
-      // rapportering scheme, so downgrade feature_bron to a single-select to make the
-      // navigation step deterministic.
-      await page.route('**/rie-iepr.jsonld', async route => {
-        const response = await route.fetch()
-        const json = await response.json() as Record<string, unknown>
-        const patch = (value: unknown): void => {
-          if (!value || typeof value !== 'object') return
-          if (Array.isArray(value)) { value.forEach(patch); return }
-          const node = value as Record<string, unknown>
-          if (node.id === 'lucht:feature_bron' || node['@id'] === 'lucht:feature_bron') {
-            node.isMultiselect = 'false'
-            node.is_multiselect = 'false'
-          }
-          for (const v of Object.values(node)) patch(v)
-        }
-        patch(json)
-        await route.fulfill({ response, json })
-      })
-
-      await page.goto('/')
-      await selectProductionYear(page)
-      await page.selectOption('select#thema', { value: 'thema:lucht' })
-      const opFields = page.locator('codelijst-operationeel-fields')
-      await expect(opFields).toBeVisible()
-
-      // Step 1: feature_ep → schoorsteen structural picker (flow-navigate to bron)
-      await opFields.last().locator('select').first().selectOption({ index: 1 })
-      await expect(opFields).toHaveCount(2)
-
-      // Step 2: feature_bron → installatie structural picker (flow-navigate to rapportering)
-      await opFields.last().locator('select').first().selectOption({ index: 1 })
-      await expect(opFields).toHaveCount(3)
-
-      // The rapportering step (last) holds the four root groups.
-      const rapportering = opFields.last()
+      const rapportering = await selectLuchtRapportering(page)
 
       // One repeatable composite group per top-level concept (4 in this scheme).
       await expect(rapportering.locator('.codelijst-group')).toHaveCount(4)
@@ -474,5 +479,27 @@ test.describe('Codelijst App', () => {
       await expect(afvalGroup.locator('span[slot="legend"]', { hasText: 'Afvalproduct 2' })).toBeVisible()
       await expect(afvalGroup.locator('vl-input-field#lucht\\:afvalproduct_aard\\#2')).toBeVisible()
       await expect(afvalGroup.locator('vl-input-field#lucht\\:afvalproduct_aard\\#1')).toBeVisible()
+    })
+
+    test('CSOR-eenheden komen uit de gepubliceerde lijst en een TODO-eenheid toont niets', async ({ page }) => {
+      const rapportering = await selectLuchtRapportering(page)
+
+      // `lucht:brandstof_verbruik` has relevantUnit csor_eenheid:E_89 → symbol GJ
+      // from the generated csor.json (not a hand-maintained table).
+      const verbruik = rapportering.locator('vl-input-field#lucht\\:brandstof_verbruik\\#1')
+      await expect(verbruik).toBeVisible()
+      const verbruikGroep = verbruik.locator('xpath=..')
+      await expect(verbruikGroep.locator('.vl-input-addon')).toHaveText('GJ')
+
+      // `lucht:verbruikte_stof_hoeveelheid` has relevantUnit http://TODO in the
+      // source data: the field renders without a unit addon instead of showing
+      // the raw placeholder.
+      const hoeveelheid = rapportering.locator('vl-input-field#lucht\\:verbruikte_stof_hoeveelheid\\#1')
+      await expect(hoeveelheid).toBeVisible()
+      const heeftEenheid = await hoeveelheid.evaluate(el => el.parentElement?.classList.contains('vl-input-group') ?? false)
+      expect(heeftEenheid).toBe(false)
+
+      // Exactly one unit addon in this step, so no TODO placeholder leaked into the UI.
+      await expect(rapportering.locator('.vl-input-addon')).toHaveCount(1)
     })
   })

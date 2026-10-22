@@ -5,16 +5,17 @@
   "type": "module",
   "packageManager": "pnpm@9.15.9",
   "scripts": {
-    "predev": "node scripts/sync-codelist.mjs",
+    "predev": "node scripts/sync-codelist.mjs && node scripts/sync-csor.mjs --allow-stale",
     "dev": "vite",
-    "prebuild": "node scripts/sync-codelist.mjs",
+    "prebuild": "node scripts/sync-codelist.mjs && node scripts/sync-csor.mjs --allow-stale",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint 'src/**/*.{ts,js}' --max-warnings=0",
     "lint:fix": "eslint 'src/**/*.{ts,js}' --fix",
     "test": "playwright test",
     "test:ui": "playwright test --ui",
-    "test:unit": "vitest run"
+    "test:unit": "vitest run",
+    "sync:csor": "node scripts/sync-csor.mjs"
   },
   "dependencies": {
     "@domg-wc/components": "2.16.0",
@@ -32,6 +33,7 @@
     "eslint-plugin-jsdoc": "^48.10.1",
     "eslint-plugin-lit": "^1.15.0",
     "happy-dom": "^16.7.0",
+    "n3": "^1.26.0",
     "typescript": "~5.8.0",
     "vite": "~6.2.0",
     "vite-plugin-pwa": "^0.21.1",

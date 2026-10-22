@@ -40,8 +40,19 @@ export class StructuurApp extends LitElement {
         overflow: auto;
         padding: var(--vl-spacing--small, 0.75rem);
         background: var(--vl-color--grey-100, #f7f9fc);
-        font-size: 0.8125rem;
+        font-size: 1.3rem;
         white-space: pre-wrap;
+      }
+
+      /*
+       * @domg-wc/components 2.16: vl-fieldset adopts the form-label styles, whose
+       * :host rule "font-size: 62.5%" shrinks the font of everything inside the
+       * fieldset (nested fieldsets compound it). Text that inherits — such as the
+       * options of a vl-select-rich — becomes unreadably small. Restore the
+       * inherited body size on the fieldset host.
+       */
+      vl-fieldset {
+        font-size: inherit;
       }
     `,
     vlMarginStyles,
