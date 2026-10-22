@@ -9,6 +9,8 @@
 import { LitElement, css, html, nothing } from 'lit'
 import type { CodelistResult, StructuurType, SysteemSleutel } from '../models/index.js'
 import { getSysteem, getSystemen, getTypes } from '../services/structuur-service.js'
+import { expandUri } from '../services/uri.js'
+import { uriTooltip } from './uri-tooltip.js'
 
 /** Two non-breaking spaces per nesting level, so the indentation survives in a dropdown. */
 const INSCHUIVING = '\u00A0\u00A0'
@@ -110,10 +112,17 @@ export class StructuurTypeSelector extends LitElement {
    * @returns The summary template.
    */
   private renderSamenvatting(type: StructuurType & { systeemLabel: string }) {
+    // The summary + its URI tooltip live in one wrapper div (the tooltip's
+    // reference), so the tooltip can never outlive the element it is attached
+    // to when the selection is cleared.
+    const uri = this.result ? expandUri(this.result, type.id) : undefined
     return html`
-      <vl-text class="structuur-samenvatting" small>
-        <strong>${type.systeemLabel}</strong> — ${type.label}${type.definitie ? `: ${type.definitie}` : ''}
-      </vl-text>
+      <div id="geselecteerde-type">
+        <vl-text class="structuur-samenvatting" small>
+          <strong>${type.systeemLabel}</strong> — ${type.label}${type.definitie ? `: ${type.definitie}` : ''}
+        </vl-text>
+        ${uriTooltip('geselecteerde-type', uri)}
+      </div>
       ${type.isMeetbaar
         ? html`<vl-text class="structuur-meetbaar" small annotation>Dit systeemtype is meetbaar.</vl-text>`
         : nothing}

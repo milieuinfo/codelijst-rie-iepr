@@ -14,9 +14,9 @@ import { CSOR } from './csor.js'
 import type { CodelistResult } from '../models/index.js'
 
 const SOURCE = resolve(__dirname, '../../../../src/source')
-const JSONLD = resolve(
+const TURTLE = resolve(
   __dirname,
-  '../../public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld',
+  '../../public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.ttl',
 )
 
 /** De systeemtypes en -eigenschappen horen bij de structuur-POC, niet bij deze. */
@@ -41,8 +41,7 @@ const collections = new Map<string, string[]>()
 const csorIds = new Set<string>()
 
 beforeAll(() => {
-  const data = JSON.parse(readFileSync(JSONLD, 'utf8')) as Record<string, unknown>
-  result = parseCodelist(data, true)
+  result = parseCodelist(readFileSync(TURTLE, 'utf8'), true)
 
   for (const file of readdirSync(SOURCE).filter(
     (name) => name.endsWith('.csv') && !STRUCTUUR_BRONNEN.has(name),

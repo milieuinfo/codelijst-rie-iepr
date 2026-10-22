@@ -43,7 +43,7 @@ export interface Concept {
    * the app transitions to the target scheme referenced here. Points at a `skos:ConceptScheme` id.
    * Replaces the old pattern where `relevantRiepr` was used for theme→scheme navigation.
    */
-  seeAlso?: string[]
+  vervolgstap?: string[]
   /** RDF relation predicate (e.g., "rdfs:label") on composite children. Used internally for deduplication keys. */
   relation?: string
   /** Indicates that a structural picker allows multiple selections (e.g., selecting multiple bronnen). */

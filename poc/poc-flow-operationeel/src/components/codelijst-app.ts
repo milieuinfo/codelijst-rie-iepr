@@ -1,7 +1,7 @@
 /**
  * @file Root application component. Loads the RIE-IEPR codelist once
  * and drives the user flow: pick a thema/sub-thema, then render the
- * operationeel-* scheme it resolves to via `seeAlso`. Supports multi-step
+ * operationeel-* scheme it resolves to via `vervolgstap`. Supports multi-step
  * flows where structural selection chains to sub-schemes (e.g., lucht →
  * feature selection → rapportering).
  */
@@ -11,10 +11,12 @@ import { vlMarginStyles } from '@domg-wc/styles/layout/margin/vl-margin.css.js'
 import layoutStyle from '@domg/govflanders-style/common/layout.css.js'
 import { CodelistService } from '../services/codelist-service.js'
 import type { CodelistResult } from '../services/codelist-service.js'
+import { expandUri } from '../services/uri.js'
+import { uriTooltip } from './uri-tooltip.js'
 import './codelijst-theme-selector.js'
 import './codelijst-operationeel-fields.js'
 
-/** Entry in the navigation stack for multi-step seeAlso flows. */
+/** Entry in the navigation stack for multi-step vervolgstap flows. */
 interface FlowStep {
   /** The conceptscheme being rendered at this step. */
   schemeId: string
@@ -107,7 +109,7 @@ export class CodelijstApp extends LitElement {
     }
   }
 
-  /** Handle navigation to a sub-scheme triggered by seeAlso on a structural concept. */
+  /** Handle navigation to a sub-scheme triggered by vervolgstap on a structural concept. */
   private onFlowNavigate(event: CustomEvent<{ schemeId: string; triggerConceptId: string }>) {
     this.flowStack.push({
       schemeId: event.detail.schemeId,
@@ -195,10 +197,13 @@ export class CodelijstApp extends LitElement {
       ${this.flowStack.map((step, idx) => {
         const scheme = this.result?.schemes.get(step.schemeId)
         const isLast = idx === this.flowStack.length - 1
+        const legendId = `stap-legend-${idx}`
+        const legendUri = scheme && this.result ? expandUri(this.result, scheme.id) : undefined
         return html`
           <div class="vl-fieldset-wrapper">
             <vl-fieldset>
-              <span slot="legend">${scheme?.prefLabel ?? 'Operationele gegevens'}</span>
+              <span slot="legend" id="${legendId}">${scheme?.prefLabel ?? 'Operationele gegevens'}</span>
+              ${uriTooltip(legendId, legendUri)}
               <codelijst-operationeel-fields
                 style="margin-top: var(--vl-spacing--xsmall, 0.5rem)"
                 .result="${this.result}"

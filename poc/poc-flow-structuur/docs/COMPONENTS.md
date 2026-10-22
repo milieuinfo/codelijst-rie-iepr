@@ -2,7 +2,22 @@
 
 Alle componenten zijn Lit-elementen die zichzelf registreren. Ze gebruiken `@domg-wc/components`
 (`vl-select-rich`, `vl-input-field`, `vl-textarea`, `vl-datepicker`, `vl-checkbox`, `vl-fieldset`,
-`vl-form-label`, `vl-form-message`, `vl-text`, `vl-button`, `vl-alert`).
+`vl-form-label`, `vl-form-message`, `vl-text`, `vl-button`, `vl-alert`, `vl-tooltip`).
+
+## URI-tooltips (hover)
+
+Bij hover van een veldlabel, een kolomhoofding, een composite-legend of de
+samenvatting van het geselecteerde type toont een `vl-tooltip` de volledige
+gepubliceerde URI van het onderliggende codelist-concept, bv.
+`https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/verwijderingsrendement`.
+
+- `services/uri.ts` (`expandUri`) expandeert de CURIE-id met de prefixkaart uit het
+  `@context` van de codelist (`CodelistResult.prefixes`, opgevangen in `codelist-parse.ts`).
+- `components/uri-tooltip.ts` levert de `vl-tooltip`-template en `veiligeDomId`
+  (DOM-id's zonder `:`, want `vl-tooltip` lost de referentie op via `querySelector`).
+- Label en tooltip zitten altijd in dezelfde `<div>` (de referentie), zodat de tooltip
+  de referentie nooit overleeft wanneer Lit een template verwijdert (dat crasht de
+  controller van `vl-tooltip`).
 
 ## `<structuur-app>`
 

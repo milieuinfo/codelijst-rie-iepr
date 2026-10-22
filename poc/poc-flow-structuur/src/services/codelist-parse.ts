@@ -197,9 +197,34 @@ function getValue(obj: Record<string, unknown>, keys: string[]): unknown {
 }
 
 /**
+ * Extracts the CURIE prefix map from the document's `@context`. The context
+ * is the authoritative mapping of the compact ids used throughout the file
+ * (`installatie:fakkel`, `conceptscheme:installatie_type`, ...) to their full
+ * published URIs; the hover tooltips expand ids with this map.
+ * @param data - The parsed JSON-LD document.
+ * @returns The prefix → URI map (empty when the context is missing or not a plain object).
+ */
+export function extractPrefixes(data: Record<string, unknown>): Record<string, string> {
+  const prefixes: Record<string, string> = {}
+  const context = data['@context']
+
+  if (!context || typeof context !== 'object' || Array.isArray(context)) return prefixes
+
+  for (const [key, value] of Object.entries(context)) {
+    if (typeof value === 'string') {
+      prefixes[key] = value
+    } else if (value && typeof value === 'object' && typeof (value as Record<string, unknown>)['@id'] === 'string') {
+      prefixes[key] = (value as Record<string, unknown>)['@id'] as string
+    }
+  }
+
+  return prefixes
+}
+
+/**
  * Parse the raw codelist JSON-LD document into a `CodelistResult`.
  * @param data - The parsed JSON-LD document (top-level `graph` expected).
- * @returns The parsed CodelistResult (nodesById, schemes, concepts, topConcepts, collections).
+ * @returns The parsed CodelistResult (nodesById, schemes, concepts, topConcepts, collections, prefixes).
  */
 export function parseCodelist(data: Record<string, unknown>): CodelistResult {
   const graph = Array.isArray(data['graph']) ? data['graph'] : data['graph'] ? [data['graph']] : []
@@ -247,5 +272,5 @@ export function parseCodelist(data: Record<string, unknown>): CodelistResult {
     topConcepts.set(schemeId, resolved)
   }
 
-  return { nodesById, schemes, concepts, topConcepts, collections }
+  return { nodesById, schemes, concepts, topConcepts, collections, prefixes: extractPrefixes(data) }
 }

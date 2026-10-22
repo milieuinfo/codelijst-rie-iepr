@@ -199,3 +199,47 @@ test.describe('meervoudige en composite eigenschappen', () => {
     await expect(lozingsplaats.locator('.vl-select__item--choice', { hasText: 'Riool' })).toHaveCount(1)
   })
 })
+
+test.describe('URI-tooltips (hover)', () => {
+  test('toont bij hover van een veldlabel de URI van de eigenschap', async ({ page }) => {
+    await openApp(page)
+    await kiesType(page, 'Stookinstallatie')
+
+    const label = page.locator('structuur-eigenschap-input vl-form-label', { hasText: 'Nominaal thermisch vermogen' })
+    await expect(label).toBeVisible()
+    await label.hover()
+
+    const tooltip = page.locator('vl-tooltip', {
+      hasText: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/nominaal_thermisch_vermogen',
+    })
+    await expect(tooltip).toBeVisible()
+  })
+
+  test('toont bij hover van het geselecteerde type de URI van het type', async ({ page }) => {
+    await openApp(page)
+    await kiesType(page, 'Stookinstallatie')
+
+    const typeLabel = page.locator('#geselecteerde-type')
+    await expect(typeLabel).toBeVisible()
+    await typeLabel.hover()
+
+    const tooltip = page.locator('vl-tooltip', {
+      hasText: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie',
+    })
+    await expect(tooltip).toBeVisible()
+  })
+
+  test('toont bij hover van een kolomhoofding de URI van de deeleigenschap', async ({ page }) => {
+    await openApp(page)
+    await kiesType(page, 'Luchtzuiveringsinstallatie')
+
+    const label = page.locator('structuur-meervoudige-eigenschap vl-form-label', { hasText: 'Rendement' })
+    await expect(label).toBeVisible()
+    await label.hover()
+
+    const tooltip = page.locator('vl-tooltip', {
+      hasText: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/verwijderingsrendement_percentage',
+    })
+    await expect(tooltip).toBeVisible()
+  })
+})

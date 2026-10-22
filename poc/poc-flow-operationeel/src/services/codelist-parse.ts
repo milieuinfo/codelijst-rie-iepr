@@ -1,184 +1,163 @@
 /**
- * Parses the raw RIE-IEPR codelist JSON-LD document into a `CodelistResult`.
+ * Parses the RIE-IEPR codelist (Turtle, `rie-iepr.ttl`) into a `CodelistResult`.
  *
- * The strategy is deliberately generic and content-agnostic: it does not
- * special-case any particular conceptscheme or property. It builds a single
- * id → node index by recursively flattening the entire document (top-level
- * `graph` plus every inline/nested node reachable from it), then derives typed
- * `Scheme` / `Concept` views from that index. New conceptschemes or properties
- * added to the source data need no code changes here.
+ * The document is read as RDF with N3.js: every property and type is matched
+ * on its full IRI (see `vocab.ts`), never on a CSV column or JSON-LD term name.
+ * IRIs are compacted to CURIE ids (`lucht:brandstof`) for use in the rest of
+ * the POC, with the POC's own prefixes taking precedence over the document's.
  */
 
-import type { CodelistResult, JsonLdNode, Scheme, Concept } from '../models/index.js'
+import { Parser, type Term } from 'n3'
+import type { CodelistResult, RdfNode, Scheme, Concept } from '../models/index.js'
+import {
+  DCTERMS_HAS_PART, PREFIXES, QB_CODE_LIST, QUDT_RELEVANT_UNIT, RDF_TYPE, SH, SKOS, THES, VOCAB,
+} from './vocab.js'
 
-const SCHEME_TYPES = ['skos:ConceptScheme']
-const CONCEPT_TYPES = ['skos:Concept']
-const COLLECTION_TYPES = ['skos:Collection']
+/** Compacts IRIs to CURIEs with the longest matching namespace. */
+type Compact = (iri: string) => string
 
 /**
- * Recursively walks every object/array in the graph and indexes every node
- * that has an id, merging duplicate sightings of the same id (a node seen
- * fully inline somewhere is more complete than a bare-string reference
- * elsewhere, so later/fuller sightings fill in missing properties rather
- * than replacing what's already known).
- * @param root - The top-level graph array or single node to walk.
- * @returns A map from each node's id string to its merged property set.
+ * Build the compaction function for a prefix map.
+ * @param prefixes - Prefix → namespace IRI.
+ * @returns A function that compacts an IRI, leaving it absolute when no namespace matches.
  */
-function buildNodeIndex(root: unknown): Map<string, JsonLdNode> {
-  const nodesById = new Map<string, JsonLdNode>()
-  const seen = new Set<unknown>()
-
-  const visit = (value: unknown): void => {
-    if (Array.isArray(value)) {
-      for (const item of value) visit(item)
-      return
+function compactor(prefixes: Record<string, string>): Compact {
+  // Longest namespace first, so `csor_eenheid:` wins over a broader `csor:`-like namespace.
+  const namespaces = Object.entries(prefixes).sort(([, a], [, b]) => b.length - a.length)
+  return (iri: string) => {
+    for (const [prefix, ns] of namespaces) {
+      if (iri.startsWith(ns) && iri.length > ns.length) return `${prefix}:${iri.slice(ns.length)}`
     }
-
-    if (!value || typeof value !== 'object' || seen.has(value)) return
-    seen.add(value)
-
-    const node = value as JsonLdNode
-    const id = idOf(node)
-
-    if (id) {
-      const existing = nodesById.get(id)
-      if (existing) {
-        for (const [key, val] of Object.entries(node)) {
-          if (existing[key] === undefined) existing[key] = val
-        }
-      } else {
-        nodesById.set(id, { ...node })
-      }
-    }
-
-    for (const val of Object.values(node)) visit(val)
+    return iri
   }
-
-  visit(root)
-  return nodesById
 }
 
 /**
- * Coerce a JSON-LD `@id`/`id` ref (a bare string or an inlined node) to a plain id string.
- * @param value - The raw ref value (string or inlined node).
- * @returns The id string, or undefined when the value carries no id.
+ * The string form of an object term: a compacted id for IRIs, the lexical value for literals.
+ * @param term - The RDF term.
+ * @param compact - The IRI compaction function.
+ * @returns The value as used in the typed views.
  */
-function idOf(value: unknown): string | undefined {
-  if (typeof value === 'string') return value
-  if (value && typeof value === 'object') {
-    const id = (value as JsonLdNode)['@id'] ?? (value as JsonLdNode)['id']
-    return typeof id === 'string' ? id : undefined
-  }
-  return undefined
+function valueOf(term: Term, compact: Compact): string {
+  return term.termType === 'NamedNode' ? compact(term.value) : term.value
 }
 
 /**
- * Extract the `@type` value(s) from a JSON-LD node as a plain string array.
- * @param node - The JSON-LD node to read the type from.
- * @returns Array of type strings (empty when the node has no type).
+ * All values of a property as ids / lexical values.
+ * @param node - The subject's properties.
+ * @param predicate - The property IRI.
+ * @param compact - The IRI compaction function.
+ * @returns The values, or undefined when the property is absent.
  */
-function getTypes(node: JsonLdNode): string[] {
-  const raw = node['@type'] ?? node['_type']
-  if (!raw) return []
-  return Array.isArray(raw) ? raw.filter((t): t is string => typeof t === 'string') : [String(raw)]
+function values(node: RdfNode, predicate: string, compact: Compact): string[] | undefined {
+  const terms = node.get(predicate)
+  return terms && terms.length > 0 ? terms.map(t => valueOf(t, compact)) : undefined
 }
 
 /**
- * Convert a JSON-LD scheme node to a typed Scheme. All references are stored
- * as id strings; callers resolve them via `result.schemes.get(id)`.
- * @param node - The raw scheme node.
+ * The first value of a property.
+ * @param node - The subject's properties.
+ * @param predicate - The property IRI.
+ * @param compact - The IRI compaction function.
+ * @returns The first value, or undefined when the property is absent.
+ */
+function value(node: RdfNode, predicate: string, compact: Compact): string | undefined {
+  return values(node, predicate, compact)?.[0]
+}
+
+/**
+ * A label-like literal, preferring Dutch, then untagged, then any language.
+ * @param node - The subject's properties.
+ * @param predicate - The property IRI.
+ * @returns The literal value, or undefined when the property is absent.
+ */
+function text(node: RdfNode, predicate: string): string | undefined {
+  const literals = (node.get(predicate) ?? []).filter(t => t.termType === 'Literal')
+  const pick = literals.find(l => l.language === 'nl') ?? literals.find(l => l.language === '') ?? literals[0]
+  return pick?.value
+}
+
+/**
+ * Convert a subject to a typed Scheme.
+ * @param id - The compacted subject id.
+ * @param node - The subject's properties.
+ * @param compact - The IRI compaction function.
  * @returns The typed Scheme view.
  */
-function toScheme(node: JsonLdNode): Scheme {
+function toScheme(id: string, node: RdfNode, compact: Compact): Scheme {
   return {
-    id: String(idOf(node)),
-    type: getTypes(node),
-    prefLabel: getValue(node, ['prefLabel', 'has_pref_label']) as string | undefined,
-    definition: getValue(node, ['definition', 'has_definition']) as string | undefined,
-    note: getValue(node, ['note', 'has_note']) as string | undefined,
-    relevantRiepr: idsOf(getValue(node, ['relevantRiepr', 'relevant_riepr'])),
-    seeAlso: idsOf(getValue(node, ['seeAlso', 'see_also'])),
+    id,
+    type: values(node, RDF_TYPE, compact) ?? [],
+    prefLabel: text(node, SKOS.prefLabel),
+    definition: text(node, SKOS.definition),
+    note: text(node, SKOS.note),
+    relevantRiepr: values(node, VOCAB.relevantRiepr, compact),
+    vervolgstap: values(node, QB_CODE_LIST, compact),
   }
 }
 
 /**
- * Convert a JSON-LD concept node to a typed Concept. All references are stored
- * as id strings; callers resolve them via `result.concepts.get(id)`.
- * @param node - The raw concept node.
+ * Convert a subject to a typed Concept. All references are stored as id
+ * strings; callers resolve them via `result.concepts.get(id)`.
+ * @param id - The compacted subject id.
+ * @param node - The subject's properties.
+ * @param compact - The IRI compaction function.
  * @param normalizeBooleans - Whether to coerce flag fields to booleans.
  * @returns The typed Concept view.
  */
-function toConcept(node: JsonLdNode, normalizeBooleans: boolean): Concept {
+function toConcept(id: string, node: RdfNode, compact: Compact, normalizeBooleans: boolean): Concept {
+  const hasPart = [
+    ...(values(node, THES.narrowerPartitive, compact) ?? []),
+    ...(values(node, DCTERMS_HAS_PART, compact) ?? []),
+  ]
+  const altLabels = (node.get(SKOS.altLabel) ?? []).filter(t => t.termType === 'Literal').map(t => t.value)
+
   const concept: Concept = {
-    id: String(idOf(node)),
-    type: getTypes(node),
-    inScheme: idOf(getValue(node, ['inScheme', 'in_scheme'])),
-    code: getValue(node, ['code', 'notation']) as string | undefined,
-    prefLabel: getValue(node, ['prefLabel', 'has_pref_label']) as string | undefined,
-    altLabel: getValue(node, ['altLabel', 'alt_label']) as string[] | undefined,
-    definition: getValue(node, ['definition', 'has_definition']) as string | undefined,
-    note: getValue(node, ['note', 'has_note']) as string | undefined,
-    broaderPartitive: idsOf(getValue(node, ['broaderPartitive'])),
-    hasPart: idsOf(getValue(node, ['narrowerPartitive', 'hasPart'])),
-    topConceptOf: idOf(getValue(node, ['topConceptOf', 'top_concept_of'])),
-    semanticRelation: idsOf(getValue(node, ['semanticRelation', 'semantic_relation'])),
-    relevantProperty: getValue(node, ['relevantProperty', 'relevant_property']) as string | undefined,
+    id,
+    type: values(node, RDF_TYPE, compact) ?? [],
+    inScheme: value(node, SKOS.inScheme, compact),
+    code: value(node, SKOS.notation, compact),
+    prefLabel: text(node, SKOS.prefLabel),
+    altLabel: altLabels.length > 0 ? altLabels : undefined,
+    definition: text(node, SKOS.definition),
+    note: text(node, SKOS.note),
+    broaderPartitive: values(node, THES.broaderPartitive, compact),
+    hasPart: hasPart.length > 0 ? hasPart : undefined,
+    topConceptOf: value(node, SKOS.topConceptOf, compact),
+    semanticRelation: values(node, SKOS.semanticRelation, compact),
+    relevantProperty: value(node, VOCAB.relevantProperty, compact),
+    relevantDataType: value(node, VOCAB.relevantDataType, compact),
+    related: values(node, SKOS.related, compact),
+    relevantCodeList: values(node, VOCAB.relevantCodeList, compact),
+    relevantRiepr: values(node, VOCAB.relevantRiepr, compact),
+    relevantUnit: values(node, QUDT_RELEVANT_UNIT, compact),
+    // CSOR semantics of a value field and the field holding its stof
+    kwantiteitsAspect: value(node, VOCAB.kwantiteitsAspect, compact),
+    drager: value(node, VOCAB.drager, compact),
+    soortWaartbepaling: value(node, VOCAB.soortWaartbepaling, compact),
+    variabele: value(node, VOCAB.variabele, compact),
+    vervolgstap: values(node, QB_CODE_LIST, compact),
+    relevantClass: value(node, SH.class, compact),
+    uiAfter: value(node, VOCAB.uiAfter, compact),
   }
 
-  const relevantDataType = getValue(node, ['relevantDataType', 'relevant_data_type'])
-  concept.relevantDataType = typeof relevantDataType === 'string' ? relevantDataType : undefined
-
-  // conditionPath / conditionValue may be arrays ("@container": "@set") containing
-  // either bare-string IDs or embedded concept nodes; use idsOf() to flatten to
-  // plain ID strings regardless of whether they were flattened or inlined.
-  const cpIds = idsOf(getValue(node, ['conditionPath', 'condition_path'])) ?? []
-  concept.conditionPath = cpIds.length > 0 ? cpIds[0] : undefined
-
-  const cvIds = idsOf(getValue(node, ['conditionValue', 'condition_value'])) ?? []
-  concept.conditionValue = cvIds.length > 0 ? normalizeConditionValue(cvIds[0]) : undefined
-  if (cvIds.length > 0) {
-    concept.conditionValues = cvIds.map(v => normalizeConditionValue(v))
+  concept.conditionPath = value(node, SH.path, compact)
+  const conditionValues = values(node, SH.hasValue, compact) ?? []
+  if (conditionValues.length > 0) {
+    concept.conditionValue = normalizeConditionValue(conditionValues[0])
+    concept.conditionValues = conditionValues.map(v => normalizeConditionValue(v))
   }
 
-  concept.related = idsOf(getValue(node, ['related']))
-
-  concept.relevantCodeList = idsOf(getValue(node, ['relevantCodeList', 'relevant_code_list']))
-  concept.relevantRiepr = idsOf(getValue(node, ['relevantRiepr', 'relevant_riepr']))
-  concept.relevantUnit = idsOf(getValue(node, ['relevantUnit', 'relevant_unit']))
-
-  // CSOR semantics of a value field and the field holding its stof
-  concept.kwantiteitsAspect = idOf(getValue(node, ['kwantiteitsAspect']))
-  concept.drager = idOf(getValue(node, ['drager']))
-  concept.soortWaartbepaling = idOf(getValue(node, ['soortWaartbepaling']))
-  concept.variabele = idOf(getValue(node, ['variabele']))
-
-  // New properties from updated codelist format (seeAlso navigation model)
-  concept.seeAlso = idsOf(getValue(node, ['seeAlso', 'see_also']))
-  concept.relevantClass = typeof getValue(node, ['relevantClass', 'relevant_class']) === 'string'
-    ? String(getValue(node, ['relevantClass', 'relevant_class']))
-    : undefined
-
-  if (normalizeBooleans) {
-    concept.isVerplicht = parseBoolean(getValue(node, ['isVerplicht', 'is_verplicht']))
-    concept.isMeervoudig = parseBoolean(getValue(node, ['isMeervoudig', 'is_meervoudig']))
-    concept.isMeetbaar = parseBoolean(getValue(node, ['isMeetbaar', 'is_meetbaar']))
-    concept.isOnzichtbaar = parseBoolean(getValue(node, ['isOnzichtbaar', 'is_onzichtbaar']))
-    concept.isMultiselect = parseBoolean(getValue(node, ['isMultiselect', 'is_multiselect']))
-    // UI ordering annotations
-    concept.uiAfter = idOf(getValue(node, ['_ui_after', 'ui_after']))
-    concept.uiFirst = parseBoolean(getValue(node, ['_ui_first', 'ui_first']))
-  } else {
-    concept.isVerplicht = getValue(node, ['isVerplicht', 'is_verplicht']) as string | undefined
-    concept.isMeervoudig = getValue(node, ['isMeervoudig', 'is_meervoudig']) as string | undefined
-    concept.isMeetbaar = getValue(node, ['isMeetbaar', 'is_meetbaar']) as string | undefined
-    concept.isOnzichtbaar = getValue(node, ['isOnzichtbaar', 'is_onzichtbaar']) as string | undefined
-    concept.isMultiselect = getValue(node, ['isMultiselect', 'is_multiselect']) as string | undefined
-    // UI ordering annotations
-    const rawUiAfter = getValue(node, ['_ui_after', 'ui_after'])
-    const uiAfterId = typeof rawUiAfter === 'string' ? rawUiAfter : (Array.isArray(rawUiAfter) && rawUiAfter.length > 0 ? String(rawUiAfter[0]) : undefined)
-    concept.uiAfter = uiAfterId
-    concept.uiFirst = getValue(node, ['_ui_first', 'ui_first']) as string | undefined
+  const flag = (predicate: string): boolean | string | undefined => {
+    const raw = value(node, predicate, compact)
+    return normalizeBooleans ? parseBoolean(raw) : raw
   }
+  concept.isVerplicht = flag(VOCAB.isVerplicht)
+  concept.isMeervoudig = flag(VOCAB.isMeervoudig)
+  concept.isMeetbaar = flag(VOCAB.isMeetbaar)
+  concept.isOnzichtbaar = flag(VOCAB.isOnzichtbaar)
+  concept.isMultiselect = flag(VOCAB.isMultiselect)
+  concept.uiFirst = flag(VOCAB.uiFirst)
 
   return concept
 }
@@ -222,107 +201,68 @@ function normalizeConditionValue(conditionValue: string): string {
 }
 
 /**
- * Normalizes a single ref or array-of-refs field down to an array of ids.
- * Handles embedded objects ({@id}), plain strings, and comma-separated
- * strings within array elements (e.g. "type:a,type:b" → ["type:a","type:b"]).
- * @param value - The raw reference value.
- * @returns Array of resolved id strings, or undefined if no valid refs found.
- */
-function idsOf(value: unknown): string[] | undefined {
-  if (value === undefined || value === null) return undefined
-  const arr = Array.isArray(value) ? value : [value]
-  // Expand comma-separated strings before extracting IDs
-  const expanded = arr.flatMap(v => {
-    if (typeof v === 'string' && v.includes(',')) {
-      return v.split(',').map(s => s.trim()).filter(Boolean)
-    }
-    return [v]
-  })
-  const ids = expanded.map(v => idOf(v)).filter((v): v is string => v !== undefined)
-  return ids.length > 0 ? ids : undefined
-}
-
-/**
- * Coerce a JSON-LD value to `boolean | undefined`; accepts `"true"`/`"1"` and `"false"`/`"0"` strings.
- * @param value - The raw value to coerce.
+ * Coerce a literal to `boolean | undefined`; accepts `"true"`/`"1"` and `"false"`/`"0"`.
+ * @param value - The lexical value.
  * @returns The boolean, or undefined when it is not a recognizable boolean.
  */
-function parseBoolean(value: unknown): boolean | undefined {
-  if (value === undefined || value === null) return undefined
-  if (typeof value === 'boolean') return value
-  if (typeof value === 'string') {
-    const lower = value.toLowerCase().trim()
-    if (lower === 'true' || lower === '1') return true
-    if (lower === 'false' || lower === '0') return false
-  }
+function parseBoolean(value: string | undefined): boolean | undefined {
+  if (value === undefined) return undefined
+  const lower = value.toLowerCase().trim()
+  if (lower === 'true' || lower === '1') return true
+  if (lower === 'false' || lower === '0') return false
   return undefined
 }
 
 /**
- * Read the first present property value from a node, trying compacted aliases and the
- * standard JSON-LD keyword form.
- * @param obj - The node object to read from.
- * @param keys - The property keys to try, in priority order.
- * @returns The first defined value, or undefined when none are present.
+ * Parse the codelist Turtle document into a `CodelistResult`.
+ * @param turtle - The Turtle (or N-Triples) document.
+ * @param normalizeBooleans - Coerce `"true"`/`"false"` literals to booleans for flag fields.
+ * @returns The parsed CodelistResult (nodesById, schemes, concepts, topConcepts, collections, prefixes).
  */
-function getValue(obj: Record<string, unknown>, keys: string[]): unknown {
-  for (const key of keys) {
-    if (obj[key] !== undefined) return obj[key]
+export function parseCodelist(turtle: string, normalizeBooleans: boolean): CodelistResult {
+  const documentPrefixes: Record<string, string> = {}
+  const quads = new Parser().parse(turtle, null, (prefix, iri) => { documentPrefixes[prefix] = iri.value })
+
+  // The POC's own prefixes win: the CURIEs used in code must not depend on the publisher's prefix names.
+  const ownNamespaces = new Set(Object.values(PREFIXES))
+  const prefixes: Record<string, string> = {}
+  for (const [prefix, ns] of Object.entries(documentPrefixes)) {
+    if (!ownNamespaces.has(ns) && !(prefix in PREFIXES)) prefixes[prefix] = ns
   }
-  return undefined
-}
+  Object.assign(prefixes, PREFIXES)
+  const compact = compactor(prefixes)
 
-/**
- * Parse the raw codelist JSON-LD document into a `CodelistResult`.
- * @param data - The parsed JSON-LD document (top-level `graph` expected).
- * @param normalizeBooleans - Coerce string `"true"`/`"false"` to booleans for flag fields.
- * @returns The parsed CodelistResult (nodesById, schemes, concepts, topConcepts, collections).
- */
-export function parseCodelist(data: Record<string, unknown>, normalizeBooleans: boolean): CodelistResult {
-  const graph = Array.isArray(data['graph']) ? data['graph'] : data['graph'] ? [data['graph']] : []
-
-  const nodesById = buildNodeIndex(graph)
+  const nodesById = new Map<string, RdfNode>()
+  for (const quad of quads) {
+    if (quad.subject.termType !== 'NamedNode' && quad.subject.termType !== 'BlankNode') continue
+    const id = quad.subject.termType === 'NamedNode' ? compact(quad.subject.value) : `_:${quad.subject.value}`
+    let node = nodesById.get(id)
+    if (!node) nodesById.set(id, node = new Map())
+    const objects = node.get(quad.predicate.value)
+    if (objects) objects.push(quad.object)
+    else node.set(quad.predicate.value, [quad.object])
+  }
 
   const schemes = new Map<string, Scheme>()
   const concepts = new Map<string, Concept>()
   const collections = new Map<string, string[]>()
 
   for (const [id, node] of nodesById.entries()) {
-    const types = getTypes(node)
+    const types = new Set((node.get(RDF_TYPE) ?? []).map(t => t.value))
 
-    if (types.some(t => SCHEME_TYPES.includes(t))) {
-      schemes.set(id, toScheme(node))
-    }
-
+    if (types.has(SKOS.ConceptScheme)) schemes.set(id, toScheme(id, node, compact))
     // A node can be both a skos:Concept and something else (e.g. qudt:Unit);
     // schemes and concepts are not mutually exclusive checks.
-    if (types.some(t => CONCEPT_TYPES.includes(t))) {
-      concepts.set(id, toConcept(node, normalizeBooleans))
-    }
-
-    if (types.some(t => COLLECTION_TYPES.includes(t))) {
-      collections.set(id, idsOf(getValue(node, ['member'])) ?? [])
-    }
+    if (types.has(SKOS.Concept)) concepts.set(id, toConcept(id, node, compact, normalizeBooleans))
+    if (types.has(SKOS.Collection)) collections.set(id, values(node, SKOS.member, compact) ?? [])
   }
 
   const topConcepts = new Map<string, Concept[]>()
-
   for (const [schemeId, node] of nodesById.entries()) {
-    const hasTopConcept = node['hasTopConcept'] ?? node['has_top_concept']
-
-    if (!hasTopConcept) continue
-
-    const refs = Array.isArray(hasTopConcept) ? hasTopConcept : [hasTopConcept]
-    const resolved: Concept[] = []
-
-    for (const ref of refs) {
-      const refId = idOf(ref)
-      const concept = refId ? concepts.get(refId) : undefined
-      if (concept) resolved.push(concept)
-    }
-
-    topConcepts.set(schemeId, resolved)
+    const refs = values(node, SKOS.hasTopConcept, compact)
+    if (!refs) continue
+    topConcepts.set(schemeId, refs.map(ref => concepts.get(ref)).filter((c): c is Concept => c !== undefined))
   }
 
-  return { nodesById, schemes, concepts, topConcepts, collections }
+  return { nodesById, schemes, concepts, topConcepts, collections, prefixes }
 }

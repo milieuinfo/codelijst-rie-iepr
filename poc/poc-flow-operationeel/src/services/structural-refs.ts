@@ -1,6 +1,6 @@
 /**
  * Pure derivation helpers for the operationeel-fields component that resolve
- * structural / procedural picker concepts, multi-step `seeAlso` targets, and
+ * structural / procedural picker concepts, multi-step `vervolgstap` targets, and
  * "selecteer eerst" gate instructions from a parsed `CodelistResult`.
  *
  * Each function is a pure function of the parsed result (plus the concept or
@@ -13,15 +13,15 @@ import * as query from './concept-query.js'
 import { getMockInstances } from './mock-data.service.js'
 
 /**
- * Resolve seeAlso to a target scheme id if present on a concept. Returns
+ * Resolve vervolgstap to a target scheme id if present on a concept. Returns
  * undefined for external refs.
  * @param result - The parsed codelist result.
- * @param concept - The concept whose seeAlso refs to resolve.
+ * @param concept - The concept whose vervolgstap refs to resolve.
  * @returns The target scheme id, or undefined when none resolves locally.
  */
-export function resolveSeeAlsoTargetScheme(result: CodelistResult, concept: Concept): string | undefined {
-  if (!concept.seeAlso) return undefined
-  for (const refId of concept.seeAlso) {
+export function resolveVervolgstapTargetScheme(result: CodelistResult, concept: Concept): string | undefined {
+  if (!concept.vervolgstap) return undefined
+  for (const refId of concept.vervolgstap) {
     const target = result.schemes.get(refId)
     if (target) return target.id
   }

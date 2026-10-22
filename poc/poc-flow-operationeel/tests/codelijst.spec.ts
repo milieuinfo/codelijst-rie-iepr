@@ -1,4 +1,32 @@
 import { test, expect, type Page } from '@playwright/test'
+import { DataFactory, Parser, Writer, type Quad } from 'n3'
+
+const { namedNode, literal, quad } = DataFactory
+const VOCAB = 'https://data.riepr.omgeving.vlaanderen.be/ns/vocab#'
+const SH = 'http://www.w3.org/ns/shacl#'
+const XSD_BOOLEAN = namedNode('http://www.w3.org/2001/XMLSchema#boolean')
+
+/**
+ * Patch the codelist (rie-iepr.ttl) as RDF before the app loads it. The edit
+ * gets the quads and a CURIE expander based on the document's prefixes.
+ * @param page - The page whose codelist request is patched.
+ * @param edit - Returns the patched quads.
+ */
+async function patchCodelist(page: Page, edit: (quads: Quad[], iri: (curie: string) => string) => Quad[]) {
+  await page.route('**/rie-iepr.ttl', async route => {
+    const response = await route.fetch()
+    const prefixes: Record<string, string> = {}
+    const quads = new Parser().parse(await response.text(), null, (prefix, ns) => { prefixes[prefix] = ns.value })
+    const iri = (curie: string) => {
+      const colon = curie.indexOf(':')
+      return prefixes[curie.slice(0, colon)] + curie.slice(colon + 1)
+    }
+    const writer = new Writer({ prefixes })
+    writer.addQuads(edit(quads, iri))
+    const body = await new Promise<string>((resolve, reject) => writer.end((error, result) => error ? reject(error) : resolve(result ?? '')))
+    await route.fulfill({ response, body })
+  })
+}
 
 interface ConsoleError {
   type: string
@@ -38,21 +66,13 @@ async function selectWaterLozing(page: Page) {
  * deterministic.
  */
 async function selectLuchtRapportering(page: Page) {
-  await page.route('**/rie-iepr.jsonld', async route => {
-    const response = await route.fetch()
-    const json = await response.json() as Record<string, unknown>
-    const patch = (value: unknown): void => {
-      if (!value || typeof value !== 'object') return
-      if (Array.isArray(value)) { value.forEach(patch); return }
-      const node = value as Record<string, unknown>
-      if (node.id === 'lucht:feature_bron' || node['@id'] === 'lucht:feature_bron') {
-        node.isMultiselect = 'false'
-        node.is_multiselect = 'false'
-      }
-      for (const v of Object.values(node)) patch(v)
-    }
-    patch(json)
-    await route.fulfill({ response, json })
+  await patchCodelist(page, (quads, iri) => {
+    const field = iri('lucht:feature_bron')
+    const multiselect = VOCAB + 'isMultiselect'
+    return [
+      ...quads.filter(q => !(q.subject.value === field && q.predicate.value === multiselect)),
+      quad(namedNode(field), namedNode(multiselect), literal('false', XSD_BOOLEAN)),
+    ]
   })
 
   await page.goto('/')
@@ -117,7 +137,7 @@ test.describe('Codelijst App', () => {
 
   test('flat thema model: selecting a thema renders its operationeel fields with no sub-thema selector', async ({ page }) => {
     // The thema hierarchy was flattened: every thema is a leaf concept that maps
-    // directly (via seeAlso) to its operationeel scheme. There are no sub-themas,
+    // directly (via vervolgstap) to its operationeel scheme. There are no sub-themas,
     // so the sub-thema selector must never appear for any thema.
     await expect(page.locator('select#thema')).toBeVisible()
 
@@ -371,28 +391,23 @@ test.describe('Codelijst App', () => {
    test('conditional visibility — conditionPath/conditionValue shows/hides fields based on trigger field value', async ({ page }) => {
      // Inject synthetic conditionPath/conditionValue into the real codelist data via page.route()
      // so we can exercise this code path end-to-end without modifying files on disk.
-     await page.route('**/rie-iepr.jsonld', async route => {
-       const response = await route.fetch()
-       const json = await response.json() as Record<string, unknown>
-       if (Array.isArray(json.graph)) {
-         for (const node of json.graph) {
-           const types: string[] = ((node._type ?? node['@type']) as string | undefined)?.toString().split(',') || []
-           if (!types.includes('skos:Concept')) continue
-           const id: string = (node.id ?? node['@id'] ?? '') as string
-               // lozing-dagen is a child of the repeatable "Lozing" group (renders with #1 suffix)
-             // Its trigger reference points to bepalingsmethode#1, a sibling child of the same group
-            if (id === 'water:lozing-dagen') {
-             node.condition_path = 'water:lozing-bepalingsmethode#1'
-             node.condition_value = 'bepalingsmethode:gemeten'
-           }
-           // lozing-debiet same pattern — root concept, no suffix; uses geschat as trigger value
-           if (id === 'water:lozing-debiet') {
-             node.condition_path = 'water:lozing-bepalingsmethode#1'
-             node.condition_value = 'bepalingsmethode:geschat'
-           }
-         }
+     await patchCodelist(page, (quads, iri) => {
+       // lozing-dagen is a child of the repeatable "Lozing" group (renders with #1 suffix).
+       // Its trigger reference points to bepalingsmethode#1, a sibling child of the same group;
+       // lozing-debiet follows the same pattern with geschat as trigger value.
+       const conditions: Record<string, string> = {
+         [iri('water:lozing-dagen')]: iri('bepalingsmethode:gemeten'),
+         [iri('water:lozing-debiet')]: iri('bepalingsmethode:geschat'),
        }
-       await route.fulfill({ response, json })
+       const trigger = namedNode(iri('water:lozing-bepalingsmethode') + '#1')
+       const isCondition = (q: Quad) => q.subject.value in conditions && [SH + 'path', SH + 'hasValue'].includes(q.predicate.value)
+       return [
+         ...quads.filter(q => !isCondition(q)),
+         ...Object.entries(conditions).flatMap(([field, value]) => [
+           quad(namedNode(field), namedNode(SH + 'path'), trigger),
+           quad(namedNode(field), namedNode(SH + 'hasValue'), namedNode(value)),
+         ]),
+       ]
      })
 
       await page.goto('/')
@@ -503,3 +518,42 @@ test.describe('Codelijst App', () => {
       await expect(rapportering.locator('.vl-input-addon')).toHaveCount(1)
     })
   })
+
+test.describe('URI-tooltips (hover)', () => {
+  test('toont bij hover van een stap-legend de URI van het conceptscheme', async ({ page }) => {
+    const rapportering = await selectLuchtRapportering(page)
+    await expect(rapportering).toBeVisible()
+
+    // De laatste stap is operationeel_lucht_rapportering; de stap-legend
+    // (id "stap-legend-…", niet de legenden van de compositegroepen) draagt de URI.
+    const legend = page.locator('vl-fieldset [slot="legend"][id^="stap-legend-"]').last()
+    await expect(legend).toBeVisible()
+    const legendId = (await legend.getAttribute('id'))!
+    expect(legendId).toBeTruthy()
+
+    await legend.hover()
+    const tooltip = page.locator(`vl-tooltip[for="${legendId}"]`)
+    await expect(tooltip).toBeVisible()
+    await expect(tooltip).toContainText(
+      'https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht_rapportering',
+    )
+  })
+
+  test('toont bij hover van een veldlabel de URI van het operationeel concept', async ({ page }) => {
+    const rapportering = await selectLuchtRapportering(page)
+
+    // `lucht:brandstof_naam` in de rapportering-stap; de label-wrapper
+    // (div > vl-form-label) draagt de URI.
+    const label = rapportering.locator('div:has(> vl-form-label[for="lucht:brandstof_naam#1"])')
+    await expect(label).toBeVisible()
+    const labelId = (await label.getAttribute('id'))!
+    expect(labelId).toBeTruthy()
+
+    await label.hover()
+    const tooltip = page.locator(`vl-tooltip[for="${labelId}"]`)
+    await expect(tooltip).toBeVisible()
+    await expect(tooltip).toContainText(
+      'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_naam',
+    )
+  })
+})

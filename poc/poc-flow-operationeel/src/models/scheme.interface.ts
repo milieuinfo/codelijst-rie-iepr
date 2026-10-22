@@ -10,5 +10,5 @@ export interface Scheme {
   /** Points at a structural type concept (e.g. a meetpunt/installatie type) this scheme's data is collected for. */
   relevantRiepr?: string[]
   /** Links to another scheme for multi-step flows. Resolved to a `skos:ConceptScheme` id. */
-  seeAlso?: string[]
+  vervolgstap?: string[]
 }

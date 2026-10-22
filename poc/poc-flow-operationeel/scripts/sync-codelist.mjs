@@ -6,9 +6,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const pocRoot = resolve(__dirname, '..')
 const repoRoot = resolve(pocRoot, '../..')
 
-const SRC_PATH = resolve(repoRoot, 'src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld')
+const SRC_PATH = resolve(repoRoot, 'src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.ttl')
 const DST_DIR = resolve(pocRoot, 'public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr')
-const DST_PATH = join(DST_DIR, 'rie-iepr.jsonld')
+const DST_PATH = join(DST_DIR, 'rie-iepr.ttl')
 
 // Source file missing? Log warning and exit 0 — don't break dev/build.
 if (!existsSync(SRC_PATH)) {
@@ -21,4 +21,4 @@ if (!existsSync(SRC_PATH)) {
 mkdirSync(DST_DIR, { recursive: true })
 
 copyFileSync(SRC_PATH, DST_PATH)
-console.log('[sync-codelist] Synced rie-iepr.jsonld →', DST_PATH)
+console.log('[sync-codelist] Synced rie-iepr.ttl →', DST_PATH)

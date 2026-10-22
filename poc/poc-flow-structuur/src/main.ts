@@ -6,6 +6,7 @@
 import { VlButtonComponent } from '@domg-wc/components/atom/button/vl-button.component.js'
 import { VlTextComponent } from '@domg-wc/components/atom/text/vl-text.component.js'
 import { VlAlert } from '@domg-wc/components/block/alert/vl-alert.component.js'
+import { VlTooltipComponent } from '@domg-wc/components/block/tooltip/vl-tooltip.component.js'
 import { VlInputFieldComponent } from '@domg-wc/components/form/input-field/vl-input-field.component.js'
 import { VlTextareaComponent } from '@domg-wc/components/form/textarea/vl-textarea.component.js'
 import { VlSelectComponent } from '@domg-wc/components/form/select/vl-select.component.js'
@@ -21,6 +22,7 @@ const _vlRefs = [
   VlButtonComponent,
   VlTextComponent,
   VlAlert,
+  VlTooltipComponent,
   VlInputFieldComponent,
   VlTextareaComponent,
   VlSelectComponent,

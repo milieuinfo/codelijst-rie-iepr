@@ -17,6 +17,8 @@ import { repeat } from 'lit/directives/repeat.js'
 import { vlGridStyles } from '@domg-wc/styles/layout/grid/vl-grid.css.js'
 import type { CodelistResult, Eigenschap } from '../models/index.js'
 import { CsorService } from '../services/csor.js'
+import { expandUri } from '../services/uri.js'
+import { uriTooltip, veiligeDomId } from './uri-tooltip.js'
 import './structuur-eigenschap-input.js'
 
 const ACTIE_KOLOM_BREEDTE = 1
@@ -117,9 +119,13 @@ export class StructuurMeervoudigeEigenschap extends LitElement {
     const kolomBreedte = Math.max(1, Math.floor((12 - ACTIE_KOLOM_BREEDTE) / velden.length))
     const label = eigenschap.verplicht ? `${eigenschap.label} (*)` : eigenschap.label
 
+    const uri = this.result ? expandUri(this.result, eigenschap.id) : undefined
+    const legendId = veiligeDomId(`${eigenschap.id}__legend`)
+
     return html`
       <vl-fieldset border>
-        <span slot="legend">${label}</span>
+        <span slot="legend" id="${legendId}">${label}</span>
+        ${uriTooltip(legendId, uri)}
         ${eigenschap.verplicht
           ? html`<vl-text class="structuur-verplicht" small annotation
               >Er is minstens 1 ${eigenschap.label} verplicht.</vl-text
@@ -158,11 +164,16 @@ export class StructuurMeervoudigeEigenschap extends LitElement {
     return html`<div class="vl-column vl-column--12">
       <div class="vl-grid">
         ${velden.map(
-          (veld) => html`<div class="vl-column vl-column--${kolomBreedte}">
-            <div class="structuur-kolomhoofd">
-              <vl-form-label label="${veld.verplicht ? `${veld.label} (*)` : veld.label}"></vl-form-label>
-            </div>
-          </div>`,
+          (veld) => {
+            const labelId = veiligeDomId(`kolomhoofd__${veld.id}`)
+            const uri = this.result ? expandUri(this.result, veld.id) : undefined
+            return html`<div class="vl-column vl-column--${kolomBreedte}">
+              <div class="structuur-kolomhoofd">
+                <vl-form-label id="${labelId}" label="${veld.verplicht ? `${veld.label} (*)` : veld.label}"></vl-form-label>
+                ${uriTooltip(labelId, uri)}
+              </div>
+            </div>`
+          },
         )}
         <div class="vl-column vl-column--${ACTIE_KOLOM_BREEDTE}"></div>
       </div>

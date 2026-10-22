@@ -8,6 +8,8 @@ import { LitElement, html, css } from 'lit'
 import { CodelistService } from '../services/codelist-service.js'
 import type { CodelistResult } from '../services/codelist-service.js'
 import { vlMarginStyles } from '@domg-wc/styles/layout/margin/vl-margin.css.js'
+import { expandUri } from '../services/uri.js'
+import { uriTooltip } from './uri-tooltip.js'
 
 const THEMA_SCHEME_ID = 'conceptscheme:thema_type'
 
@@ -55,8 +57,16 @@ export class CodelijstThemeSelector extends LitElement {
     const selectedThema = this.selectedThemeId ? this.result.concepts.get(this.selectedThemeId) : undefined
     const subThemes = selectedThema ? this._service.getChildren(this.result, selectedThema) : []
 
+    // Both labels refer to the thema_type conceptscheme; the tooltip shows its
+    // URI. Label + tooltip live in one wrapper div (the tooltip's reference),
+    // so the tooltip can never outlive the element it is attached to.
+    const themaSchemeUri = expandUri(this.result, THEMA_SCHEME_ID)
+
     return html`
-      <vl-form-label for="thema" label="${themaLabel}" block .annotation="${themaScheme?.definition ?? ''}"></vl-form-label>
+      <div id="thema-label">
+        <vl-form-label for="thema" label="${themaLabel}" block .annotation="${themaScheme?.definition ?? ''}"></vl-form-label>
+        ${uriTooltip('thema-label', themaSchemeUri)}
+      </div>
       <vl-select
         id="thema"
         name="thema"
@@ -69,7 +79,10 @@ export class CodelijstThemeSelector extends LitElement {
       ${subThemes.length > 0
         ? html`
             <div class="vl-margin--medium">
-              <vl-form-label for="sub-thema" label="Sub-thema" block .annotation="${selectedThema?.definition ?? ''}"></vl-form-label>
+              <div id="sub-thema-label">
+                <vl-form-label for="sub-thema" label="Sub-thema" block .annotation="${selectedThema?.definition ?? ''}"></vl-form-label>
+                ${uriTooltip('sub-thema-label', themaSchemeUri)}
+              </div>
               <vl-select
                 id="sub-thema"
                 name="sub-thema"

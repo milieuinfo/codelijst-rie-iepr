@@ -38,3 +38,19 @@ only lists which ones each component uses, not their full prop surface.
   - `<vl-fieldset>` + `<span slot="legend">` per composite root field, wrapping its children's controls.
   - Per leaf field, one of `<vl-select>` (relevantCodeList), `<vl-checkbox>` (`xsd:boolean`), `<vl-datepicker>` (`xsd:date`/`xsd:dateTime`), or `<vl-input-field type="number"|"text">` (everything else), each with `?required` from `isVerplicht`.
   - `<vl-button secondary>` "+ Nog ... toevoegen" / "Verwijder" for `isMeervoudig` fields, backed by an internal `repeatCounts: Map<string, number>`.
+
+## URI tooltips (hover)
+
+Hovering a field label, a composite/stap legend or the thema label shows a
+`vl-tooltip` with the full published URI of the underlying codelist concept or
+scheme, e.g. `https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof`.
+
+- `services/uri.ts` (`expandUri`) expands the CURIE id with the prefix map of
+  `CodelistResult.prefixes` (the POC's own prefixes from `services/vocab.ts`
+  plus the prefixes declared in the Turtle document).
+- `components/uri-tooltip.ts` provides the `vl-tooltip` template and
+  `veiligeDomId` (DOM ids without `:`, because `vl-tooltip` resolves its
+  reference through `querySelector`).
+- Label and tooltip always live in one wrapper `<div>` (the reference), so the
+  tooltip can never outlive the element it is attached to when Lit clears a
+  whole template (that crashes the `vl-tooltip` controller).

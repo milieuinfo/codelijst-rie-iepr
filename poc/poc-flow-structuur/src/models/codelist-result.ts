@@ -23,6 +23,12 @@ export interface CodelistResult {
   topConcepts: Map<string, Concept[]>
   /** Member ids of every `skos:Collection`, keyed by collection id (members may be external, e.g. CSOR variabelen). */
   collections: Map<string, string[]>
+  /**
+   * The prefix map of the document's `@context`, used to expand CURIE ids
+   * (e.g. `installatie:fakkel`) to their full published URI for the hover
+   * tooltips (`services/uri.ts`).
+   */
+  prefixes: Record<string, string>
 }
 
 /** Options controlling how the codelist JSON-LD is parsed. */

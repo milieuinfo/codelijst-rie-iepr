@@ -1,17 +1,17 @@
 /**
- * Reads and queries the RIE-IEPR SKOS codelists (rie-iepr.jsonld).
+ * Reads and queries the RIE-IEPR SKOS codelists (rie-iepr.ttl).
  *
  * This class is a thin façade over two focused modules so the public API stays
  * stable for the components and the test suite:
- * - `codelist-parse.ts` — flattens the JSON-LD document into a canonical id index
- *   and maps it to typed `Concept` / `Scheme` views (`parseCodelist`).
+ * - `codelist-parse.ts` — parses the Turtle document (properties matched by IRI)
+ *   into a canonical id index and typed `Concept` / `Scheme` views (`parseCodelist`).
  * - `concept-query.ts` — pure query helpers over the parsed result (top-level
- *   concepts, children, `related`-group merging, and seeAlso/relevantRiepr
+ *   concepts, children, `related`-group merging, and vervolgstap/relevantRiepr
  *   reference resolution for the multi-step flow).
  *
- * **seeAlso-based navigation:** The updated codelist format uses `seeAlso`
+ * **vervolgstap-based navigation:** The updated codelist format uses `vervolgstap`
  * instead of `relevantRiepr` for theme→scheme navigation and for chaining
- * multi-step flows within operational schemes. Use `getSeeAlsoRefs()` /
+ * multi-step flows within operational schemes. Use `getVervolgstapRefs()` /
  * `resolveOperationeelSchemeId()` to resolve these links.
  */
 
@@ -19,11 +19,11 @@ import type { CodelistOptions, CodelistResult, Concept, Scheme } from '../models
 import { parseCodelist } from './codelist-parse.js'
 import * as query from './concept-query.js'
 
-export type { CodelistOptions, CodelistResult, JsonLdNode } from '../models/index.js'
+export type { CodelistOptions, CodelistResult, RdfNode } from '../models/index.js'
 
 export class CodelistService {
   private readonly resourcePath: string = 'resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/'
-  private readonly fileName: string = 'rie-iepr.jsonld'
+  private readonly fileName: string = 'rie-iepr.ttl'
 
   /**
    * Resolves the app base from the page URL (e.g. "/" locally, "/codelijst-rie-iepr/" on GitHub Pages).
@@ -45,19 +45,17 @@ export class CodelistService {
       throw new Error(`Failed to fetch codelist: ${response.status} ${response.statusText}`)
     }
 
-    const data = (await response.json()) as Record<string, unknown>
-
-    return this.parseData(data, normalizeBooleans)
+    return this.parseData(await response.text(), normalizeBooleans)
   }
 
   /**
-   * Parse a raw codelist JSON-LD document into a `CodelistResult` (delegates to `codelist-parse`).
-   * @param data - The raw JSON-LD document.
+   * Parse a codelist Turtle document into a `CodelistResult` (delegates to `codelist-parse`).
+   * @param turtle - The Turtle document.
    * @param normalizeBooleans - Whether to coerce flag fields to booleans.
    * @returns The parsed CodelistResult.
    */
-  protected parseData(data: Record<string, unknown>, normalizeBooleans: boolean): CodelistResult {
-    return parseCodelist(data, normalizeBooleans)
+  protected parseData(turtle: string, normalizeBooleans: boolean): CodelistResult {
+    return parseCodelist(turtle, normalizeBooleans)
   }
 
   getSchemes(result: CodelistResult): Scheme[] {
@@ -112,8 +110,8 @@ export class CodelistService {
     return query.getRelevantRieprRefs(result, node)
   }
 
-  getSeeAlsoRefs(result: CodelistResult, node: Scheme | Concept): (Scheme | Concept)[] {
-    return query.getSeeAlsoRefs(result, node)
+  getVervolgstapRefs(result: CodelistResult, node: Scheme | Concept): (Scheme | Concept)[] {
+    return query.getVervolgstapRefs(result, node)
   }
 
   resolveOperationeelSchemeId(result: CodelistResult, themeConcept: Concept): string | undefined {

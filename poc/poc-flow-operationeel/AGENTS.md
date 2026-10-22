@@ -2,24 +2,26 @@
 
 ## 1. What This POC Is
 
-This is a Dutch-language proof-of-concept web app that reads the **RIE-IEPR SKOS/JSON-LD codelist** (`public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld`) and renders a Vlaanderen-government data-entry form using the `@domg-wc/components` / `@domg-wc/styles` web-component library from the private Artifactory registry.
+This is a Dutch-language proof-of-concept web app that reads the **RIE-IEPR SKOS codelist** as RDF (`public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.ttl`) and renders a Vlaanderen-government data-entry form using the `@domg-wc/components` / `@domg-wc/styles` web-component library from the private Artifactory registry.
 
-The POC demonstrates how hierarchical code lists are interpreted: a user picks a thema/sub-thema, then sees operationele velden rendered as `<vl-input-field>`, `<vl-select>`, `<vl-checkbox>`, etc., with composite grouping, multi-value repetition, structural pickers, and multi-step flow chaining via `seeAlso` — all without a backend.
+The POC demonstrates how hierarchical code lists are interpreted: a user picks a thema/sub-thema, then sees operationele velden rendered as `<vl-input-field>`, `<vl-select>`, `<vl-checkbox>`, etc., with composite grouping, multi-value repetition, structural pickers, and multi-step flow chaining via `vervolgstap` (`qb:codeList`) — all without a backend.
 
 **Scope boundaries:** See [`docs/PROJECT_OUTLINE.md`](../docs/PROJECT_OUTLINE.md) for authoritative requirements, guardrails, out-of-scope items, and the full user-flow specification. Key constraints: no persistence, no security hardening, Dutch/Vlaams language only, use `@domg-wc/*` components wherever possible, avoid custom CSS.
 
-## 2. CodelistService — Generic JSON-LD Parsing Strategy
+## 2. CodelistService — RDF Parsing by IRI
 
-### Flatten-everything into one index
+### The contract is the IRIs, not the names
 
-`CodelistService.parseData()` builds a **single `Map<string, JsonLdNode>`** by recursively walking every object/array in the top-level `graph`. Every node that has an `id` (or `@id`) gets indexed; if the same ID appears multiple times (which it does — nodes can be both flattened at the graph root and re-embedded inline elsewhere), later sightings **merge in missing properties rather than replacing**. This handles the source data's mix of compacted aliases (`id`, `_type`, `has_pref_label`) and standard JSON-LD keywords (`@id`, `@type`).
+`parseCodelist()` (`src/services/codelist-parse.ts`) parses `rie-iepr.ttl` with N3.js. Every property and type is matched on its **full IRI**, listed in `src/services/vocab.ts`. CSV column names and JSON-LD term names are never used, so they can be renamed upstream without breaking the POC; only a changed IRI is a breaking change. When the POC needs a new property, add its IRI to `vocab.ts`.
 
-From this canonical index, typed views are derived:
-- **schemes** — nodes whose `_type` includes `skos:ConceptScheme`
-- **concepts** — nodes whose `_type` includes `skos:Concept`
-- **topConcepts** — for each scheme, resolves its `hasTopConcept` / `has_top_concept` references to Concept objects
+IRIs are compacted to CURIE ids (`lucht:brandstof`, `conceptscheme:thema_type`, `skos:Concept`, `xsd:decimal`) because the rest of the POC, the DOM ids and the tests use those. The prefixes in `PREFIXES` (`vocab.ts`) cover every namespace the code refers to by CURIE and take precedence over the document's `@prefix` declarations, which are used only for all other namespaces. `result.prefixes` holds the combined map.
 
-All relations (broader, narrower, relevantCodeList, relevantRiepr, seeAlso, etc.) are resolved down to **plain id strings** (`string[]` or single string). Consumers always look up the real entity via `result.concepts.get(id)` / `result.schemes.get(id)`. No inline objects flow out of the service.
+From one index of subjects (`nodesById`: id → predicate IRI → terms), typed views are derived:
+- **schemes** — subjects typed `skos:ConceptScheme`
+- **concepts** — subjects typed `skos:Concept`
+- **topConcepts** — for each scheme, its `skos:hasTopConcept` values resolved to Concept objects. RDF values are unordered (the Turtle lists them alphabetically); the display order comes from `uiFirst`/`uiAfter` (`ui-sort.ts`).
+
+All relations (broader, narrower, relevantCodeList, relevantRiepr, vervolgstap, etc.) are resolved down to **plain id strings** (`string[]` or single string). Consumers always look up the real entity via `result.concepts.get(id)` / `result.schemes.get(id)`.
 
 The approach is deliberately **content-agnostic**: no conceptscheme name or property is special-cased. New schemes or new custom RIE-IEPR properties added to the source data need zero code changes here.
 
@@ -35,16 +37,16 @@ getTopLevelConceptsForScheme(result, schemeId).filter(field => !field.broader)
 
 Any future component that needs to distinguish "top-level questions" from "composite children" must apply this same filter.
 
-### seeAlso-based navigation model (updated codelist format)
+### vervolgstap-based navigation model
 
-The updated codelist uses `seeAlso` for two purposes:
+`vervolgstap` (the column in the source CSVs, published as `qb:codeList`) links a concept to the next step (a conceptscheme). It is used for two purposes:
 
-1. **Theme → operationeel scheme navigation:** Each thema concept has `seeAlso` pointing at its corresponding operationeel conceptscheme. Use `CodelistService.resolveOperationeelSchemeId()` which tries `seeAlso` first, then falls back to `relevantRiepr` for backward compatibility.
+1. **Theme → operationeel scheme navigation:** Each thema concept has a `vervolgstap` pointing at its corresponding operationeel conceptscheme. Use `CodelistService.resolveOperationeelSchemeId()` which tries `vervolgstap` first, then falls back to `relevantRiepr` for backward compatibility.
 
-2. **Multi-step flow chaining:** Within operational schemes, structural/feature concepts can have `seeAlso` pointing to sub-schemes. When the user selects a value for such a concept, the app navigates to the target scheme via a `flow-navigate` custom event. Example: `lucht:feature_bron` has `seeAlso: "conceptscheme:operationeel_lucht_rapportering"`. After selecting bronnen, the app transitions to render the detailed reporting fields from that sub-scheme.
+2. **Multi-step flow chaining:** Within operational schemes, structural/feature concepts can have a `vervolgstap` pointing to sub-schemes. When the user selects a value for such a concept, the app navigates to the target scheme via a `flow-navigate` custom event. Example: `lucht:feature_bron` has `vervolgstap` `conceptscheme:operationeel_lucht_rapportering`. After selecting bronnen, the app transitions to render the detailed reporting fields from that sub-scheme.
 
 Service methods:
-- `getSeeAlsoRefs(result, node)` — resolves `seeAlso` refs to Scheme or Concept objects (external URIs silently dropped)
+- `getVervolgstapRefs(result, node)` — resolves `vervolgstap` refs to Scheme or Concept objects (external URIs silently dropped)
 - `resolveOperationeelSchemeId(result, themeConcept)` — primary method for theme→scheme resolution
 
 ## 3. vl-* Component Library Integration
@@ -85,12 +87,12 @@ The `SEEDED_INSTANCES` map provides labels keyed by structural-type concept id. 
 
 ### Flow stack model
 
-`codelijst-app.ts` maintains a `flowStack: FlowStep[]` where each step is `{ schemeId, triggerConceptId? }`. The base step has no trigger (it comes from theme selection). Subsequent steps are pushed when a structural field with `seeAlso` gets a value.
+`codelijst-app.ts` maintains a `flowStack: FlowStep[]` where each step is `{ schemeId, triggerConceptId? }`. The base step has no trigger (it comes from theme selection). Subsequent steps are pushed when a structural field with a `vervolgstap` gets a value.
 
 ### Navigation events
 
 - **Theme selection** → resets flow stack, resolves base operationeel scheme via `resolveOperationeelSchemeId()`
-- **Structural field value change** → checks if the concept has `seeAlso` pointing to a scheme → emits `flow-navigate` event with `{ schemeId, triggerConceptId }`
+- **Structural field value change** → checks if the concept has a `vervolgstap` pointing to a scheme → emits `flow-navigate` event with `{ schemeId, triggerConceptId }`
 - **Back navigation** → pops from flow stack, shows breadcrumb nav when depth > 1
 
 ### Rendering
@@ -123,13 +125,13 @@ Only if design tokens need updating — import additional `@domg-wc/styles/.../*
 
 ## 7. Codelist Sync Mechanism
 
-The POC reads `rie-iepr.jsonld` from its own copy at `public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld`, served by Vite as a static asset. This file is **not** the canonical source — the authoritative version lives in the parent project at `../../src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld`.
+The POC reads `rie-iepr.ttl` from its own copy at `public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.ttl`, served by Vite as a static asset. This file is **not** the canonical source — the authoritative version lives in the parent project at `../../src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.ttl`.
 
 A no-dependency Node script (`scripts/sync-codelist.mjs`) copies the upstream file into place before every dev server start and build.
 
 ### CSOR lists (`scripts/sync-csor.mjs`)
 
-CSOR concepts (eenheden, variabelen, kwantificeerbare aspecten, dragers, soorten waardebepaling) are published in separate GitHub repositories and are not part of `rie-iepr.jsonld`. `scripts/sync-csor.mjs` scans every CSV in `src/source` for `csor_*` CURIEs (including collection members and the CSOR semantics columns) and downloads only the lists that are needed:
+CSOR concepts (eenheden, variabelen, kwantificeerbare aspecten, dragers, soorten waardebepaling) are published in separate GitHub repositories and are not part of `rie-iepr.ttl`. `scripts/sync-csor.mjs` scans every CSV in `src/source` for `csor_*` CURIEs (including collection members and the CSOR semantics columns) and downloads only the lists that are needed:
 
 | Prefix | GitHub repository |
 |---|---|
@@ -151,7 +153,7 @@ This ensures the POC always runs against the latest codelist and CSOR labels wit
 
 ## 8. Developer Guide — Reading Codelists (Dutch)
 
-For a comprehensive Dutch-language explanation of how to read and interpret the RIE-IEPR codelist data model, which properties are declarative (in the JSON-LD) vs imperative (TypeScript application logic), and where to find each concept mapping in the source code, see the root repository's [`README.md`](../../../README.md), section **"Interpretatie"**. This is the authoritative specification for how the codelist should be interpreted by the application.
+For a comprehensive Dutch-language explanation of how to read and interpret the RIE-IEPR codelist data model, which properties are declarative (in the codelist) vs imperative (TypeScript application logic), and where to find each concept mapping in the source code, see the root repository's [`README.md`](../../../README.md), section **"Interpretatie"**. This is the authoritative specification for how the codelist should be interpreted by the application.
 
 ## 9. Task Planning Docs
 

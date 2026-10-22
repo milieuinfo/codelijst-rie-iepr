@@ -6,7 +6,7 @@
  * structural-element picker when the scheme's relevantRiepr points at a
  * type such as `meetpunt:debietmeter`.
  *
- * Multi-step flows: when a concept has `seeAlso` pointing to another
+ * Multi-step flows: when a concept has `vervolgstap` pointing to another
  * conceptscheme, selecting a value for that concept triggers navigation
  * to the target scheme via `flow-navigate` custom event.
  *
@@ -14,7 +14,7 @@
  * pointing at skos:Concept type nodes (e.g., feature_ep → schoorsteen), it
  * renders as a mock-data structural picker dropdown instead of a text input.
  * These are "structural selection" fields — once selected they may also chain
- * to sub-schemes via seeAlso.
+ * to sub-schemes via vervolgstap.
  *
  * There is no backend and nothing is persisted (per the POC's non-functional
  * requirements), so field values are left uncontrolled - the only UI state
@@ -41,7 +41,7 @@ import {
   anyStructuralSelected,
 } from '../services/field-state.js'
 import {
-  resolveSeeAlsoTargetScheme,
+  resolveVervolgstapTargetScheme,
   getFieldStructuralRefs,
   getEmbeddedPickerIds,
   collectAllStructuralConceptIds,
@@ -50,6 +50,8 @@ import {
   getFieldGateMessage,
 } from '../services/structural-refs.js'
 import { vlMarginStyles } from '@domg-wc/styles/layout/margin/vl-margin.css.js'
+import { expandUri } from '../services/uri.js'
+import { uriTooltip, veiligeDomId } from './uri-tooltip.js'
 import type { Concept, Scheme } from '../models/index.js'
 
 export class CodelijstOperationeelFields extends LitElement {
@@ -107,7 +109,7 @@ export class CodelijstOperationeelFields extends LitElement {
         user-select: none;
       }
 
-      /* ---- SeeAlso navigation hint ---- */
+      /* ---- Vervolgstap navigation hint ---- */
       .seealso-hint {
         font-size: 0.8125rem;
         color: var(--vl-color--text-alt, #687483);
@@ -166,6 +168,43 @@ export class CodelijstOperationeelFields extends LitElement {
 
   get _service(): CodelistService {
     return this.codelistService ??= new CodelistService()
+  }
+
+  /**
+   * The full codelist URI of a concept, for the hover tooltip (undefined when it cannot be expanded).
+   * @param field - The concept to expand.
+   * @returns The full URI, or undefined.
+   */
+  private uriVan(field: Concept): string | undefined {
+    return this.result ? expandUri(this.result, field.id) : undefined
+  }
+
+  /**
+   * A vl-form-label with a hover tooltip showing the full codelist URI of the
+   * concept the field refers to. The tooltip and the label live in the same
+   * shadow root, which `vl-tooltip` requires to find its reference element.
+   * @param forId - The DOM id of the control the label belongs to.
+   * @param rawLabelId - The label id (derived from the codelist id); sanitized before use.
+   * @param label - The visible label text.
+   * @param annotation - The annotation text under the label.
+   * @param uri - The full codelist URI, or undefined (no tooltip).
+   * @returns The label + tooltip template.
+   */
+  private renderFormLabelWithUri(forId: string, rawLabelId: string, label: string, annotation: string, uri: string | undefined) {
+    // The label and its tooltip live in one wrapper div, and the div is the
+    // tooltip's reference. The wrapper keeps the tooltip from outliving its
+    // reference when Lit clears a whole template: vl-tooltip re-resolves the
+    // reference on disconnect and falls back to its parent element, which
+    // crashes when the tooltip is a bare child of the shadow root.
+    // The id is sanitized: vl-tooltip resolves its reference with
+    // querySelector, which throws on the `:` every codelist CURIE contains.
+    const labelId = veiligeDomId(rawLabelId)
+    return html`
+      <div id="${labelId}">
+        <vl-form-label for="${forId}" label="${label}" block .annotation="${annotation}"></vl-form-label>
+        ${uriTooltip(labelId, uri)}
+      </div>
+    `
   }
 
    override render() {
@@ -260,7 +299,7 @@ export class CodelijstOperationeelFields extends LitElement {
         const domId = this.getPickerDomId(concept.id, parentFieldId)
         const fieldValue = String(this._fieldValues.get(domId) ?? '')
         const options = getMockInstances(concept.id, label).map(instance => ({ value: instance.id, label: instance.label, selected: instance.id === fieldValue }))
-        const formLabel = html`<vl-form-label for="${domId}" label="Kies ${label}" block .annotation="${concept.definition ?? ''}"></vl-form-label>`
+        const formLabel = this.renderFormLabelWithUri(domId, `${domId}__label`, `Kies ${label}`, concept.definition ?? '', this.uriVan(concept))
         const control = html`<vl-select id="${domId}" name="${domId}" label="Kies ${label}" placeholder="Selecteer ${label.toLowerCase()}..." .value="${fieldValue}" .options="${options}" @vl-input="${this._onControlInput}"></vl-select>`
         return html`${formLabel}${control}`
       })}
@@ -327,7 +366,7 @@ export class CodelijstOperationeelFields extends LitElement {
           const label = pc.prefLabel ?? pid
           const fieldValue = String(this._fieldValues.get(pid) ?? '')
           const options = getMockInstances(pid, label).map(instance => ({ value: instance.id, label: instance.label, selected: instance.id === fieldValue }))
-          const formLabel = html`<vl-form-label for="${pid}" label="Kies ${label}" block></vl-form-label>`
+          const formLabel = this.renderFormLabelWithUri(pid, `${pid}__label`, `Kies ${label}`, '', this.uriVan(pc))
           return html`${formLabel}<vl-select id="${pid}" name="${pid}" label="Kies ${label}" placeholder="Selecteer ${label.toLowerCase()}..." .value="${fieldValue}" .options="${options}" @vl-input="${this._onControlInput}"></vl-select>`
         })}
       `
@@ -337,8 +376,8 @@ export class CodelijstOperationeelFields extends LitElement {
     const isRepeatable = field.isMeervoudig === true
     const count = isRepeatable ? this.repeatCounts.get(field.id) ?? 1 : 1
 
-    // Check if this field has a seeAlso reference to another scheme (multi-step flow trigger)
-    const targetSchemeId = resolveSeeAlsoTargetScheme(this.result!, field)
+    // Check if this field has a vervolgstap reference to another scheme (multi-step flow trigger)
+    const targetSchemeId = resolveVervolgstapTargetScheme(this.result!, field)
 
     // Render instances and filter out hidden ones (conditionPath/conditionValue)
     const visibleInstances: ReturnType<typeof html>[] = []
@@ -352,18 +391,24 @@ export class CodelijstOperationeelFields extends LitElement {
         }
       }
 
+      // URI tooltip on the legend (per instance, so repeated groups get unique ids).
+      const legendId = veiligeDomId(`${field.id}__legend${suffix}`)
+      const legendUri = this.uriVan(field)
+
       const body = isComposite
         ? groupPicker !== nothing && !hasEmbeddedSelection
           ? html`
               <vl-fieldset>
-                <span slot="legend" title=${tooltip ?? nothing}>${field.prefLabel ?? field.id}${isRepeatable ? ` ${index + 1}` : ''}</span>
+                <span slot="legend" id="${legendId}" title=${tooltip ?? nothing}>${field.prefLabel ?? field.id}${isRepeatable ? ` ${index + 1}` : ''}</span>
+                ${uriTooltip(legendId, legendUri)}
                 ${groupPicker}
                 <p class="vl-margin--small" style="font-size:0.875rem;color:var(--vl-color--text-alt,#687483);margin-top:0.5rem;margin-bottom:0;">${getFieldGateMessage(this.result!, field)}</p>
               </vl-fieldset>
             `
           : html`
               <vl-fieldset>
-                <span slot="legend" title=${tooltip ?? nothing}>${field.prefLabel ?? field.id}${isRepeatable ? ` ${index + 1}` : ''}</span>
+                <span slot="legend" id="${legendId}" title=${tooltip ?? nothing}>${field.prefLabel ?? field.id}${isRepeatable ? ` ${index + 1}` : ''}</span>
+                ${uriTooltip(legendId, legendUri)}
                 ${groupPicker}
                  ${applyUiOrdering(children).map(child => html`<div class="codelijst-group__child">${this.renderFieldControl(child, suffix, field.id)}</div>`)}
                 ${targetSchemeId && hasEmbeddedSelection ? html`<p class="seealso-hint">↑ Selecteer een item hierboven om verder te gaan met de gedetailleerde rapportering.</p>` : nothing}
@@ -371,7 +416,7 @@ export class CodelijstOperationeelFields extends LitElement {
             `
         : this.renderFieldControl(field, suffix)
 
-      // For non-composite fields with seeAlso, add navigation hint after selection
+      // For non-composite fields with vervolgstap, add navigation hint after selection
       const fieldWithHint = !isComposite && targetSchemeId
         ? html`
             ${body}
@@ -418,9 +463,11 @@ export class CodelijstOperationeelFields extends LitElement {
     // inside the grondstof group.
     const nestedChildren = this._service.getChildrenMerged(this.result, field)
     if (nestedChildren.length > 0 && !field.relevantDataType && !field.relevantCodeList) {
+      const nestedLegendId = veiligeDomId(`${field.id}__legend${idSuffix}`)
       return html`
         <vl-fieldset>
-          <span slot="legend">${plainLabel}${required ? ' *' : ''}</span>
+          <span slot="legend" id="${nestedLegendId}">${plainLabel}${required ? ' *' : ''}</span>
+          ${uriTooltip(nestedLegendId, this.uriVan(field))}
             ${applyUiOrdering(nestedChildren).map(child => html`<div class="codelijst-group__child">${this.renderFieldControl(child, idSuffix, field.id)}</div>`)}
         </vl-fieldset>
       `
@@ -438,7 +485,7 @@ export class CodelijstOperationeelFields extends LitElement {
 
       if (isMultiSelect) {
         // Multiselect: single <vl-select-rich multiple> combining all instances from all refs.
-        // This enables seeAlso flow navigation after selection.
+        // This enables vervolgstap flow navigation after selection.
         const domId = `${id}__multiselect`
         const selectedValues = (this._fieldValues.get(domId) as string[] | undefined) ?? []
         const allOptions = structuralRefs.flatMap(ref =>
@@ -449,7 +496,7 @@ export class CodelijstOperationeelFields extends LitElement {
           }))
         )
         pickerHtml = html`
-          <vl-form-label for="${domId}" label="Kies ${plainLabel}" block .annotation="${field.definition ?? ''}"></vl-form-label>
+          ${this.renderFormLabelWithUri(domId, `${domId}__label`, `Kies ${plainLabel}`, field.definition ?? '', this.uriVan(field))}
           <vl-select-rich id="${domId}" name="${domId}" label="Kies ${plainLabel}" placeholder="Selecteer..." ?required="${required}" .multiple=${true} .value="${selectedValues}" .options="${allOptions}" @vl-input="${this._onStructuralPickerInput}" @vl-change="${this._onStructuralPickerInput}"></vl-select-rich>
         `
       } else {
@@ -461,7 +508,7 @@ export class CodelijstOperationeelFields extends LitElement {
         const options = getMockInstances(ref.id, label).map(instance => ({ value: instance.id, label: instance.label, selected: instance.id === fieldValue }))
 
         pickerHtml = html`
-          <vl-form-label for="${domId}" label="Kies ${plainLabel}" block .annotation="${field.definition ?? ref.definition ?? ''}"></vl-form-label>
+          ${this.renderFormLabelWithUri(domId, `${domId}__label`, `Kies ${plainLabel}`, field.definition ?? ref.definition ?? '', this.uriVan(field))}
           <vl-select id="${domId}" name="${domId}" label="Kies ${plainLabel}" placeholder="Selecteer ${plainLabel.toLowerCase()}..." ?required="${required}" .value="${fieldValue}" .options="${options}" @vl-input="${this._onStructuralPickerInput}"></vl-select>
         `
       }
@@ -480,7 +527,7 @@ export class CodelijstOperationeelFields extends LitElement {
 
       if (options.length > 0) {
         const fieldValue = String(this._fieldValues.get(id) ?? '')
-        const formLabel = html`<vl-form-label for="${id}" label="${displayLabel}" block .annotation="${field.definition ?? ''}"></vl-form-label>`
+        const formLabel = this.renderFormLabelWithUri(id, `${id}__label`, displayLabel, field.definition ?? '', this.uriVan(field))
         const control = html`<vl-select id="${id}" name="${id}" label="${displayLabel}" placeholder="Selecteer..." ?required="${required}" .value="${fieldValue}" .options="${options}" @vl-input="${this._onControlInput}"></vl-select>`
         return html`${formLabel}${control}`
       }
@@ -491,7 +538,7 @@ export class CodelijstOperationeelFields extends LitElement {
       const toelichting = alleenTodo
         ? 'Deze keuzelijst is nog niet gepubliceerd (TODO in de bron); vrije tekst.'
         : `Deze keuzelijst wordt extern gepubliceerd (${refs.join(', ')}); vrije tekst.`
-      const formLabel = html`<vl-form-label for="${id}" label="${displayLabel}" block .annotation="${[field.definition, toelichting].filter(Boolean).join(' — ')}"></vl-form-label>`
+      const formLabel = this.renderFormLabelWithUri(id, `${id}__label`, displayLabel, [field.definition, toelichting].filter(Boolean).join(' — '), this.uriVan(field))
       const control = createControl(id, id, plainLabel, required, field.relevantDataType, this._onControlInput)
       return html`${formLabel}${control}<vl-text annotation small>${toelichting}</vl-text>`
     }
@@ -543,7 +590,7 @@ export class CodelijstOperationeelFields extends LitElement {
 
       if (options.length > 0) {
         const displayLabel = plainLabel + (required ? ' *' : '')
-        const formLabel = html`<vl-form-label for="${id}" label="${displayLabel}" block .annotation="${field.definition ?? ''}"></vl-form-label>`
+        const formLabel = this.renderFormLabelWithUri(id, `${id}__label`, displayLabel, field.definition ?? '', this.uriVan(field))
         const control = html`<vl-select id="${id}" name="${id}" label="${displayLabel}" placeholder="Selecteer eenheid..." ?required="${required}" .value="${fieldValue}" .options="${options}" @vl-input="${this._onControlInput}"></vl-select>`
         return html`${formLabel}${control}`
       }
@@ -552,7 +599,7 @@ export class CodelijstOperationeelFields extends LitElement {
     // Boolean checkbox — explicit <vl-form-label> alongside control for consistent rendering
     if (field.relevantDataType === DataType.BOOLEAN) {
       const displayLabel = plainLabel + (required ? ' *' : '')
-      const formLabel = html`<vl-form-label for="${id}" label="${displayLabel}" block .annotation="${field.definition ?? ''}"></vl-form-label>`
+      const formLabel = this.renderFormLabelWithUri(id, `${id}__label`, displayLabel, field.definition ?? '', this.uriVan(field))
       return html`${formLabel}<vl-checkbox id="${id}" name="${id}" ?required="${required}" @vl-change="${this._onCheckboxChange}"></vl-checkbox>`
     }
 
@@ -566,7 +613,7 @@ export class CodelijstOperationeelFields extends LitElement {
     const annotation = [field.definition, variabeleText].filter(Boolean).join(' — ')
 
     // build a <vl-form-label> with the asterisk baked into the label text
-    const formLabel = html`<vl-form-label for="${id}" label="${displayLabel}" block .annotation="${annotation}"></vl-form-label>`
+    const formLabel = this.renderFormLabelWithUri(id, `${id}__label`, displayLabel, annotation, this.uriVan(field))
     return this.renderWithUnit(formLabel, control, singleUnitConcept, resolvedUnitId)
   }
 
@@ -644,8 +691,8 @@ export class CodelijstOperationeelFields extends LitElement {
     }
 
   /**
-   * Handles vl-input events specifically from structural type pickers that may have seeAlso targets.
-   * After storing the value, checks if the parent field has seeAlso pointing to another scheme
+   * Handles vl-input events specifically from structural type pickers that may have vervolgstap targets.
+   * After storing the value, checks if the parent field has vervolgstap pointing to another scheme
    * and emits flow-navigate event if so.
    *
    * Supports both single-select (<vl-select>) and multi-select (<vl-select-rich multiple>) values:
@@ -655,8 +702,8 @@ export class CodelijstOperationeelFields extends LitElement {
    private _structuralHandlerRunning = false
 
    /**
-    * Handles vl-input events specifically from structural type pickers that may have seeAlso targets.
-    * After storing the value, checks if the parent field has seeAlso pointing to another scheme
+    * Handles vl-input events specifically from structural type pickers that may have vervolgstap targets.
+    * After storing the value, checks if the parent field has vervolgstap pointing to another scheme
     * and emits flow-navigate event if so.
     *
     * Supports both single-select (<vl-select>) and multi-select (<vl-select-rich multiple>) values:
@@ -703,18 +750,18 @@ export class CodelijstOperationeelFields extends LitElement {
          }
        }
 
-       // Check if any root-level concept with seeAlso was satisfied by this picker.
+       // Check if any root-level concept with vervolgstap was satisfied by this picker.
        // The picker's DOM id may contain the concept id it represents; we look up the
        // parent field from renderRootFieldContent context via embedded picker tracking.
-       this.checkSeeAlsoForPickerDomId(domId, value)
+       this.checkVervolgstapForPickerDomId(domId, value)
      } finally {
       this.requestUpdate()
       this._structuralHandlerRunning = false
     }
   }
 
-  /** When a structural picker gets a value, check if its owning field has seeAlso → flow-navigate. */
-  private checkSeeAlsoForPickerDomId(domId: string, value: unknown): void {
+  /** When a structural picker gets a value, check if its owning field has vervolgstap → flow-navigate. */
+  private checkVervolgstapForPickerDomId(domId: string, value: unknown): void {
     if (!this.result) return
     // Handle both string and array values (from <vl-select-rich multiple>)
     const hasValue = Array.isArray(value)
@@ -725,7 +772,7 @@ export class CodelijstOperationeelFields extends LitElement {
     // Try exact match first
     const directConcept = this.result.concepts.get(domId)
     if (directConcept) {
-      const targetSchemeId = resolveSeeAlsoTargetScheme(this.result!, directConcept)
+      const targetSchemeId = resolveVervolgstapTargetScheme(this.result!, directConcept)
       if (targetSchemeId) {
         this.dispatchEvent(
           new CustomEvent('flow-navigate', {
@@ -741,7 +788,7 @@ export class CodelijstOperationeelFields extends LitElement {
     // For compound IDs (parent__child), find any concept whose ID is contained in domId
     for (const [conceptId, concept] of this.result.concepts.entries()) {
       if (domId.includes(conceptId)) {
-        const targetSchemeId = resolveSeeAlsoTargetScheme(this.result!, concept)
+        const targetSchemeId = resolveVervolgstapTargetScheme(this.result!, concept)
         if (targetSchemeId) {
           this.dispatchEvent(
             new CustomEvent('flow-navigate', {

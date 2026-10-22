@@ -1,12 +1,12 @@
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
-import { CodelistService, type CodelistResult, type JsonLdNode } from './codelist-service.js'
+import { CodelistService, type CodelistResult } from './codelist-service.js'
 import type { Concept, Scheme } from '../models/index.js'
 import { resolveUnitLabel } from './unit-labels.js'
 
 const FIXTURE_PATH = path.resolve(
   __dirname,
-  '../../public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld',
+  '../../public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.ttl',
 )
 
 let cachedResult: CodelistResult | null = null
@@ -15,7 +15,7 @@ let cachedResult: CodelistResult | null = null
  * Test helper: expose the protected parseData on CodelistService without `any` casts.
  */
 interface AccessibleCodelistService {
-  parseData(data: Record<string, unknown>, normalizeBooleans: boolean): CodelistResult
+  parseData(turtle: string, normalizeBooleans: boolean): CodelistResult
 }
 
 const access = (service: CodelistService): CodelistService & AccessibleCodelistService =>
@@ -23,21 +23,19 @@ const access = (service: CodelistService): CodelistService & AccessibleCodelistS
 
 
 /**
- * Load and parse the real rie-iepr.jsonld fixture, caching the result for subsequent calls.
+ * Load and parse the real rie-iepr.ttl fixture, caching the result for subsequent calls.
  * @returns The parsed codelist result object.
  */
 function loadFixture(): CodelistResult {
   if (cachedResult) return cachedResult
-  const raw = readFileSync(FIXTURE_PATH, 'utf-8')
-  const data = JSON.parse(raw) as Record<string, unknown>
   const service = new CodelistService()
-   cachedResult = access(service).parseData(data, true) as CodelistResult
+  cachedResult = access(service).parseData(readFileSync(FIXTURE_PATH, 'utf-8'), true)
   return cachedResult
 }
 
 describe('CodelistService — fixture parsing', () => {
   describe('loading/parsing the codelist', () => {
-    it('parses the real rie-iepr.jsonld without throwing', () => {
+    it('parses the real rie-iepr.ttl without throwing', () => {
       const result = loadFixture()
       expect(result).toBeDefined()
       expect(result.nodesById.size).toBeGreaterThan(0)
@@ -45,9 +43,8 @@ describe('CodelistService — fixture parsing', () => {
       expect(result.concepts.size).toBeGreaterThan(0)
     })
 
-    it('indexes every graph node by id including deeply nested ones', () => {
+    it('indexes every subject by id', () => {
       const result = loadFixture()
-      // schema.org type definitions in @context are nodes too
       expect(result.nodesById.size).toBeGreaterThanOrEqual(result.concepts.size + result.schemes.size)
     })
   })
@@ -83,7 +80,7 @@ describe('CodelistService — fixture parsing', () => {
       const result = loadFixture()
       const topConcepts = CodelistServiceMock.getTopConceptsForScheme(result, 'conceptscheme:operationeel_lucht')
       // In the updated codelist format, operationeel_lucht has feature_ep as its sole top concept.
-      // feature_bron was moved to operationeel_lucht_bron scheme (accessed via seeAlso navigation).
+      // feature_bron was moved to operationeel_lucht_bron scheme (accessed via vervolgstap navigation).
       expect(topConcepts.length).toBeGreaterThanOrEqual(1)
       // Verify feature_ep is present
       const featureEp = topConcepts.find(c => c.id.includes('feature_ep'))
@@ -148,10 +145,10 @@ describe('CodelistService — fixture parsing', () => {
      */
     it('handles grondwater composite hierarchy inside operationeel_grondwater scheme', () => {
       const result = loadFixture()
-      // Grondwater theme now uses seeAlso for navigation
+      // Grondwater theme now uses vervolgstap for navigation
       const grondwaterThema = result.concepts.get('thema:grondwater')
       expect(grondwaterThema).toBeDefined()
-      expect(grondwaterThema!.seeAlso).toContain('conceptscheme:operationeel_grondwater')
+      expect(grondwaterThema!.vervolgstap).toContain('conceptscheme:operationeel_grondwater')
 
       // The composite measurement types are inside the operationeel_grondwater scheme
       const peilmeting = result.concepts.get('grondwater:peilmeting')
@@ -187,19 +184,19 @@ describe('CodelistService — fixture parsing', () => {
     })
 
     /**
-     * In the updated codelist format, thema concepts use seeAlso instead of
-     * relevantRiepr for scheme navigation. This test verifies that getSeeAlsoRefs
+     * In the updated codelist format, thema concepts use vervolgstap instead of
+     * relevantRiepr for scheme navigation. This test verifies that getVervolgstapRefs
      * correctly resolves the link from a thema to its operationeel scheme.
      */
-    it('getSeeAlsoRefs resolves theme → operationeel scheme navigation', () => {
+    it('getVervolgstapRefs resolves theme → operationeel scheme navigation', () => {
       const result = loadFixture()
-      // zelfcontrole-water's seeAlso points at operationeel_zelfcontrole_water scheme
+      // zelfcontrole-water's vervolgstap points at operationeel_zelfcontrole_water scheme
       const concept = result.concepts.get('thema:zelfcontrole-water')
       expect(concept).toBeDefined()
-      expect(concept!.seeAlso).toBeDefined()
-      expect(concept!.seeAlso!).toContain('conceptscheme:operationeel_zelfcontrole_water')
+      expect(concept!.vervolgstap).toBeDefined()
+      expect(concept!.vervolgstap!).toContain('conceptscheme:operationeel_zelfcontrole_water')
 
-      const refs = CodelistServiceMock.getSeeAlsoRefs(result, concept!)
+      const refs = CodelistServiceMock.getVervolgstapRefs(result, concept!)
       expect(refs.length).toBeGreaterThan(0)
       // The target should be a conceptscheme
       const targetScheme = refs.find(r => r.type?.includes('skos:ConceptScheme'))
@@ -208,19 +205,15 @@ describe('CodelistService — fixture parsing', () => {
     })
 
     /**
-     * External seeAlso references (e.g., ADMS status URIs) are silently dropped
-     * since they don't resolve to local schemes or concepts in this document.
+     * Only flow links are vervolgstap (qb:codeList). Status type concepts keep
+     * their rdfs:seeAlso to ADMS status URIs, which is not a flow step.
      */
-    it('getSeeAlsoRefs drops external URI references (ADMS status links)', () => {
+    it('getVervolgstapRefs returns [] for concepts without a vervolgstap (ADMS status links)', () => {
       const result = loadFixture()
-      // Status type concepts have seeAlso pointing at external ADMS URIs
       const concept = result.concepts.get('status-type:in_dienst')
       expect(concept).toBeDefined()
-      expect(concept!.seeAlso).toBeDefined()
-
-      const refs = CodelistServiceMock.getSeeAlsoRefs(result, concept!)
-      // External URIs like http://purl.org/adms/status/Completed won't resolve locally
-      expect(refs).toEqual([])
+      expect(concept!.vervolgstap ?? []).toEqual([])
+      expect(CodelistServiceMock.getVervolgstapRefs(result, concept!)).toEqual([])
     })
 
     it('getCodeListSchemes returns [] when all relevantCodeList refs are unresolvable', () => {
@@ -234,24 +227,24 @@ describe('CodelistService — fixture parsing', () => {
 
   describe('resolveOperationeelSchemeId()', () => {
     /**
-     * The new codelist format uses seeAlso for theme→scheme navigation.
+     * The new codelist format uses vervolgstap for theme→scheme navigation.
      * This helper method should resolve the operationeel scheme from a thema concept.
      */
-    it('resolves operationeel scheme via seeAlso (new format)', () => {
+    it('resolves operationeel scheme via vervolgstap (new format)', () => {
       const result = loadFixture()
       const luchtThema = result.concepts.get('thema:lucht')!
       const schemeId = svc.resolveOperationeelSchemeId(result, luchtThema)
       expect(schemeId).toBe('conceptscheme:operationeel_lucht')
     })
 
-    it('resolves operationeel scheme via seeAlso for grondstoffen', () => {
+    it('resolves operationeel scheme via vervolgstap for grondstoffen', () => {
       const result = loadFixture()
       const grondstoffenThema = result.concepts.get('thema:grondstoffen')!
       const schemeId = svc.resolveOperationeelSchemeId(result, grondstoffenThema)
       expect(schemeId).toBe('conceptscheme:operationeel_grondstoffen')
     })
 
-    it('returns undefined when no seeAlso or relevantRiepr points to a scheme', () => {
+    it('returns undefined when no vervolgstap or relevantRiepr points to a scheme', () => {
       const result = loadFixture()
       // A leaf concept without schema references
       const leafConcept = result.concepts.get('lucht:afvalproduct_aard')!
@@ -274,10 +267,8 @@ describe('CodelistService — fixture parsing', () => {
 
   describe('boolean normalization', () => {
     it('normalizes string "true"/"false" to booleans when normalizeBooleans is true (default)', () => {
-      const raw = readFileSync(FIXTURE_PATH, 'utf-8')
-      const data = JSON.parse(raw) as Record<string, unknown>
       const service = new CodelistService()
-      const result = access(service).parseData(data, true)
+      const result = access(service).parseData(readFileSync(FIXTURE_PATH, 'utf-8'), true)
 
       // Find any concept with boolean fields set in the fixture
       let foundBooleanField = false
@@ -293,15 +284,15 @@ describe('CodelistService — fixture parsing', () => {
   })
 
   /**
-   * New properties from updated codelist format: seeAlso, isMultiselect, relevantClass.
+   * New properties from updated codelist format: vervolgstap, isMultiselect, relevantClass.
    */
   describe('new codelist properties', () => {
-    it('parses seeAlso on a concept that chains to a sub-scheme', () => {
+    it('parses vervolgstap on a concept that chains to a sub-scheme', () => {
       const result = loadFixture()
-      // feature_bron has seeAlso → operationeel_lucht_rapportering
+      // feature_bron has vervolgstap → operationeel_lucht_rapportering
       const concept = result.concepts.get('lucht:feature_bron')
       expect(concept).toBeDefined()
-      expect(concept!.seeAlso).toContain('conceptscheme:operationeel_lucht_rapportering')
+      expect(concept!.vervolgstap).toContain('conceptscheme:operationeel_lucht_rapportering')
     })
 
     it('parses isMultiselect as boolean when normalizeBooleans is true', () => {
@@ -384,300 +375,218 @@ describe('CSOR collections and variabele', () => {
   })
 })
 
+/** Prefixes for the synthetic Turtle documents below; `ex:` holds the test concepts. */
+const TEST_PREFIXES = `
+@prefix ex: <https://example.org/> .
+@prefix riepr-type: <https://example.org/riepr-type/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix thes: <http://purl.org/iso25964/skos-thes#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix v: <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#> .
+`
+
+/**
+ * Parse a synthetic Turtle body (prefixes added) through the service.
+ * @param body - Turtle statements using the TEST_PREFIXES.
+ * @returns The parsed codelist.
+ */
+function parse(body: string): CodelistResult {
+  return access(new CodelistService()).parseData(TEST_PREFIXES + body, true)
+}
+
+describe('IRI-based parsing', () => {
+  it('reads properties by IRI, whatever prefix the document uses for them', () => {
+    const result = parse(`
+      @prefix other: <http://www.w3.org/2004/02/skos/core#> .
+      @prefix cube: <http://purl.org/linked-data/cube#> .
+      ex:a a other:Concept ; other:prefLabel "A"@nl ; cube:codeList ex:stap .
+    `)
+    const a = result.concepts.get('ex:a')!
+    expect(a.prefLabel).toBe('A')
+    expect(a.type).toEqual(['skos:Concept'])
+    expect(a.vervolgstap).toEqual(['ex:stap'])
+  })
+
+  it('compacts the POC namespaces with its own prefixes, not the document\'s', () => {
+    const result = parse(`
+      @prefix cs: <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/> .
+      cs:thema_type a skos:ConceptScheme .
+    `)
+    expect(result.schemes.has('conceptscheme:thema_type')).toBe(true)
+    expect(result.prefixes.conceptscheme).toBe('https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/')
+    expect(result.prefixes.cs).toBeUndefined()
+  })
+
+  it('prefers the Dutch label', () => {
+    const result = parse('ex:a a skos:Concept ; skos:prefLabel "A"@en, "B"@nl .')
+    expect(result.concepts.get('ex:a')!.prefLabel).toBe('B')
+  })
+})
+
 describe('conditionPath / conditionValue parsing', () => {
-    function makeNode(id: string, props: Record<string, unknown>): JsonLdNode {
-      return { id, '@type': ['skos:Concept'], ...props }
-    }
-
-    function parse(nodes: JsonLdNode[]): CodelistResult {
-      const service = new CodelistService()
-      return access(service).parseData({ graph: nodes }, true)
-    }
-
-    it('parses standard camelCase keys (conditionPath, conditionValue)', () => {
-      const result = parse([makeNode('field-a', {}), makeNode('field-b', {
-        conditionPath: 'field-a',
-        conditionValue: 'some-value',
-      })])
-      const fieldB = result.concepts.get('field-b')!
-      expect(fieldB.conditionPath).toBe('field-a')
-      expect(fieldB.conditionValue).toBe('some-value')
-    })
-
-    it('parses snake_case key variants (condition_path, condition_value)', () => {
-      const result = parse([makeNode('trigger-field', {}), makeNode('dependent-field', {
-        condition_path: 'trigger-field',
-        condition_value: 'triggered',
-      })])
-      const dep = result.concepts.get('dependent-field')!
-      expect(dep.conditionPath).toBe('trigger-field')
-      expect(dep.conditionValue).toBe('triggered')
-    })
-
-    it('extracts id from inline {@id: ...} object for conditionPath', () => {
-      const result = parse([makeNode('ref-concept', {}), makeNode('dependent', {
-        conditionPath: { '@id': 'ref-concept' },
-        conditionValue: 'match',
-      })])
-      const dep = result.concepts.get('dependent')!
-      expect(dep.conditionPath).toBe('ref-concept')
-      expect(dep.conditionValue).toBe('match')
-    })
-
-    it('leaves both properties undefined when neither is present on a concept', () => {
-      const result = parse([makeNode('plain-field', { prefLabel: 'Plain' })])
-      const plain = result.concepts.get('plain-field')!
-      expect(plain.conditionPath).toBeUndefined()
-      expect(plain.conditionValue).toBeUndefined()
-    })
-
-    it('parses conditionValue as a plain string literal regardless of content', () => {
-      const result = parse([makeNode('a', {}), makeNode('b', {
-        conditionPath: 'a',
-        conditionValue: '123',
-      }), makeNode('c', {
-        conditionPath: 'a',
-        conditionValue: '',
-      })])
-      const b = result.concepts.get('b')!
-      const c = result.concepts.get('c')!
-      expect(b.conditionValue).toBe('123')
-      expect(c.conditionValue).toBe('')
-    })
+  it('parses sh:path and sh:hasValue', () => {
+    const result = parse(`
+      ex:field-a a skos:Concept .
+      ex:field-b a skos:Concept ; sh:path ex:field-a ; sh:hasValue ex:some-value .
+    `)
+    const fieldB = result.concepts.get('ex:field-b')!
+    expect(fieldB.conditionPath).toBe('ex:field-a')
+    expect(fieldB.conditionValue).toBe('some-value')
   })
 
-  describe('related / conditionValues array parsing', () => {
-    function makeNode(id: string, props: Record<string, unknown>): JsonLdNode {
-      return { id, '@type': ['skos:Concept'], ...props }
-    }
-
-    function parse(nodes: JsonLdNode[]): CodelistResult {
-      const service = new CodelistService()
-      return access(service).parseData({ graph: nodes }, true)
-    }
-
-    it('parses related as string[] from inline {@id} nodes', () => {
-      const result = parse([makeNode('a', {}), makeNode('b', {
-        related: [{ '@id': 'a' }],
-      })])
-      const b = result.concepts.get('b')!
-      expect(b.related).toEqual(['a'])
-    })
-
-    it('parses related from plain string IDs', () => {
-      const result = parse([makeNode('x', {}), makeNode('y', {
-        related: ['x'],
-      })])
-      const y = result.concepts.get('y')!
-      expect(y.related).toEqual(['x'])
-    })
-
-    it('leaves related undefined when not present', () => {
-      const result = parse([makeNode('plain', {})])
-      expect(result.concepts.get('plain')!.related).toBeUndefined()
-    })
-
-    it('parses multiple conditionValues into an array', () => {
-      const result = parse([makeNode('trigger', {}), makeNode('dependent', {
-        conditionPath: 'trigger',
-        conditionValue: [
-          { '@id': 'riepr-type:belgisch' },
-          { '@id': 'riepr-type:buitenlands' },
-        ],
-      })])
-      const dep = result.concepts.get('dependent')!
-      expect(dep.conditionValues).toEqual(['belgisch', 'buitenlands'])
-      // Single value path still works for backward compat
-      expect(dep.conditionValue).toBe('belgisch')
-    })
-
-    it('conditionValues contains one element when only a single conditionValue exists', () => {
-      const result = parse([makeNode('trigger', {}), makeNode('dependent', {
-        conditionPath: 'trigger',
-        conditionValue: 'single-value',
-      })])
-      const dep = result.concepts.get('dependent')!
-      expect(dep.conditionValues).toEqual(['single-value'])
-      // Single value path still works for backward compat
-      expect(dep.conditionValue).toBe('single-value')
-    })
+  it('accepts a literal conditionValue', () => {
+    const result = parse(`
+      ex:trigger a skos:Concept .
+      ex:dependent a skos:Concept ; sh:path ex:trigger ; sh:hasValue "triggered" .
+    `)
+    expect(result.concepts.get('ex:dependent')!.conditionValue).toBe('triggered')
   })
 
-  describe('getChildrenMerged()', () => {
-    it('returns empty array when concept has no children', () => {
-      const result = access(svc).parseData({ graph: [{ id: 'leaf', '@type': ['skos:Concept'] }] }, true)
-      const leafConcept = result.concepts.get('leaf')!
-      expect(svc.getChildrenMerged(result, leafConcept)).toEqual([])
-    })
-
-    it('returns original children when no member has related refs (no merge needed)', () => {
-      const parentData: JsonLdNode = {
-        id: 'parent',
-        '@type': ['skos:Concept'],
-        prefLabel: 'Parent',
-        hasPart: [
-          { id: 'child-a' },
-          { id: 'child-b' },
-        ],
-      }
-      const childA: JsonLdNode = {
-        id: 'child-a',
-        '@type': ['skos:Concept'],
-        broaderPartitive: 'parent',
-        prefLabel: 'A',
-      }
-      const childB: JsonLdNode = {
-        id: 'child-b',
-        '@type': ['skos:Concept'],
-        broaderPartitive: 'parent',
-        prefLabel: 'B',
-      }
-      const result = access(svc).parseData({ graph: [parentData, childA, childB] }, true)
-      const parentConcept = result.concepts.get('parent')!
-      expect(parentConcept.hasPart).toBeDefined()
-      expect(parentConcept.hasPart!.length).toBe(2)
-      const merged = svc.getChildrenMerged(result, parentConcept)
-      expect(merged.length).toBe(2)
-    })
-
-    it('merges two related children into one synthetic group with deduped children', () => {
-      const sharedConditionPath = 'trigger-field'
-
-      function makeChild(id: string, label: string, verplicht: boolean, relation?: string): JsonLdNode {
-        return {
-          id,
-          '@type': ['skos:Concept'],
-          broaderPartitive: 'parent',
-          inScheme: 'scheme:test',
-          prefLabel: label,
-          relation: relation ?? '',
-          isVerplicht: String(verplicht),
-          relevantDataType: 'xsd:string',
-        } as unknown as JsonLdNode
-      }
-
-      const parentData: JsonLdNode = {
-        id: 'parent',
-        '@type': ['skos:Concept'],
-        hasPart: [{ id: 'variant-a' }, { id: 'variant-b' }],
-      }
-
-      const variantAChildren = [
-        makeChild('variant-a-child-naam', 'Naam', false, 'rdfs:label'),
-        makeChild('variant-a-child-on', 'Ondernemingsnummer', true, 'rdfs:label'),
-      ]
-
-      const variantBChildren = [
-        makeChild('variant-b-child-naam', 'Naam', false, 'rdfs:label'),
-        makeChild('variant-b-child-btw', 'BTW-nummer', true, 'rdfs:label'),
-      ]
-
-      const variantA: JsonLdNode = {
-        id: 'variant-a',
-        '@type': ['skos:Concept'],
-        broaderPartitive: 'parent',
-        inScheme: 'scheme:test',
-        prefLabel: 'Variant A (Belgisch)',
-        related: ['variant-b'],
-        hasPart: [...variantAChildren],
-        conditionPath: sharedConditionPath,
-        conditionValue: [{ '@id': 'riepr-type:belgisch' }],
-      } as unknown as JsonLdNode
-
-      const variantB: JsonLdNode = {
-        id: 'variant-b',
-        '@type': ['skos:Concept'],
-        broaderPartitive: 'parent',
-        inScheme: 'scheme:test',
-        prefLabel: 'Variant B (Buitenlands)',
-        related: ['variant-a'],
-        hasPart: [...variantBChildren],
-        conditionPath: sharedConditionPath,
-        conditionValue: [{ '@id': 'riepr-type:buitenlands' }],
-      } as unknown as JsonLdNode
-
-      const result = access(svc).parseData(
-        { graph: [parentData, variantA, variantB, ...variantAChildren, ...variantBChildren] },
-        true,
-      )
-      const merged = svc.getChildrenMerged(result, result.concepts.get('parent')!)
-
-      // One synthetic group replacing the two variants.
-      expect(merged).toHaveLength(1)
-      expect(merged[0].prefLabel).toBe('Variant A (Belgisch)')
-      expect(merged[0].id).toBe('variant')
-
-      // Children deduped: naam (shared), on (belgisch), btw (buitenlands).
-      const mergedChildren = merged[0].hasPart!.map(id => result.concepts.get(id)!.id)
-      expect(mergedChildren).toHaveLength(3)
-
-      const naam = result.concepts.get(merged[0].hasPart![0])!
-      expect(naam.conditionValues).toEqual(['belgisch', 'buitenlands'])
-      // Shared child required only when required in ALL appearances → naam is optional.
-      expect(naam.isVerplicht).toBe(false)
-
-      const on = result.concepts.get(merged[0].hasPart![1])!
-      expect(on.conditionValues).toEqual(['belgisch'])
-      expect(on.isVerplicht).toBe(true)
-    })
-
-    it('deduplicates children by relation::prefLabel across variants', () => {
-      function makeChild(id: string, label: string, verplicht: boolean): JsonLdNode {
-        return {
-          id,
-          '@type': ['skos:Concept'],
-          broaderPartitive: 'parent',
-          inScheme: 'scheme:test',
-          prefLabel: label,
-          relation: '',
-          isVerplicht: String(verplicht),
-          relevantDataType: 'xsd:string',
-        } as unknown as JsonLdNode
-      }
-
-      const parentData: JsonLdNode = {
-        id: 'parent',
-        '@type': ['skos:Concept'],
-        hasPart: [{ id: 'v-a' }, { id: 'v-b' }],
-      }
-
-      const vAChildren = [
-        makeChild('v-a-c1', 'Naam', false),
-        makeChild('v-a-c2', 'Nummer', true),
-      ]
-
-      const vBChildren = [
-        makeChild('v-b-c3', 'Naam', true),
-        makeChild('v-b-c4', 'Adres', true),
-      ]
-
-      const va: JsonLdNode = {
-        id: 'v-a', '@type': ['skos:Concept'], broaderPartitive: 'parent', inScheme: 'scheme:test',
-        prefLabel: 'Variant A', related: ['v-b'],
-        hasPart: [...vAChildren], conditionValue: [{ '@id': 'riepr-type:a' }],
-      } as unknown as JsonLdNode
-
-      const vb: JsonLdNode = {
-        id: 'v-b', '@type': ['skos:Concept'], broaderPartitive: 'parent', inScheme: 'scheme:test',
-        prefLabel: 'Variant B', related: ['v-a'],
-        hasPart: [...vBChildren], conditionValue: [{ '@id': 'riepr-type:b' }],
-      } as unknown as JsonLdNode
-
-      const result = access(svc).parseData(
-        { graph: [parentData, va, vb, ...vAChildren, ...vBChildren] },
-        true,
-      )
-      const merged = svc.getChildrenMerged(result, result.concepts.get('parent')!)
-
-      expect(merged).toHaveLength(1)
-
-      // Naam appears in BOTH variants (required in v-b only) → not required per the all-appearances rule.
-      const children = merged[0].hasPart!.map(id => result.concepts.get(id)!)
-      const naam = children.find(c => c.prefLabel === 'Naam')!
-      expect(naam.conditionValues).toEqual(['a', 'b'])
-      expect(naam.isVerplicht).toBe(false)
-    })
+  it('leaves both properties undefined when neither is present on a concept', () => {
+    const result = parse('ex:plain-field a skos:Concept ; skos:prefLabel "Plain" .')
+    const plain = result.concepts.get('ex:plain-field')!
+    expect(plain.conditionPath).toBeUndefined()
+    expect(plain.conditionValue).toBeUndefined()
   })
+
+  it('parses conditionValue as a plain string literal regardless of content', () => {
+    const result = parse(`
+      ex:a a skos:Concept .
+      ex:b a skos:Concept ; sh:path ex:a ; sh:hasValue "123" .
+      ex:c a skos:Concept ; sh:path ex:a ; sh:hasValue "" .
+    `)
+    expect(result.concepts.get('ex:b')!.conditionValue).toBe('123')
+    expect(result.concepts.get('ex:c')!.conditionValue).toBe('')
+  })
+})
+
+describe('related / conditionValues array parsing', () => {
+  it('parses related as string[]', () => {
+    const result = parse('ex:a a skos:Concept . ex:b a skos:Concept ; skos:related ex:a .')
+    expect(result.concepts.get('ex:b')!.related).toEqual(['ex:a'])
+  })
+
+  it('leaves related undefined when not present', () => {
+    const result = parse('ex:plain a skos:Concept .')
+    expect(result.concepts.get('ex:plain')!.related).toBeUndefined()
+  })
+
+  it('parses multiple conditionValues into an array', () => {
+    const result = parse(`
+      ex:trigger a skos:Concept .
+      ex:dependent a skos:Concept ; sh:path ex:trigger ; sh:hasValue riepr-type:belgisch, riepr-type:buitenlands .
+    `)
+    const dep = result.concepts.get('ex:dependent')!
+    expect(dep.conditionValues).toEqual(['belgisch', 'buitenlands'])
+    // Single value path still works for backward compat
+    expect(dep.conditionValue).toBe('belgisch')
+  })
+
+  it('conditionValues contains one element when only a single conditionValue exists', () => {
+    const result = parse(`
+      ex:trigger a skos:Concept .
+      ex:dependent a skos:Concept ; sh:path ex:trigger ; sh:hasValue "single-value" .
+    `)
+    const dep = result.concepts.get('ex:dependent')!
+    expect(dep.conditionValues).toEqual(['single-value'])
+    expect(dep.conditionValue).toBe('single-value')
+  })
+})
+
+describe('getChildrenMerged()', () => {
+  /**
+   * A composite child in Turtle.
+   * @param id - Local name of the child.
+   * @param label - Its prefLabel.
+   * @param verplicht - Its isVerplicht flag.
+   * @returns The Turtle statements.
+   */
+  function child(id: string, label: string, verplicht: boolean): string {
+    return `ex:${id} a skos:Concept ; thes:broaderPartitive ex:parent ; skos:inScheme ex:test ;
+      skos:prefLabel "${label}"@nl ; dcterms:relation rdfs:label ;
+      v:isVerplicht ${verplicht} ; v:relevantDataType xsd:string .`
+  }
+
+  it('returns empty array when concept has no children', () => {
+    const result = parse('ex:leaf a skos:Concept .')
+    expect(svc.getChildrenMerged(result, result.concepts.get('ex:leaf')!)).toEqual([])
+  })
+
+  it('returns original children when no member has related refs (no merge needed)', () => {
+    const result = parse(`
+      ex:parent a skos:Concept ; skos:prefLabel "Parent"@nl ; dcterms:hasPart ex:child-a, ex:child-b .
+      ex:child-a a skos:Concept ; thes:broaderPartitive ex:parent ; skos:prefLabel "A"@nl .
+      ex:child-b a skos:Concept ; thes:broaderPartitive ex:parent ; skos:prefLabel "B"@nl .
+    `)
+    const parentConcept = result.concepts.get('ex:parent')!
+    expect(parentConcept.hasPart).toHaveLength(2)
+    expect(svc.getChildrenMerged(result, parentConcept)).toHaveLength(2)
+  })
+
+  it('merges two related children into one synthetic group with deduped children', () => {
+    const result = parse(`
+      ex:parent a skos:Concept ; dcterms:hasPart ex:variant-a, ex:variant-b .
+      ex:variant-a a skos:Concept ; thes:broaderPartitive ex:parent ; skos:inScheme ex:test ;
+        skos:prefLabel "Variant A (Belgisch)"@nl ; skos:related ex:variant-b ;
+        dcterms:hasPart ex:variant-a-child-naam, ex:variant-a-child-on ;
+        sh:path ex:trigger-field ; sh:hasValue riepr-type:belgisch .
+      ex:variant-b a skos:Concept ; thes:broaderPartitive ex:parent ; skos:inScheme ex:test ;
+        skos:prefLabel "Variant B (Buitenlands)"@nl ; skos:related ex:variant-a ;
+        dcterms:hasPart ex:variant-b-child-naam, ex:variant-b-child-btw ;
+        sh:path ex:trigger-field ; sh:hasValue riepr-type:buitenlands .
+      ${child('variant-a-child-naam', 'Naam', false)}
+      ${child('variant-a-child-on', 'Ondernemingsnummer', true)}
+      ${child('variant-b-child-naam', 'Naam', false)}
+      ${child('variant-b-child-btw', 'BTW-nummer', true)}
+    `)
+    const merged = svc.getChildrenMerged(result, result.concepts.get('ex:parent')!)
+
+    // One synthetic group replacing the two variants.
+    expect(merged).toHaveLength(1)
+    expect(merged[0].prefLabel).toBe('Variant A (Belgisch)')
+    expect(merged[0].id).toBe('ex:variant')
+
+    // Children deduped: naam (shared), on (belgisch), btw (buitenlands).
+    expect(merged[0].hasPart).toHaveLength(3)
+
+    const naam = result.concepts.get(merged[0].hasPart![0])!
+    expect(naam.conditionValues).toEqual(['belgisch', 'buitenlands'])
+    // Shared child required only when required in ALL appearances → naam is optional.
+    expect(naam.isVerplicht).toBe(false)
+
+    const on = result.concepts.get(merged[0].hasPart![1])!
+    expect(on.conditionValues).toEqual(['belgisch'])
+    expect(on.isVerplicht).toBe(true)
+  })
+
+  it('deduplicates children by relation::prefLabel across variants', () => {
+    const result = parse(`
+      ex:parent a skos:Concept ; dcterms:hasPart ex:v-a, ex:v-b .
+      ex:v-a a skos:Concept ; thes:broaderPartitive ex:parent ; skos:inScheme ex:test ;
+        skos:prefLabel "Variant A"@nl ; skos:related ex:v-b ;
+        dcterms:hasPart ex:v-a-c1, ex:v-a-c2 ; sh:hasValue riepr-type:a .
+      ex:v-b a skos:Concept ; thes:broaderPartitive ex:parent ; skos:inScheme ex:test ;
+        skos:prefLabel "Variant B"@nl ; skos:related ex:v-a ;
+        dcterms:hasPart ex:v-b-c3, ex:v-b-c4 ; sh:hasValue riepr-type:b .
+      ${child('v-a-c1', 'Naam', false)}
+      ${child('v-a-c2', 'Nummer', true)}
+      ${child('v-b-c3', 'Naam', true)}
+      ${child('v-b-c4', 'Adres', true)}
+    `)
+    const merged = svc.getChildrenMerged(result, result.concepts.get('ex:parent')!)
+
+    expect(merged).toHaveLength(1)
+
+    // Naam appears in BOTH variants (required in v-b only) → not required per the all-appearances rule.
+    const children = merged[0].hasPart!.map(id => result.concepts.get(id)!)
+    const naam = children.find(c => c.prefLabel === 'Naam')!
+    expect(naam.conditionValues).toEqual(['a', 'b'])
+    expect(naam.isVerplicht).toBe(false)
+  })
+})
 
 // Convenience wrapper so tests don't need to import CodelistService separately
 const svc = new CodelistService()
@@ -693,5 +602,5 @@ const CodelistServiceMock = {
   getCodeListOptions: (r: CodelistResult, c: Concept) => svc.getCodeListOptions(r, c),
   describeVariabele: (r: CodelistResult, c: Concept, stofId?: string) => svc.describeVariabele(r, c, stofId),
   getRelevantRieprRefs: (r: CodelistResult, n: Scheme | Concept) => svc.getRelevantRieprRefs(r, n),
-  getSeeAlsoRefs: (r: CodelistResult, n: Scheme | Concept) => svc.getSeeAlsoRefs(r, n),
+  getVervolgstapRefs: (r: CodelistResult, n: Scheme | Concept) => svc.getVervolgstapRefs(r, n),
 }

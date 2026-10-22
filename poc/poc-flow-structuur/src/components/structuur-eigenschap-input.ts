@@ -16,6 +16,8 @@ import { createControl } from '../services/field-control-factory.js'
 import { getalType } from '../services/getal.js'
 import { CsorService } from '../services/csor.js'
 import { getEenheden, getSelectieOpties } from '../services/structuur-service.js'
+import { expandUri } from '../services/uri.js'
+import { uriTooltip, veiligeDomId } from './uri-tooltip.js'
 
 export class StructuurEigenschapInput extends LitElement {
   static override styles = [
@@ -92,6 +94,13 @@ export class StructuurEigenschapInput extends LitElement {
     const compact = heeftEenheid && getalType(eigenschap.dataType) !== undefined
     // A checkbox renders its own visible label; the other controls use `label` as aria-label only.
     const toonEigenLabel = this.toonLabel && eigenschap.dataType !== 'xsd:boolean'
+    // URI tooltip (hover): on the field label, or — for a checkbox, which renders
+    // its own label — on the field wrapper. A composite child (toonLabel=false)
+    // gets its tooltip from the column header in structuur-meervoudige-eigenschap.
+    // The DOM ids are sanitized: vl-tooltip resolves the reference with querySelector.
+    const uri = this.result ? expandUri(this.result, eigenschap.id) : undefined
+    const labelId = veiligeDomId(`${id}__label`)
+    const wrapperId = veiligeDomId(`structuur-veld__${id}`)
     const extern =
       eigenschap.codeList &&
       !heeftOpties &&
@@ -99,15 +108,19 @@ export class StructuurEigenschapInput extends LitElement {
       !eigenschap.codeList.startsWith('collectie:')
 
     return html`
-      <div class="structuur-veld">
+      <div class="structuur-veld" id="${wrapperId}">
         ${toonEigenLabel
           ? html`<vl-form-label
+              id="${labelId}"
               for="${id}"
               label="${this.labelTekst}"
               block
               .annotation="${eigenschap.definitie ?? ''}"
-            ></vl-form-label>`
-          : nothing}
+            ></vl-form-label>
+            ${uriTooltip(labelId, uri)}`
+          : this.toonLabel
+            ? uriTooltip(wrapperId, uri)
+            : nothing}
 
         <div class="structuur-input ${compact ? 'structuur-input--met-eenheid' : ''}" title="${this.tooltip}">
           <div @vl-input="${this.onWaarde}" @vl-change="${this.onWaarde}">
