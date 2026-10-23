@@ -65,17 +65,25 @@ export function systemNames(system: string): SystemNames {
     if (!isSystem(system)) {
         throw new Error(`Unknown system '${system}'. Supported: ${SYSTEMS.join(', ')}`);
     }
+    // uitwisselpunt_type kept its id when the other type schemes were renamed to <systeem>types.
+    const typeScheme = 'uitwisselpunt' === system ? 'conceptscheme:uitwisselpunt_type' : `conceptscheme:${compound(system, 'types')}`;
+    const properties = compound(system, 'eigenschappen');
     return {
         system,
         typeFile: `${system}_type.csv`,
         typePrefix: system,
-        typeScheme: `conceptscheme:${system}_type`,
+        typeScheme,
         propertyFile: `${system}_eigenschappen.csv`,
-        propertyPrefix: `${system}-eigenschappen`,
-        propertyScheme: `conceptscheme:${system}_eigenschappen`,
+        propertyPrefix: properties,
+        propertyScheme: `conceptscheme:${properties}`,
         selectionPrefix: `${system}-selectiemogelijkheden`,
-        selectionPrefixUri: `${CONCEPT_BASE}${system}-eigenschappen-selectiemogelijkheden/`,
+        selectionPrefixUri: `${CONCEPT_BASE}${properties}-selectiemogelijkheden/`,
     };
+}
+
+/** Writes a compound word as one word, with a hyphen where two vowels meet (installatie-eigenschappen). */
+function compound(first: string, second: string): string {
+    return /[aeiou]$/.test(first) && /^[aeiou]/.test(second) ? `${first}-${second}` : `${first}${second}`;
 }
 
 export function openCsv(fileName: string, root = repoRoot()): CsvFile {

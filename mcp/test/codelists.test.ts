@@ -25,7 +25,7 @@ test('dry run does not write', () => {
     const before = read('installatie_type.csv');
     const result = addType({ system: 'installatie', code: 'nieuw', prefLabel: 'Nieuw', definition: 'Een nieuw type.' });
     assert.equal(read('installatie_type.csv'), before);
-    assert.match(result.insertedLines![0], /^installatie:nieuw,skos:Concept,conceptscheme:installatie_type,/);
+    assert.match(result.insertedLines![0], /^installatie:nieuw,skos:Concept,conceptscheme:installatietypes,/);
 });
 
 test('subtype is placed below its broader type without topConceptOf', () => {
@@ -63,14 +63,14 @@ test('inline concept scheme declares its prefix and can be used as code list', a
         system: 'filter', kind: 'conceptscheme', name: 'materiaal', prefLabel: 'Filtermateriaal', definition: 'Materialen van een filter.',
         concepts: [{ code: 'pvc', prefLabel: 'PVC', definition: 'Een filter uit PVC.' }], dryRun: false,
     });
-    assert.match(read('config.yml'), /filter-selectiemogelijkheden: .*\/filter-eigenschappen-selectiemogelijkheden\//);
+    assert.match(read('config.yml'), /filter-selectiemogelijkheden: .*\/filtereigenschappen-selectiemogelijkheden\//);
     assert.match(fs.readFileSync(path.join(root, 'README.md'), 'utf8'), /\| `filter-selectiemogelijkheden:` \|/);
 
     await addProperty({
         system: 'filter', code: 'materiaal', prefLabel: 'Materiaal', definition: 'Het materiaal.', appliesTo: ['peil', 'pomp'],
         codeList: ['conceptscheme:filter_materiaal'], codeListSource: 'inline', isMultiselect: true, dryRun: false,
     });
-    const property = listProperties('filter').properties.find(p => p.id === 'filter-eigenschappen:materiaal')!;
+    const property = listProperties('filter').properties.find(p => p.id === 'filtereigenschappen:materiaal')!;
     assert.deepEqual(property.appliesTo, ['filter:peil', 'filter:pomp']);
     assert.equal(property.isMultiselect, 'true');
     assert.equal(validate(['filter']).errors, 0);
@@ -94,9 +94,9 @@ test('collection of units and composite property with parts', async () => {
     const csv = read('meetpunt_eigenschappen.csv');
     assert.match(csv.split('\n')[0], /,collections$/);
     assert.match(csv, /\ncsor_eenheid:E_59,(,)+collectie:diepte_eenheden\n/);
-    const sonde = listProperties('meetpunt').properties.find(p => p.id === 'meetpunt-eigenschappen:sonde')! as { composite?: boolean; parts: Array<{ id: string }> };
+    const sonde = listProperties('meetpunt').properties.find(p => p.id === 'meetpunteigenschappen:sonde')! as { composite?: boolean; parts: Array<{ id: string }> };
     assert.equal(sonde.composite, true);
-    assert.equal(sonde.parts[0].id, 'meetpunt-eigenschappen:sonde_diepte');
+    assert.equal(sonde.parts[0].id, 'meetpunteigenschappen:sonde_diepte');
     assert.equal(validate(['meetpunt']).errors, 0);
 });
 

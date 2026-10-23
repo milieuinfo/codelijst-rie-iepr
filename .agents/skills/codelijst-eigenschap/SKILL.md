@@ -22,9 +22,9 @@ else (fuel, technique, lozingsplaats, ...) stays an eigenschap: "Type brandstof"
 2. **Decide the shape** of the property:
    - **Simple value**: one input field → `datatype`.
    - **Selection**: choose from a list → `codeList` (see step 3).
-   - **Composite**: several fields that belong together and are filled in together, often repeatable (e.g. `referentiepunt` = naam + diepte, `verwijderingsrendement` = stof + percentage). Create the parent with `composite: true` (and usually `isMeervoudig: true`), then each part with `parent: <parent code>` and code `<parent>_<part>`. The parts point to the composite with `broaderPartitive`; that is what makes them its composite attributes (e.g. `meetpunt-eigenschappen:referentiepunt_naam` and `_diepte` → `meetpunt-eigenschappen:referentiepunt`). The composite itself has no datatype, code list or unit.
+   - **Composite**: several fields that belong together and are filled in together, often repeatable (e.g. `referentiepunt` = naam + diepte, `verwijderingsrendement` = stof + percentage). Create the parent with `composite: true` (and usually `isMeervoudig: true`), then each part with `parent: <parent code>` and code `<parent>_<part>`. The parts point to the composite with `broaderPartitive`; that is what makes them its composite attributes (e.g. `meetpunteigenschappen:referentiepunt_naam` and `_diepte` → `meetpunteigenschappen:referentiepunt`). The composite itself has no datatype, code list or unit.
 3. **For a selection, ask the user where the list comes from** (never guess):
-   - **Already published** (CSOR, another RIE-IEPR list such as `conceptscheme:status_type`, an external URI): find it with `find_code_lists` (`searchPublished: true` also searches data.omgeving.vlaanderen.be) and pass it with `codeListSource: 'published'`.
+   - **Already published** (CSOR, another RIE-IEPR list such as `conceptscheme:statustypes`, an external URI): find it with `find_code_lists` (`searchPublished: true` also searches data.omgeving.vlaanderen.be) and pass it with `codeListSource: 'published'`.
    - **New list of options** that only exist for this property (like `lozingsplaats`: oppervlaktewater, riool, grondwater): create a concept scheme in the same CSV with `add_selection_list` `kind: 'conceptscheme'` and pass it with `codeListSource: 'inline'`.
    - **Subset of a published list** (like the CSOR stoffen for `verwijderingsrendement_stof`): create a collection with `add_selection_list` `kind: 'collection'` whose members are the existing concept URIs/CURIEs, and pass it with `codeListSource: 'inline'`.
    Ask also whether several values may be selected (`isMultiselect`).
@@ -46,11 +46,11 @@ else (fuel, technique, lozingsplaats, ...) stays an eigenschap: "Type brandstof"
 
 | Property | Shape |
 |---|---|
-| `emissiepunt-eigenschappen:hoogte` | `xsd:decimal`, unit `csor_eenheid:E_59`, relevantProperty `dbo:height`, applies to `emissiepunt:emissiepunt_lucht` |
-| `emissiepunt-eigenschappen:lozingspunt-lozingsplaats` | codeList `conceptscheme:lozingspunt_lozingsplaats`, an inline concept scheme in the same CSV |
+| `emissiepunteigenschappen:hoogte` | `xsd:decimal`, unit `csor_eenheid:E_59`, relevantProperty `dbo:height`, applies to `emissiepunt:emissiepunt_lucht` |
+| `emissiepunteigenschappen:lozingspunt-lozingsplaats` | codeList `conceptscheme:lozingspunt_lozingsplaats`, an inline concept scheme in the same CSV |
 | `installatie-eigenschappen:nominaal_thermisch_vermogen` | `xsd:decimal`, unit chosen from inline collection `collectie:vermogen_eenheden` |
 | `installatie-eigenschappen:verwijderingsrendement` | composite, isMeervoudig; parts `_stof` (relation `riepr:parameter`, codeList = inline collection of CSOR stoffen) and `_percentage` (`xsd:decimal`, `%`) |
-| `meetpunt-eigenschappen:referentiepunt` | composite; parts `_naam` (`rdfs:label`, `xsd:string`) and `_diepte` (`xsd:decimal`, meter) |
+| `meetpunteigenschappen:referentiepunt` | composite; parts `_naam` (`rdfs:label`, `xsd:string`) and `_diepte` (`xsd:decimal`, meter) |
 
 ## Notes
 

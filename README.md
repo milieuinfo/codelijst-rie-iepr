@@ -10,20 +10,20 @@ De volgende conceptschema's zijn opgenomen:
 
 | Conceptschema | Beschrijving |
 |---|---|
-| `emissiepunt_eigenschappen` | Koppeling tussen soorten emissiepunten en hun eigenschappen |
-| `installatie_eigenschappen` | Koppeling tussen soorten installaties en hun eigenschappen |
-| `filter_eigenschappen` | Koppeling tussen soorten filters en hun eigenschappen |
-| `installatie_type` | Soorten installaties (GPBV, IEPR, Stookinstallatie, ...) |
-| `emissiepunt_type` | Soorten emissiepunten (schouw, fakkel, lozingspunt, ...) |
-| `onttrekkingspunt_type` | Soorten onttrekkingspunten (Grondwaterput, ...) |
-| `filter_type` | Soorten filters (Peilfilter, ...) |
+| `emissiepunteigenschappen` | Koppeling tussen soorten emissiepunten en hun eigenschappen |
+| `installatie-eigenschappen` | Koppeling tussen soorten installaties en hun eigenschappen |
+| `filtereigenschappen` | Koppeling tussen soorten filters en hun eigenschappen |
+| `installatietypes` | Soorten installaties (GPBV, IEPR, Stookinstallatie, ...) |
+| `emissiepunttypes` | Soorten emissiepunten (schouw, fakkel, lozingspunt, ...) |
+| `onttrekkingspunttypes` | Soorten onttrekkingspunten (Grondwaterput, ...) |
+| `filtertypes` | Soorten filters (Peilfilter, ...) |
 | `meetinstrument_type` | Soorten meetinstrumenten (Debietmeter, ...) |
-| `meetpunt_type` | Soorten meetpunten (meetput, controle-inrichting, ...) |
-| `procedure_type` | Soorten procedures in een procesplan |
+| `meetpunttypes` | Soorten meetpunten (meetput, controle-inrichting, ...) |
+| `proceduretypes` | Soorten procedures in een procesplan |
 | `procesvariabele_type` | Types stoffen bij bepaalde procedure-types |
-| `rubriek_type` | Typering van rubrieken (VLAREM, EGW) |
+| `rubriektypes` | Typering van rubrieken (VLAREM, EGW) |
 | `data_type` | Soorten data types |
-| `status_type` | Soorten statussen |
+| `statustypes` | Soorten statussen |
 
 ## Uitvoerformaten
 
@@ -112,41 +112,41 @@ identificatoren blijven geldig.
 | `contextueel:` | `operationeel-contextueel/` |
 | `debiet:` | `operationeel-debiet-type/` |
 | `emissie:` | `emissie-type/` |
-| `emissiepunt:` | `emissiepunt-type/` |
-| `emissiepunt-eigenschappen:` | `emissiepunt-eigenschappen/` |
-| `emissiepunt-selectiemogelijkheden:` | `emissiepunt-eigenschappen-selectiemogelijkheden/` |
-| `filter:` | `filter-type/` |
+| `emissiepunt:` | `emissiepunttype/` |
+| `emissiepunteigenschappen:` | `emissiepunteigenschappen/` |
+| `emissiepunt-selectiemogelijkheden:` | `emissiepunteigenschappen-selectiemogelijkheden/` |
+| `filter:` | `filtertype/` |
 | `grondstoffen:` | `operationeel-grondstoffen/` |
 | `grondwater:` | `operationeel-grondwater/` |
-| `installatie:` | `installatie-type/` |
+| `installatie:` | `installatietype/` |
 | `installatie-eigenschappen:` | `installatie-eigenschappen/` |
 | `installatie-selectiemogelijkheden:` | `installatie-eigenschappen-selectiemogelijkheden/` |
 | `lozingsplaats:` | `lozingspunt-lozingsplaats/` |
 | `lucht:` | `operationeel-lucht/` |
 | `meetfrequentie:` | `operationeel-meetfrequentie/` |
 | `meetinstrument:` | `meetinstrument-type/` |
-| `meetpunt:` | `meetpunt-type/` |
-| `meetpunt-eigenschappen:` | `meetpunt-eigenschappen/` |
-| `meetpunt-selectiemogelijkheden:` | `meetpunt-eigenschappen-selectiemogelijkheden/` |
-| `onttrekkingspunt:` | `onttrekkingspunt-type/` |
-| `onttrekkingspunt-eigenschappen:` | `onttrekkingspunt-eigenschappen/` |
+| `meetpunt:` | `meetpunttype/` |
+| `meetpunteigenschappen:` | `meetpunteigenschappen/` |
+| `meetpunt-selectiemogelijkheden:` | `meetpunteigenschappen-selectiemogelijkheden/` |
+| `onttrekkingspunt:` | `onttrekkingspunttype/` |
+| `onttrekkingspunteigenschappen:` | `onttrekkingspunteigenschappen/` |
 | `peilmethode:` | `operationeel-peilmethode/` |
 | `pomptoestand:` | `operationeel-pomptoestand/` |
-| `procedure:` | `procedure-type/` |
+| `procedure:` | `proceduretype/` |
 | `procesvariabele:` | `procesvariabele-type/` |
-| `rubriek:` | `rubriek-type/` |
-| `status-type:` | `status-type/` |
+| `rubriek:` | `rubriektype/` |
+| `statustype:` | `statustype/` |
 | `techniekmonstername:` | `operationeel-techniekmonstername/` |
 | `thema:` | `thema-type/` |
 | `toepassingswijze:` | `operationeel-toepassingswijze/` |
 | `toestand-indicator:` | `operationeel-toestand-indicator/` |
 | `uitwisselpunt:` | `uitwisselpunt-type/` |
-| `uitwisselpunt-eigenschappen:` | `uitwisselpunt-eigenschappen/` |
+| `uitwisselpunteigenschappen:` | `uitwisselpunteigenschappen/` |
 | `water:` | `operationeel-water/` |
 | `zelfcontrole-lucht:` | `operationeel-zelfcontrole-lucht/` |
 | `zelfcontrole-water:` | `operationeel-zelfcontrole-water/` |
 
-> `status-type:` heet niet `status:` omdat `status` al een term is in `context.json` (`adms:status`).
+> `statustype:` heet niet `status:` omdat `status` al een term is in `context.json` (`adms:status`).
 
 ## Interpretatie
 Deze sectie bevat informatie over de interpretatie van de codelijsten.
@@ -164,7 +164,7 @@ Elk systeem (`emissiepunt`, `filter`, `installatie`, `meetpunt`, `uitwisselpunt`
 
 1. **Direct**: de eigenschap geldt voor elk type dat in `relevantRiepr` staat.
 2. **Overerving**: ze geldt ook voor alle subtypes van die types (`broader`-keten). Een eigenschap op `emissiepunt:emissiepunt_lucht` geldt dus ook voor `emissiepunt:schoorsteen`. Een eigenschap die enkel op een subtype staat, geldt niet voor het bovenliggende type.
-3. **Alle types**: de waarde `conceptscheme:<systeem>_type` (bv. `conceptscheme:installatie_type`) betekent alle types van dat systeem.
+3. **Alle types**: de waarde `conceptscheme:<systeem>types` (bv. `conceptscheme:installatietypes`; voor uitwisselpunt `conceptscheme:uitwisselpunt_type`) betekent alle types van dat systeem.
 4. **Leeg**: een eigenschap zonder `relevantRiepr` geldt voor **geen enkel type**. Dit is dus niet "alles". Enige uitzondering zijn onderdelen van een composite (zie hieronder).
 5. **Onzichtbare types**: `isOnzichtbaar` beïnvloedt enkel of een type gekozen kan worden, niet welke eigenschappen het erft of doorgeeft.
 
@@ -176,7 +176,7 @@ Een composite eigenschap bestaat uit een ouder en onderdelen die naar de ouder v
 | Composite | `relevantRiepr` op de ouder | `relevantRiepr` op de onderdelen |
 |---|---|---|
 | `installatie-eigenschappen:verwijderingsrendement` | leeg | `_stof`: `installatie:luchtzuivering`, `_percentage`: leeg |
-| `meetpunt-eigenschappen:referentiepunt` | leeg | `_naam` en `_diepte`: `meetpunt:peilput` |
+| `meetpunteigenschappen:referentiepunt` | leeg | `_naam` en `_diepte`: `meetpunt:peilput` |
 
 - Een composite waarvan noch de ouder, noch een onderdeel een `relevantRiepr` heeft, geldt voor geen enkel type en wordt als fout gerapporteerd.
 - `isMeervoudig` op de ouder maakt de hele groep herhaalbaar: elke rij bevat alle onderdelen. Is de ouder ook `isVerplicht`, dan start de groep met één rij; anders is er enkel een knop om een rij toe te voegen.

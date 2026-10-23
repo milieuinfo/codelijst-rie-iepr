@@ -34,19 +34,19 @@ test('update_type changes only the given fields and keeps its place', () => {
     updateType({ system: 'installatie', type: 'luchtzuivering', set: { definition: 'Een installatie die lucht zuivert.' }, dryRun: false });
     const after = read('installatie_type.csv').split('\n');
     const index = before.findIndex(l => l.startsWith('installatie:luchtzuivering,'));
-    assert.equal(after[index].trimEnd(), 'installatie:luchtzuivering,skos:Concept,conceptscheme:installatie_type,conceptscheme:installatie_type,,Luchtzuiveringsinstallatie,,Een installatie die lucht zuivert.,,,false,true');
+    assert.equal(after[index].trimEnd(), 'installatie:luchtzuivering,skos:Concept,conceptscheme:installatietypes,conceptscheme:installatietypes,,Luchtzuiveringsinstallatie,,Een installatie die lucht zuivert.,,,false,true');
     assert.deepEqual(after.filter((_, i) => i !== index), before.filter((_, i) => i !== index));
 });
 
 test('update_type moves a type between top level and subtype, and rejects cycles', () => {
     updateType({ system: 'installatie', type: 'directe_stookinstallatie', set: { broader: null }, dryRun: false });
-    assert.match(line('installatie_type.csv', 'installatie:directe_stookinstallatie')!, /,skos:Concept,conceptscheme:installatie_type,conceptscheme:installatie_type,/);
+    assert.match(line('installatie_type.csv', 'installatie:directe_stookinstallatie')!, /,skos:Concept,conceptscheme:installatietypes,conceptscheme:installatietypes,/);
     updateType({ system: 'installatie', type: 'fakkel', set: { broader: 'productie_installatie' }, dryRun: false });
     assert.throws(() => updateType({ system: 'installatie', type: 'productie_installatie', set: { broader: 'fakkel' } }), /subtype of itself/);
 });
 
 test('pre-existing problems do not block an edit', async () => {
-    // filter-eigenschappen:watervoerendeLaag has a code that is not snake_case; changing its label is still allowed.
+    // filtereigenschappen:watervoerendeLaag has a code that is not snake_case; changing its label is still allowed.
     const result = await updateProperty({ system: 'filter', property: 'watervoerendeLaag', set: { prefLabel: 'Watervoerende laag (aquifer)' } });
     assert.ok(result.warnings.some(w => /pre-existing.*snake_case/.test(w)));
     assert.throws(() => updateType({ system: 'installatie', type: 'gpbv', set: { prefLabel: 'kleine letter' } }), /capital/);
@@ -66,7 +66,7 @@ test('delete_type refuses while referenced and can remove itself from eigenschap
     deleteType({ system: 'meetpunt', type: 'sonde', removeFromProperties: true, dryRun: false });
 
     assert.equal(line('meetpunt_type.csv', 'meetpunt:sonde'), undefined);
-    assert.match(line('meetpunt_eigenschappen.csv', 'meetpunt-eigenschappen:kalibratie')!, /,meetpunt:peilput,/);
+    assert.match(line('meetpunt_eigenschappen.csv', 'meetpunteigenschappen:kalibratie')!, /,meetpunt:peilput,/);
     assert.deepEqual(newErrors(['meetpunt']), []);
 });
 
@@ -75,17 +75,17 @@ test('update_property switches a value to a selection and keeps an empty relatio
     const file = path.join(root, 'src', 'source', 'installatie_eigenschappen.csv');
     const rows = read('installatie_eigenschappen.csv').split('\n');
     const after = rows.findIndex(l => l.startsWith('installatie-eigenschappen:omschrijving,'));
-    rows.splice(after + 1, 0, 'installatie-eigenschappen:testwaarde,skos:Concept,conceptscheme:installatie_eigenschappen,conceptscheme:installatie_eigenschappen,,,Testwaarde,,Een testwaarde.,,,,,,installatie:opslag_overslag,,,false,false');
+    rows.splice(after + 1, 0, 'installatie-eigenschappen:testwaarde,skos:Concept,conceptscheme:installatie-eigenschappen,conceptscheme:installatie-eigenschappen,,,Testwaarde,,Een testwaarde.,,,,,,installatie:opslag_overslag,,,false,false');
     fs.writeFileSync(file, rows.join('\n'));
     await assert.rejects(
-        updateProperty({ system: 'installatie', property: 'testwaarde', set: { codeList: ['conceptscheme:status_type'] } }),
+        updateProperty({ system: 'installatie', property: 'testwaarde', set: { codeList: ['conceptscheme:statustypes'] } }),
         /Ask the user/,
     );
     await updateProperty({
         system: 'installatie', property: 'testwaarde',
-        set: { codeList: ['conceptscheme:status_type'], codeListSource: 'published' }, dryRun: false,
+        set: { codeList: ['conceptscheme:statustypes'], codeListSource: 'published' }, dryRun: false,
     });
-    assert.match(line('installatie_eigenschappen.csv', 'installatie-eigenschappen:testwaarde')!, /,rdfs:value,,conceptscheme:status_type,installatie:opslag_overslag,/);
+    assert.match(line('installatie_eigenschappen.csv', 'installatie-eigenschappen:testwaarde')!, /,rdfs:value,,conceptscheme:statustypes,installatie:opslag_overslag,/);
 
     await updateProperty({ system: 'installatie', property: 'nominaal_thermisch_vermogen', set: { prefLabel: 'Nominaal thermisch vermogen (MW)' }, dryRun: false });
     assert.match(line('installatie_eigenschappen.csv', 'installatie-eigenschappen:nominaal_thermisch_vermogen')!, /,Nominaal thermisch vermogen \(MW\),.*,rdfs:value,xsd:decimal,/);
@@ -161,7 +161,7 @@ test('identifiers cannot be renamed', async () => {
 });
 
 test('a composite may carry relevantRiepr on its parts instead of on itself', async () => {
-    // meetpunt-eigenschappen:referentiepunt has no relevantRiepr; its parts _naam and _diepte apply to meetpunt:peilput.
+    // meetpunteigenschappen:referentiepunt has no relevantRiepr; its parts _naam and _diepte apply to meetpunt:peilput.
     const result = await updateProperty({ system: 'meetpunt', property: 'referentiepunt', set: { isVerplicht: false } });
     assert.ok(!result.warnings.some(w => /appliesTo/.test(w)), result.warnings.join('\n'));
 

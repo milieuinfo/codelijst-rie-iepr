@@ -13,7 +13,7 @@ grondwater:eindtoestand,skos:Concept,,conceptscheme:operationeel_grondwater,Eind
 ,,,,,,,,,,,,,,,,,,,,,,,,,,
 grondwater:peilmeting_feature,skos:Concept,,conceptscheme:operationeel_grondwater,Peilfilter/Pompfilter,Actieve peil- en pompfilters in het productiejaar.,grondwater:peilmeting,sosa:FeatureOfInterest,,,sosa:hasFeatureOfInterest,,"filter:peil,filter:pomp",,,,,,,,,,,,,,true
 grondwater:datum,skos:Concept,,conceptscheme:operationeel_grondwater,Datum,,grondwater:peilmeting,,,xsd:dateTime,sosa:resultTime,,,,,,,,,,,,,,,grondwater:peilmeting_feature,
-grondwater:referentiepunt,skos:Concept,,conceptscheme:operationeel_grondwater,Referentiepunt,,grondwater:peilmeting,,,,,,meetpunt-eigenschappen:referentiepunt,,,,,,,,,true,true,,,grondwater:datum,
+grondwater:referentiepunt,skos:Concept,,conceptscheme:operationeel_grondwater,Referentiepunt,,grondwater:peilmeting,,,,,,meetpunteigenschappen:referentiepunt,,,,,,,,,true,true,,,grondwater:datum,
 grondwater:diepte,skos:Concept,,conceptscheme:operationeel_grondwater,Diepte/hoogte (TAW) t.o.v. referentiepunt,,grondwater:peilmeting,,,xsd:decimal,sosa:hasResult,,,,,,csor_eenheid:E_59,,,,,,,,,grondwater:referentiepunt,
 grondwater:peilmethode,skos:Concept,,conceptscheme:operationeel_grondwater,Peilmethode,,grondwater:peilmeting,,,,sosa:hasResult,,,,,conceptscheme:operationeel_peilmethode,,,,,,,,,,grondwater:diepte,
 grondwater:pomptoestand,skos:Concept,,conceptscheme:operationeel_grondwater,Pomptoestand,,grondwater:peilmeting,,,,sosa:hasResult,,,,,conceptscheme:operationeel_pomptoestand,,,,,,,,,,grondwater:peilmethode,
@@ -27,7 +27,7 @@ grondwater:kwaliteitsmeting-monsternummer,skos:Concept,,conceptscheme:operatione
 grondwater:kwaliteitsmeting-labo,skos:Concept,,conceptscheme:operationeel_grondwater,Labo,Labo dat de meting uitvoerde.,grondwater:kwaliteitsmeting,prov:Agent,,,,,,,,,,,,,,true,,,,grondwater:kwaliteitsmeting-monsternummer,
 grondwater:kwaliteitsmeting-labo-naam,skos:Concept,,conceptscheme:operationeel_grondwater,Naam,,grondwater:kwaliteitsmeting-labo,,,xsd:string,,,,,,,,,,,,true,,,,,true
 grondwater:kwaliteitsmeting-bemonsteringsinstrument,skos:Concept,,conceptscheme:operationeel_grondwater,Bemonsteringsinstrument,,grondwater:kwaliteitsmeting,,,xsd:string,,,,,,,,,,,,,,,,grondwater:kwaliteitsmeting-labo,
-grondwater:kwaliteitsmeting-referentiepunt,skos:Concept,,conceptscheme:operationeel_grondwater,Referentiepunt,,grondwater:kwaliteitsmeting,,,,,,meetpunt-eigenschappen:referentiepunt,,,,,,,,,true,true,,,grondwater:kwaliteitsmeting-bemonsteringsinstrument,
+grondwater:kwaliteitsmeting-referentiepunt,skos:Concept,,conceptscheme:operationeel_grondwater,Referentiepunt,,grondwater:kwaliteitsmeting,,,,,,meetpunteigenschappen:referentiepunt,,,,,,,,,true,true,,,grondwater:kwaliteitsmeting-bemonsteringsinstrument,
 grondwater:kwaliteitsmeting-diepte,skos:Concept,,conceptscheme:operationeel_grondwater,Diepte/hoogte (TAW) t.o.v. referentiepunt,,grondwater:kwaliteitsmeting,riepr:Observatie,,xsd:decimal,sosa:hasResult,,,,,,csor_eenheid:E_59,,,,,,,,,grondwater:kwaliteitsmeting-referentiepunt,
 grondwater:kwaliteitsmeting-techniek,skos:Concept,,conceptscheme:operationeel_grondwater,Techniek monstername,,grondwater:kwaliteitsmeting,,,,,,,,,conceptscheme:operationeel_techniekmonstername,,,,,,,,,,grondwater:kwaliteitsmeting-diepte,
 grondwater:kwaliteitsmeting-parameter,skos:Concept,,conceptscheme:operationeel_grondwater,Parameter,,grondwater:kwaliteitsmeting,,,,,,,,,,,,,,,,true,,,grondwater:kwaliteitsmeting-techniek,

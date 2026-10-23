@@ -211,7 +211,7 @@ server.registerTool('add_type', {
     title: 'Add a systeemtype',
     description:
         'Add a type (skos:Concept) to <systeem>_type.csv. The id becomes <systeem>:<code>; a top-level type gets ' +
-        'topConceptOf=conceptscheme:<systeem>_type, a subtype gets broader=<parent> instead. isMeetbaar defaults to true ' +
+        'topConceptOf=conceptscheme:<systeem>types, a subtype gets broader=<parent> instead. isMeetbaar defaults to true ' +
         '(every systeemtype so far is meetbaar); set isOnzichtbaar for structural types users should not pick, or for hierarchical grouping parents like schoorsteen.',
     inputSchema: {
         system,

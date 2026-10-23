@@ -24,6 +24,6 @@ Types live in `src/source/<systeem>_type.csv` (one `skos:ConceptScheme` `concept
 
 ## Notes
 
-- Ids are `<systeem>:<code>`, e.g. `uitwisselpunt:pompput`. The prefix maps to `https://data.omgeving.vlaanderen.be/id/concept/riepr/<systeem>-type/`, so a code is a published URI and cannot be renamed. To change or delete an existing type, follow `.agents/skills/codelijst-wijzigen/SKILL.md`.
+- Ids are `<systeem>:<code>`, e.g. `uitwisselpunt:pompput`. The prefix maps to `https://data.omgeving.vlaanderen.be/id/concept/riepr/<systeem>type/` (`uitwisselpunt-type/` for uitwisselpunt), so a code is a published URI and cannot be renamed. To change or delete an existing type, follow `.agents/skills/codelijst-wijzigen/SKILL.md`.
 - Several types in a request: preview them together, write them one call each.
 - If the MCP tools are unavailable, tell the user the `codelijst-rie-iepr` server is not connected (see the MCP table in `AGENTS.md` for the config file of each agent) rather than editing the CSV by hand. If you have to edit a CSV by hand anyway, run `npm run generate_skos` from the repo root afterwards and only finish when it passes.

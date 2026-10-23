@@ -612,7 +612,7 @@ export function addFlow(params: { code: string; prefLabel: string; definition?: 
     if (repo.byId.has(schemeId)) errors.push(`${schemeId} already exists.`);
     if (fs.existsSync(path.join(sourceDir(), file))) errors.push(`src/source/${file} already exists.`);
     if (isDeclaredPrefix(code)) errors.push(`prefix '${code}:' is already declared; choose another code.`);
-    if (contextTerms().has(code)) errors.push(`'${code}' is a term in context.json and cannot be used as prefix (like status → status-type); choose another code.`);
+    if (contextTerms().has(code)) errors.push(`'${code}' is a term in context.json and cannot be used as prefix (like status → statustype); choose another code.`);
     fail(errors);
 
     const changes: LineChange[] = [];

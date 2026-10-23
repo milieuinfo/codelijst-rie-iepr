@@ -10,11 +10,13 @@
 
 import fs from 'node:fs';
 import type { CsvRecord } from './csv.js';
-import { isDeclaredPrefix, isUrl, openCsv, prefixOf, sourceCsvFiles, sourceDir, splitValues } from './repo.js';
+import { isDeclaredPrefix, isUrl, openCsv, prefixOf, sourceCsvFiles, sourceDir, splitValues, SYSTEMS, systemNames } from './repo.js';
 import { LIST_TYPES, NUMERIC_DATATYPES, ValidationError } from './rules.js';
 
 export const THEMA_FILE = 'thema_type.csv';
 export const THEMA_SCHEME = 'conceptscheme:thema_type';
+
+const PROPERTY_PREFIXES: ReadonlySet<string> = new Set(SYSTEMS.map(system => systemNames(system).propertyPrefix));
 
 /** Datatypes used for operational fields (the generic ones plus a period). */
 export const OPERATIONAL_DATATYPES = [
@@ -219,7 +221,7 @@ export function describeField(repo: Repo, field: Located, all: Located[]): UiFie
     if (children.length > 0 && !r.relevantDataType && codeList.length === 0) control = 'group';
     else if (codeList.length > 0) control = r.isMultiselect === 'true' ? 'multiselect' : 'select';
     else if (riepr.length > 0 && !r.relevantDataType) {
-        const eigenschap = riepr.some(id => /-eigenschappen:/.test(id));
+        const eigenschap = riepr.some(id => PROPERTY_PREFIXES.has(prefixOf(id) ?? ''));
         control = eigenschap ? 'structural-property' : r.relevantClass === 'sosa:FeatureOfInterest' ? 'feature-picker' : 'structural-picker';
     } else if (r.relevantDataType) control = CONTROL_BY_DATATYPE[r.relevantDataType] ?? 'text';
     else {
