@@ -674,6 +674,10 @@
         "version": {
             "@id": "http://www.w3.org/2002/07/owl#versionInfo"
         },
+        "vervolgstap": {
+            "@id": "http://purl.org/linked-data/cube#codeList",
+            "@type": "@id"
+        },
         "versionInfo": {
             "@id": "http://spdx.org/rdf/terms#versionInfo"
         },
@@ -1299,8 +1303,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeem_eigenschappen",
-            "isVersionOf": "emissiepunt-eigenschappen:aantal_punten",
-            "modified": "2026-10-22T09:23:57.184Z",
             "relation": "rdfs:value",
             "definition": "Het aantal gegroepeerde emissiepunten.",
             "inScheme": "conceptscheme:emissiepunt_eigenschappen",
@@ -1326,8 +1328,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeem_eigenschappen",
-            "isVersionOf": "emissiepunt-eigenschappen:diameter",
-            "modified": "2026-10-22T09:23:57.184Z",
             "relation": "rdfs:value",
             "relevantUnit": [
                 "csor_eenheid:E_59"
@@ -1357,8 +1357,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeem_eigenschappen",
-            "isVersionOf": "emissiepunt-eigenschappen:hoogte",
-            "modified": "2026-10-22T09:23:57.184Z",
             "relation": "rdfs:value",
             "relevantUnit": [
                 "csor_eenheid:E_59"
@@ -1585,8 +1583,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeem_eigenschappen",
-            "isVersionOf": "filter-eigenschappen:diepte",
-            "modified": "2026-10-22T09:23:57.184Z",
             "relation": "rdfs:value",
             "relevantUnit": [
                 "csor_eenheid:E_59"
@@ -1637,8 +1633,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeem_eigenschappen",
-            "isVersionOf": "filter-eigenschappen:lengte",
-            "modified": "2026-10-22T09:23:57.184Z",
             "relation": "rdfs:value",
             "relevantUnit": [
                 "csor_eenheid:E_59"
@@ -1665,8 +1659,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeem_eigenschappen",
-            "isVersionOf": "filter-eigenschappen:watervoerendeLaag",
-            "modified": "2026-10-22T09:23:57.184Z",
             "relation": "rdfs:value",
             "definition": "De watervoerende laag (aquifer) waarin de filter zich bevindt.",
             "inScheme": "conceptscheme:filter_eigenschappen",
@@ -2045,8 +2037,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeem_eigenschappen",
-            "isVersionOf": "installatie-eigenschappen:nominaal_thermisch_vermogen",
-            "modified": "2026-10-22T09:23:57.184Z",
             "relation": "rdfs:value",
             "relevantUnit": [
                 "collectie:vermogen_eenheden"
@@ -2109,8 +2099,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeem_eigenschappen",
-            "isVersionOf": "installatie-eigenschappen:soort_opgewekte_energie",
-            "modified": "2026-10-22T09:23:57.184Z",
             "relation": "rdfs:value",
             "definition": "Het soort energie dat door de stookinstallatie wordt opgewekt.",
             "inScheme": "conceptscheme:installatie_eigenschappen",
@@ -2172,8 +2160,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeem_eigenschappen",
-            "isVersionOf": "installatie-eigenschappen:type_stookinstallatie",
-            "modified": "2026-10-22T09:23:57.184Z",
             "relation": "rdfs:value",
             "definition": "Het type stookinstallatie.",
             "inScheme": "conceptscheme:installatie_eigenschappen",
@@ -2850,8 +2836,10 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "contextueel:activiteit",
+            "modified": "2026-10-22T12:43:29.964Z",
             "relation": "sosa:hasFeatureOfInterest",
-            "seeAlso": "conceptscheme:operationeel_contextueel_iepr_activiteit",
+            "vervolgstap": "conceptscheme:operationeel_contextueel_iepr_activiteit",
             "definition": "Selecteer de activiteit van de IEPR-installatie waarop je wil rapporteren",
             "inScheme": "conceptscheme:operationeel_contextueel_iepr",
             "note": "Selecteer de activiteit van de IEPR-installatie waarop je wil rapporteren",
@@ -2876,8 +2864,10 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "contextueel:feature",
+            "modified": "2026-10-22T12:43:29.964Z",
             "relation": "sosa:hasFeatureOfInterest",
-            "seeAlso": "conceptscheme:operationeel_contextueel_iepr",
+            "vervolgstap": "conceptscheme:operationeel_contextueel_iepr",
             "definition": "Selecteer een IEPR installatie waarop je wil rapporteren.",
             "inScheme": "conceptscheme:operationeel_contextueel",
             "note": "Selecteer een IEPR installatie waarop je wil rapporteren.",
@@ -2962,7 +2952,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:bestemmingsidentificatie-be",
-            "modified": "2026-10-22T09:23:57.184Z",
+            "modified": "2026-10-22T12:43:29.964Z",
             "broaderPartitive": "grondstoffen:grondstof",
             "narrowerPartitive": [
                 "grondstoffen:bestemmingsidentificatie-be-naam",
@@ -2978,7 +2968,7 @@
                         "skos:Concept"
                     ],
                     "isVersionOf": "grondstoffen:bestemmingsidentificatie-buitenland",
-                    "modified": "2026-10-22T09:23:57.184Z",
+                    "modified": "2026-10-22T12:43:29.964Z",
                     "broaderPartitive": {
                         "id": "grondstoffen:grondstof",
                         "_type": [
@@ -2993,7 +2983,7 @@
                                     "skos:Concept"
                                 ],
                                 "isVersionOf": "grondstoffen:bestemmingsidentificatie-none",
-                                "modified": "2026-10-22T09:23:57.184Z",
+                                "modified": "2026-10-22T12:43:29.964Z",
                                 "broaderPartitive": "grondstoffen:grondstof",
                                 "narrowerPartitive": [
                                     {
@@ -3059,7 +3049,7 @@
                                             "skos:Concept"
                                         ],
                                         "isVersionOf": "grondstoffen:bestemmingsidentificatie-werf",
-                                        "modified": "2026-10-22T09:23:57.184Z",
+                                        "modified": "2026-10-22T12:43:29.964Z",
                                         "broaderPartitive": "grondstoffen:grondstof",
                                         "narrowerPartitive": {
                                             "id": "grondstoffen:bestemmingsidentificatie-werf-naam",
@@ -3454,7 +3444,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:bestemmingsidentificatie-buitenland",
-            "modified": "2026-10-22T09:23:57.184Z",
+            "modified": "2026-10-22T12:43:29.964Z",
             "broaderPartitive": "grondstoffen:grondstof",
             "narrowerPartitive": [
                 "grondstoffen:bestemmingsidentificatie-buitenland-btw",
@@ -3469,7 +3459,7 @@
                         "skos:Concept"
                     ],
                     "isVersionOf": "grondstoffen:bestemmingsidentificatie-be",
-                    "modified": "2026-10-22T09:23:57.184Z",
+                    "modified": "2026-10-22T12:43:29.964Z",
                     "broaderPartitive": {
                         "id": "grondstoffen:grondstof",
                         "_type": [
@@ -3484,7 +3474,7 @@
                                     "skos:Concept"
                                 ],
                                 "isVersionOf": "grondstoffen:bestemmingsidentificatie-none",
-                                "modified": "2026-10-22T09:23:57.184Z",
+                                "modified": "2026-10-22T12:43:29.964Z",
                                 "broaderPartitive": "grondstoffen:grondstof",
                                 "narrowerPartitive": [
                                     {
@@ -3550,7 +3540,7 @@
                                             "skos:Concept"
                                         ],
                                         "isVersionOf": "grondstoffen:bestemmingsidentificatie-werf",
-                                        "modified": "2026-10-22T09:23:57.184Z",
+                                        "modified": "2026-10-22T12:43:29.964Z",
                                         "broaderPartitive": "grondstoffen:grondstof",
                                         "narrowerPartitive": {
                                             "id": "grondstoffen:bestemmingsidentificatie-werf-naam",
@@ -3945,7 +3935,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:bestemmingsidentificatie-none",
-            "modified": "2026-10-22T09:23:57.184Z",
+            "modified": "2026-10-22T12:43:29.964Z",
             "broaderPartitive": "grondstoffen:grondstof",
             "narrowerPartitive": [
                 "grondstoffen:bestemmingsidentificatie-none-adres",
@@ -3960,7 +3950,7 @@
                         "skos:Concept"
                     ],
                     "isVersionOf": "grondstoffen:bestemmingsidentificatie-be",
-                    "modified": "2026-10-22T09:23:57.184Z",
+                    "modified": "2026-10-22T12:43:29.964Z",
                     "broaderPartitive": {
                         "id": "grondstoffen:grondstof",
                         "_type": [
@@ -3974,7 +3964,7 @@
                                     "skos:Concept"
                                 ],
                                 "isVersionOf": "grondstoffen:bestemmingsidentificatie-buitenland",
-                                "modified": "2026-10-22T09:23:57.184Z",
+                                "modified": "2026-10-22T12:43:29.964Z",
                                 "broaderPartitive": "grondstoffen:grondstof",
                                 "narrowerPartitive": [
                                     {
@@ -4045,7 +4035,7 @@
                                             "skos:Concept"
                                         ],
                                         "isVersionOf": "grondstoffen:bestemmingsidentificatie-werf",
-                                        "modified": "2026-10-22T09:23:57.184Z",
+                                        "modified": "2026-10-22T12:43:29.964Z",
                                         "broaderPartitive": "grondstoffen:grondstof",
                                         "narrowerPartitive": {
                                             "id": "grondstoffen:bestemmingsidentificatie-werf-naam",
@@ -4436,7 +4426,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:bestemmingsidentificatie-werf",
-            "modified": "2026-10-22T09:23:57.184Z",
+            "modified": "2026-10-22T12:43:29.964Z",
             "broaderPartitive": "grondstoffen:grondstof",
             "narrowerPartitive": "grondstoffen:bestemmingsidentificatie-werf-naam",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
@@ -4448,7 +4438,7 @@
                         "skos:Concept"
                     ],
                     "isVersionOf": "grondstoffen:bestemmingsidentificatie-be",
-                    "modified": "2026-10-22T09:23:57.184Z",
+                    "modified": "2026-10-22T12:43:29.964Z",
                     "broaderPartitive": {
                         "id": "grondstoffen:grondstof",
                         "_type": [
@@ -4462,7 +4452,7 @@
                                     "skos:Concept"
                                 ],
                                 "isVersionOf": "grondstoffen:bestemmingsidentificatie-buitenland",
-                                "modified": "2026-10-22T09:23:57.184Z",
+                                "modified": "2026-10-22T12:43:29.964Z",
                                 "broaderPartitive": "grondstoffen:grondstof",
                                 "narrowerPartitive": [
                                     {
@@ -4532,7 +4522,7 @@
                                             "skos:Concept"
                                         ],
                                         "isVersionOf": "grondstoffen:bestemmingsidentificatie-none",
-                                        "modified": "2026-10-22T09:23:57.184Z",
+                                        "modified": "2026-10-22T12:43:29.964Z",
                                         "broaderPartitive": "grondstoffen:grondstof",
                                         "narrowerPartitive": [
                                             {
@@ -5967,8 +5957,10 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "lucht:feature_bron",
+            "modified": "2026-10-22T12:43:29.964Z",
             "relation": "sosa:hasFeatureOfInterest",
-            "seeAlso": "conceptscheme:operationeel_lucht_rapportering",
+            "vervolgstap": "conceptscheme:operationeel_lucht_rapportering",
             "definition": "Selecteer de bron(nen) waarop je wil rapporteren.",
             "inScheme": "conceptscheme:operationeel_lucht_bron",
             "note": "Selecteer de bron(nen) waarop je wil rapporteren.",
@@ -5987,9 +5979,9 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:feature_ep",
-            "modified": "2026-10-22T09:23:57.184Z",
+            "modified": "2026-10-22T12:43:29.964Z",
             "relation": "sosa:hasFeatureOfInterest",
-            "seeAlso": "conceptscheme:operationeel_lucht_bron",
+            "vervolgstap": "conceptscheme:operationeel_lucht_bron",
             "definition": "Selecteer het emissiepunt waarop je wil rapporteren.",
             "inScheme": "conceptscheme:operationeel_lucht",
             "note": "Selecteer het emissiepunt waarop je wil rapporteren.",
@@ -6341,8 +6333,10 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "water:feature",
+            "modified": "2026-10-22T12:43:29.964Z",
             "relation": "sosa:hasFeatureOfInterest",
-            "seeAlso": "conceptscheme:operationeel_water_lozing",
+            "vervolgstap": "conceptscheme:operationeel_water_lozing",
             "definition": "De controleinrichting waarop gerapporteed moet worden.",
             "inScheme": "conceptscheme:operationeel_water",
             "note": "De controleinrichting waarop gerapporteed moet worden.",
@@ -6532,8 +6526,10 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "zelfcontrole-lucht:feature",
+            "modified": "2026-10-22T12:43:29.964Z",
             "relation": "sosa:hasFeatureOfInterest",
-            "seeAlso": "conceptscheme:operationeel_zelfcontrole_lucht_meting",
+            "vervolgstap": "conceptscheme:operationeel_zelfcontrole_lucht_meting",
             "definition": "Het emissiepunt waarop gerapporteed moet worden.",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
             "note": "Het emissiepunt waarop gerapporteed moet worden.",
@@ -6728,8 +6724,10 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "zelfcontrole-water:feature",
+            "modified": "2026-10-22T12:43:29.964Z",
             "relation": "sosa:hasFeatureOfInterest",
-            "seeAlso": "conceptscheme:operationeel_zelfcontrole_water_meting",
+            "vervolgstap": "conceptscheme:operationeel_zelfcontrole_water_meting",
             "definition": "De controleinrichting waarop gerapporteed moet worden.",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
             "note": "De controleinrichting waarop gerapporteed moet worden.",
@@ -7090,7 +7088,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "seeAlso": "conceptscheme:operationeel_grondstoffen",
+            "isVersionOf": "thema:grondstoffen",
+            "modified": "2026-10-22T12:43:29.964Z",
+            "vervolgstap": "conceptscheme:operationeel_grondstoffen",
             "inScheme": "conceptscheme:thema_type",
             "code": "THEMA_GRONDSTOFFEN",
             "prefLabel": "Grondstoffen",
@@ -7101,7 +7101,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "seeAlso": "conceptscheme:operationeel_grondwater",
+            "isVersionOf": "thema:grondwater",
+            "modified": "2026-10-22T12:43:29.964Z",
+            "vervolgstap": "conceptscheme:operationeel_grondwater",
             "inScheme": "conceptscheme:thema_type",
             "code": "THEMA_GRONDWATER",
             "prefLabel": "Grondwater",
@@ -7112,7 +7114,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "seeAlso": "conceptscheme:operationeel_lucht",
+            "isVersionOf": "thema:lucht",
+            "modified": "2026-10-22T12:43:29.964Z",
+            "vervolgstap": "conceptscheme:operationeel_lucht",
             "inScheme": "conceptscheme:thema_type",
             "code": "THEMA_LUCHT",
             "prefLabel": "Lucht",
@@ -7123,7 +7127,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "seeAlso": "conceptscheme:operationeel_water",
+            "isVersionOf": "thema:water",
+            "modified": "2026-10-22T12:43:29.964Z",
+            "vervolgstap": "conceptscheme:operationeel_water",
             "inScheme": "conceptscheme:thema_type",
             "code": "THEMA_WATER",
             "prefLabel": "Water",
@@ -7134,7 +7140,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "seeAlso": "conceptscheme:operationeel_zelfcontrole_lucht",
+            "isVersionOf": "thema:zelfcontrole-lucht",
+            "modified": "2026-10-22T12:43:29.964Z",
+            "vervolgstap": "conceptscheme:operationeel_zelfcontrole_lucht",
             "inScheme": "conceptscheme:thema_type",
             "code": "THEMA_ZELFCONTROLE_LUCHT",
             "prefLabel": "Zelfcontrole lucht",
@@ -7145,7 +7153,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "seeAlso": "conceptscheme:operationeel_zelfcontrole_water",
+            "isVersionOf": "thema:zelfcontrole-water",
+            "modified": "2026-10-22T12:43:29.964Z",
+            "vervolgstap": "conceptscheme:operationeel_zelfcontrole_water",
             "inScheme": "conceptscheme:thema_type",
             "code": "THEMA_ZELFCONTROLE_WATER",
             "prefLabel": "Zelfcontrole water",
@@ -7919,9 +7929,7 @@
             "id": "riepr:inGebruikVanaf",
             "_type": [
                 "rdfs:Resource"
-            ],
-            "isVersionOf": "riepr:inGebruikVanaf",
-            "modified": "2026-10-22T09:23:57.184Z"
+            ]
         },
         {
             "id": "riepr:parameter",

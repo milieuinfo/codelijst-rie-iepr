@@ -304,8 +304,6 @@ emissiepunt-selectiemogelijkheden:riool a skos:Concept;
     skos:prefLabel "Riool"@nl;
     skos:topConceptOf conceptscheme:lozingspunt_lozingsplaats.
 emissiepunt-eigenschappen:aantal_punten dcterms:isPartOf conceptscheme:systeem_eigenschappen;
-    dcterms:isVersionOf emissiepunt-eigenschappen:aantal_punten;
-    dcterms:modified "2026-10-22T09:23:57.184Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     a skos:Concept;
     skos:definition "Het aantal gegroepeerde emissiepunten."@nl;
@@ -318,8 +316,6 @@ emissiepunt-eigenschappen:aantal_punten dcterms:isPartOf conceptscheme:systeem_e
     riepr-vocab:relevantDataType xsd:integer;
     riepr-vocab:relevantRiepr emissiepunt:emissiepunt_lucht, emissiepunt:fakkel, emissiepunt:gebouw, emissiepunt:installatie, emissiepunt:schoorsteen, emissiepunt:schoorsteen_horizontale_uitstroom, emissiepunt:schoorsteen_verticale_uitstroom.
 emissiepunt-eigenschappen:diameter dcterms:isPartOf conceptscheme:systeem_eigenschappen;
-    dcterms:isVersionOf emissiepunt-eigenschappen:diameter;
-    dcterms:modified "2026-10-22T09:23:57.184Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     qudt:relevantUnit csor_eenheid:E_59;
     a skos:Concept;
@@ -334,8 +330,6 @@ emissiepunt-eigenschappen:diameter dcterms:isPartOf conceptscheme:systeem_eigens
     riepr-vocab:relevantProperty dbo:diameter;
     riepr-vocab:relevantRiepr emissiepunt:emissiepunt_lucht, emissiepunt:fakkel, emissiepunt:gebouw, emissiepunt:installatie, emissiepunt:schoorsteen, emissiepunt:schoorsteen_horizontale_uitstroom, emissiepunt:schoorsteen_verticale_uitstroom.
 emissiepunt-eigenschappen:hoogte dcterms:isPartOf conceptscheme:systeem_eigenschappen;
-    dcterms:isVersionOf emissiepunt-eigenschappen:hoogte;
-    dcterms:modified "2026-10-22T09:23:57.184Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     qudt:relevantUnit csor_eenheid:E_59;
     a skos:Concept;
@@ -451,8 +445,6 @@ emissiepunt:schoorsteen_verticale_uitstroom dcterms:isPartOf conceptscheme:syste
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
 filter-eigenschappen:diepte dcterms:isPartOf conceptscheme:systeem_eigenschappen;
-    dcterms:isVersionOf filter-eigenschappen:diepte;
-    dcterms:modified "2026-10-22T09:23:57.184Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     qudt:relevantUnit csor_eenheid:E_59;
     a skos:Concept;
@@ -481,8 +473,6 @@ filter-eigenschappen:diepte_pomp dcterms:isPartOf conceptscheme:systeem_eigensch
     riepr-vocab:relevantProperty dbo:depth;
     riepr-vocab:relevantRiepr filter:pomp.
 filter-eigenschappen:lengte dcterms:isPartOf conceptscheme:systeem_eigenschappen;
-    dcterms:isVersionOf filter-eigenschappen:lengte;
-    dcterms:modified "2026-10-22T09:23:57.184Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     qudt:relevantUnit csor_eenheid:E_59;
     a skos:Concept;
@@ -496,8 +486,6 @@ filter-eigenschappen:lengte dcterms:isPartOf conceptscheme:systeem_eigenschappen
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantRiepr filter:filter, filter:injectie, filter:omkeerbaar, filter:peil, filter:pomp.
 filter-eigenschappen:watervoerendeLaag dcterms:isPartOf conceptscheme:systeem_eigenschappen;
-    dcterms:isVersionOf filter-eigenschappen:watervoerendeLaag;
-    dcterms:modified "2026-10-22T09:23:57.184Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     a skos:Concept;
     skos:definition "De watervoerende laag (aquifer) waarin de filter zich bevindt."@nl;
@@ -706,8 +694,6 @@ installatie-eigenschappen:luchtzuiverings_techniek dcterms:isPartOf conceptschem
     riepr-vocab:relevantCodeList <https://vito.be/codelijst/luchtzuiveringstechniek>;
     riepr-vocab:relevantRiepr installatie:luchtzuivering.
 installatie-eigenschappen:nominaal_thermisch_vermogen dcterms:isPartOf conceptscheme:systeem_eigenschappen;
-    dcterms:isVersionOf installatie-eigenschappen:nominaal_thermisch_vermogen;
-    dcterms:modified "2026-10-22T09:23:57.184Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     qudt:relevantUnit collectie:vermogen_eenheden;
     a skos:Concept;
@@ -745,8 +731,6 @@ installatie-eigenschappen:opslagen_overgeslagen_stof dcterms:isPartOf conceptsch
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:relevantRiepr installatie:opslag_overslag.
 installatie-eigenschappen:soort_opgewekte_energie dcterms:isPartOf conceptscheme:systeem_eigenschappen;
-    dcterms:isVersionOf installatie-eigenschappen:soort_opgewekte_energie;
-    dcterms:modified "2026-10-22T09:23:57.184Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     a skos:Concept;
     skos:definition "Het soort energie dat door de stookinstallatie wordt opgewekt."@nl;
@@ -783,8 +767,6 @@ installatie-eigenschappen:type_opslag_overslag dcterms:isPartOf conceptscheme:sy
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:relevantRiepr installatie:opslag_overslag.
 installatie-eigenschappen:type_stookinstallatie dcterms:isPartOf conceptscheme:systeem_eigenschappen;
-    dcterms:isVersionOf installatie-eigenschappen:type_stookinstallatie;
-    dcterms:modified "2026-10-22T09:23:57.184Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     a skos:Concept;
     skos:definition "Het type stookinstallatie."@nl;
@@ -1173,9 +1155,11 @@ bestemming:werf a skos:Concept;
     skos:inScheme conceptscheme:operationeel_bestemmingstype;
     skos:prefLabel "Werf"@nl;
     skos:topConceptOf conceptscheme:operationeel_bestemmingstype.
-contextueel:activiteit dcterms:relation sosa:hasFeatureOfInterest;
+contextueel:activiteit dcterms:isVersionOf contextueel:activiteit;
+    dcterms:modified "2026-10-22T12:43:29.964Z"^^xsd:dateTime;
+    dcterms:relation sosa:hasFeatureOfInterest;
+    qb:codeList conceptscheme:operationeel_contextueel_iepr_activiteit;
     a skos:Concept;
-    rdfs:seeAlso conceptscheme:operationeel_contextueel_iepr_activiteit;
     skos:definition "Selecteer de activiteit van de IEPR-installatie waarop je wil rapporteren"@nl;
     skos:inScheme conceptscheme:operationeel_contextueel_iepr;
     skos:note "Selecteer de activiteit van de IEPR-installatie waarop je wil rapporteren"@nl;
@@ -1187,9 +1171,11 @@ contextueel:energieverbruik a skos:Concept;
     skos:inScheme conceptscheme:operationeel_contextueel_iepr;
     skos:prefLabel "Energieverbruik"@nl;
     skos:topConceptOf conceptscheme:operationeel_contextueel_iepr.
-contextueel:feature dcterms:relation sosa:hasFeatureOfInterest;
+contextueel:feature dcterms:isVersionOf contextueel:feature;
+    dcterms:modified "2026-10-22T12:43:29.964Z"^^xsd:dateTime;
+    dcterms:relation sosa:hasFeatureOfInterest;
+    qb:codeList conceptscheme:operationeel_contextueel_iepr;
     a skos:Concept;
-    rdfs:seeAlso conceptscheme:operationeel_contextueel_iepr;
     skos:definition "Selecteer een IEPR installatie waarop je wil rapporteren."@nl;
     skos:inScheme conceptscheme:operationeel_contextueel;
     skos:note "Selecteer een IEPR installatie waarop je wil rapporteren."@nl;
@@ -1254,7 +1240,7 @@ grondstoffen:bestemmingsidentificatie-be-ve <http://purl.org/iso25964/skos-thes#
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter grondstoffen:bestemmingsidentificatie-be-on.
 grondstoffen:bestemmingsidentificatie-be dcterms:isVersionOf grondstoffen:bestemmingsidentificatie-be;
-    dcterms:modified "2026-10-22T09:23:57.184Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-22T12:43:29.964Z"^^xsd:dateTime;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:bestemmingsidentificatie-be-naam, grondstoffen:bestemmingsidentificatie-be-on, grondstoffen:bestemmingsidentificatie-be-ve;
     a skos:Concept;
@@ -1283,7 +1269,7 @@ grondstoffen:bestemmingsidentificatie-buitenland-naam dcterms:relation rdfs:labe
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiFirst true.
 grondstoffen:bestemmingsidentificatie-buitenland dcterms:isVersionOf grondstoffen:bestemmingsidentificatie-buitenland;
-    dcterms:modified "2026-10-22T09:23:57.184Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-22T12:43:29.964Z"^^xsd:dateTime;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:bestemmingsidentificatie-buitenland-btw, grondstoffen:bestemmingsidentificatie-buitenland-naam;
     a skos:Concept;
@@ -1312,7 +1298,7 @@ grondstoffen:bestemmingsidentificatie-none-naam dcterms:relation rdfs:label;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiFirst true.
 grondstoffen:bestemmingsidentificatie-none dcterms:isVersionOf grondstoffen:bestemmingsidentificatie-none;
-    dcterms:modified "2026-10-22T09:23:57.184Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-22T12:43:29.964Z"^^xsd:dateTime;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:bestemmingsidentificatie-none-adres, grondstoffen:bestemmingsidentificatie-none-naam;
     a skos:Concept;
@@ -1333,7 +1319,7 @@ grondstoffen:bestemmingsidentificatie-werf-naam dcterms:relation rdfs:label;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiFirst true.
 grondstoffen:bestemmingsidentificatie-werf dcterms:isVersionOf grondstoffen:bestemmingsidentificatie-werf;
-    dcterms:modified "2026-10-22T09:23:57.184Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-22T12:43:29.964Z"^^xsd:dateTime;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:bestemmingsidentificatie-werf-naam;
     a skos:Concept;
@@ -1895,9 +1881,11 @@ lucht:emissietype dcterms:relation dcterms:type;
     skos:inScheme conceptscheme:operationeel_lucht_emissie;
     skos:prefLabel "Emissietype"@nl;
     riepr-vocab:relevantCodeList conceptscheme:emissie_type.
-lucht:feature_bron dcterms:relation sosa:hasFeatureOfInterest;
+lucht:feature_bron dcterms:isVersionOf lucht:feature_bron;
+    dcterms:modified "2026-10-22T12:43:29.964Z"^^xsd:dateTime;
+    dcterms:relation sosa:hasFeatureOfInterest;
+    qb:codeList conceptscheme:operationeel_lucht_rapportering;
     a skos:Concept;
-    rdfs:seeAlso conceptscheme:operationeel_lucht_rapportering;
     skos:definition "Selecteer de bron(nen) waarop je wil rapporteren."@nl;
     skos:inScheme conceptscheme:operationeel_lucht_bron;
     skos:note "Selecteer de bron(nen) waarop je wil rapporteren."@nl;
@@ -1908,10 +1896,10 @@ lucht:feature_bron dcterms:relation sosa:hasFeatureOfInterest;
     riepr-vocab:relevantRiepr riepr:Installatie;
     riepr-vocab:uiFirst true.
 lucht:feature_ep dcterms:isVersionOf lucht:feature_ep;
-    dcterms:modified "2026-10-22T09:23:57.184Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-22T12:43:29.964Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
+    qb:codeList conceptscheme:operationeel_lucht_bron;
     a skos:Concept;
-    rdfs:seeAlso conceptscheme:operationeel_lucht_bron;
     skos:definition "Selecteer het emissiepunt waarop je wil rapporteren."@nl;
     skos:inScheme conceptscheme:operationeel_lucht;
     skos:note "Selecteer het emissiepunt waarop je wil rapporteren."@nl;
@@ -2097,9 +2085,11 @@ water:abnormale-lozing <http://purl.org/iso25964/skos-thes#narrowerPartitive> wa
     riepr-vocab:isMeervoudig true;
     riepr-vocab:isVerplicht false;
     riepr-vocab:uiAfter water:lozing.
-water:feature dcterms:relation sosa:hasFeatureOfInterest;
+water:feature dcterms:isVersionOf water:feature;
+    dcterms:modified "2026-10-22T12:43:29.964Z"^^xsd:dateTime;
+    dcterms:relation sosa:hasFeatureOfInterest;
+    qb:codeList conceptscheme:operationeel_water_lozing;
     a skos:Concept;
-    rdfs:seeAlso conceptscheme:operationeel_water_lozing;
     skos:definition "De controleinrichting waarop gerapporteed moet worden."@nl;
     skos:inScheme conceptscheme:operationeel_water;
     skos:note "De controleinrichting waarop gerapporteed moet worden."@nl;
@@ -2204,9 +2194,11 @@ zelfcontrole-lucht:datum dcterms:relation sosa:resultTime;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:date;
     riepr-vocab:uiFirst true.
-zelfcontrole-lucht:feature dcterms:relation sosa:hasFeatureOfInterest;
+zelfcontrole-lucht:feature dcterms:isVersionOf zelfcontrole-lucht:feature;
+    dcterms:modified "2026-10-22T12:43:29.964Z"^^xsd:dateTime;
+    dcterms:relation sosa:hasFeatureOfInterest;
+    qb:codeList conceptscheme:operationeel_zelfcontrole_lucht_meting;
     a skos:Concept;
-    rdfs:seeAlso conceptscheme:operationeel_zelfcontrole_lucht_meting;
     skos:definition "Het emissiepunt waarop gerapporteed moet worden."@nl;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_lucht;
     skos:note "Het emissiepunt waarop gerapporteed moet worden."@nl;
@@ -2317,9 +2309,11 @@ zelfcontrole-water:datum dcterms:relation sosa:resultTime;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:date;
     riepr-vocab:uiFirst true.
-zelfcontrole-water:feature dcterms:relation sosa:hasFeatureOfInterest;
+zelfcontrole-water:feature dcterms:isVersionOf zelfcontrole-water:feature;
+    dcterms:modified "2026-10-22T12:43:29.964Z"^^xsd:dateTime;
+    dcterms:relation sosa:hasFeatureOfInterest;
+    qb:codeList conceptscheme:operationeel_zelfcontrole_water_meting;
     a skos:Concept;
-    rdfs:seeAlso conceptscheme:operationeel_zelfcontrole_water_meting;
     skos:definition "De controleinrichting waarop gerapporteed moet worden."@nl;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_water;
     skos:note "De controleinrichting waarop gerapporteed moet worden."@nl;
@@ -2535,38 +2529,50 @@ status-type:voorgesteld a skos:Concept;
     skos:prefLabel "Voorgesteld Ontwerp"@nl;
     skos:topConceptOf conceptscheme:status_type;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-thema:grondstoffen a skos:Concept;
-    rdfs:seeAlso conceptscheme:operationeel_grondstoffen;
+thema:grondstoffen dcterms:isVersionOf thema:grondstoffen;
+    dcterms:modified "2026-10-22T12:43:29.964Z"^^xsd:dateTime;
+    qb:codeList conceptscheme:operationeel_grondstoffen;
+    a skos:Concept;
     skos:inScheme conceptscheme:thema_type;
     skos:notation "THEMA_GRONDSTOFFEN";
     skos:prefLabel "Grondstoffen"@nl;
     skos:topConceptOf conceptscheme:thema_type.
-thema:grondwater a skos:Concept;
-    rdfs:seeAlso conceptscheme:operationeel_grondwater;
+thema:grondwater dcterms:isVersionOf thema:grondwater;
+    dcterms:modified "2026-10-22T12:43:29.964Z"^^xsd:dateTime;
+    qb:codeList conceptscheme:operationeel_grondwater;
+    a skos:Concept;
     skos:inScheme conceptscheme:thema_type;
     skos:notation "THEMA_GRONDWATER";
     skos:prefLabel "Grondwater"@nl;
     skos:topConceptOf conceptscheme:thema_type.
-thema:lucht a skos:Concept;
-    rdfs:seeAlso conceptscheme:operationeel_lucht;
+thema:lucht dcterms:isVersionOf thema:lucht;
+    dcterms:modified "2026-10-22T12:43:29.964Z"^^xsd:dateTime;
+    qb:codeList conceptscheme:operationeel_lucht;
+    a skos:Concept;
     skos:inScheme conceptscheme:thema_type;
     skos:notation "THEMA_LUCHT";
     skos:prefLabel "Lucht"@nl;
     skos:topConceptOf conceptscheme:thema_type.
-thema:water a skos:Concept;
-    rdfs:seeAlso conceptscheme:operationeel_water;
+thema:water dcterms:isVersionOf thema:water;
+    dcterms:modified "2026-10-22T12:43:29.964Z"^^xsd:dateTime;
+    qb:codeList conceptscheme:operationeel_water;
+    a skos:Concept;
     skos:inScheme conceptscheme:thema_type;
     skos:notation "THEMA_WATER";
     skos:prefLabel "Water"@nl;
     skos:topConceptOf conceptscheme:thema_type.
-thema:zelfcontrole-lucht a skos:Concept;
-    rdfs:seeAlso conceptscheme:operationeel_zelfcontrole_lucht;
+thema:zelfcontrole-lucht dcterms:isVersionOf thema:zelfcontrole-lucht;
+    dcterms:modified "2026-10-22T12:43:29.964Z"^^xsd:dateTime;
+    qb:codeList conceptscheme:operationeel_zelfcontrole_lucht;
+    a skos:Concept;
     skos:inScheme conceptscheme:thema_type;
     skos:notation "THEMA_ZELFCONTROLE_LUCHT";
     skos:prefLabel "Zelfcontrole lucht"@nl;
     skos:topConceptOf conceptscheme:thema_type.
-thema:zelfcontrole-water a skos:Concept;
-    rdfs:seeAlso conceptscheme:operationeel_zelfcontrole_water;
+thema:zelfcontrole-water dcterms:isVersionOf thema:zelfcontrole-water;
+    dcterms:modified "2026-10-22T12:43:29.964Z"^^xsd:dateTime;
+    qb:codeList conceptscheme:operationeel_zelfcontrole_water;
+    a skos:Concept;
     skos:inScheme conceptscheme:thema_type;
     skos:notation "THEMA_ZELFCONTROLE_WATER";
     skos:prefLabel "Zelfcontrole water"@nl;
@@ -2782,9 +2788,7 @@ conceptscheme:uitwisselpunt_type dcterms:isPartOf conceptscheme:systeem_type;
     skos:hasTopConcept uitwisselpunt:pompput;
     skos:note "Een typering van verschillende soorten uitwisselpunten."@nl;
     skos:prefLabel "Uitwisselpunt types"@nl.
-riepr:inGebruikVanaf dcterms:isVersionOf riepr:inGebruikVanaf;
-    dcterms:modified "2026-10-22T09:23:57.184Z"^^xsd:dateTime;
-    a rdfs:Resource.
+riepr:inGebruikVanaf a rdfs:Resource.
 riepr:parameter a rdfs:Resource.
 schema:comment a rdfs:Resource.
 schema:material a rdfs:Resource.
