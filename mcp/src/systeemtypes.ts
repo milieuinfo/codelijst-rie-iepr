@@ -1,4 +1,4 @@
-// Systeemtypes: src/source/<systeem>_type.csv.
+// Systeemtypes: src/source/<systeem>types.csv.
 
 import type { CsvFile, CsvInput } from './csv.js';
 import { assertNoRename, describeReferences, findReferences, conceptRow, merge, newProblems, type Changes, type LineChange } from './references.js';

@@ -1,6 +1,6 @@
 // Detects eigenschappen and selection lists that are really a typering: a choice
 // between kinds of the system itself ("Type emissiepunt": schoorsteen, fakkel, ...)
-// belongs in <systeem>_type.csv as subtypes, not in a
+// belongs in <systeem>types.csv as subtypes, not in a
 // selection eigenschap.
 
 import fs from 'node:fs';

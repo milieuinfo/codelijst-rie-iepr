@@ -22,15 +22,15 @@ const { validate } = await import('../src/validate.js');
 const read = (file: string) => fs.readFileSync(path.join(root, 'src', 'source', file), 'utf8');
 
 test('dry run does not write', () => {
-    const before = read('installatie_type.csv');
+    const before = read('installatietypes.csv');
     const result = addType({ system: 'installatie', code: 'nieuw', prefLabel: 'Nieuw', definition: 'Een nieuw type.' });
-    assert.equal(read('installatie_type.csv'), before);
+    assert.equal(read('installatietypes.csv'), before);
     assert.match(result.insertedLines![0], /^installatie:nieuw,skos:Concept,conceptscheme:installatietypes,/);
 });
 
 test('subtype is placed below its broader type without topConceptOf', () => {
     addType({ system: 'installatie', code: 'condensatie_stookinstallatie', prefLabel: 'Condensatie stookinstallatie', definition: 'Een condenserende stookinstallatie.', broader: 'stookinstallatie', dryRun: false });
-    const lines = read('installatie_type.csv').split('\n');
+    const lines = read('installatietypes.csv').split('\n');
     const at = lines.findIndex(l => l.startsWith('installatie:condensatie_stookinstallatie,'));
     assert.ok(lines[at - 1].startsWith('installatie:indirecte_stookinstallatie,'));
     assert.ok(lines[at].trimEnd().endsWith('installatie:stookinstallatie,false,true'));
@@ -91,7 +91,7 @@ test('collection of units and composite property with parts', async () => {
     await addProperty({ system: 'meetpunt', code: 'sonde', prefLabel: 'Sonde', definition: 'Een sonde.', composite: true, isMeervoudig: true, appliesTo: ['peilput'], dryRun: false });
     await addProperty({ system: 'meetpunt', code: 'sonde_diepte', parent: 'sonde', prefLabel: 'Diepte', definition: 'De diepte.', datatype: 'xsd:decimal', unit: ['collectie:diepte_eenheden'], dryRun: false });
 
-    const csv = read('meetpunt_eigenschappen.csv');
+    const csv = read('meetpunteigenschappen.csv');
     assert.match(csv.split('\n')[0], /,collections$/);
     assert.match(csv, /\ncsor_eenheid:E_59,(,)+collectie:diepte_eenheden\n/);
     const sonde = listProperties('meetpunt').properties.find(p => p.id === 'meetpunteigenschappen:sonde')! as { composite?: boolean; parts: Array<{ id: string }> };

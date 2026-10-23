@@ -19,7 +19,7 @@ De volgende conceptschema's zijn opgenomen (id onder `https://data.omgeving.vlaa
 | `filtertypes` | Soorten filters (peilfilter, pompfilter, injectiefilter, omkeerbare filter) |
 | `meetpunttypes` | Soorten meetpunten (controleinrichting, debietmeter grondwater, peilput) |
 | `onttrekkingspunttypes` | Soorten onttrekkingspunten (opnamepunt oppervlaktewater) |
-| `uitwisselpunt_type` | Soorten uitwisselpunten (pompput) |
+| `uitwisselpunttypes` | Soorten uitwisselpunten (pompput) |
 | `installatie-eigenschappen` | Eigenschappen van installaties en de types waarvoor ze gelden |
 | `emissiepunteigenschappen` | Eigenschappen van emissiepunten en de types waarvoor ze gelden |
 | `filtereigenschappen` | Eigenschappen van filters en de types waarvoor ze gelden |
@@ -170,7 +170,7 @@ identificatoren blijven geldig.
 | `thema:` | `thema-type/` |
 | `toepassingswijze:` | `operationeel-toepassingswijze/` |
 | `toestand-indicator:` | `operationeel-toestand-indicator/` |
-| `uitwisselpunt:` | `uitwisselpunt-type/` |
+| `uitwisselpunt:` | `uitwisselpunttype/` |
 | `uitwisselpunteigenschappen:` | `uitwisselpunteigenschappen/` |
 | `water:` | `operationeel-water/` |
 | `zelfcontrole-lucht:` | `operationeel-zelfcontrole-lucht/` |
@@ -186,15 +186,17 @@ Structurele gegevens zijn opgedeeld in meerdere CSV bestanden voor de verschille
 
 #### Types en eigenschappen
 Elk systeem (`emissiepunt`, `filter`, `installatie`, `meetpunt`, `uitwisselpunt`, `onttrekkingspunt`) heeft twee codelijsten:
-- `<systeem>_type.csv`: de soorten van dat systeem, als hiërarchie via `broader` (bv. `emissiepunt:schoorsteen` is een `emissiepunt:emissiepunt_lucht`). `isOnzichtbaar = true` verbergt een type voor selectie (bv. omdat het enkel een structurele groepering is); de subtypes blijven wel selecteerbaar en erven de eigenschappen. `isMeetbaar = true` geeft aan dat het systeemtype meetbaar is.
-- `<systeem>_eigenschappen.csv`: de systeemeigenschappen die de vaste attributen uit het datamodel (`riepr.ttl`: naam, beschrijving, ...) aanvullen. De vaste attributen staan dus niet in de CSV's.
+- `<systeem>types.csv`: de soorten van dat systeem, als hiërarchie via `broader` (bv. `emissiepunt:schoorsteen` is een `emissiepunt:emissiepunt_lucht`). `isOnzichtbaar = true` verbergt een type voor selectie (bv. omdat het enkel een structurele groepering is); de subtypes blijven wel selecteerbaar en erven de eigenschappen. `isMeetbaar = true` geeft aan dat het systeemtype meetbaar is.
+- `<systeem>eigenschappen.csv`: de systeemeigenschappen die de vaste attributen uit het datamodel (`riepr.ttl`: naam, beschrijving, ...) aanvullen. De vaste attributen staan dus niet in de CSV's.
+
+De bestandsnaam is het id van het conceptschema (bv. `emissiepunttypes.csv`, `emissiepunteigenschappen.csv`). Uitzondering: `installatie-eigenschappen.csv` (koppelteken bij klinkerbotsing).
 
 #### Welke eigenschappen gelden voor welk type?
 `relevantRiepr` op een eigenschap bepaalt voor welke types ze geldt. De waarde bevat één of meer types, gescheiden door `|` of `,`.
 
 1. **Direct**: de eigenschap geldt voor elk type dat in `relevantRiepr` staat.
 2. **Overerving**: ze geldt ook voor alle subtypes van die types (`broader`-keten). Een eigenschap op `emissiepunt:emissiepunt_lucht` geldt dus ook voor `emissiepunt:schoorsteen`. Een eigenschap die enkel op een subtype staat, geldt niet voor het bovenliggende type.
-3. **Alle types**: de waarde `conceptscheme:<systeem>types` (bv. `conceptscheme:installatietypes`; voor uitwisselpunt `conceptscheme:uitwisselpunt_type`) betekent alle types van dat systeem.
+3. **Alle types**: de waarde `conceptscheme:<systeem>types` (bv. `conceptscheme:installatietypes`) betekent alle types van dat systeem.
 4. **Leeg**: een eigenschap zonder `relevantRiepr` geldt voor **geen enkel type**. Dit is dus niet "alles". Enige uitzondering zijn onderdelen van een composite (zie hieronder).
 5. **Onzichtbare types**: `isOnzichtbaar` beïnvloedt enkel of een type gekozen kan worden, niet welke eigenschappen het erft of doorgeeft.
 

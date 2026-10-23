@@ -1,4 +1,4 @@
-// Eigenschappen: src/source/<systeem>_eigenschappen.csv.
+// Eigenschappen: src/source/<systeem>eigenschappen.csv.
 
 import type { CsvFile, CsvInput, CsvRecord } from './csv.js';
 import { applyMembershipEdits, describeList, isOwnListRow, listRowIndexes } from './lists.js';

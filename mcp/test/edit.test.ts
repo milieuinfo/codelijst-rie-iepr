@@ -30,9 +30,9 @@ const read = (file: string) => fs.readFileSync(path.join(root, 'src', 'source', 
 const line = (file: string, id: string) => read(file).split('\n').find(l => l.startsWith(`${id},`));
 
 test('update_type changes only the given fields and keeps its place', () => {
-    const before = read('installatie_type.csv').split('\n');
+    const before = read('installatietypes.csv').split('\n');
     updateType({ system: 'installatie', type: 'luchtzuivering', set: { definition: 'Een installatie die lucht zuivert.' }, dryRun: false });
-    const after = read('installatie_type.csv').split('\n');
+    const after = read('installatietypes.csv').split('\n');
     const index = before.findIndex(l => l.startsWith('installatie:luchtzuivering,'));
     assert.equal(after[index].trimEnd(), 'installatie:luchtzuivering,skos:Concept,conceptscheme:installatietypes,conceptscheme:installatietypes,,Luchtzuiveringsinstallatie,,Een installatie die lucht zuivert.,,,false,true');
     assert.deepEqual(after.filter((_, i) => i !== index), before.filter((_, i) => i !== index));
@@ -40,7 +40,7 @@ test('update_type changes only the given fields and keeps its place', () => {
 
 test('update_type moves a type between top level and subtype, and rejects cycles', () => {
     updateType({ system: 'installatie', type: 'directe_stookinstallatie', set: { broader: null }, dryRun: false });
-    assert.match(line('installatie_type.csv', 'installatie:directe_stookinstallatie')!, /,skos:Concept,conceptscheme:installatietypes,conceptscheme:installatietypes,/);
+    assert.match(line('installatietypes.csv', 'installatie:directe_stookinstallatie')!, /,skos:Concept,conceptscheme:installatietypes,conceptscheme:installatietypes,/);
     updateType({ system: 'installatie', type: 'fakkel', set: { broader: 'productie_installatie' }, dryRun: false });
     assert.throws(() => updateType({ system: 'installatie', type: 'productie_installatie', set: { broader: 'fakkel' } }), /subtype of itself/);
 });
@@ -65,15 +65,15 @@ test('delete_type refuses while referenced and can remove itself from eigenschap
     deleteProperty({ system: 'meetpunt', property: 'sondetype', dryRun: false });
     deleteType({ system: 'meetpunt', type: 'sonde', removeFromProperties: true, dryRun: false });
 
-    assert.equal(line('meetpunt_type.csv', 'meetpunt:sonde'), undefined);
-    assert.match(line('meetpunt_eigenschappen.csv', 'meetpunteigenschappen:kalibratie')!, /,meetpunt:peilput,/);
+    assert.equal(line('meetpunttypes.csv', 'meetpunt:sonde'), undefined);
+    assert.match(line('meetpunteigenschappen.csv', 'meetpunteigenschappen:kalibratie')!, /,meetpunt:peilput,/);
     assert.deepEqual(newErrors(['meetpunt']), []);
 });
 
 test('update_property switches a value to a selection and keeps an empty relation empty', async () => {
     // A legacy row without datatype and with an empty relation (none are left in the real lists).
-    const file = path.join(root, 'src', 'source', 'installatie_eigenschappen.csv');
-    const rows = read('installatie_eigenschappen.csv').split('\n');
+    const file = path.join(root, 'src', 'source', 'installatie-eigenschappen.csv');
+    const rows = read('installatie-eigenschappen.csv').split('\n');
     const after = rows.findIndex(l => l.startsWith('installatie-eigenschappen:omschrijving,'));
     rows.splice(after + 1, 0, 'installatie-eigenschappen:testwaarde,skos:Concept,conceptscheme:installatie-eigenschappen,conceptscheme:installatie-eigenschappen,,,Testwaarde,,Een testwaarde.,,,,,,installatie:opslag_overslag,,,false,false');
     fs.writeFileSync(file, rows.join('\n'));
@@ -85,10 +85,10 @@ test('update_property switches a value to a selection and keeps an empty relatio
         system: 'installatie', property: 'testwaarde',
         set: { codeList: ['conceptscheme:statustypes'], codeListSource: 'published' }, dryRun: false,
     });
-    assert.match(line('installatie_eigenschappen.csv', 'installatie-eigenschappen:testwaarde')!, /,rdfs:value,,conceptscheme:statustypes,installatie:opslag_overslag,/);
+    assert.match(line('installatie-eigenschappen.csv', 'installatie-eigenschappen:testwaarde')!, /,rdfs:value,,conceptscheme:statustypes,installatie:opslag_overslag,/);
 
     await updateProperty({ system: 'installatie', property: 'nominaal_thermisch_vermogen', set: { prefLabel: 'Nominaal thermisch vermogen (MW)' }, dryRun: false });
-    assert.match(line('installatie_eigenschappen.csv', 'installatie-eigenschappen:nominaal_thermisch_vermogen')!, /,Nominaal thermisch vermogen \(MW\),.*,rdfs:value,xsd:decimal,/);
+    assert.match(line('installatie-eigenschappen.csv', 'installatie-eigenschappen:nominaal_thermisch_vermogen')!, /,Nominaal thermisch vermogen \(MW\),.*,rdfs:value,xsd:decimal,/);
 
     await assert.rejects(
         updateProperty({ system: 'emissiepunt', property: 'hoogte', set: { datatype: 'xsd:string' } }),
@@ -104,7 +104,7 @@ test('delete_property removes a composite with its parts and optionally its unus
     assert.ok(result.warnings.some(w => /collectie:verwijderingsrendement_stoffen/.test(w)));
 
     deleteProperty({ system: 'installatie', property: 'verwijderingsrendement', deleteUnusedLists: true, dryRun: false });
-    const csv = read('installatie_eigenschappen.csv');
+    const csv = read('installatie-eigenschappen.csv');
     assert.doesNotMatch(csv, /verwijderingsrendement/);
     assert.doesNotMatch(csv, /csor_variabele:V_2217/);
     assert.match(csv, /collectie:vermogen_eenheden/);
@@ -121,11 +121,11 @@ test('inline lists: refuse to delete while used, edit options, remove entries, d
         options: [{ option: 'riool', definition: 'Lozing in de openbare riolering.' }],
         dryRun: false,
     });
-    assert.match(line('emissiepunt_eigenschappen.csv', 'conceptscheme:lozingspunt_lozingsplaats')!, /,Lozingsplaatsen,/);
-    assert.match(line('emissiepunt_eigenschappen.csv', 'emissiepunt-selectiemogelijkheden:riool')!, /,Riool,,Lozing in de openbare riolering\.,/);
+    assert.match(line('emissiepunteigenschappen.csv', 'conceptscheme:lozingspunt_lozingsplaats')!, /,Lozingsplaatsen,/);
+    assert.match(line('emissiepunteigenschappen.csv', 'emissiepunt-selectiemogelijkheden:riool')!, /,Riool,,Lozing in de openbare riolering\.,/);
 
     removeListEntries({ system: 'emissiepunt', list: 'lozingspunt_lozingsplaats', entries: ['grondwater'], dryRun: false });
-    assert.equal(line('emissiepunt_eigenschappen.csv', 'emissiepunt-selectiemogelijkheden:grondwater'), undefined);
+    assert.equal(line('emissiepunteigenschappen.csv', 'emissiepunt-selectiemogelijkheden:grondwater'), undefined);
     assert.throws(() => removeListEntries({
         system: 'emissiepunt', list: 'lozingspunt_lozingsplaats',
         entries: ['riool', 'oppervlaktewater', 'collector', 'externe_waterzuivering', 'regenwaterriool'],
@@ -133,7 +133,7 @@ test('inline lists: refuse to delete while used, edit options, remove entries, d
 
     deleteProperty({ system: 'emissiepunt', property: 'lozingspunt-lozingsplaats', dryRun: false });
     deleteSelectionList({ system: 'emissiepunt', list: 'lozingspunt_lozingsplaats', dryRun: false });
-    const csv = read('emissiepunt_eigenschappen.csv');
+    const csv = read('emissiepunteigenschappen.csv');
     assert.doesNotMatch(csv, /lozingsplaats|selectiemogelijkheden:(riool|oppervlaktewater|collector)/);
     assert.doesNotMatch(csv.trimEnd().split('\n').at(-1)!, /^,+$/);
     assert.deepEqual(newErrors(['emissiepunt']), []);
@@ -145,11 +145,11 @@ test('removing a collection member that also belongs to another collection keeps
         members: ['csor_eenheid:E_92', 'csor_eenheid:E_43'], dryRun: false,
     });
     removeListEntries({ system: 'installatie', list: 'collectie:extra_eenheden', entries: ['csor_eenheid:E_92'], dryRun: false });
-    const memberships = () => read('installatie_eigenschappen.csv').split('\n').filter(l => l.startsWith('csor_eenheid:E_92,'));
+    const memberships = () => read('installatie-eigenschappen.csv').split('\n').filter(l => l.startsWith('csor_eenheid:E_92,'));
     assert.deepEqual(memberships().map(l => l.split(',').at(5)), ['collectie:vermogen_eenheden']);
 
     deleteSelectionList({ system: 'installatie', list: 'extra_eenheden', dryRun: false });
-    assert.doesNotMatch(read('installatie_eigenschappen.csv'), /extra_eenheden|\ncsor_eenheid:E_43,/);
+    assert.doesNotMatch(read('installatie-eigenschappen.csv'), /extra_eenheden|\ncsor_eenheid:E_43,/);
     assert.equal(memberships().length, 1);
     assert.deepEqual(newErrors(['installatie']), []);
 });

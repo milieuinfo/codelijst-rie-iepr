@@ -30,9 +30,10 @@ For `emissiepunt`, `filter`, `installatie`, `meetpunt`, `uitwisselpunt` and `ont
 
 - Answering **questions** ("Welke typen installaties bestaan er?", "Wat zijn de eigenschappen van een
   fakkel?"): follow `.agents/skills/codelijst-opvragen/SKILL.md`.
-- Adding a **type** (`src/source/<systeem>_type.csv`): follow `.agents/skills/codelijst-systeemtype/SKILL.md`.
-- Adding an **eigenschap** (`src/source/<systeem>_eigenschappen.csv`), including selections,
+- Adding a **type** (`src/source/<systeem>types.csv`): follow `.agents/skills/codelijst-systeemtype/SKILL.md`.
+- Adding an **eigenschap** (`src/source/<systeem>eigenschappen.csv`), including selections,
   units and composite properties: follow `.agents/skills/codelijst-eigenschap/SKILL.md`.
+  File names follow the concept scheme id (`installatie-eigenschappen.csv` has a hyphen: vowel clash).
 - **Editing or deleting** types, eigenschappen, inline selection lists or their options: follow
   `.agents/skills/codelijst-wijzigen/SKILL.md`.
 

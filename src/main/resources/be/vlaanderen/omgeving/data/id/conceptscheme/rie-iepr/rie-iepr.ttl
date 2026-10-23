@@ -39,7 +39,7 @@
 @prefix toepassingswijze: <https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toepassingswijze/>.
 @prefix toestand-indicator: <https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toestand-indicator/>.
 @prefix uitwisselpunteigenschappen: <https://data.omgeving.vlaanderen.be/id/concept/riepr/uitwisselpunteigenschappen/>.
-@prefix uitwisselpunt: <https://data.omgeving.vlaanderen.be/id/concept/riepr/uitwisselpunt-type/>.
+@prefix uitwisselpunt: <https://data.omgeving.vlaanderen.be/id/concept/riepr/uitwisselpunttype/>.
 @prefix water: <https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/>.
 @prefix zelfcontrole-lucht: <https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/>.
 @prefix zelfcontrole-water: <https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/>.
@@ -225,7 +225,7 @@ emissie:geleide a skos:Concept;
     skos:prefLabel "Geleide emissie"@nl;
     skos:topConceptOf conceptscheme:emissie_type.
 emissie:niet-geleide-fakkel dcterms:isVersionOf emissie:niet-geleide-fakkel;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:broader emissie:niet-geleide;
     skos:broaderTransitive emissie:niet-geleide;
@@ -244,7 +244,7 @@ emissie:niet-geleide-lekverlies a skos:Concept;
     skos:semanticRelation emissie:niet-geleide;
     skos:topConceptOf conceptscheme:emissie_type.
 emissie:niet-geleide-opslagverlies dcterms:isVersionOf emissie:niet-geleide-opslagverlies;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:broader emissie:niet-geleide;
     skos:broaderTransitive emissie:niet-geleide;
@@ -255,7 +255,7 @@ emissie:niet-geleide-opslagverlies dcterms:isVersionOf emissie:niet-geleide-opsl
     skos:topConceptOf conceptscheme:emissie_type;
     riepr-vocab:relevantRiepr installatie:opslag_overslag.
 emissie:niet-geleide-overslagverlies dcterms:isVersionOf emissie:niet-geleide-overslagverlies;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:broader emissie:niet-geleide;
     skos:broaderTransitive emissie:niet-geleide;
@@ -273,43 +273,43 @@ emissie:niet-geleide a skos:Concept;
     skos:prefLabel "Niet-geleide emissie"@nl;
     skos:semanticRelation emissie:niet-geleide-fakkel, emissie:niet-geleide-lekverlies, emissie:niet-geleide-opslagverlies, emissie:niet-geleide-overslagverlies;
     skos:topConceptOf conceptscheme:emissie_type.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen-selectiemogelijkheden/collector> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen-selectiemogelijkheden/collector> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen-selectiemogelijkheden/externe_waterzuivering> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen-selectiemogelijkheden/externe_waterzuivering> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen-selectiemogelijkheden/grondwater> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen-selectiemogelijkheden/grondwater> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen-selectiemogelijkheden/oppervlaktewater> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen-selectiemogelijkheden/oppervlaktewater> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen-selectiemogelijkheden/regenwaterriool> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen-selectiemogelijkheden/regenwaterriool> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen-selectiemogelijkheden/riool> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen-selectiemogelijkheden/riool> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/aantal_punten> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/aantal_punten> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/diameter> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/diameter> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/hoogte> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/hoogte> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/lozingspunt-lozingsplaats> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-eigenschappen/lozingspunt-lozingsplaats> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/emissiepunt_lucht> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/emissiepunt_lucht> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/fakkel> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/fakkel> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/gebouw> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/gebouw> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/installatie> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/installatie> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/lozingspunt> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/lozingspunt> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_horizontale_uitstroom> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_horizontale_uitstroom> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_verticale_uitstroom> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/schoorsteen_verticale_uitstroom> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-emissiepunt-selectiemogelijkheden:collector dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+emissiepunt-selectiemogelijkheden:collector dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "Lozing op een collector."@nl;
     skos:inScheme conceptscheme:lozingspunt_lozingsplaats;
@@ -317,7 +317,7 @@ emissiepunt-selectiemogelijkheden:collector dcterms:created "2026-10-23T09:37:53
     skos:prefLabel "Collector"@nl;
     skos:topConceptOf conceptscheme:lozingspunt_lozingsplaats;
     adms:status <https://purl.archive.org/adms/status/Active>.
-emissiepunt-selectiemogelijkheden:externe_waterzuivering dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+emissiepunt-selectiemogelijkheden:externe_waterzuivering dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "Lozing of afvoer naar een externe waterzuivering."@nl;
     skos:inScheme conceptscheme:lozingspunt_lozingsplaats;
@@ -325,7 +325,7 @@ emissiepunt-selectiemogelijkheden:externe_waterzuivering dcterms:created "2026-1
     skos:prefLabel "Externe waterzuivering"@nl;
     skos:topConceptOf conceptscheme:lozingspunt_lozingsplaats;
     adms:status <https://purl.archive.org/adms/status/Active>.
-emissiepunt-selectiemogelijkheden:grondwater dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+emissiepunt-selectiemogelijkheden:grondwater dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "Lozing in grondwater."@nl;
     skos:inScheme conceptscheme:lozingspunt_lozingsplaats;
@@ -333,7 +333,7 @@ emissiepunt-selectiemogelijkheden:grondwater dcterms:created "2026-10-23T09:37:5
     skos:prefLabel "Grondwater"@nl;
     skos:topConceptOf conceptscheme:lozingspunt_lozingsplaats;
     adms:status <https://purl.archive.org/adms/status/Active>.
-emissiepunt-selectiemogelijkheden:oppervlaktewater dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+emissiepunt-selectiemogelijkheden:oppervlaktewater dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "Lozing in oppervlaktewater."@nl;
     skos:inScheme conceptscheme:lozingspunt_lozingsplaats;
@@ -341,7 +341,7 @@ emissiepunt-selectiemogelijkheden:oppervlaktewater dcterms:created "2026-10-23T0
     skos:prefLabel "Oppervlaktewater"@nl;
     skos:topConceptOf conceptscheme:lozingspunt_lozingsplaats;
     adms:status <https://purl.archive.org/adms/status/Active>.
-emissiepunt-selectiemogelijkheden:regenwaterriool dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+emissiepunt-selectiemogelijkheden:regenwaterriool dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "Lozing op een regenwaterriool."@nl;
     skos:inScheme conceptscheme:lozingspunt_lozingsplaats;
@@ -349,7 +349,7 @@ emissiepunt-selectiemogelijkheden:regenwaterriool dcterms:created "2026-10-23T09
     skos:prefLabel "Regenwaterriolering"@nl;
     skos:topConceptOf conceptscheme:lozingspunt_lozingsplaats;
     adms:status <https://purl.archive.org/adms/status/Active>.
-emissiepunt-selectiemogelijkheden:riool dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+emissiepunt-selectiemogelijkheden:riool dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "Lozing op riolering."@nl;
     skos:inScheme conceptscheme:lozingspunt_lozingsplaats;
@@ -357,7 +357,7 @@ emissiepunt-selectiemogelijkheden:riool dcterms:created "2026-10-23T09:37:53.148
     skos:prefLabel "Riool"@nl;
     skos:topConceptOf conceptscheme:lozingspunt_lozingsplaats;
     adms:status <https://purl.archive.org/adms/status/Active>.
-emissiepunteigenschappen:aantal_punten dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+emissiepunteigenschappen:aantal_punten dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:value;
     a skos:Concept;
@@ -371,7 +371,7 @@ emissiepunteigenschappen:aantal_punten dcterms:created "2026-10-23T09:37:53.148Z
     riepr-vocab:isVerplicht false;
     riepr-vocab:relevantDataType xsd:integer;
     riepr-vocab:relevantRiepr emissiepunt:emissiepunt_lucht, emissiepunt:fakkel, emissiepunt:gebouw, emissiepunt:installatie, emissiepunt:schoorsteen, emissiepunt:schoorsteen_horizontale_uitstroom, emissiepunt:schoorsteen_verticale_uitstroom.
-emissiepunteigenschappen:diameter dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+emissiepunteigenschappen:diameter dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:value;
     qudt:relevantUnit csor_eenheid:E_59;
@@ -387,7 +387,7 @@ emissiepunteigenschappen:diameter dcterms:created "2026-10-23T09:37:53.148Z"^^xs
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantProperty dbo:diameter;
     riepr-vocab:relevantRiepr emissiepunt:emissiepunt_lucht, emissiepunt:fakkel, emissiepunt:gebouw, emissiepunt:installatie, emissiepunt:schoorsteen, emissiepunt:schoorsteen_horizontale_uitstroom, emissiepunt:schoorsteen_verticale_uitstroom.
-emissiepunteigenschappen:hoogte dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+emissiepunteigenschappen:hoogte dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:value;
     qudt:relevantUnit csor_eenheid:E_59;
@@ -403,7 +403,7 @@ emissiepunteigenschappen:hoogte dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantProperty dbo:height;
     riepr-vocab:relevantRiepr emissiepunt:emissiepunt_lucht, emissiepunt:fakkel, emissiepunt:gebouw, emissiepunt:installatie, emissiepunt:schoorsteen, emissiepunt:schoorsteen_horizontale_uitstroom, emissiepunt:schoorsteen_verticale_uitstroom.
-emissiepunteigenschappen:lozingspunt-lozingsplaats dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+emissiepunteigenschappen:lozingspunt-lozingsplaats dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:value;
     a skos:Concept;
@@ -417,7 +417,7 @@ emissiepunteigenschappen:lozingspunt-lozingsplaats dcterms:created "2026-10-23T0
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList conceptscheme:lozingspunt_lozingsplaats;
     riepr-vocab:relevantRiepr emissiepunt:lozingspunt.
-emissiepunt:emissiepunt_lucht dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+emissiepunt:emissiepunt_lucht dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:definition "Een emissie naar de lucht."@nl;
@@ -431,7 +431,7 @@ emissiepunt:emissiepunt_lucht dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:da
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar true.
-emissiepunt:fakkel dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+emissiepunt:fakkel dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:broader emissiepunt:emissiepunt_lucht;
@@ -444,7 +444,7 @@ emissiepunt:fakkel dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-emissiepunt:gebouw dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+emissiepunt:gebouw dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:broader emissiepunt:emissiepunt_lucht;
@@ -457,7 +457,7 @@ emissiepunt:gebouw dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-emissiepunt:installatie dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+emissiepunt:installatie dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:broader emissiepunt:emissiepunt_lucht;
@@ -470,7 +470,7 @@ emissiepunt:installatie dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-emissiepunt:lozingspunt dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+emissiepunt:lozingspunt dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:definition "Een lozing naar water."@nl;
@@ -481,7 +481,7 @@ emissiepunt:lozingspunt dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-emissiepunt:schoorsteen dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+emissiepunt:schoorsteen dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:broader emissiepunt:emissiepunt_lucht;
@@ -496,7 +496,7 @@ emissiepunt:schoorsteen dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar true.
-emissiepunt:schoorsteen_horizontale_uitstroom dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+emissiepunt:schoorsteen_horizontale_uitstroom dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:broader emissiepunt:schoorsteen;
@@ -509,7 +509,7 @@ emissiepunt:schoorsteen_horizontale_uitstroom dcterms:created "2026-10-23T09:37:
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-emissiepunt:schoorsteen_verticale_uitstroom dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+emissiepunt:schoorsteen_verticale_uitstroom dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:broader emissiepunt:schoorsteen;
@@ -522,25 +522,25 @@ emissiepunt:schoorsteen_verticale_uitstroom dcterms:created "2026-10-23T09:37:53
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-eigenschappen/diepte> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-eigenschappen/diepte> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-eigenschappen/diepte_pomp> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-eigenschappen/diepte_pomp> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-eigenschappen/lengte> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-eigenschappen/lengte> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-eigenschappen/watervoerendeLaag> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-eigenschappen/watervoerendeLaag> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/filter> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/filter> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/injectie> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/injectie> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/omkeerbaar> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/omkeerbaar> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/peil> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/peil> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/pomp> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/filter-type/pomp> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-filtereigenschappen:diepte dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+filtereigenschappen:diepte dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:value;
     qudt:relevantUnit csor_eenheid:E_59;
@@ -556,7 +556,7 @@ filtereigenschappen:diepte dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateT
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantProperty dbo:depth;
     riepr-vocab:relevantRiepr filter:filter, filter:injectie, filter:omkeerbaar, filter:peil, filter:pomp.
-filtereigenschappen:diepte_pomp dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+filtereigenschappen:diepte_pomp dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:value;
     qudt:relevantUnit csor_eenheid:E_59;
@@ -572,7 +572,7 @@ filtereigenschappen:diepte_pomp dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantProperty dbo:depth;
     riepr-vocab:relevantRiepr filter:pomp.
-filtereigenschappen:lengte dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+filtereigenschappen:lengte dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:value;
     qudt:relevantUnit csor_eenheid:E_59;
@@ -587,7 +587,7 @@ filtereigenschappen:lengte dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateT
     riepr-vocab:isVerplicht false;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantRiepr filter:filter, filter:injectie, filter:omkeerbaar, filter:peil, filter:pomp.
-filtereigenschappen:watervoerendeLaag dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+filtereigenschappen:watervoerendeLaag dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:value;
     a skos:Concept;
@@ -601,7 +601,7 @@ filtereigenschappen:watervoerendeLaag dcterms:created "2026-10-23T09:37:53.148Z"
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList <https://data.bodemenondergrond.vlaanderen.be/id/conceptscheme/aquiferhcovv2>;
     riepr-vocab:relevantRiepr filter:filter, filter:injectie, filter:omkeerbaar, filter:peil, filter:pomp.
-filter:filter dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+filter:filter dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:definition "Het geperforeerde deel van een put waarlangs grondwater in of uit de put stroomt."@nl;
@@ -615,7 +615,7 @@ filter:filter dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar true.
-filter:injectie dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+filter:injectie dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:broader filter:filter;
@@ -628,7 +628,7 @@ filter:injectie dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-filter:omkeerbaar dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+filter:omkeerbaar dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:broader filter:filter;
@@ -641,7 +641,7 @@ filter:omkeerbaar dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-filter:peil dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+filter:peil dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:broader filter:filter;
@@ -654,7 +654,7 @@ filter:peil dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-filter:pomp dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+filter:pomp dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:broader filter:filter;
@@ -759,7 +759,7 @@ installatie-selectiemogelijkheden:wkk a skos:Concept;
     skos:topConceptOf conceptscheme:installatie_type_stookinstallatie.
 installatie-eigenschappen:geinstalleerde_opslag_overslagcapaciteit dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:isVersionOf installatie-eigenschappen:geinstalleerde_opslag_overslagcapaciteit;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     qudt:relevantUnit collectie:opslagcapaciteit_eenheden;
     a skos:Concept;
@@ -774,7 +774,7 @@ installatie-eigenschappen:geinstalleerde_opslag_overslagcapaciteit dcterms:isPar
     riepr-vocab:relevantRiepr installatie:opslag_overslag.
 installatie-eigenschappen:geinstalleerde_productiecapaciteit dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:isVersionOf installatie-eigenschappen:geinstalleerde_productiecapaciteit;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     qudt:relevantUnit collectie:productiecapaciteit_eenheden;
     a skos:Concept;
@@ -789,7 +789,7 @@ installatie-eigenschappen:geinstalleerde_productiecapaciteit dcterms:isPartOf co
     riepr-vocab:relevantRiepr installatie:productie_installatie.
 installatie-eigenschappen:geproduceerde_stof_of_product dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:isVersionOf installatie-eigenschappen:geproduceerde_stof_of_product;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     a skos:Concept;
     skos:definition "Een beschrijving van de producten of stoffen die door de productie-installatie worden geproduceerd."@nl;
@@ -803,7 +803,7 @@ installatie-eigenschappen:geproduceerde_stof_of_product dcterms:isPartOf concept
     riepr-vocab:relevantRiepr installatie:productie_installatie.
 installatie-eigenschappen:luchtzuiverings_techniek dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:isVersionOf installatie-eigenschappen:luchtzuiverings_techniek;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     a skos:Concept;
     skos:definition "Een beschrijving van de toegepaste luchtzuiveringstechniek."@nl;
@@ -817,7 +817,7 @@ installatie-eigenschappen:luchtzuiverings_techniek dcterms:isPartOf conceptschem
     riepr-vocab:relevantRiepr installatie:luchtzuivering.
 installatie-eigenschappen:nominaal_thermisch_vermogen dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:isVersionOf installatie-eigenschappen:nominaal_thermisch_vermogen;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     qudt:relevantUnit collectie:vermogen_eenheden;
     a skos:Concept;
@@ -832,7 +832,7 @@ installatie-eigenschappen:nominaal_thermisch_vermogen dcterms:isPartOf conceptsc
     riepr-vocab:relevantRiepr installatie:directe_stookinstallatie, installatie:indirecte_stookinstallatie, installatie:stookinstallatie.
 installatie-eigenschappen:omschrijving dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:isVersionOf installatie-eigenschappen:omschrijving;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     a skos:Concept;
     skos:definition "Een algemene beschrijving van de productie-installatie."@nl;
@@ -846,7 +846,7 @@ installatie-eigenschappen:omschrijving dcterms:isPartOf conceptscheme:systeemeig
     riepr-vocab:relevantRiepr installatie:productie_installatie.
 installatie-eigenschappen:opslagen_overgeslagen_stof dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:isVersionOf installatie-eigenschappen:opslagen_overgeslagen_stof;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     a skos:Concept;
     skos:definition "De op- of overgeslagen stof (zoals benzine, white spirit, zand)."@nl;
@@ -860,7 +860,7 @@ installatie-eigenschappen:opslagen_overgeslagen_stof dcterms:isPartOf conceptsch
     riepr-vocab:relevantRiepr installatie:opslag_overslag.
 installatie-eigenschappen:soort_opgewekte_energie dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:isVersionOf installatie-eigenschappen:soort_opgewekte_energie;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     a skos:Concept;
     skos:definition "Het soort energie dat door de stookinstallatie wordt opgewekt."@nl;
@@ -874,7 +874,7 @@ installatie-eigenschappen:soort_opgewekte_energie dcterms:isPartOf conceptscheme
     riepr-vocab:relevantRiepr installatie:directe_stookinstallatie, installatie:indirecte_stookinstallatie, installatie:stookinstallatie.
 installatie-eigenschappen:technische_kenmerken dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:isVersionOf installatie-eigenschappen:technische_kenmerken;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     a skos:Concept;
     skos:definition "Een beschrijving van de technische kenmerken van een fakkel."@nl;
@@ -888,7 +888,7 @@ installatie-eigenschappen:technische_kenmerken dcterms:isPartOf conceptscheme:sy
     riepr-vocab:relevantRiepr installatie:fakkel.
 installatie-eigenschappen:type_opslag_overslag dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:isVersionOf installatie-eigenschappen:type_opslag_overslag;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     a skos:Concept;
     skos:definition "Een beschrijving van het type opslag of overslag (zoals tank met vlottend dak; tank met vast dak)."@nl;
@@ -902,7 +902,7 @@ installatie-eigenschappen:type_opslag_overslag dcterms:isPartOf conceptscheme:sy
     riepr-vocab:relevantRiepr installatie:opslag_overslag.
 installatie-eigenschappen:type_stookinstallatie dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:isVersionOf installatie-eigenschappen:type_stookinstallatie;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     a skos:Concept;
     skos:definition "Het type stookinstallatie."@nl;
@@ -916,7 +916,7 @@ installatie-eigenschappen:type_stookinstallatie dcterms:isPartOf conceptscheme:s
     riepr-vocab:relevantRiepr installatie:directe_stookinstallatie, installatie:indirecte_stookinstallatie, installatie:stookinstallatie.
 installatie-eigenschappen:verwijderingsrendement dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:isVersionOf installatie-eigenschappen:verwijderingsrendement;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> installatie-eigenschappen:verwijderingsrendement_percentage, installatie-eigenschappen:verwijderingsrendement_stof;
     a skos:Concept;
     skos:definition "Samengestelde eigenschap voor verwijderingsrendement (stof en percentage)."@nl;
@@ -928,7 +928,7 @@ installatie-eigenschappen:verwijderingsrendement dcterms:isPartOf conceptscheme:
     riepr-vocab:isVerplicht false.
 installatie-eigenschappen:verwijderingsrendement_percentage dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:isVersionOf installatie-eigenschappen:verwijderingsrendement_percentage;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> installatie-eigenschappen:verwijderingsrendement;
     qudt:relevantUnit csor_eenheid:E_43;
@@ -942,7 +942,7 @@ installatie-eigenschappen:verwijderingsrendement_percentage dcterms:isPartOf con
     riepr-vocab:relevantDataType xsd:decimal.
 installatie-eigenschappen:verwijderingsrendement_stof dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:isVersionOf installatie-eigenschappen:verwijderingsrendement_stof;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation riepr:parameter;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> installatie-eigenschappen:verwijderingsrendement;
     a skos:Concept;
@@ -956,7 +956,7 @@ installatie-eigenschappen:verwijderingsrendement_stof dcterms:isPartOf conceptsc
     riepr-vocab:relevantRiepr installatie:luchtzuivering.
 installatie-eigenschappen:waterzuiveringstechniek dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:isVersionOf installatie-eigenschappen:waterzuiveringstechniek;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> installatie-eigenschappen:waterzuiveringstechniek_ingebruikvan, installatie-eigenschappen:waterzuiveringstechniek_techniek;
     a skos:Concept;
     skos:definition "Samengestelde eigenschap voor waterzuiveringstechniek."@nl;
@@ -969,7 +969,7 @@ installatie-eigenschappen:waterzuiveringstechniek dcterms:isPartOf conceptscheme
     riepr-vocab:relevantRiepr installatie:waterzuivering.
 installatie-eigenschappen:waterzuiveringstechniek_ingebruikvan dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:isVersionOf installatie-eigenschappen:waterzuiveringstechniek_ingebruikvan;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation riepr:inGebruikVanaf;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> installatie-eigenschappen:waterzuiveringstechniek;
     a skos:Concept;
@@ -982,7 +982,7 @@ installatie-eigenschappen:waterzuiveringstechniek_ingebruikvan dcterms:isPartOf 
     riepr-vocab:relevantDataType xsd:date.
 installatie-eigenschappen:waterzuiveringstechniek_techniek dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:isVersionOf installatie-eigenschappen:waterzuiveringstechniek_techniek;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation rdfs:value;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> installatie-eigenschappen:waterzuiveringstechniek;
     a skos:Concept;
@@ -993,27 +993,27 @@ installatie-eigenschappen:waterzuiveringstechniek_techniek dcterms:isPartOf conc
     riepr-vocab:isMeervoudig false;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList <https://vito.be/codelijst/waterzuiveringstechniek>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/directe_stookinstallatie> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/fakkel> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/fakkel> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/geothermisch> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/geothermisch> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/gpbv> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/gpbv> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/indirecte_stookinstallatie> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/indirecte_stookinstallatie> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/luchtzuivering> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/luchtzuivering> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/opslag_overslag> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/opslag_overslag> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/productie_installatie> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/productie_installatie> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/stookinstallatie> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/waterzuivering> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-type/waterzuivering> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-installatie:directe_stookinstallatie dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+installatie:directe_stookinstallatie dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:broader installatie:stookinstallatie;
@@ -1026,7 +1026,7 @@ installatie:directe_stookinstallatie dcterms:created "2026-10-23T09:37:53.148Z"^
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-installatie:fakkel dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+installatie:fakkel dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:definition "Een installatie bestemd voor de verbranding van afgassen in de open lucht in noodsituaties."@nl;
@@ -1037,7 +1037,7 @@ installatie:fakkel dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-installatie:geothermisch dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+installatie:geothermisch dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:definition "Een installatie die grondwater benut voor verwarming en koeling."@nl;
@@ -1048,7 +1048,7 @@ installatie:geothermisch dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTim
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-installatie:gpbv dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+installatie:gpbv dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:definition "Een vaste technische eenheid waarin een of meer van de activiteiten en processen vermeld in de indelingslijst plaatsvinden, aangeduid met de letter X in de vierde kolom van de indelingslijst."@nl;
@@ -1059,7 +1059,7 @@ installatie:gpbv dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar true.
-installatie:indirecte_stookinstallatie dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+installatie:indirecte_stookinstallatie dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:broader installatie:stookinstallatie;
@@ -1072,7 +1072,7 @@ installatie:indirecte_stookinstallatie dcterms:created "2026-10-23T09:37:53.148Z
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-installatie:luchtzuivering dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+installatie:luchtzuivering dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:definition "Een installatie bestemd voor de zuivering van verontreinigde lucht."@nl;
@@ -1083,7 +1083,7 @@ installatie:luchtzuivering dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateT
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-installatie:opslag_overslag dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+installatie:opslag_overslag dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:definition "Een plaats of ruimte bestemd voor de opslag of overslag van stoffen waaronder grondstoffen, producten en afval."@nl;
@@ -1094,7 +1094,7 @@ installatie:opslag_overslag dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:date
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-installatie:productie_installatie dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+installatie:productie_installatie dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:definition "Een installatie of samenhangend geheel van installaties dat instaat voor of deel uitmaakt van een productieproces en dat emissies van afvalwater, afgassen en/of afvalstoffen genereert."@nl;
@@ -1105,7 +1105,7 @@ installatie:productie_installatie dcterms:created "2026-10-23T09:37:53.148Z"^^xs
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-installatie:stookinstallatie dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+installatie:stookinstallatie dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:definition "Elk technisch toestel waarin brandstoffen worden geoxideerd ten einde de aldus opgewekte warmte te gebruiken."@nl;
@@ -1119,7 +1119,7 @@ installatie:stookinstallatie dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dat
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-installatie:waterzuivering dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+installatie:waterzuivering dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:definition "Een installatie bestemd voor de zuivering van bedrijfsafvalwater."@nl;
@@ -1130,39 +1130,39 @@ installatie:waterzuivering dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateT
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen-selectiemogelijkheden/ander_referentiepunt> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen-selectiemogelijkheden/ander_referentiepunt> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen-selectiemogelijkheden/bovenkant_beschermbuis> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen-selectiemogelijkheden/bovenkant_beschermbuis> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen-selectiemogelijkheden/bovenkant_peilbuis> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen-selectiemogelijkheden/bovenkant_peilbuis> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen-selectiemogelijkheden/bovenkant_straatpot> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen-selectiemogelijkheden/bovenkant_straatpot> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen-selectiemogelijkheden/maaiveld> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen-selectiemogelijkheden/maaiveld> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen-selectiemogelijkheden/onbekend> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen-selectiemogelijkheden/onbekend> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen/diepte> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen/diepte> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen/merk> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen/merk> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen/putnummer> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen/putnummer> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen/referentiepunt> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen/referentiepunt> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen/referentiepunt_diepte> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen/referentiepunt_diepte> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen/referentiepunt_naam> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen/referentiepunt_naam> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen/serienummer> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-eigenschappen/serienummer> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/controleinrichting> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/controleinrichting> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/debietmeter> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/debietmeter> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/peilput> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunt-type/peilput> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-meetpunt-selectiemogelijkheden:ander_referentiepunt dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+meetpunt-selectiemogelijkheden:ander_referentiepunt dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "Een ander referentiepunt dan de opgesomde."@nl;
     skos:inScheme conceptscheme:meetpunt_referentiepunt_naam;
@@ -1170,7 +1170,7 @@ meetpunt-selectiemogelijkheden:ander_referentiepunt dcterms:created "2026-10-23T
     skos:prefLabel "Ander referentiepunt"@nl;
     skos:topConceptOf conceptscheme:meetpunt_referentiepunt_naam;
     adms:status <https://purl.archive.org/adms/status/Active>.
-meetpunt-selectiemogelijkheden:bovenkant_beschermbuis dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+meetpunt-selectiemogelijkheden:bovenkant_beschermbuis dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "De bovenkant van de beschermbuis."@nl;
     skos:inScheme conceptscheme:meetpunt_referentiepunt_naam;
@@ -1178,7 +1178,7 @@ meetpunt-selectiemogelijkheden:bovenkant_beschermbuis dcterms:created "2026-10-2
     skos:prefLabel "Bovenkant beschermbuis"@nl;
     skos:topConceptOf conceptscheme:meetpunt_referentiepunt_naam;
     adms:status <https://purl.archive.org/adms/status/Active>.
-meetpunt-selectiemogelijkheden:bovenkant_peilbuis dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+meetpunt-selectiemogelijkheden:bovenkant_peilbuis dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "De bovenkant van de peilbuis."@nl;
     skos:inScheme conceptscheme:meetpunt_referentiepunt_naam;
@@ -1186,7 +1186,7 @@ meetpunt-selectiemogelijkheden:bovenkant_peilbuis dcterms:created "2026-10-23T09
     skos:prefLabel "Bovenkant peilbuis"@nl;
     skos:topConceptOf conceptscheme:meetpunt_referentiepunt_naam;
     adms:status <https://purl.archive.org/adms/status/Active>.
-meetpunt-selectiemogelijkheden:bovenkant_straatpot dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+meetpunt-selectiemogelijkheden:bovenkant_straatpot dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "De bovenkant van de straatpot."@nl;
     skos:inScheme conceptscheme:meetpunt_referentiepunt_naam;
@@ -1194,7 +1194,7 @@ meetpunt-selectiemogelijkheden:bovenkant_straatpot dcterms:created "2026-10-23T0
     skos:prefLabel "Bovenkant straatpot"@nl;
     skos:topConceptOf conceptscheme:meetpunt_referentiepunt_naam;
     adms:status <https://purl.archive.org/adms/status/Active>.
-meetpunt-selectiemogelijkheden:maaiveld dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+meetpunt-selectiemogelijkheden:maaiveld dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "Het maaiveld ter hoogte van de peilput."@nl;
     skos:inScheme conceptscheme:meetpunt_referentiepunt_naam;
@@ -1202,7 +1202,7 @@ meetpunt-selectiemogelijkheden:maaiveld dcterms:created "2026-10-23T09:37:53.148
     skos:prefLabel "Maaiveld"@nl;
     skos:topConceptOf conceptscheme:meetpunt_referentiepunt_naam;
     adms:status <https://purl.archive.org/adms/status/Active>.
-meetpunt-selectiemogelijkheden:onbekend dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+meetpunt-selectiemogelijkheden:onbekend dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "Het referentiepunt is niet gekend."@nl;
     skos:inScheme conceptscheme:meetpunt_referentiepunt_naam;
@@ -1210,7 +1210,7 @@ meetpunt-selectiemogelijkheden:onbekend dcterms:created "2026-10-23T09:37:53.148
     skos:prefLabel "Onbekend"@nl;
     skos:topConceptOf conceptscheme:meetpunt_referentiepunt_naam;
     adms:status <https://purl.archive.org/adms/status/Active>.
-meetpunteigenschappen:diepte dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+meetpunteigenschappen:diepte dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:value;
     qudt:relevantUnit csor_eenheid:E_59;
@@ -1225,7 +1225,7 @@ meetpunteigenschappen:diepte dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dat
     riepr-vocab:isVerplicht false;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantRiepr meetpunt:peilput.
-meetpunteigenschappen:merk dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+meetpunteigenschappen:merk dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:value;
     a skos:Concept;
@@ -1239,7 +1239,7 @@ meetpunteigenschappen:merk dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateT
     riepr-vocab:isVerplicht false;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:relevantRiepr meetpunt:debietmeter.
-meetpunteigenschappen:putnummer dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+meetpunteigenschappen:putnummer dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:value;
     a skos:Concept;
@@ -1253,7 +1253,7 @@ meetpunteigenschappen:putnummer dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:
     riepr-vocab:isVerplicht false;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:relevantRiepr meetpunt:controleinrichting.
-meetpunteigenschappen:referentiepunt dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+meetpunteigenschappen:referentiepunt dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> meetpunteigenschappen:referentiepunt_diepte, meetpunteigenschappen:referentiepunt_naam;
     a skos:Concept;
@@ -1265,7 +1265,7 @@ meetpunteigenschappen:referentiepunt dcterms:created "2026-10-23T09:37:53.148Z"^
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:isVerplicht true.
-meetpunteigenschappen:referentiepunt_diepte dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+meetpunteigenschappen:referentiepunt_diepte dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:value;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> meetpunteigenschappen:referentiepunt;
@@ -1280,7 +1280,7 @@ meetpunteigenschappen:referentiepunt_diepte dcterms:created "2026-10-23T09:37:53
     riepr-vocab:isVerplicht false;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantRiepr meetpunt:peilput.
-meetpunteigenschappen:referentiepunt_naam dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+meetpunteigenschappen:referentiepunt_naam dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:label;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> meetpunteigenschappen:referentiepunt;
@@ -1294,7 +1294,7 @@ meetpunteigenschappen:referentiepunt_naam dcterms:created "2026-10-23T09:37:53.1
     riepr-vocab:isVerplicht false;
     riepr-vocab:relevantCodeList conceptscheme:meetpunt_referentiepunt_naam;
     riepr-vocab:relevantRiepr meetpunt:peilput.
-meetpunteigenschappen:serienummer dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+meetpunteigenschappen:serienummer dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:value;
     a skos:Concept;
@@ -1308,7 +1308,7 @@ meetpunteigenschappen:serienummer dcterms:created "2026-10-23T09:37:53.148Z"^^xs
     riepr-vocab:isVerplicht false;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:relevantRiepr meetpunt:debietmeter.
-meetpunt:controleinrichting dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+meetpunt:controleinrichting dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:definition "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt."@nl;
@@ -1319,7 +1319,7 @@ meetpunt:controleinrichting dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:date
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-meetpunt:debietmeter dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+meetpunt:debietmeter dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:definition "Een meetinrichting is een meetpunt voor een pompput."@nl;
@@ -1330,7 +1330,7 @@ meetpunt:debietmeter dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-meetpunt:peilput dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+meetpunt:peilput dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:definition "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater"@nl;
@@ -1341,11 +1341,11 @@ meetpunt:peilput dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunt-eigenschappen/omschrijving> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunt-eigenschappen/omschrijving> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunt-type/opnamepunt> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunt-type/opnamepunt> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-onttrekkingspunteigenschappen:omschrijving dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+onttrekkingspunteigenschappen:omschrijving dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:value;
     a skos:Concept;
@@ -1359,7 +1359,7 @@ onttrekkingspunteigenschappen:omschrijving dcterms:created "2026-10-23T09:37:53.
     riepr-vocab:isVerplicht false;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:relevantRiepr onttrekkingspunt:opnamepunt.
-onttrekkingspunt:opnamepunt dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+onttrekkingspunt:opnamepunt dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:Concept;
     skos:definition "Plaats waar het oppervlaktewater wordt gewonnen voor gebruik in bedrijfsprocessen."@nl;
@@ -1416,7 +1416,7 @@ bestemming:werf a skos:Concept;
     skos:prefLabel "Werf"@nl;
     skos:topConceptOf conceptscheme:operationeel_bestemmingstype.
 contextueel:activiteit dcterms:isVersionOf contextueel:activiteit;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     qb:codeList conceptscheme:operationeel_contextueel_iepr_activiteit;
     a skos:Concept;
@@ -1432,7 +1432,7 @@ contextueel:energieverbruik a skos:Concept;
     skos:prefLabel "Energieverbruik"@nl;
     skos:topConceptOf conceptscheme:operationeel_contextueel_iepr.
 contextueel:feature dcterms:isVersionOf contextueel:feature;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     qb:codeList conceptscheme:operationeel_contextueel_iepr;
     a skos:Concept;
@@ -1500,7 +1500,7 @@ grondstoffen:bestemmingsidentificatie-be-ve <http://purl.org/iso25964/skos-thes#
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter grondstoffen:bestemmingsidentificatie-be-on.
 grondstoffen:bestemmingsidentificatie-be dcterms:isVersionOf grondstoffen:bestemmingsidentificatie-be;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:bestemmingsidentificatie-be-naam, grondstoffen:bestemmingsidentificatie-be-on, grondstoffen:bestemmingsidentificatie-be-ve;
     a skos:Concept;
@@ -1529,7 +1529,7 @@ grondstoffen:bestemmingsidentificatie-buitenland-naam dcterms:relation rdfs:labe
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiFirst true.
 grondstoffen:bestemmingsidentificatie-buitenland dcterms:isVersionOf grondstoffen:bestemmingsidentificatie-buitenland;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:bestemmingsidentificatie-buitenland-btw, grondstoffen:bestemmingsidentificatie-buitenland-naam;
     a skos:Concept;
@@ -1558,7 +1558,7 @@ grondstoffen:bestemmingsidentificatie-none-naam dcterms:relation rdfs:label;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiFirst true.
 grondstoffen:bestemmingsidentificatie-none dcterms:isVersionOf grondstoffen:bestemmingsidentificatie-none;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:bestemmingsidentificatie-none-adres, grondstoffen:bestemmingsidentificatie-none-naam;
     a skos:Concept;
@@ -1579,7 +1579,7 @@ grondstoffen:bestemmingsidentificatie-werf-naam dcterms:relation rdfs:label;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiFirst true.
 grondstoffen:bestemmingsidentificatie-werf dcterms:isVersionOf grondstoffen:bestemmingsidentificatie-werf;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:bestemmingsidentificatie-werf-naam;
     a skos:Concept;
@@ -1803,7 +1803,7 @@ grondwater:kwaliteitsmeting-parameter <http://purl.org/iso25964/skos-thes#broade
     riepr-vocab:isMeervoudig true;
     riepr-vocab:uiAfter grondwater:kwaliteitsmeting-techniek.
 grondwater:kwaliteitsmeting-referentiepunt dcterms:isVersionOf grondwater:kwaliteitsmeting-referentiepunt;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
@@ -1829,7 +1829,7 @@ grondwater:kwaliteitsmeting <http://purl.org/iso25964/skos-thes#narrowerPartitiv
     riepr-vocab:isMeervoudig true;
     riepr-vocab:uiAfter grondwater:peilmeting.
 grondwater:kwaliteitsmeting_feature dcterms:isVersionOf grondwater:kwaliteitsmeting_feature;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting;
     a skos:Concept;
@@ -1852,7 +1852,7 @@ grondwater:onttrekking <http://purl.org/iso25964/skos-thes#narrowerPartitive> gr
     riepr-vocab:isMeervoudig true;
     riepr-vocab:uiFirst true.
 grondwater:onttrekking_feature dcterms:isVersionOf grondwater:onttrekking_feature;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:onttrekking;
     a skos:Concept;
@@ -1882,7 +1882,7 @@ grondwater:peilmeting <http://purl.org/iso25964/skos-thes#narrowerPartitive> gro
     riepr-vocab:isMeervoudig true;
     riepr-vocab:uiAfter grondwater:onttrekking.
 grondwater:peilmeting_feature dcterms:isVersionOf grondwater:peilmeting_feature;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:peilmeting;
     a skos:Concept;
@@ -1907,7 +1907,7 @@ grondwater:pomptoestand dcterms:relation sosa:hasResult;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_pomptoestand;
     riepr-vocab:uiAfter grondwater:peilmethode.
 grondwater:referentiepunt dcterms:isVersionOf grondwater:referentiepunt;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:peilmeting;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
@@ -2152,7 +2152,7 @@ lucht:emissietype dcterms:relation dcterms:type;
     skos:prefLabel "Emissietype"@nl;
     riepr-vocab:relevantCodeList conceptscheme:emissie_type.
 lucht:feature_bron dcterms:isVersionOf lucht:feature_bron;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     qb:codeList conceptscheme:operationeel_lucht_rapportering;
     a skos:Concept;
@@ -2166,7 +2166,7 @@ lucht:feature_bron dcterms:isVersionOf lucht:feature_bron;
     riepr-vocab:relevantRiepr riepr:Installatie;
     riepr-vocab:uiFirst true.
 lucht:feature_ep dcterms:isVersionOf lucht:feature_ep;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     qb:codeList conceptscheme:operationeel_lucht_bron;
     a skos:Concept;
@@ -2356,7 +2356,7 @@ water:abnormale-lozing <http://purl.org/iso25964/skos-thes#narrowerPartitive> wa
     riepr-vocab:isVerplicht false;
     riepr-vocab:uiAfter water:lozing.
 water:feature dcterms:isVersionOf water:feature;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     qb:codeList conceptscheme:operationeel_water_lozing;
     a skos:Concept;
@@ -2465,7 +2465,7 @@ zelfcontrole-lucht:datum dcterms:relation sosa:resultTime;
     riepr-vocab:relevantDataType xsd:date;
     riepr-vocab:uiFirst true.
 zelfcontrole-lucht:feature dcterms:isVersionOf zelfcontrole-lucht:feature;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     qb:codeList conceptscheme:operationeel_zelfcontrole_lucht_meting;
     a skos:Concept;
@@ -2580,7 +2580,7 @@ zelfcontrole-water:datum dcterms:relation sosa:resultTime;
     riepr-vocab:relevantDataType xsd:date;
     riepr-vocab:uiFirst true.
 zelfcontrole-water:feature dcterms:isVersionOf zelfcontrole-water:feature;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     qb:codeList conceptscheme:operationeel_zelfcontrole_water_meting;
     a skos:Concept;
@@ -2683,21 +2683,21 @@ zelfcontrole-water:parameter <http://purl.org/iso25964/skos-thes#narrowerPartiti
     sh:class riepr:Observatie;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:uiAfter zelfcontrole-water:labo.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/emissie> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/emissie> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/hoofdactiviteit> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/hoofdactiviteit> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/meting> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/meting> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/onttrekking> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/onttrekking> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/transport> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/transport> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/uitwissel> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/uitwissel> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/verwerking> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/procedure-type/verwerking> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-procedure:emissie dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+procedure:emissie dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "De procedure emissie via een emissiepunt."@nl;
     skos:inScheme conceptscheme:proceduretypes;
@@ -2707,7 +2707,7 @@ procedure:emissie dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     skos:topConceptOf conceptscheme:proceduretypes;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType sosa:Procedure.
-procedure:hoofdactiviteit dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+procedure:hoofdactiviteit dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "De procedure die de hoofdactiviteit aangeeft."@nl;
     skos:inScheme conceptscheme:proceduretypes;
@@ -2717,7 +2717,7 @@ procedure:hoofdactiviteit dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTi
     skos:topConceptOf conceptscheme:proceduretypes;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType sosa:Procedure.
-procedure:meting dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+procedure:meting dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "De procedure meting via een meetpunt."@nl;
     skos:inScheme conceptscheme:proceduretypes;
@@ -2727,7 +2727,7 @@ procedure:meting dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     skos:topConceptOf conceptscheme:proceduretypes;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType sosa:Procedure.
-procedure:onttrekking dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+procedure:onttrekking dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "De procedure onttrekking via een onttrekingspunt."@nl;
     skos:inScheme conceptscheme:proceduretypes;
@@ -2737,7 +2737,7 @@ procedure:onttrekking dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     skos:topConceptOf conceptscheme:proceduretypes;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType sosa:Procedure.
-procedure:transport dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+procedure:transport dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "De procedure transport tussen twee processen."@nl;
     skos:inScheme conceptscheme:proceduretypes;
@@ -2747,7 +2747,7 @@ procedure:transport dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     skos:topConceptOf conceptscheme:proceduretypes;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType sosa:Procedure.
-procedure:uitwissel dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+procedure:uitwissel dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "De procedure uitwissel via een uitwisselpunt."@nl;
     skos:inScheme conceptscheme:proceduretypes;
@@ -2757,7 +2757,7 @@ procedure:uitwissel dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     skos:topConceptOf conceptscheme:proceduretypes;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType sosa:Procedure.
-procedure:verwerking dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+procedure:verwerking dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "De procedure verwerking door een installatie."@nl;
     skos:inScheme conceptscheme:proceduretypes;
@@ -2767,9 +2767,9 @@ procedure:verwerking dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     skos:topConceptOf conceptscheme:proceduretypes;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType sosa:Procedure.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/rubriek-type/vlarem> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/rubriek-type/vlarem> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-rubriek:vlarem dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+rubriek:vlarem dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     skos:inScheme conceptscheme:rubriektypes;
     skos:notation "vlarem";
@@ -2777,19 +2777,19 @@ rubriek:vlarem dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     skos:topConceptOf conceptscheme:rubriektypes;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isMeetbaar true.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/definitief_uit_dienst> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/definitief_uit_dienst> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/in_dienst> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/in_dienst> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/ontmanteld> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/ontmanteld> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/tijdelijk_uit_dienst> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/tijdelijk_uit_dienst> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/verkeerde_registratie> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/verkeerde_registratie> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/voorgesteld> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/status-type/voorgesteld> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-statustype:definitief_uit_dienst dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+statustype:definitief_uit_dienst dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     rdfs:seeAlso <http://purl.org/adms/status/Withdrawn>;
     skos:definition "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is."@nl;
@@ -2800,7 +2800,7 @@ statustype:definitief_uit_dienst dcterms:created "2026-10-23T09:37:53.148Z"^^xsd
     skos:topConceptOf conceptscheme:statustypes;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-statustype:in_dienst dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+statustype:in_dienst dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     rdfs:seeAlso <http://purl.org/adms/status/Completed>;
     skos:definition "De status in dienst geeft aan dat een entiteit momenteel in gebruik is."@nl;
@@ -2811,7 +2811,7 @@ statustype:in_dienst dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     skos:topConceptOf conceptscheme:statustypes;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-statustype:ontmanteld dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+statustype:ontmanteld dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     rdfs:seeAlso <http://purl.org/adms/status/Withdrawn>;
     skos:definition "De status ontmanteld geeft aan dat een entiteit niet meer bestaat."@nl;
@@ -2822,7 +2822,7 @@ statustype:ontmanteld dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     skos:topConceptOf conceptscheme:statustypes;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-statustype:tijdelijk_uit_dienst dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+statustype:tijdelijk_uit_dienst dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     rdfs:seeAlso <http://purl.org/adms/status/Deprecated>;
     skos:definition "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is."@nl;
@@ -2833,7 +2833,7 @@ statustype:tijdelijk_uit_dienst dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:
     skos:topConceptOf conceptscheme:statustypes;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-statustype:verkeerde_registratie dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+statustype:verkeerde_registratie dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     rdfs:seeAlso <http://purl.org/adms/status/Withdrawn>;
     skos:definition "De status verkeerde registratie  geeft aan deze entiteit verkeerd werd geregistreerd en dus niet van toepassing is"@nl;
@@ -2844,7 +2844,7 @@ statustype:verkeerde_registratie dcterms:created "2026-10-23T09:37:53.148Z"^^xsd
     skos:topConceptOf conceptscheme:statustypes;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-statustype:voorgesteld dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+statustype:voorgesteld dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:Concept;
     rdfs:seeAlso <http://purl.org/adms/status/UnderDevelopment>;
     skos:definition "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid."@nl;
@@ -2856,7 +2856,7 @@ statustype:voorgesteld dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
 thema:grondstoffen dcterms:isVersionOf thema:grondstoffen;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     qb:codeList conceptscheme:operationeel_grondstoffen;
     a skos:Concept;
     skos:inScheme conceptscheme:thema_type;
@@ -2864,7 +2864,7 @@ thema:grondstoffen dcterms:isVersionOf thema:grondstoffen;
     skos:prefLabel "Grondstoffen"@nl;
     skos:topConceptOf conceptscheme:thema_type.
 thema:grondwater dcterms:isVersionOf thema:grondwater;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     qb:codeList conceptscheme:operationeel_grondwater;
     a skos:Concept;
     skos:inScheme conceptscheme:thema_type;
@@ -2872,7 +2872,7 @@ thema:grondwater dcterms:isVersionOf thema:grondwater;
     skos:prefLabel "Grondwater"@nl;
     skos:topConceptOf conceptscheme:thema_type.
 thema:lucht dcterms:isVersionOf thema:lucht;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     qb:codeList conceptscheme:operationeel_lucht;
     a skos:Concept;
     skos:inScheme conceptscheme:thema_type;
@@ -2880,7 +2880,7 @@ thema:lucht dcterms:isVersionOf thema:lucht;
     skos:prefLabel "Lucht"@nl;
     skos:topConceptOf conceptscheme:thema_type.
 thema:water dcterms:isVersionOf thema:water;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     qb:codeList conceptscheme:operationeel_water;
     a skos:Concept;
     skos:inScheme conceptscheme:thema_type;
@@ -2888,7 +2888,7 @@ thema:water dcterms:isVersionOf thema:water;
     skos:prefLabel "Water"@nl;
     skos:topConceptOf conceptscheme:thema_type.
 thema:zelfcontrole-lucht dcterms:isVersionOf thema:zelfcontrole-lucht;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     qb:codeList conceptscheme:operationeel_zelfcontrole_lucht;
     a skos:Concept;
     skos:inScheme conceptscheme:thema_type;
@@ -2896,27 +2896,18 @@ thema:zelfcontrole-lucht dcterms:isVersionOf thema:zelfcontrole-lucht;
     skos:prefLabel "Zelfcontrole lucht"@nl;
     skos:topConceptOf conceptscheme:thema_type.
 thema:zelfcontrole-water dcterms:isVersionOf thema:zelfcontrole-water;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     qb:codeList conceptscheme:operationeel_zelfcontrole_water;
     a skos:Concept;
     skos:inScheme conceptscheme:thema_type;
     skos:notation "THEMA_ZELFCONTROLE_WATER";
     skos:prefLabel "Zelfcontrole water"@nl;
     skos:topConceptOf conceptscheme:thema_type.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/uitwisselpunt-eigenschappen/diepte> dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/uitwisselpunt-eigenschappen/diepte> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-uitwisselpunt:pompput dcterms:isPartOf conceptscheme:systeemtypes;
-    dcterms:isVersionOf uitwisselpunt:pompput;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
-    a skos:Concept;
-    skos:definition "Een put voor de winning van of injectie naar grondwater."@nl;
-    skos:inScheme conceptscheme:uitwisselpunt_type;
-    skos:note "Een put voor de winning van of injectie naar grondwater."@nl;
-    skos:prefLabel "Pompput"@nl;
-    skos:topConceptOf conceptscheme:uitwisselpunt_type;
-    riepr-vocab:isMeetbaar true;
-    riepr-vocab:isOnzichtbaar false.
-uitwisselpunteigenschappen:diepte dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+<https://data.omgeving.vlaanderen.be/id/concept/riepr/uitwisselpunt-type/pompput> dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
+    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
+uitwisselpunteigenschappen:diepte dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:value;
     qudt:relevantUnit csor_eenheid:E_59;
@@ -2932,6 +2923,17 @@ uitwisselpunteigenschappen:diepte dcterms:created "2026-10-23T09:37:53.148Z"^^xs
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantProperty dbo:depth;
     riepr-vocab:relevantRiepr uitwisselpunt:pompput.
+uitwisselpunt:pompput dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
+    dcterms:isPartOf conceptscheme:systeemtypes;
+    a skos:Concept;
+    skos:definition "Een put voor de winning van of injectie naar grondwater."@nl;
+    skos:inScheme conceptscheme:uitwisselpunttypes;
+    skos:note "Een put voor de winning van of injectie naar grondwater."@nl;
+    skos:prefLabel "Pompput"@nl;
+    skos:topConceptOf conceptscheme:uitwisselpunttypes;
+    adms:status <https://purl.archive.org/adms/status/Active>;
+    riepr-vocab:isMeetbaar true;
+    riepr-vocab:isOnzichtbaar false.
 conceptscheme:aangifte_status a skos:ConceptScheme;
     skos:hasTopConcept aangifte-status:concept, aangifte-status:gefaald, aangifte-status:ingediend, aangifte-status:ingetrokken;
     skos:prefLabel "Aangifte status"@nl.
@@ -2943,11 +2945,11 @@ conceptscheme:aangifte_type a skos:ConceptScheme;
 conceptscheme:emissie_type a skos:ConceptScheme;
     skos:hasTopConcept emissie:abnormale, emissie:geleide, emissie:niet-geleide-fakkel, emissie:niet-geleide-lekverlies, emissie:niet-geleide-opslagverlies, emissie:niet-geleide-overslagverlies, emissie:niet-geleide;
     skos:prefLabel "Emissie type"@nl.
-conceptscheme:emissiepunt_eigenschappen dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:emissiepunt_eigenschappen dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-conceptscheme:emissiepunt_type dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:emissiepunt_type dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-conceptscheme:emissiepunteigenschappen dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:emissiepunteigenschappen dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     a skos:ConceptScheme;
     skos:definition "Een typering van verschillende eigenschappen voor emissiepunten."@nl;
@@ -2955,7 +2957,7 @@ conceptscheme:emissiepunteigenschappen dcterms:created "2026-10-23T09:37:53.148Z
     skos:note "Een typering van verschillende eigenschappen voor emissiepunten."@nl;
     skos:prefLabel "Emissiepunt eigenschappen"@nl;
     adms:status <https://purl.archive.org/adms/status/Active>.
-conceptscheme:emissiepunttypes dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:emissiepunttypes dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:ConceptScheme;
     skos:definition "Een typering van verschillende soorten emissiepunten."@nl;
@@ -2963,11 +2965,11 @@ conceptscheme:emissiepunttypes dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:d
     skos:note "Een typering van verschillende soorten emissiepunten."@nl;
     skos:prefLabel "Emissiepunt types"@nl;
     adms:status <https://purl.archive.org/adms/status/Active>.
-conceptscheme:filter_eigenschappen dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:filter_eigenschappen dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-conceptscheme:filter_type dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:filter_type dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-conceptscheme:filtereigenschappen dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:filtereigenschappen dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     a skos:ConceptScheme;
     skos:definition "Een typering van verschillende eigenschappen voor filters."@nl;
@@ -2975,7 +2977,7 @@ conceptscheme:filtereigenschappen dcterms:created "2026-10-23T09:37:53.148Z"^^xs
     skos:note "Een typering van verschillende eigenschappen voor filters."@nl;
     skos:prefLabel "Filter eigenschappen"@nl;
     adms:status <https://purl.archive.org/adms/status/Active>.
-conceptscheme:filtertypes dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:filtertypes dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:ConceptScheme;
     skos:hasTopConcept filter:filter;
@@ -2983,7 +2985,7 @@ conceptscheme:filtertypes dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTi
     adms:status <https://purl.archive.org/adms/status/Active>.
 conceptscheme:herkomst_water a skos:ConceptScheme;
     skos:prefLabel "Herkomst water"@nl.
-conceptscheme:installatie-eigenschappen dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:installatie-eigenschappen dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     a skos:ConceptScheme;
     skos:definition "Een typering van verschillende eigenschappen voor installaties."@nl;
@@ -2991,21 +2993,21 @@ conceptscheme:installatie-eigenschappen dcterms:created "2026-10-23T09:37:53.148
     skos:note "Een typering van verschillende eigenschappen voor installaties."@nl;
     skos:prefLabel "Installatie eigenschappen"@nl;
     adms:status <https://purl.archive.org/adms/status/Active>.
-conceptscheme:installatie_eigenschappen dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:installatie_eigenschappen dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
 conceptscheme:installatie_soort_opgewekte_energie a skos:ConceptScheme;
     skos:definition "De soorten energie die een stookinstallatie kan opwekken."@nl;
     skos:hasTopConcept installatie-selectiemogelijkheden:andere, installatie-selectiemogelijkheden:druk, installatie-selectiemogelijkheden:elektriciteit, installatie-selectiemogelijkheden:mechanische_energie, installatie-selectiemogelijkheden:stoom, installatie-selectiemogelijkheden:warm_water, installatie-selectiemogelijkheden:warme_lucht;
     skos:note "De soorten energie die een stookinstallatie kan opwekken."@nl;
     skos:prefLabel "Soort opgewekte energie"@nl.
-conceptscheme:installatie_type dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:installatie_type dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
 conceptscheme:installatie_type_stookinstallatie a skos:ConceptScheme;
     skos:definition "De mogelijke types van een stookinstallatie."@nl;
     skos:hasTopConcept installatie-selectiemogelijkheden:andere_motor, installatie-selectiemogelijkheden:andere_stookinstallatie, installatie-selectiemogelijkheden:boiler, installatie-selectiemogelijkheden:dieselmotor, installatie-selectiemogelijkheden:dual_fuel_motor, installatie-selectiemogelijkheden:gasmotor, installatie-selectiemogelijkheden:gasturbine, installatie-selectiemogelijkheden:wkk;
     skos:note "De mogelijke types van een stookinstallatie."@nl;
     skos:prefLabel "Type stookinstallatie"@nl.
-conceptscheme:installatietypes dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:installatietypes dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:ConceptScheme;
     skos:definition "Een typering van verschillende soorten installaties."@nl;
@@ -3014,21 +3016,21 @@ conceptscheme:installatietypes dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:d
     skos:prefLabel "Installatie types"@nl;
     adms:status <https://purl.archive.org/adms/status/Active>.
 conceptscheme:lozingspunt_lozingsplaats dcterms:isVersionOf conceptscheme:lozingspunt_lozingsplaats;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:ConceptScheme;
     skos:hasTopConcept emissiepunt-selectiemogelijkheden:collector, emissiepunt-selectiemogelijkheden:externe_waterzuivering, emissiepunt-selectiemogelijkheden:grondwater, emissiepunt-selectiemogelijkheden:oppervlaktewater, emissiepunt-selectiemogelijkheden:regenwaterriool, emissiepunt-selectiemogelijkheden:riool.
-conceptscheme:meetpunt_eigenschappen dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:meetpunt_eigenschappen dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
 conceptscheme:meetpunt_referentiepunt_naam dcterms:isVersionOf conceptscheme:meetpunt_referentiepunt_naam;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+    dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:ConceptScheme;
     skos:definition "De mogelijke referentiepunten voor de hoogtemeting van een peilput."@nl;
     skos:hasTopConcept meetpunt-selectiemogelijkheden:ander_referentiepunt, meetpunt-selectiemogelijkheden:bovenkant_beschermbuis, meetpunt-selectiemogelijkheden:bovenkant_peilbuis, meetpunt-selectiemogelijkheden:bovenkant_straatpot, meetpunt-selectiemogelijkheden:maaiveld, meetpunt-selectiemogelijkheden:onbekend;
     skos:note "De mogelijke referentiepunten voor de hoogtemeting van een peilput."@nl;
     skos:prefLabel "Referentiepunt naam"@nl.
-conceptscheme:meetpunt_type dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:meetpunt_type dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-conceptscheme:meetpunteigenschappen dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:meetpunteigenschappen dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     a skos:ConceptScheme;
     skos:definition "Een typering van verschillende eigenschappen voor meetpunten."@nl;
@@ -3036,17 +3038,17 @@ conceptscheme:meetpunteigenschappen dcterms:created "2026-10-23T09:37:53.148Z"^^
     skos:note "Een typering van verschillende eigenschappen voor meetpunten."@nl;
     skos:prefLabel "Meetpunt eigenschappen"@nl;
     adms:status <https://purl.archive.org/adms/status/Active>.
-conceptscheme:meetpunttypes dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:meetpunttypes dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:ConceptScheme;
     skos:hasTopConcept meetpunt:controleinrichting, meetpunt:debietmeter, meetpunt:peilput;
     skos:prefLabel "Meetpunt types"@nl;
     adms:status <https://purl.archive.org/adms/status/Active>.
-conceptscheme:onttrekkingspunt_eigenschappen dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:onttrekkingspunt_eigenschappen dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-conceptscheme:onttrekkingspunt_type dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:onttrekkingspunt_type dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-conceptscheme:onttrekkingspunteigenschappen dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:onttrekkingspunteigenschappen dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     a skos:ConceptScheme;
     skos:definition "Een typering van verschillende eigenschappen voor onttrekkingspunten."@nl;
@@ -3054,7 +3056,7 @@ conceptscheme:onttrekkingspunteigenschappen dcterms:created "2026-10-23T09:37:53
     skos:note "Een typering van verschillende eigenschappen voor onttrekkingspunten."@nl;
     skos:prefLabel "Onttrekkingspunt eigenschappen"@nl;
     adms:status <https://purl.archive.org/adms/status/Active>.
-conceptscheme:onttrekkingspunttypes dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:onttrekkingspunttypes dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:ConceptScheme;
     skos:definition "Een typering van verschillende soorten onttrekkingspunten."@nl;
@@ -3129,66 +3131,68 @@ conceptscheme:operationeel_zelfcontrole_water a skos:ConceptScheme;
     skos:prefLabel "Operationele gegevens"@nl.
 conceptscheme:operationeel_zelfcontrole_water_meting a skos:ConceptScheme;
     skos:hasTopConcept zelfcontrole-water:labo, zelfcontrole-water:meting, zelfcontrole-water:parameter.
-conceptscheme:procedure_type dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:procedure_type dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-conceptscheme:proceduretypes dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:proceduretypes dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:ConceptScheme;
     skos:definition "Een typering van verschillende procedures."@nl;
     skos:hasTopConcept procedure:emissie, procedure:hoofdactiviteit, procedure:meting, procedure:onttrekking, procedure:transport, procedure:uitwissel, procedure:verwerking;
     skos:note "Een typering van verschillende procedures."@nl;
     skos:prefLabel "Procedure types"@nl;
     adms:status <https://purl.archive.org/adms/status/Active>.
-conceptscheme:rubriek_type dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:rubriek_type dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-conceptscheme:rubriektypes dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:rubriektypes dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:ConceptScheme;
     skos:hasTopConcept rubriek:vlarem;
     skos:prefLabel "Rubriek types"@nl;
     adms:status <https://purl.archive.org/adms/status/Active>.
-conceptscheme:status_type dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:status_type dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-conceptscheme:statustypes dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:statustypes dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     a skos:ConceptScheme;
     skos:definition "Een typering van verschillende statussen (actief, inactief, ...)."@nl;
     skos:hasTopConcept statustype:definitief_uit_dienst, statustype:in_dienst, statustype:ontmanteld, statustype:tijdelijk_uit_dienst, statustype:verkeerde_registratie, statustype:voorgesteld;
     skos:note "Een typering van verschillende statussen (actief, inactief, ...)."@nl;
     skos:prefLabel "Status types"@nl;
     adms:status <https://purl.archive.org/adms/status/Active>.
-conceptscheme:systeem_eigenschappen dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:systeem_eigenschappen dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-conceptscheme:systeem_type dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:systeem_type dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-conceptscheme:systeemeigenschappen dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:systeemeigenschappen dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:hasPart emissiepunteigenschappen:aantal_punten, emissiepunteigenschappen:diameter, emissiepunteigenschappen:hoogte, emissiepunteigenschappen:lozingspunt-lozingsplaats, filtereigenschappen:diepte, filtereigenschappen:diepte_pomp, filtereigenschappen:lengte, filtereigenschappen:watervoerendeLaag, installatie-eigenschappen:geinstalleerde_opslag_overslagcapaciteit, installatie-eigenschappen:geinstalleerde_productiecapaciteit, installatie-eigenschappen:geproduceerde_stof_of_product, installatie-eigenschappen:luchtzuiverings_techniek, installatie-eigenschappen:nominaal_thermisch_vermogen, installatie-eigenschappen:omschrijving, installatie-eigenschappen:opslagen_overgeslagen_stof, installatie-eigenschappen:soort_opgewekte_energie, installatie-eigenschappen:technische_kenmerken, installatie-eigenschappen:type_opslag_overslag, installatie-eigenschappen:type_stookinstallatie, installatie-eigenschappen:verwijderingsrendement, installatie-eigenschappen:verwijderingsrendement_percentage, installatie-eigenschappen:verwijderingsrendement_stof, installatie-eigenschappen:waterzuiveringstechniek, installatie-eigenschappen:waterzuiveringstechniek_ingebruikvan, installatie-eigenschappen:waterzuiveringstechniek_techniek, meetpunteigenschappen:diepte, meetpunteigenschappen:merk, meetpunteigenschappen:putnummer, meetpunteigenschappen:referentiepunt, meetpunteigenschappen:referentiepunt_diepte, meetpunteigenschappen:referentiepunt_naam, meetpunteigenschappen:serienummer, onttrekkingspunteigenschappen:omschrijving, uitwisselpunteigenschappen:diepte, conceptscheme:emissiepunteigenschappen, conceptscheme:filtereigenschappen, conceptscheme:installatie-eigenschappen, conceptscheme:meetpunteigenschappen, conceptscheme:onttrekkingspunteigenschappen, conceptscheme:uitwisselpunteigenschappen;
     a skos:ConceptScheme;
     skos:prefLabel "Systeem eigenschappen"@nl;
     adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantCodeList conceptscheme:systeemtypes.
-conceptscheme:systeemtypes dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
-    dcterms:hasPart emissiepunt:emissiepunt_lucht, emissiepunt:fakkel, emissiepunt:gebouw, emissiepunt:installatie, emissiepunt:lozingspunt, emissiepunt:schoorsteen, emissiepunt:schoorsteen_horizontale_uitstroom, emissiepunt:schoorsteen_verticale_uitstroom, filter:filter, filter:injectie, filter:omkeerbaar, filter:peil, filter:pomp, installatie:directe_stookinstallatie, installatie:fakkel, installatie:geothermisch, installatie:gpbv, installatie:indirecte_stookinstallatie, installatie:luchtzuivering, installatie:opslag_overslag, installatie:productie_installatie, installatie:stookinstallatie, installatie:waterzuivering, meetpunt:controleinrichting, meetpunt:debietmeter, meetpunt:peilput, onttrekkingspunt:opnamepunt, uitwisselpunt:pompput, conceptscheme:emissiepunttypes, conceptscheme:filtertypes, conceptscheme:installatietypes, conceptscheme:meetpunttypes, conceptscheme:onttrekkingspunttypes, conceptscheme:uitwisselpunt_type;
+conceptscheme:systeemtypes dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
+    dcterms:hasPart emissiepunt:emissiepunt_lucht, emissiepunt:fakkel, emissiepunt:gebouw, emissiepunt:installatie, emissiepunt:lozingspunt, emissiepunt:schoorsteen, emissiepunt:schoorsteen_horizontale_uitstroom, emissiepunt:schoorsteen_verticale_uitstroom, filter:filter, filter:injectie, filter:omkeerbaar, filter:peil, filter:pomp, installatie:directe_stookinstallatie, installatie:fakkel, installatie:geothermisch, installatie:gpbv, installatie:indirecte_stookinstallatie, installatie:luchtzuivering, installatie:opslag_overslag, installatie:productie_installatie, installatie:stookinstallatie, installatie:waterzuivering, meetpunt:controleinrichting, meetpunt:debietmeter, meetpunt:peilput, onttrekkingspunt:opnamepunt, uitwisselpunt:pompput, conceptscheme:emissiepunttypes, conceptscheme:filtertypes, conceptscheme:installatietypes, conceptscheme:meetpunttypes, conceptscheme:onttrekkingspunttypes, conceptscheme:uitwisselpunttypes;
     a skos:ConceptScheme;
     skos:prefLabel "Systeem types"@nl;
     adms:status <https://purl.archive.org/adms/status/Active>.
 conceptscheme:thema_type a skos:ConceptScheme;
     skos:hasTopConcept thema:grondstoffen, thema:grondwater, thema:lucht, thema:water, thema:zelfcontrole-lucht, thema:zelfcontrole-water;
     skos:prefLabel "Thematische stroom"@nl.
-conceptscheme:uitwisselpunt_eigenschappen dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:uitwisselpunt_eigenschappen dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-conceptscheme:uitwisselpunt_type dcterms:isPartOf conceptscheme:systeemtypes;
-    dcterms:isVersionOf conceptscheme:uitwisselpunt_type;
-    dcterms:modified "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
-    a skos:ConceptScheme;
-    skos:definition "Een typering van verschillende soorten uitwisselpunten."@nl;
-    skos:hasTopConcept uitwisselpunt:pompput;
-    skos:note "Een typering van verschillende soorten uitwisselpunten."@nl;
-    skos:prefLabel "Uitwisselpunt types"@nl.
-conceptscheme:uitwisselpunteigenschappen dcterms:created "2026-10-23T09:37:53.148Z"^^xsd:dateTime;
+conceptscheme:uitwisselpunt_type dcterms:modified "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
+    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
+conceptscheme:uitwisselpunteigenschappen dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
     dcterms:isPartOf conceptscheme:systeemeigenschappen;
     a skos:ConceptScheme;
     skos:definition "Een typering van verschillende eigenschappen voor uitwisselpunten."@nl;
     skos:hasTopConcept uitwisselpunteigenschappen:diepte;
     skos:note "Een typering van verschillende eigenschappen voor uitwisselpunten."@nl;
     skos:prefLabel "Uitwisselpunt eigenschappen"@nl;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+conceptscheme:uitwisselpunttypes dcterms:created "2026-10-23T14:44:32.700Z"^^xsd:dateTime;
+    dcterms:isPartOf conceptscheme:systeemtypes;
+    a skos:ConceptScheme;
+    skos:definition "Een typering van verschillende soorten uitwisselpunten."@nl;
+    skos:hasTopConcept uitwisselpunt:pompput;
+    skos:note "Een typering van verschillende soorten uitwisselpunten."@nl;
+    skos:prefLabel "Uitwisselpunt types"@nl;
     adms:status <https://purl.archive.org/adms/status/Active>.
 riepr:inGebruikVanaf a rdfs:Resource.
 riepr:parameter a rdfs:Resource.

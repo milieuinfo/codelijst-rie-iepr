@@ -1,17 +1,17 @@
 ---
 name: codelijst-eigenschap
-description: 'Add a new eigenschap (property) for emissiepunten, filters, installaties, meetpunten, uitwisselpunten or onttrekkingspunten to src/source/<systeem>_eigenschappen.csv, including composite properties, units and selection lists (relevantCodeList). Use when the user asks to add a property, field, attribuut or eigenschap to one of these system types, e.g. "voeg de hoogte toe aan een fakkel", "een installatie moet een brandstoftype kunnen kiezen".'
+description: 'Add a new eigenschap (property) for emissiepunten, filters, installaties, meetpunten, uitwisselpunten or onttrekkingspunten to src/source/<systeem>eigenschappen.csv, including composite properties, units and selection lists (relevantCodeList). Use when the user asks to add a property, field, attribuut or eigenschap to one of these system types, e.g. "voeg de hoogte toe aan een fakkel", "een installatie moet een brandstoftype kunnen kiezen".'
 ---
 
 # Add an eigenschap
 
-Properties live in `src/source/<systeem>_eigenschappen.csv` (`conceptscheme:<systeem>_eigenschappen`). Each property says which types it applies to (`relevantRiepr`), what kind of value it holds (`relevantDataType` or `relevantCodeList`), and how (`relation`). Use the `codelijst-rie-iepr` MCP server tools; do not edit the CSV by hand.
+Properties live in `src/source/<systeem>eigenschappen.csv` (`conceptscheme:<systeem>eigenschappen`). Each property says which types it applies to (`relevantRiepr`), what kind of value it holds (`relevantDataType` or `relevantCodeList`), and how (`relation`). Use the `codelijst-rie-iepr` MCP server tools; do not edit the CSV by hand.
 
 ## Typering or eigenschap?
 
 A choice between kinds of the system itself is a **typering**, not an eigenschap: "Type emissiepunt"
 (schoorsteen, fakkel, gebouw, ...) or "Type stookinstallatie" (boiler, gasmotor, WKK, ...) are subtypes
-in `<systeem>_type.csv`, added with `add_type` (broader = the type they are kinds of). The MCP refuses a selection eigenschap or list that names the
+in `<systeem>types.csv`, added with `add_type` (broader = the type they are kinds of). The MCP refuses a selection eigenschap or list that names the
 system or one of its types ("Type …", "Soort …", "Typering …", "Categorie …", "… type"), or whose options
 are existing or withdrawn types; free text with such a name only gets a warning. A selection of something
 else (fuel, technique, lozingsplaats, ...) stays an eigenschap: "Type brandstof" is fine.
@@ -32,7 +32,7 @@ else (fuel, technique, lozingsplaats, ...) stays an eigenschap: "Type brandstof"
    - `code`: lowercase snake_case Dutch, no prefix: `nominaal_thermisch_vermogen`. Parts: `<parent>_<part>`.
    - `prefLabel`: Dutch, capital first letter: `Geinstalleerd vermogen`. For parts the short field name is enough (`Naam`, `Diepte`).
    - `definition`: one Dutch sentence ending with a period; propose one if the user gives none. Composite parents: `Samengestelde eigenschap voor <x> (<part> en <part>).`
-   - `appliesTo` (`relevantRiepr`): the types from `<systeem>_type.csv` this property is relevant for. Subtypes inherit from a broader type, so pick the most general type that fits; `["all"]` means every type of the system (`conceptscheme:<systeem>_type`). Required on top-level properties. A composite carries it either on the parent (parts inherit it, e.g. `waterzuiveringstechniek`) or on each of its parts (e.g. `referentiepunt`: `_naam` and `_diepte` apply to `meetpunt:peilput`); the tools accept both and combine them when answering which properties a type has.
+   - `appliesTo` (`relevantRiepr`): the types from `<systeem>types.csv` this property is relevant for. Subtypes inherit from a broader type, so pick the most general type that fits; `["all"]` means every type of the system (`conceptscheme:<systeem>types`). Required on top-level properties. A composite carries it either on the parent (parts inherit it, e.g. `waterzuiveringstechniek`) or on each of its parts (e.g. `referentiepunt`: `_naam` and `_diepte` apply to `meetpunt:peilput`); the tools accept both and combine them when answering which properties a type has.
    - `datatype` (`relevantDataType`): every eigenschap that is not a composite has an xsd datatype, unless it has a `relevantCodeList` (a selection from another list); free text is `xsd:string`, never empty. Options: `xsd:string` (free text), `xsd:decimal` (measurements, capacities, percentages), `xsd:integer` (counts, e.g. aantal uitstroompunten), `xsd:boolean` (ja/nee), `xsd:date`, `xsd:dateTime`, `xsd:duration`.
    - `unit` (`relevantUnit`): only for numbers. A CSOR unit such as `csor_eenheid:E_59` (meter) or `csor_eenheid:E_43` (%), or a collection of units when the user may choose (create it with `add_selection_list` `kind: 'collection'`, like `collectie:vermogen_eenheden`). If you do not know the CSOR code, ask the user rather than guessing.
    - `relation`: defaults to `rdfs:value`. In composite parts use `rdfs:label` for a name, `riepr:parameter` for the substance/parameter a value is about, `riepr:inGebruikVan` for a start date.

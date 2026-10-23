@@ -65,15 +65,14 @@ export function systemNames(system: string): SystemNames {
     if (!isSystem(system)) {
         throw new Error(`Unknown system '${system}'. Supported: ${SYSTEMS.join(', ')}`);
     }
-    // uitwisselpunt_type kept its id when the other type schemes were renamed to <systeem>types.
-    const typeScheme = 'uitwisselpunt' === system ? 'conceptscheme:uitwisselpunt_type' : `conceptscheme:${compound(system, 'types')}`;
+    const types = compound(system, 'types');
     const properties = compound(system, 'eigenschappen');
     return {
         system,
-        typeFile: `${system}_type.csv`,
+        typeFile: `${types}.csv`,
         typePrefix: system,
-        typeScheme,
-        propertyFile: `${system}_eigenschappen.csv`,
+        typeScheme: `conceptscheme:${types}`,
+        propertyFile: `${properties}.csv`,
         propertyPrefix: properties,
         propertyScheme: `conceptscheme:${properties}`,
         selectionPrefix: `${system}-selectiemogelijkheden`,
