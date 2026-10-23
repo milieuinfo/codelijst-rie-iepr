@@ -18,7 +18,7 @@ const FIELD_CODE = /^[a-z][a-z0-9_-]*$/;
 /** Column order of a new operationeel_*.csv file. */
 const OPERATIONAL_HEADER = [
     '_id', '_type', 'topConceptOf', 'inScheme', 'prefLabel', 'definition', 'broaderPartitive', 'relevantClass',
-    'relevantFeatureClass', 'relevantDataType', 'relation', 'seeAlso', 'relevantRiepr', 'conditionPath', 'conditionValue',
+    'relevantFeatureClass', 'relevantDataType', 'relation', 'vervolgstap', 'relevantRiepr', 'conditionPath', 'conditionValue',
     'relevantCodeList', 'relevantUnit', 'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'variabele', 'isVerplicht',
     'isMeervoudig', 'isMultiselect', 'isOnzichtbaar', '_ui_after', '_ui_first', 'related',
 ];
@@ -36,7 +36,7 @@ export interface FieldProperties {
     relevantFeatureClass?: string[];
     relevantRiepr?: string[];
     /** Next step(s): concept schemes. */
-    seeAlso?: string[];
+    vervolgstap?: string[];
     conditionPath?: string;
     conditionValue?: string;
     related?: string[];
@@ -66,7 +66,7 @@ const COLUMNS: Record<keyof FieldProperties, string> = {
     relevantClass: 'relevantClass',
     relevantFeatureClass: 'relevantFeatureClass',
     relevantRiepr: 'relevantRiepr',
-    seeAlso: 'seeAlso',
+    vervolgstap: 'vervolgstap',
     conditionPath: 'conditionPath',
     conditionValue: 'conditionValue',
     related: 'related',
@@ -82,7 +82,7 @@ const COLUMNS: Record<keyof FieldProperties, string> = {
     uiFirst: '_ui_first',
 };
 
-const LIST_FIELDS = new Set<keyof FieldProperties>(['codeList', 'unit', 'relevantFeatureClass', 'relevantRiepr', 'seeAlso', 'related']);
+const LIST_FIELDS = new Set<keyof FieldProperties>(['codeList', 'unit', 'relevantFeatureClass', 'relevantRiepr', 'vervolgstap', 'related']);
 const FLAG_FIELDS = new Set<keyof FieldProperties>(['isVerplicht', 'isMeervoudig', 'isMultiselect', 'isOnzichtbaar', 'uiFirst']);
 
 function fieldProperties(record: CsvRecord): FieldProperties {
@@ -213,9 +213,9 @@ function checkField(repo: Repo, scheme: string, id: string, p: FieldProperties):
         if (/TODO/i.test(value)) warnings.push(`unit ${value} is a placeholder.`);
         else if (!repo.byId.has(value)) checkReference(value, 'unit', errors);
     }
-    for (const next of p.seeAlso ?? []) {
-        if (!isUrl(next) && !repo.isScheme(next)) errors.push(`seeAlso ${next} is not a step (concept scheme); create it with add_step.`);
-        if (next === scheme) errors.push('seeAlso cannot point to the step the field is in.');
+    for (const next of p.vervolgstap ?? []) {
+        if (!isUrl(next) && !repo.isScheme(next)) errors.push(`vervolgstap ${next} is not a step (concept scheme); create it with add_step.`);
+        if (next === scheme) errors.push('vervolgstap cannot point to the step the field is in.');
     }
     for (const value of p.relevantRiepr ?? []) {
         if (isUrl(value) || prefixOf(value) === 'riepr') continue;
@@ -380,7 +380,7 @@ export function updateFlowItem({ id, set, dryRun = true }: { id: string; set: Fi
 
     if (r._type === 'skos:ConceptScheme' || at.file === THEMA_FILE) {
         // Steps and themas: labels, and for a thema its notation and first step.
-        const allowed = r._type === 'skos:ConceptScheme' ? ['prefLabel', 'definition'] : ['prefLabel', 'definition', 'notation', 'seeAlso'];
+        const allowed = r._type === 'skos:ConceptScheme' ? ['prefLabel', 'definition'] : ['prefLabel', 'definition', 'notation', 'vervolgstap'];
         const unknown = Object.keys(set).filter(k => !allowed.includes(k));
         if (unknown.length) throw new ValidationError(`For ${id} only ${allowed.join(', ')} can be changed (not ${unknown.join(', ')}).`);
         const errors: string[] = [];
@@ -389,7 +389,7 @@ export function updateFlowItem({ id, set, dryRun = true }: { id: string; set: Fi
         const merged = { prefLabel: set.prefLabel ?? r.prefLabel, definition: set.definition === null ? undefined : (set.definition ?? (r.definition || undefined)) };
         const after: Problems = { errors, warnings: [] };
         checkTexts(merged, after.errors, after.warnings);
-        for (const next of set.seeAlso ?? []) if (!repo.isScheme(next)) errors.push(`seeAlso ${next} is not a step.`);
+        for (const next of set.vervolgstap ?? []) if (!repo.isScheme(next)) errors.push(`vervolgstap ${next} is not a step.`);
         const problems = newProblems(before, after);
         fail(problems.errors);
         warnings = problems.warnings;
@@ -397,7 +397,7 @@ export function updateFlowItem({ id, set, dryRun = true }: { id: string; set: Fi
         if (set.prefLabel !== undefined) newCells.prefLabel = set.prefLabel?.trim() ?? '';
         if (set.definition !== undefined) newCells.definition = set.definition?.trim() ?? '';
         if (set.notation !== undefined) newCells.notation = set.notation?.trim() ?? '';
-        if (set.seeAlso !== undefined) newCells.seeAlso = (set.seeAlso ?? []).join('|');
+        if (set.vervolgstap !== undefined) newCells.vervolgstap = (set.vervolgstap ?? []).join('|');
     } else {
         const current = fieldProperties(r);
         const target = merge(current, set as Changes<FieldProperties>);
@@ -529,7 +529,7 @@ export function addStep(params: { name: string; prefLabel?: string; definition?:
     if (from) {
         source = located(repo, from, 'a field or thema');
         if (source.record._type !== 'skos:Concept') errors.push(`from ${from} must be a field or thema.`);
-        const existing = splitValues(source.record.seeAlso);
+        const existing = splitValues(source.record.vervolgstap);
         if (existing.length && !replaceNext) errors.push(`${from} already leads to ${existing.join(', ')}; pass replaceNext=true to replace that.`);
         file ??= source.file === THEMA_FILE ? undefined : source.file;
     }
@@ -543,12 +543,12 @@ export function addStep(params: { name: string; prefLabel?: string; definition?:
     if (source) {
         const csv = files.get(source.file);
         const row = files.row(source.file, source.record._id)!;
-        files.ensureColumns(source.file, { seeAlso: id }, changes);
+        files.ensureColumns(source.file, { vervolgstap: id }, changes);
         const before = csv.lines[row.index];
-        const after = csv.replaceLine(row.index, { ...row.record, seeAlso: id });
+        const after = csv.replaceLine(row.index, { ...row.record, vervolgstap: id });
         changes.push({ file: `src/source/${source.file}`, line: row.index + 1, before, after, note: 'leads to the new step' });
     } else {
-        warnings.push('No field leads to this step yet: set seeAlso on a field (update_flow_item) to connect it.');
+        warnings.push('No field leads to this step yet: set vervolgstap on a field (update_flow_item) to connect it.');
     }
     files.saveAll(dryRun);
     return writeResult({
@@ -564,12 +564,12 @@ export function deleteStep({ step, unlink = false, dryRun = true }: { step: stri
     const members = repo.conceptsOf(id).map(c => c.record._id);
     const own = new Set([id, ...members]);
     const references = findReferences([id, ...members], { ignore: ({ row }) => own.has(row.record._id) });
-    const links = references.filter(r => r.column === 'seeAlso' && r.id === id);
+    const links = references.filter(r => r.column === 'vervolgstap' && r.id === id);
     const blocking = references.filter(r => !links.includes(r));
     const errors: string[] = [];
     if (blocking.length) errors.push(`${id} or its fields are still used; change these rows first:\n${describeReferences(blocking)}`);
     if (links.length && !unlink) {
-        errors.push(`These rows lead to ${id}:\n${describeReferences(links)}\nPass unlink=true to remove those seeAlso links too (after confirming with the user).`);
+        errors.push(`These rows lead to ${id}:\n${describeReferences(links)}\nPass unlink=true to remove those vervolgstap links too (after confirming with the user).`);
     }
     fail(errors);
 
@@ -580,7 +580,7 @@ export function deleteStep({ step, unlink = false, dryRun = true }: { step: stri
         const csv = files.get(file);
         const row = csv.rows.find(r => r.index + 1 === link.line)!;
         const before = csv.lines[row.index];
-        const after = csv.replaceLine(row.index, { ...row.record, seeAlso: splitValues(row.record.seeAlso).filter(v => v !== id).join('|') });
+        const after = csv.replaceLine(row.index, { ...row.record, vervolgstap: splitValues(row.record.vervolgstap).filter(v => v !== id).join('|') });
         changes.push({ file: link.file, line: link.line, before, after, note: 'link to the deleted step removed' });
     }
     const csv = files.get(scheme.file);
@@ -627,7 +627,7 @@ export function addFlow(params: { code: string; prefLabel: string; definition?: 
     const lastThema = themaCsv.rows.filter(r => !r.blank && r.record.inScheme === THEMA_SCHEME).at(-1)!;
     const themaLines = themaCsv.insertAfter(lastThema.index, [{
         _id: themaId, _type: 'skos:Concept', topConceptOf: THEMA_SCHEME, inScheme: THEMA_SCHEME,
-        prefLabel: prefLabel.trim(), notation, definition: definition?.trim(), seeAlso: schemeId,
+        prefLabel: prefLabel.trim(), notation, definition: definition?.trim(), vervolgstap: schemeId,
     }]);
     changes.push({ file: `src/source/${THEMA_FILE}`, after: themaLines[0] });
 

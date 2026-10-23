@@ -9,9 +9,9 @@ Use the `codelijst-rie-iepr` MCP server tools; do not edit `thema_type.csv` or `
 
 ## How a flow works
 
-- A **thema** (`thema_type.csv`, e.g. `thema:lucht`) starts a flow: its `seeAlso` is the first **step**.
+- A **thema** (`thema_type.csv`, e.g. `thema:lucht`) starts a flow: its `vervolgstap` is the first **step**.
 - A step is a `skos:ConceptScheme` in an `operationeel_*.csv`; its concepts are the **fields** of that screen.
-- A field with `seeAlso` leads to the **next step** once it is filled in (typically a picker of the system to report on).
+- A field with `vervolgstap` leads to the **next step** once it is filled in (typically a picker of the system to report on).
 - `broaderPartitive` makes a field a **part** of a composite field (a group); `isMeervoudig` makes it repeatable.
 - `conditionPath`/`conditionValue` show a field only when another field of the step has that value.
 - `related` lists alternative **variants** of one logical field (shown as one group, the active variant follows the condition).
@@ -47,5 +47,5 @@ Explain flows in the user's language (usually Dutch) with labels, step by step: 
 1. Look first (`get_flow`/`get_step`) and propose the change in terms of the form: which control, where it appears, when it is visible.
 2. Ask what you cannot derive: label, datatype or list to choose from (published list or a new one: new option lists for flows live in `operationeel_misc.csv`), unit (CSOR code), required/repeatable, condition.
 3. Run the tool with `dryRun: true`, show the lines, and after confirmation repeat with `dryRun: false`. Every write runs `npm run generate_skos` and is rolled back when that fails.
-4. Deletes are refused while something still uses the item (e.g. a field used as `conditionPath`); the error lists the rows. `delete_step` only removes `seeAlso` links to the step with `unlink: true`. Deleted concepts are published as withdrawn; ids cannot be renamed.
+4. Deletes are refused while something still uses the item (e.g. a field used as `conditionPath`); the error lists the rows. `delete_step` only removes `vervolgstap` links to the step with `unlink: true`. Deleted concepts are published as withdrawn; ids cannot be renamed.
 5. Afterwards run `validate_flows` and show the new `get_flow` outline.

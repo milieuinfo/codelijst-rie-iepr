@@ -1,8 +1,8 @@
 // Operationele gegevens: the thematic flows (thema_type.csv) and their steps
 // (concept schemes in operationeel_*.csv). See "Operationele gegevens" in the
 // repository README for the semantics:
-// - a thema concept points with seeAlso to the first step (a concept scheme);
-// - the concepts of a step are its fields; a field with seeAlso leads to the next step;
+// - a thema concept points with vervolgstap to the first step (a concept scheme);
+// - the concepts of a step are its fields; a field with vervolgstap leads to the next step;
 // - broaderPartitive makes a field part of a composite field;
 // - conditionPath/conditionValue make a field visible only for a given value;
 // - related groups alternative variants of one logical field;
@@ -90,7 +90,7 @@ export class Repo {
     isStep(scheme: string): boolean {
         return this.conceptsOf(scheme).some(c => {
             const r = c.record;
-            return Boolean(r.relevantDataType || r.relevantCodeList || r.relevantRiepr || r.relevantClass || r.broaderPartitive || r.seeAlso);
+            return Boolean(r.relevantDataType || r.relevantCodeList || r.relevantRiepr || r.relevantClass || r.broaderPartitive || r.vervolgstap);
         });
     }
 
@@ -259,7 +259,7 @@ export function describeField(repo: Repo, field: Located, all: Located[]): UiFie
     }
     const related = splitValues(r.related);
     if (related.length) ui.variantOf = refs(repo, related);
-    const next = splitValues(r.seeAlso);
+    const next = splitValues(r.vervolgstap);
     if (next.length) ui.nextStep = refs(repo, next);
     const semantics: Record<string, string | string[]> = {};
     for (const key of ['relevantClass', 'relevantFeatureClass', 'relation', 'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'variabele']) {
@@ -293,7 +293,7 @@ export function getStep({ step }: { step: string }) {
     const repo = new Repo();
     const scheme = resolveScheme(repo, step);
     const id = scheme.record._id;
-    const incoming = repo.rows.filter(r => splitValues(r.record.seeAlso).includes(id)).map(r => ({ id: r.record._id, label: r.record.prefLabel, file: `src/source/${r.file}` }));
+    const incoming = repo.rows.filter(r => splitValues(r.record.vervolgstap).includes(id)).map(r => ({ id: r.record._id, label: r.record.prefLabel, file: `src/source/${r.file}` }));
     const usedAsList = repo.rows.filter(r => splitValues(r.record.relevantCodeList).includes(id)).map(r => r.record._id);
     return {
         id,
@@ -349,7 +349,7 @@ function walk(repo: Repo, entry: string[]): StepSummary[] {
         if (!scheme || scheme.record._type !== 'skos:ConceptScheme') continue;
         steps.push({ number: steps.length + 1, id, label: scheme.record.prefLabel || undefined, file: `src/source/${scheme.file}`, reachedVia: via });
         for (const concept of repo.conceptsOf(id)) {
-            for (const next of splitValues(concept.record.seeAlso)) {
+            for (const next of splitValues(concept.record.vervolgstap)) {
                 if (repo.isScheme(next)) queue.push({ id: next, via: [{ id: concept.record._id, label: concept.record.prefLabel }] });
             }
         }
@@ -385,7 +385,7 @@ export function listFlows() {
     const repo = new Repo();
     const reached = new Set<string>();
     const flows = repo.themas().map(thema => {
-        const entry = splitValues(thema.record.seeAlso);
+        const entry = splitValues(thema.record.vervolgstap);
         const steps = walk(repo, entry);
         steps.forEach(s => reached.add(s.id));
         return {
@@ -413,14 +413,14 @@ export function listFlows() {
         optionLists: lists.filter(s => codeLists.has(s.record._id)).map(summary),
         unusedOptionLists: lists.filter(s => !codeLists.has(s.record._id)).map(summary),
         filesNotInConfig: unregistered.length ? unregistered : undefined,
-        note: 'A flow starts at the thema (thema_type.csv), whose seeAlso is the first step; fields with seeAlso lead to the next step. Use get_flow for the full outline and get_step for the form of one step.',
+        note: 'A flow starts at the thema (thema_type.csv), whose vervolgstap is the first step; fields with vervolgstap lead to the next step. Use get_flow for the full outline and get_step for the form of one step.',
     };
 }
 
 export function getFlow({ flow }: { flow: string }) {
     const repo = new Repo();
     const thema = resolveThema(repo, flow);
-    const entry = thema ? splitValues(thema.record.seeAlso) : [resolveScheme(repo, flow).record._id];
+    const entry = thema ? splitValues(thema.record.vervolgstap) : [resolveScheme(repo, flow).record._id];
     const steps = walk(repo, entry);
     const details = steps.map(step => ({ ...step, fields: stepFields(repo, step.id) }));
     const outline = [
@@ -475,8 +475,8 @@ export function validateFlows() {
 
     for (const at of repo.rows.filter(r => isOperationalFile(r.file) && r.record._type === 'skos:Concept')) {
         const r = at.record;
-        for (const next of splitValues(r.seeAlso)) {
-            if (!isUrl(next) && !repo.isScheme(next)) report('error', at, `seeAlso ${next} is not a concept scheme.`);
+        for (const next of splitValues(r.vervolgstap)) {
+            if (!isUrl(next) && !repo.isScheme(next)) report('error', at, `vervolgstap ${next} is not a concept scheme.`);
         }
         if (at.file === THEMA_FILE) continue;
         const siblings = repo.conceptsOf(r.inScheme).filter(s => s.record.broaderPartitive === r.broaderPartitive);
@@ -539,7 +539,7 @@ export function validateFlows() {
     const flows = listFlows();
     for (const step of flows.stepsNotReachableFromAThema ?? []) {
         const at = repo.byId.get(step.id)!;
-        issues.push({ level: 'warning', location: `src/source/${at.file}:${at.line}`, message: `step ${step.id} is not reachable from any thema (no seeAlso leads to it).` });
+        issues.push({ level: 'warning', location: `src/source/${at.file}:${at.line}`, message: `step ${step.id} is not reachable from any thema (no vervolgstap leads to it).` });
     }
     for (const list of flows.unusedOptionLists) {
         const at = repo.byId.get(list.id)!;

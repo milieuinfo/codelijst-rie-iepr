@@ -23,7 +23,7 @@ const validateFlowsBaseline = validateFlows().errors;
 const read = (file: string) => fs.readFileSync(path.join(root, 'src', 'source', file), 'utf8');
 const line = (file: string, id: string) => read(file).split('\n').find(l => l.startsWith(`${id},`));
 
-test('list_flows follows seeAlso from the thema through the steps', () => {
+test('list_flows follows vervolgstap from the thema through the steps', () => {
     const lucht = listFlows().flows.find(f => f.id === 'thema:lucht')!;
     assert.deepEqual(lucht.steps.map(s => s.id), [
         'conceptscheme:operationeel_lucht', 'conceptscheme:operationeel_lucht_bron', 'conceptscheme:operationeel_lucht_rapportering',
@@ -84,7 +84,7 @@ test('add_field appends after the last ordered sibling and checks references', (
     const base = { step: 'operationeel_grondwater', prefLabel: 'X' };
     assert.throws(() => addField({ ...base, code: 'x1', parent: 'lucht:brandstof' }), /not a field of/);
     assert.throws(() => addField({ ...base, code: 'x2', conditionPath: 'grondwater:pomptoestand', conditionValue: 'pomptoestand:kapot' }), /not an option/);
-    assert.throws(() => addField({ ...base, code: 'x3', seeAlso: ['conceptscheme:bestaat_niet'] }), /not a step/);
+    assert.throws(() => addField({ ...base, code: 'x3', vervolgstap: ['conceptscheme:bestaat_niet'] }), /not a step/);
     assert.throws(() => addField({ ...base, code: 'x4', uiAfter: 'lucht:brandstof' }), /not a sibling/);
     assert.throws(() => addField({ ...base, code: 'x5', datatype: 'xsd:string', unit: ['csor_eenheid:E_59'] }), /numeric/);
 });

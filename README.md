@@ -193,7 +193,7 @@ Een composite eigenschap bestaat uit een ouder en onderdelen die naar de ouder v
 ### Operationele gegevens
 Operationele gegevens beginnen vanaf de codelijst met de verschillende thematische stromen waarop met kan rapporteren. Deze sectie bevat voorbeelden van de verschillende stromen die aangeven hoe de relaties tussen de codelijsten tot stand komt. Het is gebaseerd op volgende algemene assumpties:
 - `skos:ConceptScheme` voor elk scherm/stap dat we aan de gebruiker willen tonen
-- `seeAlso` is een link tussen een concept en concept scheme en bepaald welke stap volgt
+- `vervolgstap` (`qb:codeList`) is een link tussen een concept en concept scheme en bepaalt welke stap volgt
 - `conditionPath`/`conditionValue` bepalen dat een concept getoond mag worden indien het concept op het pad (`conditionPath`) een bepaalde waarde (`conditionValue`) heeft
 - `relevantDataType` bepaald het data type van een concept. `xsd:*` en `dcterms:*` zijn mogelijke data types
 - `isPartOf` relaties (en de inverse `hasPart`) worden gebruikt om aan te geven dat een concept composite is en bestaat uit meerdere andere concepten die ingevuld moeten worden
@@ -214,7 +214,7 @@ Operationele gegevens beginnen vanaf de codelijst met de verschillende thematisc
 #### Thematische stroom
 1.  In de applicatielogica voorzien we een selectie van het productiejaar. Dit zal de `sosa:phenonomenonTime` worden van de observaties die gerapporteerd zullen worden.
 2.  De gebruiker selecteerd een thematische stroom waarop hij/zij will rapporteren. De lijst van thematische stromen halen we uit `conceptscheme:thema_type`. In de applicatie is dit de enige lijst die we in principe rechtstreeks moeten aanspreken, alle andere codelijsten worden vanuit de thematische stromen gerefereerd.
-3.  Via de `seeAlso` relatie van de concepten binnen `conceptscheme:thema_type` kunnen we achterhalen welke concept schemas verantwoordelijk zijn voor de thematische stroom.
+3.  Via de `vervolgstap` relatie (`qb:codeList`) van de concepten binnen `conceptscheme:thema_type` kunnen we achterhalen welke concept schemas verantwoordelijk zijn voor de thematische stroom.
 
 > De bedoeling is dat de applicatie zo weinig mogelijk logica omvat voor zowel UI als data ophalen/bewaren voor de thematische stromen. Zo kunnen a.h.v. deze codelijsten alle business regels worden bijgesteld waar nodig zonder al te grote wijzigingen te vereisen.
 

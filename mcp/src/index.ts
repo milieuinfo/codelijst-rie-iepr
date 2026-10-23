@@ -433,8 +433,8 @@ server.registerTool('delete_selection_list', {
 server.registerTool('list_flows', {
     title: 'Operationele flows',
     description:
-        'List the thematische stromen (thema_type.csv) with the steps of each flow. A flow starts at the thema, whose seeAlso ' +
-        'is the first step (a concept scheme in operationeel_*.csv); fields with seeAlso lead to the next step. Also reports ' +
+        'List the thematische stromen (thema_type.csv) with the steps of each flow. A flow starts at the thema, whose vervolgstap ' +
+        'is the first step (a concept scheme in operationeel_*.csv); fields with vervolgstap lead to the next step. Also reports ' +
         'steps no thema reaches, option lists (used and unused) and operationeel_*.csv files missing from config.yml.',
     inputSchema: {},
     annotations: readOnly,
@@ -472,7 +472,7 @@ server.registerTool('get_flow_item', {
 server.registerTool('validate_flows', {
     title: 'Validate operationele flows',
     description:
-        'Quick check of thema_type.csv and operationeel_*.csv: seeAlso targets, conditions, parts, ordering (_ui_after siblings, ' +
+        'Quick check of thema_type.csv and operationeel_*.csv: vervolgstap targets, conditions, parts, ordering (_ui_after siblings, ' +
         'cycles, several _ui_first), symmetric related, code lists, placeholders (http://TODO), unreachable steps, unused option ' +
         'lists and files missing from config.yml.',
     inputSchema: {},
@@ -490,7 +490,7 @@ const fieldSchema = {
     relevantClass: z.string().describe('Class the field maps to: sosa:FeatureOfInterest (select the system to report on), riepr:ObservatieVerzameling (top-level report), riepr:Observatie, riepr:Resultaat, prov:Agent, ...'),
     relevantFeatureClass: z.array(z.string()).describe('relevantFeatureClass, e.g. riepr:Verbruik, riepr:Emissie, riepr:Onttrekking.'),
     relevantRiepr: z.array(z.string()).describe('Systems to select: types (emissiepunt:emissiepunt_lucht), type schemes, riepr:<Klasse> (riepr:Installatie), or an eigenschap (value taken from the selected system).'),
-    seeAlso: z.array(z.string()).describe('Next step(s) after this field (concept scheme ids).'),
+    vervolgstap: z.array(z.string()).describe('Next step(s) after this field (concept scheme ids).'),
     conditionPath: z.string().describe('Field that controls the visibility of this field (same step).'),
     conditionValue: z.string().describe('Value of conditionPath for which this field is shown (an option id, or true/false for a checkbox).'),
     related: z.array(z.string()).describe('Variants of the same logical field (kept symmetric automatically).'),
@@ -524,15 +524,15 @@ server.registerTool('add_flow', {
 server.registerTool('add_step', {
     title: 'Stap toevoegen',
     description:
-        'Add a step (concept scheme) to a flow file. With `from`, the given field (or thema) leads to it via seeAlso. ' +
+        'Add a step (concept scheme) to a flow file. With `from`, the given field (or thema) leads to it via vervolgstap. ' +
         'Then add its fields with add_field.',
     inputSchema: {
         name: z.string().describe('snake_case, by convention operationeel_<flow>_<step>, e.g. operationeel_lucht_emissie.'),
         prefLabel: z.string().optional(),
         definition: z.string().optional(),
-        from: z.string().optional().describe('Field or thema that leads to this step (sets its seeAlso).'),
+        from: z.string().optional().describe('Field or thema that leads to this step (sets its vervolgstap).'),
         file: z.string().optional().describe('operationeel_*.csv to put it in; defaults to the file of `from`.'),
-        replaceNext: z.boolean().default(false).describe('Replace an existing seeAlso of `from`.'),
+        replaceNext: z.boolean().default(false).describe('Replace an existing vervolgstap of `from`.'),
         dryRun,
     },
 }, respond(write(args => addStep(args))));
@@ -542,7 +542,7 @@ server.registerTool('add_field', {
     description:
         'Add a field (concept) to a step. Give a datatype (input), a codeList (select), relevantRiepr (system picker) or ' +
         'add parts later with parent=<this field> (group). Without uiFirst/uiAfter the field is shown last among its siblings. ' +
-        'Conditions (conditionPath/conditionValue), variants (related) and the next step (seeAlso) are checked against the step.',
+        'Conditions (conditionPath/conditionValue), variants (related) and the next step (vervolgstap) are checked against the step.',
     inputSchema: {
         step,
         code: z.string().describe('Lowercase id part (a-z, 0-9, _ or -), e.g. brandstof_naam; the prefix follows the step.'),
@@ -558,7 +558,7 @@ server.registerTool('update_flow_item', {
     title: 'Thema, stap of veld aanpassen',
     description:
         'Change a field (any property of add_field), a step (prefLabel, definition) or a thema (prefLabel, definition, notation, ' +
-        'seeAlso = first step). Only the keys in `set` change; null clears. Ids cannot change. Related variants stay symmetric.',
+        'vervolgstap = first step). Only the keys in `set` change; null clears. Ids cannot change. Related variants stay symmetric.',
     inputSchema: {
         id: z.string().describe('Id of the thema, step or field.'),
         set: z.object({
@@ -610,7 +610,7 @@ server.registerTool('delete_field', {
 server.registerTool('delete_step', {
     title: 'Stap verwijderen',
     description:
-        'Delete a step with all its fields. Refused while other rows use it or its fields; seeAlso links to the step are ' +
+        'Delete a step with all its fields. Refused while other rows use it or its fields; vervolgstap links to the step are ' +
         'removed with unlink=true. Confirm with the user first.',
     inputSchema: { step, unlink: z.boolean().default(false), dryRun },
     annotations: destructive,
