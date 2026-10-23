@@ -6,24 +6,54 @@ De codelijsten zijn gemodelleerd als [SKOS](https://www.w3.org/TR/skos-reference
 
 ## Inhoud
 
-De volgende conceptschema's zijn opgenomen:
+De volgende conceptschema's zijn opgenomen (id onder `https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/`):
+
+**Systeemtypes en -eigenschappen**
 
 | Conceptschema | Beschrijving |
 |---|---|
-| `emissiepunteigenschappen` | Koppeling tussen soorten emissiepunten en hun eigenschappen |
-| `installatie-eigenschappen` | Koppeling tussen soorten installaties en hun eigenschappen |
-| `filtereigenschappen` | Koppeling tussen soorten filters en hun eigenschappen |
-| `installatietypes` | Soorten installaties (GPBV, IEPR, Stookinstallatie, ...) |
-| `emissiepunttypes` | Soorten emissiepunten (schouw, fakkel, lozingspunt, ...) |
-| `onttrekkingspunttypes` | Soorten onttrekkingspunten (Grondwaterput, ...) |
-| `filtertypes` | Soorten filters (Peilfilter, ...) |
-| `meetinstrument_type` | Soorten meetinstrumenten (Debietmeter, ...) |
-| `meetpunttypes` | Soorten meetpunten (meetput, controle-inrichting, ...) |
-| `proceduretypes` | Soorten procedures in een procesplan |
-| `procesvariabele_type` | Types stoffen bij bepaalde procedure-types |
-| `rubriektypes` | Typering van rubrieken (VLAREM, EGW) |
-| `data_type` | Soorten data types |
-| `statustypes` | Soorten statussen |
+| `systeemtypes` | Overkoepelend schema waar de typeschema's van de systemen deel van uitmaken |
+| `systeemeigenschappen` | Overkoepelend schema waar de eigenschappenschema's van de systemen deel van uitmaken |
+| `installatietypes` | Soorten installaties (stookinstallatie, GPBV, luchtzuivering, waterzuivering, opslag/overslag, ...) |
+| `emissiepunttypes` | Soorten emissiepunten (lozingspunt, emissiepunt lucht, schoorsteen, fakkel, ...) |
+| `filtertypes` | Soorten filters (peilfilter, pompfilter, injectiefilter, omkeerbare filter) |
+| `meetpunttypes` | Soorten meetpunten (controleinrichting, debietmeter grondwater, peilput) |
+| `onttrekkingspunttypes` | Soorten onttrekkingspunten (opnamepunt oppervlaktewater) |
+| `uitwisselpunt_type` | Soorten uitwisselpunten (pompput) |
+| `installatie-eigenschappen` | Eigenschappen van installaties en de types waarvoor ze gelden |
+| `emissiepunteigenschappen` | Eigenschappen van emissiepunten en de types waarvoor ze gelden |
+| `filtereigenschappen` | Eigenschappen van filters en de types waarvoor ze gelden |
+| `meetpunteigenschappen` | Eigenschappen van meetpunten en de types waarvoor ze gelden |
+| `onttrekkingspunteigenschappen` | Eigenschappen van onttrekkingspunten en de types waarvoor ze gelden |
+| `uitwisselpunteigenschappen` | Eigenschappen van uitwisselpunten en de types waarvoor ze gelden |
+
+**Selectielijsten van eigenschappen**
+
+| Conceptschema | Beschrijving |
+|---|---|
+| `installatie_type_stookinstallatie` | Types stookinstallatie (boiler, gasmotor, gasturbine, WKK, ...) |
+| `installatie_soort_opgewekte_energie` | Soorten energie die een stookinstallatie kan opwekken |
+| `lozingspunt_lozingsplaats` | Plaatsen waar een lozingspunt loost (riool, oppervlaktewater, collector, ...) |
+| `meetpunt_referentiepunt_naam` | Referentiepunten voor de hoogtemeting van een peilput |
+
+**Overige vaste gegevens**
+
+| Conceptschema | Beschrijving |
+|---|---|
+| `aangifte_type` | Soorten aangiftes (structuur, operationeel) |
+| `aangifte_status` | Statussen van een aangifte (concept, ingediend, gefaald, ingetrokken) |
+| `emissie_type` | Soorten emissies (geleid, niet-geleid, abnormaal, lekverlies, opslagverlies, ...) |
+| `proceduretypes` | Soorten procedures in een procesplan (verwerking, transport, emissie, meting, ...) |
+| `rubriektypes` | Typering van rubrieken (VLAREM) |
+| `statustypes` | Statussen van een entiteit (in dienst, tijdelijk of definitief uit dienst, ontmanteld, ...) |
+
+**Operationele gegevens**
+
+| Conceptschema | Beschrijving |
+|---|---|
+| `thema_type` | Thematische stromen (lucht, water, grondwater, zelfcontrole lucht, zelfcontrole water, grondstoffen) |
+| `operationeel_<stroom>` en hun stappen (bv. `operationeel_lucht_emissie`) | Stappen en velden van de thematische stromen |
+| `operationeel_<lijst>` (bv. `operationeel_peilmethode`) en `herkomst_water` | Selectielijsten voor velden van de operationele gegevens |
 
 ## Uitvoerformaten
 
