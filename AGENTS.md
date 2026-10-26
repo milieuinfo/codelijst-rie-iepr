@@ -58,7 +58,7 @@ Any other agent: register a stdio server with command `node` and args
 `["<repo>/mcp/bin/codelijst-mcp.js"]`. Skills in `.agents/skills/` are discovered by opencode, Codex,
 Gemini CLI, Cursor, VS Code and Copilot CLI.
 
-The operationele gegevens (thematische stromen in `thema_type.csv`, their steps and fields in
+The operationele gegevens (thematische stromen in `thematypes.csv`, their steps and fields in
 `operationeel_*.csv`, and the form they produce): follow `.agents/skills/codelijst-flows/SKILL.md`.
 
 Other code lists (procedure, rubriek, status, aangifte, ...) are not covered by the server or skills.

@@ -40,9 +40,9 @@ De volgende conceptschema's zijn opgenomen (id onder `https://data.omgeving.vlaa
 
 | Conceptschema | Beschrijving |
 |---|---|
-| `aangifte_type` | Soorten aangiftes (structuur, operationeel) |
-| `aangifte_status` | Statussen van een aangifte (concept, ingediend, gefaald, ingetrokken) |
-| `emissie_type` | Soorten emissies (geleid, niet-geleid, abnormaal, lekverlies, opslagverlies, ...) |
+| `aangiftetypes` | Soorten aangiftes (structuur, operationeel) |
+| `aangiftestatussen` | Statussen van een aangifte (concept, ingediend, gefaald, ingetrokken) |
+| `emissietypes` | Soorten emissies (geleid, niet-geleid, abnormaal, lekverlies, opslagverlies, ...) |
 | `proceduretypes` | Soorten procedures in een procesplan (verwerking, transport, emissie, meting, ...) |
 | `rubriektypes` | Typering van rubrieken (VLAREM) |
 | `statustypes` | Statussen van een entiteit (in dienst, tijdelijk of definitief uit dienst, ontmanteld, ...) |
@@ -51,7 +51,7 @@ De volgende conceptschema's zijn opgenomen (id onder `https://data.omgeving.vlaa
 
 | Conceptschema | Beschrijving |
 |---|---|
-| `thema_type` | Thematische stromen (lucht, water, grondwater, zelfcontrole lucht, zelfcontrole water, grondstoffen) |
+| `thematypes` | Thematische stromen (lucht, water, grondwater, zelfcontrole lucht, zelfcontrole water, grondstoffen) |
 | `operationeel_<stroom>` en hun stappen (bv. `operationeel_lucht_emissie`) | Stappen en velden van de thematische stromen |
 | `operationeel_<lijst>` (bv. `operationeel_peilmethode`) en `herkomst_water` | Selectielijsten voor velden van de operationele gegevens |
 
@@ -133,15 +133,15 @@ identificatoren blijven geldig.
 
 | Prefix | Codelijst (pad onder `.../id/concept/riepr/`) |
 | --- | --- |
-| `aangifte:` | `aangifte-type/` |
-| `aangifte-status:` | `aangifte-status/` |
+| `aangifte:` | `aangiftetype/` |
+| `aangiftestatus:` | `aangiftestatus/` |
 | `bandbreedte:` | `norm_bandbreedte/` |
 | `bepalingsmethode:` | `operationeel-bepalingsmethode/` |
 | `bepalingsmethodeclassificatie:` | `operationeel-bepalingsmethodeclassificatie/` |
 | `bestemming:` | `operationeel-bestemmingstype/` |
 | `contextueel:` | `operationeel-contextueel/` |
-| `debiet:` | `operationeel-debiet-type/` |
-| `emissie:` | `emissie-type/` |
+| `debiet:` | `operationeel-debiettype/` |
+| `emissie:` | `emissietype/` |
 | `emissiepunt:` | `emissiepunttype/` |
 | `emissiepunteigenschappen:` | `emissiepunteigenschappen/` |
 | `emissiepunt-selectiemogelijkheden:` | `emissiepunteigenschappen-selectiemogelijkheden/` |
@@ -154,7 +154,7 @@ identificatoren blijven geldig.
 | `lozingsplaats:` | `lozingspunt-lozingsplaats/` |
 | `lucht:` | `operationeel-lucht/` |
 | `meetfrequentie:` | `operationeel-meetfrequentie/` |
-| `meetinstrument:` | `meetinstrument-type/` |
+| `meetinstrument:` | `meetinstrumenttype/` |
 | `meetpunt:` | `meetpunttype/` |
 | `meetpunteigenschappen:` | `meetpunteigenschappen/` |
 | `meetpunt-selectiemogelijkheden:` | `meetpunteigenschappen-selectiemogelijkheden/` |
@@ -163,11 +163,11 @@ identificatoren blijven geldig.
 | `peilmethode:` | `operationeel-peilmethode/` |
 | `pomptoestand:` | `operationeel-pomptoestand/` |
 | `procedure:` | `proceduretype/` |
-| `procesvariabele:` | `procesvariabele-type/` |
+| `procesvariabele:` | `procesvariabeletype/` |
 | `rubriek:` | `rubriektype/` |
 | `statustype:` | `statustype/` |
 | `techniekmonstername:` | `operationeel-techniekmonstername/` |
-| `thema:` | `thema-type/` |
+| `thema:` | `thematype/` |
 | `toepassingswijze:` | `operationeel-toepassingswijze/` |
 | `toestand-indicator:` | `operationeel-toestand-indicator/` |
 | `uitwisselpunt:` | `uitwisselpunttype/` |
@@ -245,8 +245,8 @@ Operationele gegevens beginnen vanaf de codelijst met de verschillende thematisc
 
 #### Thematische stroom
 1.  In de applicatielogica voorzien we een selectie van het productiejaar. Dit zal de `sosa:phenonomenonTime` worden van de observaties die gerapporteerd zullen worden.
-2.  De gebruiker selecteerd een thematische stroom waarop hij/zij will rapporteren. De lijst van thematische stromen halen we uit `conceptscheme:thema_type`. In de applicatie is dit de enige lijst die we in principe rechtstreeks moeten aanspreken, alle andere codelijsten worden vanuit de thematische stromen gerefereerd.
-3.  Via de `vervolgstap` relatie (`qb:codeList`) van de concepten binnen `conceptscheme:thema_type` kunnen we achterhalen welke concept schemas verantwoordelijk zijn voor de thematische stroom.
+2.  De gebruiker selecteerd een thematische stroom waarop hij/zij will rapporteren. De lijst van thematische stromen halen we uit `conceptscheme:thematypes`. In de applicatie is dit de enige lijst die we in principe rechtstreeks moeten aanspreken, alle andere codelijsten worden vanuit de thematische stromen gerefereerd.
+3.  Via de `vervolgstap` relatie (`qb:codeList`) van de concepten binnen `conceptscheme:thematypes` kunnen we achterhalen welke concept schemas verantwoordelijk zijn voor de thematische stroom.
 
 > De bedoeling is dat de applicatie zo weinig mogelijk logica omvat voor zowel UI als data ophalen/bewaren voor de thematische stromen. Zo kunnen a.h.v. deze codelijsten alle business regels worden bijgesteld waar nodig zonder al te grote wijzigingen te vereisen.
 

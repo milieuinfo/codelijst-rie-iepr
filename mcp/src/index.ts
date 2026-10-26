@@ -25,7 +25,7 @@ const server = new McpServer(
         instructions:
             'Answers questions about and manages the systeemtypes (<systeem>types.csv) and eigenschappen (<systeem>eigenschappen.csv) ' +
             `code lists for the systems ${SYSTEMS.join(', ')}, including the inline selection lists they use, and the ` +
-            'operationele flows (thema_type.csv, operationeel_*.csv: themas, steps, fields and the form they produce). ' +
+            'operationele flows (thematypes.csv, operationeel_*.csv: themas, steps, fields and the form they produce). ' +
             'Always look at the existing entries first, run every write tool with dryRun=true, show the preview to the user, ' +
             'and only then write with dryRun=false. Every real write runs npm run csv:fix, is validated with `npm run generate_skos` and rolled back when it fails. ' +
             'Inline concept schemes in eigenschappen use the id conceptscheme:<object>_<list> where object is the system or a type, e.g. conceptscheme:lozingspunt_lozingsplaats. Collections use collectie:<name>. ' +
@@ -433,7 +433,7 @@ server.registerTool('delete_selection_list', {
 server.registerTool('list_flows', {
     title: 'Operationele flows',
     description:
-        'List the thematische stromen (thema_type.csv) with the steps of each flow. A flow starts at the thema, whose vervolgstap ' +
+        'List the thematische stromen (thematypes.csv) with the steps of each flow. A flow starts at the thema, whose vervolgstap ' +
         'is the first step (a concept scheme in operationeel_*.csv); fields with vervolgstap lead to the next step. Also reports ' +
         'steps no thema reaches, option lists (used and unused) and operationeel_*.csv files missing from config.yml.',
     inputSchema: {},
@@ -472,7 +472,7 @@ server.registerTool('get_flow_item', {
 server.registerTool('validate_flows', {
     title: 'Validate operationele flows',
     description:
-        'Quick check of thema_type.csv and operationeel_*.csv: vervolgstap targets, conditions, parts, ordering (_ui_after siblings, ' +
+        'Quick check of thematypes.csv and operationeel_*.csv: vervolgstap targets, conditions, parts, ordering (_ui_after siblings, ' +
         'cycles, several _ui_first), symmetric related, code lists, placeholders (http://TODO), unreachable steps, unused option ' +
         'lists and files missing from config.yml.',
     inputSchema: {},
@@ -509,7 +509,7 @@ const fieldSchema = {
 server.registerTool('add_flow', {
     title: 'Nieuwe thematische stroom',
     description:
-        'Create a new flow: a thema in thema_type.csv, a new src/source/operationeel_<code>.csv with its first step, the file ' +
+        'Create a new flow: a thema in thematypes.csv, a new src/source/operationeel_<code>.csv with its first step, the file ' +
         'in config.yml (source.codelijst_csv) and the id prefix <code>: in config.yml and README.md. Then add fields with add_field.',
     inputSchema: {
         code: z.string().describe('Lowercase with hyphens, e.g. "afval" or "zelfcontrole-afval"; becomes thema:<code> and the field prefix.'),

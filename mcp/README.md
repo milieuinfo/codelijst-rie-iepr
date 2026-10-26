@@ -5,7 +5,7 @@ MCP server (TypeScript) om de RIE-IEPR codelijsten op te vragen en te beheren:
 - de structurele codelijsten: systeemtypes en eigenschappen van `emissiepunt`, `filter`,
   `installatie`, `meetpunt`, `uitwisselpunt` en `onttrekkingspunt`, inclusief de inline
   selectielijsten die ze via `relevantCodeList` of `relevantUnit` gebruiken;
-- de operationele gegevens: de thematische stromen (`thema_type.csv`), hun stappen en velden
+- de operationele gegevens: de thematische stromen (`thematypes.csv`), hun stappen en velden
   (`operationeel_*.csv`) en het formulier (UI) dat eruit volgt.
 
 Andere codelijsten (procedure, rubriek, status, aangifte, ...) vallen buiten scope.

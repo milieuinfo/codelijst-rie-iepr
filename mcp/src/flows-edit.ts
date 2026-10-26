@@ -148,7 +148,7 @@ class Files {
 
 function located(repo: Repo, id: string, what: string): Located {
     const found = repo.byId.get(id);
-    if (!found || !isOperationalFile(found.file)) throw new ValidationError(`${id} is not ${what} in thema_type.csv or operationeel_*.csv.`);
+    if (!found || !isOperationalFile(found.file)) throw new ValidationError(`${id} is not ${what} in thematypes.csv or operationeel_*.csv.`);
     return found;
 }
 

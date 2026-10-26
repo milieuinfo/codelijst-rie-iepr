@@ -24,12 +24,12 @@ source:
   codelijst_csv:
     # Misc
     - algmeen.csv
-    - aangifte_type.csv
-    - aangifte_status.csv
+    - aangiftetypes.csv
+    - aangiftestatussen.csv
     # Vaste gegevens
     - installatietypes.csv
     - emissiepunttypes.csv
-    - emissie_type.csv
+    - emissietypes.csv
     - onttrekkingspunttypes.csv
     - meetpunttypes.csv
     - proceduretypes.csv
@@ -51,7 +51,7 @@ source:
     - operationeel_zelfcontrole_water.csv
     - operationeel_grondstoffen.csv
     - operationeel_contextueel.csv
-    - thema_type.csv
+    - thematypes.csv
     - operationeel_misc.csv
   context: context.json
 dcat:
@@ -178,15 +178,15 @@ prefixes :
   # gebruik ze in de bron-CSVs als <prefix>:<concept>, bv. installatie:stookinstallatie
   # of installatie-eigenschappen:nominaal_thermisch_vermogen.
   # NB: "statustype" heet niet "status" omdat "status" al een term is in context.json (adms:status).
-  aangifte-status: https://data.omgeving.vlaanderen.be/id/concept/riepr/aangifte-status/
-  aangifte: https://data.omgeving.vlaanderen.be/id/concept/riepr/aangifte-type/
+  aangiftestatus: https://data.omgeving.vlaanderen.be/id/concept/riepr/aangiftestatus/
+  aangifte: https://data.omgeving.vlaanderen.be/id/concept/riepr/aangiftetype/
   bandbreedte: https://data.omgeving.vlaanderen.be/id/concept/riepr/norm_bandbreedte/
   bepalingsmethode: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bepalingsmethode/
   bepalingsmethodeclassificatie: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bepalingsmethodeclassificatie/
   bestemming: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/
   contextueel: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-contextueel/
-  debiet: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-debiet-type/
-  emissie: https://data.omgeving.vlaanderen.be/id/concept/riepr/emissie-type/
+  debiet: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-debiettype/
+  emissie: https://data.omgeving.vlaanderen.be/id/concept/riepr/emissietype/
   emissiepunteigenschappen: https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunteigenschappen/
   emissiepunt-selectiemogelijkheden: https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunteigenschappen-selectiemogelijkheden/
   emissiepunt: https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/
@@ -200,7 +200,7 @@ prefixes :
   lozingsplaats: https://data.omgeving.vlaanderen.be/id/concept/riepr/lozingspunt-lozingsplaats/
   lucht: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/
   meetfrequentie: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-meetfrequentie/
-  meetinstrument: https://data.omgeving.vlaanderen.be/id/concept/riepr/meetinstrument-type/
+  meetinstrument: https://data.omgeving.vlaanderen.be/id/concept/riepr/meetinstrumenttype/
   meetpunteigenschappen: https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunteigenschappen/
   meetpunt-selectiemogelijkheden: https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunteigenschappen-selectiemogelijkheden/
   meetpunt: https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunttype/
@@ -209,11 +209,11 @@ prefixes :
   peilmethode: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-peilmethode/
   pomptoestand: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/
   procedure: https://data.omgeving.vlaanderen.be/id/concept/riepr/proceduretype/
-  procesvariabele: https://data.omgeving.vlaanderen.be/id/concept/riepr/procesvariabele-type/
+  procesvariabele: https://data.omgeving.vlaanderen.be/id/concept/riepr/procesvariabeletype/
   rubriek: https://data.omgeving.vlaanderen.be/id/concept/riepr/rubriektype/
   statustype: https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/
   techniekmonstername: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-techniekmonstername/
-  thema: https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/
+  thema: https://data.omgeving.vlaanderen.be/id/concept/riepr/thematype/
   toepassingswijze: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toepassingswijze/
   toestand-indicator: https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toestand-indicator/
   uitwisselpunteigenschappen: https://data.omgeving.vlaanderen.be/id/concept/riepr/uitwisselpunteigenschappen/

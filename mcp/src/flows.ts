@@ -1,4 +1,4 @@
-// Operationele gegevens: the thematic flows (thema_type.csv) and their steps
+// Operationele gegevens: the thematic flows (thematypes.csv) and their steps
 // (concept schemes in operationeel_*.csv). See "Operationele gegevens" in the
 // repository README for the semantics:
 // - a thema concept points with vervolgstap to the first step (a concept scheme);
@@ -13,8 +13,8 @@ import type { CsvRecord } from './csv.js';
 import { isDeclaredPrefix, isUrl, openCsv, prefixOf, sourceCsvFiles, sourceDir, splitValues, SYSTEMS, systemNames } from './repo.js';
 import { LIST_TYPES, NUMERIC_DATATYPES, ValidationError } from './rules.js';
 
-export const THEMA_FILE = 'thema_type.csv';
-export const THEMA_SCHEME = 'conceptscheme:thema_type';
+export const THEMA_FILE = 'thematypes.csv';
+export const THEMA_SCHEME = 'conceptscheme:thematypes';
 
 const PROPERTY_PREFIXES: ReadonlySet<string> = new Set(SYSTEMS.map(system => systemNames(system).propertyPrefix));
 
@@ -415,7 +415,7 @@ export function listFlows() {
         optionLists: lists.filter(s => codeLists.has(s.record._id)).map(summary),
         unusedOptionLists: lists.filter(s => !codeLists.has(s.record._id)).map(summary),
         filesNotInConfig: unregistered.length ? unregistered : undefined,
-        note: 'A flow starts at the thema (thema_type.csv), whose vervolgstap is the first step; fields with vervolgstap lead to the next step. Use get_flow for the full outline and get_step for the form of one step.',
+        note: 'A flow starts at the thema (thematypes.csv), whose vervolgstap is the first step; fields with vervolgstap lead to the next step. Use get_flow for the full outline and get_step for the form of one step.',
     };
 }
 
@@ -445,7 +445,7 @@ export function getOperationalConcept({ concept }: { concept: string }) {
     const located = repo.byId.get(concept) ?? repo.rows.find(r => isOperationalFile(r.file) && r.record._type === 'skos:Concept'
         && (r.record._id.split(':')[1] === concept || r.record.prefLabel?.toLowerCase() === concept.toLowerCase()));
     if (!located || !isOperationalFile(located.file)) {
-        throw new ValidationError(`'${concept}' is not a concept in thema_type.csv or operationeel_*.csv. Use search_codelists to find it.`);
+        throw new ValidationError(`'${concept}' is not a concept in thematypes.csv or operationeel_*.csv. Use search_codelists to find it.`);
     }
     const r = located.record;
     const record = Object.fromEntries(Object.entries(r).filter(([, v]) => v));
