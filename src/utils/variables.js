@@ -475,6 +475,12 @@ const datasetOptions = {
     "jsonldOptions": {"file": dcat_dataset_jsonld, "frame": frame_catalog}
 }
 
+const dcat_dataset_odcs = '../temp/' + config.dcat.path_dataset + metadataOptions.artifactId + '/' + (config.dcat.dataset_odcs ?? 'dataset.odcs.yaml')
+
+const odcsOptions = {
+    "file": dcat_dataset_odcs
+}
+
 const catalogOptions = {
     "turtlePath": dcat_catalog_turtle,
     "jsonldOptions": {"file": dcat_catalog_jsonld, "frame": frame_catalog}
@@ -496,6 +502,16 @@ const skosSource = {
     "rules": config.skos.rules,
     "shapesDataset": await rdf.dataset().import(rdf.fromFile(config.ap.path + config.ap.name + '-' + config.ap.type + '/' + config.ap.name + '-' + config.ap.type + config.ap.turtle)),
     "prefixes": Object.assign( {}, config.skos.prefixes, config.prefixes)
+}
+
+// ODCS data contract voor de parquet-distributie: kolommen uit het parquet-bestand,
+// predicaten uit de JSON-LD-context, omschrijvingen uit de SHACL-shapes van het AP
+const odcsSource = {
+    "config": config,
+    "parquetFile": parquetOptions.file,
+    "context": skos_context,
+    "shapesDataset": skosSource.shapesDataset,
+    "prefixes": skos_prefixes
 }
 
 const metadataSource = {
@@ -533,6 +549,8 @@ export {
     metadataOptions,
     datasetOptions,
     catalogOptions,
+    odcsSource,
+    odcsOptions,
     versioning,
     versioningPropertyKeys
 };
