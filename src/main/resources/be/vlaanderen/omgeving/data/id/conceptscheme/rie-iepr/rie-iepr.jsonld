@@ -866,6 +866,7 @@
         "wise": "http://dd.eionet.europa.eu/vocabulary/wise/ObservedProperty/",
         "xkos": "http://rdf-vocabulary.ddialliance.org/xkos#",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "vmm": "http://vmm.be#",
         "@base": "https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/"
     },
     "graph": [
@@ -910,6 +911,14 @@
             "_type": [
                 "rdfs:Resource"
             ]
+        },
+        {
+            "id": "adms:identifier",
+            "_type": [
+                "rdfs:Resource"
+            ],
+            "created": "2026-11-03T10:14:56.856Z",
+            "status": "https://purl.archive.org/adms/status/Active"
         },
         {
             "id": "rov:registration",
@@ -1053,13 +1062,13 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "aangiftestatus:concept",
+            "modified": "2026-11-03T10:14:56.856Z",
             "seeAlso": "http://purl.org/adms/status/UnderDevelopment",
             "inScheme": "conceptscheme:aangiftestatussen",
             "code": "AANGIFTE_STATUS_CONCEPT",
             "prefLabel": "Status concept",
             "topConceptOf": "conceptscheme:aangiftestatussen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantDataType": "http://www.w3.org/ns/adms#"
         },
         {
@@ -1067,25 +1076,25 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "aangiftestatus:gefaald",
+            "modified": "2026-11-03T10:14:56.856Z",
             "inScheme": "conceptscheme:aangiftestatussen",
             "code": "AANGIFTE_STATUS_GEFAALD",
             "prefLabel": "Gefaald",
-            "topConceptOf": "conceptscheme:aangiftestatussen",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:aangiftestatussen"
         },
         {
             "id": "aangiftestatus:ingediend",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "aangiftestatus:ingediend",
+            "modified": "2026-11-03T10:14:56.856Z",
             "seeAlso": "http://purl.org/adms/status/Completed",
             "inScheme": "conceptscheme:aangiftestatussen",
             "code": "AANGIFTE_STATUS_INGEDIEND",
             "prefLabel": "Ingediend",
             "topConceptOf": "conceptscheme:aangiftestatussen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantDataType": "http://www.w3.org/ns/adms#"
         },
         {
@@ -1093,13 +1102,13 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "aangiftestatus:ingetrokken",
+            "modified": "2026-11-03T10:14:56.856Z",
             "seeAlso": "http://purl.org/adms/status/Withdrawn",
             "inScheme": "conceptscheme:aangiftestatussen",
             "code": "AANGIFTE_STATUS_INGETROKKEN",
             "prefLabel": "Ingetrokken",
             "topConceptOf": "conceptscheme:aangiftestatussen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantDataType": "http://www.w3.org/ns/adms#"
         },
         {
@@ -1107,117 +1116,117 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "aangifte:operationeel",
+            "modified": "2026-11-03T10:14:56.856Z",
             "inScheme": "conceptscheme:aangiftetypes",
             "code": "OPERATIONELE_GEGEVENS",
             "prefLabel": "Operationeel",
-            "topConceptOf": "conceptscheme:aangiftetypes",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:aangiftetypes"
         },
         {
             "id": "aangifte:structuur",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "aangifte:structuur",
+            "modified": "2026-11-03T10:14:56.856Z",
             "inScheme": "conceptscheme:aangiftetypes",
             "code": "VASTE_GEGEVENS",
             "prefLabel": "Structuur",
-            "topConceptOf": "conceptscheme:aangiftetypes",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:aangiftetypes"
         },
         {
             "id": "emissiepunt-selectiemogelijkheden:collector",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "emissiepunt-selectiemogelijkheden:collector",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Lozing op een collector.",
             "inScheme": "conceptscheme:lozingspunt_lozingsplaats",
             "note": "Lozing op een collector.",
             "prefLabel": "Collector",
-            "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats"
         },
         {
             "id": "emissiepunt-selectiemogelijkheden:externe_waterzuivering",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "emissiepunt-selectiemogelijkheden:externe_waterzuivering",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Lozing of afvoer naar een externe waterzuivering.",
             "inScheme": "conceptscheme:lozingspunt_lozingsplaats",
             "note": "Lozing of afvoer naar een externe waterzuivering.",
             "prefLabel": "Externe waterzuivering",
-            "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats"
         },
         {
             "id": "emissiepunt-selectiemogelijkheden:grondwater",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "emissiepunt-selectiemogelijkheden:grondwater",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Lozing in grondwater.",
             "inScheme": "conceptscheme:lozingspunt_lozingsplaats",
             "note": "Lozing in grondwater.",
             "prefLabel": "Grondwater",
-            "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats"
         },
         {
             "id": "emissiepunt-selectiemogelijkheden:oppervlaktewater",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "emissiepunt-selectiemogelijkheden:oppervlaktewater",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Lozing in oppervlaktewater.",
             "inScheme": "conceptscheme:lozingspunt_lozingsplaats",
             "note": "Lozing in oppervlaktewater.",
             "prefLabel": "Oppervlaktewater",
-            "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats"
         },
         {
             "id": "emissiepunt-selectiemogelijkheden:regenwaterriool",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "emissiepunt-selectiemogelijkheden:regenwaterriool",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Lozing op een regenwaterriool.",
             "inScheme": "conceptscheme:lozingspunt_lozingsplaats",
             "note": "Lozing op een regenwaterriool.",
             "prefLabel": "Regenwaterriolering",
-            "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats"
         },
         {
             "id": "emissiepunt-selectiemogelijkheden:riool",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "emissiepunt-selectiemogelijkheden:riool",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Lozing op riolering.",
             "inScheme": "conceptscheme:lozingspunt_lozingsplaats",
             "note": "Lozing op riolering.",
             "prefLabel": "Riool",
-            "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats"
         },
         {
             "id": "emissiepunteigenschappen:aantal_punten",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "emissiepunteigenschappen:aantal_punten",
+            "modified": "2026-11-03T10:14:56.856Z",
             "relation": "rdfs:value",
             "definition": "Het aantal gegroepeerde emissiepunten.",
             "inScheme": "conceptscheme:emissiepunteigenschappen",
             "note": "Het aantal gegroepeerde emissiepunten.",
             "prefLabel": "Aantal uitstroompunten",
             "topConceptOf": "conceptscheme:emissiepunteigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeervoudig": "false",
             "isVerplicht": "false",
             "relevantDataType": "xsd:integer",
@@ -1236,8 +1245,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "emissiepunteigenschappen:diameter",
+            "modified": "2026-11-03T10:14:56.856Z",
             "relation": "rdfs:value",
             "relevantUnit": [
                 "csor_eenheid:E_59"
@@ -1247,7 +1257,6 @@
             "note": "De diameter van de opening van het emissiepunt naar de lucht, of, voor een opening die niet rond is, de equivalente diameter die op dezelfde oppervlakte neerkomt.",
             "prefLabel": "Diameter",
             "topConceptOf": "conceptscheme:emissiepunteigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeervoudig": "false",
             "isVerplicht": "true",
             "relevantDataType": "xsd:decimal",
@@ -1267,8 +1276,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "emissiepunteigenschappen:hoogte",
+            "modified": "2026-11-03T10:14:56.856Z",
             "relation": "rdfs:value",
             "relevantUnit": [
                 "csor_eenheid:E_59"
@@ -1278,7 +1288,6 @@
             "note": "De hoogte van het emissiepunt naar de lucht ten opzichte van het maaiveld.",
             "prefLabel": "Hoogte",
             "topConceptOf": "conceptscheme:emissiepunteigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeervoudig": "false",
             "isVerplicht": "true",
             "relevantDataType": "xsd:decimal",
@@ -1298,15 +1307,15 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "emissiepunteigenschappen:lozingspunt-lozingsplaats",
+            "modified": "2026-11-03T10:14:56.856Z",
             "relation": "rdfs:value",
             "definition": "Typering van de plaats waar het water geloosd wordt.",
             "inScheme": "conceptscheme:emissiepunteigenschappen",
             "note": "Typering van de plaats waar het water geloosd wordt.",
             "prefLabel": "Lozingsplaats",
             "topConceptOf": "conceptscheme:emissiepunteigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeervoudig": "false",
             "isVerplicht": "true",
             "relevantCodeList": [
@@ -1321,8 +1330,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "emissiepunt:emissiepunt_lucht",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een emissie naar de lucht.",
             "inScheme": "conceptscheme:emissiepunttypes",
             "narrower": [
@@ -1350,7 +1360,6 @@
                 "emissiepunt:schoorsteen_verticale_uitstroom"
             ],
             "topConceptOf": "conceptscheme:emissiepunttypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "true"
         },
@@ -1359,8 +1368,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "emissiepunt:fakkel",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broader": "emissiepunt:emissiepunt_lucht",
             "broaderTransitive": "emissiepunt:emissiepunt_lucht",
             "definition": "Een apparaat bestemd voor de afgassen in een noodsituatie.",
@@ -1370,7 +1380,6 @@
             "semanticRelation": [
                 "emissiepunt:emissiepunt_lucht"
             ],
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -1379,8 +1388,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "emissiepunt:gebouw",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broader": "emissiepunt:emissiepunt_lucht",
             "broaderTransitive": "emissiepunt:emissiepunt_lucht",
             "definition": "Emissie uit een gebouw.",
@@ -1390,7 +1400,6 @@
             "semanticRelation": [
                 "emissiepunt:emissiepunt_lucht"
             ],
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -1399,8 +1408,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "emissiepunt:installatie",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broader": "emissiepunt:emissiepunt_lucht",
             "broaderTransitive": "emissiepunt:emissiepunt_lucht",
             "definition": "Emissie uit een installatie.",
@@ -1410,7 +1420,6 @@
             "semanticRelation": [
                 "emissiepunt:emissiepunt_lucht"
             ],
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -1419,14 +1428,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "emissiepunt:lozingspunt",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een lozing naar water.",
             "inScheme": "conceptscheme:emissiepunttypes",
             "note": "Een lozing naar water.",
             "prefLabel": "Lozingspunt",
             "topConceptOf": "conceptscheme:emissiepunttypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -1435,8 +1444,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "emissiepunt:schoorsteen",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broader": "emissiepunt:emissiepunt_lucht",
             "broaderTransitive": "emissiepunt:emissiepunt_lucht",
             "definition": "Een schoorsteen.",
@@ -1456,7 +1466,6 @@
                 "emissiepunt:schoorsteen_horizontale_uitstroom",
                 "emissiepunt:schoorsteen_verticale_uitstroom"
             ],
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "true"
         },
@@ -1465,8 +1474,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "emissiepunt:schoorsteen_horizontale_uitstroom",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broader": "emissiepunt:schoorsteen",
             "broaderTransitive": [
                 "emissiepunt:emissiepunt_lucht",
@@ -1480,7 +1490,6 @@
                 "emissiepunt:emissiepunt_lucht",
                 "emissiepunt:schoorsteen"
             ],
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -1489,8 +1498,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "emissiepunt:schoorsteen_verticale_uitstroom",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broader": "emissiepunt:schoorsteen",
             "broaderTransitive": [
                 "emissiepunt:emissiepunt_lucht",
@@ -1504,7 +1514,6 @@
                 "emissiepunt:emissiepunt_lucht",
                 "emissiepunt:schoorsteen"
             ],
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -1513,31 +1522,32 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "emissie:abnormale",
+            "modified": "2026-11-03T10:14:56.856Z",
             "inScheme": "conceptscheme:emissietypes",
             "code": "EMISSIE_ABNORMALE",
             "prefLabel": "Abnormale emissie",
-            "topConceptOf": "conceptscheme:emissietypes",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:emissietypes"
         },
         {
             "id": "emissie:geleide",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "emissie:geleide",
+            "modified": "2026-11-03T10:14:56.856Z",
             "inScheme": "conceptscheme:emissietypes",
             "code": "EMISSIE_GELEIDE",
             "prefLabel": "Geleide emissie",
-            "topConceptOf": "conceptscheme:emissietypes",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:emissietypes"
         },
         {
             "id": "emissie:niet-geleide",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "emissie:niet-geleide",
+            "modified": "2026-11-03T10:14:56.856Z",
             "inScheme": "conceptscheme:emissietypes",
             "narrower": [
                 "emissie:niet-geleide-fakkel",
@@ -1559,15 +1569,15 @@
                 "emissie:niet-geleide-opslagverlies",
                 "emissie:niet-geleide-overslagverlies"
             ],
-            "topConceptOf": "conceptscheme:emissietypes",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:emissietypes"
         },
         {
             "id": "emissie:niet-geleide-fakkel",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "emissie:niet-geleide-fakkel",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broader": "emissie:niet-geleide",
             "broaderTransitive": "emissie:niet-geleide",
             "inScheme": "conceptscheme:emissietypes",
@@ -1577,7 +1587,6 @@
                 "emissie:niet-geleide"
             ],
             "topConceptOf": "conceptscheme:emissietypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantRiepr": [
                 "installatie:fakkel"
             ]
@@ -1587,7 +1596,8 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "emissie:niet-geleide-lekverlies",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broader": "emissie:niet-geleide",
             "broaderTransitive": "emissie:niet-geleide",
             "inScheme": "conceptscheme:emissietypes",
@@ -1596,15 +1606,15 @@
             "semanticRelation": [
                 "emissie:niet-geleide"
             ],
-            "topConceptOf": "conceptscheme:emissietypes",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:emissietypes"
         },
         {
             "id": "emissie:niet-geleide-opslagverlies",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "emissie:niet-geleide-opslagverlies",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broader": "emissie:niet-geleide",
             "broaderTransitive": "emissie:niet-geleide",
             "inScheme": "conceptscheme:emissietypes",
@@ -1614,7 +1624,6 @@
                 "emissie:niet-geleide"
             ],
             "topConceptOf": "conceptscheme:emissietypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantRiepr": [
                 "installatie:opslag_overslag"
             ]
@@ -1624,7 +1633,8 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "emissie:niet-geleide-overslagverlies",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broader": "emissie:niet-geleide",
             "broaderTransitive": "emissie:niet-geleide",
             "inScheme": "conceptscheme:emissietypes",
@@ -1634,7 +1644,6 @@
                 "emissie:niet-geleide"
             ],
             "topConceptOf": "conceptscheme:emissietypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantRiepr": [
                 "installatie:opslag_overslag"
             ]
@@ -1644,8 +1653,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "filtereigenschappen:diepte",
+            "modified": "2026-11-03T10:14:56.856Z",
             "relation": "rdfs:value",
             "relevantUnit": [
                 "csor_eenheid:E_59"
@@ -1655,7 +1665,6 @@
             "note": "De diepte van de onderkant van de filter ten opzichte van het maaiveld.",
             "prefLabel": "Diepte onderkant van de filter",
             "topConceptOf": "conceptscheme:filtereigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeervoudig": "false",
             "isVerplicht": "false",
             "relevantDataType": "xsd:decimal",
@@ -1673,8 +1682,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "filtereigenschappen:diepte_pomp",
+            "modified": "2026-11-03T10:14:56.856Z",
             "relation": "rdfs:value",
             "relevantUnit": [
                 "csor_eenheid:E_59"
@@ -1684,7 +1694,6 @@
             "note": "De diepte van de pomp ten opzichte van het maaiveld.",
             "prefLabel": "Diepte pomp",
             "topConceptOf": "conceptscheme:filtereigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeervoudig": "false",
             "isVerplicht": "false",
             "relevantDataType": "xsd:decimal",
@@ -1698,8 +1707,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "filtereigenschappen:lengte",
+            "modified": "2026-11-03T10:14:56.856Z",
             "relation": "rdfs:value",
             "relevantUnit": [
                 "csor_eenheid:E_59"
@@ -1709,7 +1719,6 @@
             "note": "De lengte van de filter gemeten van de onderkant tot de bovenkant.",
             "prefLabel": "Lengte van de filter",
             "topConceptOf": "conceptscheme:filtereigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeervoudig": "false",
             "isVerplicht": "false",
             "relevantDataType": "xsd:decimal",
@@ -1726,15 +1735,15 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "filtereigenschappen:watervoerendeLaag",
+            "modified": "2026-11-03T10:14:56.856Z",
             "relation": "rdfs:value",
             "definition": "De watervoerende laag (aquifer) waarin de filter zich bevindt.",
             "inScheme": "conceptscheme:filtereigenschappen",
             "note": "De watervoerende laag (aquifer) waarin de filter zich bevindt.",
             "prefLabel": "Watervoerende laag",
             "topConceptOf": "conceptscheme:filtereigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeervoudig": "false",
             "isVerplicht": "true",
             "relevantCodeList": [
@@ -1753,8 +1762,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "filter:filter",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Het geperforeerde deel van een put waarlangs grondwater in of uit de put stroomt.",
             "inScheme": "conceptscheme:filtertypes",
             "narrower": [
@@ -1778,7 +1788,6 @@
                 "filter:pomp"
             ],
             "topConceptOf": "conceptscheme:filtertypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "true"
         },
@@ -1787,8 +1796,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "filter:injectie",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broader": "filter:filter",
             "broaderTransitive": "filter:filter",
             "definition": "Een filter die uitsluitend gebruikt wordt voor het injecteren van (grond)water in de ondergrond.",
@@ -1798,7 +1808,6 @@
             "semanticRelation": [
                 "filter:filter"
             ],
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -1807,8 +1816,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "filter:omkeerbaar",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broader": "filter:filter",
             "broaderTransitive": "filter:filter",
             "definition": "Een filter die zowel grondwater kan injecteren als onttrekken, meestal in de context van geothermische installaties.",
@@ -1818,7 +1828,6 @@
             "semanticRelation": [
                 "filter:filter"
             ],
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -1827,8 +1836,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "filter:peil",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broader": "filter:filter",
             "broaderTransitive": "filter:filter",
             "definition": "Een filter waaruit geen grondwater kan worden gepompt en die uitsluitend voor peilmetingen en grondwaterstaalname wordt benut.",
@@ -1838,7 +1848,6 @@
             "semanticRelation": [
                 "filter:filter"
             ],
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -1847,8 +1856,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "filter:pomp",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broader": "filter:filter",
             "broaderTransitive": "filter:filter",
             "definition": "Een filter waaruit grondwater wordt opgepompt of onttrokken.",
@@ -1858,7 +1868,6 @@
             "semanticRelation": [
                 "filter:filter"
             ],
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -2033,8 +2042,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "isVersionOf": "installatie-eigenschappen:geinstalleerde_opslag_overslagcapaciteit",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "rdfs:value",
             "relevantUnit": [
                 "collectie:opslagcapaciteit_eenheden"
@@ -2057,8 +2064,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "isVersionOf": "installatie-eigenschappen:geinstalleerde_productiecapaciteit",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "rdfs:value",
             "relevantUnit": [
                 "collectie:productiecapaciteit_eenheden"
@@ -2081,8 +2086,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "isVersionOf": "installatie-eigenschappen:geproduceerde_stof_of_product",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "rdfs:value",
             "definition": "Een beschrijving van de producten of stoffen die door de productie-installatie worden geproduceerd.",
             "inScheme": "conceptscheme:installatie-eigenschappen",
@@ -2102,8 +2105,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "isVersionOf": "installatie-eigenschappen:luchtzuiverings_techniek",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "rdfs:value",
             "definition": "Een beschrijving van de toegepaste luchtzuiveringstechniek.",
             "inScheme": "conceptscheme:installatie-eigenschappen",
@@ -2125,8 +2126,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "isVersionOf": "installatie-eigenschappen:nominaal_thermisch_vermogen",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "rdfs:value",
             "relevantUnit": [
                 "collectie:vermogen_eenheden"
@@ -2151,8 +2150,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "isVersionOf": "installatie-eigenschappen:omschrijving",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "rdfs:value",
             "definition": "Een algemene beschrijving van de productie-installatie.",
             "inScheme": "conceptscheme:installatie-eigenschappen",
@@ -2172,8 +2169,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "isVersionOf": "installatie-eigenschappen:opslagen_overgeslagen_stof",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "rdfs:value",
             "definition": "De op- of overgeslagen stof (zoals benzine, white spirit, zand).",
             "inScheme": "conceptscheme:installatie-eigenschappen",
@@ -2193,8 +2188,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "isVersionOf": "installatie-eigenschappen:soort_opgewekte_energie",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "rdfs:value",
             "definition": "Het soort energie dat door de stookinstallatie wordt opgewekt.",
             "inScheme": "conceptscheme:installatie-eigenschappen",
@@ -2218,8 +2211,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "isVersionOf": "installatie-eigenschappen:technische_kenmerken",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "rdfs:value",
             "definition": "Een beschrijving van de technische kenmerken van een fakkel.",
             "inScheme": "conceptscheme:installatie-eigenschappen",
@@ -2239,8 +2230,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "isVersionOf": "installatie-eigenschappen:type_opslag_overslag",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "rdfs:value",
             "definition": "Een beschrijving van het type opslag of overslag (zoals tank met vlottend dak; tank met vast dak).",
             "inScheme": "conceptscheme:installatie-eigenschappen",
@@ -2260,8 +2249,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "isVersionOf": "installatie-eigenschappen:type_stookinstallatie",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "rdfs:value",
             "definition": "Het type stookinstallatie.",
             "inScheme": "conceptscheme:installatie-eigenschappen",
@@ -2285,8 +2272,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "isVersionOf": "installatie-eigenschappen:verwijderingsrendement",
-            "modified": "2026-11-03T08:57:46.267Z",
             "narrowerPartitive": [
                 "installatie-eigenschappen:verwijderingsrendement_percentage",
                 "installatie-eigenschappen:verwijderingsrendement_stof"
@@ -2305,8 +2290,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "isVersionOf": "installatie-eigenschappen:verwijderingsrendement_percentage",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "rdfs:value",
             "broaderPartitive": "installatie-eigenschappen:verwijderingsrendement",
             "relevantUnit": [
@@ -2326,8 +2309,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "isVersionOf": "installatie-eigenschappen:verwijderingsrendement_stof",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "riepr:parameter",
             "broaderPartitive": "installatie-eigenschappen:verwijderingsrendement",
             "definition": "De verontreinigende stoffen en broeikasgassen die door de luchtzuivering verwijderd worden.",
@@ -2349,8 +2330,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "isVersionOf": "installatie-eigenschappen:waterzuiveringstechniek",
-            "modified": "2026-11-03T08:57:46.267Z",
             "narrowerPartitive": [
                 "installatie-eigenschappen:waterzuiveringstechniek_ingebruikvan",
                 "installatie-eigenschappen:waterzuiveringstechniek_techniek"
@@ -2372,8 +2351,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "isVersionOf": "installatie-eigenschappen:waterzuiveringstechniek_ingebruikvan",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "riepr:inGebruikVanaf",
             "broaderPartitive": "installatie-eigenschappen:waterzuiveringstechniek",
             "definition": "De datum van ingebruikname van de waterzuiveringstechniek.",
@@ -2390,8 +2367,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "isVersionOf": "installatie-eigenschappen:waterzuiveringstechniek_techniek",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "rdfs:value",
             "broaderPartitive": "installatie-eigenschappen:waterzuiveringstechniek",
             "definition": "De techniek gebruikt voor de zuivering van water.",
@@ -2409,8 +2384,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "installatie:directe_stookinstallatie",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broader": "installatie:stookinstallatie",
             "broaderTransitive": "installatie:stookinstallatie",
             "definition": "Een stookinstallatie waarbij de verbrandingsgassen rechtstreeks in contact komen met de te verwarmen of te behandelen lucht, voorwerpen of materialen.",
@@ -2420,7 +2396,6 @@
             "semanticRelation": [
                 "installatie:stookinstallatie"
             ],
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -2429,14 +2404,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "installatie:fakkel",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een installatie bestemd voor de verbranding van afgassen in de open lucht in noodsituaties.",
             "inScheme": "conceptscheme:installatietypes",
             "note": "Een installatie bestemd voor de verbranding van afgassen in de open lucht in noodsituaties.",
             "prefLabel": "Fakkel installatie",
             "topConceptOf": "conceptscheme:installatietypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -2445,14 +2420,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "installatie:geothermisch",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een installatie die grondwater benut voor verwarming en koeling.",
             "inScheme": "conceptscheme:installatietypes",
             "note": "Een installatie die grondwater benut voor verwarming en koeling.",
             "prefLabel": "Geothermische installatie",
             "topConceptOf": "conceptscheme:installatietypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -2461,14 +2436,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "installatie:gpbv",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een vaste technische eenheid waarin een of meer van de activiteiten en processen vermeld in de indelingslijst plaatsvinden, aangeduid met de letter X in de vierde kolom van de indelingslijst.",
             "inScheme": "conceptscheme:installatietypes",
             "note": "Een vaste technische eenheid waarin een of meer van de activiteiten en processen vermeld in de indelingslijst plaatsvinden, aangeduid met de letter X in de vierde kolom van de indelingslijst.",
             "prefLabel": "GPBV Installatie",
             "topConceptOf": "conceptscheme:installatietypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "true"
         },
@@ -2477,8 +2452,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "installatie:indirecte_stookinstallatie",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broader": "installatie:stookinstallatie",
             "broaderTransitive": "installatie:stookinstallatie",
             "definition": "Een stookinstallatie waarbij de warmte van de verbrandingsgassen indirect wordt overgedragen aan de te verwarmen lucht, vloeistoffen, voorwerpen of materialen, bijvoorbeeld via een warmtewisselaar of tussenmedium. De verbrandingsgassen komen daarbij niet in rechtstreeks contact met het te verwarmen medium of materiaal, maar worden afzonderlijk afgevoerd.",
@@ -2488,7 +2464,6 @@
             "semanticRelation": [
                 "installatie:stookinstallatie"
             ],
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -2497,14 +2472,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "installatie:luchtzuivering",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een installatie bestemd voor de zuivering van verontreinigde lucht.",
             "inScheme": "conceptscheme:installatietypes",
             "note": "Een installatie bestemd voor de zuivering van verontreinigde lucht.",
             "prefLabel": "Luchtzuiveringsinstallatie",
             "topConceptOf": "conceptscheme:installatietypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -2513,14 +2488,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "installatie:opslag_overslag",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een plaats of ruimte bestemd voor de opslag of overslag van stoffen waaronder grondstoffen, producten en afval.",
             "inScheme": "conceptscheme:installatietypes",
             "note": "Een plaats of ruimte bestemd voor de opslag of overslag van stoffen waaronder grondstoffen, producten en afval.",
             "prefLabel": "Opslag/Overslag",
             "topConceptOf": "conceptscheme:installatietypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -2529,14 +2504,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "installatie:productie_installatie",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een installatie of samenhangend geheel van installaties dat instaat voor of deel uitmaakt van een productieproces en dat emissies van afvalwater, afgassen en/of afvalstoffen genereert.",
             "inScheme": "conceptscheme:installatietypes",
             "note": "Een installatie of samenhangend geheel van installaties dat instaat voor of deel uitmaakt van een productieproces en dat emissies van afvalwater, afgassen en/of afvalstoffen genereert.",
             "prefLabel": "Productie installatie",
             "topConceptOf": "conceptscheme:installatietypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -2545,8 +2520,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "installatie:stookinstallatie",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Elk technisch toestel waarin brandstoffen worden geoxideerd ten einde de aldus opgewekte warmte te gebruiken.",
             "inScheme": "conceptscheme:installatietypes",
             "narrower": [
@@ -2564,7 +2540,6 @@
                 "installatie:indirecte_stookinstallatie"
             ],
             "topConceptOf": "conceptscheme:installatietypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -2573,14 +2548,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "installatie:waterzuivering",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een installatie bestemd voor de zuivering van bedrijfsafvalwater.",
             "inScheme": "conceptscheme:installatietypes",
             "note": "Een installatie bestemd voor de zuivering van bedrijfsafvalwater.",
             "prefLabel": "Waterzuiveringsinstallatie",
             "topConceptOf": "conceptscheme:installatietypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -2589,86 +2564,87 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "meetpunt-selectiemogelijkheden:ander_referentiepunt",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een ander referentiepunt dan de opgesomde.",
             "inScheme": "conceptscheme:meetpunt_referentiepunt_naam",
             "note": "Een ander referentiepunt dan de opgesomde.",
             "prefLabel": "Ander referentiepunt",
-            "topConceptOf": "conceptscheme:meetpunt_referentiepunt_naam",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:meetpunt_referentiepunt_naam"
         },
         {
             "id": "meetpunt-selectiemogelijkheden:bovenkant_beschermbuis",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "meetpunt-selectiemogelijkheden:bovenkant_beschermbuis",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "De bovenkant van de beschermbuis.",
             "inScheme": "conceptscheme:meetpunt_referentiepunt_naam",
             "note": "De bovenkant van de beschermbuis.",
             "prefLabel": "Bovenkant beschermbuis",
-            "topConceptOf": "conceptscheme:meetpunt_referentiepunt_naam",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:meetpunt_referentiepunt_naam"
         },
         {
             "id": "meetpunt-selectiemogelijkheden:bovenkant_peilbuis",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "meetpunt-selectiemogelijkheden:bovenkant_peilbuis",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "De bovenkant van de peilbuis.",
             "inScheme": "conceptscheme:meetpunt_referentiepunt_naam",
             "note": "De bovenkant van de peilbuis.",
             "prefLabel": "Bovenkant peilbuis",
-            "topConceptOf": "conceptscheme:meetpunt_referentiepunt_naam",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:meetpunt_referentiepunt_naam"
         },
         {
             "id": "meetpunt-selectiemogelijkheden:bovenkant_straatpot",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "meetpunt-selectiemogelijkheden:bovenkant_straatpot",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "De bovenkant van de straatpot.",
             "inScheme": "conceptscheme:meetpunt_referentiepunt_naam",
             "note": "De bovenkant van de straatpot.",
             "prefLabel": "Bovenkant straatpot",
-            "topConceptOf": "conceptscheme:meetpunt_referentiepunt_naam",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:meetpunt_referentiepunt_naam"
         },
         {
             "id": "meetpunt-selectiemogelijkheden:maaiveld",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "meetpunt-selectiemogelijkheden:maaiveld",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Het maaiveld ter hoogte van de peilput.",
             "inScheme": "conceptscheme:meetpunt_referentiepunt_naam",
             "note": "Het maaiveld ter hoogte van de peilput.",
             "prefLabel": "Maaiveld",
-            "topConceptOf": "conceptscheme:meetpunt_referentiepunt_naam",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:meetpunt_referentiepunt_naam"
         },
         {
             "id": "meetpunt-selectiemogelijkheden:onbekend",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "meetpunt-selectiemogelijkheden:onbekend",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Het referentiepunt is niet gekend.",
             "inScheme": "conceptscheme:meetpunt_referentiepunt_naam",
             "note": "Het referentiepunt is niet gekend.",
             "prefLabel": "Onbekend",
-            "topConceptOf": "conceptscheme:meetpunt_referentiepunt_naam",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:meetpunt_referentiepunt_naam"
         },
         {
             "id": "meetpunteigenschappen:diepte",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "meetpunteigenschappen:diepte",
+            "modified": "2026-11-03T10:14:56.856Z",
             "relation": "rdfs:value",
             "relevantUnit": [
                 "csor_eenheid:E_59"
@@ -2678,7 +2654,6 @@
             "note": "De diepte van de peilput ten opzichte van het maaiveld.",
             "prefLabel": "Diepte",
             "topConceptOf": "conceptscheme:meetpunteigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeervoudig": "false",
             "isVerplicht": "false",
             "relevantDataType": "xsd:decimal",
@@ -2691,15 +2666,15 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "meetpunteigenschappen:merk",
+            "modified": "2026-11-03T10:14:56.856Z",
             "relation": "rdfs:value",
             "definition": "Het merk van de debietmeter.",
             "inScheme": "conceptscheme:meetpunteigenschappen",
             "note": "Het merk van de debietmeter.",
             "prefLabel": "Merk",
             "topConceptOf": "conceptscheme:meetpunteigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeervoudig": "false",
             "isVerplicht": "false",
             "relevantDataType": "xsd:string",
@@ -2712,18 +2687,18 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "relation": "rdfs:value",
+            "isVersionOf": "meetpunteigenschappen:putnummer",
+            "modified": "2026-11-03T10:14:56.856Z",
+            "relation": "adms:identifier",
             "definition": "Het identificatienummer waaronder de controleinrichting bij VMM gekend is.",
             "inScheme": "conceptscheme:meetpunteigenschappen",
             "note": "Het identificatienummer waaronder de controleinrichting bij VMM gekend is.",
             "prefLabel": "VMM meetputnummer",
             "topConceptOf": "conceptscheme:meetpunteigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeervoudig": "false",
             "isVerplicht": "false",
-            "relevantDataType": "xsd:string",
+            "relevantDataType": "vmm:putNummer",
             "relevantRiepr": [
                 "meetpunt:controleinrichting"
             ]
@@ -2733,8 +2708,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "meetpunteigenschappen:referentiepunt",
+            "modified": "2026-11-03T10:14:56.856Z",
             "narrowerPartitive": [
                 "meetpunteigenschappen:referentiepunt_diepte",
                 "meetpunteigenschappen:referentiepunt_naam"
@@ -2744,7 +2720,6 @@
             "note": "Samengestelde eigenschap voor referentiepunt (naam en hoogte in meter).",
             "prefLabel": "Referentiepunt",
             "topConceptOf": "conceptscheme:meetpunteigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeervoudig": "true",
             "isVerplicht": "true"
         },
@@ -2753,8 +2728,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "meetpunteigenschappen:referentiepunt_diepte",
+            "modified": "2026-11-03T10:14:56.856Z",
             "relation": "rdfs:value",
             "broaderPartitive": "meetpunteigenschappen:referentiepunt",
             "relevantUnit": [
@@ -2764,7 +2740,6 @@
             "inScheme": "conceptscheme:meetpunteigenschappen",
             "note": "De hoogte waarmee het referentiepunt uitsteekt ten opzichte van het maaiveld.",
             "prefLabel": "Hoogte",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeervoudig": "false",
             "isVerplicht": "false",
             "relevantDataType": "xsd:decimal",
@@ -2777,15 +2752,15 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "meetpunteigenschappen:referentiepunt_naam",
+            "modified": "2026-11-03T10:14:56.856Z",
             "relation": "rdfs:label",
             "broaderPartitive": "meetpunteigenschappen:referentiepunt",
             "definition": "De naam van het referentiepunt.",
             "inScheme": "conceptscheme:meetpunteigenschappen",
             "note": "De naam van het referentiepunt.",
             "prefLabel": "Naam",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeervoudig": "false",
             "isVerplicht": "false",
             "relevantCodeList": [
@@ -2800,15 +2775,15 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "meetpunteigenschappen:serienummer",
+            "modified": "2026-11-03T10:14:56.856Z",
             "relation": "rdfs:value",
             "definition": "Het serienummer van de debietmeter.",
             "inScheme": "conceptscheme:meetpunteigenschappen",
             "note": "Het serienummer van de debietmeter.",
             "prefLabel": "Serienummer",
             "topConceptOf": "conceptscheme:meetpunteigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeervoudig": "false",
             "isVerplicht": "false",
             "relevantDataType": "xsd:string",
@@ -2821,14 +2796,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "meetpunt:controleinrichting",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
             "inScheme": "conceptscheme:meetpunttypes",
             "note": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
             "prefLabel": "Controleinrichting",
             "topConceptOf": "conceptscheme:meetpunttypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -2837,14 +2812,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "meetpunt:debietmeter",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een meetinrichting is een meetpunt voor een pompput.",
             "inScheme": "conceptscheme:meetpunttypes",
             "note": "Een meetinrichting is een meetpunt voor een pompput.",
             "prefLabel": "Debietmeter grondwater",
             "topConceptOf": "conceptscheme:meetpunttypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -2853,14 +2828,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "meetpunt:peilput",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
             "inScheme": "conceptscheme:meetpunttypes",
             "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
             "prefLabel": "Peilput",
             "topConceptOf": "conceptscheme:meetpunttypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -2869,15 +2844,15 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "onttrekkingspunteigenschappen:omschrijving",
+            "modified": "2026-11-03T10:14:56.856Z",
             "relation": "rdfs:value",
             "definition": "Een algemene beschrijving van het opnamepunt oppervlaktewater.",
             "inScheme": "conceptscheme:onttrekkingspunteigenschappen",
             "note": "Een algemene beschrijving van het opnamepunt oppervlaktewater.",
             "prefLabel": "Omschrijving",
             "topConceptOf": "conceptscheme:onttrekkingspunteigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeervoudig": "false",
             "isVerplicht": "false",
             "relevantDataType": "xsd:string",
@@ -2890,14 +2865,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "onttrekkingspunt:opnamepunt",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Plaats waar het oppervlaktewater wordt gewonnen voor gebruik in bedrijfsprocessen.",
             "inScheme": "conceptscheme:onttrekkingspunttypes",
             "note": "Plaats waar het oppervlaktewater wordt gewonnen voor gebruik in bedrijfsprocessen.",
             "prefLabel": "Opnamepunt oppervlaktewater",
             "topConceptOf": "conceptscheme:onttrekkingspunttypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -3006,8 +2981,6 @@
             "_type": [
                 "skos:Concept"
             ],
-            "isVersionOf": "contextueel:activiteit",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "sosa:hasFeatureOfInterest",
             "vervolgstap": "conceptscheme:operationeel_contextueel_iepr_activiteit",
             "definition": "Selecteer de activiteit van de IEPR-installatie waarop je wil rapporteren",
@@ -3034,8 +3007,6 @@
             "_type": [
                 "skos:Concept"
             ],
-            "isVersionOf": "contextueel:feature",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "sosa:hasFeatureOfInterest",
             "vervolgstap": "conceptscheme:operationeel_contextueel_iepr",
             "definition": "Selecteer een IEPR installatie waarop je wil rapporteren.",
@@ -3085,44 +3056,44 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "debiet:infiltratie",
+            "modified": "2026-11-03T10:14:56.856Z",
             "inScheme": "conceptscheme:operationeel_debiettypes",
             "prefLabel": "Infiltratie",
-            "topConceptOf": "conceptscheme:operationeel_debiettypes",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:operationeel_debiettypes"
         },
         {
             "id": "debiet:onttrekking",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "debiet:onttrekking",
+            "modified": "2026-11-03T10:14:56.856Z",
             "inScheme": "conceptscheme:operationeel_debiettypes",
             "prefLabel": "Onttrekking",
-            "topConceptOf": "conceptscheme:operationeel_debiettypes",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:operationeel_debiettypes"
         },
         {
             "id": "debiet:spui",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "debiet:spui",
+            "modified": "2026-11-03T10:14:56.856Z",
             "inScheme": "conceptscheme:operationeel_debiettypes",
             "prefLabel": "Spui",
-            "topConceptOf": "conceptscheme:operationeel_debiettypes",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:operationeel_debiettypes"
         },
         {
             "id": "debiet:totaal_rondgepompd",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "debiet:totaal_rondgepompd",
+            "modified": "2026-11-03T10:14:56.856Z",
             "inScheme": "conceptscheme:operationeel_debiettypes",
             "prefLabel": "Totaal rondgepompd",
-            "topConceptOf": "conceptscheme:operationeel_debiettypes",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:operationeel_debiettypes"
         },
         {
             "id": "grondstoffen:bestemmingsidentificatie-be",
@@ -3130,7 +3101,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:bestemmingsidentificatie-be",
-            "modified": "2026-11-03T08:57:46.267Z",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broaderPartitive": "grondstoffen:grondstof",
             "narrowerPartitive": [
                 "grondstoffen:bestemmingsidentificatie-be-naam",
@@ -3146,7 +3117,7 @@
                         "skos:Concept"
                     ],
                     "isVersionOf": "grondstoffen:bestemmingsidentificatie-buitenland",
-                    "modified": "2026-11-03T08:57:46.267Z",
+                    "modified": "2026-11-03T10:14:56.856Z",
                     "broaderPartitive": {
                         "id": "grondstoffen:grondstof",
                         "_type": [
@@ -3161,7 +3132,7 @@
                                     "skos:Concept"
                                 ],
                                 "isVersionOf": "grondstoffen:bestemmingsidentificatie-none",
-                                "modified": "2026-11-03T08:57:46.267Z",
+                                "modified": "2026-11-03T10:14:56.856Z",
                                 "broaderPartitive": "grondstoffen:grondstof",
                                 "narrowerPartitive": [
                                     {
@@ -3227,7 +3198,7 @@
                                             "skos:Concept"
                                         ],
                                         "isVersionOf": "grondstoffen:bestemmingsidentificatie-werf",
-                                        "modified": "2026-11-03T08:57:46.267Z",
+                                        "modified": "2026-11-03T10:14:56.856Z",
                                         "broaderPartitive": "grondstoffen:grondstof",
                                         "narrowerPartitive": {
                                             "id": "grondstoffen:bestemmingsidentificatie-werf-naam",
@@ -3622,7 +3593,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:bestemmingsidentificatie-buitenland",
-            "modified": "2026-11-03T08:57:46.267Z",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broaderPartitive": "grondstoffen:grondstof",
             "narrowerPartitive": [
                 "grondstoffen:bestemmingsidentificatie-buitenland-btw",
@@ -3637,7 +3608,7 @@
                         "skos:Concept"
                     ],
                     "isVersionOf": "grondstoffen:bestemmingsidentificatie-be",
-                    "modified": "2026-11-03T08:57:46.267Z",
+                    "modified": "2026-11-03T10:14:56.856Z",
                     "broaderPartitive": {
                         "id": "grondstoffen:grondstof",
                         "_type": [
@@ -3652,7 +3623,7 @@
                                     "skos:Concept"
                                 ],
                                 "isVersionOf": "grondstoffen:bestemmingsidentificatie-none",
-                                "modified": "2026-11-03T08:57:46.267Z",
+                                "modified": "2026-11-03T10:14:56.856Z",
                                 "broaderPartitive": "grondstoffen:grondstof",
                                 "narrowerPartitive": [
                                     {
@@ -3718,7 +3689,7 @@
                                             "skos:Concept"
                                         ],
                                         "isVersionOf": "grondstoffen:bestemmingsidentificatie-werf",
-                                        "modified": "2026-11-03T08:57:46.267Z",
+                                        "modified": "2026-11-03T10:14:56.856Z",
                                         "broaderPartitive": "grondstoffen:grondstof",
                                         "narrowerPartitive": {
                                             "id": "grondstoffen:bestemmingsidentificatie-werf-naam",
@@ -4113,7 +4084,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:bestemmingsidentificatie-none",
-            "modified": "2026-11-03T08:57:46.267Z",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broaderPartitive": "grondstoffen:grondstof",
             "narrowerPartitive": [
                 "grondstoffen:bestemmingsidentificatie-none-adres",
@@ -4128,7 +4099,7 @@
                         "skos:Concept"
                     ],
                     "isVersionOf": "grondstoffen:bestemmingsidentificatie-be",
-                    "modified": "2026-11-03T08:57:46.267Z",
+                    "modified": "2026-11-03T10:14:56.856Z",
                     "broaderPartitive": {
                         "id": "grondstoffen:grondstof",
                         "_type": [
@@ -4142,7 +4113,7 @@
                                     "skos:Concept"
                                 ],
                                 "isVersionOf": "grondstoffen:bestemmingsidentificatie-buitenland",
-                                "modified": "2026-11-03T08:57:46.267Z",
+                                "modified": "2026-11-03T10:14:56.856Z",
                                 "broaderPartitive": "grondstoffen:grondstof",
                                 "narrowerPartitive": [
                                     {
@@ -4213,7 +4184,7 @@
                                             "skos:Concept"
                                         ],
                                         "isVersionOf": "grondstoffen:bestemmingsidentificatie-werf",
-                                        "modified": "2026-11-03T08:57:46.267Z",
+                                        "modified": "2026-11-03T10:14:56.856Z",
                                         "broaderPartitive": "grondstoffen:grondstof",
                                         "narrowerPartitive": {
                                             "id": "grondstoffen:bestemmingsidentificatie-werf-naam",
@@ -4604,7 +4575,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:bestemmingsidentificatie-werf",
-            "modified": "2026-11-03T08:57:46.267Z",
+            "modified": "2026-11-03T10:14:56.856Z",
             "broaderPartitive": "grondstoffen:grondstof",
             "narrowerPartitive": "grondstoffen:bestemmingsidentificatie-werf-naam",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
@@ -4616,7 +4587,7 @@
                         "skos:Concept"
                     ],
                     "isVersionOf": "grondstoffen:bestemmingsidentificatie-be",
-                    "modified": "2026-11-03T08:57:46.267Z",
+                    "modified": "2026-11-03T10:14:56.856Z",
                     "broaderPartitive": {
                         "id": "grondstoffen:grondstof",
                         "_type": [
@@ -4630,7 +4601,7 @@
                                     "skos:Concept"
                                 ],
                                 "isVersionOf": "grondstoffen:bestemmingsidentificatie-buitenland",
-                                "modified": "2026-11-03T08:57:46.267Z",
+                                "modified": "2026-11-03T10:14:56.856Z",
                                 "broaderPartitive": "grondstoffen:grondstof",
                                 "narrowerPartitive": [
                                     {
@@ -4700,7 +4671,7 @@
                                             "skos:Concept"
                                         ],
                                         "isVersionOf": "grondstoffen:bestemmingsidentificatie-none",
-                                        "modified": "2026-11-03T08:57:46.267Z",
+                                        "modified": "2026-11-03T10:14:56.856Z",
                                         "broaderPartitive": "grondstoffen:grondstof",
                                         "narrowerPartitive": [
                                             {
@@ -5505,8 +5476,6 @@
             "_type": [
                 "skos:Concept"
             ],
-            "isVersionOf": "grondwater:kwaliteitsmeting-referentiepunt",
-            "modified": "2026-11-03T08:57:46.267Z",
             "broaderPartitive": "grondwater:kwaliteitsmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
             "prefLabel": "Referentiepunt",
@@ -5535,8 +5504,6 @@
             "_type": [
                 "skos:Concept"
             ],
-            "isVersionOf": "grondwater:kwaliteitsmeting_feature",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "grondwater:kwaliteitsmeting",
             "definition": "Actieve peil- en pompfilters in het productiejaar.",
@@ -5578,8 +5545,6 @@
             "_type": [
                 "skos:Concept"
             ],
-            "isVersionOf": "grondwater:onttrekking_feature",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "grondwater:onttrekking",
             "definition": "Actieve debietmeters in het productiejaar.",
@@ -5639,8 +5604,6 @@
             "_type": [
                 "skos:Concept"
             ],
-            "isVersionOf": "grondwater:peilmeting_feature",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "grondwater:peilmeting",
             "definition": "Actieve peil- en pompfilters in het productiejaar.",
@@ -5684,8 +5647,6 @@
             "_type": [
                 "skos:Concept"
             ],
-            "isVersionOf": "grondwater:referentiepunt",
-            "modified": "2026-11-03T08:57:46.267Z",
             "broaderPartitive": "grondwater:peilmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
             "prefLabel": "Referentiepunt",
@@ -5701,8 +5662,6 @@
             "_type": [
                 "skos:Concept"
             ],
-            "isVersionOf": "grondwater:type-debiet",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "dcterms:type",
             "broaderPartitive": "grondwater:onttrekking",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -6134,8 +6093,6 @@
             "_type": [
                 "skos:Concept"
             ],
-            "isVersionOf": "lucht:emissietype",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "dcterms:type",
             "broaderPartitive": "lucht:emissie",
             "inScheme": "conceptscheme:operationeel_lucht_emissie",
@@ -6149,8 +6106,6 @@
             "_type": [
                 "skos:Concept"
             ],
-            "isVersionOf": "lucht:feature_bron",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "sosa:hasFeatureOfInterest",
             "vervolgstap": "conceptscheme:operationeel_lucht_rapportering",
             "definition": "Selecteer de bron(nen) waarop je wil rapporteren.",
@@ -6170,8 +6125,6 @@
             "_type": [
                 "skos:Concept"
             ],
-            "isVersionOf": "lucht:feature_ep",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "sosa:hasFeatureOfInterest",
             "vervolgstap": "conceptscheme:operationeel_lucht_bron",
             "definition": "Selecteer het emissiepunt waarop je wil rapporteren.",
@@ -6525,8 +6478,6 @@
             "_type": [
                 "skos:Concept"
             ],
-            "isVersionOf": "water:feature",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "sosa:hasFeatureOfInterest",
             "vervolgstap": "conceptscheme:operationeel_water_lozing",
             "definition": "De controleinrichting waarop gerapporteed moet worden.",
@@ -6718,8 +6669,6 @@
             "_type": [
                 "skos:Concept"
             ],
-            "isVersionOf": "zelfcontrole-lucht:feature",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "sosa:hasFeatureOfInterest",
             "vervolgstap": "conceptscheme:operationeel_zelfcontrole_lucht_meting",
             "definition": "Het emissiepunt waarop gerapporteed moet worden.",
@@ -6916,8 +6865,6 @@
             "_type": [
                 "skos:Concept"
             ],
-            "isVersionOf": "zelfcontrole-water:feature",
-            "modified": "2026-11-03T08:57:46.267Z",
             "relation": "sosa:hasFeatureOfInterest",
             "vervolgstap": "conceptscheme:operationeel_zelfcontrole_water_meting",
             "definition": "De controleinrichting waarop gerapporteed moet worden.",
@@ -7094,14 +7041,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "procedure:emissie",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "De procedure emissie via een emissiepunt.",
             "inScheme": "conceptscheme:proceduretypes",
             "code": "EMISSIE",
             "note": "De procedure emissie via een emissiepunt.",
             "prefLabel": "Emissie",
             "topConceptOf": "conceptscheme:proceduretypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantDataType": "sosa:Procedure"
         },
         {
@@ -7109,14 +7056,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "procedure:hoofdactiviteit",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "De procedure die de hoofdactiviteit aangeeft.",
             "inScheme": "conceptscheme:proceduretypes",
             "code": "HOOFDACTIVITEIT",
             "note": "De procedure die de hoofdactiviteit aangeeft.",
             "prefLabel": "Hoofdactiviteit",
             "topConceptOf": "conceptscheme:proceduretypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantDataType": "sosa:Procedure"
         },
         {
@@ -7124,14 +7071,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "procedure:meting",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "De procedure meting via een meetpunt.",
             "inScheme": "conceptscheme:proceduretypes",
             "code": "METING",
             "note": "De procedure meting via een meetpunt.",
             "prefLabel": "Meting",
             "topConceptOf": "conceptscheme:proceduretypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantDataType": "sosa:Procedure"
         },
         {
@@ -7139,14 +7086,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "procedure:onttrekking",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "De procedure onttrekking via een onttrekingspunt.",
             "inScheme": "conceptscheme:proceduretypes",
             "code": "ONTTREKKING",
             "note": "De procedure onttrekking via een onttrekingspunt.",
             "prefLabel": "Onttrekking",
             "topConceptOf": "conceptscheme:proceduretypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantDataType": "sosa:Procedure"
         },
         {
@@ -7154,14 +7101,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "procedure:transport",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "De procedure transport tussen twee processen.",
             "inScheme": "conceptscheme:proceduretypes",
             "code": "TRANSPORT",
             "note": "De procedure transport tussen twee processen.",
             "prefLabel": "Transport",
             "topConceptOf": "conceptscheme:proceduretypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantDataType": "sosa:Procedure"
         },
         {
@@ -7169,14 +7116,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "procedure:uitwissel",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "De procedure uitwissel via een uitwisselpunt.",
             "inScheme": "conceptscheme:proceduretypes",
             "code": "UITWISSEL",
             "note": "De procedure uitwissel via een uitwisselpunt.",
             "prefLabel": "Uitwissel",
             "topConceptOf": "conceptscheme:proceduretypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantDataType": "sosa:Procedure"
         },
         {
@@ -7184,14 +7131,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "procedure:verwerking",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "De procedure verwerking door een installatie.",
             "inScheme": "conceptscheme:proceduretypes",
             "code": "VERWERKING",
             "note": "De procedure verwerking door een installatie.",
             "prefLabel": "Verwerking",
             "topConceptOf": "conceptscheme:proceduretypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantDataType": "sosa:Procedure"
         },
         {
@@ -7199,12 +7146,12 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "rubriek:vlarem",
+            "modified": "2026-11-03T10:14:56.856Z",
             "inScheme": "conceptscheme:rubriektypes",
             "code": "vlarem",
             "prefLabel": "VLAREM",
             "topConceptOf": "conceptscheme:rubriektypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true"
         },
         {
@@ -7212,7 +7159,8 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "statustype:definitief_uit_dienst",
+            "modified": "2026-11-03T10:14:56.856Z",
             "seeAlso": "http://purl.org/adms/status/Withdrawn",
             "definition": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
             "inScheme": "conceptscheme:statustypes",
@@ -7220,7 +7168,6 @@
             "note": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
             "prefLabel": "Definitief uit dienst",
             "topConceptOf": "conceptscheme:statustypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantDataType": "http://www.w3.org/ns/adms#"
         },
         {
@@ -7228,7 +7175,8 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "statustype:in_dienst",
+            "modified": "2026-11-03T10:14:56.856Z",
             "seeAlso": "http://purl.org/adms/status/Completed",
             "definition": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
             "inScheme": "conceptscheme:statustypes",
@@ -7236,7 +7184,6 @@
             "note": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
             "prefLabel": "In dienst",
             "topConceptOf": "conceptscheme:statustypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantDataType": "http://www.w3.org/ns/adms#"
         },
         {
@@ -7244,7 +7191,8 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "statustype:ontmanteld",
+            "modified": "2026-11-03T10:14:56.856Z",
             "seeAlso": "http://purl.org/adms/status/Withdrawn",
             "definition": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
             "inScheme": "conceptscheme:statustypes",
@@ -7252,7 +7200,6 @@
             "note": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
             "prefLabel": "Ontmanteld",
             "topConceptOf": "conceptscheme:statustypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantDataType": "http://www.w3.org/ns/adms#"
         },
         {
@@ -7260,7 +7207,8 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "statustype:tijdelijk_uit_dienst",
+            "modified": "2026-11-03T10:14:56.856Z",
             "seeAlso": "http://purl.org/adms/status/Deprecated",
             "definition": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
             "inScheme": "conceptscheme:statustypes",
@@ -7268,7 +7216,6 @@
             "note": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
             "prefLabel": "Tijdelijk uit dienst",
             "topConceptOf": "conceptscheme:statustypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantDataType": "http://www.w3.org/ns/adms#"
         },
         {
@@ -7276,7 +7223,8 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "statustype:verkeerde_registratie",
+            "modified": "2026-11-03T10:14:56.856Z",
             "seeAlso": "http://purl.org/adms/status/Withdrawn",
             "definition": "De status verkeerde registratie  geeft aan deze entiteit verkeerd werd geregistreerd en dus niet van toepassing is",
             "inScheme": "conceptscheme:statustypes",
@@ -7284,7 +7232,6 @@
             "note": "De status verkeerde registratie  geeft aan deze entiteit verkeerd werd geregistreerd en dus niet van toepassing is",
             "prefLabel": "Verkeerde Registratie",
             "topConceptOf": "conceptscheme:statustypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantDataType": "http://www.w3.org/ns/adms#"
         },
         {
@@ -7292,7 +7239,8 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "statustype:voorgesteld",
+            "modified": "2026-11-03T10:14:56.856Z",
             "seeAlso": "http://purl.org/adms/status/UnderDevelopment",
             "definition": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
             "inScheme": "conceptscheme:statustypes",
@@ -7300,7 +7248,6 @@
             "note": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
             "prefLabel": "Voorgesteld Ontwerp",
             "topConceptOf": "conceptscheme:statustypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantDataType": "http://www.w3.org/ns/adms#"
         },
         {
@@ -7308,86 +7255,87 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "thema:grondstoffen",
+            "modified": "2026-11-03T10:14:56.856Z",
             "vervolgstap": "conceptscheme:operationeel_grondstoffen",
             "inScheme": "conceptscheme:thematypes",
             "code": "THEMA_GRONDSTOFFEN",
             "prefLabel": "Grondstoffen",
-            "topConceptOf": "conceptscheme:thematypes",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:thematypes"
         },
         {
             "id": "thema:grondwater",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "thema:grondwater",
+            "modified": "2026-11-03T10:14:56.856Z",
             "vervolgstap": "conceptscheme:operationeel_grondwater",
             "inScheme": "conceptscheme:thematypes",
             "code": "THEMA_GRONDWATER",
             "prefLabel": "Grondwater",
-            "topConceptOf": "conceptscheme:thematypes",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:thematypes"
         },
         {
             "id": "thema:lucht",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "thema:lucht",
+            "modified": "2026-11-03T10:14:56.856Z",
             "vervolgstap": "conceptscheme:operationeel_lucht",
             "inScheme": "conceptscheme:thematypes",
             "code": "THEMA_LUCHT",
             "prefLabel": "Lucht",
-            "topConceptOf": "conceptscheme:thematypes",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:thematypes"
         },
         {
             "id": "thema:water",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "thema:water",
+            "modified": "2026-11-03T10:14:56.856Z",
             "vervolgstap": "conceptscheme:operationeel_water",
             "inScheme": "conceptscheme:thematypes",
             "code": "THEMA_WATER",
             "prefLabel": "Water",
-            "topConceptOf": "conceptscheme:thematypes",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:thematypes"
         },
         {
             "id": "thema:zelfcontrole-lucht",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "thema:zelfcontrole-lucht",
+            "modified": "2026-11-03T10:14:56.856Z",
             "vervolgstap": "conceptscheme:operationeel_zelfcontrole_lucht",
             "inScheme": "conceptscheme:thematypes",
             "code": "THEMA_ZELFCONTROLE_LUCHT",
             "prefLabel": "Zelfcontrole lucht",
-            "topConceptOf": "conceptscheme:thematypes",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:thematypes"
         },
         {
             "id": "thema:zelfcontrole-water",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "thema:zelfcontrole-water",
+            "modified": "2026-11-03T10:14:56.856Z",
             "vervolgstap": "conceptscheme:operationeel_zelfcontrole_water",
             "inScheme": "conceptscheme:thematypes",
             "code": "THEMA_ZELFCONTROLE_WATER",
             "prefLabel": "Zelfcontrole water",
-            "topConceptOf": "conceptscheme:thematypes",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "topConceptOf": "conceptscheme:thematypes"
         },
         {
             "id": "uitwisselpunteigenschappen:diepte",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "uitwisselpunteigenschappen:diepte",
+            "modified": "2026-11-03T10:14:56.856Z",
             "relation": "rdfs:value",
             "relevantUnit": [
                 "csor_eenheid:E_59"
@@ -7397,7 +7345,6 @@
             "note": "De diepte van de pompput ten opzichte van het maaiveld.",
             "prefLabel": "Diepte",
             "topConceptOf": "conceptscheme:uitwisselpunteigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeervoudig": "false",
             "isVerplicht": "false",
             "relevantDataType": "xsd:decimal",
@@ -7411,14 +7358,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "uitwisselpunt:pompput",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een put voor de winning van of injectie naar grondwater.",
             "inScheme": "conceptscheme:uitwisselpunttypes",
             "note": "Een put voor de winning van of injectie naar grondwater.",
             "prefLabel": "Pompput",
             "topConceptOf": "conceptscheme:uitwisselpunttypes",
-            "status": "https://purl.archive.org/adms/status/Active",
             "isMeetbaar": "true",
             "isOnzichtbaar": "false"
         },
@@ -7427,38 +7374,39 @@
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "conceptscheme:aangiftestatussen",
+            "modified": "2026-11-03T10:14:56.856Z",
             "hasTopConcept": [
                 "aangiftestatus:concept",
                 "aangiftestatus:gefaald",
                 "aangiftestatus:ingediend",
                 "aangiftestatus:ingetrokken"
             ],
-            "prefLabel": "Aangifte status",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Aangifte status"
         },
         {
             "id": "conceptscheme:aangiftetypes",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "conceptscheme:aangiftetypes",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een typering van verschillende aangiftes",
             "hasTopConcept": [
                 "aangifte:operationeel",
                 "aangifte:structuur"
             ],
             "note": "Een typering van verschillende aangiftes",
-            "prefLabel": "Aangifte types",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Aangifte types"
         },
         {
             "id": "conceptscheme:emissiepunteigenschappen",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "conceptscheme:emissiepunteigenschappen",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een typering van verschillende eigenschappen voor emissiepunten.",
             "hasTopConcept": [
                 "emissiepunteigenschappen:aantal_punten",
@@ -7467,31 +7415,31 @@
                 "emissiepunteigenschappen:lozingspunt-lozingsplaats"
             ],
             "note": "Een typering van verschillende eigenschappen voor emissiepunten.",
-            "prefLabel": "Emissiepunt eigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Emissiepunt eigenschappen"
         },
         {
             "id": "conceptscheme:emissiepunttypes",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "conceptscheme:emissiepunttypes",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een typering van verschillende soorten emissiepunten.",
             "hasTopConcept": [
                 "emissiepunt:emissiepunt_lucht",
                 "emissiepunt:lozingspunt"
             ],
             "note": "Een typering van verschillende soorten emissiepunten.",
-            "prefLabel": "Emissiepunt types",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Emissiepunt types"
         },
         {
             "id": "conceptscheme:emissietypes",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "conceptscheme:emissietypes",
+            "modified": "2026-11-03T10:14:56.856Z",
             "hasTopConcept": [
                 "emissie:abnormale",
                 "emissie:geleide",
@@ -7501,16 +7449,16 @@
                 "emissie:niet-geleide-opslagverlies",
                 "emissie:niet-geleide-overslagverlies"
             ],
-            "prefLabel": "Emissie type",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Emissie type"
         },
         {
             "id": "conceptscheme:filtereigenschappen",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "conceptscheme:filtereigenschappen",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een typering van verschillende eigenschappen voor filters.",
             "hasTopConcept": [
                 "filtereigenschappen:diepte",
@@ -7519,21 +7467,20 @@
                 "filtereigenschappen:watervoerendeLaag"
             ],
             "note": "Een typering van verschillende eigenschappen voor filters.",
-            "prefLabel": "Filter eigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Filter eigenschappen"
         },
         {
             "id": "conceptscheme:filtertypes",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "conceptscheme:filtertypes",
+            "modified": "2026-11-03T10:14:56.856Z",
             "hasTopConcept": [
                 "filter:filter"
             ],
-            "prefLabel": "Filter type",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Filter type"
         },
         {
             "id": "conceptscheme:herkomst_water",
@@ -7547,8 +7494,9 @@
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "conceptscheme:installatie-eigenschappen",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een typering van verschillende eigenschappen voor installaties.",
             "hasTopConcept": [
                 "installatie-eigenschappen:geinstalleerde_opslag_overslagcapaciteit",
@@ -7566,8 +7514,7 @@
                 "installatie-eigenschappen:waterzuiveringstechniek"
             ],
             "note": "Een typering van verschillende eigenschappen voor installaties.",
-            "prefLabel": "Installatie eigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Installatie eigenschappen"
         },
         {
             "id": "conceptscheme:installatie_soort_opgewekte_energie",
@@ -7611,8 +7558,9 @@
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "conceptscheme:installatietypes",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een typering van verschillende soorten installaties.",
             "hasTopConcept": [
                 "installatie:fakkel",
@@ -7625,16 +7573,13 @@
                 "installatie:gpbv"
             ],
             "note": "Een typering van verschillende soorten installaties.",
-            "prefLabel": "Installatie types",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Installatie types"
         },
         {
             "id": "conceptscheme:lozingspunt_lozingsplaats",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "isVersionOf": "conceptscheme:lozingspunt_lozingsplaats",
-            "modified": "2026-11-03T08:57:46.267Z",
             "hasTopConcept": [
                 "emissiepunt-selectiemogelijkheden:collector",
                 "emissiepunt-selectiemogelijkheden:externe_waterzuivering",
@@ -7649,8 +7594,6 @@
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "isVersionOf": "conceptscheme:meetpunt_referentiepunt_naam",
-            "modified": "2026-11-03T08:57:46.267Z",
             "definition": "De mogelijke referentiepunten voor de hoogtemeting van een peilput.",
             "hasTopConcept": [
                 "meetpunt-selectiemogelijkheden:ander_referentiepunt",
@@ -7668,8 +7611,9 @@
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "conceptscheme:meetpunteigenschappen",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een typering van verschillende eigenschappen voor meetpunten.",
             "hasTopConcept": [
                 "meetpunteigenschappen:diepte",
@@ -7679,53 +7623,52 @@
                 "meetpunteigenschappen:serienummer"
             ],
             "note": "Een typering van verschillende eigenschappen voor meetpunten.",
-            "prefLabel": "Meetpunt eigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Meetpunt eigenschappen"
         },
         {
             "id": "conceptscheme:meetpunttypes",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "conceptscheme:meetpunttypes",
+            "modified": "2026-11-03T10:14:56.856Z",
             "hasTopConcept": [
                 "meetpunt:peilput",
                 "meetpunt:debietmeter",
                 "meetpunt:controleinrichting"
             ],
-            "prefLabel": "Meetpunt types",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Meetpunt types"
         },
         {
             "id": "conceptscheme:onttrekkingspunteigenschappen",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "conceptscheme:onttrekkingspunteigenschappen",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een typering van verschillende eigenschappen voor onttrekkingspunten.",
             "hasTopConcept": [
                 "onttrekkingspunteigenschappen:omschrijving"
             ],
             "note": "Een typering van verschillende eigenschappen voor onttrekkingspunten.",
-            "prefLabel": "Onttrekkingspunt eigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Onttrekkingspunt eigenschappen"
         },
         {
             "id": "conceptscheme:onttrekkingspunttypes",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "conceptscheme:onttrekkingspunttypes",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een typering van verschillende soorten onttrekkingspunten.",
             "hasTopConcept": [
                 "onttrekkingspunt:opnamepunt"
             ],
             "note": "Een typering van verschillende soorten onttrekkingspunten.",
-            "prefLabel": "Onttrekkingspunt types",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Onttrekkingspunt types"
         },
         {
             "id": "conceptscheme:operationeel_bepalingsmethode",
@@ -7801,15 +7744,15 @@
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "conceptscheme:operationeel_debiettypes",
+            "modified": "2026-11-03T10:14:56.856Z",
             "hasTopConcept": [
                 "debiet:infiltratie",
                 "debiet:onttrekking",
                 "debiet:spui",
                 "debiet:totaal_rondgepompd"
             ],
-            "prefLabel": "Type debiet",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Type debiet"
         },
         {
             "id": "conceptscheme:operationeel_grondstoffen",
@@ -8005,7 +7948,8 @@
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "conceptscheme:proceduretypes",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een typering van verschillende procedures.",
             "hasTopConcept": [
                 "procedure:emissie",
@@ -8017,27 +7961,27 @@
                 "procedure:verwerking"
             ],
             "note": "Een typering van verschillende procedures.",
-            "prefLabel": "Procedure types",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Procedure types"
         },
         {
             "id": "conceptscheme:rubriektypes",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "conceptscheme:rubriektypes",
+            "modified": "2026-11-03T10:14:56.856Z",
             "hasTopConcept": [
                 "rubriek:vlarem"
             ],
-            "prefLabel": "Rubriek types",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Rubriek types"
         },
         {
             "id": "conceptscheme:statustypes",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "conceptscheme:statustypes",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een typering van verschillende statussen (actief, inactief, ...).",
             "hasTopConcept": [
                 "statustype:definitief_uit_dienst",
@@ -8048,15 +7992,13 @@
                 "statustype:voorgesteld"
             ],
             "note": "Een typering van verschillende statussen (actief, inactief, ...).",
-            "prefLabel": "Status types",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Status types"
         },
         {
             "id": "conceptscheme:systeemeigenschappen",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "hasPart": [
                 "emissiepunteigenschappen:aantal_punten",
                 "conceptscheme:emissiepunteigenschappen",
@@ -8099,8 +8041,9 @@
                 "uitwisselpunteigenschappen:diepte",
                 "conceptscheme:uitwisselpunteigenschappen"
             ],
+            "isVersionOf": "conceptscheme:systeemeigenschappen",
+            "modified": "2026-11-03T10:14:56.856Z",
             "prefLabel": "Systeem eigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active",
             "relevantCodeList": [
                 "conceptscheme:systeemtypes"
             ]
@@ -8110,7 +8053,6 @@
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "hasPart": [
                 "emissiepunt:emissiepunt_lucht",
                 "emissiepunt:fakkel",
@@ -8147,15 +8089,17 @@
                 "uitwisselpunt:pompput",
                 "conceptscheme:uitwisselpunttypes"
             ],
-            "prefLabel": "Systeem types",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "isVersionOf": "conceptscheme:systeemtypes",
+            "modified": "2026-11-03T10:14:56.856Z",
+            "prefLabel": "Systeem types"
         },
         {
             "id": "conceptscheme:thematypes",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
+            "isVersionOf": "conceptscheme:thematypes",
+            "modified": "2026-11-03T10:14:56.856Z",
             "hasTopConcept": [
                 "thema:grondstoffen",
                 "thema:grondwater",
@@ -8164,38 +8108,37 @@
                 "thema:zelfcontrole-lucht",
                 "thema:zelfcontrole-water"
             ],
-            "prefLabel": "Thematische stroom",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Thematische stroom"
         },
         {
             "id": "conceptscheme:uitwisselpunteigenschappen",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemeigenschappen",
+            "isVersionOf": "conceptscheme:uitwisselpunteigenschappen",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een typering van verschillende eigenschappen voor uitwisselpunten.",
             "hasTopConcept": [
                 "uitwisselpunteigenschappen:diepte"
             ],
             "note": "Een typering van verschillende eigenschappen voor uitwisselpunten.",
-            "prefLabel": "Uitwisselpunt eigenschappen",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Uitwisselpunt eigenschappen"
         },
         {
             "id": "conceptscheme:uitwisselpunttypes",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-03T08:57:46.267Z",
             "isPartOf": "conceptscheme:systeemtypes",
+            "isVersionOf": "conceptscheme:uitwisselpunttypes",
+            "modified": "2026-11-03T10:14:56.856Z",
             "definition": "Een typering van verschillende soorten uitwisselpunten.",
             "hasTopConcept": [
                 "uitwisselpunt:pompput"
             ],
             "note": "Een typering van verschillende soorten uitwisselpunten.",
-            "prefLabel": "Uitwisselpunt types",
-            "status": "https://purl.archive.org/adms/status/Active"
+            "prefLabel": "Uitwisselpunt types"
         },
         {
             "id": "riepr:inGebruikVanaf",
