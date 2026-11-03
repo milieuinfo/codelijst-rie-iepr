@@ -25,19 +25,19 @@ test('valid change is written and validated by generate_skos', { timeout: 300_00
         system: 'filter', code: 'test_filter', prefLabel: 'Testfilter', definition: 'Een filter om te testen.', dryRun: false,
     }), { root });
     assert.equal(result.generateSkos.ok, true);
-    assert.match(fs.readFileSync(source('filter_type.csv'), 'utf8'), /^filter:test_filter,/m);
+    assert.match(fs.readFileSync(source('filtertypes.csv'), 'utf8'), /^filter:test_filter,/m);
     const nt = fs.readFileSync(path.join(root, 'src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.nt'), 'utf8');
-    assert.match(nt, /filter-type\/test_filter>/);
+    assert.match(nt, /filtertype\/test_filter>/);
 });
 
 test('change that breaks generate_skos is rolled back', { timeout: 300_000 }, async () => {
-    const csvBefore = fs.readFileSync(source('filter_type.csv'), 'utf8');
+    const csvBefore = fs.readFileSync(source('filtertypes.csv'), 'utf8');
     const ntPath = path.join(root, 'src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.nt');
     const ntBefore = fs.readFileSync(ntPath, 'utf8');
     await assert.rejects(
-        validatedWrite(() => fs.appendFileSync(source('filter_type.csv'), 'onbekend:x,skos:Concept,,conceptscheme:filter_type,,X,,X.,,,,true\n'), { root }),
+        validatedWrite(() => fs.appendFileSync(source('filtertypes.csv'), 'onbekend:x,skos:Concept,,conceptscheme:filtertypes,,X,,X.,,,,true\n'), { root }),
         /generate_skos failed.*rolled back/s,
     );
-    assert.equal(fs.readFileSync(source('filter_type.csv'), 'utf8'), csvBefore);
+    assert.equal(fs.readFileSync(source('filtertypes.csv'), 'utf8'), csvBefore);
     assert.equal(fs.readFileSync(ntPath, 'utf8'), ntBefore);
 });

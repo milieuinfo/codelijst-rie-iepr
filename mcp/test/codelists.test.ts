@@ -22,15 +22,15 @@ const { validate } = await import('../src/validate.js');
 const read = (file: string) => fs.readFileSync(path.join(root, 'src', 'source', file), 'utf8');
 
 test('dry run does not write', () => {
-    const before = read('installatie_type.csv');
+    const before = read('installatietypes.csv');
     const result = addType({ system: 'installatie', code: 'nieuw', prefLabel: 'Nieuw', definition: 'Een nieuw type.' });
-    assert.equal(read('installatie_type.csv'), before);
-    assert.match(result.insertedLines![0], /^installatie:nieuw,skos:Concept,conceptscheme:installatie_type,/);
+    assert.equal(read('installatietypes.csv'), before);
+    assert.match(result.insertedLines![0], /^installatie:nieuw,skos:Concept,conceptscheme:installatietypes,/);
 });
 
 test('subtype is placed below its broader type without topConceptOf', () => {
     addType({ system: 'installatie', code: 'condensatie_stookinstallatie', prefLabel: 'Condensatie stookinstallatie', definition: 'Een condenserende stookinstallatie.', broader: 'stookinstallatie', dryRun: false });
-    const lines = read('installatie_type.csv').split('\n');
+    const lines = read('installatietypes.csv').split('\n');
     const at = lines.findIndex(l => l.startsWith('installatie:condensatie_stookinstallatie,'));
     assert.ok(lines[at - 1].startsWith('installatie:indirecte_stookinstallatie,'));
     assert.ok(lines[at].trimEnd().endsWith('installatie:stookinstallatie,false,true'));
@@ -63,14 +63,14 @@ test('inline concept scheme declares its prefix and can be used as code list', a
         system: 'filter', kind: 'conceptscheme', name: 'materiaal', prefLabel: 'Filtermateriaal', definition: 'Materialen van een filter.',
         concepts: [{ code: 'pvc', prefLabel: 'PVC', definition: 'Een filter uit PVC.' }], dryRun: false,
     });
-    assert.match(read('config.yml'), /filter-selectiemogelijkheden: .*\/filter-eigenschappen-selectiemogelijkheden\//);
+    assert.match(read('config.yml'), /filter-selectiemogelijkheden: .*\/filtereigenschappen-selectiemogelijkheden\//);
     assert.match(fs.readFileSync(path.join(root, 'README.md'), 'utf8'), /\| `filter-selectiemogelijkheden:` \|/);
 
     await addProperty({
         system: 'filter', code: 'materiaal', prefLabel: 'Materiaal', definition: 'Het materiaal.', appliesTo: ['peil', 'pomp'],
         codeList: ['conceptscheme:filter_materiaal'], codeListSource: 'inline', isMultiselect: true, dryRun: false,
     });
-    const property = listProperties('filter').properties.find(p => p.id === 'filter-eigenschappen:materiaal')!;
+    const property = listProperties('filter').properties.find(p => p.id === 'filtereigenschappen:materiaal')!;
     assert.deepEqual(property.appliesTo, ['filter:peil', 'filter:pomp']);
     assert.equal(property.isMultiselect, 'true');
     assert.equal(validate(['filter']).errors, 0);
@@ -91,12 +91,12 @@ test('collection of units and composite property with parts', async () => {
     await addProperty({ system: 'meetpunt', code: 'sonde', prefLabel: 'Sonde', definition: 'Een sonde.', composite: true, isMeervoudig: true, appliesTo: ['peilput'], dryRun: false });
     await addProperty({ system: 'meetpunt', code: 'sonde_diepte', parent: 'sonde', prefLabel: 'Diepte', definition: 'De diepte.', datatype: 'xsd:decimal', unit: ['collectie:diepte_eenheden'], dryRun: false });
 
-    const csv = read('meetpunt_eigenschappen.csv');
+    const csv = read('meetpunteigenschappen.csv');
     assert.match(csv.split('\n')[0], /,collections$/);
     assert.match(csv, /\ncsor_eenheid:E_59,(,)+collectie:diepte_eenheden\n/);
-    const sonde = listProperties('meetpunt').properties.find(p => p.id === 'meetpunt-eigenschappen:sonde')! as { composite?: boolean; parts: Array<{ id: string }> };
+    const sonde = listProperties('meetpunt').properties.find(p => p.id === 'meetpunteigenschappen:sonde')! as { composite?: boolean; parts: Array<{ id: string }> };
     assert.equal(sonde.composite, true);
-    assert.equal(sonde.parts[0].id, 'meetpunt-eigenschappen:sonde_diepte');
+    assert.equal(sonde.parts[0].id, 'meetpunteigenschappen:sonde_diepte');
     assert.equal(validate(['meetpunt']).errors, 0);
 });
 

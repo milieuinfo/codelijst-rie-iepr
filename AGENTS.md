@@ -30,9 +30,10 @@ For `emissiepunt`, `filter`, `installatie`, `meetpunt`, `uitwisselpunt` and `ont
 
 - Answering **questions** ("Welke typen installaties bestaan er?", "Wat zijn de eigenschappen van een
   fakkel?"): follow `.agents/skills/codelijst-opvragen/SKILL.md`.
-- Adding a **type** (`src/source/<systeem>_type.csv`): follow `.agents/skills/codelijst-systeemtype/SKILL.md`.
-- Adding an **eigenschap** (`src/source/<systeem>_eigenschappen.csv`), including selections,
+- Adding a **type** (`src/source/<systeem>types.csv`): follow `.agents/skills/codelijst-systeemtype/SKILL.md`.
+- Adding an **eigenschap** (`src/source/<systeem>eigenschappen.csv`), including selections,
   units and composite properties: follow `.agents/skills/codelijst-eigenschap/SKILL.md`.
+  File names follow the concept scheme id (`installatie-eigenschappen.csv` has a hyphen: vowel clash).
 - **Editing or deleting** types, eigenschappen, inline selection lists or their options: follow
   `.agents/skills/codelijst-wijzigen/SKILL.md`.
 
@@ -57,7 +58,7 @@ Any other agent: register a stdio server with command `node` and args
 `["<repo>/mcp/bin/codelijst-mcp.js"]`. Skills in `.agents/skills/` are discovered by opencode, Codex,
 Gemini CLI, Cursor, VS Code and Copilot CLI.
 
-The operationele gegevens (thematische stromen in `thema_type.csv`, their steps and fields in
+The operationele gegevens (thematische stromen in `thematypes.csv`, their steps and fields in
 `operationeel_*.csv`, and the form they produce): follow `.agents/skills/codelijst-flows/SKILL.md`.
 
 Other code lists (procedure, rubriek, status, aangifte, ...) are not covered by the server or skills.

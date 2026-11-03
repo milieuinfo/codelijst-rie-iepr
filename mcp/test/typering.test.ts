@@ -14,7 +14,7 @@ beforeEach(() => {
     fs.copyFileSync(path.join(realRoot, 'README.md'), path.join(root, 'README.md'));
     fs.mkdirSync(path.dirname(path.join(root, ttl)), { recursive: true });
     fs.writeFileSync(path.join(root, ttl), [
-        '@prefix emissiepunt: <https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunt-type/>.',
+        '@prefix emissiepunt: <https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/>.',
         'emissiepunt:emissiepunt dcterms:modified "2026-10-16T12:00:00Z"^^xsd:dateTime;',
         '    adms:status <https://purl.archive.org/adms/status/Withdrawn>.',
     ].join('\n'));

@@ -19,8 +19,8 @@ const FIELD_CODE = /^[a-z][a-z0-9_-]*$/;
 const OPERATIONAL_HEADER = [
     '_id', '_type', 'topConceptOf', 'inScheme', 'prefLabel', 'definition', 'broaderPartitive', 'relevantClass',
     'relevantFeatureClass', 'relevantDataType', 'relation', 'vervolgstap', 'relevantRiepr', 'conditionPath', 'conditionValue',
-    'relevantCodeList', 'relevantUnit', 'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'variabele', 'isVerplicht',
-    'isMeervoudig', 'isMultiselect', 'isOnzichtbaar', '_ui_after', '_ui_first', 'related',
+    'relevantCodeList', 'relevantUnit', 'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'variabele', 'minValue', 'maxValue',
+    'isVerplicht', 'isMeervoudig', 'isMultiselect', 'isOnzichtbaar', '_ui_after', '_ui_first', 'related',
 ];
 
 export interface FieldProperties {
@@ -45,6 +45,10 @@ export interface FieldProperties {
     soortWaartbepaling?: string;
     /** Field of the same step where the stof (CSOR variabele) of this value is selected. */
     variabele?: string;
+    /** Lower bound of a numeric value; a number from the tools, kept as text in the CSV. */
+    minValue?: string | number;
+    /** Upper bound of a numeric value; a number from the tools, kept as text in the CSV. */
+    maxValue?: string | number;
     isVerplicht?: boolean;
     isMeervoudig?: boolean;
     isMultiselect?: boolean;
@@ -74,6 +78,8 @@ const COLUMNS: Record<keyof FieldProperties, string> = {
     drager: 'drager',
     soortWaartbepaling: 'soortWaartbepaling',
     variabele: 'variabele',
+    minValue: 'minValue',
+    maxValue: 'maxValue',
     isVerplicht: 'isVerplicht',
     isMeervoudig: 'isMeervoudig',
     isMultiselect: 'isMultiselect',
@@ -104,6 +110,7 @@ function cells(properties: Partial<FieldProperties>): CsvInput {
         if (!column) continue;
         if (Array.isArray(value)) result[column] = value.join('|');
         else if (typeof value === 'boolean') result[column] = value ? 'true' : '';
+        else if (typeof value === 'number') result[column] = String(value);
         else result[column] = (value as string | undefined)?.trim() ?? '';
     }
     return result;
@@ -148,7 +155,7 @@ class Files {
 
 function located(repo: Repo, id: string, what: string): Located {
     const found = repo.byId.get(id);
-    if (!found || !isOperationalFile(found.file)) throw new ValidationError(`${id} is not ${what} in thema_type.csv or operationeel_*.csv.`);
+    if (!found || !isOperationalFile(found.file)) throw new ValidationError(`${id} is not ${what} in thematypes.csv or operationeel_*.csv.`);
     return found;
 }
 
@@ -198,6 +205,14 @@ function checkField(repo: Repo, scheme: string, id: string, p: FieldProperties):
     }
     if (p.datatype && codeList.length) errors.push('Give either datatype or codeList, not both.');
     if (unit.length && !NUMERIC_DATATYPES.includes(p.datatype ?? '')) errors.push(`unit only applies to numeric datatypes (${NUMERIC_DATATYPES.join(', ')}).`);
+    for (const [key, value] of [['minValue', p.minValue], ['maxValue', p.maxValue]] as const) {
+        if (value === undefined || value === '') continue;
+        if (!Number.isFinite(Number(value))) errors.push(`${key} '${value}' is not a number.`);
+        else if (!NUMERIC_DATATYPES.includes(p.datatype ?? '')) errors.push(`${key} only applies to numeric datatypes (${NUMERIC_DATATYPES.join(', ')}).`);
+    }
+    if (Number.isFinite(Number(p.minValue)) && Number.isFinite(Number(p.maxValue)) && Number(p.minValue) > Number(p.maxValue)) {
+        errors.push(`minValue (${p.minValue}) is greater than maxValue (${p.maxValue}).`);
+    }
     if (p.isMultiselect && !codeList.length && !(p.relevantRiepr ?? []).length) errors.push('isMultiselect only applies to a selection (codeList or relevantRiepr).');
 
     for (const list of codeList) {
@@ -612,7 +627,7 @@ export function addFlow(params: { code: string; prefLabel: string; definition?: 
     if (repo.byId.has(schemeId)) errors.push(`${schemeId} already exists.`);
     if (fs.existsSync(path.join(sourceDir(), file))) errors.push(`src/source/${file} already exists.`);
     if (isDeclaredPrefix(code)) errors.push(`prefix '${code}:' is already declared; choose another code.`);
-    if (contextTerms().has(code)) errors.push(`'${code}' is a term in context.json and cannot be used as prefix (like status → status-type); choose another code.`);
+    if (contextTerms().has(code)) errors.push(`'${code}' is a term in context.json and cannot be used as prefix (like status → statustype); choose another code.`);
     fail(errors);
 
     const changes: LineChange[] = [];

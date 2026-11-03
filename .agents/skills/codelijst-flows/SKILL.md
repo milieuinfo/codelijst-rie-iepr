@@ -1,15 +1,15 @@
 ---
 name: codelijst-flows
-description: 'View, explain, add, edit or delete the operationele gegevens of RIE-IEPR: the thematische stromen (thema_type.csv) and their steps and fields in operationeel_*.csv, including the form/UI they produce (controls, order, conditions, repeatable groups, next steps). Use for questions like "hoe ziet de flow voor lucht eruit?", "welke velden moet ik invullen bij grondwater?", "voeg een veld toe aan de stap rapportering", "zet volume voor eindtoestand", "maak een nieuwe stroom voor afval", "verwijder de stap emissie".'
+description: 'View, explain, add, edit or delete the operationele gegevens of RIE-IEPR: the thematische stromen (thematypes.csv) and their steps and fields in operationeel_*.csv, including the form/UI they produce (controls, order, conditions, repeatable groups, next steps). Use for questions like "hoe ziet de flow voor lucht eruit?", "welke velden moet ik invullen bij grondwater?", "voeg een veld toe aan de stap rapportering", "zet volume voor eindtoestand", "maak een nieuwe stroom voor afval", "verwijder de stap emissie".'
 ---
 
 # Operationele flows: view, explain and change
 
-Use the `codelijst-rie-iepr` MCP server tools; do not edit `thema_type.csv` or `operationeel_*.csv` by hand.
+Use the `codelijst-rie-iepr` MCP server tools; do not edit `thematypes.csv` or `operationeel_*.csv` by hand.
 
 ## How a flow works
 
-- A **thema** (`thema_type.csv`, e.g. `thema:lucht`) starts a flow: its `vervolgstap` is the first **step**.
+- A **thema** (`thematypes.csv`, e.g. `thema:lucht`) starts a flow: its `vervolgstap` is the first **step**.
 - A step is a `skos:ConceptScheme` in an `operationeel_*.csv`; its concepts are the **fields** of that screen.
 - A field with `vervolgstap` leads to the **next step** once it is filled in (typically a picker of the system to report on).
 - `broaderPartitive` makes a field a **part** of a composite field (a group); `isMeervoudig` makes it repeatable.
@@ -17,7 +17,7 @@ Use the `codelijst-rie-iepr` MCP server tools; do not edit `thema_type.csv` or `
 - `related` lists alternative **variants** of one logical field (shown as one group, the active variant follows the condition).
 - `_ui_first`/`_ui_after` set the **order** among siblings; conditional fields are always shown after their trigger.
 - A value about a stof (concentratie, jaarvracht, ...) carries `kwantiteitsAspect` (`csor_kwantificeerbaaraspect:`), `drager` (`csor_drager:`, e.g. DR_1 water, DR_8 lucht), `soortWaartbepaling` (`csor_soortwaardebepaling:`, usually SWB_1 standaard) and `variabele`: the field of the same group where the stof is selected (whose `relevantCodeList` is a collection of CSOR variabelen).
-- `relevantDataType` → input control, `relevantCodeList` → select, `relevantRiepr` → picker of systems (with `relevantClass sosa:FeatureOfInterest`: the system the report is about), `relevantUnit` → unit.
+- `relevantDataType` → input control, `relevantCodeList` → select, `relevantRiepr` → picker of systems (with `relevantClass sosa:FeatureOfInterest`: the system the report is about), `relevantUnit` → unit, `minValue`/`maxValue` → allowed range of a numeric field (`xsd:decimal`/`xsd:integer` only).
 
 ## Viewing
 

@@ -1,4 +1,4 @@
-// Operationele gegevens: the thematic flows (thema_type.csv) and their steps
+// Operationele gegevens: the thematic flows (thematypes.csv) and their steps
 // (concept schemes in operationeel_*.csv). See "Operationele gegevens" in the
 // repository README for the semantics:
 // - a thema concept points with vervolgstap to the first step (a concept scheme);
@@ -10,11 +10,13 @@
 
 import fs from 'node:fs';
 import type { CsvRecord } from './csv.js';
-import { isDeclaredPrefix, isUrl, openCsv, prefixOf, sourceCsvFiles, sourceDir, splitValues } from './repo.js';
+import { isDeclaredPrefix, isUrl, openCsv, prefixOf, sourceCsvFiles, sourceDir, splitValues, SYSTEMS, systemNames } from './repo.js';
 import { LIST_TYPES, NUMERIC_DATATYPES, ValidationError } from './rules.js';
 
-export const THEMA_FILE = 'thema_type.csv';
-export const THEMA_SCHEME = 'conceptscheme:thema_type';
+export const THEMA_FILE = 'thematypes.csv';
+export const THEMA_SCHEME = 'conceptscheme:thematypes';
+
+const PROPERTY_PREFIXES: ReadonlySet<string> = new Set(SYSTEMS.map(system => systemNames(system).propertyPrefix));
 
 /** Datatypes used for operational fields (the generic ones plus a period). */
 export const OPERATIONAL_DATATYPES = [
@@ -181,6 +183,8 @@ export interface UiField {
     repeatable?: true;
     hidden?: true;
     datatype?: string;
+    /** Allowed range of a numeric value (minValue/maxValue). */
+    range?: { min?: number; max?: number };
     /** Fixed unit, or the units to choose from. */
     unit?: { fixed?: Reference; choose?: Reference[]; from?: string };
     /** Options of a select; `from` is the code list. Options of published lists elsewhere are not listed. */
@@ -219,7 +223,7 @@ export function describeField(repo: Repo, field: Located, all: Located[]): UiFie
     if (children.length > 0 && !r.relevantDataType && codeList.length === 0) control = 'group';
     else if (codeList.length > 0) control = r.isMultiselect === 'true' ? 'multiselect' : 'select';
     else if (riepr.length > 0 && !r.relevantDataType) {
-        const eigenschap = riepr.some(id => /-eigenschappen:/.test(id));
+        const eigenschap = riepr.some(id => PROPERTY_PREFIXES.has(prefixOf(id) ?? ''));
         control = eigenschap ? 'structural-property' : r.relevantClass === 'sosa:FeatureOfInterest' ? 'feature-picker' : 'structural-picker';
     } else if (r.relevantDataType) control = CONTROL_BY_DATATYPE[r.relevantDataType] ?? 'text';
     else {
@@ -241,6 +245,13 @@ export function describeField(repo: Repo, field: Located, all: Located[]): UiFie
     else if (units.length === 1) ui.unit = { from: units[0], choose: refs(repo, repo.listMembers(units[0]).map(m => m.id)) };
     else if (units.length > 1) ui.unit = { choose: refs(repo, units) };
     for (const unit of units) if (/TODO/i.test(unit)) issues.push(`unit is a placeholder (${unit})`);
+    const min = r.minValue === '' || r.minValue === undefined ? undefined : Number(r.minValue);
+    const max = r.maxValue === '' || r.maxValue === undefined ? undefined : Number(r.maxValue);
+    if ((min !== undefined && !Number.isFinite(min)) || (max !== undefined && !Number.isFinite(max))) {
+        issues.push('minValue or maxValue is not a number');
+    } else if (min !== undefined || max !== undefined) {
+        ui.range = { ...(min !== undefined ? { min } : {}), ...(max !== undefined ? { max } : {}) };
+    }
     if (codeList.length > 0) {
         const list = codeList[0];
         ui.options = repo.isList(list)
@@ -365,6 +376,10 @@ function outlineField(field: UiField, steps: StepSummary[], indent: string): str
         field.hidden && 'onzichtbaar',
         field.unit?.fixed && `eenheid ${field.unit.fixed.label ?? field.unit.fixed.id}`,
         field.unit?.choose && 'eenheid kiezen',
+        field.range && `bereik ${[
+            field.range.min !== undefined ? `vanaf ${field.range.min}` : undefined,
+            field.range.max !== undefined ? `tot ${field.range.max}` : undefined,
+        ].filter(Boolean).join(' ')}`,
         field.options && `opties uit ${field.options.from}`,
         field.selects && `kies uit ${field.selects.map(s => s.label ?? s.id).join(', ')}`,
     ].filter(Boolean).join(', ');
@@ -413,7 +428,7 @@ export function listFlows() {
         optionLists: lists.filter(s => codeLists.has(s.record._id)).map(summary),
         unusedOptionLists: lists.filter(s => !codeLists.has(s.record._id)).map(summary),
         filesNotInConfig: unregistered.length ? unregistered : undefined,
-        note: 'A flow starts at the thema (thema_type.csv), whose vervolgstap is the first step; fields with vervolgstap lead to the next step. Use get_flow for the full outline and get_step for the form of one step.',
+        note: 'A flow starts at the thema (thematypes.csv), whose vervolgstap is the first step; fields with vervolgstap lead to the next step. Use get_flow for the full outline and get_step for the form of one step.',
     };
 }
 
@@ -443,7 +458,7 @@ export function getOperationalConcept({ concept }: { concept: string }) {
     const located = repo.byId.get(concept) ?? repo.rows.find(r => isOperationalFile(r.file) && r.record._type === 'skos:Concept'
         && (r.record._id.split(':')[1] === concept || r.record.prefLabel?.toLowerCase() === concept.toLowerCase()));
     if (!located || !isOperationalFile(located.file)) {
-        throw new ValidationError(`'${concept}' is not a concept in thema_type.csv or operationeel_*.csv. Use search_codelists to find it.`);
+        throw new ValidationError(`'${concept}' is not a concept in thematypes.csv or operationeel_*.csv. Use search_codelists to find it.`);
     }
     const r = located.record;
     const record = Object.fromEntries(Object.entries(r).filter(([, v]) => v));
@@ -505,6 +520,14 @@ export function validateFlows() {
         }
         for (const unit of splitValues(r.relevantUnit)) if (/TODO/i.test(unit)) report('warning', at, `relevantUnit is a placeholder (${unit}).`);
         if (r.relevantUnit && r.relevantDataType && !NUMERIC_DATATYPES.includes(r.relevantDataType)) report('warning', at, `unit on a non-numeric datatype (${r.relevantDataType}).`);
+        for (const [column, value] of [['minValue', r.minValue], ['maxValue', r.maxValue]] as const) {
+            if (!value) continue;
+            if (!Number.isFinite(Number(value))) report('error', at, `${column} '${value}' is not a number.`);
+            else if (!NUMERIC_DATATYPES.includes(r.relevantDataType)) report('warning', at, `${column} on a non-numeric datatype (${r.relevantDataType || '(none)'}).`);
+        }
+        if (r.minValue && r.maxValue && Number.isFinite(Number(r.minValue)) && Number.isFinite(Number(r.maxValue)) && Number(r.minValue) > Number(r.maxValue)) {
+            report('warning', at, `minValue (${r.minValue}) is greater than maxValue (${r.maxValue}).`);
+        }
         for (const [column, value] of Object.entries(r)) {
             for (const part of splitValues(value)) {
                 const prefix = prefixOf(part);

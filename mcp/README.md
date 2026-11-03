@@ -5,7 +5,7 @@ MCP server (TypeScript) om de RIE-IEPR codelijsten op te vragen en te beheren:
 - de structurele codelijsten: systeemtypes en eigenschappen van `emissiepunt`, `filter`,
   `installatie`, `meetpunt`, `uitwisselpunt` en `onttrekkingspunt`, inclusief de inline
   selectielijsten die ze via `relevantCodeList` of `relevantUnit` gebruiken;
-- de operationele gegevens: de thematische stromen (`thema_type.csv`), hun stappen en velden
+- de operationele gegevens: de thematische stromen (`thematypes.csv`), hun stappen en velden
   (`operationeel_*.csv`) en het formulier (UI) dat eruit volgt.
 
 Andere codelijsten (procedure, rubriek, status, aangifte, ...) vallen buiten scope.
@@ -59,7 +59,7 @@ Claude Code; de configuratiebestanden staan opgesomd in `AGENTS.md`. De bijhoren
 |---|---|
 | `list_flows` | Thematische stromen met hun stappen; onbereikbare stappen, (ongebruikte) optielijsten, bestanden die niet in `config.yml` staan |
 | `get_flow` | Volledige flow van een thema als leesbare outline + UI-beschrijving per stap |
-| `get_step` | Formulier van één stap: velden in weergavevolgorde, control, verplicht/meervoudig, opties, eenheden, voorwaarden, varianten, volgende stap |
+| `get_step` | Formulier van één stap: velden in weergavevolgorde, control, verplicht/meervoudig, opties, eenheden, bereik (`minValue`/`maxValue`), voorwaarden, varianten, volgende stap |
 | `get_flow_item` | Record, UI-beschrijving en verwijzingen van een thema, stap, veld of optie |
 | `validate_flows` | seeAlso, voorwaarden, onderdelen, volgorde, `related`, codelijsten, placeholders (`http://TODO`) |
 | `add_flow` | Nieuwe stroom: thema, `operationeel_<code>.csv` met eerste stap, `config.yml` en prefix |
@@ -101,11 +101,11 @@ ondersteunt, en anders weigert de tool met de vraag om het na te vragen.
 
 ## Conventies die afgedwongen worden
 
-- Codes in lowercase snake_case, ids `<systeem>:<code>` en `<systeem>-eigenschappen:<code>`
+- Codes in lowercase snake_case, ids `<systeem>:<code>` en `<systeem>eigenschappen:<code>`
 - `prefLabel` begint met een hoofdletter, `definition` is verplicht (waarschuwing zonder eindpunt)
 - Top concept (`topConceptOf`) óf `broader`/`broaderPartitive`, nooit beide; geen cycli
 - Eigenschappen op topniveau hebben `relevantRiepr` naar types uit het eigen `_type.csv`
-  (of `conceptscheme:<systeem>_type` voor alle types)
+  (of `conceptscheme:<systeem>types` voor alle types)
 - Een eigenschap heeft een `relevantDataType` óf een `relevantCodeList`; samengestelde
   eigenschappen geen van beide; `relevantUnit` enkel bij `xsd:decimal`/`xsd:integer`
 - Alle CURIE-prefixen moeten gedeclareerd zijn in `config.yml`

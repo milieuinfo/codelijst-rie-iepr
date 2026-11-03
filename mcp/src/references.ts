@@ -19,7 +19,7 @@ export interface Reference {
 }
 
 export interface ReferenceContext {
-    /** Source CSV file name, e.g. "installatie_eigenschappen.csv". */
+    /** Source CSV file name, e.g. "installatie-eigenschappen.csv". */
     file: string;
     row: CsvRow;
     column: string;
