@@ -31,6 +31,34 @@ const context_expanded = Object.fromEntries(Object.entries(context).map(([term, 
 const frame_skos_prefixes = {
     "@context": context_prefixes,
     "@type": ["rdfs:Resource", "skos:ConceptScheme", "skos:Concept", "skos:Collection", "http://qudt.org/schema/qudt/QuantityKind"],
+    "isVersionOf": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "relevantClass": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "related": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "drager": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "kwantiteitsAspect": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "soortWaartbepaling": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "relevantFeatureClass": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
     // No "@type" filter: members may be external concepts (e.g. CSOR) that are not typed in this graph.
     "member": {
         "@embed": "@never",
@@ -202,6 +230,30 @@ const frame_skos_prefixes = {
 const frame_skos_no_prefixes = {
     "@context": context_expanded,
     "type": ["http://www.w3.org/2004/02/skos/core#ConceptScheme", "http://www.w3.org/2004/02/skos/core#Concept", "http://qudt.org/schema/qudt/QuantityKind"],
+    "isVersionOf": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "relevantClass": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "drager": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "kwantiteitsAspect": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "soortWaartbepaling": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "relevantFeatureClass": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
     // No "@type" filter: members may be external concepts (e.g. CSOR) that are not typed in this graph.
     "member": {
         "@embed": "@never",
@@ -406,10 +458,6 @@ const jsonOptions = {"file": config.skos.path + config.skos.name + '/' + config.
 
 const parquetOptions = {"file": config.skos.path + config.skos.name + '/' + config.skos.name + config.skos.parquet, "frame": frame_skos_no_prefixes}
 
-const excelOptions = {"file": config.skos.path + config.skos.name + '/' + config.skos.name + config.skos.xlsx,
-    "sourcefile": config.skos.path + config.skos.name + '/' + config.skos.name + config.skos.csv,
-    "sheetName": config.types}
-
 const skos_prefixes = Object.assign( {}, config.skos.prefixes, config.prefixes, { '@base' : config.skos.prefixes.concept })
 
 const skos_context = JSON.parse(readFileSync(config.source.path + config.source.context));
@@ -439,7 +487,6 @@ const skosOptions = {
     "ntriplesPath": ntriplesPath,
     "csvOptions": csvOptions,
     "parquetOptions": parquetOptions,
-    "excelOptions": excelOptions,
     //"xsdOptions": xsdOptions
 }
 

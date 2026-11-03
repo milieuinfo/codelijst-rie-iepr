@@ -62,7 +62,7 @@ src/
 ### Installatie
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### Genereren van codelijsten
@@ -97,7 +97,7 @@ De prefixen zijn bewust kort en herkenbaar gehouden: de naam van de codelijst zo
 technische voor- of achtervoegsels (`riepr-`, `-type`, `operationeel-`).
 
 Nieuwe prefixen worden gedeclareerd bovenaan het `prefixes:`-blok in `src/source/config.yml`;
-een prefix die in een CSV gebruikt wordt maar daar niet gedeclareerd is, laat `npm run generate_skos` falen.
+een prefix die in een CSV gebruikt wordt maar daar niet gedeclareerd is, laat `pnpm run generate_skos` falen.
 De onderliggende URIs zijn ongewijzigd — enkel de korte naam verandert, dus gepubliceerde
 identificatoren blijven geldig.
 

@@ -15,7 +15,6 @@ skos:
   csv: .csv
   rdf_xml: .rdf
   json: .json
-  xlsx: .xlsx
   nt: .nt
   parquet: .parquet
 
@@ -119,6 +118,10 @@ metadata :
     provenance:
       label: "Deze combinatie van codelijsten kwam tot stand in het kader van het RIE-IEPR-project en is een representatie van de logica en typering, die vervat is in regelgeving."
   distribution :
+    parquet:
+      mediaType: https://www.iana.org/assignments/media-types/application/vnd.apache.parquet
+      format: http://publications.europa.eu/resource/authority/file-type/PARQUET
+      type: http://www.w3.org/ns/dcat#Distribution
 #    parquet:
 #      title: "Codelijsten ivm. industriele emissies, geserialiseerd als parquet-formaat."
 #      description: "Codelijsten ivm. industriele emissies, geserialiseerd als parquet bestand."

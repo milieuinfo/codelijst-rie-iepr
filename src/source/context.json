@@ -60,11 +60,13 @@
   },
   "narrowerPartitive": {
     "@id": "http://purl.org/iso25964/skos-thes#narrowerPartitive",
-    "@type": "@id"
+    "@type": "@id",
+    "@container" : "@set"
   },
   "broaderTransitive": {
     "@id": "http://www.w3.org/2004/02/skos/core#broaderTransitive",
-    "@type": "@id"
+    "@type": "@id",
+    "@container" : "@set"
   },
   "broadMatch": {
     "@id": "http://www.w3.org/2004/02/skos/core#broadMatch",
@@ -295,7 +297,8 @@
   },
   "hasPart": {
     "@id": "http://purl.org/dc/terms/hasPart",
-    "@type": "@id"
+    "@type": "@id",
+    "@container" : "@set"
   },
   "isPartOf": {
     "@id": "http://purl.org/dc/terms/isPartOf",
@@ -371,7 +374,8 @@
   },
   "member": {
     "@id": "http://www.w3.org/2004/02/skos/core#member",
-    "@type": "@id"
+    "@type": "@id",
+    "@container" : "@set"
   },
   "minValue": {
     "@id": "https://schema.org/minValue",
@@ -479,7 +483,8 @@
   },
   "related": {
     "@id": "http://www.w3.org/2004/02/skos/core#related",
-    "@type": "@id"
+    "@type": "@id",
+    "@container" : "@set"
   },
   "relation": {
     "@id": "http://purl.org/dc/terms/relation",
