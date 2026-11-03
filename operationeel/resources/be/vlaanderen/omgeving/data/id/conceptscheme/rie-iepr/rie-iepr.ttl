@@ -146,9 +146,7 @@ rdfs:comment a rdfs:Resource.
 rdfs:label a rdfs:Resource.
 rdfs:value a rdfs:Resource.
 time:hasDuration a rdfs:Resource.
-adms:identifier dcterms:isVersionOf adms:identifier;
-    dcterms:modified "2026-11-03T12:18:18.309Z"^^xsd:dateTime;
-    a rdfs:Resource.
+adms:identifier a rdfs:Resource.
 rov:registration a rdfs:Resource.
 sosa:hasFeatureOfInterest a rdfs:Resource.
 sosa:hasResult a rdfs:Resource.
@@ -1008,8 +1006,6 @@ meetpunteigenschappen:merk dcterms:isPartOf conceptscheme:systeemeigenschappen;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:relevantRiepr meetpunt:debietmeter.
 meetpunteigenschappen:putnummer dcterms:isPartOf conceptscheme:systeemeigenschappen;
-    dcterms:isVersionOf meetpunteigenschappen:putnummer;
-    dcterms:modified "2026-11-03T12:18:18.309Z"^^xsd:dateTime;
     dcterms:relation adms:identifier;
     a skos:Concept;
     skos:definition "Het identificatienummer waaronder de controleinrichting bij VMM gekend is."@nl;
@@ -1242,9 +1238,7 @@ grondstoffen:bestemmingsidentificatie-be-ve <http://purl.org/iso25964/skos-thes#
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter grondstoffen:bestemmingsidentificatie-be-on.
-grondstoffen:bestemmingsidentificatie-be dcterms:isVersionOf grondstoffen:bestemmingsidentificatie-be;
-    dcterms:modified "2026-11-03T12:18:18.309Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
+grondstoffen:bestemmingsidentificatie-be <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:bestemmingsidentificatie-be-naam, grondstoffen:bestemmingsidentificatie-be-on, grondstoffen:bestemmingsidentificatie-be-ve;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondstoffen;
@@ -1271,9 +1265,7 @@ grondstoffen:bestemmingsidentificatie-buitenland-naam dcterms:relation rdfs:labe
     riepr-vocab:isVerplicht false;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiFirst true.
-grondstoffen:bestemmingsidentificatie-buitenland dcterms:isVersionOf grondstoffen:bestemmingsidentificatie-buitenland;
-    dcterms:modified "2026-11-03T12:18:18.309Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
+grondstoffen:bestemmingsidentificatie-buitenland <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:bestemmingsidentificatie-buitenland-btw, grondstoffen:bestemmingsidentificatie-buitenland-naam;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondstoffen;
@@ -1300,9 +1292,7 @@ grondstoffen:bestemmingsidentificatie-none-naam dcterms:relation rdfs:label;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiFirst true.
-grondstoffen:bestemmingsidentificatie-none dcterms:isVersionOf grondstoffen:bestemmingsidentificatie-none;
-    dcterms:modified "2026-11-03T12:18:18.309Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
+grondstoffen:bestemmingsidentificatie-none <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:bestemmingsidentificatie-none-adres, grondstoffen:bestemmingsidentificatie-none-naam;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondstoffen;
@@ -1321,9 +1311,7 @@ grondstoffen:bestemmingsidentificatie-werf-naam dcterms:relation rdfs:label;
     riepr-vocab:isVerplicht false;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiFirst true.
-grondstoffen:bestemmingsidentificatie-werf dcterms:isVersionOf grondstoffen:bestemmingsidentificatie-werf;
-    dcterms:modified "2026-11-03T12:18:18.309Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
+grondstoffen:bestemmingsidentificatie-werf <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:bestemmingsidentificatie-werf-naam;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondstoffen;

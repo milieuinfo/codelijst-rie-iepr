@@ -61,11 +61,13 @@
         },
         "narrowerPartitive": {
             "@id": "http://purl.org/iso25964/skos-thes#narrowerPartitive",
-            "@type": "@id"
+            "@type": "@id",
+            "@container": "@set"
         },
         "broaderTransitive": {
             "@id": "http://www.w3.org/2004/02/skos/core#broaderTransitive",
-            "@type": "@id"
+            "@type": "@id",
+            "@container": "@set"
         },
         "broadMatch": {
             "@id": "http://www.w3.org/2004/02/skos/core#broadMatch",
@@ -296,7 +298,8 @@
         },
         "hasPart": {
             "@id": "http://purl.org/dc/terms/hasPart",
-            "@type": "@id"
+            "@type": "@id",
+            "@container": "@set"
         },
         "isPartOf": {
             "@id": "http://purl.org/dc/terms/isPartOf",
@@ -372,7 +375,8 @@
         },
         "member": {
             "@id": "http://www.w3.org/2004/02/skos/core#member",
-            "@type": "@id"
+            "@type": "@id",
+            "@container": "@set"
         },
         "minValue": {
             "@id": "https://schema.org/minValue",
@@ -480,7 +484,8 @@
         },
         "related": {
             "@id": "http://www.w3.org/2004/02/skos/core#related",
-            "@type": "@id"
+            "@type": "@id",
+            "@container": "@set"
         },
         "relation": {
             "@id": "http://purl.org/dc/terms/relation",
@@ -916,9 +921,7 @@
             "id": "adms:identifier",
             "_type": [
                 "rdfs:Resource"
-            ],
-            "isVersionOf": "adms:identifier",
-            "modified": "2026-11-03T12:18:18.309Z"
+            ]
         },
         {
             "id": "rov:registration",
@@ -1034,7 +1037,9 @@
                 "skos:Collection"
             ],
             "definition": "De eenheden waarin de geïnstalleerde productiecapaciteit uitgedrukt kan worden.",
-            "member": "csor_eenheid:E_15",
+            "member": [
+                "csor_eenheid:E_15"
+            ],
             "note": "De eenheden waarin de geïnstalleerde productiecapaciteit uitgedrukt kan worden.",
             "prefLabel": "Verzameling van CSOR eenheden"
         },
@@ -1043,7 +1048,9 @@
             "_type": [
                 "skos:Collection"
             ],
-            "member": "csor_eenheid:E_92",
+            "member": [
+                "csor_eenheid:E_92"
+            ],
             "prefLabel": "Verzameling van CSOR eenheden"
         },
         {
@@ -1336,7 +1343,9 @@
             ],
             "isPartOf": "conceptscheme:systeemtypes",
             "broader": "emissiepunt:emissiepunt_lucht",
-            "broaderTransitive": "emissiepunt:emissiepunt_lucht",
+            "broaderTransitive": [
+                "emissiepunt:emissiepunt_lucht"
+            ],
             "definition": "Een apparaat bestemd voor de afgassen in een noodsituatie.",
             "inScheme": "conceptscheme:emissiepunttypes",
             "note": "Een apparaat bestemd voor de afgassen in een noodsituatie.",
@@ -1354,7 +1363,9 @@
             ],
             "isPartOf": "conceptscheme:systeemtypes",
             "broader": "emissiepunt:emissiepunt_lucht",
-            "broaderTransitive": "emissiepunt:emissiepunt_lucht",
+            "broaderTransitive": [
+                "emissiepunt:emissiepunt_lucht"
+            ],
             "definition": "Emissie uit een gebouw.",
             "inScheme": "conceptscheme:emissiepunttypes",
             "note": "Emissie uit een gebouw.",
@@ -1372,7 +1383,9 @@
             ],
             "isPartOf": "conceptscheme:systeemtypes",
             "broader": "emissiepunt:emissiepunt_lucht",
-            "broaderTransitive": "emissiepunt:emissiepunt_lucht",
+            "broaderTransitive": [
+                "emissiepunt:emissiepunt_lucht"
+            ],
             "definition": "Emissie uit een installatie.",
             "inScheme": "conceptscheme:emissiepunttypes",
             "note": "Emissie uit een installatie.",
@@ -1404,7 +1417,9 @@
             ],
             "isPartOf": "conceptscheme:systeemtypes",
             "broader": "emissiepunt:emissiepunt_lucht",
-            "broaderTransitive": "emissiepunt:emissiepunt_lucht",
+            "broaderTransitive": [
+                "emissiepunt:emissiepunt_lucht"
+            ],
             "definition": "Een schoorsteen.",
             "inScheme": "conceptscheme:emissiepunttypes",
             "narrower": [
@@ -1523,7 +1538,9 @@
                 "skos:Concept"
             ],
             "broader": "emissie:niet-geleide",
-            "broaderTransitive": "emissie:niet-geleide",
+            "broaderTransitive": [
+                "emissie:niet-geleide"
+            ],
             "inScheme": "conceptscheme:emissietypes",
             "code": "EMISSIE_NIET_GELEIDE_FAKKEL",
             "prefLabel": "Fakkel",
@@ -1541,7 +1558,9 @@
                 "skos:Concept"
             ],
             "broader": "emissie:niet-geleide",
-            "broaderTransitive": "emissie:niet-geleide",
+            "broaderTransitive": [
+                "emissie:niet-geleide"
+            ],
             "inScheme": "conceptscheme:emissietypes",
             "code": "EMISSIE_NIET_GELEIDE_LEKVERLIES",
             "prefLabel": "Lekverlies",
@@ -1556,7 +1575,9 @@
                 "skos:Concept"
             ],
             "broader": "emissie:niet-geleide",
-            "broaderTransitive": "emissie:niet-geleide",
+            "broaderTransitive": [
+                "emissie:niet-geleide"
+            ],
             "inScheme": "conceptscheme:emissietypes",
             "code": "EMISSIE_NIET_GELEIDE_OPSLAGVERLIES",
             "prefLabel": "Opslagverlies",
@@ -1574,7 +1595,9 @@
                 "skos:Concept"
             ],
             "broader": "emissie:niet-geleide",
-            "broaderTransitive": "emissie:niet-geleide",
+            "broaderTransitive": [
+                "emissie:niet-geleide"
+            ],
             "inScheme": "conceptscheme:emissietypes",
             "code": "EMISSIE_NIET_GELEIDE_OVERSLAGVERLIES",
             "prefLabel": "Overslag verlies",
@@ -1726,7 +1749,9 @@
             ],
             "isPartOf": "conceptscheme:systeemtypes",
             "broader": "filter:filter",
-            "broaderTransitive": "filter:filter",
+            "broaderTransitive": [
+                "filter:filter"
+            ],
             "definition": "Een filter die uitsluitend gebruikt wordt voor het injecteren van (grond)water in de ondergrond.",
             "inScheme": "conceptscheme:filtertypes",
             "note": "Een filter die uitsluitend gebruikt wordt voor het injecteren van (grond)water in de ondergrond.",
@@ -1744,7 +1769,9 @@
             ],
             "isPartOf": "conceptscheme:systeemtypes",
             "broader": "filter:filter",
-            "broaderTransitive": "filter:filter",
+            "broaderTransitive": [
+                "filter:filter"
+            ],
             "definition": "Een filter die zowel grondwater kan injecteren als onttrekken, meestal in de context van geothermische installaties.",
             "inScheme": "conceptscheme:filtertypes",
             "note": "Een filter die zowel grondwater kan injecteren als onttrekken, meestal in de context van geothermische installaties.",
@@ -1762,7 +1789,9 @@
             ],
             "isPartOf": "conceptscheme:systeemtypes",
             "broader": "filter:filter",
-            "broaderTransitive": "filter:filter",
+            "broaderTransitive": [
+                "filter:filter"
+            ],
             "definition": "Een filter waaruit geen grondwater kan worden gepompt en die uitsluitend voor peilmetingen en grondwaterstaalname wordt benut.",
             "inScheme": "conceptscheme:filtertypes",
             "note": "Een filter waaruit geen grondwater kan worden gepompt en die uitsluitend voor peilmetingen en grondwaterstaalname wordt benut.",
@@ -1780,7 +1809,9 @@
             ],
             "isPartOf": "conceptscheme:systeemtypes",
             "broader": "filter:filter",
-            "broaderTransitive": "filter:filter",
+            "broaderTransitive": [
+                "filter:filter"
+            ],
             "definition": "Een filter waaruit grondwater wordt opgepompt of onttrokken.",
             "inScheme": "conceptscheme:filtertypes",
             "note": "Een filter waaruit grondwater wordt opgepompt of onttrokken.",
@@ -2306,7 +2337,9 @@
             ],
             "isPartOf": "conceptscheme:systeemtypes",
             "broader": "installatie:stookinstallatie",
-            "broaderTransitive": "installatie:stookinstallatie",
+            "broaderTransitive": [
+                "installatie:stookinstallatie"
+            ],
             "definition": "Een stookinstallatie waarbij de verbrandingsgassen rechtstreeks in contact komen met de te verwarmen of te behandelen lucht, voorwerpen of materialen.",
             "inScheme": "conceptscheme:installatietypes",
             "note": "Een stookinstallatie waarbij de verbrandingsgassen rechtstreeks in contact komen met de te verwarmen of te behandelen lucht, voorwerpen of materialen.",
@@ -2366,7 +2399,9 @@
             ],
             "isPartOf": "conceptscheme:systeemtypes",
             "broader": "installatie:stookinstallatie",
-            "broaderTransitive": "installatie:stookinstallatie",
+            "broaderTransitive": [
+                "installatie:stookinstallatie"
+            ],
             "definition": "Een stookinstallatie waarbij de warmte van de verbrandingsgassen indirect wordt overgedragen aan de te verwarmen lucht, vloeistoffen, voorwerpen of materialen, bijvoorbeeld via een warmtewisselaar of tussenmedium. De verbrandingsgassen komen daarbij niet in rechtstreeks contact met het te verwarmen medium of materiaal, maar worden afzonderlijk afgevoerd.",
             "inScheme": "conceptscheme:installatietypes",
             "note": "Een stookinstallatie waarbij de warmte van de verbrandingsgassen indirect wordt overgedragen aan de te verwarmen lucht, vloeistoffen, voorwerpen of materialen, bijvoorbeeld via een warmtewisselaar of tussenmedium. De verbrandingsgassen komen daarbij niet in rechtstreeks contact met het te verwarmen medium of materiaal, maar worden afzonderlijk afgevoerd.",
@@ -2572,8 +2607,6 @@
                 "skos:Concept"
             ],
             "isPartOf": "conceptscheme:systeemeigenschappen",
-            "isVersionOf": "meetpunteigenschappen:putnummer",
-            "modified": "2026-11-03T12:18:18.309Z",
             "relation": "adms:identifier",
             "definition": "Het identificatienummer waaronder de controleinrichting bij VMM gekend is.",
             "inScheme": "conceptscheme:meetpunteigenschappen",
@@ -2959,8 +2992,6 @@
             "_type": [
                 "skos:Concept"
             ],
-            "isVersionOf": "grondstoffen:bestemmingsidentificatie-be",
-            "modified": "2026-11-03T12:18:18.309Z",
             "broaderPartitive": "grondstoffen:grondstof",
             "narrowerPartitive": [
                 "grondstoffen:bestemmingsidentificatie-be-naam",
@@ -2970,427 +3001,7 @@
             "inScheme": "conceptscheme:operationeel_grondstoffen",
             "prefLabel": "Bestemmingsidentificatie",
             "related": [
-                {
-                    "id": "grondstoffen:bestemmingsidentificatie-buitenland",
-                    "_type": [
-                        "skos:Concept"
-                    ],
-                    "isVersionOf": "grondstoffen:bestemmingsidentificatie-buitenland",
-                    "modified": "2026-11-03T12:18:18.309Z",
-                    "broaderPartitive": {
-                        "id": "grondstoffen:grondstof",
-                        "_type": [
-                            "skos:Concept"
-                        ],
-                        "narrowerPartitive": [
-                            "grondstoffen:bestemmingsidentificatie-be",
-                            "grondstoffen:bestemmingsidentificatie-buitenland",
-                            {
-                                "id": "grondstoffen:bestemmingsidentificatie-none",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "isVersionOf": "grondstoffen:bestemmingsidentificatie-none",
-                                "modified": "2026-11-03T12:18:18.309Z",
-                                "broaderPartitive": "grondstoffen:grondstof",
-                                "narrowerPartitive": [
-                                    {
-                                        "id": "grondstoffen:bestemmingsidentificatie-none-adres",
-                                        "_type": [
-                                            "skos:Concept"
-                                        ],
-                                        "relation": {
-                                            "id": "rdfs:label",
-                                            "_type": [
-                                                "rdfs:Resource"
-                                            ]
-                                        },
-                                        "broaderPartitive": "grondstoffen:bestemmingsidentificatie-none",
-                                        "inScheme": {
-                                            "id": "conceptscheme:operationeel_grondstoffen",
-                                            "_type": [
-                                                "skos:ConceptScheme"
-                                            ],
-                                            "hasTopConcept": [
-                                                "grondstoffen:grondstof",
-                                                {
-                                                    "id": "grondstoffen:geproduceerd",
-                                                    "_type": [
-                                                        "skos:Concept"
-                                                    ],
-                                                    "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                    "prefLabel": "Heeft u grondstoffen geproduceerd?",
-                                                    "topConceptOf": "conceptscheme:operationeel_grondstoffen",
-                                                    "relevantDataType": "xsd:boolean",
-                                                    "_ui_first": "true"
-                                                }
-                                            ],
-                                            "prefLabel": "Operationeel grondstoffen"
-                                        },
-                                        "prefLabel": "Adres",
-                                        "isVerplicht": "true",
-                                        "relevantDataType": "xsd:string",
-                                        "_ui_after": {
-                                            "id": "grondstoffen:bestemmingsidentificatie-none-naam",
-                                            "_type": [
-                                                "skos:Concept"
-                                            ],
-                                            "relation": "rdfs:label",
-                                            "broaderPartitive": "grondstoffen:bestemmingsidentificatie-none",
-                                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                            "prefLabel": "Naam",
-                                            "isVerplicht": "true",
-                                            "relevantDataType": "xsd:string",
-                                            "_ui_first": "true"
-                                        }
-                                    },
-                                    "grondstoffen:bestemmingsidentificatie-none-naam"
-                                ],
-                                "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                "prefLabel": "Bestemmingsidentificatie",
-                                "related": [
-                                    "grondstoffen:bestemmingsidentificatie-be",
-                                    "grondstoffen:bestemmingsidentificatie-buitenland",
-                                    {
-                                        "id": "grondstoffen:bestemmingsidentificatie-werf",
-                                        "_type": [
-                                            "skos:Concept"
-                                        ],
-                                        "isVersionOf": "grondstoffen:bestemmingsidentificatie-werf",
-                                        "modified": "2026-11-03T12:18:18.309Z",
-                                        "broaderPartitive": "grondstoffen:grondstof",
-                                        "narrowerPartitive": {
-                                            "id": "grondstoffen:bestemmingsidentificatie-werf-naam",
-                                            "_type": [
-                                                "skos:Concept"
-                                            ],
-                                            "relation": "rdfs:label",
-                                            "broaderPartitive": "grondstoffen:bestemmingsidentificatie-werf",
-                                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                            "prefLabel": "Naam",
-                                            "isVerplicht": "false",
-                                            "relevantDataType": "xsd:string",
-                                            "_ui_first": "true"
-                                        },
-                                        "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                        "prefLabel": "Bestemmingsidentificatie",
-                                        "related": [
-                                            "grondstoffen:bestemmingsidentificatie-be",
-                                            "grondstoffen:bestemmingsidentificatie-buitenland",
-                                            "grondstoffen:bestemmingsidentificatie-none"
-                                        ],
-                                        "semanticRelation": [
-                                            "grondstoffen:bestemmingsidentificatie-be",
-                                            "grondstoffen:bestemmingsidentificatie-buitenland",
-                                            "grondstoffen:bestemmingsidentificatie-none"
-                                        ],
-                                        "relevantClass": "prov:Agent",
-                                        "conditionValue": [
-                                            {
-                                                "id": "bestemming:werf",
-                                                "_type": [
-                                                    "skos:Concept"
-                                                ],
-                                                "inScheme": {
-                                                    "id": "conceptscheme:operationeel_bestemmingstype",
-                                                    "_type": [
-                                                        "skos:ConceptScheme"
-                                                    ],
-                                                    "hasTopConcept": [
-                                                        {
-                                                            "id": "bestemming:belgisch",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Belgische vestiging",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        {
-                                                            "id": "bestemming:buitenlands",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Buitenlandse vestiging",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        {
-                                                            "id": "bestemming:dispers",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Dispers gebruik",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        {
-                                                            "id": "bestemming:geen_onderneming",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Geen onderneming",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        {
-                                                            "id": "bestemming:particulier",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Particulier",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        "bestemming:werf"
-                                                    ],
-                                                    "prefLabel": "Bestemmingstype"
-                                                },
-                                                "prefLabel": "Werf",
-                                                "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                            }
-                                        ],
-                                        "conditionPath": [
-                                            {
-                                                "id": "grondstoffen:grondstof_bestemming_type",
-                                                "_type": [
-                                                    "skos:Concept"
-                                                ],
-                                                "relation": "dcterms:type",
-                                                "broaderPartitive": "grondstoffen:grondstof",
-                                                "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                "prefLabel": "Bestemming type",
-                                                "relevantClass": "riepr:Resultaat",
-                                                "isVerplicht": "true",
-                                                "relevantCodeList": [
-                                                    "conceptscheme:operationeel_bestemmingstype"
-                                                ],
-                                                "_ui_after": {
-                                                    "id": "grondstoffen:grondstof_toepassingswijze",
-                                                    "_type": [
-                                                        "skos:Concept"
-                                                    ],
-                                                    "relation": {
-                                                        "id": "sosa:usedProcedure",
-                                                        "_type": [
-                                                            "rdfs:Resource"
-                                                        ]
-                                                    },
-                                                    "broaderPartitive": "grondstoffen:grondstof",
-                                                    "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                    "prefLabel": "Toepassingswijze",
-                                                    "relevantClass": "riepr:Resultaat",
-                                                    "isVerplicht": "true",
-                                                    "relevantCodeList": [
-                                                        {
-                                                            "id": "conceptscheme:operationeel_toepassingwijze",
-                                                            "_type": [
-                                                                "skos:ConceptScheme"
-                                                            ],
-                                                            "hasTopConcept": [
-                                                                {
-                                                                    "id": "toepassingswijze:brandstof",
-                                                                    "_type": [
-                                                                        "skos:Concept"
-                                                                    ],
-                                                                    "inScheme": "conceptscheme:operationeel_toepassingwijze",
-                                                                    "prefLabel": "Gebruik als brandstof",
-                                                                    "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
-                                                                },
-                                                                {
-                                                                    "id": "toepassingswijze:dispers",
-                                                                    "_type": [
-                                                                        "skos:Concept"
-                                                                    ],
-                                                                    "inScheme": "conceptscheme:operationeel_toepassingwijze",
-                                                                    "prefLabel": "Dispers gebruik",
-                                                                    "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
-                                                                },
-                                                                {
-                                                                    "id": "toepassingswijze:overige",
-                                                                    "_type": [
-                                                                        "skos:Concept"
-                                                                    ],
-                                                                    "inScheme": "conceptscheme:operationeel_toepassingwijze",
-                                                                    "prefLabel": "Ander gebruik in de ingedeelde inrichting",
-                                                                    "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
-                                                                }
-                                                            ],
-                                                            "prefLabel": "Toepassingswijze"
-                                                        }
-                                                    ],
-                                                    "_ui_after": {
-                                                        "id": "grondstoffen:grondstof_hoeveelheid",
-                                                        "_type": [
-                                                            "skos:Concept"
-                                                        ],
-                                                        "relation": {
-                                                            "id": "qudt:numericValue",
-                                                            "_type": [
-                                                                "rdfs:Resource"
-                                                            ]
-                                                        },
-                                                        "broaderPartitive": "grondstoffen:grondstof",
-                                                        "relevantUnit": [
-                                                            "http://TODO"
-                                                        ],
-                                                        "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                        "prefLabel": "Hoeveelheid",
-                                                        "relevantClass": "riepr:Resultaat",
-                                                        "isVerplicht": "true",
-                                                        "relevantDataType": "xsd:decimal",
-                                                        "_ui_after": {
-                                                            "id": "grondstoffen:grondstof_omschrijving",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "relation": {
-                                                                "id": "rdfs:comment",
-                                                                "_type": [
-                                                                    "rdfs:Resource"
-                                                                ]
-                                                            },
-                                                            "broaderPartitive": "grondstoffen:grondstof",
-                                                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                            "prefLabel": "Omschrijving",
-                                                            "relevantClass": "riepr:Resultaat",
-                                                            "isVerplicht": "false",
-                                                            "relevantDataType": "xsd:string",
-                                                            "_ui_after": {
-                                                                "id": "grondstoffen:grondstof_materiaalcode",
-                                                                "_type": [
-                                                                    "skos:Concept"
-                                                                ],
-                                                                "relation": {
-                                                                    "id": "schema:material",
-                                                                    "_type": [
-                                                                        "rdfs:Resource"
-                                                                    ]
-                                                                },
-                                                                "broaderPartitive": "grondstoffen:grondstof",
-                                                                "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                                "prefLabel": "Materiaalcode",
-                                                                "relevantClass": "riepr:Resultaat",
-                                                                "relevantCodeList": [
-                                                                    "http://TODO"
-                                                                ],
-                                                                "_ui_first": "true"
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        ],
-                                        "_ui_after": "grondstoffen:bestemmingsidentificatie-buitenland"
-                                    }
-                                ],
-                                "semanticRelation": [
-                                    "grondstoffen:bestemmingsidentificatie-be",
-                                    "grondstoffen:bestemmingsidentificatie-buitenland",
-                                    "grondstoffen:bestemmingsidentificatie-werf"
-                                ],
-                                "relevantClass": "prov:Agent",
-                                "conditionValue": [
-                                    "bestemming:geen_onderneming"
-                                ],
-                                "conditionPath": [
-                                    "grondstoffen:grondstof_bestemming_type"
-                                ],
-                                "_ui_after": "grondstoffen:bestemmingsidentificatie-werf"
-                            },
-                            "grondstoffen:bestemmingsidentificatie-werf",
-                            "grondstoffen:grondstof_bestemming_type",
-                            {
-                                "id": "grondstoffen:grondstof_opmerking",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "relation": {
-                                    "id": "schema:comment",
-                                    "_type": [
-                                        "rdfs:Resource"
-                                    ]
-                                },
-                                "broaderPartitive": "grondstoffen:grondstof",
-                                "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                "prefLabel": "Opmerking",
-                                "relevantClass": "riepr:Resultaat",
-                                "isVerplicht": "false",
-                                "relevantDataType": "xsd:string",
-                                "_ui_after": "grondstoffen:grondstof_bestemming_type"
-                            },
-                            "grondstoffen:grondstof_hoeveelheid",
-                            "grondstoffen:grondstof_materiaalcode",
-                            "grondstoffen:grondstof_omschrijving",
-                            "grondstoffen:grondstof_toepassingswijze"
-                        ],
-                        "inScheme": "conceptscheme:operationeel_grondstoffen",
-                        "prefLabel": "Grondstof",
-                        "topConceptOf": "conceptscheme:operationeel_grondstoffen",
-                        "relevantClass": "riepr:Observatie",
-                        "conditionValue": [
-                            "concept:true"
-                        ],
-                        "conditionPath": [
-                            "grondstoffen:geproduceerd"
-                        ],
-                        "isMeervoudig": "true",
-                        "_ui_after": "grondstoffen:geproduceerd"
-                    },
-                    "narrowerPartitive": [
-                        {
-                            "id": "grondstoffen:bestemmingsidentificatie-buitenland-btw",
-                            "_type": [
-                                "skos:Concept"
-                            ],
-                            "relation": {
-                                "id": "rov:registration",
-                                "_type": [
-                                    "rdfs:Resource"
-                                ]
-                            },
-                            "broaderPartitive": "grondstoffen:bestemmingsidentificatie-buitenland",
-                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                            "prefLabel": "BTW-nummer",
-                            "isVerplicht": "true",
-                            "relevantDataType": "xsd:string",
-                            "_ui_after": {
-                                "id": "grondstoffen:bestemmingsidentificatie-buitenland-naam",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "relation": "rdfs:label",
-                                "broaderPartitive": "grondstoffen:bestemmingsidentificatie-buitenland",
-                                "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                "prefLabel": "Naam",
-                                "isVerplicht": "false",
-                                "relevantDataType": "xsd:string",
-                                "_ui_first": "true"
-                            }
-                        },
-                        "grondstoffen:bestemmingsidentificatie-buitenland-naam"
-                    ],
-                    "inScheme": "conceptscheme:operationeel_grondstoffen",
-                    "prefLabel": "Bestemmingsidentificatie",
-                    "related": [
-                        "grondstoffen:bestemmingsidentificatie-be",
-                        "grondstoffen:bestemmingsidentificatie-none",
-                        "grondstoffen:bestemmingsidentificatie-werf"
-                    ],
-                    "semanticRelation": [
-                        "grondstoffen:bestemmingsidentificatie-be",
-                        "grondstoffen:bestemmingsidentificatie-none",
-                        "grondstoffen:bestemmingsidentificatie-werf"
-                    ],
-                    "relevantClass": "prov:Agent",
-                    "conditionValue": [
-                        "bestemming:buitenlands"
-                    ],
-                    "conditionPath": [
-                        "grondstoffen:grondstof_bestemming_type"
-                    ],
-                    "_ui_after": "grondstoffen:bestemmingsidentificatie-be"
-                },
+                "grondstoffen:bestemmingsidentificatie-buitenland",
                 "grondstoffen:bestemmingsidentificatie-none",
                 "grondstoffen:bestemmingsidentificatie-werf"
             ],
@@ -3451,8 +3062,6 @@
             "_type": [
                 "skos:Concept"
             ],
-            "isVersionOf": "grondstoffen:bestemmingsidentificatie-buitenland",
-            "modified": "2026-11-03T12:18:18.309Z",
             "broaderPartitive": "grondstoffen:grondstof",
             "narrowerPartitive": [
                 "grondstoffen:bestemmingsidentificatie-buitenland-btw",
@@ -3461,439 +3070,7 @@
             "inScheme": "conceptscheme:operationeel_grondstoffen",
             "prefLabel": "Bestemmingsidentificatie",
             "related": [
-                {
-                    "id": "grondstoffen:bestemmingsidentificatie-be",
-                    "_type": [
-                        "skos:Concept"
-                    ],
-                    "isVersionOf": "grondstoffen:bestemmingsidentificatie-be",
-                    "modified": "2026-11-03T12:18:18.309Z",
-                    "broaderPartitive": {
-                        "id": "grondstoffen:grondstof",
-                        "_type": [
-                            "skos:Concept"
-                        ],
-                        "narrowerPartitive": [
-                            "grondstoffen:bestemmingsidentificatie-be",
-                            "grondstoffen:bestemmingsidentificatie-buitenland",
-                            {
-                                "id": "grondstoffen:bestemmingsidentificatie-none",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "isVersionOf": "grondstoffen:bestemmingsidentificatie-none",
-                                "modified": "2026-11-03T12:18:18.309Z",
-                                "broaderPartitive": "grondstoffen:grondstof",
-                                "narrowerPartitive": [
-                                    {
-                                        "id": "grondstoffen:bestemmingsidentificatie-none-adres",
-                                        "_type": [
-                                            "skos:Concept"
-                                        ],
-                                        "relation": {
-                                            "id": "rdfs:label",
-                                            "_type": [
-                                                "rdfs:Resource"
-                                            ]
-                                        },
-                                        "broaderPartitive": "grondstoffen:bestemmingsidentificatie-none",
-                                        "inScheme": {
-                                            "id": "conceptscheme:operationeel_grondstoffen",
-                                            "_type": [
-                                                "skos:ConceptScheme"
-                                            ],
-                                            "hasTopConcept": [
-                                                "grondstoffen:grondstof",
-                                                {
-                                                    "id": "grondstoffen:geproduceerd",
-                                                    "_type": [
-                                                        "skos:Concept"
-                                                    ],
-                                                    "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                    "prefLabel": "Heeft u grondstoffen geproduceerd?",
-                                                    "topConceptOf": "conceptscheme:operationeel_grondstoffen",
-                                                    "relevantDataType": "xsd:boolean",
-                                                    "_ui_first": "true"
-                                                }
-                                            ],
-                                            "prefLabel": "Operationeel grondstoffen"
-                                        },
-                                        "prefLabel": "Adres",
-                                        "isVerplicht": "true",
-                                        "relevantDataType": "xsd:string",
-                                        "_ui_after": {
-                                            "id": "grondstoffen:bestemmingsidentificatie-none-naam",
-                                            "_type": [
-                                                "skos:Concept"
-                                            ],
-                                            "relation": "rdfs:label",
-                                            "broaderPartitive": "grondstoffen:bestemmingsidentificatie-none",
-                                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                            "prefLabel": "Naam",
-                                            "isVerplicht": "true",
-                                            "relevantDataType": "xsd:string",
-                                            "_ui_first": "true"
-                                        }
-                                    },
-                                    "grondstoffen:bestemmingsidentificatie-none-naam"
-                                ],
-                                "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                "prefLabel": "Bestemmingsidentificatie",
-                                "related": [
-                                    "grondstoffen:bestemmingsidentificatie-be",
-                                    "grondstoffen:bestemmingsidentificatie-buitenland",
-                                    {
-                                        "id": "grondstoffen:bestemmingsidentificatie-werf",
-                                        "_type": [
-                                            "skos:Concept"
-                                        ],
-                                        "isVersionOf": "grondstoffen:bestemmingsidentificatie-werf",
-                                        "modified": "2026-11-03T12:18:18.309Z",
-                                        "broaderPartitive": "grondstoffen:grondstof",
-                                        "narrowerPartitive": {
-                                            "id": "grondstoffen:bestemmingsidentificatie-werf-naam",
-                                            "_type": [
-                                                "skos:Concept"
-                                            ],
-                                            "relation": "rdfs:label",
-                                            "broaderPartitive": "grondstoffen:bestemmingsidentificatie-werf",
-                                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                            "prefLabel": "Naam",
-                                            "isVerplicht": "false",
-                                            "relevantDataType": "xsd:string",
-                                            "_ui_first": "true"
-                                        },
-                                        "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                        "prefLabel": "Bestemmingsidentificatie",
-                                        "related": [
-                                            "grondstoffen:bestemmingsidentificatie-be",
-                                            "grondstoffen:bestemmingsidentificatie-buitenland",
-                                            "grondstoffen:bestemmingsidentificatie-none"
-                                        ],
-                                        "semanticRelation": [
-                                            "grondstoffen:bestemmingsidentificatie-be",
-                                            "grondstoffen:bestemmingsidentificatie-buitenland",
-                                            "grondstoffen:bestemmingsidentificatie-none"
-                                        ],
-                                        "relevantClass": "prov:Agent",
-                                        "conditionValue": [
-                                            {
-                                                "id": "bestemming:werf",
-                                                "_type": [
-                                                    "skos:Concept"
-                                                ],
-                                                "inScheme": {
-                                                    "id": "conceptscheme:operationeel_bestemmingstype",
-                                                    "_type": [
-                                                        "skos:ConceptScheme"
-                                                    ],
-                                                    "hasTopConcept": [
-                                                        {
-                                                            "id": "bestemming:belgisch",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Belgische vestiging",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        {
-                                                            "id": "bestemming:buitenlands",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Buitenlandse vestiging",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        {
-                                                            "id": "bestemming:dispers",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Dispers gebruik",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        {
-                                                            "id": "bestemming:geen_onderneming",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Geen onderneming",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        {
-                                                            "id": "bestemming:particulier",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Particulier",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        "bestemming:werf"
-                                                    ],
-                                                    "prefLabel": "Bestemmingstype"
-                                                },
-                                                "prefLabel": "Werf",
-                                                "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                            }
-                                        ],
-                                        "conditionPath": [
-                                            {
-                                                "id": "grondstoffen:grondstof_bestemming_type",
-                                                "_type": [
-                                                    "skos:Concept"
-                                                ],
-                                                "relation": "dcterms:type",
-                                                "broaderPartitive": "grondstoffen:grondstof",
-                                                "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                "prefLabel": "Bestemming type",
-                                                "relevantClass": "riepr:Resultaat",
-                                                "isVerplicht": "true",
-                                                "relevantCodeList": [
-                                                    "conceptscheme:operationeel_bestemmingstype"
-                                                ],
-                                                "_ui_after": {
-                                                    "id": "grondstoffen:grondstof_toepassingswijze",
-                                                    "_type": [
-                                                        "skos:Concept"
-                                                    ],
-                                                    "relation": {
-                                                        "id": "sosa:usedProcedure",
-                                                        "_type": [
-                                                            "rdfs:Resource"
-                                                        ]
-                                                    },
-                                                    "broaderPartitive": "grondstoffen:grondstof",
-                                                    "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                    "prefLabel": "Toepassingswijze",
-                                                    "relevantClass": "riepr:Resultaat",
-                                                    "isVerplicht": "true",
-                                                    "relevantCodeList": [
-                                                        {
-                                                            "id": "conceptscheme:operationeel_toepassingwijze",
-                                                            "_type": [
-                                                                "skos:ConceptScheme"
-                                                            ],
-                                                            "hasTopConcept": [
-                                                                {
-                                                                    "id": "toepassingswijze:brandstof",
-                                                                    "_type": [
-                                                                        "skos:Concept"
-                                                                    ],
-                                                                    "inScheme": "conceptscheme:operationeel_toepassingwijze",
-                                                                    "prefLabel": "Gebruik als brandstof",
-                                                                    "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
-                                                                },
-                                                                {
-                                                                    "id": "toepassingswijze:dispers",
-                                                                    "_type": [
-                                                                        "skos:Concept"
-                                                                    ],
-                                                                    "inScheme": "conceptscheme:operationeel_toepassingwijze",
-                                                                    "prefLabel": "Dispers gebruik",
-                                                                    "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
-                                                                },
-                                                                {
-                                                                    "id": "toepassingswijze:overige",
-                                                                    "_type": [
-                                                                        "skos:Concept"
-                                                                    ],
-                                                                    "inScheme": "conceptscheme:operationeel_toepassingwijze",
-                                                                    "prefLabel": "Ander gebruik in de ingedeelde inrichting",
-                                                                    "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
-                                                                }
-                                                            ],
-                                                            "prefLabel": "Toepassingswijze"
-                                                        }
-                                                    ],
-                                                    "_ui_after": {
-                                                        "id": "grondstoffen:grondstof_hoeveelheid",
-                                                        "_type": [
-                                                            "skos:Concept"
-                                                        ],
-                                                        "relation": {
-                                                            "id": "qudt:numericValue",
-                                                            "_type": [
-                                                                "rdfs:Resource"
-                                                            ]
-                                                        },
-                                                        "broaderPartitive": "grondstoffen:grondstof",
-                                                        "relevantUnit": [
-                                                            "http://TODO"
-                                                        ],
-                                                        "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                        "prefLabel": "Hoeveelheid",
-                                                        "relevantClass": "riepr:Resultaat",
-                                                        "isVerplicht": "true",
-                                                        "relevantDataType": "xsd:decimal",
-                                                        "_ui_after": {
-                                                            "id": "grondstoffen:grondstof_omschrijving",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "relation": {
-                                                                "id": "rdfs:comment",
-                                                                "_type": [
-                                                                    "rdfs:Resource"
-                                                                ]
-                                                            },
-                                                            "broaderPartitive": "grondstoffen:grondstof",
-                                                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                            "prefLabel": "Omschrijving",
-                                                            "relevantClass": "riepr:Resultaat",
-                                                            "isVerplicht": "false",
-                                                            "relevantDataType": "xsd:string",
-                                                            "_ui_after": {
-                                                                "id": "grondstoffen:grondstof_materiaalcode",
-                                                                "_type": [
-                                                                    "skos:Concept"
-                                                                ],
-                                                                "relation": {
-                                                                    "id": "schema:material",
-                                                                    "_type": [
-                                                                        "rdfs:Resource"
-                                                                    ]
-                                                                },
-                                                                "broaderPartitive": "grondstoffen:grondstof",
-                                                                "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                                "prefLabel": "Materiaalcode",
-                                                                "relevantClass": "riepr:Resultaat",
-                                                                "relevantCodeList": [
-                                                                    "http://TODO"
-                                                                ],
-                                                                "_ui_first": "true"
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        ],
-                                        "_ui_after": "grondstoffen:bestemmingsidentificatie-buitenland"
-                                    }
-                                ],
-                                "semanticRelation": [
-                                    "grondstoffen:bestemmingsidentificatie-be",
-                                    "grondstoffen:bestemmingsidentificatie-buitenland",
-                                    "grondstoffen:bestemmingsidentificatie-werf"
-                                ],
-                                "relevantClass": "prov:Agent",
-                                "conditionValue": [
-                                    "bestemming:geen_onderneming"
-                                ],
-                                "conditionPath": [
-                                    "grondstoffen:grondstof_bestemming_type"
-                                ],
-                                "_ui_after": "grondstoffen:bestemmingsidentificatie-werf"
-                            },
-                            "grondstoffen:bestemmingsidentificatie-werf",
-                            "grondstoffen:grondstof_bestemming_type",
-                            {
-                                "id": "grondstoffen:grondstof_opmerking",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "relation": {
-                                    "id": "schema:comment",
-                                    "_type": [
-                                        "rdfs:Resource"
-                                    ]
-                                },
-                                "broaderPartitive": "grondstoffen:grondstof",
-                                "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                "prefLabel": "Opmerking",
-                                "relevantClass": "riepr:Resultaat",
-                                "isVerplicht": "false",
-                                "relevantDataType": "xsd:string",
-                                "_ui_after": "grondstoffen:grondstof_bestemming_type"
-                            },
-                            "grondstoffen:grondstof_hoeveelheid",
-                            "grondstoffen:grondstof_materiaalcode",
-                            "grondstoffen:grondstof_omschrijving",
-                            "grondstoffen:grondstof_toepassingswijze"
-                        ],
-                        "inScheme": "conceptscheme:operationeel_grondstoffen",
-                        "prefLabel": "Grondstof",
-                        "topConceptOf": "conceptscheme:operationeel_grondstoffen",
-                        "relevantClass": "riepr:Observatie",
-                        "conditionValue": [
-                            "concept:true"
-                        ],
-                        "conditionPath": [
-                            "grondstoffen:geproduceerd"
-                        ],
-                        "isMeervoudig": "true",
-                        "_ui_after": "grondstoffen:geproduceerd"
-                    },
-                    "narrowerPartitive": [
-                        {
-                            "id": "grondstoffen:bestemmingsidentificatie-be-naam",
-                            "_type": [
-                                "skos:Concept"
-                            ],
-                            "relation": "rdfs:label",
-                            "broaderPartitive": "grondstoffen:bestemmingsidentificatie-be",
-                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                            "prefLabel": "Naam",
-                            "isVerplicht": "false",
-                            "relevantDataType": "xsd:string",
-                            "_ui_first": "true"
-                        },
-                        {
-                            "id": "grondstoffen:bestemmingsidentificatie-be-on",
-                            "_type": [
-                                "skos:Concept"
-                            ],
-                            "relation": {
-                                "id": "rov:registration",
-                                "_type": [
-                                    "rdfs:Resource"
-                                ]
-                            },
-                            "broaderPartitive": "grondstoffen:bestemmingsidentificatie-be",
-                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                            "prefLabel": "Ondernemingsnummer",
-                            "isVerplicht": "true",
-                            "relevantDataType": "xsd:string",
-                            "_ui_after": "grondstoffen:bestemmingsidentificatie-be-naam"
-                        },
-                        {
-                            "id": "grondstoffen:bestemmingsidentificatie-be-ve",
-                            "_type": [
-                                "skos:Concept"
-                            ],
-                            "broaderPartitive": "grondstoffen:bestemmingsidentificatie-be",
-                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                            "prefLabel": "Vestigingsnummer",
-                            "isVerplicht": "true",
-                            "relevantDataType": "xsd:string",
-                            "_ui_after": "grondstoffen:bestemmingsidentificatie-be-on"
-                        }
-                    ],
-                    "inScheme": "conceptscheme:operationeel_grondstoffen",
-                    "prefLabel": "Bestemmingsidentificatie",
-                    "related": [
-                        "grondstoffen:bestemmingsidentificatie-buitenland",
-                        "grondstoffen:bestemmingsidentificatie-none",
-                        "grondstoffen:bestemmingsidentificatie-werf"
-                    ],
-                    "semanticRelation": [
-                        "grondstoffen:bestemmingsidentificatie-buitenland",
-                        "grondstoffen:bestemmingsidentificatie-none",
-                        "grondstoffen:bestemmingsidentificatie-werf"
-                    ],
-                    "relevantClass": "prov:Agent",
-                    "conditionValue": [
-                        "bestemming:belgisch"
-                    ],
-                    "conditionPath": [
-                        "grondstoffen:grondstof_bestemming_type"
-                    ],
-                    "_ui_after": "grondstoffen:grondstof_opmerking"
-                },
+                "grondstoffen:bestemmingsidentificatie-be",
                 "grondstoffen:bestemmingsidentificatie-none",
                 "grondstoffen:bestemmingsidentificatie-werf"
             ],
@@ -3942,8 +3119,6 @@
             "_type": [
                 "skos:Concept"
             ],
-            "isVersionOf": "grondstoffen:bestemmingsidentificatie-none",
-            "modified": "2026-11-03T12:18:18.309Z",
             "broaderPartitive": "grondstoffen:grondstof",
             "narrowerPartitive": [
                 "grondstoffen:bestemmingsidentificatie-none-adres",
@@ -3952,439 +3127,7 @@
             "inScheme": "conceptscheme:operationeel_grondstoffen",
             "prefLabel": "Bestemmingsidentificatie",
             "related": [
-                {
-                    "id": "grondstoffen:bestemmingsidentificatie-be",
-                    "_type": [
-                        "skos:Concept"
-                    ],
-                    "isVersionOf": "grondstoffen:bestemmingsidentificatie-be",
-                    "modified": "2026-11-03T12:18:18.309Z",
-                    "broaderPartitive": {
-                        "id": "grondstoffen:grondstof",
-                        "_type": [
-                            "skos:Concept"
-                        ],
-                        "narrowerPartitive": [
-                            "grondstoffen:bestemmingsidentificatie-be",
-                            {
-                                "id": "grondstoffen:bestemmingsidentificatie-buitenland",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "isVersionOf": "grondstoffen:bestemmingsidentificatie-buitenland",
-                                "modified": "2026-11-03T12:18:18.309Z",
-                                "broaderPartitive": "grondstoffen:grondstof",
-                                "narrowerPartitive": [
-                                    {
-                                        "id": "grondstoffen:bestemmingsidentificatie-buitenland-btw",
-                                        "_type": [
-                                            "skos:Concept"
-                                        ],
-                                        "relation": {
-                                            "id": "rov:registration",
-                                            "_type": [
-                                                "rdfs:Resource"
-                                            ]
-                                        },
-                                        "broaderPartitive": "grondstoffen:bestemmingsidentificatie-buitenland",
-                                        "inScheme": {
-                                            "id": "conceptscheme:operationeel_grondstoffen",
-                                            "_type": [
-                                                "skos:ConceptScheme"
-                                            ],
-                                            "hasTopConcept": [
-                                                "grondstoffen:grondstof",
-                                                {
-                                                    "id": "grondstoffen:geproduceerd",
-                                                    "_type": [
-                                                        "skos:Concept"
-                                                    ],
-                                                    "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                    "prefLabel": "Heeft u grondstoffen geproduceerd?",
-                                                    "topConceptOf": "conceptscheme:operationeel_grondstoffen",
-                                                    "relevantDataType": "xsd:boolean",
-                                                    "_ui_first": "true"
-                                                }
-                                            ],
-                                            "prefLabel": "Operationeel grondstoffen"
-                                        },
-                                        "prefLabel": "BTW-nummer",
-                                        "isVerplicht": "true",
-                                        "relevantDataType": "xsd:string",
-                                        "_ui_after": {
-                                            "id": "grondstoffen:bestemmingsidentificatie-buitenland-naam",
-                                            "_type": [
-                                                "skos:Concept"
-                                            ],
-                                            "relation": {
-                                                "id": "rdfs:label",
-                                                "_type": [
-                                                    "rdfs:Resource"
-                                                ]
-                                            },
-                                            "broaderPartitive": "grondstoffen:bestemmingsidentificatie-buitenland",
-                                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                            "prefLabel": "Naam",
-                                            "isVerplicht": "false",
-                                            "relevantDataType": "xsd:string",
-                                            "_ui_first": "true"
-                                        }
-                                    },
-                                    "grondstoffen:bestemmingsidentificatie-buitenland-naam"
-                                ],
-                                "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                "prefLabel": "Bestemmingsidentificatie",
-                                "related": [
-                                    "grondstoffen:bestemmingsidentificatie-be",
-                                    "grondstoffen:bestemmingsidentificatie-none",
-                                    {
-                                        "id": "grondstoffen:bestemmingsidentificatie-werf",
-                                        "_type": [
-                                            "skos:Concept"
-                                        ],
-                                        "isVersionOf": "grondstoffen:bestemmingsidentificatie-werf",
-                                        "modified": "2026-11-03T12:18:18.309Z",
-                                        "broaderPartitive": "grondstoffen:grondstof",
-                                        "narrowerPartitive": {
-                                            "id": "grondstoffen:bestemmingsidentificatie-werf-naam",
-                                            "_type": [
-                                                "skos:Concept"
-                                            ],
-                                            "relation": "rdfs:label",
-                                            "broaderPartitive": "grondstoffen:bestemmingsidentificatie-werf",
-                                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                            "prefLabel": "Naam",
-                                            "isVerplicht": "false",
-                                            "relevantDataType": "xsd:string",
-                                            "_ui_first": "true"
-                                        },
-                                        "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                        "prefLabel": "Bestemmingsidentificatie",
-                                        "related": [
-                                            "grondstoffen:bestemmingsidentificatie-be",
-                                            "grondstoffen:bestemmingsidentificatie-buitenland",
-                                            "grondstoffen:bestemmingsidentificatie-none"
-                                        ],
-                                        "semanticRelation": [
-                                            "grondstoffen:bestemmingsidentificatie-be",
-                                            "grondstoffen:bestemmingsidentificatie-buitenland",
-                                            "grondstoffen:bestemmingsidentificatie-none"
-                                        ],
-                                        "relevantClass": "prov:Agent",
-                                        "conditionValue": [
-                                            {
-                                                "id": "bestemming:werf",
-                                                "_type": [
-                                                    "skos:Concept"
-                                                ],
-                                                "inScheme": {
-                                                    "id": "conceptscheme:operationeel_bestemmingstype",
-                                                    "_type": [
-                                                        "skos:ConceptScheme"
-                                                    ],
-                                                    "hasTopConcept": [
-                                                        {
-                                                            "id": "bestemming:belgisch",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Belgische vestiging",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        {
-                                                            "id": "bestemming:buitenlands",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Buitenlandse vestiging",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        {
-                                                            "id": "bestemming:dispers",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Dispers gebruik",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        {
-                                                            "id": "bestemming:geen_onderneming",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Geen onderneming",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        {
-                                                            "id": "bestemming:particulier",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Particulier",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        "bestemming:werf"
-                                                    ],
-                                                    "prefLabel": "Bestemmingstype"
-                                                },
-                                                "prefLabel": "Werf",
-                                                "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                            }
-                                        ],
-                                        "conditionPath": [
-                                            {
-                                                "id": "grondstoffen:grondstof_bestemming_type",
-                                                "_type": [
-                                                    "skos:Concept"
-                                                ],
-                                                "relation": "dcterms:type",
-                                                "broaderPartitive": "grondstoffen:grondstof",
-                                                "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                "prefLabel": "Bestemming type",
-                                                "relevantClass": "riepr:Resultaat",
-                                                "isVerplicht": "true",
-                                                "relevantCodeList": [
-                                                    "conceptscheme:operationeel_bestemmingstype"
-                                                ],
-                                                "_ui_after": {
-                                                    "id": "grondstoffen:grondstof_toepassingswijze",
-                                                    "_type": [
-                                                        "skos:Concept"
-                                                    ],
-                                                    "relation": {
-                                                        "id": "sosa:usedProcedure",
-                                                        "_type": [
-                                                            "rdfs:Resource"
-                                                        ]
-                                                    },
-                                                    "broaderPartitive": "grondstoffen:grondstof",
-                                                    "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                    "prefLabel": "Toepassingswijze",
-                                                    "relevantClass": "riepr:Resultaat",
-                                                    "isVerplicht": "true",
-                                                    "relevantCodeList": [
-                                                        {
-                                                            "id": "conceptscheme:operationeel_toepassingwijze",
-                                                            "_type": [
-                                                                "skos:ConceptScheme"
-                                                            ],
-                                                            "hasTopConcept": [
-                                                                {
-                                                                    "id": "toepassingswijze:brandstof",
-                                                                    "_type": [
-                                                                        "skos:Concept"
-                                                                    ],
-                                                                    "inScheme": "conceptscheme:operationeel_toepassingwijze",
-                                                                    "prefLabel": "Gebruik als brandstof",
-                                                                    "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
-                                                                },
-                                                                {
-                                                                    "id": "toepassingswijze:dispers",
-                                                                    "_type": [
-                                                                        "skos:Concept"
-                                                                    ],
-                                                                    "inScheme": "conceptscheme:operationeel_toepassingwijze",
-                                                                    "prefLabel": "Dispers gebruik",
-                                                                    "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
-                                                                },
-                                                                {
-                                                                    "id": "toepassingswijze:overige",
-                                                                    "_type": [
-                                                                        "skos:Concept"
-                                                                    ],
-                                                                    "inScheme": "conceptscheme:operationeel_toepassingwijze",
-                                                                    "prefLabel": "Ander gebruik in de ingedeelde inrichting",
-                                                                    "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
-                                                                }
-                                                            ],
-                                                            "prefLabel": "Toepassingswijze"
-                                                        }
-                                                    ],
-                                                    "_ui_after": {
-                                                        "id": "grondstoffen:grondstof_hoeveelheid",
-                                                        "_type": [
-                                                            "skos:Concept"
-                                                        ],
-                                                        "relation": {
-                                                            "id": "qudt:numericValue",
-                                                            "_type": [
-                                                                "rdfs:Resource"
-                                                            ]
-                                                        },
-                                                        "broaderPartitive": "grondstoffen:grondstof",
-                                                        "relevantUnit": [
-                                                            "http://TODO"
-                                                        ],
-                                                        "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                        "prefLabel": "Hoeveelheid",
-                                                        "relevantClass": "riepr:Resultaat",
-                                                        "isVerplicht": "true",
-                                                        "relevantDataType": "xsd:decimal",
-                                                        "_ui_after": {
-                                                            "id": "grondstoffen:grondstof_omschrijving",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "relation": {
-                                                                "id": "rdfs:comment",
-                                                                "_type": [
-                                                                    "rdfs:Resource"
-                                                                ]
-                                                            },
-                                                            "broaderPartitive": "grondstoffen:grondstof",
-                                                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                            "prefLabel": "Omschrijving",
-                                                            "relevantClass": "riepr:Resultaat",
-                                                            "isVerplicht": "false",
-                                                            "relevantDataType": "xsd:string",
-                                                            "_ui_after": {
-                                                                "id": "grondstoffen:grondstof_materiaalcode",
-                                                                "_type": [
-                                                                    "skos:Concept"
-                                                                ],
-                                                                "relation": {
-                                                                    "id": "schema:material",
-                                                                    "_type": [
-                                                                        "rdfs:Resource"
-                                                                    ]
-                                                                },
-                                                                "broaderPartitive": "grondstoffen:grondstof",
-                                                                "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                                "prefLabel": "Materiaalcode",
-                                                                "relevantClass": "riepr:Resultaat",
-                                                                "relevantCodeList": [
-                                                                    "http://TODO"
-                                                                ],
-                                                                "_ui_first": "true"
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        ],
-                                        "_ui_after": "grondstoffen:bestemmingsidentificatie-buitenland"
-                                    }
-                                ],
-                                "semanticRelation": [
-                                    "grondstoffen:bestemmingsidentificatie-be",
-                                    "grondstoffen:bestemmingsidentificatie-none",
-                                    "grondstoffen:bestemmingsidentificatie-werf"
-                                ],
-                                "relevantClass": "prov:Agent",
-                                "conditionValue": [
-                                    "bestemming:buitenlands"
-                                ],
-                                "conditionPath": [
-                                    "grondstoffen:grondstof_bestemming_type"
-                                ],
-                                "_ui_after": "grondstoffen:bestemmingsidentificatie-be"
-                            },
-                            "grondstoffen:bestemmingsidentificatie-none",
-                            "grondstoffen:bestemmingsidentificatie-werf",
-                            "grondstoffen:grondstof_bestemming_type",
-                            {
-                                "id": "grondstoffen:grondstof_opmerking",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "relation": {
-                                    "id": "schema:comment",
-                                    "_type": [
-                                        "rdfs:Resource"
-                                    ]
-                                },
-                                "broaderPartitive": "grondstoffen:grondstof",
-                                "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                "prefLabel": "Opmerking",
-                                "relevantClass": "riepr:Resultaat",
-                                "isVerplicht": "false",
-                                "relevantDataType": "xsd:string",
-                                "_ui_after": "grondstoffen:grondstof_bestemming_type"
-                            },
-                            "grondstoffen:grondstof_hoeveelheid",
-                            "grondstoffen:grondstof_materiaalcode",
-                            "grondstoffen:grondstof_omschrijving",
-                            "grondstoffen:grondstof_toepassingswijze"
-                        ],
-                        "inScheme": "conceptscheme:operationeel_grondstoffen",
-                        "prefLabel": "Grondstof",
-                        "topConceptOf": "conceptscheme:operationeel_grondstoffen",
-                        "relevantClass": "riepr:Observatie",
-                        "conditionValue": [
-                            "concept:true"
-                        ],
-                        "conditionPath": [
-                            "grondstoffen:geproduceerd"
-                        ],
-                        "isMeervoudig": "true",
-                        "_ui_after": "grondstoffen:geproduceerd"
-                    },
-                    "narrowerPartitive": [
-                        {
-                            "id": "grondstoffen:bestemmingsidentificatie-be-naam",
-                            "_type": [
-                                "skos:Concept"
-                            ],
-                            "relation": "rdfs:label",
-                            "broaderPartitive": "grondstoffen:bestemmingsidentificatie-be",
-                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                            "prefLabel": "Naam",
-                            "isVerplicht": "false",
-                            "relevantDataType": "xsd:string",
-                            "_ui_first": "true"
-                        },
-                        {
-                            "id": "grondstoffen:bestemmingsidentificatie-be-on",
-                            "_type": [
-                                "skos:Concept"
-                            ],
-                            "relation": "rov:registration",
-                            "broaderPartitive": "grondstoffen:bestemmingsidentificatie-be",
-                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                            "prefLabel": "Ondernemingsnummer",
-                            "isVerplicht": "true",
-                            "relevantDataType": "xsd:string",
-                            "_ui_after": "grondstoffen:bestemmingsidentificatie-be-naam"
-                        },
-                        {
-                            "id": "grondstoffen:bestemmingsidentificatie-be-ve",
-                            "_type": [
-                                "skos:Concept"
-                            ],
-                            "broaderPartitive": "grondstoffen:bestemmingsidentificatie-be",
-                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                            "prefLabel": "Vestigingsnummer",
-                            "isVerplicht": "true",
-                            "relevantDataType": "xsd:string",
-                            "_ui_after": "grondstoffen:bestemmingsidentificatie-be-on"
-                        }
-                    ],
-                    "inScheme": "conceptscheme:operationeel_grondstoffen",
-                    "prefLabel": "Bestemmingsidentificatie",
-                    "related": [
-                        "grondstoffen:bestemmingsidentificatie-buitenland",
-                        "grondstoffen:bestemmingsidentificatie-none",
-                        "grondstoffen:bestemmingsidentificatie-werf"
-                    ],
-                    "semanticRelation": [
-                        "grondstoffen:bestemmingsidentificatie-buitenland",
-                        "grondstoffen:bestemmingsidentificatie-none",
-                        "grondstoffen:bestemmingsidentificatie-werf"
-                    ],
-                    "relevantClass": "prov:Agent",
-                    "conditionValue": [
-                        "bestemming:belgisch"
-                    ],
-                    "conditionPath": [
-                        "grondstoffen:grondstof_bestemming_type"
-                    ],
-                    "_ui_after": "grondstoffen:grondstof_opmerking"
-                },
+                "grondstoffen:bestemmingsidentificatie-be",
                 "grondstoffen:bestemmingsidentificatie-buitenland",
                 "grondstoffen:bestemmingsidentificatie-werf"
             ],
@@ -4433,461 +3176,14 @@
             "_type": [
                 "skos:Concept"
             ],
-            "isVersionOf": "grondstoffen:bestemmingsidentificatie-werf",
-            "modified": "2026-11-03T12:18:18.309Z",
             "broaderPartitive": "grondstoffen:grondstof",
-            "narrowerPartitive": "grondstoffen:bestemmingsidentificatie-werf-naam",
+            "narrowerPartitive": [
+                "grondstoffen:bestemmingsidentificatie-werf-naam"
+            ],
             "inScheme": "conceptscheme:operationeel_grondstoffen",
             "prefLabel": "Bestemmingsidentificatie",
             "related": [
-                {
-                    "id": "grondstoffen:bestemmingsidentificatie-be",
-                    "_type": [
-                        "skos:Concept"
-                    ],
-                    "isVersionOf": "grondstoffen:bestemmingsidentificatie-be",
-                    "modified": "2026-11-03T12:18:18.309Z",
-                    "broaderPartitive": {
-                        "id": "grondstoffen:grondstof",
-                        "_type": [
-                            "skos:Concept"
-                        ],
-                        "narrowerPartitive": [
-                            "grondstoffen:bestemmingsidentificatie-be",
-                            {
-                                "id": "grondstoffen:bestemmingsidentificatie-buitenland",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "isVersionOf": "grondstoffen:bestemmingsidentificatie-buitenland",
-                                "modified": "2026-11-03T12:18:18.309Z",
-                                "broaderPartitive": "grondstoffen:grondstof",
-                                "narrowerPartitive": [
-                                    {
-                                        "id": "grondstoffen:bestemmingsidentificatie-buitenland-btw",
-                                        "_type": [
-                                            "skos:Concept"
-                                        ],
-                                        "relation": {
-                                            "id": "rov:registration",
-                                            "_type": [
-                                                "rdfs:Resource"
-                                            ]
-                                        },
-                                        "broaderPartitive": "grondstoffen:bestemmingsidentificatie-buitenland",
-                                        "inScheme": {
-                                            "id": "conceptscheme:operationeel_grondstoffen",
-                                            "_type": [
-                                                "skos:ConceptScheme"
-                                            ],
-                                            "hasTopConcept": [
-                                                "grondstoffen:grondstof",
-                                                {
-                                                    "id": "grondstoffen:geproduceerd",
-                                                    "_type": [
-                                                        "skos:Concept"
-                                                    ],
-                                                    "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                    "prefLabel": "Heeft u grondstoffen geproduceerd?",
-                                                    "topConceptOf": "conceptscheme:operationeel_grondstoffen",
-                                                    "relevantDataType": "xsd:boolean",
-                                                    "_ui_first": "true"
-                                                }
-                                            ],
-                                            "prefLabel": "Operationeel grondstoffen"
-                                        },
-                                        "prefLabel": "BTW-nummer",
-                                        "isVerplicht": "true",
-                                        "relevantDataType": "xsd:string",
-                                        "_ui_after": {
-                                            "id": "grondstoffen:bestemmingsidentificatie-buitenland-naam",
-                                            "_type": [
-                                                "skos:Concept"
-                                            ],
-                                            "relation": {
-                                                "id": "rdfs:label",
-                                                "_type": [
-                                                    "rdfs:Resource"
-                                                ]
-                                            },
-                                            "broaderPartitive": "grondstoffen:bestemmingsidentificatie-buitenland",
-                                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                            "prefLabel": "Naam",
-                                            "isVerplicht": "false",
-                                            "relevantDataType": "xsd:string",
-                                            "_ui_first": "true"
-                                        }
-                                    },
-                                    "grondstoffen:bestemmingsidentificatie-buitenland-naam"
-                                ],
-                                "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                "prefLabel": "Bestemmingsidentificatie",
-                                "related": [
-                                    "grondstoffen:bestemmingsidentificatie-be",
-                                    {
-                                        "id": "grondstoffen:bestemmingsidentificatie-none",
-                                        "_type": [
-                                            "skos:Concept"
-                                        ],
-                                        "isVersionOf": "grondstoffen:bestemmingsidentificatie-none",
-                                        "modified": "2026-11-03T12:18:18.309Z",
-                                        "broaderPartitive": "grondstoffen:grondstof",
-                                        "narrowerPartitive": [
-                                            {
-                                                "id": "grondstoffen:bestemmingsidentificatie-none-adres",
-                                                "_type": [
-                                                    "skos:Concept"
-                                                ],
-                                                "relation": "rdfs:label",
-                                                "broaderPartitive": "grondstoffen:bestemmingsidentificatie-none",
-                                                "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                "prefLabel": "Adres",
-                                                "isVerplicht": "true",
-                                                "relevantDataType": "xsd:string",
-                                                "_ui_after": {
-                                                    "id": "grondstoffen:bestemmingsidentificatie-none-naam",
-                                                    "_type": [
-                                                        "skos:Concept"
-                                                    ],
-                                                    "relation": "rdfs:label",
-                                                    "broaderPartitive": "grondstoffen:bestemmingsidentificatie-none",
-                                                    "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                    "prefLabel": "Naam",
-                                                    "isVerplicht": "true",
-                                                    "relevantDataType": "xsd:string",
-                                                    "_ui_first": "true"
-                                                }
-                                            },
-                                            "grondstoffen:bestemmingsidentificatie-none-naam"
-                                        ],
-                                        "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                        "prefLabel": "Bestemmingsidentificatie",
-                                        "related": [
-                                            "grondstoffen:bestemmingsidentificatie-be",
-                                            "grondstoffen:bestemmingsidentificatie-buitenland",
-                                            "grondstoffen:bestemmingsidentificatie-werf"
-                                        ],
-                                        "semanticRelation": [
-                                            "grondstoffen:bestemmingsidentificatie-be",
-                                            "grondstoffen:bestemmingsidentificatie-buitenland",
-                                            "grondstoffen:bestemmingsidentificatie-werf"
-                                        ],
-                                        "relevantClass": "prov:Agent",
-                                        "conditionValue": [
-                                            {
-                                                "id": "bestemming:geen_onderneming",
-                                                "_type": [
-                                                    "skos:Concept"
-                                                ],
-                                                "inScheme": {
-                                                    "id": "conceptscheme:operationeel_bestemmingstype",
-                                                    "_type": [
-                                                        "skos:ConceptScheme"
-                                                    ],
-                                                    "hasTopConcept": [
-                                                        {
-                                                            "id": "bestemming:belgisch",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Belgische vestiging",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        {
-                                                            "id": "bestemming:buitenlands",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Buitenlandse vestiging",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        {
-                                                            "id": "bestemming:dispers",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Dispers gebruik",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        "bestemming:geen_onderneming",
-                                                        {
-                                                            "id": "bestemming:particulier",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Particulier",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        },
-                                                        {
-                                                            "id": "bestemming:werf",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "inScheme": "conceptscheme:operationeel_bestemmingstype",
-                                                            "prefLabel": "Werf",
-                                                            "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                                        }
-                                                    ],
-                                                    "prefLabel": "Bestemmingstype"
-                                                },
-                                                "prefLabel": "Geen onderneming",
-                                                "topConceptOf": "conceptscheme:operationeel_bestemmingstype"
-                                            }
-                                        ],
-                                        "conditionPath": [
-                                            {
-                                                "id": "grondstoffen:grondstof_bestemming_type",
-                                                "_type": [
-                                                    "skos:Concept"
-                                                ],
-                                                "relation": "dcterms:type",
-                                                "broaderPartitive": "grondstoffen:grondstof",
-                                                "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                "prefLabel": "Bestemming type",
-                                                "relevantClass": "riepr:Resultaat",
-                                                "isVerplicht": "true",
-                                                "relevantCodeList": [
-                                                    "conceptscheme:operationeel_bestemmingstype"
-                                                ],
-                                                "_ui_after": {
-                                                    "id": "grondstoffen:grondstof_toepassingswijze",
-                                                    "_type": [
-                                                        "skos:Concept"
-                                                    ],
-                                                    "relation": {
-                                                        "id": "sosa:usedProcedure",
-                                                        "_type": [
-                                                            "rdfs:Resource"
-                                                        ]
-                                                    },
-                                                    "broaderPartitive": "grondstoffen:grondstof",
-                                                    "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                    "prefLabel": "Toepassingswijze",
-                                                    "relevantClass": "riepr:Resultaat",
-                                                    "isVerplicht": "true",
-                                                    "relevantCodeList": [
-                                                        {
-                                                            "id": "conceptscheme:operationeel_toepassingwijze",
-                                                            "_type": [
-                                                                "skos:ConceptScheme"
-                                                            ],
-                                                            "hasTopConcept": [
-                                                                {
-                                                                    "id": "toepassingswijze:brandstof",
-                                                                    "_type": [
-                                                                        "skos:Concept"
-                                                                    ],
-                                                                    "inScheme": "conceptscheme:operationeel_toepassingwijze",
-                                                                    "prefLabel": "Gebruik als brandstof",
-                                                                    "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
-                                                                },
-                                                                {
-                                                                    "id": "toepassingswijze:dispers",
-                                                                    "_type": [
-                                                                        "skos:Concept"
-                                                                    ],
-                                                                    "inScheme": "conceptscheme:operationeel_toepassingwijze",
-                                                                    "prefLabel": "Dispers gebruik",
-                                                                    "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
-                                                                },
-                                                                {
-                                                                    "id": "toepassingswijze:overige",
-                                                                    "_type": [
-                                                                        "skos:Concept"
-                                                                    ],
-                                                                    "inScheme": "conceptscheme:operationeel_toepassingwijze",
-                                                                    "prefLabel": "Ander gebruik in de ingedeelde inrichting",
-                                                                    "topConceptOf": "conceptscheme:operationeel_toepassingwijze"
-                                                                }
-                                                            ],
-                                                            "prefLabel": "Toepassingswijze"
-                                                        }
-                                                    ],
-                                                    "_ui_after": {
-                                                        "id": "grondstoffen:grondstof_hoeveelheid",
-                                                        "_type": [
-                                                            "skos:Concept"
-                                                        ],
-                                                        "relation": {
-                                                            "id": "qudt:numericValue",
-                                                            "_type": [
-                                                                "rdfs:Resource"
-                                                            ]
-                                                        },
-                                                        "broaderPartitive": "grondstoffen:grondstof",
-                                                        "relevantUnit": [
-                                                            "http://TODO"
-                                                        ],
-                                                        "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                        "prefLabel": "Hoeveelheid",
-                                                        "relevantClass": "riepr:Resultaat",
-                                                        "isVerplicht": "true",
-                                                        "relevantDataType": "xsd:decimal",
-                                                        "_ui_after": {
-                                                            "id": "grondstoffen:grondstof_omschrijving",
-                                                            "_type": [
-                                                                "skos:Concept"
-                                                            ],
-                                                            "relation": {
-                                                                "id": "rdfs:comment",
-                                                                "_type": [
-                                                                    "rdfs:Resource"
-                                                                ]
-                                                            },
-                                                            "broaderPartitive": "grondstoffen:grondstof",
-                                                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                            "prefLabel": "Omschrijving",
-                                                            "relevantClass": "riepr:Resultaat",
-                                                            "isVerplicht": "false",
-                                                            "relevantDataType": "xsd:string",
-                                                            "_ui_after": {
-                                                                "id": "grondstoffen:grondstof_materiaalcode",
-                                                                "_type": [
-                                                                    "skos:Concept"
-                                                                ],
-                                                                "relation": {
-                                                                    "id": "schema:material",
-                                                                    "_type": [
-                                                                        "rdfs:Resource"
-                                                                    ]
-                                                                },
-                                                                "broaderPartitive": "grondstoffen:grondstof",
-                                                                "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                                                "prefLabel": "Materiaalcode",
-                                                                "relevantClass": "riepr:Resultaat",
-                                                                "relevantCodeList": [
-                                                                    "http://TODO"
-                                                                ],
-                                                                "_ui_first": "true"
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        ],
-                                        "_ui_after": "grondstoffen:bestemmingsidentificatie-werf"
-                                    },
-                                    "grondstoffen:bestemmingsidentificatie-werf"
-                                ],
-                                "semanticRelation": [
-                                    "grondstoffen:bestemmingsidentificatie-be",
-                                    "grondstoffen:bestemmingsidentificatie-none",
-                                    "grondstoffen:bestemmingsidentificatie-werf"
-                                ],
-                                "relevantClass": "prov:Agent",
-                                "conditionValue": [
-                                    "bestemming:buitenlands"
-                                ],
-                                "conditionPath": [
-                                    "grondstoffen:grondstof_bestemming_type"
-                                ],
-                                "_ui_after": "grondstoffen:bestemmingsidentificatie-be"
-                            },
-                            "grondstoffen:bestemmingsidentificatie-none",
-                            "grondstoffen:bestemmingsidentificatie-werf",
-                            "grondstoffen:grondstof_bestemming_type",
-                            {
-                                "id": "grondstoffen:grondstof_opmerking",
-                                "_type": [
-                                    "skos:Concept"
-                                ],
-                                "relation": {
-                                    "id": "schema:comment",
-                                    "_type": [
-                                        "rdfs:Resource"
-                                    ]
-                                },
-                                "broaderPartitive": "grondstoffen:grondstof",
-                                "inScheme": "conceptscheme:operationeel_grondstoffen",
-                                "prefLabel": "Opmerking",
-                                "relevantClass": "riepr:Resultaat",
-                                "isVerplicht": "false",
-                                "relevantDataType": "xsd:string",
-                                "_ui_after": "grondstoffen:grondstof_bestemming_type"
-                            },
-                            "grondstoffen:grondstof_hoeveelheid",
-                            "grondstoffen:grondstof_materiaalcode",
-                            "grondstoffen:grondstof_omschrijving",
-                            "grondstoffen:grondstof_toepassingswijze"
-                        ],
-                        "inScheme": "conceptscheme:operationeel_grondstoffen",
-                        "prefLabel": "Grondstof",
-                        "topConceptOf": "conceptscheme:operationeel_grondstoffen",
-                        "relevantClass": "riepr:Observatie",
-                        "conditionValue": [
-                            "concept:true"
-                        ],
-                        "conditionPath": [
-                            "grondstoffen:geproduceerd"
-                        ],
-                        "isMeervoudig": "true",
-                        "_ui_after": "grondstoffen:geproduceerd"
-                    },
-                    "narrowerPartitive": [
-                        {
-                            "id": "grondstoffen:bestemmingsidentificatie-be-naam",
-                            "_type": [
-                                "skos:Concept"
-                            ],
-                            "relation": "rdfs:label",
-                            "broaderPartitive": "grondstoffen:bestemmingsidentificatie-be",
-                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                            "prefLabel": "Naam",
-                            "isVerplicht": "false",
-                            "relevantDataType": "xsd:string",
-                            "_ui_first": "true"
-                        },
-                        {
-                            "id": "grondstoffen:bestemmingsidentificatie-be-on",
-                            "_type": [
-                                "skos:Concept"
-                            ],
-                            "relation": "rov:registration",
-                            "broaderPartitive": "grondstoffen:bestemmingsidentificatie-be",
-                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                            "prefLabel": "Ondernemingsnummer",
-                            "isVerplicht": "true",
-                            "relevantDataType": "xsd:string",
-                            "_ui_after": "grondstoffen:bestemmingsidentificatie-be-naam"
-                        },
-                        {
-                            "id": "grondstoffen:bestemmingsidentificatie-be-ve",
-                            "_type": [
-                                "skos:Concept"
-                            ],
-                            "broaderPartitive": "grondstoffen:bestemmingsidentificatie-be",
-                            "inScheme": "conceptscheme:operationeel_grondstoffen",
-                            "prefLabel": "Vestigingsnummer",
-                            "isVerplicht": "true",
-                            "relevantDataType": "xsd:string",
-                            "_ui_after": "grondstoffen:bestemmingsidentificatie-be-on"
-                        }
-                    ],
-                    "inScheme": "conceptscheme:operationeel_grondstoffen",
-                    "prefLabel": "Bestemmingsidentificatie",
-                    "related": [
-                        "grondstoffen:bestemmingsidentificatie-buitenland",
-                        "grondstoffen:bestemmingsidentificatie-none",
-                        "grondstoffen:bestemmingsidentificatie-werf"
-                    ],
-                    "semanticRelation": [
-                        "grondstoffen:bestemmingsidentificatie-buitenland",
-                        "grondstoffen:bestemmingsidentificatie-none",
-                        "grondstoffen:bestemmingsidentificatie-werf"
-                    ],
-                    "relevantClass": "prov:Agent",
-                    "conditionValue": [
-                        "bestemming:belgisch"
-                    ],
-                    "conditionPath": [
-                        "grondstoffen:grondstof_bestemming_type"
-                    ],
-                    "_ui_after": "grondstoffen:grondstof_opmerking"
-                },
+                "grondstoffen:bestemmingsidentificatie-be",
                 "grondstoffen:bestemmingsidentificatie-buitenland",
                 "grondstoffen:bestemmingsidentificatie-none"
             ],
@@ -5214,7 +3510,9 @@
                 "skos:Concept"
             ],
             "broaderPartitive": "grondwater:kwaliteitsmeting",
-            "narrowerPartitive": "grondwater:kwaliteitsmeting-labo-naam",
+            "narrowerPartitive": [
+                "grondwater:kwaliteitsmeting-labo-naam"
+            ],
             "definition": "Labo dat de meting uitvoerde.",
             "inScheme": "conceptscheme:operationeel_grondwater",
             "note": "Labo dat de meting uitvoerde.",
@@ -6787,7 +5085,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "narrowerPartitive": "zelfcontrole-water:datum",
+            "narrowerPartitive": [
+                "zelfcontrole-water:datum"
+            ],
             "inScheme": "conceptscheme:operationeel_zelfcontrole_water_meting",
             "prefLabel": "Meting",
             "topConceptOf": "conceptscheme:operationeel_zelfcontrole_water_meting",
