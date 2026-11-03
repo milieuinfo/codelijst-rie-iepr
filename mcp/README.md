@@ -59,7 +59,7 @@ Claude Code; de configuratiebestanden staan opgesomd in `AGENTS.md`. De bijhoren
 |---|---|
 | `list_flows` | Thematische stromen met hun stappen; onbereikbare stappen, (ongebruikte) optielijsten, bestanden die niet in `config.yml` staan |
 | `get_flow` | Volledige flow van een thema als leesbare outline + UI-beschrijving per stap |
-| `get_step` | Formulier van één stap: velden in weergavevolgorde, control, verplicht/meervoudig, opties, eenheden, voorwaarden, varianten, volgende stap |
+| `get_step` | Formulier van één stap: velden in weergavevolgorde, control, verplicht/meervoudig, opties, eenheden, bereik (`minValue`/`maxValue`), voorwaarden, varianten, volgende stap |
 | `get_flow_item` | Record, UI-beschrijving en verwijzingen van een thema, stap, veld of optie |
 | `validate_flows` | seeAlso, voorwaarden, onderdelen, volgorde, `related`, codelijsten, placeholders (`http://TODO`) |
 | `add_flow` | Nieuwe stroom: thema, `operationeel_<code>.csv` met eerste stap, `config.yml` en prefix |

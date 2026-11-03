@@ -498,6 +498,8 @@ const fieldSchema = {
     drager: z.string().describe('CSOR drager of the value, e.g. csor_drager:DR_1 (water), csor_drager:DR_8 (lucht).'),
     soortWaartbepaling: z.string().describe('CSOR soort waardebepaling, usually csor_soortwaardebepaling:SWB_1 (standaard).'),
     variabele: z.string().describe('Field of the same step where the stof (CSOR variabele) of this value is selected, e.g. water:lozing-stof.'),
+    minValue: z.number().describe('minValue: lower bound of a numeric value (schema.org/minValue); only with xsd:decimal or xsd:integer.'),
+    maxValue: z.number().describe('maxValue: upper bound of a numeric value (schema.org/maxValue); only with xsd:decimal or xsd:integer.'),
     isVerplicht: z.boolean(),
     isMeervoudig: z.boolean().describe('May be added several times.'),
     isMultiselect: z.boolean(),

@@ -181,6 +181,8 @@ export interface UiField {
     repeatable?: true;
     hidden?: true;
     datatype?: string;
+    /** Allowed range of a numeric value (minValue/maxValue). */
+    range?: { min?: number; max?: number };
     /** Fixed unit, or the units to choose from. */
     unit?: { fixed?: Reference; choose?: Reference[]; from?: string };
     /** Options of a select; `from` is the code list. Options of published lists elsewhere are not listed. */
@@ -241,6 +243,13 @@ export function describeField(repo: Repo, field: Located, all: Located[]): UiFie
     else if (units.length === 1) ui.unit = { from: units[0], choose: refs(repo, repo.listMembers(units[0]).map(m => m.id)) };
     else if (units.length > 1) ui.unit = { choose: refs(repo, units) };
     for (const unit of units) if (/TODO/i.test(unit)) issues.push(`unit is a placeholder (${unit})`);
+    const min = r.minValue === '' || r.minValue === undefined ? undefined : Number(r.minValue);
+    const max = r.maxValue === '' || r.maxValue === undefined ? undefined : Number(r.maxValue);
+    if ((min !== undefined && !Number.isFinite(min)) || (max !== undefined && !Number.isFinite(max))) {
+        issues.push('minValue or maxValue is not a number');
+    } else if (min !== undefined || max !== undefined) {
+        ui.range = { ...(min !== undefined ? { min } : {}), ...(max !== undefined ? { max } : {}) };
+    }
     if (codeList.length > 0) {
         const list = codeList[0];
         ui.options = repo.isList(list)
@@ -365,6 +374,10 @@ function outlineField(field: UiField, steps: StepSummary[], indent: string): str
         field.hidden && 'onzichtbaar',
         field.unit?.fixed && `eenheid ${field.unit.fixed.label ?? field.unit.fixed.id}`,
         field.unit?.choose && 'eenheid kiezen',
+        field.range && `bereik ${[
+            field.range.min !== undefined ? `vanaf ${field.range.min}` : undefined,
+            field.range.max !== undefined ? `tot ${field.range.max}` : undefined,
+        ].filter(Boolean).join(' ')}`,
         field.options && `opties uit ${field.options.from}`,
         field.selects && `kies uit ${field.selects.map(s => s.label ?? s.id).join(', ')}`,
     ].filter(Boolean).join(', ');
@@ -505,6 +518,14 @@ export function validateFlows() {
         }
         for (const unit of splitValues(r.relevantUnit)) if (/TODO/i.test(unit)) report('warning', at, `relevantUnit is a placeholder (${unit}).`);
         if (r.relevantUnit && r.relevantDataType && !NUMERIC_DATATYPES.includes(r.relevantDataType)) report('warning', at, `unit on a non-numeric datatype (${r.relevantDataType}).`);
+        for (const [column, value] of [['minValue', r.minValue], ['maxValue', r.maxValue]] as const) {
+            if (!value) continue;
+            if (!Number.isFinite(Number(value))) report('error', at, `${column} '${value}' is not a number.`);
+            else if (!NUMERIC_DATATYPES.includes(r.relevantDataType)) report('warning', at, `${column} on a non-numeric datatype (${r.relevantDataType || '(none)'}).`);
+        }
+        if (r.minValue && r.maxValue && Number.isFinite(Number(r.minValue)) && Number.isFinite(Number(r.maxValue)) && Number(r.minValue) > Number(r.maxValue)) {
+            report('warning', at, `minValue (${r.minValue}) is greater than maxValue (${r.maxValue}).`);
+        }
         for (const [column, value] of Object.entries(r)) {
             for (const part of splitValues(value)) {
                 const prefix = prefixOf(part);

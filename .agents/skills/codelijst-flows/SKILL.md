@@ -17,7 +17,7 @@ Use the `codelijst-rie-iepr` MCP server tools; do not edit `thema_type.csv` or `
 - `related` lists alternative **variants** of one logical field (shown as one group, the active variant follows the condition).
 - `_ui_first`/`_ui_after` set the **order** among siblings; conditional fields are always shown after their trigger.
 - A value about a stof (concentratie, jaarvracht, ...) carries `kwantiteitsAspect` (`csor_kwantificeerbaaraspect:`), `drager` (`csor_drager:`, e.g. DR_1 water, DR_8 lucht), `soortWaartbepaling` (`csor_soortwaardebepaling:`, usually SWB_1 standaard) and `variabele`: the field of the same group where the stof is selected (whose `relevantCodeList` is a collection of CSOR variabelen).
-- `relevantDataType` → input control, `relevantCodeList` → select, `relevantRiepr` → picker of systems (with `relevantClass sosa:FeatureOfInterest`: the system the report is about), `relevantUnit` → unit.
+- `relevantDataType` → input control, `relevantCodeList` → select, `relevantRiepr` → picker of systems (with `relevantClass sosa:FeatureOfInterest`: the system the report is about), `relevantUnit` → unit, `minValue`/`maxValue` → allowed range of a numeric field (`xsd:decimal`/`xsd:integer` only).
 
 ## Viewing
 

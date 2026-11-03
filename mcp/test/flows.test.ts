@@ -61,6 +61,7 @@ test('add_flow creates the thema, file, config entry and prefix; fields get that
     addFlow({ code: 'afval', prefLabel: 'Afval', definition: 'Rapportering over afval.', dryRun: false });
     assert.match(line('thema_type.csv', 'thema:afval')!, /,Afval,THEMA_AFVAL,Rapportering over afval\.,conceptscheme:operationeel_afval,/);
     assert.match(read('operationeel_afval.csv'), /^_id,_type,.*\nconceptscheme:operationeel_afval,skos:ConceptScheme,/);
+    assert.match(read('operationeel_afval.csv'), /,variabele,minValue,maxValue,isVerplicht,/);
     assert.match(read('config.yml'), /- operationeel_afval\.csv/);
     assert.match(read('config.yml'), /\n {2}afval: https:\/\/data\.omgeving\.vlaanderen\.be\/id\/concept\/riepr\/operationeel-afval\//);
 
@@ -132,6 +133,32 @@ test('update_flow_item edits fields, steps and themas within their allowed prope
     updateFlowItem({ id: 'thema:lucht', set: { prefLabel: 'Lucht (emissies)' }, dryRun: false });
     assert.throws(() => updateFlowItem({ id: 'conceptscheme:operationeel_lucht_bron', set: { datatype: 'xsd:string' } }), /only prefLabel, definition/);
     assert.throws(() => updateFlowItem({ id: 'lucht:brandstof_naam', set: { code: 'x' } as never }), /published URI/);
+});
+
+test('minValue and maxValue: numeric bounds on a field, cleared with null', () => {
+    addField({
+        step: 'lucht_rapportering', code: 'brandstof_dichtheid_range', parent: 'lucht:brandstof', prefLabel: 'Dichtheid range',
+        datatype: 'xsd:decimal', minValue: 0.5, maxValue: 1.2, dryRun: false,
+    });
+    const header = read('operationeel_lucht.csv').split('\n')[0].split(',');
+    assert.equal(header[header.indexOf('variabele') + 1], 'minValue');
+    assert.equal(header[header.indexOf('minValue') + 1], 'maxValue');
+    const cells = line('operationeel_lucht.csv', 'lucht:brandstof_dichtheid_range')!.split(',');
+    assert.equal(cells[header.indexOf('minValue')], '0.5');
+    assert.equal(cells[header.indexOf('maxValue')], '1.2');
+    const field = getStep({ step: 'lucht_rapportering' }).fields[0].parts!.find(p => p.id === 'lucht:brandstof_dichtheid_range')!;
+    assert.deepEqual(field.range, { min: 0.5, max: 1.2 });
+    assert.match(getFlow({ flow: 'lucht' }).outline, /Dichtheid range \(number, bereik vanaf 0\.5 tot 1\.2\)/);
+
+    updateFlowItem({ id: 'lucht:brandstof_dichtheid_range', set: { maxValue: null }, dryRun: false });
+    const after = line('operationeel_lucht.csv', 'lucht:brandstof_dichtheid_range')!.split(',');
+    assert.equal(after[header.indexOf('minValue')], '0.5');
+    assert.equal(after[header.indexOf('maxValue')], '');
+    assert.deepEqual(getStep({ step: 'lucht_rapportering' }).fields[0].parts!.find(p => p.id === 'lucht:brandstof_dichtheid_range')!.range, { min: 0.5 });
+
+    assert.throws(() => updateFlowItem({ id: 'lucht:brandstof_dichtheid_range', set: { minValue: 2, maxValue: 1 } }), /greater than maxValue/);
+    assert.throws(() => addField({ step: 'lucht_rapportering', code: 'x_range', prefLabel: 'X', datatype: 'xsd:string', minValue: 1 }), /only applies to numeric/);
+    assert.throws(() => updateFlowItem({ id: 'lucht:brandstof_naam', set: { minValue: 1 } }), /only applies to numeric/);
 });
 
 test('add_flow_collection and variabele: a value field points to the field where its stof is selected', () => {
