@@ -70,12 +70,12 @@ const CSOR_LIJSTEN = {
 }
 
 const EIGENSCHAPPEN_FILES = [
-  'emissiepunt_eigenschappen.csv',
-  'filter_eigenschappen.csv',
-  'installatie_eigenschappen.csv',
-  'meetpunt_eigenschappen.csv',
-  'uitwisselpunt_eigenschappen.csv',
-  'onttrekkingspunt_eigenschappen.csv',
+  'emissiepunteigenschappen.csv',
+  'filtereigenschappen.csv',
+  'installatie-eigenschappen.csv',
+  'meetpunteigenschappen.csv',
+  'uitwisselpunteigenschappen.csv',
+  'onttrekkingspunteigenschappen.csv',
 ]
 
 const RDFS = 'http://www.w3.org/2000/01/rdf-schema#'

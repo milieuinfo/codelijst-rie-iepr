@@ -1,5 +1,5 @@
 // Selection lists used through relevantCodeList / relevantUnit: inline concept
-// schemes and collections in <systeem>_eigenschappen.csv, and lookups of
+// schemes and collections in <systeem>eigenschappen.csv, and lookups of
 // lists published elsewhere.
 
 import type { CsvFile, CsvInput, CsvRecord, CsvRow } from './csv.js';
@@ -132,7 +132,7 @@ export function addSelectionList(params: {
         rows.push(...members.map(member => ({ _id: member, collections: listId })));
     }
     if (kind === 'conceptscheme') {
-        // Options that are kinds of the system belong in <systeem>_type.csv as subtypes.
+        // Options that are kinds of the system belong in <systeem>types.csv as subtypes.
         const localPart = listId.split(':')[1];
         // Strip object prefix (system or type) for typering check
         const firstUnderscore = localPart.indexOf('_');

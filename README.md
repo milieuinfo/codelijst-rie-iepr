@@ -6,24 +6,54 @@ De codelijsten zijn gemodelleerd als [SKOS](https://www.w3.org/TR/skos-reference
 
 ## Inhoud
 
-De volgende conceptschema's zijn opgenomen:
+De volgende conceptschema's zijn opgenomen (id onder `https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/`):
+
+**Systeemtypes en -eigenschappen**
 
 | Conceptschema | Beschrijving |
 |---|---|
-| `emissiepunt_eigenschappen` | Koppeling tussen soorten emissiepunten en hun eigenschappen |
-| `installatie_eigenschappen` | Koppeling tussen soorten installaties en hun eigenschappen |
-| `filter_eigenschappen` | Koppeling tussen soorten filters en hun eigenschappen |
-| `installatie_type` | Soorten installaties (GPBV, IEPR, Stookinstallatie, ...) |
-| `emissiepunt_type` | Soorten emissiepunten (schouw, fakkel, lozingspunt, ...) |
-| `onttrekkingspunt_type` | Soorten onttrekkingspunten (Grondwaterput, ...) |
-| `filter_type` | Soorten filters (Peilfilter, ...) |
-| `meetinstrument_type` | Soorten meetinstrumenten (Debietmeter, ...) |
-| `meetpunt_type` | Soorten meetpunten (meetput, controle-inrichting, ...) |
-| `procedure_type` | Soorten procedures in een procesplan |
-| `procesvariabele_type` | Types stoffen bij bepaalde procedure-types |
-| `rubriek_type` | Typering van rubrieken (VLAREM, EGW) |
-| `data_type` | Soorten data types |
-| `status_type` | Soorten statussen |
+| `systeemtypes` | Overkoepelend schema waar de typeschema's van de systemen deel van uitmaken |
+| `systeemeigenschappen` | Overkoepelend schema waar de eigenschappenschema's van de systemen deel van uitmaken |
+| `installatietypes` | Soorten installaties (stookinstallatie, GPBV, luchtzuivering, waterzuivering, opslag/overslag, ...) |
+| `emissiepunttypes` | Soorten emissiepunten (lozingspunt, emissiepunt lucht, schoorsteen, fakkel, ...) |
+| `filtertypes` | Soorten filters (peilfilter, pompfilter, injectiefilter, omkeerbare filter) |
+| `meetpunttypes` | Soorten meetpunten (controleinrichting, debietmeter grondwater, peilput) |
+| `onttrekkingspunttypes` | Soorten onttrekkingspunten (opnamepunt oppervlaktewater) |
+| `uitwisselpunttypes` | Soorten uitwisselpunten (pompput) |
+| `installatie-eigenschappen` | Eigenschappen van installaties en de types waarvoor ze gelden |
+| `emissiepunteigenschappen` | Eigenschappen van emissiepunten en de types waarvoor ze gelden |
+| `filtereigenschappen` | Eigenschappen van filters en de types waarvoor ze gelden |
+| `meetpunteigenschappen` | Eigenschappen van meetpunten en de types waarvoor ze gelden |
+| `onttrekkingspunteigenschappen` | Eigenschappen van onttrekkingspunten en de types waarvoor ze gelden |
+| `uitwisselpunteigenschappen` | Eigenschappen van uitwisselpunten en de types waarvoor ze gelden |
+
+**Selectielijsten van eigenschappen**
+
+| Conceptschema | Beschrijving |
+|---|---|
+| `installatie_type_stookinstallatie` | Types stookinstallatie (boiler, gasmotor, gasturbine, WKK, ...) |
+| `installatie_soort_opgewekte_energie` | Soorten energie die een stookinstallatie kan opwekken |
+| `lozingspunt_lozingsplaats` | Plaatsen waar een lozingspunt loost (riool, oppervlaktewater, collector, ...) |
+| `meetpunt_referentiepunt_naam` | Referentiepunten voor de hoogtemeting van een peilput |
+
+**Overige vaste gegevens**
+
+| Conceptschema | Beschrijving |
+|---|---|
+| `aangiftetypes` | Soorten aangiftes (structuur, operationeel) |
+| `aangiftestatussen` | Statussen van een aangifte (concept, ingediend, gefaald, ingetrokken) |
+| `emissietypes` | Soorten emissies (geleid, niet-geleid, abnormaal, lekverlies, opslagverlies, ...) |
+| `proceduretypes` | Soorten procedures in een procesplan (verwerking, transport, emissie, meting, ...) |
+| `rubriektypes` | Typering van rubrieken (VLAREM) |
+| `statustypes` | Statussen van een entiteit (in dienst, tijdelijk of definitief uit dienst, ontmanteld, ...) |
+
+**Operationele gegevens**
+
+| Conceptschema | Beschrijving |
+|---|---|
+| `thematypes` | Thematische stromen (lucht, water, grondwater, zelfcontrole lucht, zelfcontrole water, grondstoffen) |
+| `operationeel_<stroom>` en hun stappen (bv. `operationeel_lucht_emissie`) | Stappen en velden van de thematische stromen |
+| `operationeel_<lijst>` (bv. `operationeel_peilmethode`) en `herkomst_water` | Selectielijsten voor velden van de operationele gegevens |
 
 ## Uitvoerformaten
 
@@ -103,50 +133,50 @@ identificatoren blijven geldig.
 
 | Prefix | Codelijst (pad onder `.../id/concept/riepr/`) |
 | --- | --- |
-| `aangifte:` | `aangifte-type/` |
-| `aangifte-status:` | `aangifte-status/` |
+| `aangifte:` | `aangiftetype/` |
+| `aangiftestatus:` | `aangiftestatus/` |
 | `bandbreedte:` | `norm_bandbreedte/` |
 | `bepalingsmethode:` | `operationeel-bepalingsmethode/` |
 | `bepalingsmethodeclassificatie:` | `operationeel-bepalingsmethodeclassificatie/` |
 | `bestemming:` | `operationeel-bestemmingstype/` |
 | `contextueel:` | `operationeel-contextueel/` |
-| `debiet:` | `operationeel-debiet-type/` |
-| `emissie:` | `emissie-type/` |
-| `emissiepunt:` | `emissiepunt-type/` |
-| `emissiepunt-eigenschappen:` | `emissiepunt-eigenschappen/` |
-| `emissiepunt-selectiemogelijkheden:` | `emissiepunt-eigenschappen-selectiemogelijkheden/` |
-| `filter:` | `filter-type/` |
+| `debiet:` | `operationeel-debiettype/` |
+| `emissie:` | `emissietype/` |
+| `emissiepunt:` | `emissiepunttype/` |
+| `emissiepunteigenschappen:` | `emissiepunteigenschappen/` |
+| `emissiepunt-selectiemogelijkheden:` | `emissiepunteigenschappen-selectiemogelijkheden/` |
+| `filter:` | `filtertype/` |
 | `grondstoffen:` | `operationeel-grondstoffen/` |
 | `grondwater:` | `operationeel-grondwater/` |
-| `installatie:` | `installatie-type/` |
+| `installatie:` | `installatietype/` |
 | `installatie-eigenschappen:` | `installatie-eigenschappen/` |
 | `installatie-selectiemogelijkheden:` | `installatie-eigenschappen-selectiemogelijkheden/` |
 | `lozingsplaats:` | `lozingspunt-lozingsplaats/` |
 | `lucht:` | `operationeel-lucht/` |
 | `meetfrequentie:` | `operationeel-meetfrequentie/` |
-| `meetinstrument:` | `meetinstrument-type/` |
-| `meetpunt:` | `meetpunt-type/` |
-| `meetpunt-eigenschappen:` | `meetpunt-eigenschappen/` |
-| `meetpunt-selectiemogelijkheden:` | `meetpunt-eigenschappen-selectiemogelijkheden/` |
-| `onttrekkingspunt:` | `onttrekkingspunt-type/` |
-| `onttrekkingspunt-eigenschappen:` | `onttrekkingspunt-eigenschappen/` |
+| `meetinstrument:` | `meetinstrumenttype/` |
+| `meetpunt:` | `meetpunttype/` |
+| `meetpunteigenschappen:` | `meetpunteigenschappen/` |
+| `meetpunt-selectiemogelijkheden:` | `meetpunteigenschappen-selectiemogelijkheden/` |
+| `onttrekkingspunt:` | `onttrekkingspunttype/` |
+| `onttrekkingspunteigenschappen:` | `onttrekkingspunteigenschappen/` |
 | `peilmethode:` | `operationeel-peilmethode/` |
 | `pomptoestand:` | `operationeel-pomptoestand/` |
-| `procedure:` | `procedure-type/` |
-| `procesvariabele:` | `procesvariabele-type/` |
-| `rubriek:` | `rubriek-type/` |
-| `status-type:` | `status-type/` |
+| `procedure:` | `proceduretype/` |
+| `procesvariabele:` | `procesvariabeletype/` |
+| `rubriek:` | `rubriektype/` |
+| `statustype:` | `statustype/` |
 | `techniekmonstername:` | `operationeel-techniekmonstername/` |
-| `thema:` | `thema-type/` |
+| `thema:` | `thematype/` |
 | `toepassingswijze:` | `operationeel-toepassingswijze/` |
 | `toestand-indicator:` | `operationeel-toestand-indicator/` |
-| `uitwisselpunt:` | `uitwisselpunt-type/` |
-| `uitwisselpunt-eigenschappen:` | `uitwisselpunt-eigenschappen/` |
+| `uitwisselpunt:` | `uitwisselpunttype/` |
+| `uitwisselpunteigenschappen:` | `uitwisselpunteigenschappen/` |
 | `water:` | `operationeel-water/` |
 | `zelfcontrole-lucht:` | `operationeel-zelfcontrole-lucht/` |
 | `zelfcontrole-water:` | `operationeel-zelfcontrole-water/` |
 
-> `status-type:` heet niet `status:` omdat `status` al een term is in `context.json` (`adms:status`).
+> `statustype:` heet niet `status:` omdat `status` al een term is in `context.json` (`adms:status`).
 
 ## Interpretatie
 Deze sectie bevat informatie over de interpretatie van de codelijsten.
@@ -156,15 +186,17 @@ Structurele gegevens zijn opgedeeld in meerdere CSV bestanden voor de verschille
 
 #### Types en eigenschappen
 Elk systeem (`emissiepunt`, `filter`, `installatie`, `meetpunt`, `uitwisselpunt`, `onttrekkingspunt`) heeft twee codelijsten:
-- `<systeem>_type.csv`: de soorten van dat systeem, als hiërarchie via `broader` (bv. `emissiepunt:schoorsteen` is een `emissiepunt:emissiepunt_lucht`). `isOnzichtbaar = true` verbergt een type voor selectie (bv. omdat het enkel een structurele groepering is); de subtypes blijven wel selecteerbaar en erven de eigenschappen. `isMeetbaar = true` geeft aan dat het systeemtype meetbaar is.
-- `<systeem>_eigenschappen.csv`: de systeemeigenschappen die de vaste attributen uit het datamodel (`riepr.ttl`: naam, beschrijving, ...) aanvullen. De vaste attributen staan dus niet in de CSV's.
+- `<systeem>types.csv`: de soorten van dat systeem, als hiërarchie via `broader` (bv. `emissiepunt:schoorsteen` is een `emissiepunt:emissiepunt_lucht`). `isOnzichtbaar = true` verbergt een type voor selectie (bv. omdat het enkel een structurele groepering is); de subtypes blijven wel selecteerbaar en erven de eigenschappen. `isMeetbaar = true` geeft aan dat het systeemtype meetbaar is.
+- `<systeem>eigenschappen.csv`: de systeemeigenschappen die de vaste attributen uit het datamodel (`riepr.ttl`: naam, beschrijving, ...) aanvullen. De vaste attributen staan dus niet in de CSV's.
+
+De bestandsnaam is het id van het conceptschema (bv. `emissiepunttypes.csv`, `emissiepunteigenschappen.csv`). Uitzondering: `installatie-eigenschappen.csv` (koppelteken bij klinkerbotsing).
 
 #### Welke eigenschappen gelden voor welk type?
 `relevantRiepr` op een eigenschap bepaalt voor welke types ze geldt. De waarde bevat één of meer types, gescheiden door `|` of `,`.
 
 1. **Direct**: de eigenschap geldt voor elk type dat in `relevantRiepr` staat.
 2. **Overerving**: ze geldt ook voor alle subtypes van die types (`broader`-keten). Een eigenschap op `emissiepunt:emissiepunt_lucht` geldt dus ook voor `emissiepunt:schoorsteen`. Een eigenschap die enkel op een subtype staat, geldt niet voor het bovenliggende type.
-3. **Alle types**: de waarde `conceptscheme:<systeem>_type` (bv. `conceptscheme:installatie_type`) betekent alle types van dat systeem.
+3. **Alle types**: de waarde `conceptscheme:<systeem>types` (bv. `conceptscheme:installatietypes`) betekent alle types van dat systeem.
 4. **Leeg**: een eigenschap zonder `relevantRiepr` geldt voor **geen enkel type**. Dit is dus niet "alles". Enige uitzondering zijn onderdelen van een composite (zie hieronder).
 5. **Onzichtbare types**: `isOnzichtbaar` beïnvloedt enkel of een type gekozen kan worden, niet welke eigenschappen het erft of doorgeeft.
 
@@ -176,7 +208,7 @@ Een composite eigenschap bestaat uit een ouder en onderdelen die naar de ouder v
 | Composite | `relevantRiepr` op de ouder | `relevantRiepr` op de onderdelen |
 |---|---|---|
 | `installatie-eigenschappen:verwijderingsrendement` | leeg | `_stof`: `installatie:luchtzuivering`, `_percentage`: leeg |
-| `meetpunt-eigenschappen:referentiepunt` | leeg | `_naam` en `_diepte`: `meetpunt:peilput` |
+| `meetpunteigenschappen:referentiepunt` | leeg | `_naam` en `_diepte`: `meetpunt:peilput` |
 
 - Een composite waarvan noch de ouder, noch een onderdeel een `relevantRiepr` heeft, geldt voor geen enkel type en wordt als fout gerapporteerd.
 - `isMeervoudig` op de ouder maakt de hele groep herhaalbaar: elke rij bevat alle onderdelen. Is de ouder ook `isVerplicht`, dan start de groep met één rij; anders is er enkel een knop om een rij toe te voegen.
@@ -214,8 +246,8 @@ Operationele gegevens beginnen vanaf de codelijst met de verschillende thematisc
 
 #### Thematische stroom
 1.  In de applicatielogica voorzien we een selectie van het productiejaar. Dit zal de `sosa:phenonomenonTime` worden van de observaties die gerapporteerd zullen worden.
-2.  De gebruiker selecteerd een thematische stroom waarop hij/zij will rapporteren. De lijst van thematische stromen halen we uit `conceptscheme:thema_type`. In de applicatie is dit de enige lijst die we in principe rechtstreeks moeten aanspreken, alle andere codelijsten worden vanuit de thematische stromen gerefereerd.
-3.  Via de `vervolgstap` relatie (`qb:codeList`) van de concepten binnen `conceptscheme:thema_type` kunnen we achterhalen welke concept schemas verantwoordelijk zijn voor de thematische stroom.
+2.  De gebruiker selecteerd een thematische stroom waarop hij/zij will rapporteren. De lijst van thematische stromen halen we uit `conceptscheme:thematypes`. In de applicatie is dit de enige lijst die we in principe rechtstreeks moeten aanspreken, alle andere codelijsten worden vanuit de thematische stromen gerefereerd.
+3.  Via de `vervolgstap` relatie (`qb:codeList`) van de concepten binnen `conceptscheme:thematypes` kunnen we achterhalen welke concept schemas verantwoordelijk zijn voor de thematische stroom.
 
 > De bedoeling is dat de applicatie zo weinig mogelijk logica omvat voor zowel UI als data ophalen/bewaren voor de thematische stromen. Zo kunnen a.h.v. deze codelijsten alle business regels worden bijgesteld waar nodig zonder al te grote wijzigingen te vereisen.
 

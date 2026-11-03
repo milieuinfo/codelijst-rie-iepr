@@ -1,4 +1,4 @@
-// Eigenschappen: src/source/<systeem>_eigenschappen.csv.
+// Eigenschappen: src/source/<systeem>eigenschappen.csv.
 
 import type { CsvFile, CsvInput, CsvRecord } from './csv.js';
 import { applyMembershipEdits, describeList, isOwnListRow, listRowIndexes } from './lists.js';
@@ -122,7 +122,7 @@ export async function buildProperty(
         }
     } else if (appliesTo.length === 0) {
         // A composite (parts point to it with broaderPartitive) may carry relevantRiepr on its parts
-        // instead, e.g. meetpunt-eigenschappen:referentiepunt with _naam and _diepte on meetpunt:peilput.
+        // instead, e.g. meetpunteigenschappen:referentiepunt with _naam and _diepte on meetpunt:peilput.
         const partsApply = existingId !== undefined && records.some(r => r.broaderPartitive === existingId && r.relevantRiepr);
         if (!composite) {
             errors.push(`appliesTo (relevantRiepr) is required for a top-level property: give one or more types of ${names.typeFile}, or '${names.typeScheme}' for all types.`);

@@ -5,7 +5,7 @@ description: 'Answer questions about the RIE-IEPR systeemtypes and eigenschappen
 
 # Answer questions about types and eigenschappen
 
-Use the read-only tools of the `codelijst-rie-iepr` MCP server; they read `src/source/<systeem>_type.csv` and `src/source/<systeem>_eigenschappen.csv` directly, so the answer reflects the current (possibly unpublished) state of the repository.
+Use the read-only tools of the `codelijst-rie-iepr` MCP server; they read `src/source/<systeem>types.csv` and `src/source/<systeem>eigenschappen.csv` directly, so the answer reflects the current (possibly unpublished) state of the repository.
 
 | Question | Tool |
 |---|---|

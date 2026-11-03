@@ -18,18 +18,18 @@ const ORDER_PATH = resolve(pocRoot, 'src/generated/csv-volgorde.json')
 
 /** The source CSV's that define the systeemtypes and systeemeigenschappen. */
 const SOURCE_FILES = [
-  'emissiepunt_type.csv',
-  'emissiepunt_eigenschappen.csv',
-  'filter_type.csv',
-  'filter_eigenschappen.csv',
-  'installatie_type.csv',
-  'installatie_eigenschappen.csv',
-  'meetpunt_type.csv',
-  'meetpunt_eigenschappen.csv',
-  'uitwisselpunt_type.csv',
-  'uitwisselpunt_eigenschappen.csv',
-  'onttrekkingspunt_type.csv',
-  'onttrekkingspunt_eigenschappen.csv',
+  'emissiepunttypes.csv',
+  'emissiepunteigenschappen.csv',
+  'filtertypes.csv',
+  'filtereigenschappen.csv',
+  'installatietypes.csv',
+  'installatie-eigenschappen.csv',
+  'meetpunttypes.csv',
+  'meetpunteigenschappen.csv',
+  'uitwisselpunttypes.csv',
+  'uitwisselpunteigenschappen.csv',
+  'onttrekkingspunttypes.csv',
+  'onttrekkingspunteigenschappen.csv',
 ]
 
 /**

@@ -1,17 +1,17 @@
 ---
 name: codelijst-eigenschap
-description: 'Add a new eigenschap (property) for emissiepunten, filters, installaties, meetpunten, uitwisselpunten or onttrekkingspunten to src/source/<systeem>_eigenschappen.csv, including composite properties, units and selection lists (relevantCodeList). Use when the user asks to add a property, field, attribuut or eigenschap to one of these system types, e.g. "voeg de hoogte toe aan een fakkel", "een installatie moet een brandstoftype kunnen kiezen".'
+description: 'Add a new eigenschap (property) for emissiepunten, filters, installaties, meetpunten, uitwisselpunten or onttrekkingspunten to src/source/<systeem>eigenschappen.csv, including composite properties, units and selection lists (relevantCodeList). Use when the user asks to add a property, field, attribuut or eigenschap to one of these system types, e.g. "voeg de hoogte toe aan een fakkel", "een installatie moet een brandstoftype kunnen kiezen".'
 ---
 
 # Add an eigenschap
 
-Properties live in `src/source/<systeem>_eigenschappen.csv` (`conceptscheme:<systeem>_eigenschappen`). Each property says which types it applies to (`relevantRiepr`), what kind of value it holds (`relevantDataType` or `relevantCodeList`), and how (`relation`). Use the `codelijst-rie-iepr` MCP server tools; do not edit the CSV by hand.
+Properties live in `src/source/<systeem>eigenschappen.csv` (`conceptscheme:<systeem>eigenschappen`). Each property says which types it applies to (`relevantRiepr`), what kind of value it holds (`relevantDataType` or `relevantCodeList`), and how (`relation`). Use the `codelijst-rie-iepr` MCP server tools; do not edit the CSV by hand.
 
 ## Typering or eigenschap?
 
 A choice between kinds of the system itself is a **typering**, not an eigenschap: "Type emissiepunt"
 (schoorsteen, fakkel, gebouw, ...) or "Type stookinstallatie" (boiler, gasmotor, WKK, ...) are subtypes
-in `<systeem>_type.csv`, added with `add_type` (broader = the type they are kinds of). The MCP refuses a selection eigenschap or list that names the
+in `<systeem>types.csv`, added with `add_type` (broader = the type they are kinds of). The MCP refuses a selection eigenschap or list that names the
 system or one of its types ("Type …", "Soort …", "Typering …", "Categorie …", "… type"), or whose options
 are existing or withdrawn types; free text with such a name only gets a warning. A selection of something
 else (fuel, technique, lozingsplaats, ...) stays an eigenschap: "Type brandstof" is fine.
@@ -22,9 +22,9 @@ else (fuel, technique, lozingsplaats, ...) stays an eigenschap: "Type brandstof"
 2. **Decide the shape** of the property:
    - **Simple value**: one input field → `datatype`.
    - **Selection**: choose from a list → `codeList` (see step 3).
-   - **Composite**: several fields that belong together and are filled in together, often repeatable (e.g. `referentiepunt` = naam + diepte, `verwijderingsrendement` = stof + percentage). Create the parent with `composite: true` (and usually `isMeervoudig: true`), then each part with `parent: <parent code>` and code `<parent>_<part>`. The parts point to the composite with `broaderPartitive`; that is what makes them its composite attributes (e.g. `meetpunt-eigenschappen:referentiepunt_naam` and `_diepte` → `meetpunt-eigenschappen:referentiepunt`). The composite itself has no datatype, code list or unit.
+   - **Composite**: several fields that belong together and are filled in together, often repeatable (e.g. `referentiepunt` = naam + diepte, `verwijderingsrendement` = stof + percentage). Create the parent with `composite: true` (and usually `isMeervoudig: true`), then each part with `parent: <parent code>` and code `<parent>_<part>`. The parts point to the composite with `broaderPartitive`; that is what makes them its composite attributes (e.g. `meetpunteigenschappen:referentiepunt_naam` and `_diepte` → `meetpunteigenschappen:referentiepunt`). The composite itself has no datatype, code list or unit.
 3. **For a selection, ask the user where the list comes from** (never guess):
-   - **Already published** (CSOR, another RIE-IEPR list such as `conceptscheme:status_type`, an external URI): find it with `find_code_lists` (`searchPublished: true` also searches data.omgeving.vlaanderen.be) and pass it with `codeListSource: 'published'`.
+   - **Already published** (CSOR, another RIE-IEPR list such as `conceptscheme:statustypes`, an external URI): find it with `find_code_lists` (`searchPublished: true` also searches data.omgeving.vlaanderen.be) and pass it with `codeListSource: 'published'`.
    - **New list of options** that only exist for this property (like `lozingsplaats`: oppervlaktewater, riool, grondwater): create a concept scheme in the same CSV with `add_selection_list` `kind: 'conceptscheme'` and pass it with `codeListSource: 'inline'`.
    - **Subset of a published list** (like the CSOR stoffen for `verwijderingsrendement_stof`): create a collection with `add_selection_list` `kind: 'collection'` whose members are the existing concept URIs/CURIEs, and pass it with `codeListSource: 'inline'`.
    Ask also whether several values may be selected (`isMultiselect`).
@@ -32,7 +32,7 @@ else (fuel, technique, lozingsplaats, ...) stays an eigenschap: "Type brandstof"
    - `code`: lowercase snake_case Dutch, no prefix: `nominaal_thermisch_vermogen`. Parts: `<parent>_<part>`.
    - `prefLabel`: Dutch, capital first letter: `Geinstalleerd vermogen`. For parts the short field name is enough (`Naam`, `Diepte`).
    - `definition`: one Dutch sentence ending with a period; propose one if the user gives none. Composite parents: `Samengestelde eigenschap voor <x> (<part> en <part>).`
-   - `appliesTo` (`relevantRiepr`): the types from `<systeem>_type.csv` this property is relevant for. Subtypes inherit from a broader type, so pick the most general type that fits; `["all"]` means every type of the system (`conceptscheme:<systeem>_type`). Required on top-level properties. A composite carries it either on the parent (parts inherit it, e.g. `waterzuiveringstechniek`) or on each of its parts (e.g. `referentiepunt`: `_naam` and `_diepte` apply to `meetpunt:peilput`); the tools accept both and combine them when answering which properties a type has.
+   - `appliesTo` (`relevantRiepr`): the types from `<systeem>types.csv` this property is relevant for. Subtypes inherit from a broader type, so pick the most general type that fits; `["all"]` means every type of the system (`conceptscheme:<systeem>types`). Required on top-level properties. A composite carries it either on the parent (parts inherit it, e.g. `waterzuiveringstechniek`) or on each of its parts (e.g. `referentiepunt`: `_naam` and `_diepte` apply to `meetpunt:peilput`); the tools accept both and combine them when answering which properties a type has.
    - `datatype` (`relevantDataType`): every eigenschap that is not a composite has an xsd datatype, unless it has a `relevantCodeList` (a selection from another list); free text is `xsd:string`, never empty. Options: `xsd:string` (free text), `xsd:decimal` (measurements, capacities, percentages), `xsd:integer` (counts, e.g. aantal uitstroompunten), `xsd:boolean` (ja/nee), `xsd:date`, `xsd:dateTime`, `xsd:duration`.
    - `unit` (`relevantUnit`): only for numbers. A CSOR unit such as `csor_eenheid:E_59` (meter) or `csor_eenheid:E_43` (%), or a collection of units when the user may choose (create it with `add_selection_list` `kind: 'collection'`, like `collectie:vermogen_eenheden`). If you do not know the CSOR code, ask the user rather than guessing.
    - `relation`: defaults to `rdfs:value`. In composite parts use `rdfs:label` for a name, `riepr:parameter` for the substance/parameter a value is about, `riepr:inGebruikVan` for a start date.
@@ -46,11 +46,11 @@ else (fuel, technique, lozingsplaats, ...) stays an eigenschap: "Type brandstof"
 
 | Property | Shape |
 |---|---|
-| `emissiepunt-eigenschappen:hoogte` | `xsd:decimal`, unit `csor_eenheid:E_59`, relevantProperty `dbo:height`, applies to `emissiepunt:emissiepunt_lucht` |
-| `emissiepunt-eigenschappen:lozingspunt-lozingsplaats` | codeList `conceptscheme:lozingspunt_lozingsplaats`, an inline concept scheme in the same CSV |
+| `emissiepunteigenschappen:hoogte` | `xsd:decimal`, unit `csor_eenheid:E_59`, relevantProperty `dbo:height`, applies to `emissiepunt:emissiepunt_lucht` |
+| `emissiepunteigenschappen:lozingspunt-lozingsplaats` | codeList `conceptscheme:lozingspunt_lozingsplaats`, an inline concept scheme in the same CSV |
 | `installatie-eigenschappen:nominaal_thermisch_vermogen` | `xsd:decimal`, unit chosen from inline collection `collectie:vermogen_eenheden` |
 | `installatie-eigenschappen:verwijderingsrendement` | composite, isMeervoudig; parts `_stof` (relation `riepr:parameter`, codeList = inline collection of CSOR stoffen) and `_percentage` (`xsd:decimal`, `%`) |
-| `meetpunt-eigenschappen:referentiepunt` | composite; parts `_naam` (`rdfs:label`, `xsd:string`) and `_diepte` (`xsd:decimal`, meter) |
+| `meetpunteigenschappen:referentiepunt` | composite; parts `_naam` (`rdfs:label`, `xsd:string`) and `_diepte` (`xsd:decimal`, meter) |
 
 ## Notes
 

@@ -47,9 +47,9 @@ test('composite with relevantRiepr on its parts applies to that type', () => {
 test('properties of subtypes are listed separately', () => {
     // filter:filter has the general properties; diepte_pomp only applies to its subtype filter:pomp.
     const result = getTypeProperties({ type: 'filter:filter' });
-    assert.ok(result.properties.some(p => p.id === 'filter-eigenschappen:diepte'));
-    assert.ok(!result.properties.some(p => p.id === 'filter-eigenschappen:diepte_pomp'));
-    assert.deepEqual(result.subtypeProperties?.map(p => p.id), ['filter-eigenschappen:diepte_pomp']);
+    assert.ok(result.properties.some(p => p.id === 'filtereigenschappen:diepte'));
+    assert.ok(!result.properties.some(p => p.id === 'filtereigenschappen:diepte_pomp'));
+    assert.deepEqual(result.subtypeProperties?.map(p => p.id), ['filtereigenschappen:diepte_pomp']);
     assert.equal(getTypeProperties({ type: 'stookinstallatie' }).subtypeProperties, undefined);
 });
 

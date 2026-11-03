@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // MCP server for querying and managing the systeemtype and eigenschappen code
-// lists of codelijst-rie-iepr (src/source/<systeem>_type.csv and <systeem>_eigenschappen.csv).
+// lists of codelijst-rie-iepr (src/source/<systeem>types.csv and <systeem>eigenschappen.csv).
 
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
@@ -23,9 +23,9 @@ const server = new McpServer(
     { name: 'codelijst-rie-iepr', version: '0.2.0' },
     {
         instructions:
-            'Answers questions about and manages the systeemtypes (<systeem>_type.csv) and eigenschappen (<systeem>_eigenschappen.csv) ' +
+            'Answers questions about and manages the systeemtypes (<systeem>types.csv) and eigenschappen (<systeem>eigenschappen.csv) ' +
             `code lists for the systems ${SYSTEMS.join(', ')}, including the inline selection lists they use, and the ` +
-            'operationele flows (thema_type.csv, operationeel_*.csv: themas, steps, fields and the form they produce). ' +
+            'operationele flows (thematypes.csv, operationeel_*.csv: themas, steps, fields and the form they produce). ' +
             'Always look at the existing entries first, run every write tool with dryRun=true, show the preview to the user, ' +
             'and only then write with dryRun=false. Every real write runs npm run csv:fix, is validated with `npm run generate_skos` and rolled back when it fails. ' +
             'Inline concept schemes in eigenschappen use the id conceptscheme:<object>_<list> where object is the system or a type, e.g. conceptscheme:lozingspunt_lozingsplaats. Collections use collectie:<name>. ' +
@@ -49,7 +49,7 @@ const definition = z.string().describe('Dutch definition: one full sentence endi
 const datatype = z.enum(DATATYPES).describe('relevantDataType for a free-input value.');
 const relation = z.string().describe(`How the value relates to the property, default rdfs:value. Usual: ${KNOWN_RELATIONS.join(', ')}.`);
 const relevantProperty = z.string().describe('External property this corresponds to, e.g. dbo:height, dbo:depth, dbo:diameter.');
-const appliesTo = z.array(z.string()).describe('relevantRiepr: types from <systeem>_type.csv (code or CURIE) this property applies to, or ["all"] for every type.');
+const appliesTo = z.array(z.string()).describe('relevantRiepr: types from <systeem>types.csv (code or CURIE) this property applies to, or ["all"] for every type.');
 const unit = z.array(z.string()).describe('relevantUnit for numeric datatypes: a CSOR unit like csor_eenheid:E_59 (m), or a collectie of units to choose from.');
 const codeList = z.array(z.string()).describe('relevantCodeList: concept scheme(s) or collection(s) to select from.');
 const codeListSource = z.enum(['published', 'inline']).describe('Whether codeList is an already published list or one defined inline in the eigenschappen CSV. Ask the user when unsure.');
@@ -109,7 +109,7 @@ async function askCodeListSource(lists: string[]): Promise<CodeListSource | unde
 server.registerTool('list_types', {
     title: 'List systeemtypes',
     description:
-        'List the types in <systeem>_type.csv with their labels, definitions and broader type, e.g. to answer "Welke typen ' +
+        'List the types in <systeem>types.csv with their labels, definitions and broader type, e.g. to answer "Welke typen ' +
         'installaties bestaan er?" (subtypes have a broader; isOnzichtbaar types are structural and not offered to users). ' +
         'Also call this before adding, editing or deleting a type.',
     inputSchema: { system },
@@ -119,7 +119,7 @@ server.registerTool('list_types', {
 server.registerTool('list_properties', {
     title: 'List eigenschappen',
     description:
-        'List the eigenschappen in <systeem>_eigenschappen.csv: top-level properties, composite properties with their parts, ' +
+        'List the eigenschappen in <systeem>eigenschappen.csv: top-level properties, composite properties with their parts, ' +
         'the types each applies to (relevantRiepr), datatypes, units, code lists, and the inline concept schemes/collections ' +
         'defined in the same file. Use these as examples before adding a property, and to find what to edit or delete.',
     inputSchema: { system },
@@ -210,8 +210,8 @@ server.registerTool('generate_skos', {
 server.registerTool('add_type', {
     title: 'Add a systeemtype',
     description:
-        'Add a type (skos:Concept) to <systeem>_type.csv. The id becomes <systeem>:<code>; a top-level type gets ' +
-        'topConceptOf=conceptscheme:<systeem>_type, a subtype gets broader=<parent> instead. isMeetbaar defaults to true ' +
+        'Add a type (skos:Concept) to <systeem>types.csv. The id becomes <systeem>:<code>; a top-level type gets ' +
+        'topConceptOf=conceptscheme:<systeem>types, a subtype gets broader=<parent> instead. isMeetbaar defaults to true ' +
         '(every systeemtype so far is meetbaar); set isOnzichtbaar for structural types users should not pick, or for hierarchical grouping parents like schoorsteen.',
     inputSchema: {
         system,
@@ -230,7 +230,7 @@ server.registerTool('add_type', {
 server.registerTool('update_type', {
     title: 'Edit a systeemtype',
     description:
-        'Change fields of an existing type in <systeem>_type.csv. Only the fields in `set` change; null clears a field. ' +
+        'Change fields of an existing type in <systeem>types.csv. Only the fields in `set` change; null clears a field. ' +
         'Setting or clearing broader moves it below another type or makes it a top-level type. The code (and so the URI) ' +
         'cannot change: to rename, add a new type and delete the old one.',
     inputSchema: {
@@ -252,7 +252,7 @@ server.registerTool('update_type', {
 server.registerTool('delete_type', {
     title: 'Delete a systeemtype',
     description:
-        'Remove a type from <systeem>_type.csv; after publication it is marked withdrawn. Refused while the type has ' +
+        'Remove a type from <systeem>types.csv; after publication it is marked withdrawn. Refused while the type has ' +
         'subtypes or is referenced elsewhere (e.g. operationele codelijsten). Eigenschappen that list it in relevantRiepr ' +
         'block the delete unless removeFromProperties=true, which removes it from them (an eigenschap that would apply to no ' +
         'type is never left behind). Confirm with the user before deleting.',
@@ -272,7 +272,7 @@ server.registerTool('delete_type', {
 server.registerTool('add_property', {
     title: 'Add an eigenschap',
     description:
-        'Add a property (eigenschap) to <systeem>_eigenschappen.csv. The id becomes <systeem>-eigenschappen:<code>.\n' +
+        'Add a property (eigenschap) to <systeem>eigenschappen.csv. The id becomes <systeem>eigenschappen:<code>.\n' +
         '- Typering: a selection between kinds of the system itself ("Type emissiepunt", "Type stookinstallatie", or options ' +
         'that are existing or withdrawn types) is refused: those are subtypes, add them with add_type.\n' +
         '- Simple value: give datatype (and unit for numbers); relation defaults to rdfs:value.\n' +
@@ -308,7 +308,7 @@ server.registerTool('add_property', {
 server.registerTool('update_property', {
     title: 'Edit an eigenschap',
     description:
-        'Change fields of an existing eigenschap in <systeem>_eigenschappen.csv. Only the fields in `set` change; null clears ' +
+        'Change fields of an existing eigenschap in <systeem>eigenschappen.csv. Only the fields in `set` change; null clears ' +
         'a field (e.g. datatype: null together with a new codeList to turn a value into a selection). A new codeList needs ' +
         'codeListSource (ask the user whether it is published or inline). Setting parent moves a part to another composite. ' +
         'The code (and so the URI) cannot change: to rename, add a new eigenschap and delete the old one.',
@@ -339,7 +339,7 @@ server.registerTool('update_property', {
 server.registerTool('delete_property', {
     title: 'Delete an eigenschap',
     description:
-        'Remove an eigenschap from <systeem>_eigenschappen.csv; a composite is removed together with its parts. After ' +
+        'Remove an eigenschap from <systeem>eigenschappen.csv; a composite is removed together with its parts. After ' +
         'publication it is marked withdrawn. Refused while other rows reference it. Inline selection lists that nothing ' +
         'uses afterwards are reported, and removed too with deleteUnusedLists=true. Confirm with the user before deleting.',
     inputSchema: {
@@ -358,7 +358,7 @@ server.registerTool('delete_property', {
 server.registerTool('add_selection_list', {
     title: 'Add an inline selection list',
     description:
-        'Create (or with extend=true, add entries to) a selection list inside <systeem>_eigenschappen.csv, for use as ' +
+        'Create (or with extend=true, add entries to) a selection list inside <systeem>eigenschappen.csv, for use as ' +
         'codeList (or unit) of a property. Only use this when the user confirmed the list is NOT already published.\n' +
         'Refused for a typering (a list of kinds of the system or one of its types): add subtypes with add_type instead.\n' +
         '- kind=conceptscheme: new options defined here. Id conceptscheme:<object>_<list>, where object is the system or a type of the system. Example: conceptscheme:lozingspunt_lozingsplaats. Options get the prefix ' +
@@ -383,7 +383,7 @@ const list = z.string().describe('The inline list: CURIE (conceptscheme:… or c
 server.registerTool('update_selection_list', {
     title: 'Edit an inline selection list',
     description:
-        'Change the label/definition of an inline concept scheme or collection in <systeem>_eigenschappen.csv, and/or the ' +
+        'Change the label/definition of an inline concept scheme or collection in <systeem>eigenschappen.csv, and/or the ' +
         'label/definition of its options. Members of a collection are published concepts and cannot be edited here. ' +
         'To add entries use add_selection_list with extend=true; to remove them use remove_list_entries.',
     inputSchema: {
@@ -420,7 +420,7 @@ server.registerTool('delete_selection_list', {
     title: 'Delete an inline selection list',
     description:
         'Delete an inline concept scheme (with its options) or collection (with its membership rows) from ' +
-        '<systeem>_eigenschappen.csv. Refused while an eigenschap still uses it as codeList or unit: update or delete that ' +
+        '<systeem>eigenschappen.csv. Refused while an eigenschap still uses it as codeList or unit: update or delete that ' +
         'eigenschap first (delete_property with deleteUnusedLists=true does both). Published lists elsewhere cannot be deleted here.',
     inputSchema: { system, list, dryRun },
     annotations: destructive,
@@ -433,7 +433,7 @@ server.registerTool('delete_selection_list', {
 server.registerTool('list_flows', {
     title: 'Operationele flows',
     description:
-        'List the thematische stromen (thema_type.csv) with the steps of each flow. A flow starts at the thema, whose vervolgstap ' +
+        'List the thematische stromen (thematypes.csv) with the steps of each flow. A flow starts at the thema, whose vervolgstap ' +
         'is the first step (a concept scheme in operationeel_*.csv); fields with vervolgstap lead to the next step. Also reports ' +
         'steps no thema reaches, option lists (used and unused) and operationeel_*.csv files missing from config.yml.',
     inputSchema: {},
@@ -472,7 +472,7 @@ server.registerTool('get_flow_item', {
 server.registerTool('validate_flows', {
     title: 'Validate operationele flows',
     description:
-        'Quick check of thema_type.csv and operationeel_*.csv: vervolgstap targets, conditions, parts, ordering (_ui_after siblings, ' +
+        'Quick check of thematypes.csv and operationeel_*.csv: vervolgstap targets, conditions, parts, ordering (_ui_after siblings, ' +
         'cycles, several _ui_first), symmetric related, code lists, placeholders (http://TODO), unreachable steps, unused option ' +
         'lists and files missing from config.yml.',
     inputSchema: {},
@@ -511,7 +511,7 @@ const fieldSchema = {
 server.registerTool('add_flow', {
     title: 'Nieuwe thematische stroom',
     description:
-        'Create a new flow: a thema in thema_type.csv, a new src/source/operationeel_<code>.csv with its first step, the file ' +
+        'Create a new flow: a thema in thematypes.csv, a new src/source/operationeel_<code>.csv with its first step, the file ' +
         'in config.yml (source.codelijst_csv) and the id prefix <code>: in config.yml and README.md. Then add fields with add_field.',
     inputSchema: {
         code: z.string().describe('Lowercase with hyphens, e.g. "afval" or "zelfcontrole-afval"; becomes thema:<code> and the field prefix.'),

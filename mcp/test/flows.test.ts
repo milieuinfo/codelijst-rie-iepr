@@ -59,7 +59,7 @@ test('get_flow gives a readable outline', () => {
 
 test('add_flow creates the thema, file, config entry and prefix; fields get that prefix', () => {
     addFlow({ code: 'afval', prefLabel: 'Afval', definition: 'Rapportering over afval.', dryRun: false });
-    assert.match(line('thema_type.csv', 'thema:afval')!, /,Afval,THEMA_AFVAL,Rapportering over afval\.,conceptscheme:operationeel_afval,/);
+    assert.match(line('thematypes.csv', 'thema:afval')!, /,Afval,THEMA_AFVAL,Rapportering over afval\.,conceptscheme:operationeel_afval,/);
     assert.match(read('operationeel_afval.csv'), /^_id,_type,.*\nconceptscheme:operationeel_afval,skos:ConceptScheme,/);
     assert.match(read('operationeel_afval.csv'), /,variabele,minValue,maxValue,isVerplicht,/);
     assert.match(read('config.yml'), /- operationeel_afval\.csv/);
