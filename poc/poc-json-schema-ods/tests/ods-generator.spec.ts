@@ -4,12 +4,42 @@ import { ODSGenerator } from '../src/services/ods-generator.js';
 import { ODSImporter } from '../src/services/ods-importer.js';
 import { readOdf, odfCell, columnLetter } from '../src/services/odf.js';
 import { WorkbookError } from '../src/models/tabular-plan.js';
+import { workbookMetadata } from '../src/services/workbook-metadata.js';
 import { array, cells, identifier, instance, modifyTable, object, plan, reportingSchema, row, text } from './fixtures.js';
 
 const generator = new ODSGenerator();
 const importer = new ODSImporter();
 
 describe('Versioned, reversible ODS workbooks', () => {
+  it('uses escaped JSON pointers and detects altered column, row and parent mappings', async () => {
+    const compiled = plan(object({ 'a/b': array(object({ identifier, 'x~y': text }), 'Escaped') }));
+    const data = { 'a/b': [{ identifier: '0001', 'x~y': 'text' }] };
+    const workbook = await generator.generate({ plan: compiled, data });
+    const tables = await readOdf(workbook);
+    const table = tables.find(table => table.name === 'Escaped')!;
+    expect(table.rows.find(row => row.number === 1)!.cells[0].text).toBe('/a~1b/*');
+    expect(table.rows.find(row => row.number === 2)!.cells.map(cell => cell.text)).toContain('/x~0y');
+    const metadata = workbookMetadata(JSON.parse(tables.find(table => table.name === '_riepr')!.rows.slice(1)
+      .map(row => row.cells[0].text).join('')));
+    const baseline = Object.values(metadata.rows).find(row => row.instancePath === '/a~1b/0')!;
+    expect(baseline.parentInstancePath).toBe('');
+    for (const change of ['column', 'row', 'parent'] as const) {
+      const edited = structuredClone(metadata);
+      if (change === 'column') edited.jsonMapping[compiled.records[1].id].columns[compiled.records[1].columns[0].id] = '/wrong';
+      else {
+        const row = Object.values(edited.rows).find(row => row.instancePath === '/a~1b/0')!;
+        if (change === 'row') row.instancePath = '/wrong/0';
+        else row.parentInstancePath = '/wrong';
+      }
+      const invalid = await modifyTable(workbook, '_riepr', rows =>
+        [rows[0], row([odfCell(JSON.stringify(edited))])]);
+      await expect(importer.import(invalid, compiled)).rejects.toThrow(/JSON.*path/);
+    }
+    const invalidColumn = await modifyTable(workbook, 'Escaped', rows =>
+      [rows[0], row(cells(rows[1]).map((cell, index) => index === 5 ? odfCell('/wrong') : cell)), ...rows.slice(2)]);
+    await expect(importer.import(invalidColumn, compiled)).rejects.toThrow('column metadata');
+  });
+
   it('round-trips all values, types, empty containers and independent nested arrays without rounding', async () => {
     const compiled = plan(reportingSchema);
     const original = instance();

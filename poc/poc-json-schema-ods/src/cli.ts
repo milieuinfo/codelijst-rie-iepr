@@ -8,6 +8,7 @@ import { ODSGenerator } from './services/ods-generator.js';
 import { ODSImporter } from './services/ods-importer.js';
 import { referenceData, referenceContext } from './services/workbook-metadata.js';
 import { collectCsorValues, fetchCsorLabels } from './services/csor-labels.js';
+import { generationFixture } from './services/generation-fixture.js';
 import { schemaObject, generationWarning } from 'codelijst-rie-iepr-poc-json-schema';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -67,7 +68,10 @@ async function main(): Promise<void> {
         console.log(`Imported ${output}`);
       } else {
         const data: unknown = command === 'export' ? JSON.parse(await readFile(resolve(args.get('--data')!), 'utf8')) : undefined;
-        const workbook = await new ODSGenerator().generate({ plan, data, references, referenceContext: context, label: value => enricher!.resolve(value).displayLabel });
+        const workbook = await new ODSGenerator().generate({
+          plan, data, references, referenceContext: context, label: value => enricher!.resolve(value).displayLabel,
+          validationData: command === 'template' ? await generationFixture(plan) : undefined,
+        });
         const workbookName = schema['x-table-workbook'] ?? `${entry.path.split('/').at(-2)}.ods`;
         if (typeof workbookName !== 'string' || !/^[^/\\]+\.ods$/.test(workbookName)) throw new Error(`Invalid workbook filename: ${String(workbookName)}`);
         const output = resolve(args.get('--out') ?? join(root, 'output'), entry.theme!, workbookName);

@@ -1,10 +1,14 @@
 import JSZip from 'jszip';
+import { isDeepStrictEqual } from 'node:util';
+import { materializeDerivedValues } from 'codelijst-rie-iepr-poc-json-schema';
 import type { ReferenceRecord, ReferenceContext } from 'codelijst-rie-iepr-poc-json-schema';
 import type { CellValue, TabularPlan, WorkbookRow } from '../models/tabular-plan.js';
 import { cellValue, workbookRows } from './record-codec.js';
 import { columnLetter, escapeXml, odfCell, odfRow } from './odf.js';
 import { automaticStyles, columnStyle } from './workbook-styles.js';
 import { businessLayout, identifierColumn, inputColumns, layoutColumns, parentColumn, parentTitle, technicalColumns } from './workbook-layout.js';
+import { machineColumns } from './json-mapping.js';
+import { ODSImporter } from './ods-importer.js';
 export { technicalColumns } from './workbook-layout.js';
 
 const templateRows = 1000;
@@ -15,6 +19,7 @@ export interface ODSOptions {
   references?: ReferenceRecord[];
   referenceContext?: ReferenceContext;
   label?: (value: string) => string;
+  validationData?: { data: unknown; references?: ReferenceRecord[]; referenceContext?: ReferenceContext };
 }
 
 export class ODSGenerator {
@@ -55,8 +60,8 @@ export class ODSGenerator {
       const columns = layoutColumns(options.plan, record);
       const headings = fields.map(column => column.title + (column.required ? ' *' : ''));
       const rows = [
-        odfRow([odfCell(`@record:${record.id}`)], true),
-        odfRow(columns.map(value => odfCell(value)), true),
+        odfRow([odfCell(metadata.jsonMapping[record.id].pathTemplate)], true),
+        odfRow(machineColumns(options.plan, record.id).map(value => odfCell(value)), true),
         odfRow((business ? [...(parentColumn(options.plan, record) ? [parentTitle(options.plan, record)] : []), ...headings]
           : ['Rij-ID', 'Bovenliggende rij-ID', 'Containers', 'Referentie', 'Bovenliggende referentie', ...headings])
           .map(value => odfCell(value, undefined, undefined, 'headerCell')), false, true),
@@ -109,7 +114,7 @@ export class ODSGenerator {
     }
     if (chunk) chunks.push(chunk);
     sheets.push(tableXml('_riepr', [
-      odfRow([odfCell('@metadata:v1')]),
+      odfRow([odfCell('@metadata:v2')]),
       ...chunks.map(part => odfRow([odfCell(part)])),
     ], 1, 0, true));
 
@@ -131,7 +136,20 @@ export class ODSGenerator {
     zip.file('META-INF/manifest.xml', '<?xml version="1.0"?><manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0" manifest:version="1.3">' +
       '<manifest:file-entry manifest:media-type="application/vnd.oasis.opendocument.spreadsheet" manifest:full-path="/"/>' +
       ['content.xml', 'styles.xml', 'meta.xml'].map(path => `<manifest:file-entry manifest:media-type="text/xml" manifest:full-path="${path}"/>`).join('') + '</manifest:manifest>');
-    return zip.generateAsync({ type: 'uint8array', compression: 'DEFLATE' });
+    const workbook = await zip.generateAsync({ type: 'uint8array', compression: 'DEFLATE' });
+    if (options.data !== undefined) {
+      const imported = await new ODSImporter().import(workbook, options.plan);
+      const expected = materializeDerivedValues(options.plan.schema, options.data, options.plan.dependencies);
+      if (!isDeepStrictEqual(imported, expected)) throw new Error('Generated ODS failed JSON round-trip validation.');
+    } else if (options.validationData) {
+      await this.generate({
+        ...options, data: options.validationData.data,
+        references: options.validationData.references ?? options.references,
+        referenceContext: options.validationData.referenceContext ?? options.referenceContext,
+        validationData: undefined,
+      });
+    }
+    return workbook;
   }
 }
 

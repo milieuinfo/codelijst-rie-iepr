@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "description": "Transform JSON Schema outputs into OpenDocument Spreadsheet (ODS) templates with enriched dropdown labels from codelist data",
   "type": "module",
+  "exports": {
+    "./browser": {
+      "types": "./dist/browser.d.ts",
+      "import": "./dist/browser.js"
+    }
+  },
   "scripts": {
     "predev": "node scripts/sync-schemas.mjs",
     "prebuild": "npm --prefix ../poc-json-schema run build",
@@ -12,6 +18,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@noble/hashes": "^1.8.0",
     "codelijst-rie-iepr-poc-json-schema": "file:../poc-json-schema",
     "fast-xml-parser": "^5.3.8",
     "jszip": "^3.10.1"

@@ -1,9 +1,9 @@
-import { createHash } from 'node:crypto';
-import { SchemaRegistry, schemaObject, pointerToken, SchemaValidator } from 'codelijst-rie-iepr-poc-json-schema';
+import { SchemaRegistry, schemaObject, pointerToken, SchemaValidator } from 'codelijst-rie-iepr-poc-json-schema/browser';
+import { hash } from './runtime.js';
 import type { JsonSchemaObject } from 'codelijst-rie-iepr-poc-json-schema';
 import type { RecordPlan, TabularPlan } from '../models/tabular-plan.js';
 
-export const hash = (value: string | Uint8Array): string => createHash('sha256').update(value).digest('hex');
+export { hash } from './runtime.js';
 export const pointer = (path: string[]): string => path.length ? '/' + path.map(pointerToken).join('/') : '';
 
 export function compileTabularPlan(

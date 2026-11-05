@@ -16,5 +16,8 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: true
   },
+  optimizeDeps: {
+    include: ['codelijst-rie-iepr-poc-json-schema-ods/browser']
+  },
   resolve: {}
 })

@@ -59,14 +59,25 @@ export interface WorkbookRow {
   values: Record<string, CellValue>;
 }
 
+export interface RecordJsonMapping {
+  pathTemplate: string;
+  parentPathTemplate?: string;
+  parentIdentifierPath?: string;
+  columns: Record<string, string>;
+}
+
 export interface WorkbookMetadata {
-  version: 1;
+  version: 2;
   schemaId: string;
   schemaSha256: string;
   sourceSha256: string;
   planSha256: string;
   lookups: Record<string, LookupChoice[]>;
-  rows: Record<string, { recordId: string; parentId?: string; reference: string; parentReference?: string }>;
+  rows: Record<string, {
+    recordId: string; parentId?: string; reference: string; parentReference?: string;
+    instancePath: string; parentInstancePath?: string;
+  }>;
+  jsonMapping: Record<string, RecordJsonMapping>;
   references: ReferenceRecord[];
   referenceContext?: ReferenceContext;
   layout?: 'business-v1';

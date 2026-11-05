@@ -18,6 +18,9 @@ export class CodelijstApp extends LitElement {
     p { margin-block: 1.2rem; }
     pre { white-space: pre-wrap; overflow-wrap: anywhere; }
     .downloads { display: flex; flex-wrap: wrap; gap: 1.2rem; margin-block: 1.6rem; }
+    .ods-import { margin-block: 1.6rem; }
+    .ods-import label { display: block; margin-block-end: 0.8rem; font-weight: bold; }
+    .ods-import input { max-width: 100%; font: inherit; }
   `]
   private snapshot?: SchemaSnapshot
   private lookups?: SchemaLookups
@@ -29,6 +32,10 @@ export class CodelijstApp extends LitElement {
   private validatedJson?: string
   private validated = false
   private revision = 0
+  private uploading = false
+  private uploadError?: string
+  private uploadMessage?: string
+  private uploadOpen = false
 
   override firstUpdated() { void this.load() }
 
@@ -65,6 +72,8 @@ export class CodelijstApp extends LitElement {
   }
 
   private selectionChanged() {
+    this.uploadError = undefined
+    this.uploadMessage = undefined
     this.validatedJson = undefined
     this.validated = false
     try { this.prepareEditor() }
@@ -89,6 +98,52 @@ export class CodelijstApp extends LitElement {
     this.revision++
     this.requestUpdate()
   }
+
+  private async uploadOds(event: Event) {
+    event.preventDefault()
+    event.stopPropagation()
+    const input = event.target as HTMLInputElement
+    const file = input.files?.[0]
+    input.value = ''
+    const editor = this.editor
+    const entry = this.entries.find(entry => entry.id === this.section)
+    const snapshot = this.snapshot
+    const year = this.year
+    if (!file || !editor || !entry || !snapshot || !year || this.uploading) return
+    const key = `${year}:${this.section}`
+    this.uploading = true
+    this.uploadError = undefined
+    this.uploadMessage = undefined
+    this.requestUpdate()
+    try {
+      if (!file.name.toLowerCase().endsWith('.ods')) throw new Error('Selecteer een ODS-bestand.')
+      if (file.size > 20 * 1024 * 1024) throw new Error('Het ODS-bestand mag maximaal 20 MB groot zijn.')
+      const { uploadOds } = await import('../services/ods-upload.js')
+      const imported = await uploadOds(new Uint8Array(await file.arrayBuffer()), {
+        schema: editor.schema, dependencies: [...snapshot.schemas.values()],
+        sourceSha256: snapshot.index.sourceSha256, schemaSha256: entry.sha256,
+        year, references: editor.references,
+      })
+      if (key !== `${this.year}:${this.section}` || editor !== this.editor) {
+        throw new Error('De selectie is gewijzigd tijdens de upload. Selecteer de juiste doorsnede en upload opnieuw.')
+      }
+      if (Object.keys(editor.draft).length &&
+          !window.confirm('De ODS vervangt alle huidige invoer voor deze doorsnede en dit productiejaar. Doorgaan?')) return
+      this.editors.set(key, imported)
+      this.validatedJson = undefined
+      this.validated = false
+      this.revision++
+      this.uploadMessage = `${file.name} is ingelezen. De gegevens staan in het formulier.`
+    } catch (error) {
+      this.uploadError = error instanceof Error ? error.message : String(error)
+    } finally {
+      this.uploading = false
+      this.requestUpdate()
+    }
+  }
+
+  private fieldLabel = (value: unknown): string =>
+    this.editor?.references.find(reference => reference.id === value)?.label ?? this.lookups?.label(value) ?? String(value)
 
   private isTable(node: JsonSchemaObject): boolean {
     const schema = this.editor!.resolve(node)
@@ -123,19 +178,36 @@ export class CodelijstApp extends LitElement {
     const context = properties.filter(([, node]) => !this.isTable(schemaObject(node)))
     return html`
       ${this.renderDownloads()}
+      <vl-button secondary type="button" aria-expanded=${this.uploadOpen}
+        aria-controls="ods-import-form" ?disabled=${this.uploading}
+        @click=${() => {
+          this.uploadOpen = !this.uploadOpen
+          this.requestUpdate()
+        }}>Ingevulde ODS importeren</vl-button>
+      <div id="ods-import-form" class="ods-import" role="group" aria-label="ODS importeren"
+        aria-busy=${this.uploading} ?hidden=${!this.uploadOpen}>
+        <label for="ods-upload">Ingevulde ODS uploaden</label>
+        <input id="ods-upload" type="file" accept=".ods,application/vnd.oasis.opendocument.spreadsheet"
+          ?disabled=${this.uploading} @change=${this.uploadOds}>
+        <p>Upload een ingevuld sjabloon voor deze doorsnede en dit productiejaar. Na controle vervangt het de huidige invoer.</p>
+        ${this.uploading ? html`<p role="status">ODS wordt gecontroleerd...</p>` : nothing}
+        ${this.uploadMessage ? html`<p role="status">${this.uploadMessage}</p>` : nothing}
+        ${this.uploadError ? html`<vl-alert type="error" title="ODS kon niet worden ingelezen"
+          message=${this.uploadError}></vl-alert>` : nothing}
+      </div>
       <vl-alert type="info" title="Fictieve structurele referenties"
         message="De keuzelijsten van installaties en meetpunten bevatten demonstratiegegevens. Er is geen backend of permanente opslag."></vl-alert>
       ${context.length ? html`<section aria-label="Rapporteringscontext">
         <h2>Rapporteringscontext</h2>
         <schema-rich-table .editor=${editor}
           .node=${{ ...editor.schema, properties: Object.fromEntries(context) }}
-          .revision=${this.revision} .label=${this.lookups.label} @schema-edit=${this.edited}></schema-rich-table>
+          .revision=${this.revision} .label=${this.fieldLabel} @schema-edit=${this.edited}></schema-rich-table>
       </section>` : nothing}
       ${properties.filter(([, node]) => this.isTable(schemaObject(node))).map(([name, node]) => html`
         <section>
           <h2>${schemaObject(node).title || name}</h2>
           <schema-rich-table .editor=${editor} .node=${schemaObject(node)} .path=${[name]}
-            .revision=${this.revision} .label=${this.lookups!.label} @schema-edit=${this.edited}></schema-rich-table>
+            .revision=${this.revision} .label=${this.fieldLabel} @schema-edit=${this.edited}></schema-rich-table>
         </section>`)}
       <p>Grijze velden zijn niet van toepassing. Hun conceptwaarden blijven bewaard, maar komen niet in de gevalideerde JSON.</p>
       <vl-button @click=${this.validate}>Valideren en JSON tonen</vl-button>

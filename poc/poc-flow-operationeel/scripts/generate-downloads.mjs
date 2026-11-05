@@ -7,6 +7,7 @@ import { compileTabularPlan } from '../../poc-json-schema-ods/dist/services/tabu
 import { ODSGenerator } from '../../poc-json-schema-ods/dist/services/ods-generator.js'
 import { CodelistEnricher } from '../../poc-json-schema-ods/dist/services/codelist-enricher.js'
 import { referenceData } from '../../poc-json-schema-ods/dist/services/workbook-metadata.js'
+import { generationFixture } from '../../poc-json-schema-ods/dist/services/generation-fixture.js'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 
@@ -42,6 +43,7 @@ try {
     })
     const workbook = await new ODSGenerator().generate({
       plan, references, label: value => labels.resolve(value).displayLabel,
+      validationData: await generationFixture(plan),
     })
     const output = join(input, 'templates', posix.dirname(entry.path), filename)
     await mkdir(dirname(output), { recursive: true })

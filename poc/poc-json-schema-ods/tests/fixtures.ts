@@ -68,6 +68,14 @@ function regex(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+export async function tableRows(input: Uint8Array, sheet: string): Promise<string[]> {
+  const zip = await JSZip.loadAsync(input);
+  const xml = await zip.file('content.xml')!.async('string');
+  const body = xml.match(new RegExp(`<table:table table:name="${regex(sheet)}"[^>]*>([\\s\\S]*?)</table:table>`))?.[1];
+  if (!body) throw new Error(`Missing test sheet ${sheet}.`);
+  return [...body.matchAll(/<table:table-row\b[^>]*>[\s\S]*?<\/table:table-row>/g)].map(match => match[0]);
+}
+
 export async function modifyTable(
   input: Uint8Array, sheet: string, change: (rows: string[]) => string[],
 ): Promise<Uint8Array> {

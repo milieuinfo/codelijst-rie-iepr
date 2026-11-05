@@ -1,5 +1,5 @@
-import { randomUUID } from 'node:crypto';
-import { materializeDerivedValues } from 'codelijst-rie-iepr-poc-json-schema';
+import { randomUUID, equalJson } from './runtime.js';
+import { materializeDerivedValues } from 'codelijst-rie-iepr-poc-json-schema/browser';
 import type { ReferenceRecord, ReferenceContext } from 'codelijst-rie-iepr-poc-json-schema';
 import type { CellValue, ContainerPlan, RecordPlan, TabularColumn, TabularPlan, WorkbookDiagnostic, WorkbookMetadata } from '../models/tabular-plan.js';
 import { WorkbookError } from '../models/tabular-plan.js';
@@ -9,6 +9,7 @@ import { columnLetter, readOdf } from './odf.js';
 import type { OdfCell, OdfTable } from './odf.js';
 import { businessLayout, identifierColumn, inputColumns, layoutColumns, parentColumn } from './workbook-layout.js';
 import { workbookMetadata } from './workbook-metadata.js';
+import { jsonMapping, machineColumns } from './json-mapping.js';
 
 interface ImportedRow {
   id: string;
@@ -99,8 +100,8 @@ export class ODSImporter {
     if (formulas.length) throw new WorkbookError(formulas);
     const marker = (table: OdfTable): string | undefined =>
       table.rows.find(row => row.number === 1)?.cells.find(cell => cell.text.startsWith('@'))?.text;
-    const metaTables = tables.filter(table => marker(table) === '@metadata:v1');
-    if (metaTables.length !== 1) throw new WorkbookError([{ sheet: '_riepr', message: 'Required workbook metadata is missing or duplicated; legacy workbooks cannot be imported.' }]);
+    const metaTables = tables.filter(table => marker(table) === '@metadata:v2');
+    if (metaTables.length !== 1) throw new WorkbookError([{ sheet: '_riepr', message: 'Required workbook metadata is missing or duplicated; legacy workbooks cannot be imported. Regenerate the workbook.' }]);
     const metaTable = metaTables[0];
     let metadata: WorkbookMetadata;
     try {
@@ -114,6 +115,24 @@ export class ODSImporter {
       throw new WorkbookError([{ sheet: metaTable.name, message: 'Workbook schema/source version differs from the selected generated schema. Regenerate the workbook.' }]);
     }
     const business = businessLayout(plan);
+    if (!equalJson(metadata.jsonMapping, jsonMapping(plan))) {
+      throw new WorkbookError([{ sheet: metaTable.name, message: 'Workbook JSON path mapping differs from the selected schema. Regenerate the workbook.' }]);
+    }
+    const seenPaths = new Set<string>();
+    for (const baseline of Object.values(metadata.rows)) {
+      const record = plan.records.find(record => record.id === baseline.recordId);
+      const parent = baseline.parentId ? metadata.rows[baseline.parentId] : undefined;
+      const prefix = parent && record ? `${parent.instancePath}${pointer(record.path)}/` : undefined;
+      const valid = record && (record.id === 'root'
+        ? !baseline.parentId && baseline.instancePath === '' && baseline.parentInstancePath === undefined
+        : parent !== undefined && parent.recordId === record.parentId && baseline.parentInstancePath === parent.instancePath &&
+          prefix !== undefined && baseline.instancePath.startsWith(prefix) &&
+          /^(0|[1-9]\d*)$/.test(baseline.instancePath.slice(prefix.length)));
+      if (!valid || seenPaths.has(baseline.instancePath)) {
+        throw new WorkbookError([{ sheet: metaTable.name, message: 'Invalid or duplicate JSON row/parent path mapping.' }]);
+      }
+      seenPaths.add(baseline.instancePath);
+    }
     if (business !== (metadata.layout === 'business-v1') || (business && !metadata.businessRows)) {
       throw new WorkbookError([{ sheet: metaTable.name, message: 'Workbook layout differs from the selected schema. Regenerate the workbook.' }]);
     }
@@ -133,21 +152,24 @@ export class ODSImporter {
     const used = new Set([metaTable, lookupTables[0]]);
     const matched = new Set<string>();
     for (const record of plan.records) {
-      const matching = tables.filter(table => marker(table) === `@record:${record.id}`);
+      const matching = tables.filter(table =>
+        table.rows.find(row => row.number === 1)?.cells[0]?.text === metadata.jsonMapping[record.id].pathTemplate);
       if (matching.length !== 1) throw new WorkbookError([{ sheet: record.sheetName, message: 'Required record sheet metadata is missing or duplicated.' }]);
       const table = matching[0];
       used.add(table);
       const expected = layoutColumns(plan, record);
+      const paths = machineColumns(plan, record.id);
       const machineRow = table.rows.find(row => row.number === 2) ?? (business && !expected.length ? { number: 2, cells: [] } : undefined);
       const header = table.rows.find(row => row.number === 3) ?? (business && !expected.length ? { number: 3, cells: [] } : undefined);
       if (!machineRow || !header) throw new WorkbookError([{ sheet: table.name, message: 'Required column metadata/header rows were lost.' }]);
       const indices = new Map<string, number>();
       machineRow.cells.forEach((cell, index) => {
-        if (!cell.text) return;
-        if (!expected.includes(cell.text) || indices.has(cell.text)) {
+        if (!cell.text && !paths.includes('')) return;
+        const id = expected[paths.indexOf(cell.text)];
+        if (id === undefined || indices.has(id)) {
           diagnostics.push({ sheet: table.name, row: 2, column: columnLetter(index), message: 'Unexpected or duplicate column identity.' });
         }
-        indices.set(cell.text, index);
+        if (id !== undefined) indices.set(id, index);
       });
       if (expected.some(id => !indices.has(id))) {
         throw new WorkbookError([{ sheet: table.name, row: 2, message: 'Required column metadata was lost. Regenerate the workbook.' }]);

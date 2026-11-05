@@ -57,7 +57,19 @@ explicitly. `pnpm sync:schemas` performs just the schema runtime build and sync.
   visible, grey and disabled. Their values remain in the in-memory draft and
   return when reactivated, but are omitted from validated JSON.
 - Drafts are retained separately per year and section until the page reloads.
-  There is no backend, import or persistent storage.
+  There is no backend or persistent storage.
+- “Ingevulde ODS importeren” opens a collapsed upload panel. Its file chooser
+  imports a filled template for the selected section and
+  year, entirely in the browser (maximum 20 MB). The shared ODS importer verifies
+  schema/source fingerprints, JSON mappings, business parent links and values
+  before replacing the draft. Existing input requires confirmation; a failed
+  or cancelled import leaves it intact. Imported singleton and nested records
+  are editable through the same controls and validation as manually entered data.
+  Workbook reference labels are retained as demonstration choices, and references
+  from another reporting year are rejected. Only current generated templates
+  are supported, not arbitrary or legacy spreadsheets.
+  The importer remains lazy-loaded; its dependencies are pre-optimized at dev
+  server startup so the first upload does not trigger a Vite reload.
 - Required fields have markers. Dates and datetimes use the Flux datepicker
   (`type="date-time"` for `xsd:dateTime`). Date-time input uses the browser's
   local timezone and is stored as a UTC ISO timestamp; dates remain `YYYY-MM-DD`.

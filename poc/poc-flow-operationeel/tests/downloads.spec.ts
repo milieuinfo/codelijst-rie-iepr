@@ -39,6 +39,7 @@ for (const [section, filename, sheets] of [
     expect(tables.map(table => table.name)).toEqual(['Voorblad', ...sheets, 'Keuzelijsten', '_riepr'])
     const metadata = JSON.parse(tables.find(table => table.name === '_riepr')!.rows
       .slice(1).map(row => row.cells[0].text).join(''))
+    expect(metadata.version).toBe(2)
     expect(metadata.schemaId).toBe(schema.$id)
     expect(metadata.schemaSha256).toBe(entry.sha256)
     expect(metadata.sourceSha256).toBe(index.sourceSha256)
@@ -46,8 +47,11 @@ for (const [section, filename, sheets] of [
       expect.objectContaining({ recordId: 'root' }),
     ])
     for (const sheet of sheets) {
-      const headings = tables.find(table => table.name === sheet)!.rows.find(row => row.number === 3)!
+      const table = tables.find(table => table.name === sheet)!
+      expect(table.rows.find(row => row.number === 1)!.cells[0].text).toMatch(/^\/[^ ]+\/\*$/)
+      const headings = table.rows.find(row => row.number === 3)!
       expect(headings.cells.some(cell => cell.text.startsWith('Eenheid'))).toBe(true)
+      expect(table.rows.find(row => row.number === 2)!.cells.every(cell => cell.text.startsWith('/'))).toBe(true)
     }
     if (section === 'Kwaliteitsmeting') {
       const result = schema.properties.kwaliteitsmeting.items.properties.hasMember.items.properties.hasResult

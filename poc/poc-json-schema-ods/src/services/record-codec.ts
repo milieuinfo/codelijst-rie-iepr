@@ -1,11 +1,12 @@
-import { randomUUID } from 'node:crypto';
-import { SchemaValidator, SemanticValidator, pointerToken, schemaObject, materializeDerivedValues } from 'codelijst-rie-iepr-poc-json-schema';
+import { randomUUID } from './runtime.js';
+import { SchemaValidator, SemanticValidator, pointerToken, schemaObject, materializeDerivedValues } from 'codelijst-rie-iepr-poc-json-schema/browser';
 import type { ReferenceRecord, ReferenceContext } from 'codelijst-rie-iepr-poc-json-schema';
 import type { CellValue, LookupChoice, RecordPlan, TabularPlan, WorkbookMetadata, WorkbookRow } from '../models/tabular-plan.js';
 import { WorkbookError } from '../models/tabular-plan.js';
 import { planFingerprint, pointer } from './tabular-plan.js';
 import { referenceData } from './workbook-metadata.js';
 import { businessLayout, identifierColumn } from './workbook-layout.js';
+import { jsonMapping } from './json-mapping.js';
 
 export function isObject(value: unknown): value is Record<string, unknown> {
   return !!value && typeof value === 'object' && !Array.isArray(value);
@@ -88,7 +89,8 @@ export function workbookRows(
   if (options.data !== undefined) validateData(plan, options.data, references, options.referenceContext);
   const tables = new Map(plan.records.map(record => [record.id, [] as WorkbookRow[]]));
   const entities = new Map<string, WorkbookRow>();
-  const extract = (record: RecordPlan, value: unknown, parent?: WorkbookRow): void => {
+  const paths = new Map<string, string>();
+  const extract = (record: RecordPlan, value: unknown, parent?: WorkbookRow, instancePath = ''): void => {
     const values: Record<string, CellValue> = {};
     for (const column of record.columns) {
       const current = getPath(value, column.path);
@@ -114,17 +116,19 @@ export function workbookRows(
     row.reference = recordReference(record, values, row.id);
     tables.get(record.id)!.push(row);
     entities.set(row.id, row);
+    paths.set(row.id, instancePath);
     for (const child of plan.records.filter(candidate => candidate.parentId === record.id)) {
       const found = getPath(value, child.path);
       if (!found.present) continue;
       if (!Array.isArray(found.value)) throw new Error(`Expected a record array at ${pointer(child.path)}.`);
-      for (const item of found.value) extract(child, item, row);
+      found.value.forEach((item, index) => extract(child, item, row, `${instancePath}${pointer(child.path)}/${index}`));
     }
   };
   extract(plan.records[0], options.data ?? {});
   const metadata: WorkbookMetadata = {
-    version: 1, schemaId: plan.schemaId, schemaSha256: plan.schemaSha256, sourceSha256: plan.sourceSha256,
+    version: 2, schemaId: plan.schemaId, schemaSha256: plan.schemaSha256, sourceSha256: plan.sourceSha256,
     planSha256: planFingerprint(plan), lookups: {}, rows: {}, references, referenceContext: options.referenceContext,
+    jsonMapping: jsonMapping(plan),
   };
   if (businessLayout(plan)) {
     metadata.layout = 'business-v1';
@@ -179,7 +183,11 @@ export function workbookRows(
   }
   for (const [recordId, rows] of tables) for (const row of rows) {
     row.parentReference = row.parentId ? entities.get(row.parentId)!.reference : undefined;
-    metadata.rows[row.id] = { recordId, parentId: row.parentId, reference: row.reference, parentReference: row.parentReference };
+    metadata.rows[row.id] = {
+      recordId, parentId: row.parentId, reference: row.reference, parentReference: row.parentReference,
+      instancePath: paths.get(row.id)!,
+      ...(row.parentId ? { parentInstancePath: paths.get(row.parentId)! } : {}),
+    };
     if (metadata.businessRows) metadata.businessRows[row.id] = { values: row.values, containers: row.containers };
   }
   return { tables, metadata };

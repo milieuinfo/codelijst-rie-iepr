@@ -51,17 +51,19 @@ De volgende conceptschema's zijn opgenomen (id onder `https://data.omgeving.vlaa
 
 | Conceptschema | Beschrijving |
 |---|---|
-| `thematypes` | Thematische stromen (lucht, water, grondwater, zelfcontrole lucht, zelfcontrole water, grondstoffen) |
 | `operationeel_<stroom>` en hun stappen (bv. `operationeel_lucht_emissie`) | Stappen en velden van de thematische stromen |
 | `operationeel_<lijst>` (bv. `operationeel_peilmethode`) en `herkomst_water` | Selectielijsten voor velden van de operationele gegevens |
 
-De [JSON Schema-POC](poc/poc-json-schema/README.md) en
-[ODS-POC](poc/poc-json-schema-ods/docs/PROJECT_OUTLINE.md) leiden rapportageschema's,
-invulsjablonen en omkeerbare JSON/ODS-export af uit de bestaande kolommen.
-Werkende doorsneden zijn de drie grondwatermetingen, brandstof en luchtemissies,
-normale en abnormale lozingen en zelfcontrole water. Resultaatkenmerken blijven
-binnen hun `riepr:Resultaat`; ontbrekende eenheden en materiaalcodes blokkeren
-de betrokken doorsneden expliciet. Volledige Teepak-dekking is nog in uitvoering.
+De [JSON Schema-POC](poc/poc-json-schema/README.md),
+[operationele UI](poc/poc-flow-operationeel/README.md) en
+[ODS-POC](poc/poc-json-schema-ods/docs/PROJECT_OUTLINE.md) delen één gegenereerd
+rapportagecontract. De **actieve scope is grondwater**: onttrekking/infiltratie,
+peilmeting en kwaliteitsmeting. `thematypes.csv` is verwijderd; de generator
+begint rechtstreeks bij `conceptscheme:operationeel_grondwater` en parseert geen
+andere operationele stromen. Eerdere multi-thema-implementaties en tests zijn
+geen garantie dat die stromen in de huidige snapshot worden aangeboden.
+Zie [Van CSV naar JSON Schema, UI en ODS](#van-csv-naar-json-schema-ui-en-ods)
+voor de transformaties en mappingregels.
 Met `npm --prefix poc/poc-json-schema run generate -- --allow-incomplete`
 genereer je expliciet alleen de bruikbare doorsneden, met alle blokkeringen in
 `schema/index.json` en een waarschuwing bij ODS-sync en -gebruik. Zonder die vlag
@@ -235,31 +237,35 @@ Een composite eigenschap bestaat uit een ouder en onderdelen die naar de ouder v
 
 
 ### Operationele gegevens
-Operationele gegevens beginnen vanaf de codelijst met de verschillende thematische stromen waarop met kan rapporteren. Deze sectie bevat voorbeelden van de verschillende stromen die aangeven hoe de relaties tussen de codelijsten tot stand komt. Het is gebaseerd op volgende algemene assumpties:
+Operationele gegevens beschrijven rapportagegroepen, velden en hun betekenis.
+De voorbeelden van andere stromen hieronder beschrijven het bredere model;
+de huidige POCs verwerken alleen grondwater. De algemene bouwstenen zijn:
 - `skos:ConceptScheme` voor elk scherm/stap dat we aan de gebruiker willen tonen
 - `vervolgstap` (`qb:codeList`) is een link tussen een concept en concept scheme en bepaalt welke stap volgt
 - `conditionPath`/`conditionValue` bepalen dat een concept getoond mag worden indien het concept op het pad (`conditionPath`) een bepaalde waarde (`conditionValue`) heeft
 - `relevantDataType` bepaald het data type van een concept. `xsd:*` en `dcterms:*` zijn mogelijke data types
-- `isPartOf` relaties (en de inverse `hasPart`) worden gebruikt om aan te geven dat een concept composite is en bestaat uit meerdere andere concepten die ingevuld moeten worden
-- `related` (`skos:related`) geeft aan dat concepten alternatieve varianten zijn van één logische groep (bv. de vier `bestemmingsidentificatie-*` composieten voor een grondstof). Consumer applicaties tonen zo'n gerelateerde groep als één gegroepeerd veld: de velden van de varianten worden samengevoegd en gedupliceerde velden (bv. `naam`) worden slechts één keer getoond. Een gedeeld veld is enkel verplicht als álle varianten het verplicht maken; een veld dat in één variant voorkomt is verplicht telkens die variant actief is (`conditionPath`/`conditionValue`)
+- `broaderPartitive` verwijst van een onderdeel naar zijn composite ouder
+- `related` (`skos:related`) verbindt alternatieve varianten. De schemagenerator bewaart ze als afzonderlijke, conditionele properties met `x-related-concepts`; hij voegt geen gelijknamige velden van verschillende varianten samen
 - `isMeervoudig` bepaald dat iets meerdere keren kan toegevoegd worden
     - een meervoudig concept dat ook verplicht is wordt standaard al 1 weergegeven (met composite concepten indien `hasPart` relatie bestaat), anders is het een knop om dit toe te voegen
 - `isMultiselect` geeft aan (bij gebruikt `relevantCodeList` of `relevantRiepr` of `relevantUnit`) waarbij er een selectie gemaakt moet worden dat er meerdere items geselecteerd kunnen worden
 - `isVerplicht` bepaald dat een veld verplicht is
-- `isOnzichtbaar` is een kolom die momenteel niet in gebruik is voor operationele gegevens, het geeft aan dat een concept niet zichtbaar is (bijvoorbeeld als de opsplitsing gemaakt is voor structurele redenen)
+- `isOnzichtbaar` verbergt structurele invoer/groepslabels, niet noodzakelijk de onderdelen: het onzichtbare labo blijft bijvoorbeeld een getypeerd object met een zichtbaar naamveld
 - `isMeetbaar` geeft aan dat een systeemtype meetbaar is; voor de systeemtype-codelijsten wordt deze expliciet op `true` gezet
-- `relevantCodeList` geeft aan dat in plaats van een vrij invoerveld, we een selectie willen tonen van een andere lijst. Dit zal steeds naar een `skos:ConceptScheme` verwijzen
+- `relevantCodeList` verwijst naar een `skos:ConceptScheme` of `skos:Collection` met selecteerbare waarden
 - `relevantUnit` geeft aan dat een veld (hoogstwaarschijnlijk een numeriek veld) een bepaalde eenheid heeft. Het kan echter ook verwijzen naar een `skos:ConceptScheme` met lijst van eenheden zodat er een selectie gemaakt moet worden
 - `minValue` en `maxValue` begrenzen de waarde van een numeriek veld (`xsd:decimal`/`xsd:integer`): ze publiceren als `schema.org/minValue` en `schema.org/maxValue` en zijn beide optioneel
 - `relevantClass` geeft aan naar welke classe een concept gemapped moet worden. Bijvoorbeeld naar observatie, feature of interest, ...
-    - De top-level operationele concepten (bv. `grondstof`, `brandstof`, `lozing`, `meting`) mappen op `sosa:ObservationCollection`: een observatieverzameling die de rapportage over een emissie- of onttrekkingsgebeurtenis in een periode of op een moment bundelt. De geneste rapportageconcepten daaronder mappen op `sosa:Observation` en worden als lid-observaties (`sosa:hasMember`) deel van die verzameling
+    - De klasse komt uit de bron, niet uit de positie: peilmeting is `riepr:Observatie`; onttrekking en kwaliteitsmeting zijn `riepr:ObservatieVerzameling`. Lid-observaties worden via `sosa:hasMember` gekoppeld
+- `relation` bepaalt het RDF-predicaat; `relevantObservation` bepaalt aan welke observatie(s) of verzameling het gegeven toebehoort, onafhankelijk van de presentatiegroep
+- `_table_workbook` en `_table_sheet` bepalen de ODS-bestandsnaam en het werkblad; ze veranderen de semantische eigenaar niet
 - `relevantRiepr` geeft aan dat een selectie gemaakt moet worden van systemen/processen/... die actief waren in het productiejaar. In het geval dit start met `riepr:*` zoeken we op alle instanties van een concept (Installatie, Emisisepunt, ...). In het geval het start met een concept dan geven we aan dat het alle (sub)types zijn.
     - :warning: **Belangrijk:**
 
 #### Thematische stroom
-1.  In de applicatielogica voorzien we een selectie van het productiejaar. Dit zal de `sosa:phenonomenonTime` worden van de observaties die gerapporteerd zullen worden.
-2.  De gebruiker selecteerd een thematische stroom waarop hij/zij will rapporteren. De lijst van thematische stromen halen we uit `conceptscheme:thematypes`. In de applicatie is dit de enige lijst die we in principe rechtstreeks moeten aanspreken, alle andere codelijsten worden vanuit de thematische stromen gerefereerd.
-3.  Via de `vervolgstap` relatie (`qb:codeList`) van de concepten binnen `conceptscheme:thematypes` kunnen we achterhalen welke concept schemas verantwoordelijk zijn voor de thematische stroom.
+1. De gebruiker kiest een productiejaar. Dit begrenst de structurele referenties en hun validatiecontext; de POC maakt hiervan niet automatisch een `sosa:phenomenonTime`.
+2. De huidige UI leest thema's en doorsneden uit `schema/index.json`, niet uit `thematypes.csv`. Het grondwater-conceptschema is het expliciete startpunt van de generator.
+3. In het eerdere multi-thema-model verbonden `vervolgstap`-relaties (`qb:codeList`) thema's en stappen. Die navigatie blijft modelinformatie, maar is niet het startmechanisme van het actieve grondwaterprofiel.
 
 > De bedoeling is dat de applicatie zo weinig mogelijk logica omvat voor zowel UI als data ophalen/bewaren voor de thematische stromen. Zo kunnen a.h.v. deze codelijsten alle business regels worden bijgesteld waar nodig zonder al te grote wijzigingen te vereisen.
 
@@ -283,6 +289,343 @@ Operationele gegevens beginnen vanaf de codelijst met de verschillende thematisc
 4.  De stroom lucht `conceptscheme:operationeel_lucht` vereist als eerste stap dat je een emissiepunt (voor lucht) selecteerd
 5.  Vervolgens moet je als multiselect bronnen selecteren (`riepr:Installatie`) verbonden met het emissiepunt. We weten dat we niet alle installaties zoeken omdat bij de selectie van het emissiepunt we als `relevantClass` = `sosa:FeatureOfInterest` hebben en dus binnen deze feature moeten zoeken
 6.  Onderliggende rapportering zoals `lucht:brandstof` wordt op de bron+emissiepunt combinatie uitgevoerd en zijn composite concepten
+
+## Van CSV naar JSON Schema, UI en ODS
+
+### Eén contract, twee presentaties
+
+De JSON Schema-generator bepaalt de **datastructuur en validatieregels**.
+De UI en de ODS-generator interpreteren datzelfde contract; ze leiden niet elk
+opnieuw de rapportagestructuur af uit RDF. RDF/CSOR blijven wel nodig voor labels
+en keuzelijsten. De voorbeelden onder `analyse/` zijn een referentie voor de
+ODS-presentatie, geen bron waaruit de applicatie regels of bedrijfsdata kopieert.
+
+```text
+Rapportageconcepten + ondersteunende keuzelijsten
+                         |
+         Groepen, waarden en relaties herkennen
+                         |
+         Bepalen bij welke observatie data hoort
+                         |
+                JSON Schema 2020-12
+                    /                \
+            Webformulier          ODS-invulsjabloon
+                    \                /
+               rapportage-JSON + gedeelde validatie
+```
+
+Lees de kolommen in deze volgorde:
+
+| Vraag | Te lezen kolommen |
+|---|---|
+| Over welk rapportageonderdeel gaat dit? | `inScheme`, `broaderPartitive` |
+| Is dit een groep, observatie of invulbare waarde? | `relevantClass`, `relevantDataType`, onderdelen via `broaderPartitive` |
+| Bij wie hoort de waarde en wat betekent de koppeling? | `relevantObservation`, `relation` |
+| Welke waarden mag de gebruiker invullen? | `relevantDataType`, `relevantCodeList`, `relevantRiepr`, `relevantUnit`, `minValue`, `maxValue` |
+| Hoe vaak en wanneer moet dit ingevuld worden? | `isMeervoudig`, `isMultiselect`, `isVerplicht`, `conditionPath`, `conditionValue` |
+| Hoe wordt het getoond? | `prefLabel`, `definition`, `isOnzichtbaar`, `_ui_first`, `_ui_after`, `_table_workbook`, `_table_sheet` |
+
+### 1. Rapportagegroepen en onderdelen herkennen
+
+De huidige scope is `conceptscheme:operationeel_grondwater`.
+De ondersteunende lijsten leveren keuzes zoals detectiegrensindicatoren,
+geen extra rapportagegroepen. Andere operationele stromen worden niet verwerkt.
+
+Begin bij de drie zelfstandige rapportagegroepen: onttrekking, peilmeting en
+kwaliteitsmeting. Voor elke groep ontstaat een afzonderlijk JSON-schema.
+De bijbehorende `_table_workbook`-waarden verdelen de invoer over drie
+ODS-bestanden.
+
+Zoek vervolgens alle onderdelen die via `broaderPartitive` naar een groep
+verwijzen. Herhaal dit voor hun onderdelen. Zo ontstaat een geneste structuur:
+een groep wordt een object, haar onderdelen worden properties van dat object.
+`topConceptOf` alleen volstaat niet om de ouder-kindstructuur te bepalen.
+Een werkbladgrens verandert die structuur niet: gegevens op verschillende
+werkbladen kunnen nog steeds bij dezelfde rapportage horen.
+
+### 2. Van concept naar JSON-property
+
+Vertaal de kolommen van ieder concept naar onderstaande schemaregels.
+Pas daarna de regels voor observatie-eigenaarschap toe: die kunnen bepalen
+dat een property binnen een observatie of haar resultaat moet staan.
+
+| Bronmetadata | JSON Schema / mapping | Gevolg voor de invoer |
+|---|---|---|
+| `prefLabel`, `definition` | `title`, `description` | Bronlabel als kolomkop/veldlabel; geen technisch propertypad als label |
+| `relation` | Propertynaam uit de lokale naam van het predicaat; volledige URI in `x-jsonld-id` | `schema:measurementMethod` wordt `measurementMethod` |
+| `relevantClass` | `x-jsonld-type` op het object | Klasse bewaren zonder een invoerveld voor de klasse te tonen |
+| `relevantDataType` | `type` en waar nodig `format` | Tekst, getal, boolean, datum, datum-tijd of duur |
+| `broaderPartitive` | Geneste `properties` | Singleton details worden kolommen binnen dezelfde rij |
+| `relevantObservation` | Property onder de aangewezen observatie of verzameling | De presentatiegroep hoeft niet de data-eigenaar te zijn |
+| `isMeervoudig` | `type: array` met `items` | Herhaalbare records |
+| `isMultiselect` | Array van selectiewaarden | Meerdere referenties/keuzes, geen herhaalbaar volledig record |
+| `isVerplicht` | `required`; bij verplichte arrays ook `minItems: 1` | Validatie-eis, niet automatisch een ingevuld record |
+| `relevantCodeList` | `enum` met volledige concept-URI's | Labels tonen, URI's bewaren |
+| `relevantRiepr` | `x-reference-types` | Kiezen uit instanties van de gevraagde structurele types |
+| `relevantUnit` | `const` of `enum` op `hasUnit`/`unitCode` | Vast symbool of selecteerbare eenheid |
+| `minValue`, `maxValue` | `minimum`, `maximum` | Numerieke grenzen |
+| `_table_workbook`, `_table_sheet` | `x-table-workbook`, `x-table-sheet` | Bestands- en werkbladindeling |
+| `_ui_first`, `_ui_after` | Volgordeannotaties en afgeleid `x-table-order` | De volgorde behouden, ook wanneer semantische hergroepering nodig is |
+| `isOnzichtbaar` | Verborgen invoer of structurele container | Zichtbare onderdelen blijven invulbaar; hun objectstructuur blijft bewaard |
+
+`xsd:decimal` wordt `number`, `xsd:integer` wordt `integer`,
+`xsd:boolean` wordt `boolean`; `xsd:date`, `xsd:dateTime` en `xsd:duration`
+worden strings met respectievelijk `date`, `date-time` en `duration`.
+`dcterms:temporal` kan een periodeobject met `start`/`end` worden.
+Objecten zijn gesloten met `additionalProperties: false`.
+
+Bijvoorbeeld: een concept met label **Analysemethode**, relatie
+`schema:measurementMethod`, datatype `xsd:string` en `isVerplicht = true`
+wordt binnen zijn eigenaar:
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "measurementMethod": {
+      "title": "Analysemethode",
+      "type": "string",
+      "x-jsonld-id": "https://schema.org/measurementMethod"
+    }
+  },
+  "required": ["measurementMethod"],
+  "additionalProperties": false
+}
+```
+
+Dit is een vereenvoudigd mappingvoorbeeld, geen verklaring dat
+Analysemethode in de huidige bron verplicht is. Zonder `isVerplicht` komt
+de property niet in `required`. Met `isMeervoudig` wordt de waarde omgeven
+door een array met `items`; een verplichte array krijgt `minItems: 1`.
+
+**Propertynamen zijn niet de semantische identiteit.** Als `relation` ontbreekt,
+wordt teruggevallen op camelCase van het concept-id. Bij meerdere
+onderdelen onder dezelfde ouder met dezelfde propertynaam worden eveneens
+conceptnamen gebruikt om een botsing te vermijden; die velden worden niet automatisch onder één
+relation-array. Bijvoorbeeld: meerdere `schema:additionalProperty`-velden bij
+peilmeting houden verschillende JSON-sleutels, maar hetzelfde `x-jsonld-id`.
+Lees daarom de annotaties voor RDF-mapping, niet alleen de JSON-sleutel.
+Een onbekend of ontbrekend noodzakelijk datatype, onopgeloste lijst of
+ambigu eigenaarschap is een fout, geen aanleiding om data te verzinnen.
+
+### 3. Presentatiegroep en semantische eigenaar scheiden
+
+Lees `relevantObservation` om de semantische eigenaar te bepalen.
+Een concept kan op hetzelfde werkblad staan als zijn presentatieouder,
+maar zijn waarde hoort bij een andere observatie. De transformatie controleert
+dat doelen bestaan, observaties/verzamelingen zijn en geen cyclus of koppeling
+tussen onafhankelijke herhaalbare records veroorzaken.
+
+- Een `riepr:ObservatieVerzameling` bundelt observaties via `sosa:hasMember`.
+  De verzameling bezit geen meetresultaat van een lid.
+- Een numeriek concept met klasse `riepr:Observatie` wordt een observatieobject
+  met impliciet `hasResult`, getypeerd als `riepr:Resultaat`, en
+  `qudt:numericValue`/`qudt:hasUnit`. Een vaste `observedProperty` identificeert
+  zo'n scalar-observatie en blijft verborgen in de invoer.
+- Bij een observatie met onderdelen blijven SOSA-relaties zoals
+  `observedProperty`, `resultTime` en `usedProcedure` op de observatie.
+  Niet-SOSA-resultaatkenmerken verhuizen naar het impliciete Resultaat en
+  behouden hun gedeclareerde relaties. Zonder relatie gebruikt deze
+  resultaattransformatie voorlopig de bronconcept-URI als predicaat.
+- `schema:PropertyValue` wordt `{propertyID, value, unitCode?}`. `propertyID`
+  is de vaste concept-URI; datatype, keuzelijst en voorwaarden gelden voor
+  `value`. De gebruiker vult alleen de waarde in.
+
+**Voorbeeld: kwaliteitsmeting.** Eén monster is één observatieverzameling;
+er wordt geen extra `sosa:Sample` aangemaakt. Het verborgen labo blijft een
+`prov:Agent` met `rdfs:label`; alleen **Labo naam** is een invoerveld.
+Diepte is een eigen lid-observatie. De herhaalbare parameterobservaties staan
+onder `hasMember`; één resultaat ziet er bijvoorbeeld zo uit:
+
+```json
+{
+  "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_246",
+  "hasResult": {
+    "numericValue": 0.12,
+    "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_1",
+    "additionalProperty": {
+      "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-limiet",
+      "value": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-onder"
+    },
+    "measurementMethod": "Voorbeeldmethode",
+    "type": "Labo"
+  }
+}
+```
+
+Dit is een fragment van rapportage-JSON, **geen zelfstandig JSON-LD-document**.
+Het bijbehorende schema geeft `additionalProperty` de relatie
+`schema:additionalProperty`, `measurementMethod` de relatie
+`schema:measurementMethod` en `type` de relatie `dcterms:type`.
+De detectielimietkeuze betekent boven/onder, niet een numerieke grens.
+`x-jsonld-*` beschrijft de mapping; een volledige RDF-serializer en permanente
+opslag vallen buiten deze POCs.
+
+**Voorbeeld: gedeelde Einddatum.** Bij onttrekking hoort Einddatum zowel bij
+eindmeterstand als hoeveelheid. Het schema maakt één zichtbare bronwaarde en
+een verborgen doel met `x-derived-from-source`. Bij omzetting naar rapportage-JSON
+wordt die waarde gekopieerd naar bestaande doelen binnen dezelfde rapportagerij.
+Hierdoor ontstaat geen optionele eindmeterstand; tegenstrijdige waarden zijn
+ongeldig. De hoeveelheid blijft een expliciet in te vullen
+observatie, geen berekend verschil tussen meterstanden.
+
+**Featureselectie is niet hetzelfde als featureconstructie.**
+`relevantRiepr` levert de te kiezen instanties; `relevantFeatureClass` beschrijft
+welke feature later uit die invoer moet worden opgebouwd, bijvoorbeeld een
+`riepr:Onttrekking` of `riepr:Emissie`. De generator bewaart dit als
+`x-feature-mapping`. Meerdere geselecteerde filters zijn dus niet automatisch
+meerdere rechtstreeks gedeelde SOSA-features.
+
+### 4. Voorwaarden, variabelen en validatie publiceren
+
+`conditionPath`/`conditionValue` worden zowel echte schemaregels
+(`allOf` met `if`/`then`/`else`) als `x-visible-when` voor de UI.
+Een inactief veld mag niet in het geprojecteerde rapport voorkomen. Voorwaarden
+vergelijken getypeerde booleans/getallen of volledige keuze-URI's; de compiler
+weigert onoplosbare paden en kruisingen tussen onafhankelijke recordarrays.
+`variabele` wordt een expliciete `x-variable-location`, zodat een meetwaarde
+haar geselecteerde stof ook na hergroepering kan terugvinden.
+CSOR-kenmerken blijven beschikbaar als `x-kwantiteitsaspect`, `x-drager` en
+`x-soortwaardebepaling`.
+
+Validatie controleert eerst de structuur en formats uit het schema.
+Aanvullende betekeniscontroles bewaken onder meer referentietypes,
+productiejaar/oudercontext, geldige leden van verzamelingen, overeenstemming
+van gedeelde observatiecontext en chronologie van periodeobjecten.
+Het gekozen verzamelingsprofiel is de
+[SSN Extensions Working Draft van 16 januari 2020](https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/);
+de RIE-IEPR-observatieklassen worden als SOSA-subklassen behandeld.
+
+UI en ODS moeten dezelfde versie van het schema gebruiken. Anders kan een
+kolom of invoerveld een andere betekenis hebben dan de data waarin het terechtkomt.
+Versiecontroles voorkomen daarom dat schema's en codelijsten uit verschillende
+generaties worden gecombineerd.
+
+### 5. Hoe de web-UI het schema omzet
+
+De UI biedt de rapportagegroepen uit de schema's aan. Voor elke combinatie van
+productiejaar en rapportagegroep blijft de invoer apart bewaard zolang de pagina
+open is. De huidige POC heeft geen permanente opslag.
+
+1. De UI vouwt niet-herhaalbare objecten open tot
+   kolommen. Verborgen containers blijven in JSON; hun zichtbare bladeren krijgen
+   hun eigen bronlabel. Technische constanten zoals `propertyID` worden niet
+   gevraagd.
+2. Het invoertype volgt uit `type`, `format`,
+   `enum` en `x-reference-types`. Datums krijgen een datepicker; datum-tijdinvoer
+   wordt vanuit de lokale browsertijd naar een UTC ISO-timestamp omgezet.
+   Eenheden staan naast hun numerieke invoer **in dezelfde cel**.
+3. Herhaalbare detailrecords, bijvoorbeeld meetresultaten, openen via een pijl
+   links onder de eigenaar, over de volle tabelbreedte. Scalar/reference-arrays
+   blijven multiselects. Rijverwijdering is een toegankelijke prullenbakknop.
+4. Voorwaarden bepalen welke velden actief zijn. Inactieve invoer wordt
+   grijs en uitgeschakeld; de conceptwaarde blijft bewaard voor heractivering.
+5. Bij omzetting naar rapportage-JSON worden inactieve velden weggelaten, constanten
+   hersteld en gedeelde waarden overgenomen. Optionele lege objecten worden niet
+   onnodig aangemaakt. Daarna volgen structurele én semantische validatie.
+   Fouten verwijzen naar invoercellen; gevalideerde JSON verschijnt alleen bij
+   succes.
+
+Keuzelijsten tonen leesbare labels, maar bewaren de bijbehorende URI's.
+De structurele referenties zijn fictief in deze demonstratie. De productiejaarselectie wordt
+referentiecontext, niet automatisch een observatietijdstip.
+
+### 6. Hoe het schema een omkeerbare ODS wordt
+
+Lees het schema als een tabelindeling: iedere herhaling van een object is een
+rij, ieder invulbaar bladveld is een kolom. Onderdelen die niet herhalen,
+blijven op dezelfde rij. Een geneste array van objecten krijgt een eigen
+werkblad, gekoppeld aan de eigenaar. Een lijst van eenvoudige selectiewaarden
+met gedeclareerd werkblad blijft één invoerkolom, geen technisch koppelblad.
+Ongesteunde structuren geven een fout in plaats van gegevensverlies.
+
+Bij `x-table-workbook` kiest de exporter de **business-layout**:
+
+| Onderdeel | ODS-uitwerking |
+|---|---|
+| Workbook/sheet | Bestandsnaam uit `x-table-workbook`, tab uit `x-table-sheet` |
+| Bladvelden | Kolommen met `title`, eenheidskolom direct rechts van de waarde |
+| Keuzes | Labels op `Keuzelijsten`; exacte label-naar-URI/waarde-mapping in metadata |
+| Validatie | Keuzecellen verwijzen naar een vast bereik op het keuzeblad of naar de bovenliggende businessgegevens |
+| Detailkoppeling | `Meetresultaten.Monster` kiest uit `Monsters.Monsternummer`, ook voor nieuwe rijen |
+| Verborgen paden | Rij 1 bevat het JSON-padpatroon van de records, rij 2 de JSON-paden van de kolommen; zichtbare kop op rij 3 |
+| Metadata | Verborgen `_riepr` met JSON-paden voor rijen en ouders, schema-/bronversie, referenties en keuzemappings |
+| Opmaak | Teepak-achtige groene koppen, witte vette tekst, kolombreedtes en datumformats; 1000 extra invulrijen |
+
+Er zijn geen zichtbare rij-ID's, entiteits-ID's, generieke bovenliggende
+referenties of constante `observedProperty`-kolommen. De koppeling gebruikt
+een bestaand businesskenmerk; monsternummers moeten ingevuld en uniek zijn
+wanneer detailregels ernaar verwijzen. Onbekende of dubbelzinnige koppelingen
+zijn fouten.
+
+De verborgen mapping gebruikt **JSON Pointer**: `/hasResult/numericValue`
+betekent de property `numericValue` binnen `hasResult` van de huidige rij.
+Een werkblad bevat een padpatroon zoals `/kwaliteitsmeting/*/hasMember/*`;
+`*` staat voor een array-index. Bij een ingevulde export is het concrete pad
+bijvoorbeeld `/kwaliteitsmeting/0/hasMember/1`, met ouder
+`/kwaliteitsmeting/0`. De ouderverwijzingskolom verwijst naar
+`/kwaliteitsmeting/*/identifier`, maar toont nog steeds het monsternummer.
+Het lege pad duidt de JSON-root aan; `~` en `/` in propertynamen worden
+respectievelijk als `~0` en `~1` geschreven.
+
+Deze concrete paden beschrijven de oorspronkelijke export. Bij nieuwe,
+verplaatste of gesorteerde rijen worden de actuele array-indexen opnieuw
+bepaald aan de hand van de werkbladvolgorde en monsternummers. Daardoor zijn
+gebruikers niet afhankelijk van vaste rijnummers of technische sleutels.
+
+Calc heeft geen native multiselect voor één cel: kies één label of voer een
+JSON-lijst van labels in, zoals `["Filter 1","Filter 2"]`. Zulke cellen tonen
+een hulptekst en een bevestigbare waarschuwing; een enkelvoudige keuze weigert
+ongeldige waarden. Booleans bieden `Ja`/`Nee` en worden echte JSON-booleans.
+Getallen, datums en duren krijgen getypeerde ODF-cellen, niet alleen tekst.
+De getalopmaak verandert de opgeslagen waarde niet.
+
+Bij teruglezen zijn de zichtbare kopteksten niet de propertynamen:
+verborgen kolomidentiteiten leggen vast bij welk schemapad iedere cel hoort.
+Na controle van metadata en keuzelijsten worden labels terugvertaald naar URI's,
+records en constanten gereconstrueerd, gedeelde waarden overgenomen en het
+resultaat gevalideerd.
+Nieuwe rijen worden via hun businesskoppeling aan de juiste ouder gehangen.
+Formules, verloren metadata, ongeldige keuzes en ambigue rijen met verborgen
+data worden expliciet geweigerd. Schema's zonder workbookmetadata behouden
+de oudere generieke transportlayout; die is niet de grondwater-invulervaring.
+
+### 7. Dezelfde gegevens, verschillende weergaven
+
+Bij kwaliteitsmeting staat de monstercontext één keer op de rij in **Monsters**.
+Iedere parameteranalyse krijgt een rij in **Meetresultaten**, met **Monster**
+als verwijzing naar het monsternummer. In JSON zijn die analyses geneste
+lid-observaties van dezelfde kwaliteitsmeting. In de UI verschijnen ze als
+uitklapbare detailtabel. Dit zijn dus drie weergaven van dezelfde structuur,
+niet drie verschillende datamodellen.
+
+De download van het JSON-schema bevat het contract dat het formulier gebruikt.
+De ODS-download is een leeg invulsjabloon van datzelfde contract, niet een export
+van de actuele formulierinvoer. Een ingevulde ODS kan terug naar rapportage-JSON:
+leesbare labels worden weer URI's, werkbladkoppelingen worden geneste objecten
+en verborgen vaste waarden worden hersteld.
+
+Via **Ingevulde ODS importeren** opent de gebruiker het standaard ingeklapte
+uploadpaneel om een ingevuld sjabloon terug in het formulier te laden.
+Selecteer eerst de juiste rapportagegroep en het
+productiejaar. De upload controleert de schemaversie, werkbladkoppelingen,
+waarden en referenties voordat iets wordt vervangen. Bij bestaande invoer is
+bevestiging nodig; bij een fout of annulering blijft die invoer behouden.
+Na een geslaagde import zijn ook de geneste meetresultaten verder bewerkbaar
+en kan dezelfde JSON-validatie worden uitgevoerd als bij handmatige invoer.
+De verwerking gebeurt lokaal in de browser, zonder opslag op een server.
+
+Bij het genereren van de grondwatersjablonen wordt ook een ingevulde versie met
+fictieve gegevens teruggelezen en vergeleken met de oorspronkelijke JSON.
+Een afwijking of validatiefout blokkeert de generatie; de download zelf blijft
+leeg. Ook ingevulde exports moeten zonder gegevensverlies terug naar JSON kunnen.
+
+Bij uitbreiding: leg businessfeiten en relaties in de bron vast, pas generieke
+mappingregels alleen aan als een constructie nog niet wordt ondersteund, en
+controleer dezelfde wijziging in schema, UI-projectie én ODS-roundtrip.
+Voeg geen fictieve klassen, eenheden of technische invoerkolommen toe om een
+presentatieprobleem op te lossen. Volledige Teepak-dekking en productieopslag
+blijven buiten de huidige POC-scope.
 
 ## Licentie
 

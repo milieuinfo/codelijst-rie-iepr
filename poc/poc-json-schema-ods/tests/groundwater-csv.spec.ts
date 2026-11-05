@@ -9,6 +9,9 @@ import { compileGroundwater } from '../../poc-json-schema/tests/groundwater-csv-
 import { sourceSnapshot } from '../../poc-json-schema/scripts/source-snapshot.mjs';
 import { compileTabularPlan, hash } from '../src/services/tabular-plan.js';
 import { layoutColumns } from '../src/services/workbook-layout.js';
+import { machineColumns } from '../src/services/json-mapping.js';
+import { generationFixture } from '../src/services/generation-fixture.js';
+import { workbookMetadata } from '../src/services/workbook-metadata.js';
 import { ODSGenerator } from '../src/services/ods-generator.js';
 import { ODSImporter } from '../src/services/ods-importer.js';
 import { CodelistEnricher } from '../src/services/codelist-enricher.js';
@@ -114,20 +117,58 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
         const headers = table.rows.find(row => row.number === 3)?.cells.map(cell => cell.text) ?? [];
         for (const name of forbidden) expect(headers).not.toContain(name);
         const machine = table.rows.find(row => row.number === 2)?.cells.map(cell => cell.text) ?? [];
-        expect(machine).toEqual(layoutColumns(plan, record));
+        expect(machine).toEqual(machineColumns(plan, record.id));
         if (record.sheetName === 'Meetresultaten') {
           expect(headers[0]).toBe('Monster');
           expect(headers[1]).toBe('Parameter');
         } else expect(machine).not.toContain('_parent_ref');
-        for (const [index, column] of machine.entries()) {
-          const definition = record.columns.find(column => column.id === machine[index]);
+        const ids = layoutColumns(plan, record);
+        for (const [index] of machine.entries()) {
+          const definition = record.columns.find(column => column.id === ids[index]);
           if (!['hasUnit', 'unitCode'].includes(definition?.path.at(-1) ?? '')) continue;
           expect(headers[index]).toMatch(/^Eenheid/);
-          const value = record.columns.find(candidate => candidate.id === machine[index - 1])!;
+          const value = record.columns.find(candidate => candidate.id === ids[index - 1])!;
           expect(value.path.slice(0, -1)).toEqual(definition!.path.slice(0, -1));
         }
       }
     }
+  });
+
+  it.each(['onttrekking', 'peilmeting', 'kwaliteitsmeting'])('validates blank %s generation against dummy JSON without leaking it', async name => {
+    const section = compileGroundwater(JSON.parse(sourceSnapshot())).subSchemas.find(section => section.name === name)!;
+    const plan = compileTabularPlan(section.schema, { sourceSha256: hash(sourceSnapshot()) });
+    const references = JSON.parse(readFileSync(new URL('../../poc-json-schema/examples/refs.json', import.meta.url), 'utf8'));
+    const validationData = await generationFixture(plan);
+    expect(validationData).toBeDefined();
+    const workbook = await new ODSGenerator().generate({ plan, references, validationData });
+    const tables = await readOdf(workbook);
+    for (const record of plan.records.filter(record => record.id !== 'root')) {
+      expect(tables.find(table => table.name === record.sheetName)!.rows
+        .filter(row => row.number >= 4).flatMap(row => row.cells).some(cell => cell.text.includes('Synthetisch'))).toBe(false);
+    }
+    await expect(new ODSGenerator().generate({
+      plan, references, validationData: { ...validationData!, data: { [name]: [{ invalid: true }] } },
+    })).rejects.toThrow();
+  });
+
+  it('exposes JSON pointers for cells, records and parents instead of opaque record markers', async () => {
+    const section = compileGroundwater(JSON.parse(sourceSnapshot())).subSchemas.find(section => section.name === 'kwaliteitsmeting')!;
+    const plan = compileTabularPlan(section.schema, { sourceSha256: hash(sourceSnapshot()) });
+    const references = JSON.parse(readFileSync(new URL('../../poc-json-schema/examples/refs.json', import.meta.url), 'utf8'));
+    const data = (await generationFixture(plan))!;
+    const workbook = await new ODSGenerator().generate({ plan, references, data: data.data, referenceContext: data.referenceContext });
+    const tables = await readOdf(workbook);
+    const results = tables.find(table => table.name === 'Meetresultaten')!;
+    expect(results.rows.find(row => row.number === 1)!.cells[0].text).toBe('/kwaliteitsmeting/*/hasMember/*');
+    expect(results.rows.find(row => row.number === 2)!.cells.map(cell => cell.text)).toContain('/hasResult/numericValue');
+    const metadata = workbookMetadata(JSON.parse(tables.find(table => table.name === '_riepr')!.rows.slice(1).map(row => row.cells[0].text).join('')));
+    const result = Object.values(metadata.rows).find(row => row.instancePath === '/kwaliteitsmeting/0/hasMember/1');
+    expect(result?.parentInstancePath).toBe('/kwaliteitsmeting/0');
+    const mapping = metadata.jsonMapping[plan.records.find(record => record.sheetName === 'Meetresultaten')!.id];
+    expect(mapping.parentIdentifierPath).toBe('/kwaliteitsmeting/*/identifier');
+    expect(await new ODSImporter().import(workbook, plan)).toEqual(data.data);
+    const xml = await (await JSZip.loadAsync(workbook)).file('content.xml')!.async('string');
+    expect(xml).not.toContain('@record:');
   });
 
   it('imports new monsters and results through the monsternummer alone, with no technical columns', async () => {

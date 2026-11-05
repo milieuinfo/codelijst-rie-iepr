@@ -1,4 +1,4 @@
-import { SchemaValidator } from 'codelijst-rie-iepr-poc-json-schema';
+import { SchemaValidator } from 'codelijst-rie-iepr-poc-json-schema/browser';
 import type { JsonSchemaObject, ReferenceRecord, ReferenceContext } from 'codelijst-rie-iepr-poc-json-schema';
 import type { WorkbookMetadata } from '../models/tabular-plan.js';
 
@@ -17,8 +17,11 @@ const contextSchema: JsonSchemaObject = {
   properties: { year: { type: 'integer' }, ids: strings },
 };
 const row: JsonSchemaObject = {
-  type: 'object', additionalProperties: false, required: ['recordId', 'reference'],
-  properties: { recordId: string, parentId: string, reference: string, parentReference: string },
+  type: 'object', additionalProperties: false, required: ['recordId', 'reference', 'instancePath'],
+  properties: {
+    recordId: string, parentId: string, reference: string, parentReference: string,
+    instancePath: string, parentInstancePath: string,
+  },
 };
 const choice: JsonSchemaObject = {
   type: 'object', additionalProperties: false, required: ['value', 'display'],
@@ -26,9 +29,18 @@ const choice: JsonSchemaObject = {
 };
 const metadataSchema: JsonSchemaObject = {
   type: 'object', additionalProperties: false,
-  required: ['version', 'schemaId', 'schemaSha256', 'sourceSha256', 'planSha256', 'lookups', 'rows', 'references'],
+  required: ['version', 'schemaId', 'schemaSha256', 'sourceSha256', 'planSha256', 'lookups', 'rows', 'references', 'jsonMapping'],
   properties: {
-    version: { const: 1 }, schemaId: string,
+    version: { const: 2 }, schemaId: string,
+    jsonMapping: {
+      type: 'object', additionalProperties: false, patternProperties: { '^.*$': {
+        type: 'object', additionalProperties: false, required: ['pathTemplate', 'columns'],
+        properties: {
+          pathTemplate: string, parentPathTemplate: string, parentIdentifierPath: string,
+          columns: { type: 'object', additionalProperties: false, patternProperties: { '^.*$': string } },
+        } },
+      },
+    },
     schemaSha256: { type: 'string', pattern: '^[a-f0-9]{64}$' },
     sourceSha256: { type: 'string', pattern: '^[a-f0-9]{64}$' },
     planSha256: { type: 'string', pattern: '^[a-f0-9]{64}$' },

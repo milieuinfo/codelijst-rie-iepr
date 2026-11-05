@@ -26,6 +26,40 @@ on `Monsters`. This business identifier must be filled and unique when linking
 detail rows; ambiguous or missing references are errors, not guessed links.
 Top-level `Debieten`, `Peilmetingen` and `Monsters` need no parent-reference column.
 
+Hidden row 1 now contains a JSON Pointer template, e.g.
+`/kwaliteitsmeting/*/hasMember/*`, instead of an opaque `@record:r_...` marker.
+Hidden row 2 contains record-relative JSON Pointers such as
+`/hasResult/numericValue`. The parent-reference column carries the target
+identifier template `/kwaliteitsmeting/*/identifier`; its visible values remain
+monsternummers. `*` denotes an array index in templates; concrete row pointers
+in `_riepr` use actual indices, e.g. `/kwaliteitsmeting/0/hasMember/1`, with
+`parentInstancePath: "/kwaliteitsmeting/0"`. The root pointer is the empty string.
+Property tokens use RFC 6901 escaping (`~0`, `~1`).
+
+Transport metadata version 2 includes `jsonMapping`: per-record path templates,
+parent templates/identifier targets and column-ID-to-relative-pointer mappings.
+Existing row snapshots also include `instancePath` and `parentInstancePath`.
+The importer checks these mappings against the schema and rejects inconsistent
+parent paths. Concrete pointers describe the original export; after sorting,
+inserting or reparenting, current pointers are reconstructed from business links
+and row order, not treated as immutable row IDs. Older workbooks must be
+regenerated; their opaque mapping format is not silently interpreted as pointers.
+
+Every populated generation is immediately imported and compared with its
+materialized input JSON; any difference blocks output. CLI groundwater template
+generation and UI download generation additionally perform this check with the
+synthetic groundwater examples and their reference context. These dummy values
+are used only in the verification workbook, never in the downloaded blank
+template.
+
+The importer also exposes a browser entry point shared with the operational UI.
+Uploading a filled template validates the selected schema/source snapshot and
+reporting year, reconstructs the JSON and inserts it as editable form data.
+Workbook reference snapshots supply the corresponding demonstration labels.
+An existing draft is replaced only after confirmation; failed imports do not
+change it. Parsing, hashing and validation run locally, including on LAN HTTP,
+without Node-only APIs or a server upload.
+
 Scalar/reference arrays with a declared sheet stay inline in that sheet. Select
 one choice from the dropdown, or enter a JSON array of displayed choices for
 multiple values, e.g. `["Filter 1","Filter 2"]`. This preserves arrays (including
