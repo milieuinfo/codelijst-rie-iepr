@@ -15,8 +15,7 @@ export interface CsorLabel {
   symbol?: string;
 }
 
-/** Collect every CSOR URI used as a string value in the JSON schemas below `dir`. */
-export function collectCsorUris(dir: string): string[] {
+export function collectCsorValues(input: unknown): string[] {
   const uris = new Set<string>();
   const visit = (value: unknown): void => {
     if (typeof value === 'string') {
@@ -27,11 +26,18 @@ export function collectCsorUris(dir: string): string[] {
       Object.values(value).forEach(visit);
     }
   };
+  visit(input);
+  return [...uris].sort();
+}
+
+/** Collect every CSOR URI used as a string value in the JSON schemas below `dir`. */
+export function collectCsorUris(dir: string): string[] {
+  const uris = new Set<string>();
   const walk = (path: string): void => {
     for (const entry of readdirSync(path)) {
       const full = join(path, entry);
       if (statSync(full).isDirectory()) walk(full);
-      else if (entry.endsWith('.json')) visit(JSON.parse(readFileSync(full, 'utf-8')));
+      else if (entry.endsWith('.json')) collectCsorValues(JSON.parse(readFileSync(full, 'utf-8'))).forEach(uri => uris.add(uri));
     }
   };
   walk(dir);

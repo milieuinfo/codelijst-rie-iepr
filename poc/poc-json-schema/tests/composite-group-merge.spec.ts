@@ -19,6 +19,32 @@ function makeRawFixture(concepts: Record<string, Record<string, unknown>>): Reco
 }
 
 describe('CodelistParser parses related field', () => {
+  it('preserves distinct nested fields that use the same relation predicate', () => {
+    const result = new CodelistParser().parseData(makeRawFixture({
+      'x:destination': { prefLabel: 'Destination' },
+      'x:destination-name': {
+        prefLabel: 'Name', relevantDataType: 'xsd:string',
+        broaderPartitive: 'x:destination', relation: 'rdfs:label', isVerplicht: true,
+      },
+      'x:destination-address': {
+        prefLabel: 'Address', relevantDataType: 'xsd:string',
+        broaderPartitive: 'x:destination', relation: 'rdfs:label', isVerplicht: true,
+      },
+    }))
+    const mapper = new ConceptMapper(result)
+    const builder = new CompositeGroupBuilder(result, mapper)
+    const fields = [...result.concepts.values()].map(concept => mapper.mapConcept(concept)!)
+    const [destination] = builder.buildNestedStructure(fields)
+    expect(destination.children?.map(child => child.propertyName)).toEqual([
+      'destinationName', 'destinationAddress',
+    ])
+    const schema = builder.toSchemaProperties([destination]).properties.destination as {
+      properties: Record<string, unknown>; required: string[]
+    }
+    expect(Object.keys(schema.properties)).toEqual(['destinationName', 'destinationAddress'])
+    expect(schema.required).toEqual(['destinationName', 'destinationAddress'])
+  })
+
   it('parses related as array of concept IDs', () => {
     const data = makeRawFixture({
       'x:parent': { prefLabel: 'Parent', related: ['y:a', 'y:b'] },
@@ -47,12 +73,12 @@ describe('CodelistParser parses related field', () => {
   })
 })
 
-describe('CompositeGroupBuilder merges related variant groups', () => {
+describe('CompositeGroupBuilder preserves related variant identities', () => {
   function buildFixture(
     parentIds: string[],
     childrenByParent: Record<string, Array<{ id: string; label: string; isVerplicht?: boolean; relation?: string }>>,
   ): CodelistResult {
-    const concepts: Record<string, unknown> = {}
+    const concepts: Record<string, Record<string, unknown>> = {}
 
     // Create parent composite concepts (variants)
     for (const parentId of parentIds) {
@@ -67,11 +93,11 @@ describe('CompositeGroupBuilder merges related variant groups', () => {
     }
 
     // Create child concepts
-    let ci = 0
     for (const [parentId, children] of Object.entries(childrenByParent)) {
       for (const child of children) {
         concepts[child.id] = {
           prefLabel: child.label,
+          relevantDataType: 'xsd:string',
           isVerplicht: child.isVerplicht === true ? 'true' : undefined,
           relation: child.relation || undefined,
           broaderPartitive: parentId,
@@ -82,7 +108,7 @@ describe('CompositeGroupBuilder merges related variant groups', () => {
     return new CodelistParser().parseData(makeRawFixture(concepts))
   }
 
-  it('merges two related composites into one object field with deduped children', () => {
+  it('keeps related composites and all their children separate', () => {
     const result = buildFixture(['x:variant-a', 'x:variant-b'], {
       'x:variant-a': [
         { id: 'x:child-1', label: 'Shared Field', isVerplicht: false },
@@ -103,26 +129,14 @@ describe('CompositeGroupBuilder merges related variant groups', () => {
       if (f) allFields.push(f)
     }
 
-    // Build nested structure
-    let nestedFields = compositeBuilder.buildNestedStructure(allFields)
-
-    // Merge related groups
-    const mergedFields = compositeBuilder.mergeRelatedGroups(nestedFields)
-
-    // Find the merged group — it should be a single field named after common prefix
-    const mergedGroup = mergedFields.find(f => !Array.isArray(f.broaderPartitive) || f.broaderPartitive.length === 0)
-    expect(mergedGroup).toBeDefined()
-    expect(mergedGroup?.children).toBeDefined()
-    expect(mergedGroup?.children!.length).toBeGreaterThan(1)
-
-    // Check that children are deduplicated by label
-    const childLabels = mergedGroup!.children!.map(c => c.label)
-    expect(childLabels).toContain('Shared Field')
-    expect(childLabels).toContain('Field A Only')
-    expect(childLabels).toContain('Field B Only')
+    const fields = compositeBuilder.buildNestedStructure(allFields)
+    expect(fields.map(field => field.conceptId)).toEqual(['x:variant-a', 'x:variant-b'])
+    expect(fields[0].children?.map(child => child.conceptId)).toEqual(['x:child-1', 'x:child-a-only'])
+    expect(fields[1].children?.map(child => child.conceptId)).toEqual(['x:child-2'])
+    expect(fields[0].extensions?.['x-related-concepts']).toEqual(['x:variant-b'])
   })
 
-  it('computes requiredConditions per variant value', () => {
+  it('preserves required fields inside each independently conditioned variant', () => {
     const result = buildFixture(['x:belgisch', 'x:buitenlands'], {
       'x:belgisch': [
         { id: 'x:on', label: 'Ondernemingsnummer', isVerplicht: true },
@@ -141,28 +155,14 @@ describe('CompositeGroupBuilder merges related variant groups', () => {
       if (f) allFields.push(f)
     }
 
-    let nestedFields = compositeBuilder.buildNestedStructure(allFields)
-    const mergedFields = compositeBuilder.mergeRelatedGroups(nestedFields)
-
-    // Find the merged group
-    const mergedGroup = mergedFields.find(f => !Array.isArray(f.broaderPartitive) || f.broaderPartitive.length === 0)
-    expect(mergedGroup).toBeDefined()
-    expect(mergedGroup?.type).toBe('object')
-    expect(mergedGroup?.children).toBeDefined()
-
-    // Check requiredConditions on children
-    const childByLabel = new Map(mergedGroup!.children!.map(c => [c.label, c]))
-    const ondernemingsnummer = childByLabel.get('Ondernemingsnummer')
-    expect(ondernemingsnummer).toBeDefined()
-    expect(ondernemingsnummer?.requiredConditions).toContain('belgisch')
-    expect(ondernemingsnummer?.isRequired).toBe(false)
-
-    const btwNummer = childByLabel.get('BTW-nummer')
-    expect(btwNummer).toBeDefined()
-    expect(btwNummer?.requiredConditions).toContain('buitenlands')
+    const fields = compositeBuilder.buildNestedStructure(allFields)
+    expect(fields[0].condition?.values).toEqual(['belgisch'])
+    expect(fields[1].condition?.values).toEqual(['buitenlands'])
+    expect(fields[0].children?.[0].isRequired).toBe(true)
+    expect(fields[1].children?.[0].isRequired).toBe(true)
   })
 
-  it('deduplicates shared children across variants', () => {
+  it('does not deduplicate equal labels or mix their requiredness across variants', () => {
     const result = buildFixture(['x:variant1', 'x:variant2'], {
       'x:variant1': [
         { id: 'x:name-v1', label: 'Naam', isVerplicht: false },
@@ -183,20 +183,10 @@ describe('CompositeGroupBuilder merges related variant groups', () => {
       if (f) allFields.push(f)
     }
 
-    let nestedFields = compositeBuilder.buildNestedStructure(allFields)
-    const mergedFields = compositeBuilder.mergeRelatedGroups(nestedFields)
-
-    const mergedGroup = mergedFields.find(f => !Array.isArray(f.broaderPartitive) || f.broaderPartitive.length === 0)
-    expect(mergedGroup).toBeDefined()
-    expect(mergedGroup?.children!.length).toBe(3) // Naam + Ondernemingsnummer + BTW-nummer (deduped)
-
-    // Shared child "Naam" should have appearances from both variants
-    const naamChild = mergedGroup!.children!.find(c => c.label === 'Naam')
-    expect(naamChild).toBeDefined()
-    expect(naamChild?.appearances).toHaveLength(2)
-    // Since not required in ALL appearances, it should NOT be always-required
-    expect(naamChild?.isRequired).toBe(false)
-    expect(naamChild?.requiredConditions).toEqual([])
+    const fields = compositeBuilder.buildNestedStructure(allFields)
+    const names = fields.map(field => field.children!.find(child => child.label === 'Naam')!)
+    expect(names.map(field => field.conceptId)).toEqual(['x:name-v1', 'x:name-v2'])
+    expect(names.map(field => field.isRequired)).toEqual([false, true])
   })
 })
 

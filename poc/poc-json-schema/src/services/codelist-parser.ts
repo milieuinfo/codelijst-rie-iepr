@@ -6,9 +6,11 @@ const COLLECTION_TYPES = ['skos:Collection']
 
 import * as fs from 'node:fs'
 import { CurieExpander } from './curie-expander.js'
+import { semanticPredicateIris } from './vocabulary.js'
 
 export class CodelistParser {
   private curieExpander: CurieExpander | null = null
+  private context: Record<string, unknown> = {}
 
   loadFromFile(filePath: string): CodelistResult {
     const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
@@ -16,11 +18,15 @@ export class CodelistParser {
   }
 
   parseData(data: Record<string, unknown>): CodelistResult {
+    this.curieExpander = null
+    this.context = {}
     const context = data['@context'] as Record<string, unknown> | undefined
     if (context && typeof context === 'object') {
       this.curieExpander = new CurieExpander(context)
+      this.context = context
     }
-    const graph = Array.isArray(data['graph']) ? data['graph'] : data['graph'] ? [data['graph']] : []
+    const rawGraph = data['@graph'] ?? data['graph']
+    const graph = Array.isArray(rawGraph) ? rawGraph : rawGraph ? [rawGraph] : []
     const nodesById = this.buildNodeIndex(graph)
     const schemes = new Map<string, Scheme>()
     const concepts = new Map<string, Concept>()
@@ -41,7 +47,7 @@ export class CodelistParser {
 
     const topConcepts = new Map<string, Concept[]>()
     for (const [schemeId, node] of nodesById.entries()) {
-      const hasTopConcept = node['hasTopConcept'] ?? node['has_top_concept']
+      const hasTopConcept = this.getValue(node, ['hasTopConcept', 'has_top_concept'])
       if (!hasTopConcept) continue
       const refs = Array.isArray(hasTopConcept) ? hasTopConcept : [hasTopConcept]
       const resolved: Concept[] = []
@@ -53,13 +59,15 @@ export class CodelistParser {
       topConcepts.set(schemeId, resolved)
     }
 
+    const expander = this.curieExpander
     const result: CodelistResult = {
+      reportingProfile: typeof data['x-source-profile'] === 'string' ? data['x-source-profile'] : undefined,
       nodesById,
       schemes,
       concepts,
       topConcepts,
       collections,
-      expandCurie: this.curieExpander ? (curie: string) => this.curieExpander!.expand(curie) : (c) => c,
+      expandCurie: expander ? (curie: string) => expander.expand(curie) : (c) => c,
     }
     return result
   }
@@ -107,7 +115,13 @@ export class CodelistParser {
   private getTypes(node: JsonLdNode): string[] {
     const raw = node['@type'] ?? node['_type']
     if (!raw) return []
-    return Array.isArray(raw) ? raw.filter((t): t is string => typeof t === 'string') : [String(raw)]
+    const values = Array.isArray(raw) ? raw.filter((t): t is string => typeof t === 'string') : [String(raw)]
+    return values.map(value => {
+      const iri = this.curieExpander?.expand(value) ?? value
+      return iri.startsWith('http://www.w3.org/2004/02/skos/core#')
+        ? `skos:${iri.slice('http://www.w3.org/2004/02/skos/core#'.length)}`
+        : value
+    })
   }
 
   private toScheme(node: JsonLdNode): Scheme {
@@ -119,6 +133,7 @@ export class CodelistParser {
       note: this.getValue(node, ['note', 'has_note']) as string | undefined,
       relevantRiepr: this.idsOf(this.getValue(node, ['relevantRiepr', 'relevant_riepr']), true),
       seeAlso: this.idsOf(this.getValue(node, ['seeAlso', 'see_also'])),
+      vervolgstap: this.idsOf(this.getValue(node, ['vervolgstap'])),
     }
   }
 
@@ -139,14 +154,27 @@ export class CodelistParser {
       relevantProperty: this.getValue(node, ['relevantProperty', 'relevant_property']) as string | undefined,
     }
 
-    const relevantDataType = this.getValue(node, ['relevantDataType', 'relevant_data_type'])
-    concept.relevantDataType = typeof relevantDataType === 'string' ? relevantDataType : undefined
+    concept.relevantDataType = this.idOf(this.getValue(node, ['relevantDataType', 'relevant_data_type']))
 
     const cpIds = this.idsOf(this.getValue(node, ['conditionPath', 'condition_path'])) ?? []
+    if (cpIds.length > 1) throw new Error(`Multiple conditionPath entries on ${concept.id}; expected one source trigger.`)
     concept.conditionPath = cpIds.length > 0 ? cpIds[0] : undefined
 
-    const cvIds = this.idsOf(this.getValue(node, ['conditionValue', 'condition_value'])) ?? []
-    concept.conditionValue = cvIds.length > 0 ? this.normalizeConditionValue(cvIds[0]) : undefined
+    const rawConditions = this.getValue(node, ['conditionValue', 'condition_value'])
+    if (Array.isArray(rawConditions) && rawConditions.length > 1) {
+      throw new Error(`Multiple conditionValue entries on ${concept.id}; expected one source condition.`)
+    }
+    const rawCondition = Array.isArray(rawConditions) ? rawConditions[0] : rawConditions
+    const condition = rawCondition && typeof rawCondition === 'object'
+      ? this.idOf(rawCondition) ?? (rawCondition as Record<string, unknown>)['@value'] ??
+        (rawCondition as Record<string, unknown>)['_value']
+      : rawCondition
+    if (condition !== undefined && condition !== null) {
+      if (!['string', 'number', 'boolean'].includes(typeof condition)) {
+        throw new Error(`Unsupported conditionValue on ${concept.id}.`)
+      }
+      concept.conditionValue = String(condition)
+    }
 
     // relevantCodeList: keep raw CURIEs for scheme map lookups; expand at enum output time
     concept.relevantCodeList = this.idsOf(this.getValue(node, ['relevantCodeList', 'relevant_code_list']))
@@ -155,9 +183,13 @@ export class CodelistParser {
     // relevantUnit: expand to full URIs — consumed directly by schema output
     concept.relevantUnit = this.idsOf(this.getValue(node, ['relevantUnit', 'relevant_unit']), true)
     concept.seeAlso = this.idsOf(this.getValue(node, ['seeAlso', 'see_also']))
-    concept.relevantClass = typeof this.getValue(node, ['relevantClass', 'relevant_class']) === 'string'
-      ? String(this.getValue(node, ['relevantClass', 'relevant_class']))
-      : undefined
+    concept.vervolgstap = this.idsOf(this.getValue(node, ['vervolgstap']))
+    concept.relevantClass = this.idOf(this.getValue(node, ['relevantClass', 'relevant_class']))
+    concept.relevantObservation = this.idsOf(this.getValue(node, ['relevantObservation']))
+    concept.relevantFeatureClass = this.idsOf(this.getValue(node, ['relevantFeatureClass']))
+    concept.tableWorkbook = node._table_workbook as string | undefined
+    concept.tableSheet = node._table_sheet as string | undefined
+    concept.tableOrder = typeof node._table_order === 'number' ? node._table_order : undefined
 
     const rawRelation = this.getValue(node, ['relation'])
     if (typeof rawRelation === 'string') {
@@ -210,13 +242,13 @@ export class CodelistParser {
     if (value === undefined || value === null) return undefined
     const arr = Array.isArray(value) ? value : [value]
     const expanded = arr.flatMap(v => {
-      if (typeof v === 'string' && v.includes(',')) {
-        return v.split(',').map(s => s.trim()).filter(Boolean)
+      if (typeof v === 'string' && /[,|]/.test(v)) {
+        return v.split(/[,|]/).map(s => s.trim()).filter(Boolean)
       }
       return [v]
     })
     let ids = expanded.map(v => this.idOf(v)).filter((v): v is string => v !== undefined)
-    if (expand) ids = ids.map(id => this.curieExpander!.expand(id))
+    if (expand) ids = ids.map(id => this.curieExpander?.expand(id) ?? id)
     return ids.length > 0 ? ids : undefined
   }
 
@@ -260,9 +292,23 @@ export class CodelistParser {
 
   private getValue(obj: Record<string, unknown>, keys: string[]): unknown {
     for (const key of keys) {
-      if (obj[key] !== undefined) return obj[key]
+      const iri = semanticPredicateIris[key]
+      if (obj[key] !== undefined && (!iri || !Object.hasOwn(this.context, key) || this.predicateIri(key) === iri)) return obj[key]
+      if (iri) {
+        for (const [sourceKey, value] of Object.entries(obj)) {
+          if (this.predicateIri(sourceKey) === iri) return value
+        }
+      }
     }
     return undefined
+  }
+
+  private predicateIri(key: string): string {
+    const term = this.context[key]
+    const id = typeof term === 'string' ? term
+      : term && typeof term === 'object' && '@id' in term ? term['@id']
+        : key
+    return typeof id === 'string' ? this.curieExpander?.expand(id) ?? id : key
   }
 
   private getNumeric(obj: Record<string, unknown>, keys: string[]): number | undefined {

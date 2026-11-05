@@ -6,7 +6,7 @@ import { resolveUnitLabel } from './unit-labels.js'
 
 const FIXTURE_PATH = path.resolve(
   __dirname,
-  '../../public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.ttl',
+  '../../../../src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.ttl',
 )
 
 let cachedResult: CodelistResult | null = null
@@ -55,10 +55,9 @@ describe('CodelistService — fixture parsing', () => {
       const schemes = Array.from(result.schemes.values())
       expect(schemes.length).toBeGreaterThan(15)
 
-      // thema_type is a known scheme (even if prefLabel is empty per ISSUES.md)
-      const themaScheme = result.schemes.get('conceptscheme:thema_type')
+      const themaScheme = result.schemes.get('conceptscheme:thematypes')
       expect(themaScheme).toBeDefined()
-      expect(themaScheme!.id).toBe('conceptscheme:thema_type')
+      expect(themaScheme!.id).toBe('conceptscheme:thematypes')
     })
 
     it('captures prefLabel, definition and note when present', () => {
@@ -68,9 +67,9 @@ describe('CodelistService — fixture parsing', () => {
       expect(luchtScheme!.prefLabel).toBeTruthy()
     })
 
-    it('captures prefLabel for thema_type (fixed upstream, previously absent)', () => {
+    it('captures prefLabel for the published thematypes scheme', () => {
       const result = loadFixture()
-      const themaScheme = result.schemes.get('conceptscheme:thema_type')
+      const themaScheme = result.schemes.get('conceptscheme:thematypes')
       expect(themaScheme!.prefLabel).toBe('Thematische stroom')
     })
   })
@@ -122,7 +121,8 @@ describe('CodelistService — fixture parsing', () => {
 
       const parent = CodelistServiceMock.getParent(result, child!)
       expect(parent).not.toBeNull()
-      expect(parent!.id).toBe('lucht:afvalproduct')
+      expect(parent!.id).toBe('lucht:afvalproduct_resultaat')
+      expect(CodelistServiceMock.getParent(result, parent!)?.id).toBe('lucht:afvalproduct')
     })
 
     it('returns empty array when concept has no hasPart refs', () => {
@@ -173,13 +173,13 @@ describe('CodelistService — fixture parsing', () => {
       expect(schemes).toEqual([])
     })
 
-    it('getCodeListSchemes returns [] for TODO placeholder refs', () => {
+    it('resolves the approved temporary material-code scheme without inventing options', () => {
       const result = loadFixture()
       const concept = result.concepts.get('grondstoffen:grondstof_materiaalcode')
       expect(concept).toBeDefined()
-      expect(concept!.relevantCodeList).toContain('http://TODO')
+      expect(concept!.relevantCodeList).toEqual(['conceptscheme:operationeel_materiaalcodes'])
       const schemes = CodelistServiceMock.getCodeListSchemes(result, concept!)
-      expect(schemes).toEqual([])
+      expect(schemes.map(scheme => scheme.id)).toEqual(['conceptscheme:operationeel_materiaalcodes'])
       expect(CodelistServiceMock.getCodeListOptions(result, concept!)).toEqual([])
     })
 
@@ -210,7 +210,7 @@ describe('CodelistService — fixture parsing', () => {
      */
     it('getVervolgstapRefs returns [] for concepts without a vervolgstap (ADMS status links)', () => {
       const result = loadFixture()
-      const concept = result.concepts.get('status-type:in_dienst')
+      const concept = result.concepts.get('statustype:in_dienst')
       expect(concept).toBeDefined()
       expect(concept!.vervolgstap ?? []).toEqual([])
       expect(CodelistServiceMock.getVervolgstapRefs(result, concept!)).toEqual([])

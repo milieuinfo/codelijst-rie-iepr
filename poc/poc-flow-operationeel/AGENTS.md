@@ -2,13 +2,52 @@
 
 ## 1. What This POC Is
 
-This is a Dutch-language proof-of-concept web app that reads the **RIE-IEPR SKOS codelist** as RDF (`public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.ttl`) and renders a Vlaanderen-government data-entry form using the `@domg-wc/components` / `@domg-wc/styles` web-component library from the private Artifactory registry.
+This Dutch-language POC renders **generated JSON Schemas as editable Flux 2.22.0
+rich data tables**. The JSON Schema snapshot is shared with the ODS POC. RDF is
+still parsed for labels and demonstration structural choices, not for rendering
+the reporting form or reimplementing ownership/conditions.
 
-The POC demonstrates how hierarchical code lists are interpreted: a user picks a thema/sub-thema, then sees operationele velden rendered as `<vl-input-field>`, `<vl-select>`, `<vl-checkbox>`, etc., with composite grouping, multi-value repetition, structural pickers, and multi-step flow chaining via `vervolgstap` (`qb:codeList`) — all without a backend.
+**Current architecture and guardrails**
 
-**Scope boundaries:** See [`docs/PROJECT_OUTLINE.md`](../docs/PROJECT_OUTLINE.md) for authoritative requirements, guardrails, out-of-scope items, and the full user-flow specification. Key constraints: no persistence, no security hardening, Dutch/Vlaams language only, use `@domg-wc/*` components wherever possible, avoid custom CSS.
+- `codelijst-app.ts`: year/theme/indexed-section selection and per-year/section
+  draft caching; no legacy form mode.
+- `schema-snapshot.ts`: verify indexed hashes, matching code list and offline
+  schema compilation. Never fall back to stale schemas or raw-RDF form rendering.
+- `schema-editor.ts`: generic schema resolution, draft mutation, nested ownership,
+  typed conditions and projected validation input. Inactive values stay in drafts
+  but must not appear in validated JSON. Preserve zero/false and optional absence.
+- `schema-rich-table.ts`: actual `VlRichDataTable`/`VlRichDataField` renderers;
+  repeated children expand below their parent across the full table width.
+  Units share a cell with their numeric input. No editable ODS transport
+  identities or reference-link sheets.
+- `schema-lookups.ts`: RDF/CSOR labels and schema-discovered demo references.
+- Use the linked generator's `/browser` exports for structural/semantic validation,
+  index parsing and schema registry. Never import Node filesystem services into
+  browser code or duplicate domain validation.
+- Derive new sections/controls from the indexed schemas, not theme names or an
+  authored whitelist. Source changes follow the repository's MCP approval rules.
+- Use `@domg-wc/*` components, Dutch text and design tokens. Custom CSS is limited
+  to layout/overflow and the requested inactive-cell treatment.
+- Flux select options must reflect `selected`. Rich select `.value` is internal
+  FormData: use selected options and user `vl-input`, not programmatic `vl-change`.
+- Preserve control DOM/focus during scalar edits; rebuild row structures only
+  when the schema or owning array changes.
+- Render unexpected schema errors explicitly through the app's error alert.
+- There is no backend or persistence. Structural instance choices are fictional
+  and clearly identified as such.
 
-## 2. CodelistService — RDF Parsing by IRI
+Setup, generation/sync and verification commands are in [README.md](README.md).
+The local root is this repository's `poc/poc-flow-operationeel`; shared runtime
+changes belong in `poc/poc-json-schema`.
+
+## Retained legacy implementation notes (not the active editor)
+
+The remaining sections describe the older RDF form components/services kept for
+compatibility. Those components are **not imported or registered by the active
+application**. Do not follow their flow-stack/component-extension instructions
+when extending the schema table UI; the current contract above supersedes them.
+
+## 2. Legacy CodelistService — RDF Parsing by IRI
 
 ### The contract is the IRIs, not the names
 
@@ -153,12 +192,12 @@ This ensures the POC always runs against the latest codelist and CSOR labels wit
 
 ## 8. Developer Guide — Reading Codelists (Dutch)
 
-For a comprehensive Dutch-language explanation of how to read and interpret the RIE-IEPR codelist data model, which properties are declarative (in the codelist) vs imperative (TypeScript application logic), and where to find each concept mapping in the source code, see the root repository's [`README.md`](../../../README.md), section **"Interpretatie"**. This is the authoritative specification for how the codelist should be interpreted by the application.
+For a comprehensive Dutch-language explanation of how to read and interpret the RIE-IEPR codelist data model, which properties are declarative (in the codelist) vs imperative (TypeScript application logic), and where to find each concept mapping in the source code, see the root repository's [`README.md`](../../README.md), section **"Interpretatie"**. This is the authoritative specification for how the codelist should be interpreted by the application.
 
 ## 9. Task Planning Docs
 
 Task epics live under `docs/tasks/<NN-name>/DESCRIPTION.md`. Each task directory may also contain reviewer feedback or supplementary docs alongside its DESCRIPTION.md. When a task's scope changes during implementation, **update that task's DESCRIPTION.md** to reflect the current state rather than leaving stale AS IS / TO BE sections.
 
-The project outline with current tasks is at [`docs/PROJECT_OUTLINE.md`](../docs/PROJECT_OUTLINE.md).
+The project outline with current scope is at [`docs/PROJECT_OUTLINE.md`](docs/PROJECT_OUTLINE.md).
 
-The repository root is `/mnt/d/workspace/omgeving.vlaanderen.be/codelijst-rie-iepr/poc`. All work stays within this directory per the guardrails documented in PROJECT_OUTLINE.md.
+The current scope and boundaries are documented in [PROJECT_OUTLINE.md](docs/PROJECT_OUTLINE.md).

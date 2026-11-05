@@ -3,29 +3,32 @@ conceptscheme:operationeel_lucht,skos:ConceptScheme,,,Operationele gegevens,,,,,
 lucht:feature_ep,skos:Concept,conceptscheme:operationeel_lucht,conceptscheme:operationeel_lucht,Emissiepunt,Selecteer het emissiepunt waarop je wil rapporteren.,,sosa:FeatureOfInterest,,,sosa:hasFeatureOfInterest,conceptscheme:operationeel_lucht_bron,emissiepunt:emissiepunt_lucht,,,,,,,,,,,,,,,,true
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 conceptscheme:operationeel_lucht_bron,skos:ConceptScheme,,,,,,,,,,,,,,,,,,,,,,,,,,,
-lucht:feature_bron,skos:Concept,conceptscheme:operationeel_lucht_bron,conceptscheme:operationeel_lucht_bron,Bron(nen),Selecteer de bron(nen) waarop je wil rapporteren.,,sosa:FeatureOfInterest,,,sosa:hasFeatureOfInterest,conceptscheme:operationeel_lucht_rapportering,riepr:Installatie,,,,,,,,,,,,,,true,,true
+lucht:feature_bron,skos:Concept,conceptscheme:operationeel_lucht_bron,conceptscheme:operationeel_lucht_bron,Bron(nen),Selecteer de bron(nen) waarop je wil rapporteren.,,sosa:FeatureOfInterest,,,sosa:hasFeatureOfInterest,conceptscheme:operationeel_lucht_rapportering|conceptscheme:operationeel_lucht_emissie,riepr:Installatie,,,,,,,,,,,,,,true,,true
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 conceptscheme:operationeel_lucht_rapportering,skos:ConceptScheme,,,,,,,,,,,,,,,,,,,,,,,,,,,
 lucht:brandstof,skos:Concept,conceptscheme:operationeel_lucht_rapportering,conceptscheme:operationeel_lucht_rapportering,Verbruikte brandstof,Geef de verbruikte brondstoffen op.,,riepr:ObservatieVerzameling,riepr:Verbruik,,,,,,,,,,,,,,,,true,,,,true
 lucht:brandstof_naam,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Naam,Naam van de brandstof.,lucht:brandstof,,,xsd:string,rdfs:label,,,,,,,,,,,,,true,,,,,true
-lucht:brandstof_s,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,S-gehalte,,lucht:brandstof,riepr:Observatie,,xsd:decimal,qudt:numericValue,,,,,,,,,,,,,true,,,,lucht:brandstof_naam,
-lucht:brandstof_as,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,AS-gehalte,,lucht:brandstof,riepr:Observatie,,xsd:decimal,qudt:numericValue,,,,,,,,,,,,,true,,,,lucht:brandstof_s,
-lucht:brandstof_verbruik,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Verbruik,Verbruik van de brandstof in GJ,lucht:brandstof,riepr:Observatie,,xsd:decimal,qudt:numericValue,,,,,,csor_eenheid:E_89,,,,,,,true,,,,lucht:brandstof_as,
+lucht:brandstof_s,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,S-gehalte,,lucht:brandstof,riepr:Observatie,,xsd:decimal,sosa:hasMember,,,,,,,,,,,,,true,,,,lucht:brandstof_naam,
+lucht:brandstof_as,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,AS-gehalte,,lucht:brandstof,riepr:Observatie,,xsd:decimal,sosa:hasMember,,,,,,,,,,,,,true,,,,lucht:brandstof_s,
+lucht:brandstof_verbruik,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Verbruik,Verbruik van de brandstof in GJ,lucht:brandstof,riepr:Observatie,,xsd:decimal,sosa:hasMember,,,,,,csor_eenheid:E_89,,,,,,,true,,,,lucht:brandstof_as,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 lucht:verbruikte_stof,skos:Concept,conceptscheme:operationeel_lucht_rapportering,conceptscheme:operationeel_lucht_rapportering,Verbruikte stof,Geef de verbruikte stoffen op.,,riepr:Observatie,riepr:Verbruik,,,,,,,,,,,,,,,,true,,,lucht:brandstof,
 lucht:verbruikte_stof_naam,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Naam,Naam van de verbruikte stof.,lucht:verbruikte_stof,,,xsd:string,rdfs:label,,,,,,,,,,,,,true,,,,,true
-lucht:verbruikte_stof_aard,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Aard,Aard van het verbruik.,lucht:verbruikte_stof,riepr:Resultaat,,xsd:string,rdfs:comment,,,,,,,,,,,,,true,,,,lucht:verbruikte_stof_naam,
-lucht:verbruikte_stof_hoeveelheid,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Verbruik,,lucht:verbruikte_stof,riepr:Resultaat,,xsd:decimal,qudt:numericValue,,,,,,http://TODO,,,,,,,true,,,,lucht:verbruikte_stof_aard,
+lucht:verbruikte_stof_aard,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Aard,Aard van het verbruik.,lucht:verbruikte_stof_resultaat,,,xsd:string,rdfs:comment,,,,,,,,,,,,,true,,,,,true
+lucht:verbruikte_stof_hoeveelheid,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Verbruik,,lucht:verbruikte_stof_resultaat,,,xsd:decimal,qudt:numericValue,,,,,,http://TODO,,,,,,,true,,,,lucht:verbruikte_stof_aard,
+lucht:verbruikte_stof_resultaat,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Resultaat verbruikte stof,Het resultaatrecord van de gerapporteerde verbruikte stof.,lucht:verbruikte_stof,riepr:Resultaat,,,sosa:hasResult,,,,,,,,,,,,,true,,,,lucht:verbruikte_stof_naam,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 lucht:geproduceerde_stof,skos:Concept,conceptscheme:operationeel_lucht_rapportering,conceptscheme:operationeel_lucht_rapportering,Geproduceerde stof,Geproduceerde stof.,,riepr:Observatie,riepr:Verbruik,,,,,,,,,,,,,,,,true,,,lucht:verbruikte_stof,
-lucht:geproduceerde_stof_naam,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Naam,Naam van de geproduceerde stof.,lucht:geproduceerde_stof,riepr:Resultaat,,xsd:string,rdfs:label,,,,,,,,,,,,,true,,,,,true
-lucht:geproduceerde_stof_aard,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Aard,Aard van de geproduceerde stof.,lucht:geproduceerde_stof,riepr:Resultaat,,xsd:string,rdfs:comment,,,,,,,,,,,,,true,,,,lucht:geproduceerde_stof_naam,
-lucht:geproduceerde_stof_hoeveelheid,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Verbruik,,lucht:geproduceerde_stof,riepr:Resultaat,,xsd:decimal,qudt:numericValue,,,,,,http://TODO,,,,,,,,,,,lucht:geproduceerde_stof_aard,
+lucht:geproduceerde_stof_naam,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Naam,Naam van de geproduceerde stof.,lucht:geproduceerde_stof_resultaat,,,xsd:string,rdfs:label,,,,,,,,,,,,,true,,,,,true
+lucht:geproduceerde_stof_aard,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Aard,Aard van de geproduceerde stof.,lucht:geproduceerde_stof_resultaat,,,xsd:string,rdfs:comment,,,,,,,,,,,,,true,,,,lucht:geproduceerde_stof_naam,
+lucht:geproduceerde_stof_hoeveelheid,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Verbruik,,lucht:geproduceerde_stof_resultaat,,,xsd:decimal,qudt:numericValue,,,,,,http://TODO,,,,,,,,,,,lucht:geproduceerde_stof_aard,
+lucht:geproduceerde_stof_resultaat,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Resultaat geproduceerde stof,Het resultaatrecord van de gerapporteerde geproduceerde stof.,lucht:geproduceerde_stof,riepr:Resultaat,,,sosa:hasResult,,,,,,,,,,,,,true,,,,,true
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 lucht:afvalproduct,skos:Concept,conceptscheme:operationeel_lucht_rapportering,conceptscheme:operationeel_lucht_rapportering,Afvalproduct,Afvalproduct,,riepr:Observatie,riepr:Verbruik,,,,,,,,,,,,,,,,true,,,lucht:geproduceerde_stof,
-lucht:afvalproduct_naam,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Naam,Naam van het afvalproduct.,lucht:afvalproduct,riepr:Resultaat,,xsd:string,rdfs:label,,,,,,,,,,,,,true,,,,,true
-lucht:afvalproduct_aard,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Aard,Aard van de afvalproduct.,lucht:afvalproduct,riepr:Resultaat,,xsd:string,rdfs:comment,,,,,,,,,,,,,true,,,,lucht:afvalproduct_naam,
-lucht:afvalproduct_hoeveelheid,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Verbruik,,lucht:afvalproduct,riepr:Resultaat,,xsd:decimal,qudt:numericValue,,,,,,http://TODO,,,,,,,,,,,lucht:afvalproduct_aard,
+lucht:afvalproduct_naam,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Naam,Naam van het afvalproduct.,lucht:afvalproduct_resultaat,,,xsd:string,rdfs:label,,,,,,,,,,,,,true,,,,,true
+lucht:afvalproduct_aard,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Aard,Aard van de afvalproduct.,lucht:afvalproduct_resultaat,,,xsd:string,rdfs:comment,,,,,,,,,,,,,true,,,,lucht:afvalproduct_naam,
+lucht:afvalproduct_hoeveelheid,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Verbruik,,lucht:afvalproduct_resultaat,,,xsd:decimal,qudt:numericValue,,,,,,http://TODO,,,,,,,,,,,lucht:afvalproduct_aard,
+lucht:afvalproduct_resultaat,skos:Concept,,conceptscheme:operationeel_lucht_rapportering,Resultaat afvalproduct,Het resultaatrecord van het gerapporteerde afvalproduct.,lucht:afvalproduct,riepr:Resultaat,,,sosa:hasResult,,,,,,,,,,,,,true,,,,,true
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 conceptscheme:operationeel_lucht_emissie,skos:ConceptScheme,,,,,,,,,,,,,,,,,,,,,,,,,,,
 lucht:emissie,skos:Concept,conceptscheme:operationeel_lucht_emissie,conceptscheme:operationeel_lucht_emissie,Emissie,,,riepr:ObservatieVerzameling,riepr:Emissie,,,,,,,,,,,,,,,,true,,,,
@@ -34,13 +37,14 @@ lucht:emissieperiode,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Emis
 lucht:emissieduur,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Emissieduur,,lucht:emissie,,,xsd:integer,time:hasDuration,,,,,,,,,,,,,,,,,,
 lucht:emissietype,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Emissietype,,lucht:emissie,,,,dcterms:type,,,,,conceptscheme:emissietypes,,,,,,,,,,,,,
 lucht:emissietoestand,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Toestand indicator,,lucht:emissie,,,,,,,,,conceptscheme:operationeel_toestand_indicator,,,,,,,,,,,,,
-lucht:emissie_vochtgehalte,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Vochtgehalte,,lucht:emissie,riepr:Observatie,,xsd:decimal,qudt:numericResult,,,,,,csor_eenheid:E_43,,,,,,,,,,,,
-lucht:emissie_zuurstofgehalte,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Zuurstofgehalte,,lucht:emissie,riepr:Observatie,,xsd:decimal,qudt:numericResult,,,,,,csor_eenheid:E_43,,,,,,,,,,,,
-lucht:emissie_luchtoverschot,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Luchtoverschot,,lucht:emissie,riepr:Observatie,,xsd:decimal,qudt:numericResult,,,,,,csor_eenheid:E_43,,,,,,,,,,,,
-lucht:emissie_temperatuur,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Temperatuur,,lucht:emissie,riepr:Observatie,,xsd:decimal,qudt:numericResult,,,,,,csor_eenheid:E_62,,,,,,,,,,,,
-lucht:emissie_parameter,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Verontreinigende stof of BKG,,lucht:emissie,,,,,,,,,,,,,,,,,,true,,,,
-lucht:emissie_parameter_parameter,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Stof,,lucht:emissie_parameter,,,,riepr:parameter,,,,,collectie:operationeel_stoffen_lucht,,,,,,,,,,,,,
-lucht:emissie_parameter_meetfrequentie,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Meetfrequentie,,lucht:emissie_parameter,,,,dcterms:accrualPeriodicity,,,,,,,,,,,,,,,,,,
-lucht:emissie_parameter_standaardafwijking,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Standaardafwijking,,lucht:emissie_parameter,,,xsd:decimal,qudt:standardUncertainty,,,,,,csor_eenheid:E_43,csor_kwantificeerbaaraspect:KWA_7,csor_drager:DR_8,csor_soortwaardebepaling:SWB_40,lucht:emissie_parameter_parameter,,,,,,,,
-lucht:emissie_parameter_massastroom,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Massastroom,,lucht:emissie_parameter,,,xsd:decimal,,,,,,,csor_eenheid:E_13,csor_kwantificeerbaaraspect:KWA_2,csor_drager:DR_8,csor_soortwaardebepaling:SWB_1,lucht:emissie_parameter_parameter,,,,,,,,
+lucht:emissie_vochtgehalte,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Vochtgehalte,,lucht:emissie,riepr:Observatie,,xsd:decimal,sosa:hasMember,,,,,,csor_eenheid:E_43,,,,,,,,,,,,
+lucht:emissie_zuurstofgehalte,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Zuurstofgehalte,,lucht:emissie,riepr:Observatie,,xsd:decimal,sosa:hasMember,,,,,,csor_eenheid:E_43,,,,,,,,,,,,
+lucht:emissie_luchtoverschot,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Luchtoverschot,,lucht:emissie,riepr:Observatie,,xsd:decimal,sosa:hasMember,,,,,,csor_eenheid:E_43,,,,,,,,,,,,
+lucht:emissie_temperatuur,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Temperatuur,,lucht:emissie,riepr:Observatie,,xsd:decimal,sosa:hasMember,,,,,,csor_eenheid:E_62,,,,,,,,,,,,
+lucht:emissie_parameter,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Verontreinigende stof of BKG,,lucht:emissie,riepr:Observatie,,,sosa:hasMember,,,,,,,,,,,,,,true,,,,
+lucht:emissie_parameter_parameter,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Stof,,lucht:emissie_parameter,,,,sosa:observedProperty,,,,,collectie:operationeel_stoffen_lucht,,,,,,,,,,,,,true
+lucht:emissie_parameter_meetfrequentie,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Meetfrequentie,,lucht:emissie_parameter_resultaat,,,,dcterms:accrualPeriodicity,,,,,conceptscheme:operationeel_zelfcontrole_meetfrequentie,,,,,,,,,,,,,true
+lucht:emissie_parameter_standaardafwijking,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Standaardafwijking,,lucht:emissie_parameter_resultaat,schema:PropertyValue,,xsd:decimal,schema:additionalProperty,,,,,,csor_eenheid:E_43,csor_kwantificeerbaaraspect:KWA_7,csor_drager:DR_8,csor_soortwaardebepaling:SWB_40,lucht:emissie_parameter_parameter,,,,,,,lucht:emissie_parameter_meetfrequentie,
+lucht:emissie_parameter_massastroom,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Massastroom,,lucht:emissie_parameter_resultaat,,,xsd:decimal,qudt:numericValue,,,,,,csor_eenheid:E_13,csor_kwantificeerbaaraspect:KWA_2,csor_drager:DR_8,csor_soortwaardebepaling:SWB_1,lucht:emissie_parameter_parameter,,,,,,,lucht:emissie_parameter_standaardafwijking,
+lucht:emissie_parameter_resultaat,skos:Concept,,conceptscheme:operationeel_lucht_emissie,Resultaat luchtparameter,Het resultaatrecord van de gerapporteerde verontreinigende stof of het broeikasgas.,lucht:emissie_parameter,riepr:Resultaat,,,sosa:hasResult,,,,,,,,,,,,,true,,,,lucht:emissie_parameter_parameter,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,

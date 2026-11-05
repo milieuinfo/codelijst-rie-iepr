@@ -1,4 +1,4 @@
 export * from './codelist-enricher.js';
-export * from './schema-flattener.js';
-export * from './sheet-splitter.js';
+export * from './tabular-plan.js';
 export * from './ods-generator.js';
+export * from './ods-importer.js';

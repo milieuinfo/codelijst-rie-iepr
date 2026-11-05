@@ -5,9 +5,9 @@
   "type": "module",
   "packageManager": "pnpm@9.15.9",
   "scripts": {
-    "predev": "node scripts/sync-codelist.mjs && node scripts/sync-csor.mjs --allow-stale",
+    "predev": "node scripts/sync-csor.mjs --allow-stale && npm run sync:schemas && node scripts/sync-codelist.mjs",
     "dev": "vite",
-    "prebuild": "node scripts/sync-codelist.mjs && node scripts/sync-csor.mjs --allow-stale",
+    "prebuild": "node scripts/sync-csor.mjs --allow-stale && npm run sync:schemas && node scripts/sync-codelist.mjs",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint 'src/**/*.{ts,js}' --max-warnings=0",
@@ -15,12 +15,15 @@
     "test": "playwright test",
     "test:ui": "playwright test --ui",
     "test:unit": "vitest run",
-    "sync:csor": "node scripts/sync-csor.mjs"
+    "sync:csor": "node scripts/sync-csor.mjs",
+    "sync:schemas": "npm --prefix ../poc-json-schema-ods run build && node scripts/sync-schemas.mjs && node scripts/generate-downloads.mjs"
   },
   "dependencies": {
-    "@domg-wc/components": "2.16.0",
-    "@domg-wc/styles": "2.16.0",
-    "@domg/govflanders-style": "21.3.0",
+    "@noble/hashes": "^1.8.0",
+    "codelijst-rie-iepr-poc-json-schema": "link:../poc-json-schema",
+    "@domg-wc/components": "2.22.0",
+    "@domg-wc/styles": "2.22.0",
+    "@domg/govflanders-style": "21.4.0",
     "lit": "^3.2.0",
     "n3": "^1.26.0"
   },

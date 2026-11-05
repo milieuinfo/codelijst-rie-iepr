@@ -1,15 +1,10 @@
 import { describe, it, expect } from 'vitest'
-import fs from 'node:fs/promises'
-import path from 'node:path'
-import { CodelistParser } from '../src/services/codelist-parser.js'
 import { ConceptMapper } from '../src/services/concept-mapper.js'
+import { operationalResult as result, reportingSection, property, items } from './operational-fixtures.js'
 
-const PROJECT_ROOT = path.resolve(__dirname, '..')
-const CODELIST = path.join(PROJECT_ROOT, 'public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld')
 const CSOR = 'https://data.omgeving.vlaanderen.be/id/concept/csor'
 
 describe('CSOR collections and variabele', () => {
-  const result = new CodelistParser().loadFromFile(CODELIST)
   const mapper = new ConceptMapper(result)
 
   it('indexes skos:Collection members', () => {
@@ -31,15 +26,14 @@ describe('CSOR collections and variabele', () => {
     expect(field?.variabeleConceptId).toBe('water:lozing-stof')
   })
 
-  it('generated water/lozing schema keeps both numeric values and points them at the stof property', async () => {
-    const content = await fs.readFile(path.join(PROJECT_ROOT, 'output/schema/water/lozing/schema.json'), 'utf-8')
-    const schema = JSON.parse(content) as any
-    const props = schema.properties.hasMember.items.properties as Record<string, any>
+  it('generates water/lozing from current source and resolves both numeric variables through the shared context', () => {
+    const record = items(property(reportingSection('Water', 'water:lozing'), 'lozing'))
 
-    expect(props.parameter.enum).toContain(`${CSOR}/variabele/V_46`)
-    expect(props.lozingConcentratie['x-kwantiteitsaspect']).toBe(`${CSOR}/kwantificeerbaaraspect/KWA_1`)
-    expect(props.lozingConcentratie['x-variabele']).toBe('parameter')
-    expect(props.lozingJaarvracht['x-kwantiteitsaspect']).toBe(`${CSOR}/kwantificeerbaaraspect/KWA_2`)
-    expect(props.lozingJaarvracht['x-variabele']).toBe('parameter')
+    expect(property(property(record, 'additionalProperty'), 'value').enum).toContain(`${CSOR}/variabele/V_46`)
+    for (const [name, aspect] of [['lozingConcentratie', 'KWA_1'], ['lozingJaarvracht', 'KWA_2']]) {
+      expect(property(record, name)['x-kwantiteitsaspect']).toBe(`${CSOR}/kwantificeerbaaraspect/${aspect}`)
+      expect(property(record, name)['x-variabele']).toBe('additionalProperty')
+      expect(property(record, name)['x-variable-location']).toEqual({ ancestorDepth: 0, path: ['additionalProperty', 'value'] })
+    }
   })
 })

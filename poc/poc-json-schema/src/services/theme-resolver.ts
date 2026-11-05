@@ -1,154 +1,104 @@
 import type { Concept, CodelistResult, Scheme } from '../models/index.js'
 import { config } from '../config.js'
 
+export interface StepTransition {
+  fromSchemeId: string
+  triggerConceptId: string
+  toSchemeId: string
+}
+
 export interface ThemeChain {
   themeConcept: Concept
   schemeIds: string[]
   structuralChains: Map<string, string>
-  /** ID of the leaf scheme in the chain (innermost, typically contains measurement fields) */
+  /** Retained for the existing assembler; all branch leaves are in leafSchemeIds. */
   leafSchemeId: string
+  leafSchemeIds?: string[]
+  transitions?: StepTransition[]
 }
 
 export class ThemeResolver {
   resolveAllThemes(result: CodelistResult): Map<string, ThemeChain> {
-    const themaScheme = this.findThemeTypeScheme(result)
-    if (!themaScheme) {
-      console.warn('[ThemeResolver] Could not find theme typescheme')
-      return new Map()
+    if (result.reportingProfile === 'groundwater-csv-v1') {
+      const id = 'conceptscheme:operationeel_grondwater'
+      if (!result.schemes.has(id)) throw new Error(`Missing reporting entry scheme ${id}.`)
+      return new Map([['Grondwater', {
+        themeConcept: { id, prefLabel: 'Grondwater' }, schemeIds: [id],
+        structuralChains: new Map(), leafSchemeId: id, leafSchemeIds: [id], transitions: [],
+      }]])
     }
-
-    const topConcepts = result.topConcepts.get(themaScheme.id) || []
     const themes = new Map<string, ThemeChain>()
-
-    for (const themeConcept of topConcepts) {
-      const chain = this.resolveTheme(result, themeConcept.id)
-      if (chain) {
-        const label = themeConcept.prefLabel || this.slugify(themeConcept.id)
-        themes.set(label, chain)
-      }
+    for (const theme of this.getThemeConcepts(result)) {
+      const chain = this.resolveTheme(result, theme.id)
+      if (!chain) throw new Error(`Theme ${theme.id} has no vervolgstap; sync the current codelist before generating schemas.`)
+      const name = theme.prefLabel || theme.id
+      if (themes.has(name)) throw new Error(`Duplicate theme label "${name}"; themes must have unambiguous entry points.`)
+      themes.set(name, chain)
     }
-
     return themes
   }
 
   resolveTheme(result: CodelistResult, themeConceptId: string): ThemeChain | undefined {
     const themeConcept = result.concepts.get(themeConceptId)
-    if (!themeConcept) return undefined
+    if (!themeConcept?.vervolgstap?.length) return undefined
 
-    // Find base operationeel scheme via seeAlso
-    let currentSchemeId: string | undefined
-    for (const ref of themeConcept.seeAlso || []) {
-      const scheme = result.schemes.get(ref)
-      if (scheme && scheme.type?.includes('skos:ConceptScheme')) {
-        currentSchemeId = ref
-        break
-      }
-    }
-
-    if (!currentSchemeId) return undefined
-
-    const schemeIds = [currentSchemeId]
+    const schemeIds: string[] = []
     const structuralChains = new Map<string, string>()
+    const transitions: StepTransition[] = []
+    const leaves = new Set<string>()
+    const active: string[] = []
+    const visited = new Set<string>()
 
-    // Discover and follow seeAlso chains recursively
-    let discovered = true
-    while (discovered) {
-      discovered = false
-      for (const schemeId of [...schemeIds]) {
-        const scheme = result.schemes.get(schemeId)
-        if (!scheme) continue
-
-        // Check top concepts in this scheme for seeAlso refs to other local schemes
-        const topConcepts = result.topConcepts.get(schemeId) || []
-        for (const concept of topConcepts) {
-          for (const ref of concept.seeAlso || []) {
-            const targetScheme = result.schemes.get(ref)
-            if (targetScheme && !schemeIds.includes(ref)) {
-              schemeIds.push(ref)
-              structuralChains.set(concept.id, ref)
-              discovered = true
-            }
-          }
-        }
-
-        // Also check ALL concepts within the discovered scheme for seeAlso refs
-        for (const c of result.concepts.values()) {
-          if (c.inScheme === schemeId) {
-            for (const ref of c.seeAlso || []) {
-              const targetScheme = result.schemes.get(ref)
-              if (targetScheme && !schemeIds.includes(ref)) {
-                schemeIds.push(ref)
-                structuralChains.set(c.id, ref)
-                discovered = true
-              }
-            }
-          }
+    const visit = (schemeId: string): void => {
+      if (active.includes(schemeId)) {
+        throw new Error(`vervolgstap cycle: ${[...active, schemeId].join(' -> ')}`)
+      }
+      if (!result.schemes.has(schemeId)) throw new Error(`Unresolved vervolgstap ${schemeId} in ${themeConceptId}.`)
+      if (visited.has(schemeId)) return
+      visited.add(schemeId)
+      active.push(schemeId)
+      schemeIds.push(schemeId)
+      let hasNext = false
+      for (const concept of this.conceptsOf(result, schemeId)) {
+        for (const target of concept.vervolgstap ?? []) {
+          hasNext = true
+          transitions.push({ fromSchemeId: schemeId, triggerConceptId: concept.id, toSchemeId: target })
+          // The full edge list retains branching; this map serves legacy single-target consumers.
+          if (!structuralChains.has(concept.id)) structuralChains.set(concept.id, target)
+          visit(target)
         }
       }
+      if (!hasNext) leaves.add(schemeId)
+      active.pop()
     }
 
-    // Second pass: scan all concepts for additional seeAlso links that bridge disconnected schemes
-    // Only consider concepts whose IDs share a meaningful prefix with our discovered schemes
-    let extraDiscovered = true
-    while (extraDiscovered) {
-      extraDiscovered = false
-      for (const [conceptId, concept] of result.concepts.entries()) {
-        for (const ref of concept.seeAlso || []) {
-          const targetScheme = result.schemes.get(ref)
-          if (targetScheme && !schemeIds.includes(ref)) {
-            // Normalize both IDs by replacing hyphens with underscores for comparison
-            const normalizedConceptId = conceptId.replace(/-/g, '_')
-            const isRelated = schemeIds.some(existingScheme => {
-              const normalizedScheme = existingScheme.replace(/-/g, '_')
-              return normalizedScheme.includes(normalizedConceptId.split(':')[0]) ||
-                     normalizedConceptId.includes(normalizedScheme.split(':').pop() || '')
-            })
-            
-            if (isRelated) {
-              schemeIds.push(ref)
-              structuralChains.set(conceptId, ref)
-              extraDiscovered = true
-            }
-          }
-        }
-      }
-    }
-
-    const leafSchemeId = schemeIds[schemeIds.length - 1]
-
-    return { themeConcept, schemeIds, structuralChains, leafSchemeId }
+    for (const entry of themeConcept.vervolgstap) visit(entry)
+    const leafSchemeIds = [...leaves]
+    return { themeConcept, schemeIds, structuralChains, transitions, leafSchemeIds, leafSchemeId: leafSchemeIds[0] }
   }
 
   getThemeConcepts(result: CodelistResult): Concept[] {
-    const themaScheme = this.findThemeTypeScheme(result)
-    if (!themaScheme) return []
-    return result.topConcepts.get(themaScheme.id) || []
+    const scheme = this.findThemeTypeScheme(result)
+    if (!scheme) throw new Error(`Theme entry scheme not found (${config.themeSchemeIds.join(', ')}).`)
+    return this.conceptsOf(result, scheme.id).filter(concept => !concept.broaderPartitive?.length)
   }
 
-  /** Find the scheme that serves as the root for thematic streams. */
+  private conceptsOf(result: CodelistResult, schemeId: string): Concept[] {
+    const concepts = new Map((result.topConcepts.get(schemeId) ?? []).map(concept => [concept.id, concept]))
+    for (const concept of result.concepts.values()) {
+      if (concept.inScheme === schemeId) concepts.set(concept.id, concept)
+    }
+    return [...concepts.values()].sort((a, b) => a.id.localeCompare(b.id))
+  }
+
   private findThemeTypeScheme(result: CodelistResult): Scheme | undefined {
-    const matches: Scheme[] = []
-    for (const [id, scheme] of result.schemes.entries()) {
-      if (id.toLowerCase().includes(config.themeSchemePattern)) {
-        matches.push(scheme)
-      }
+    const expand = result.expandCurie ?? ((id: string) => id)
+    for (const id of config.themeSchemeIds) {
+      const match = result.schemes.get(id) ?? [...result.schemes.values()].find(
+        scheme => expand(scheme.id) === expand(id),
+      )
+      if (match) return match
     }
-    // Prefer the match whose top concepts each have seeAlso pointing to a local scheme
-    for (const candidate of matches) {
-      const tops = result.topConcepts.get(candidate.id) || []
-      if (tops.length > 0 && tops.every(tc => Array.isArray(tc.seeAlso) && tc.seeAlso.length > 0)) {
-        return candidate
-      }
-    }
-    // Fallback: return first pattern match
-    return matches[0] ?? undefined
-  }
-
-  private slugify(text: string): string {
-    return text.toLowerCase()
-      .replace(/[^\w\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .trim()
+    return undefined
   }
 }

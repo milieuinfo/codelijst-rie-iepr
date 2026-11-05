@@ -22,6 +22,7 @@ export class EnumGenerator {
 
     const allValues: string[] = []
     const labels = new Map<string, string>()
+    const failures: string[] = []
 
     for (const schemeRef of concept.relevantCodeList) {
       const resolution = this.resolveSchemeToConcepts(schemeRef)
@@ -31,9 +32,10 @@ export class EnumGenerator {
           labels.set(id, label)
         }
       } else {
-        console.warn(`[EnumGenerator] ${resolution.warning}`)
+        failures.push(resolution.warning)
       }
     }
+    if (failures.length) return { resolved: false, values: [], warning: failures.join('; ') }
 
     if (allValues.length > 0) {
       return { resolved: true, values: allValues, labels }

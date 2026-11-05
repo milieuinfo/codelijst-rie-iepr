@@ -1,0 +1,45 @@
+{
+  "peilmeting": [
+    {
+      "hasFeatureOfInterest": "urn:test:filter:peil:1",
+      "resultTime": "2024-01-02T10:00:00Z",
+      "hasResult": {
+        "numericValue": -2.125,
+        "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_59",
+        "peilmetingReferentiepunt": "urn:test:referentiepunt:maaiveld",
+        "measurementMethod": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-peilmethode/peillint",
+        "peilmetingPomptoestand": {
+          "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-pomptoestand",
+          "value": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/rust"
+        },
+        "peilmetingDuurStil": {
+          "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-duur-stil",
+          "value": "PT8H"
+        },
+        "peilmetingVolumeRust": {
+          "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-volume-rust",
+          "value": 0,
+          "unitCode": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32"
+        }
+      }
+    },
+    {
+      "hasFeatureOfInterest": "urn:test:filter:pomp:1",
+      "resultTime": "2024-01-03T11:00:00Z",
+      "hasResult": {
+        "numericValue": -3.25,
+        "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_59",
+        "peilmetingReferentiepunt": "urn:test:referentiepunt:maaiveld",
+        "peilmetingPomptoestand": {
+          "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-pomptoestand",
+          "value": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/werking"
+        },
+        "peilmetingVolumeWerking": {
+          "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-volume-werking",
+          "value": 0.1234567890123,
+          "unitCode": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32"
+        }
+      }
+    }
+  ]
+}

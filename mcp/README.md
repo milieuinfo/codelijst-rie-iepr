@@ -69,6 +69,13 @@ Claude Code; de configuratiebestanden staan opgesomd in `AGENTS.md`. De bijhoren
 | `reorder_fields` | Volgorde van velden zetten (`_ui_first`/`_ui_after`) |
 | `delete_field`, `delete_step` | Verwijderen; volgorde en `related` worden bijgewerkt, `unlink` haalt `seeAlso`-links weg |
 
+`add_field` en `update_flow_item` ondersteunen `relevantObservation` (een lijst
+van observaties/verzamelingen binnen dezelfde stap), `tableWorkbook`
+(`_table_workbook`, een `.ods`-bestandsnaam zonder pad) en `tableSheet`
+(`_table_sheet`, maximaal 31 tekens). Werkboek en werkblad worden samen
+opgegeven of gewist. Tabelkolommen zijn presentatiemetadata, geen RDF-predicaten;
+`relevantObservation` wordt wel als URI-verwijzing gepubliceerd.
+
 De UI-beschrijving volgt de interpretatie van `poc/poc-flow-operationeel` (volgorde volgens
 `ui-sort.ts`, controls zoals `field-control-factory.ts`).
 

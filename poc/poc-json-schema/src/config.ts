@@ -2,10 +2,11 @@
  * Runtime configuration for the transformation pipeline.
  * Keep all domain-specific constants here — no hardcoded values in services.
  */
+import { vocabularyIri } from './services/vocabulary.js'
 
 export interface TransformConfig {
-  /** Pattern (substring) to match the theme typescheme ID. */
-  readonly themeSchemePattern: string
+  /** Published theme entry schemes (current source and existing published ID). */
+  readonly themeSchemeIds: readonly string[]
 
   /** Known external/unresolvable relevantCodeList prefixes. */
   readonly externalDomainPrefixes: readonly string[]
@@ -27,7 +28,7 @@ export interface TransformConfig {
 }
 
 export const config: TransformConfig = {
-  themeSchemePattern: 'thema',
+  themeSchemeIds: ['conceptscheme:thematypes', 'conceptscheme:thema_type'],
   externalDomainPrefixes: [
     'https://vito.be',
     'conceptscheme-alg:',
@@ -41,10 +42,10 @@ export const config: TransformConfig = {
 
 /** Whether a relevantClass marks an observation collection composite. */
 export function isCollectionClass(relevantClass: string | undefined): boolean {
-  return !!relevantClass && config.collectionClasses.includes(relevantClass)
+  return !!relevantClass && config.collectionClasses.some(value => vocabularyIri(value) === vocabularyIri(relevantClass))
 }
 
 /** Whether a relevantClass marks an observation (or observation collection) composite. */
 export function isObservationClass(relevantClass: string | undefined): boolean {
-  return !!relevantClass && (config.observationClasses.includes(relevantClass) || isCollectionClass(relevantClass))
+  return !!relevantClass && (config.observationClasses.some(value => vocabularyIri(value) === vocabularyIri(relevantClass)) || isCollectionClass(relevantClass))
 }

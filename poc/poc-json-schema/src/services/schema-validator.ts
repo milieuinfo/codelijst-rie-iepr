@@ -1,6 +1,8 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { Ajv2020 } from 'ajv/dist/2020.js'
+import type { JsonSchemaObject } from '../models/index.js'
+import { InstanceValidator } from './instance-validator.js'
+export type { InstanceDiagnostic, InstanceValidationResult } from './instance-validator.js'
 
 export interface ValidationResult {
   valid: boolean
@@ -8,74 +10,41 @@ export interface ValidationResult {
   errors?: string[]
 }
 
-export class SchemaValidator {
+export class SchemaValidator extends InstanceValidator {
   async validateSchema(filePath: string): Promise<ValidationResult> {
     try {
-      const content = await fs.readFile(filePath, 'utf-8')
-      const schema = JSON.parse(content)
-
-      if (typeof schema !== 'object' || schema === null) {
-        return { valid: false, filePath, errors: ['Not a valid JSON object'] }
+      const schema: unknown = JSON.parse(await fs.readFile(filePath, 'utf-8'))
+      if (typeof schema !== 'object' || schema === null || Array.isArray(schema)) {
+        return { valid: false, filePath, errors: ['Not a valid JSON Schema object'] }
       }
-
-      const ajv = new Ajv2020({ strict: false })
-      const valid = ajv.validateSchema(schema) as boolean
-      if (!valid && ajv.errors) {
-        const errs = ajv.errors.map(
-          (e: any) => `${e.instancePath || '/'} ${e.message}`,
-        )
-        return { valid: false, filePath, errors: errs.length ? errs : [ajv.errors.toString()] }
+      const ajv = this.createAjv()
+      if (!ajv.validateSchema(schema)) {
+        return {
+          valid: false, filePath,
+          errors: (ajv.errors ?? []).map(error => `${error.instancePath || '/'} ${error.message}`),
+        }
       }
-
       return { valid: true, filePath }
-    } catch (err) {
-      return {
-        valid: false,
-        filePath,
-        errors: [(err as Error).message],
-      }
+    } catch (error) {
+      return { valid: false, filePath, errors: [error instanceof Error ? error.message : String(error)] }
     }
   }
 
   async validateAll(outDir: string): Promise<ValidationResult[]> {
     const schemaDir = path.resolve(outDir, 'schema')
-    const results: ValidationResult[] = []
-
     const files = await fs.readdir(schemaDir, { recursive: true })
+    const results: ValidationResult[] = []
     for (const file of files) {
-      if (typeof file === 'string' && file.endsWith('.json')) {
-        const fullPath = path.join(schemaDir, file)
-        const result = await this.validateSchema(fullPath)
-        results.push(result)
+      if (file.endsWith('.json') && file !== 'index.json') {
+        results.push(await this.validateSchema(path.join(schemaDir, file)))
       }
     }
-
     return results
   }
 
-  async validateData(
-    schemaPath: string,
-    baseSchemaPath: string,
-    sampleData: unknown,
-  ): Promise<boolean> {
-    try {
-      const schemaContent = await fs.readFile(schemaPath, 'utf-8')
-      const baseContent = await fs.readFile(baseSchemaPath, 'utf-8')
-      const schema = JSON.parse(schemaContent)
-      const baseSchema = JSON.parse(baseContent)
-
-      const ajv = new Ajv2020({ strict: false })
-      ajv.addSchema(baseSchema, baseSchema.$id || baseSchemaPath)
-      ajv.addSchema(schema, schema.$id || schemaPath)
-
-      const validate = ajv.getSchema(schema.$id || schemaPath)
-      if (!validate) {
-        return false
-      }
-
-      return !!validate(sampleData)
-    } catch {
-      return false
-    }
+  async validateData(schemaPath: string, baseSchemaPath: string, sampleData: unknown): Promise<boolean> {
+    const schema: JsonSchemaObject = JSON.parse(await fs.readFile(schemaPath, 'utf-8'))
+    const base: JsonSchemaObject = JSON.parse(await fs.readFile(baseSchemaPath, 'utf-8'))
+    return this.validateInstance(schema, sampleData, [base]).valid
   }
 }

@@ -1,291 +1,93 @@
-import { writeFileSync, mkdirSync, existsSync, readdirSync, readFileSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { CodelistEnricher } from './services/codelist-enricher.js';
-import { SchemaFlattener } from './services/schema-flattener.js';
-import { SheetSplitter } from './services/sheet-splitter.js';
+import { loadSchemaIndex } from './services/schema-index.js';
+import { compileTabularPlan } from './services/tabular-plan.js';
 import { ODSGenerator } from './services/ods-generator.js';
-import { collectCsorUris, fetchCsorLabels, CSOR_SPARQL_ENDPOINT } from './services/csor-labels.js';
-import type { SheetConfig } from './services/ods-generator.js';
+import { ODSImporter } from './services/ods-importer.js';
+import { referenceData, referenceContext } from './services/workbook-metadata.js';
+import { collectCsorValues, fetchCsorLabels } from './services/csor-labels.js';
+import { schemaObject, generationWarning } from 'codelijst-rie-iepr-poc-json-schema';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const pocRoot = join(__dirname, '..');
-
-interface CliArgs {
-  theme?: string;
-  outDir: string;
-  dryRun: boolean;
-}
-
-function parseArgs(argv: string[]): CliArgs {
-  const args: CliArgs = { outDir: 'output', dryRun: false };
-
-  for (let i = 2; i < argv.length; i++) {
-    switch (argv[i]) {
-      case '--theme':
-        args.theme = argv[++i];
-        break;
-      case '--out':
-        args.outDir = argv[++i];
-        break;
-      case '--dry-run':
-        args.dryRun = true;
-        break;
-      default:
-        console.warn(`Unknown argument: ${argv[i]}`);
-    }
-  }
-  return args;
-}
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 async function main(): Promise<void> {
-  const args = parseArgs(process.argv);
-
-  const inputDir = join(pocRoot, 'input');
-  const schemaDir = join(inputDir, 'schema');
-  const codelistPath = join(inputDir, 'codelist.jsonld');
-  const outputDir = join(pocRoot, args.outDir);
-
-  if (!existsSync(codelistPath)) {
-    console.error('Codelist not found. Run "npm run predev" to sync schemas and codelist.');
-    process.exit(1);
+  const argv = process.argv.slice(2);
+  const command = argv[0] && !argv[0].startsWith('--') ? argv.shift()! : 'template';
+  if (!['template', 'export', 'import', 'plan'].includes(command)) throw new Error(`Unknown command: ${command}`);
+  const args = new Map<string, string>();
+  for (let index = 0; index < argv.length; index++) {
+    const key = argv[index];
+    if (args.has(key)) throw new Error(`Duplicate option: ${key}`);
+    if (key === '--dry-run' || key === '--fetch-labels' || key === '--allow-incomplete') { args.set(key, 'true'); continue; }
+    if (!['--theme', '--section', '--out', '--data', '--references', '--reference-context', '--ods', '--input-dir'].includes(key) ||
+        !argv[index + 1] || argv[index + 1].startsWith('--')) throw new Error(`Unknown option or missing value: ${key}`);
+    args.set(key, argv[++index]);
   }
-  if (!existsSync(join(schemaDir, 'observatie.json'))) {
-    console.error('Base schema not found. Run "npm run predev" to sync schemas.');
-    process.exit(1);
-  }
-
-  // Initialize services
-  const enricher = new CodelistEnricher(codelistPath);
-
-  // CSOR concepts (stoffen of a collection, eenheden) are not in the codelist: look up their labels
-  const csorUris = collectCsorUris(schemaDir);
-  if (csorUris.length > 0) {
+  const input = resolve(args.get('--input-dir') ?? join(root, 'input'));
+  const index = loadSchemaIndex(input);
+  const warning = generationWarning(index.generation);
+  if (warning && !args.has('--allow-incomplete')) throw new Error(`${warning} Use --allow-incomplete to generate the indexed valid sections anyway.`);
+  if (warning) console.warn(warning);
+  let entries = index.files.filter(entry => entry.kind === 'section');
+  if (args.has('--theme')) entries = entries.filter(entry => entry.theme === args.get('--theme'));
+  if (args.has('--section')) entries = entries.filter(entry =>
+    entry.path.split('/').at(-2) === args.get('--section') || entry.id === args.get('--section'));
+  if (!entries.length) throw new Error('No matching reporting sections in the generated index. Generate and sync the selected section first.');
+  if (['import', 'export'].includes(command) && entries.length !== 1) throw new Error('Import/export requires one explicit --theme and --section.');
+  if (command === 'export' && !args.has('--data')) throw new Error('Export requires --data <json-file>.');
+  if (command === 'import' && (!args.has('--ods') || !args.has('--out'))) throw new Error('Import requires --ods <workbook> and --out <json-file>.');
+  const dependencies = await Promise.all(index.files.filter(entry => entry.kind === 'base').map(async entry =>
+    schemaObject(JSON.parse(await readFile(join(input, 'schema', entry.path), 'utf8')))));
+  const references = args.has('--references') ? referenceData(JSON.parse(await readFile(resolve(args.get('--references')!), 'utf8'))) : undefined;
+  const context = args.has('--reference-context') ? referenceContext(JSON.parse(await readFile(resolve(args.get('--reference-context')!), 'utf8'))) : undefined;
+  const enricher = command === 'import' || command === 'plan' || args.has('--dry-run') ? undefined : new CodelistEnricher(join(input, 'codelist.jsonld'));
+  const failures: string[] = [];
+  for (const entry of entries) {
     try {
-      const labels = await fetchCsorLabels(csorUris);
-      enricher.addExternalLabels(labels);
-      console.log(`CSOR labels loaded: ${labels.length}/${csorUris.length} from ${CSOR_SPARQL_ENDPOINT}`);
-    } catch (err) {
-      console.warn(`[warn] CSOR labels not loaded (${(err as Error).message}); falling back to URI fragments`);
-    }
-  }
-  const flattener = new SchemaFlattener();
-  flattener.loadBaseSchema(join(schemaDir, 'observatie.json'));
-  const splitter = new SheetSplitter();
-  const generator = new ODSGenerator();
-
-  // Find available themes
-  const availableThemes = getAvailableThemes(schemaDir);
-  if (availableThemes.length === 0) {
-    console.error('No theme schemas found in:', schemaDir);
-    process.exit(1);
-  }
-
-  // Process requested or all themes
-  const themesToProcess = args.theme ? [args.theme] : availableThemes;
-
-  for (const theme of themesToProcess) {
-    if (!availableThemes.includes(theme)) {
-      console.error(`Theme "${theme}" not found. Available: ${availableThemes.join(', ')}`);
-      process.exit(1);
-    }
-    await processTheme(theme, schemaDir, outputDir, enricher, generator, args.dryRun);
-  }
-
-  // Report unresolved URIs
-  const unresolved = enricher.getUnresolvedUris();
-  if (unresolved.length > 0) {
-    console.log(`\nFound ${unresolved.length} unresolved URI(s):`);
-    for (const uri of unresolved) {
-      console.log(`  - ${uri}`);
-    }
-  }
-
-  console.log('\nDone.');
-}
-
-async function processTheme(
-  theme: string,
-  schemaDir: string,
-  outputDir: string,
-  enricher: CodelistEnricher,
-  generator: ODSGenerator,
-  dryRun: boolean,
-): Promise<void> {
-  const schemaPath = join(schemaDir, theme, 'schema.json');
-  console.log(`\nProcessing theme: ${theme}`);
-
-  const flattener = new SchemaFlattener();
-  flattener.loadBaseSchema(join(schemaDir, 'observatie.json'));
-  const splitter = new SheetSplitter();
-
-  // Step 1: Flatten schema into columns
-  const columns = flattener.flatten(schemaPath);
-  console.log(`  Extracted ${columns.length} columns`);
-
-  // Step 2: Enrich dropdown URIs with codelist labels
-  for (const col of columns) {
-    if (col.dropdownUris && col.dropdownUris.length > 0) {
-      const enriched = enricher.resolveMany(col.dropdownUris);
-      col.dropdownLabels = enriched.map((e) => e.displayLabel);
-
-      const unresolvedCount = enriched.filter((e) => !e.resolved).length;
-      if (unresolvedCount > 0) {
-        console.log(`  [warn] ${col.title}: ${unresolvedCount}/${enriched.length} labels unresolved`);
+      const schema = schemaObject(JSON.parse(await readFile(join(input, 'schema', entry.path), 'utf8')));
+      const plan = compileTabularPlan(schema, { sourceSha256: index.sourceSha256, schemaSha256: entry.sha256, dependencies });
+      if (args.has('--fetch-labels') && enricher) enricher.addExternalLabels(await fetchCsorLabels(collectCsorValues(schema)));
+      if (command === 'plan' || args.has('--dry-run')) {
+        console.log(JSON.stringify({
+          schemaId: plan.schemaId, sourceSha256: plan.sourceSha256,
+          records: plan.records.map(record => ({
+            id: record.id, parentId: record.parentId, path: record.path, ancestry: record.ancestry,
+            sheet: record.sheetName, kind: record.kind,
+            columns: record.columns.map(column => ({ title: column.title, path: column.path, schemaPointer: column.schemaPointer, required: column.required })),
+          })),
+        }, null, 2));
+      } else if (command === 'import') {
+        const data = await new ODSImporter().import(await readFile(resolve(args.get('--ods')!)), plan, { references, referenceContext: context });
+        const output = resolve(args.get('--out')!);
+        if (output === resolve(args.get('--ods')!)) throw new Error('JSON output must not overwrite the source workbook.');
+        await mkdir(dirname(output), { recursive: true });
+        await writeFile(output, JSON.stringify(data, null, 2) + '\n');
+        console.log(`Imported ${output}`);
       } else {
-        console.log(`  [ok]   ${col.title}: enriched ${enriched.length} values`);
+        const data: unknown = command === 'export' ? JSON.parse(await readFile(resolve(args.get('--data')!), 'utf8')) : undefined;
+        const workbook = await new ODSGenerator().generate({ plan, data, references, referenceContext: context, label: value => enricher!.resolve(value).displayLabel });
+        const workbookName = schema['x-table-workbook'] ?? `${entry.path.split('/').at(-2)}.ods`;
+        if (typeof workbookName !== 'string' || !/^[^/\\]+\.ods$/.test(workbookName)) throw new Error(`Invalid workbook filename: ${String(workbookName)}`);
+        const output = resolve(args.get('--out') ?? join(root, 'output'), entry.theme!, workbookName);
+        await mkdir(dirname(output), { recursive: true });
+        await writeFile(output, workbook);
+        console.log(`Written ${output}`);
       }
+    } catch (error) {
+      if (entries.length === 1) throw error;
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(`Failed ${entry.id}: ${message}`);
+      failures.push(entry.id);
     }
   }
-
-  // Dry-run mode: print columns to console
-  if (dryRun) {
-    for (const col of columns) {
-      let extra = '';
-      if (col.uiType === 'dropdown') {
-        extra = ` [${(col.dropdownLabels || []).join(', ')}]`;
-      }
-      console.log(`    ${col.jsonPath} -> "${col.title}" (${col.uiType})${extra}`);
-    }
-    return;
-  }
-
-  // Step 3: Look up theme display name from codelist
-  const themeTitle = getThemeDisplayName(enricher, theme);
-
-  // Step 4: Split into sheets (main + nested objects)
-  const sheets = splitter.split(columns, themeTitle);
-  console.log(`  Sheets: ${sheets.map((s) => s.sheetName).join(', ')}`);
-
-  // Step 5: Generate ODS file using unified generator
-  mkdirSync(outputDir, { recursive: true });
-  const odsPath = join(outputDir, `${theme}.ods`);
-
-  const sheetConfigs: SheetConfig[] = sheets.map((s) => ({
-    sheetName: s.sheetName,
-    columns: s.columns,
-  }));
-
-  const buffer = await generator.generate({
-    documentTitle: themeTitle,
-    sheets: sheetConfigs,
-  });
-
-  writeFileSync(odsPath, Buffer.from(buffer));
-  console.log(`  Written: ${odsPath}`);
-
-  // Process sub-schemas under this theme
-  await processSubSchemas(theme, schemaDir, outputDir, enricher, generator, dryRun);
+  if (failures.length) throw new Error(`${failures.length} of ${entries.length} section(s) failed; see messages above. Sections needing reference data can be generated with --references <json-file>.`);
+  const unresolved = enricher?.getUnresolvedUris() ?? [];
+  if (unresolved.length) console.warn(`Labels unavailable for ${unresolved.length} URI(s); choices retain their exact URI mappings. Use --fetch-labels for published CSOR labels, or supply labels through the export API.`);
 }
 
-function getAvailableThemes(schemaDir: string): string[] {
-  const themes: string[] = [];
-  for (const entry of readdirSync(schemaDir)) {
-    if (!entry.endsWith('.json') && existsSync(join(schemaDir, entry, 'schema.json'))) {
-      themes.push(entry);
-    }
-  }
-  return themes.sort();
-}
-
-function getThemeDisplayName(enricher: CodelistEnricher, theme: string): string {
-  const concept = enricher.getAllConcepts().find((c) => c.id.includes(`thema-type:${theme}`));
-  return concept?.prefLabel || theme;
-}
-
-function getAvailableSubSchemas(schemaDir: string, theme: string): string[] {
-  const themeSchemaDir = join(schemaDir, theme);
-  if (!existsSync(themeSchemaDir)) return [];
-
-  const subs: string[] = [];
-  for (const entry of readdirSync(themeSchemaDir).sort()) {
-    const subPath = join(themeSchemaDir, entry);
-    try {
-      const entries = readdirSync(subPath);
-      if (!entry.endsWith('.json') && entries.includes('schema.json')) {
-        subs.push(entry);
-      }
-    } catch {
-      // skip non-directory entries
-    }
-  }
-  return subs;
-}
-
-async function processSubSchemas(
-  theme: string,
-  schemaDir: string,
-  outputDir: string,
-  enricher: CodelistEnricher,
-  generator: ODSGenerator,
-  dryRun: boolean,
-): Promise<void> {
-  const subNames = getAvailableSubSchemas(schemaDir, theme);
-  if (subNames.length === 0) return;
-
-  for (const subName of subNames) {
-    console.log(`\nProcessing sub-schema: ${theme}/${subName}`);
-
-    const flattener = new SchemaFlattener();
-    flattener.loadBaseSchema(join(schemaDir, 'observatie.json'));
-    const splitter = new SheetSplitter();
-
-    const subSchemaPath = join(schemaDir, theme, subName, 'schema.json');
-    const columns = flattener.flatten(subSchemaPath);
-    console.log(`  Extracted ${columns.length} columns`);
-
-    for (const col of columns) {
-      if (col.dropdownUris && col.dropdownUris.length > 0) {
-        const enriched = enricher.resolveMany(col.dropdownUris);
-        col.dropdownLabels = enriched.map((e) => e.displayLabel);
-
-        const unresolvedCount = enriched.filter((e) => !e.resolved).length;
-        if (unresolvedCount > 0) {
-          console.log(`  [warn] ${col.title}: ${unresolvedCount}/${enriched.length} labels unresolved`);
-        } else {
-          console.log(`  [ok]   ${col.title}: enriched ${enriched.length} values`);
-        }
-      }
-    }
-
-    if (dryRun) continue;
-
-    // Determine document title from sub-schema description/title or fallback to subName
-    const subSchemaObj = JSON.parse(
-      readFileSync(join(schemaDir, theme, subName, 'schema.json'), 'utf-8'),
-    ) as Record<string, unknown>;
-    let docTitle: string;
-    if (typeof subSchemaObj.description === 'string') {
-      docTitle = subSchemaObj.description;
-    } else if (typeof subSchemaObj.title === 'string') {
-      docTitle = subSchemaObj.title;
-    } else {
-      docTitle = `${theme} - ${subName}`;
-    }
-
-    const sheets = splitter.split(columns, docTitle);
-    console.log(`  Sheets: ${sheets.map((s) => s.sheetName).join(', ')}`);
-
-    const subOutputDir = join(outputDir, theme);
-    mkdirSync(subOutputDir, { recursive: true });
-    const odsPath = join(subOutputDir, `${subName}.ods`);
-
-    const sheetConfigs: SheetConfig[] = sheets.map((s) => ({
-      sheetName: s.sheetName,
-      columns: s.columns,
-    }));
-
-    const buffer = await generator.generate({
-      documentTitle: docTitle,
-      sheets: sheetConfigs,
-    });
-
-    writeFileSync(odsPath, Buffer.from(buffer));
-    console.log(`  Written: ${odsPath}`);
-  }
-}
-
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
+main().catch(error => {
+  console.error(error instanceof Error ? error.message : String(error));
+  process.exitCode = 1;
 });

@@ -16,7 +16,7 @@ import type { CodelistResult } from '../models/index.js'
 const SOURCE = resolve(__dirname, '../../../../src/source')
 const TURTLE = resolve(
   __dirname,
-  '../../public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.ttl',
+  '../../../../src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.ttl',
 )
 
 /** De systeemtypes en -eigenschappen horen bij de structuur-POC, niet bij deze. */
@@ -86,7 +86,7 @@ describe('CSOR-verwijzingen', () => {
 })
 
 describe('relevantCodeList', () => {
-  it('elke inline keuzelijst bestaat als conceptscheme met concepten', () => {
+  it('elke inline keuzelijst is gevuld, behalve de expliciet uitgestelde materiaalcodes', () => {
     const fouten: string[] = []
     for (const row of rows) {
       const refs = (row.relevantCodeList ?? '').split(',').map((ref) => ref.trim()).filter(Boolean)
@@ -97,7 +97,8 @@ describe('relevantCodeList', () => {
         if (!result.schemes.has(ref) || concepten.length === 0) fouten.push(`${row._id} → ${ref}`)
       }
     }
-    expect(fouten).toEqual([])
+    expect(fouten).toEqual(['grondstoffen:grondstof_materiaalcode → conceptscheme:operationeel_materiaalcodes'])
+    expect(result.schemes.has('conceptscheme:operationeel_materiaalcodes')).toBe(true)
   })
 
   it('elke CSOR-collectie heeft leden die resolveerbaar zijn', () => {
@@ -127,7 +128,7 @@ describe('relevantCodeList', () => {
         extern.add(ref)
       }
     }
-    expect([...extern].sort()).toEqual(['http://TODO'])
+    expect([...extern].sort()).toEqual([])
   })
 })
 

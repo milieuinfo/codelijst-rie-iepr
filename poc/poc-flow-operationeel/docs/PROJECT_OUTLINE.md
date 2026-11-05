@@ -1,13 +1,47 @@
 # Project Outline — RIE-IEPR Codelist POC
 
-## Status: Refactoring in progress
+## Current status: schema-driven table editor
 
-The codelist (`rie-iepr.jsonld`) has been updated with a new interpretation model based on
-`seeAlso` relationships instead of `relevantRiepr` for navigating between themes and operational
-schemes. The PoC must be adapted to follow this new method.
+The operational form has been replaced by editable Flux 2.22.0 rich data tables
+consuming the same indexed JSON Schemas as the ODS generator. This supersedes
+the historical raw-RDF navigation migration described below.
 
-See the root [`README.md`](../../../README.md), section **"Interpretatie"**, for the authoritative
-specification of how the codelist should be interpreted.
+### Contract and scope
+
+- Discover available themes/sections from the generated index and show blocked
+  sections with their actual source diagnostics.
+- Flatten singleton detail objects into columns; render repeated child records
+  as independent nested tables, and value/reference arrays as multiselects.
+- Preserve ownership without ODS parent-ID/link tables.
+- Resolve generated conditions generically within the owning record/ancestors.
+  Inactive fields are grey/disabled; retain drafts but omit inactive values from
+  validated JSON.
+- Cache drafts per reporting year and section in memory only.
+- Validate the exact projected instance with the shared offline JSON Schema and
+  semantic validators. Show errors at data paths/cells and JSON only on success.
+- Verify indexed source/schema fingerprints; refuse stale or malformed input.
+- Use RDF and CSOR only for labels and explicitly fictional structural references.
+- No source layout columns, hardcoded section whitelist, persistence/backend,
+  import UI, domain calculations or manufactured missing source facts.
+
+Current usable coverage is eight sections (groundwater quality/flow/levels, air
+fuel/emission, water normal/abnormal discharge, water self-control). Five sections
+are explicitly blocked by incomplete source metadata. This is not full Teepak
+acceptance.
+
+### Implementation surfaces
+
+`schema-snapshot.ts`, `schema-editor.ts`, `schema-lookups.ts`,
+`schema-rich-table.ts` and `codelijst-app.ts` form the active implementation.
+The generator exposes shared browser-safe validation/index modules and a shared
+snapshot sync used by the UI and ODS consumers. Legacy form components remain
+unregistered. See [README.md](../README.md) for setup and checks.
+
+## Historical pre-schema refactoring notes (superseded)
+
+The following tasks document the prior RDF-form migration, not remaining tasks
+or the current UI architecture. Published navigation is now `vervolgstap`
+(`qb:codeList`), not the `seeAlso` described in these historical notes.
 
 ---
 

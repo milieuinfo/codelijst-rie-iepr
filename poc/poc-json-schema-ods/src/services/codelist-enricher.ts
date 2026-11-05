@@ -40,7 +40,8 @@ export class CodelistEnricher {
       const id = String(entry.id || '');
       if (!id) continue;
 
-      const types = Array.isArray(entry['_type']) ? entry['_type'] : [];
+      const types = Array.isArray(entry['_type']) ? entry['_type']
+        : typeof entry['_type'] === 'string' ? [entry['_type']] : [];
       const isConcept = types.includes('skos:Concept') || types.includes('qudt:Unit');
       if (!isConcept) continue;
 

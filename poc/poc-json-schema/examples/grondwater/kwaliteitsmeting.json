@@ -1,0 +1,53 @@
+{
+  "kwaliteitsmeting": [
+    {
+      "identifier": "0001",
+      "hasFeatureOfInterest": [
+        "urn:test:filter:peil:1",
+        "urn:test:filter:pomp:1"
+      ],
+      "phenomenonTime": "2024-01-02T10:00:00Z",
+      "resultTime": "2024-01-03T11:00:00Z",
+      "kwaliteitsmetingLabo": {
+        "label": "Synthetisch laboratorium"
+      },
+      "kwaliteitsmetingReferentiepunt": [
+        "urn:test:referentiepunt:maaiveld"
+      ],
+      "kwaliteitsmetingDiepte": {
+        "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-diepte",
+        "hasResult": {
+          "numericValue": -2.125,
+          "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_59"
+        }
+      },
+      "usedProcedure": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-techniekmonstername/aftap",
+      "hasMember": [
+        {
+          "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_246",
+          "hasResult": {
+            "numericValue": 0,
+            "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_1",
+            "additionalProperty": {
+              "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-limiet",
+              "value": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-onder"
+            },
+            "measurementMethod": "Synthetische analysemethode",
+            "type": "Labo"
+          }
+        },
+        {
+          "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_247",
+          "hasResult": {
+            "numericValue": 0.1234567890123,
+            "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_1",
+            "additionalProperty": {
+              "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-limiet",
+              "value": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-boven"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

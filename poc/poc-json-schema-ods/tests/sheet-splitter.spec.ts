@@ -1,69 +1,29 @@
-import { describe, it, expect } from 'vitest';
-import { SheetSplitter } from '../src/services/sheet-splitter.js';
-import type { ColumnDefinition } from '../src/models/column.js';
+import { describe, expect, it } from 'vitest';
+import { array, object, plan, text } from './fixtures.js';
 
-function col(path: string, opts: Partial<ColumnDefinition> = {}): ColumnDefinition {
-  return {
-    jsonPath: path,
-    title: path,
-    uiType: 'text',
-    required: false,
-    ...opts,
-  };
-}
-
-describe('SheetSplitter', () => {
-  it('object-member nested columns stay in the main sheet', () => {
-    const splitter = new SheetSplitter();
-    const columns = [
-      col('/observedProperty'),
-      col('/hasResult/numericValue'),
-      col('/hasResult/hasUnit'),
-    ];
-
-    const sheets = splitter.split(columns, 'Lucht');
-
-    expect(sheets).toHaveLength(1);
-    expect(sheets[0].sheetName).toBe('Lucht');
-    expect(sheets[0].columns.map(c => c.jsonPath)).toEqual(['/observedProperty', '/hasResult/numericValue', '/hasResult/hasUnit']);
+describe('Derived worksheet boundaries', () => {
+  it('inlines singleton entities, creates one sheet at every repeated depth and retains empty parents', () => {
+    const result = plan(object({
+      reports: array(object({
+        sample: object({ sampling: object({ time: text }) }),
+        results: array(object({ value: text })),
+      }), 'Monsters'),
+      empty: array(object({}), 'Lege records'),
+    }));
+    expect(result.records.map(record => record.sheetName)).toEqual(['Voorblad', 'Monsters', 'results', 'Lege records']);
+    expect(result.records[1].columns[0].path).toEqual(['sample', 'sampling', 'time']);
+    expect(result.records[2].parentId).toBe(result.records[1].id);
+    expect(result.records[3].columns).toEqual([]);
   });
 
-  it('array columns get their own tab', () => {
-    const splitter = new SheetSplitter();
-    const columns = [
-      col('/observedProperty'),
-      col('/hasResult/numericValue'),
-      col('/onttrekking/volume', { parentArray: '/onttrekking' }),
-      col('/onttrekking/periode', { parentArray: '/onttrekking' }),
-    ];
-
-    const sheets = splitter.split(columns, 'Lucht');
-
-    expect(sheets).toHaveLength(2);
-    expect(sheets[0].sheetName).toBe('Lucht');
-    expect(sheets[0].columns.map(c => c.jsonPath)).toContain('/observedProperty');
-    expect(sheets[0].columns.map(c => c.jsonPath)).toContain('/hasResult/numericValue');
-
-    const arraySheet = sheets[1];
-    expect(arraySheet.parentPath).toBe('/onttrekking');
-    expect(arraySheet.columns.map(c => c.jsonPath)).toEqual(['/onttrekking/volume', '/onttrekking/periode']);
-  });
-
-  it('a column whose parentArray is a nested path groups under the top-level segment', () => {
-    const splitter = new SheetSplitter();
-    const columns = [
-      col('/observedProperty'),
-      col('/meting/parameter/value', { parentArray: '/meting/parameter' }),
-    ];
-
-    const sheets = splitter.split(columns, 'Meten');
-
-    expect(sheets).toHaveLength(2);
-    expect(sheets[0].sheetName).toBe('Meten');
-
-    const nestedSheet = sheets.find(s => s.parentPath === '/meting');
-    expect(nestedSheet).toBeDefined();
-    expect(nestedSheet!.parentPath).toBe('/meting');
-    expect(nestedSheet!.columns.map(c => c.jsonPath)).toContain('/meting/parameter/value');
+  it('sanitizes and collision-resolves names mechanically, including reserved cover/lookup names', () => {
+    const result = plan(object({
+      a: array(object({}), 'Voorblad'), b: array(object({}), 'voorblad'),
+      c: array(object({}), 'A/B:*?[]'), d: array(object({}), 'A/B:*?[]'),
+      e: array(object({}), 'x'.repeat(80)),
+    }));
+    const names = result.records.map(record => record.sheetName);
+    expect(new Set(names.map(name => name.toLowerCase())).size).toBe(names.length);
+    expect(names.every(name => name.length <= 31 && !/[\[\]:*?/\\]/.test(name))).toBe(true);
   });
 });

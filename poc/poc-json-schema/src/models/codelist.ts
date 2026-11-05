@@ -1,6 +1,7 @@
 export type JsonLdNode = Record<string, unknown>
 
 export interface CodelistResult {
+  reportingProfile?: string
   nodesById: Map<string, JsonLdNode>
   schemes: Map<string, Scheme>
   concepts: Map<string, Concept>
@@ -19,6 +20,7 @@ export interface Scheme {
   note?: string
   relevantRiepr?: string[]
   seeAlso?: string[]
+  vervolgstap?: string[]
 }
 
 export interface Concept {
@@ -45,11 +47,17 @@ export interface Concept {
   relevantUnit?: string[]
   relevantProperty?: string
   relevantClass?: string
+  relevantObservation?: string[]
+  relevantFeatureClass?: string[]
+  tableWorkbook?: string
+  tableSheet?: string
+  tableOrder?: number
   conditionPath?: string
   conditionValue?: string
   minValue?: number
   maxValue?: number
   seeAlso?: string[]
+  vervolgstap?: string[]
   relation?: string
   /** UI ordering annotation: whether this concept renders as the first UI element */
   uiFirst?: boolean

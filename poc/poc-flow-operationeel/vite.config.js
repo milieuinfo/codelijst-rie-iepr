@@ -10,7 +10,7 @@ export default defineConfig({
   base: './',
   server: {
     port: 3000,
-    open: true
+    open: !process.env.PLAYWRIGHT_TEST
   },
   build: {
     outDir: 'dist',

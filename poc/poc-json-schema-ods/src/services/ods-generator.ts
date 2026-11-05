@@ -1,228 +1,153 @@
 import JSZip from 'jszip';
-import type { ColumnDefinition } from '../models/index.js';
+import type { ReferenceRecord, ReferenceContext } from 'codelijst-rie-iepr-poc-json-schema';
+import type { CellValue, TabularPlan, WorkbookRow } from '../models/tabular-plan.js';
+import { cellValue, workbookRows } from './record-codec.js';
+import { columnLetter, escapeXml, odfCell, odfRow } from './odf.js';
+import { automaticStyles, columnStyle } from './workbook-styles.js';
+import { businessLayout, identifierColumn, inputColumns, layoutColumns, parentColumn, parentTitle, technicalColumns } from './workbook-layout.js';
+export { technicalColumns } from './workbook-layout.js';
 
-export interface SheetConfig {
-  /** Sheet tab name */
-  sheetName: string;
-  /** Columns for this sheet */
-  columns: ColumnDefinition[];
-}
+const templateRows = 1000;
 
 export interface ODSOptions {
-  /** Document title for metadata */
-  documentTitle: string;
-  /** One or more sheets to include */
-  sheets: SheetConfig[];
+  plan: TabularPlan;
+  data?: unknown;
+  references?: ReferenceRecord[];
+  referenceContext?: ReferenceContext;
+  label?: (value: string) => string;
 }
 
-/**
- * Generates an OpenDocument Spreadsheet (.ods) file.
- *
- * Produces per-sheet:
- *   Row 1 (hidden): JSON-LD path references
- *   Row 2 (header): Dutch labels, ▾ for dropdown columns
- *   Row 3+: Empty data rows with content validations for dropdowns
- */
 export class ODSGenerator {
-  async generate(options: ODSOptions): Promise<ArrayBuffer> {
+  async generate(options: ODSOptions): Promise<Uint8Array> {
+    const { tables, metadata } = workbookRows(options.plan, options);
+    const business = businessLayout(options.plan);
+    const validations: string[] = [];
+    const lookupRows = [
+      odfRow([odfCell('@lookups:v1')], true),
+      odfRow(['Sleutel', 'Keuzelijst', 'Keuze', 'Waarde', 'Datatype'].map(value => odfCell(value, undefined, undefined, 'headerCell')), false, true),
+    ];
+    let lookupRow = 3;
+    for (const record of options.plan.records) for (const column of record.columns) {
+      if (business && !inputColumns(record).includes(column)) continue;
+      const choices = metadata.lookups[column.id];
+      if (!choices?.length) continue;
+      const first = lookupRow;
+      for (const choice of choices) {
+        lookupRows.push(odfRow([
+          odfCell(column.id), odfCell(`${record.title}: ${column.title}`), odfCell(choice.display),
+          odfCell(String(choice.value)), odfCell(typeof choice.value),
+        ]));
+        lookupRow++;
+      }
+      validations.push(listValidation(column.id, 'Keuzelijsten', 'C', first, lookupRow - 1, !!column.schema['x-inline-array']));
+    }
+    if (business) for (const record of options.plan.records.filter(record => parentColumn(options.plan, record))) {
+      const parent = options.plan.records.find(parent => parent.id === record.parentId)!;
+      const identifier = identifierColumn(parent);
+      if (!identifier) throw new Error(`${parent.sheetName}: a business identifier is required for the parent dropdown.`);
+      const index = layoutColumns(options.plan, parent).indexOf(identifier.id);
+      if (index < 0) throw new Error(`${parent.sheetName}: the parent dropdown requires a visible business identifier.`);
+      validations.push(listValidation(`parent_${record.id}`, parent.sheetName, columnLetter(index), 4,
+        3 + tables.get(parent.id)!.length + templateRows));
+    }
+    const sheets = options.plan.records.map(record => {
+      const fields = business ? inputColumns(record) : record.columns;
+      const columns = layoutColumns(options.plan, record);
+      const headings = fields.map(column => column.title + (column.required ? ' *' : ''));
+      const rows = [
+        odfRow([odfCell(`@record:${record.id}`)], true),
+        odfRow(columns.map(value => odfCell(value)), true),
+        odfRow((business ? [...(parentColumn(options.plan, record) ? [parentTitle(options.plan, record)] : []), ...headings]
+          : ['Rij-ID', 'Bovenliggende rij-ID', 'Containers', 'Referentie', 'Bovenliggende referentie', ...headings])
+          .map(value => odfCell(value, undefined, undefined, 'headerCell')), false, true),
+      ];
+      const dataRows: (WorkbookRow | undefined)[] = [...tables.get(record.id)!];
+      if (record.id !== 'root') dataRows.push(...Array.from({ length: 10 }, () => undefined));
+      let blankCells: string[] = [];
+      for (const row of dataRows) {
+        const cells = business ? (parentColumn(options.plan, record)
+          ? [odfCell(row?.parentReference, undefined, `parent_${record.id}`, 'textCell')] : []) : [
+          odfCell(row?.id), odfCell(row?.parentId), odfCell(row ? JSON.stringify(row.containers) : undefined),
+          odfCell(row?.reference), odfCell(row?.parentReference),
+        ];
+        for (const column of fields) {
+          let value: CellValue | undefined = row?.values[column.id];
+          if (!row && cellValue(column.schema.const)) value = column.schema.const;
+          if (value !== undefined && metadata.lookups[column.id] && typeof value === 'string') {
+            const display = (value: unknown) => {
+              const choice = metadata.lookups[column.id].find(choice => choice.value === value);
+              if (!choice) throw new Error(`Unknown selection in ${record.title}: ${column.title}.`);
+              return choice.display;
+            };
+            if (column.schema['x-inline-array']) {
+              const items = (JSON.parse(value) as unknown[]).map(display);
+              value = items.length === 1 ? items[0] : JSON.stringify(items);
+            } else value = display(value);
+          }
+          cells.push(odfCell(value, column, metadata.lookups[column.id] ? column.id : undefined));
+        }
+        rows.push(odfRow(cells));
+        if (!row) blankCells = cells;
+      }
+      if (business && record.id !== 'root') {
+        rows.push(odfRow(blankCells, false, false, templateRows - 10));
+      }
+      const styles = columns.map(id => columnStyle(fields.find(column => column.id === id)));
+      return tableXml(record.sheetName, rows, columns.length, business ? 0 : 3, false,
+        business ? [] : record.columns.flatMap((column, index) => column.schema['x-ui-hidden'] ? [technicalColumns.length + index] : []), styles);
+    });
+    sheets.push(tableXml('Keuzelijsten', lookupRows, 5, 1, false, [], ['column1_1', 'column3', 'column2_4', 'column3', 'column1_1']));
+    const serialized = JSON.stringify(metadata);
+    const chunks: string[] = [];
+    let chunk = '';
+    for (const character of serialized) {
+      if (chunk.length + character.length > 12000) {
+        chunks.push(chunk);
+        chunk = '';
+      }
+      chunk += character;
+    }
+    if (chunk) chunks.push(chunk);
+    sheets.push(tableXml('_riepr', [
+      odfRow([odfCell('@metadata:v1')]),
+      ...chunks.map(part => odfRow([odfCell(part)])),
+    ], 1, 0, true));
+
+    const content = '<?xml version="1.0" encoding="UTF-8"?>' +
+      '<office:document-content xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" ' +
+      'xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" ' +
+      'xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" ' +
+      'xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" office:version="1.3">' +
+      '<office:font-face-decls><style:font-face style:name="Arial" svg:font-family="Arial" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0"/></office:font-face-decls>' +
+      '<office:automatic-styles>' + automaticStyles +
+      '</office:automatic-styles><office:body><office:spreadsheet>' +
+      `<table:content-validations>${validations.join('')}</table:content-validations>${sheets.join('')}` +
+      '</office:spreadsheet></office:body></office:document-content>';
     const zip = new JSZip();
     zip.file('mimetype', 'application/vnd.oasis.opendocument.spreadsheet', { compression: 'STORE' });
-
-    const contentXml = this.buildContentXml(options);
-
-    zip.file('content.xml', contentXml);
-    zip.file('styles.xml', this.STYLES_XML);
-    zip.file('meta.xml', this.buildMetaXml(options.documentTitle));
-    zip.file('META-INF/manifest.xml', this.MANIFEST_XML);
-
-    return (await zip.generateAsync({ type: 'arraybuffer' })) as unknown as ArrayBuffer;
+    zip.file('content.xml', content);
+    zip.file('styles.xml', '<?xml version="1.0"?><office:document-styles xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" office:version="1.3"/>');
+    zip.file('meta.xml', `<?xml version="1.0"?><office:document-meta xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:dc="http://purl.org/dc/elements/1.1/" office:version="1.3"><office:meta><dc:title>${escapeXml(options.plan.schema.title ?? 'Rapportage')}</dc:title></office:meta></office:document-meta>`);
+    zip.file('META-INF/manifest.xml', '<?xml version="1.0"?><manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0" manifest:version="1.3">' +
+      '<manifest:file-entry manifest:media-type="application/vnd.oasis.opendocument.spreadsheet" manifest:full-path="/"/>' +
+      ['content.xml', 'styles.xml', 'meta.xml'].map(path => `<manifest:file-entry manifest:media-type="text/xml" manifest:full-path="${path}"/>`).join('') + '</manifest:manifest>');
+    return zip.generateAsync({ type: 'uint8array', compression: 'DEFLATE' });
   }
+}
 
-  private buildContentXml(options: ODSOptions): string {
-    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
-    xml += '<office:document-content xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" office:version="1.3">\n';
-    xml += '<office:scripts/><office:font-face-decls><style:font-face style:name="FreeSans" svg:font-family="FreeSans" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0"/></office:font-face-decls>\n';
+function tableXml(name: string, rows: string[], columns: number, hiddenColumns: number, hidden = false, extraHidden: number[] = [], styles: string[] = []): string {
+  return `<table:table table:name="${escapeXml(name)}"${hidden ? ' table:style-name="hiddenTable"' : ''}>` +
+    Array.from({ length: columns }, (_, index) => `<table:table-column table:style-name="${styles[index] ?? 'column1_8'}"${index < hiddenColumns || extraHidden.includes(index) ? ' table:visibility="collapse"' : ''}/>`).join('') +
+    rows.join('') + '</table:table>';
+}
 
-    // Automatic styles
-    xml += '<office:automatic-styles>';
-    xml += this.STYLES_INLINE;
-    xml += '</office:automatic-styles>\n';
-
-    // Content validations — iterate per sheet for correct base-cell-address
-    const validations = this.buildContentValidations(options.sheets);
-    if (validations.length > 0) {
-      xml += `<table:content-validations>\n${validations.join('\n')}\n</table:content-validations>\n`;
-    } else {
-      xml += '<table:content-validations/>\n';
-    }
-
-    // Body with spreadsheet and tables
-    xml += '<office:body>\n<office:spreadsheet>\n';
-    for (const sheet of options.sheets) {
-      xml += this.buildTableXml(sheet);
-    }
-    xml += '</office:spreadsheet>\n</office:body>\n';
-    xml += '</office:document-content>';
-
-    return xml;
-  }
-
-  private buildTableXml(sheet: SheetConfig): string {
-    let xml = '';
-    const name = this.sanitizeSheetName(sheet.sheetName);
-    const colCount = sheet.columns.length;
-
-    xml += `<table:table table:name="${this.xmlEscape(name)}" table:style-name="tableStyle">\n`;
-
-    // Column definitions
-    for (let i = 0; i < colCount; i++) {
-      xml += '  <table:table-column table:default-cell-style-name="Default"/>\n';
-    }
-
-    // Hidden path row
-    xml += '  <table:table-row table:style-name="pathRow" table:visibility="collapse">\n';
-    for (const col of sheet.columns) {
-      xml += `    <table:table-cell table:style-name="pathCellStyle" office:value-type="string" calcext:value-type="string"><text:p>${this.xmlEscape(col.jsonPath)}</text:p></table:table-cell>\n`;
-    }
-    xml += '  </table:table-row>\n';
-
-    // Header row
-    xml += '  <table:table-row table:style-name="headerRow">\n';
-    for (const col of sheet.columns) {
-      xml += `    <table:table-cell table:style-name="headerCellStyle" office:value-type="string" calcext:value-type="string"><text:p>${this.xmlEscape(this.getHeaderLabel(col))}</text:p></table:table-cell>\n`;
-    }
-    xml += '  </table:table-row>\n';
-
-    // Data rows (10 empty)
-    for (let r = 0; r < 10; r++) {
-      xml += '  <table:table-row table:style-name="dataRowStyle">\n';
-      for (let i = 0; i < sheet.columns.length; i++) {
-        const col = sheet.columns[i];
-        const isDropdown = col.uiType === 'dropdown' && col.dropdownLabels && col.dropdownLabels.length > 0;
-        const isDate = col.uiType === 'date' || col.uiType === 'datetime';
-        const isNumber = col.uiType === 'number';
-        const styleName = isDate ? 'dateCellStyle' : isNumber ? 'numberCellStyle' : 'dataCellStyle';
-
-        if (isDropdown) {
-          xml += `    <table:table-cell table:style-name="${styleName}" table:content-validation-name="val_${name}_${i}"/>\n`;
-        } else {
-          xml += `    <table:table-cell table:style-name="${styleName}"/>\n`;
-        }
-      }
-      xml += '  </table:table-row>\n';
-    }
-
-    xml += '</table:table>\n';
-    return xml;
-  }
-
-  private buildContentValidations(sheets: SheetConfig[]): string[] {
-    const validations: string[] = [];
-
-    for (const sheet of sheets) {
-      const sanitizedName = this.sanitizeSheetName(sheet.sheetName);
-      for (let i = 0; i < sheet.columns.length; i++) {
-        const col = sheet.columns[i];
-        if (col.uiType !== 'dropdown' || !col.dropdownLabels || col.dropdownLabels.length === 0) continue;
-
-        const labels = col.dropdownLabels.map((l) => `"${this.xmlEscape(l)}"`).join(';');
-        const helpText = col.description || 'Selecteer een waarde uit de lijst.';
-        // Anchor the validation to the first data row (row 3) of the column that
-        // actually carries the validation, so the dropdown works in every empty row.
-        const cellRef = `${sanitizedName}.${this.columnLetter(i)}3`;
-        const validationName = `val_${sanitizedName}_${i}`;
-
-        validations.push(
-          `<table:content-validation table:name="${validationName}" table:condition="of:cell-content-is-in-list(${labels})" table:allow-empty-cell="true" table:display-list="sort-ascending" table:base-cell-address="${cellRef}">` +
-            `<table:help-message table:title="${this.xmlEscape(this.getHeaderLabel(col))}" table:display="true"><text:p>${this.xmlEscape(helpText)}</text:p></table:help-message>` +
-            `<table:error-message table:message-type="stop" table:title="Ongeldige invoer" table:display="true"><text:p>De ingevoerde waarde staat niet in de lijst met toegestane waardes.</text:p></table:error-message>` +
-          `</table:content-validation>`,
-        );
-      }
-    }
-
-    return validations;
-  }
-
-  // ----- Constants -----
-
-  private readonly STYLES_INLINE = `
-<style:style style:name="headerCellStyle" style:family="table-cell">
-  <style:table-cell-properties fo:background-color="#447a6d" fo:border="0.51pt solid #6c5a44" style:vertical-align="middle"/>
-  <style:paragraph-properties fo:text-align="center"/>
-  <style:text-properties fo:color="#ffffff" style:font-name="FreeSans" fo:font-size="10pt" fo:font-weight="bold"/>
-</style:style>
-<style:style style:name="pathCellStyle" style:family="table-cell">
-  <style:table-cell-properties fo:background-color="#f6f5ee" fo:border="0.51pt solid #6c5a44" style:vertical-align="middle"/>
-  <style:text-properties fo:color="#6c5a44" style:font-name="FreeSans" fo:font-size="9pt"/>
-</style:style>
-<style:style style:name="dataCellStyle" style:family="table-cell">
-  <style:table-cell-properties fo:background-color="#f6f5ee" fo:border="0.51pt solid #6c5a44" style:vertical-align="middle"/>
-  <style:text-properties fo:color="#6c5a44" style:font-name="FreeSans" fo:font-size="9pt"/>
-</style:style>
-<style:style style:name="dateCellStyle" style:family="table-cell">
-  <style:table-cell-properties fo:background-color="#f6f5ee" fo:border="0.51pt solid #6c5a44" style:vertical-align="middle"/>
-  <style:paragraph-properties fo:text-align="center"/>
-  <style:text-properties fo:color="#6c5a44" style:font-name="FreeSans" fo:font-size="9pt"/>
-</style:style>
-<style:style style:name="numberCellStyle" style:family="table-cell" style:data-style-name="N20000">
-  <style:table-cell-properties fo:background-color="#f6f5ee" fo:border="0.51pt solid #6c5a44" style:vertical-align="middle"/>
-  <style:text-properties fo:color="#6c5a44" style:font-name="FreeSans" fo:font-size="9pt"/>
-</style:style>
-<number:number-style style:name="N20000" number:language="nl" number:country="BE">
-  <number:number number:min-integer-digits="1" number:decimal-places="2" number:min-decimal-places="2"/>
-</number:number-style>
-<style:style style:name="headerRow" style:family="table-row">
-  <style:table-row-properties style:row-height="0.35in" fo:break-before="auto" style:use-optimal-row-height="false"/>
-</style:style>
-<style:style style:name="pathRow" style:family="table-row">
-  <style:table-row-properties style:row-height="0.18in" fo:break-before="auto" style:use-optimal-row-height="true"/>
-</style:style>
-<style:style style:name="dataRowStyle" style:family="table-row">
-  <style:table-row-properties style:row-height="0.2in" fo:break-before="auto" style:use-optimal-row-height="false"/>
-</style:style>
-<style:style style:name="tableStyle" style:family="table" style:master-page-name="Default">
-  <style:table-properties table:display="true" style:writing-mode="lr-tb"/>
-</style:style>`;
-
-  private readonly STYLES_XML = '<?xml version="1.0"?><office:document-styles xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" office:version="1.3"/>';
-
-  private readonly MANIFEST_XML = '<?xml version="1.0"?>\n<manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0" manifest:version="1.3">\n<manifest:file-entry manifest:media-type="application/vnd.oasis.opendocument.spreadsheet" manifest:full-path="/"/>\n<manifest:file-entry manifest:media-type="text/xml" manifest:full-path="content.xml"/>\n<manifest:file-entry manifest:media-type="text/xml" manifest:full-path="styles.xml"/>\n<manifest:file-entry manifest:media-type="text/xml" manifest:full-path="meta.xml"/>\n</manifest:manifest>';
-
-  // ----- Helpers -----
-
-  private buildMetaXml(title: string): string {
-    return `<?xml version="1.0" encoding="UTF-8"?>\n<office:document-meta xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:dc="http://purl.org/dc/elements/1.1/" office:version="1.3">\n<office:meta>\n<dc:title>${this.xmlEscape(title)}</dc:title>\n<meta:generator>poc-json-schema-ods</meta:generator>\n</office:meta>\n</office:document-meta>`;
-  }
-
-  private getHeaderLabel(col: ColumnDefinition): string {
-    return col.uiType === 'dropdown' ? `${col.title} ▾` : col.title;
-  }
-
-  /** Zero-based column index → spreadsheet column letter (0 → A, 25 → Z, 26 → AA). */
-  private columnLetter(index: number): string {
-    let letter = '';
-    let n = index;
-    while (n >= 0) {
-      letter = String.fromCharCode(65 + (n % 26)) + letter;
-      n = Math.floor(n / 26) - 1;
-    }
-    return letter;
-  }
-
-  private sanitizeSheetName(name: string): string {
-    let s = name.replace(/[^a-zA-Z0-9\u00C0-\u024F\s_-]/g, '').trim();
-    s = s.substring(0, 31);
-    if (!s) s = 'Sheet';
-    return s;
-  }
-
-  private xmlEscape(text: string): string {
-    return text
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&apos;');
-  }
+function listValidation(id: string, sheet: string, column: string, first: number, last: number, multiple = false): string {
+  const name = "$'" + sheet.replace(/'/g, "''") + "'";
+  const range = `[${name}.$${column}$${first}:.$${column}$${last}]`;
+  return `<table:content-validation table:name="${escapeXml(id)}" table:condition="${escapeXml(`of:cell-content-is-in-list(${range})`)}" ` +
+    `table:base-cell-address="${escapeXml(name + '.$A$1')}" table:allow-empty-cell="true" table:display-list="unsorted">` +
+    (multiple ? '<table:help-message table:display="true" table:title="Meerdere keuzes"><text:p>Kies één waarde of voer meerdere keuzes in als JSON-lijst, bijvoorbeeld ["Filter 1","Filter 2"].</text:p></table:help-message>' : '') +
+    `<table:error-message table:display="true" table:message-type="${multiple ? 'warning' : 'stop'}" table:title="Ongeldige keuze"><text:p>` +
+    (multiple ? 'Kies een waarde uit de keuzelijst of bevestig een JSON-lijst met meerdere geldige keuzes.' : 'Kies een waarde uit de keuzelijst.') +
+    '</text:p></table:error-message></table:content-validation>';
 }

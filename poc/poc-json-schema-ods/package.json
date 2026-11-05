@@ -5,11 +5,15 @@
   "type": "module",
   "scripts": {
     "predev": "node scripts/sync-schemas.mjs",
+    "prebuild": "npm --prefix ../poc-json-schema run build",
     "build": "tsc",
     "generate": "node dist/cli.js",
+    "pretest": "npm run build",
     "test": "vitest run"
   },
   "dependencies": {
+    "codelijst-rie-iepr-poc-json-schema": "file:../poc-json-schema",
+    "fast-xml-parser": "^5.3.8",
     "jszip": "^3.10.1"
   },
   "devDependencies": {

@@ -1,838 +1,391 @@
-import type { Concept, CodelistResult, JsonSchemaObject, JsonSchemaValue, SchemaField, SubSchema } from '../models/index.js'
+import type { CodelistResult, JsonSchemaObject, JsonSchemaValue, SchemaField, SubSchema } from '../models/index.js'
 import type { ThemeChain } from './theme-resolver.js'
 import { config, isCollectionClass, isObservationClass } from '../config.js'
+import { localName, vocabularyIri } from './vocabulary.js'
+import { schemaObject } from './schema-registry.js'
+import { SourceMetadataError } from './generation-report.js'
+
+interface Location {
+  field: SchemaField
+  parents: SchemaField[]
+  schema: JsonSchemaObject
+}
+
+const sosa = 'http://www.w3.org/ns/sosa/'
+export const homogeneousProperties = [
+  'hasFeatureOfInterest', 'hasUltimateFeatureOfInterest', 'madeBySensor',
+  'observedProperty', 'phenomenonTime', 'resultTime', 'usedProcedure',
+].map(name => sosa + name)
 
 export class SchemaAssembler {
-  private readonly baseSchema: JsonSchemaObject
-  private readonly baseRef: string
-  /** concept ID → final JSON property name, built per theme from the nested field tree */
-  private conceptToPropertyName = new Map<string, string>()
-
-  constructor(baseSchema: JsonSchemaObject) {
-    this.baseSchema = baseSchema
-    this.baseRef = baseSchema.$id || `${config.baseSchemaUrl}/observatie.json`
-  }
+  // The legacy base is no longer inherited: a navigation context is not an Observation.
+  constructor(private readonly baseSchema: JsonSchemaObject) {}
 
   assemble(
     themeName: string,
-    domainFields: SchemaField[],
-    conditionalBlock: JsonSchemaObject | null,
+    fields: SchemaField[],
+    _legacyConditionals: JsonSchemaObject | null,
     chain: ThemeChain,
     result: CodelistResult,
-  ): { baseSchema: JsonSchemaObject; domainSchema: JsonSchemaObject; subSchemas?: SubSchema[] } {
-    this.conceptToPropertyName = this.buildConceptPropertyMap(domainFields, result)
-    const themeSlug = themeName.toLowerCase()
-      .replace(/[^\w\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .trim()
-
-    const domainId = `${config.baseSchemaUrl}/${themeSlug}/schema.json`
-
-    // Collect observedProperty enum: all measurable concepts from the leaf scheme
-    const observedPropertyValues = this.collectObservedPropertyValues(chain, result)
-
-    // Collect hasUnit enum: aggregate unique unit URIs from all fields with units
-    // Find FoI field in domain fields
-    const foiField = domainFields.find(f => f.isFeatureOfInterest === true)
-
-    // Split domain fields into regular vs Observation composites (sub-schemas).
-    // Observation-collection composites (riepr:ObservatieVerzameling) become collection
-    // envelopes; observation composites (riepr:Observatie) stay single-observation sub-schemas.
-    const isComposite = (f: SchemaField) => isObservationClass(f.relevantClass)
-    const observationCompositeFields = domainFields.filter(f => isComposite(f))
-    const regularDomainFields = domainFields.filter(f => !isComposite(f))
-
-    // Collect hasUnit enum: aggregate unique unit URIs from regular fields only
-    const unitUris = this.collectUnitUris(regularDomainFields, result)
-
-    // Build required array from core envelope + domain fields
-    const required: string[] = ['resultTime', 'observedProperty', 'hasFeatureOfInterest', 'hasResult']
-    for (const field of regularDomainFields) {
-      if (field.isRequired && !field.isFeatureOfInterest) {
-        required.push(field.propertyName)
+  ): { baseSchema: JsonSchemaObject; domainSchema: JsonSchemaObject; subSchemas: SubSchema[] } {
+    const slug = result.reportingProfile === 'groundwater-csv-v1' ? 'grondwater' : this.slug(chain.themeConcept.id)
+    const domainId = `${config.baseSchemaUrl}/${slug}/schema.json`
+    const domainSchema = this.document(fields, domainId, themeName, chain, result)
+    const sections = fields.filter(field => (field.children?.length || isObservationClass(field.relevantClass)) && !field.extensions?.['x-reference-types'])
+    const context = fields.filter(field => !sections.includes(field))
+    const subSchemas = sections.map(field => {
+      const name = this.slug(field.conceptId)
+      const schema = this.document([...context, field], `${config.baseSchemaUrl}/${slug}/${name}/schema.json`, field.label, chain, result)
+      schema['x-section-concept'] = result.expandCurie?.(field.conceptId) ?? field.conceptId
+      const workbooks = new Set<string>()
+      const collect = (field: SchemaField) => {
+        const workbook = field.extensions?.['x-table-workbook']
+        if (typeof workbook === 'string') workbooks.add(workbook)
+        field.children?.forEach(collect)
       }
-    }
+      collect(field)
+      if (workbooks.size > 1) throw new Error(`Multiple workbooks declared for ${field.conceptId}: ${[...workbooks].join(', ')}.`)
+      if (workbooks.size) schema['x-table-workbook'] = [...workbooks][0]
+      return { name, schema }
+    })
+    return { baseSchema: this.baseSchema, domainSchema, subSchemas }
+  }
 
-    // Build properties with $ref to base schema + local overrides
-    const properties: Record<string, JsonSchemaValue> = {}
-
-    properties.resultTime = { $ref: `${this.baseRef}#/properties/resultTime` }
-    properties.wasOriginatedBy = { $ref: `${this.baseRef}#/properties/wasOriginatedBy` }
-
-    // hasFeatureOfInterest: use FoI concept metadata or fallback to generic
-    properties.hasFeatureOfInterest = this.buildFoIProperty(foiField, result)
-
-    // observedProperty: base $ref + theme-specific enum of measurable concepts
-    const observedPropAllOf: JsonSchemaValue[] = [
-      { $ref: `${this.baseRef}#/properties/observedProperty` },
-    ]
-    if (observedPropertyValues.length > 0) {
-      observedPropAllOf.push({ enum: observedPropertyValues })
-    }
-    properties.observedProperty = {
-      type: 'string',
-      allOf: observedPropAllOf,
-    }
-
-    // hasResult: base $ref + aggregated unit enum + numeric result passthrough
-    const hasResultAllOf: JsonSchemaValue[] = [
-      { $ref: `${this.baseRef}#/properties/hasResult` },
-    ]
-    if (unitUris.length > 0) {
-      const unitConstraint: Record<string, unknown> = {
-        type: 'object',
-        properties: {
-          hasUnit: unitUris.length === 1 ? { const: unitUris[0] } : { enum: unitUris },
-        },
-      }
-      hasResultAllOf.push(unitConstraint)
-    }
-    properties.hasResult = { allOf: hasResultAllOf }
-
-    // Add domain fields as additional top-level properties
-    // Also promote relation-bearing children from composites up to domain level
-    const allPromotedDomain: SchemaField[] = []
-    for (const field of regularDomainFields) {
-      if (field.isFeatureOfInterest) continue
-      if (field.type === 'object' && field.children?.length) {
-        for (const child of field.children) {
-          if (child.relationUri) allPromotedDomain.push(child)
+  private document(fields: SchemaField[], id: string, title: string, chain: ThemeChain, result: CodelistResult): JsonSchemaObject {
+    const locations = new Map<string, Location>()
+    const objectSchemas = new Map<string, JsonSchemaObject>()
+    const root = this.object(fields, [], locations, objectSchemas, result)
+    for (const location of locations.values()) {
+      const field = location.field
+      if (field.variabeleConceptId) {
+        const variable = locations.get(field.variabeleConceptId)
+        if (!variable) throw new Error(`Unresolved variable ${field.variabeleConceptId} on ${field.conceptId}.`)
+        if (variable.field.children?.length || variable.field.isRepeatable || variable.field.isMultiselect) {
+          throw new Error(`Variable ${field.variabeleConceptId} on ${field.conceptId} must be a scalar value.`)
+        }
+        let common = 0
+        while (common < location.parents.length && common < variable.parents.length &&
+          location.parents[common].conceptId === variable.parents[common].conceptId) common++
+        if (variable.parents.slice(common).some(parent => parent.isRepeatable || parent.isMultiselect)) {
+          throw new Error(`Variable ${field.variabeleConceptId} on ${field.conceptId} crosses independent record arrays.`)
+        }
+        location.schema['x-variabele'] = variable.field.propertyName
+        location.schema['x-variable-location'] = {
+          ancestorDepth: location.parents.length - common,
+          path: [...variable.parents.slice(common).map(parent => parent.propertyName),
+            variable.field.propertyName, ...this.valuePath(variable.schema)],
         }
       }
-      const fieldSchema = this.buildFieldSchema(field)
-      if (fieldSchema && Object.keys(fieldSchema).length > 0) {
-        properties[field.propertyName] = fieldSchema as JsonSchemaValue
-      }
+      if (field.condition) this.condition(root, location, field.condition.values, field.isRequired, locations, objectSchemas, result)
     }
-    for (const [key, pf] of this.deduplicateRelationFields(allPromotedDomain)) {
-      properties[key] = this.buildChildSchema(pf) as JsonSchemaValue
-    }
-
-    // Build allOf array: base ref + conditionals
-    const allOf: JsonSchemaValue[] = [
-      { $ref: this.baseRef },
-    ]
-
-    if (conditionalBlock && conditionalBlock.allOf) {
-      // Collect sub-schema property names to exclude from domain schema conditionals
-      const subSchemaProps = new Set<string>()
-      for (const obsField of observationCompositeFields) {
-        const walkSubProps = (fs: SchemaField[]) => {
-          for (const f of fs) {
-            subSchemaProps.add(f.propertyName)
-            if (f.children) walkSubProps(f.children)
-          }
-        }
-        walkSubProps(obsField.children || [])
-      }
-
-      // Filter out conditions targeting sub-schema properties
-      const filteredAllOf = (conditionalBlock.allOf as JsonSchemaObject[]).filter(block => {
-        const thenProps = block.then?.properties
-        if (!thenProps) return true
-        for (const propName of Object.keys(thenProps)) {
-          if (subSchemaProps.has(propName)) return false
-        }
-        return true
-      })
-
-      if (filteredAllOf.length > 0) {
-        allOf.push({ allOf: filteredAllOf })
-      }
-    } else if (conditionalBlock) {
-      allOf.push(conditionalBlock)
-    }
-
-    // Per-observable conditional blocks for min/max and unit constraints
-    const walkFields = (fs: SchemaField[]) => {
-      for (const f of fs) {
-        if (f.minimum !== undefined || f.maximum !== undefined || f.hasUnitConstraint) {
-          const cond = this.buildMinMaxConditional(f, result.expandCurie)
-          if (cond) allOf.push(cond)
-        }
-        if (f.children) walkFields(f.children)
-      }
-    }
-    walkFields(regularDomainFields)
-
-    const domainSchema: JsonSchemaObject = {
+    return {
       $schema: 'https://json-schema.org/draft/2020-12/schema',
-      $id: domainId,
-      description: `RIE-IEPR observatie voor ${themeName}`,
-      type: 'object',
-      required: [...new Set(required)],
-      properties,
-      allOf: allOf,
+      $id: id,
+      title,
+      ...root,
+      'x-theme-concept': result.expandCurie?.(chain.themeConcept.id) ?? chain.themeConcept.id,
+      'x-theme-slug': result.reportingProfile === 'groundwater-csv-v1' ? 'grondwater' : this.slug(chain.themeConcept.id),
+      'x-theme-label': chain.themeConcept.prefLabel ?? title,
+      'x-semantic-profile': 'https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/',
+      'x-flow-transitions': chain.transitions ?? [],
     }
-
-    // Generate sub-schemas for sosa:Observation composite fields
-    const subSchemas: SubSchema[] = []
-    for (const obsField of observationCompositeFields) {
-      const subSchema = this.buildSubSchema(domainId, themeSlug, obsField, result, chain, foiField)
-      subSchemas.push(subSchema)
-    }
-
-    return { baseSchema: this.baseSchema, domainSchema, subSchemas: subSchemas.length > 0 ? subSchemas : undefined }
   }
 
-  /** Collect concept IDs that represent measurable values across the theme's scheme chain. */
-  private collectObservedPropertyValues(chain: ThemeChain, result: CodelistResult): string[] {
-    const observationCompositeIds = this.collectObservationCompositeConceptIds(result)
-    const values: string[] = []
-    const seenIds = new Set<string>()
-
-    for (const [conceptId, concept] of result.concepts.entries()) {
-      if (!chain.schemeIds.includes(concept.inScheme ?? '')) continue
-      if (concept.isOnzichtbaar === true) continue
-      if (!concept.relevantDataType && !concept.relevantUnit) continue
-      if (concept.broaderPartitive && observationCompositeIds.has(concept.broaderPartitive[0])) continue
-
-      if (!seenIds.has(conceptId)) {
-        values.push(result.expandCurie?.(conceptId) ?? conceptId)
-        seenIds.add(conceptId)
+  private object(
+    fields: SchemaField[], parents: SchemaField[], locations: Map<string, Location>,
+    objects: Map<string, JsonSchemaObject>, result: CodelistResult,
+  ): JsonSchemaObject {
+    const properties: Record<string, JsonSchemaValue> = {}
+    const required: string[] = []
+    const object: JsonSchemaObject = { type: 'object', properties, additionalProperties: false }
+    objects.set(this.pathKey(parents), object)
+    const names = new Set<string>()
+    for (const field of fields) {
+      if (names.has(field.propertyName)) throw new Error(`Duplicate property ${field.propertyName} at ${field.conceptId}.`)
+      names.add(field.propertyName)
+      const schema = this.field(field, parents, locations, objects, result)
+      properties[field.propertyName] = schema
+      locations.set(field.conceptId, { field, parents, schema })
+      if (field.isRequired && !field.condition) required.push(field.propertyName)
+    }
+    const numericValues = fields.filter(field => field.relationUri === vocabularyIri('qudt:numericValue') && field.hasUnitConstraint)
+    if (numericValues.length > 1) throw new Error('Multiple numeric values cannot declare different units on the same owning object.')
+    for (const field of numericValues) {
+      if (properties.hasUnit || fields.some(child => child.relationUri === vocabularyIri('qudt:hasUnit'))) {
+        throw new Error(`${field.conceptId}: declare the owning unit once, not both explicitly and through relevantUnit.`)
+      }
+      if (field.isRepeatable || field.isMultiselect || !['number', 'integer'].includes(field.type)) {
+        throw new Error(`${field.conceptId}: a unit-bearing qudt:numericValue must be a scalar number.`)
+      }
+      properties.hasUnit = this.unit(field.hasUnitConstraint!, 'qudt:hasUnit')
+      properties.hasUnit.title = 'Eenheid'
+      properties.hasUnit['x-ui-after'] = field.propertyName
+      object.dependentRequired = { [field.propertyName]: ['hasUnit'] }
+      if (required.includes(field.propertyName)) required.push('hasUnit')
+    }
+    for (const field of fields) {
+      const schema = locations.get(field.conceptId)!.schema
+      if (field.uiAfterConceptId) {
+        const previous = fields.find(candidate => candidate.conceptId === field.uiAfterConceptId)
+        if (previous) schema['x-ui-after'] = previous.propertyName
       }
     }
-
-    return values
+    if (required.length) object.required = required
+    return object
   }
 
-  /** Collect IDs of all concepts whose relevantClass is an observation composite. */
-  private collectObservationCompositeConceptIds(result: CodelistResult): Set<string> {
-    const ids = new Set<string>()
-    for (const concept of result.concepts.values()) {
-      if (isObservationClass(concept.relevantClass)) {
-        ids.add(concept.id)
-      }
+  private field(
+    field: SchemaField, parents: SchemaField[], locations: Map<string, Location>,
+    objects: Map<string, JsonSchemaObject>, result: CodelistResult,
+  ): JsonSchemaObject {
+    if (field.isRepeatable && field.isMultiselect) {
+      throw new Error(`${field.conceptId}: repeatable records and multiselect cannot be conflated.`)
     }
-    return ids
-  }
-
-  /** Aggregate unique unit URIs from all domain fields (including nested). */
-  private collectUnitUris(fields: SchemaField[], result: CodelistResult): string[] {
-    const uriSet = new Set<string>()
-
-    const walk = (fs: SchemaField[]) => {
-      for (const f of fs) {
-        if (f.hasUnitConstraint?.type === 'const') uriSet.add(f.hasUnitConstraint.value)
-        if (f.hasUnitConstraint?.type === 'enum') {
-          for (const v of f.hasUnitConstraint.values) uriSet.add(v)
+    let node: JsonSchemaObject
+    if (field.children?.length) {
+      node = this.object(field.children, [...parents, field], locations, objects, result)
+      const sheets = new Set<string>()
+      const visit = (child: SchemaField): void => {
+        if (child.isRepeatable && child.children?.length) return
+        const sheet = child.extensions?.['x-table-sheet']
+        if (typeof sheet === 'string') sheets.add(sheet)
+        child.children?.forEach(visit)
+      }
+      field.children.forEach(visit)
+      if (sheets.size > 1) throw new SourceMetadataError([{
+        code: 'inconsistent-table', conceptId: field.conceptId,
+        message: `${field.conceptId}: singleton row fields declare conflicting worksheets: ${[...sheets].join(', ')}.`,
+      }])
+      if (sheets.size) node['x-table-sheet'] = [...sheets][0]
+      if (field.relevantClass) {
+        if (result.reportingProfile !== 'groundwater-csv-v1') {
+          node.properties!['@id'] = { type: 'string', minLength: 1, 'x-ui-hidden': true }
         }
-        // Also check the concept itself for relevantUnit that wasn't captured in hasUnitConstraint
-        const concept = result.concepts.get(f.conceptId)
-        if (concept?.relevantUnit) {
-          for (const u of concept.relevantUnit) {
-            if (!isPlaceholderUrl(u)) uriSet.add(u)
-          }
+        node['x-jsonld-type'] = field.relevantClass
+      }
+      if (field.extensions?.['x-scalar-observation']) {
+        node.properties!.observedProperty = {
+          type: 'string', const: result.expandCurie?.(field.conceptId) ?? field.conceptId,
+          'x-jsonld-id': sosa + 'observedProperty', 'x-ui-hidden': true,
         }
-        if (f.children) walk(f.children)
+        node.required = [...(node.required ?? []), 'observedProperty']
       }
-    }
-
-    walk(fields)
-    return [...uriSet]
-  }
-
-  /** Build concept ID → final property name map from the composed nested field tree. */
-  private buildConceptPropertyMap(fields: SchemaField[], result: CodelistResult): Map<string, string> {
-    const map = new Map<string, string>()
-    const walk = (fs: SchemaField[]) => {
-      for (const f of fs) {
-        if (f.conceptId) {
-          map.set(f.conceptId, f.propertyName)
+      if (isCollectionClass(field.relevantClass)) this.collection(field, node)
+    } else if (field.extensions?.['x-source-datatype'] === vocabularyIri('dcterms:temporal')) {
+      node = {
+        type: 'object', required: ['start', 'end'], additionalProperties: false,
+        properties: { start: { type: 'string' }, end: { type: 'string' } },
+        anyOf: ['date', 'date-time'].map(format => ({
+          properties: { start: { format }, end: { format } },
+        })),
+        'x-temporal-range': true,
+      }
+    } else {
+      const value: JsonSchemaObject = { type: field.type }
+      if (field.enumValues?.length) value.enum = field.enumValues
+      if (field.format) value.format = field.format
+      if (field.minimum !== undefined) value.minimum = field.minimum
+      if (field.maximum !== undefined) value.maximum = field.maximum
+      if (field.pattern) value.pattern = field.pattern
+      if (field.relevantClass === vocabularyIri('schema:PropertyValue')) {
+        node = {
+          type: 'object', additionalProperties: false, required: ['propertyID', 'value'],
+          properties: {
+            propertyID: {
+              type: 'string', const: result.expandCurie?.(field.conceptId) ?? field.conceptId,
+              'x-jsonld-id': vocabularyIri('schema:propertyID'), 'x-jsonld-type': '@id',
+              'x-ui-hidden': true,
+            },
+            value: { ...value, ...field.extensions, title: field.label, 'x-jsonld-id': vocabularyIri('schema:value') },
+          },
+          'x-jsonld-type': field.relevantClass,
+          'x-value-path': ['value'],
         }
-        if (f.children) walk(f.children)
-      }
-    }
-    walk(fields)
-
-    // Fallback: concepts folded into the SOSA envelope (FoI / observedProperty / resultTime /
-    // hasResult) map to their envelope property name, even when the field itself was removed
-    // (e.g. deepest-FoI-wins dedup in the chain composer).
-    const envelopeRelations: Record<string, string> = {
-      'sosa:hasFeatureOfInterest': 'hasFeatureOfInterest',
-      'sosa:observedProperty': 'observedProperty',
-      'sosa:resultTime': 'resultTime',
-      'sosa:hasResult': 'hasResult',
-    }
-    for (const [conceptId, concept] of result.concepts.entries()) {
-      if (map.has(conceptId)) continue
-      const envName = concept.relation ? envelopeRelations[concept.relation] : undefined
-      if (envName) {
-        map.set(conceptId, envName)
-      }
-    }
-    return map
-  }
-
-  /** Emit x-ui-first / x-ui-after UI ordering and x-variabele references onto a schema object. */
-  private applyUiOrdering(schema: JsonSchemaObject, field: SchemaField): void {
-    if (field.uiFirst) {
-      schema['x-ui-first'] = true
-    }
-    if (field.uiAfterConceptId) {
-      const target = this.conceptToPropertyName.get(field.uiAfterConceptId)
-      if (target) {
-        schema['x-ui-after'] = target
+        if (field.hasUnitConstraint) {
+          node.properties!.unitCode = { ...this.unit(field.hasUnitConstraint, 'schema:unitCode'), title: 'Eenheid' }
+          node.required!.push('unitCode')
+        }
+      } else if ((field.hasUnitConstraint && field.relationUri !== vocabularyIri('qudt:numericValue')) ||
+        (field.relevantClass === vocabularyIri('riepr:Observatie') && ['number', 'integer'].includes(field.type))) {
+        const unit = field.hasUnitConstraint
+        const resultClass = field.relevantClass === vocabularyIri('riepr:Observatie')
+          ? vocabularyIri('riepr:Resultaat') : vocabularyIri('qudt:QuantityValue')
+        node = {
+          type: 'object', additionalProperties: false, required: ['numericValue', ...(unit ? ['hasUnit'] : [])],
+          properties: {
+            numericValue: { ...value, 'x-jsonld-id': vocabularyIri('qudt:numericValue') },
+            ...(unit ? { hasUnit: this.unit(unit, 'qudt:hasUnit') } : {}),
+          },
+          'x-jsonld-type': isObservationClass(field.relevantClass) ? resultClass : field.relevantClass ?? resultClass,
+          'x-value-path': ['numericValue'],
+        }
       } else {
-        console.warn(`[SchemaAssembler] Unresolved x-ui-after reference for "${field.label}" -> ${field.uiAfterConceptId}`)
+        node = value
       }
+      if (isObservationClass(field.relevantClass)) {
+        if (isCollectionClass(field.relevantClass)) {
+          throw new Error(`Collection ${field.conceptId} needs explicit hasMember fields.`)
+        }
+        const valuePath = node['x-value-path']
+        node = {
+          type: 'object', additionalProperties: false, required: ['observedProperty', 'hasResult'],
+          properties: {
+            ...(result.reportingProfile !== 'groundwater-csv-v1'
+              ? { '@id': { type: 'string', minLength: 1, 'x-ui-hidden': true } } : {}),
+            observedProperty: { const: result.expandCurie?.(field.conceptId) ?? field.conceptId, 'x-jsonld-id': sosa + 'observedProperty', 'x-ui-hidden': true },
+            hasResult: { ...node, 'x-jsonld-id': sosa + (node.type === 'object' ? 'hasResult' : 'hasSimpleResult') },
+          },
+          'x-jsonld-type': field.relevantClass,
+          'x-value-path': ['hasResult', ...(Array.isArray(valuePath) ? valuePath : [])],
+        }
+      }
+    }
+
+    const compiledType = node['x-jsonld-type']
+    Object.assign(node, field.extensions)
+    if (compiledType) node['x-jsonld-type'] = compiledType
+    node.title = field.label
+    if (field.description) node.description = field.description
+    if (node.type === 'object' && field.relevantClass) node['x-jsonld-type'] = field.relevantClass
+    if (field.uiFirst) node['x-ui-first'] = true
+    if (field.uiAfterConceptId) {
+      const sibling = result.concepts.get(field.uiAfterConceptId)
+      if (!sibling || (result.reportingProfile !== 'groundwater-csv-v1' &&
+          (sibling.broaderPartitive?.[0] ?? '') !== (field.broaderPartitive?.[0] ?? ''))) {
+        throw new Error(`Invalid sibling ordering on ${field.conceptId}.`)
+      }
+      node['x-ui-after-concept'] = result.expandCurie?.(sibling.id) ?? sibling.id
     }
     if (field.variabeleConceptId) {
-      const target = this.conceptToPropertyName.get(field.variabeleConceptId)
-      if (target) {
-        schema['x-variabele'] = target
-      } else {
-        console.warn(`[SchemaAssembler] Unresolved x-variabele reference for "${field.label}" -> ${field.variabeleConceptId}`)
-      }
+      node['x-variable-concept'] = result.expandCurie?.(field.variabeleConceptId) ?? field.variabeleConceptId
     }
+    if (field.isRepeatable || field.isMultiselect) {
+      const wrapper: JsonSchemaObject = {
+        type: 'array', title: field.label, items: node,
+        'x-source-concept': node['x-source-concept'],
+        'x-array-kind': field.isMultiselect ? 'multiselect' : field.children?.length ? 'records' : 'values',
+      }
+      if (field.isRequired) wrapper.minItems = 1
+      for (const key of ['x-ui-first', 'x-ui-after-concept', 'x-jsonld-id', 'x-table-workbook', 'x-table-sheet', 'x-table-order', 'x-ui-hidden-container']) {
+        if (node[key] !== undefined) wrapper[key] = node[key]
+      }
+      return wrapper
+    }
+    return node
   }
 
-  /** Build an if/then block that constrains numericValue and/or hasUnit based on observed property. */
-  private buildMinMaxConditional(field: SchemaField, expandCurie?: (curie: string) => string): JsonSchemaObject | null {
-    const hasResultProps: Record<string, JsonSchemaValue> = {}
-
-    if (field.minimum !== undefined || field.maximum !== undefined) {
-      hasResultProps.numericValue = {
-        type: 'number' as const,
-        ...(field.minimum !== undefined ? { minimum: field.minimum } : {}),
-        ...(field.maximum !== undefined ? { maximum: field.maximum } : {}),
-      }
+  private valuePath(schema: JsonSchemaObject): string[] {
+    const node = schema.type === 'array' ? schemaObject(schema.items) : schema
+    const path = node['x-value-path']
+    if (path === undefined) return []
+    if (!Array.isArray(path) || !path.every((key): key is string => typeof key === 'string')) {
+      throw new Error('Invalid compiled scalar value path.')
     }
+    return [...path]
+  }
 
-    if (field.hasUnitConstraint?.type === 'const') {
-      hasResultProps.hasUnit = { const: field.hasUnitConstraint.value }
-    } else if (field.hasUnitConstraint?.type === 'enum') {
-      hasResultProps.hasUnit = { enum: field.hasUnitConstraint.values }
-    }
-
-    if (Object.keys(hasResultProps).length === 0) return null
-
-    const expandedConceptId = expandCurie ? expandCurie(field.conceptId) : field.conceptId
+  private unit(unit: NonNullable<SchemaField['hasUnitConstraint']>, predicate: string): JsonSchemaObject {
     return {
-      if: {
-        properties: {
-          observedProperty: { const: expandedConceptId },
-        },
-      },
-      then: {
-        properties: {
-          hasResult: {
-            type: 'object',
-            properties: hasResultProps,
-          },
-        },
-      },
+      type: 'string',
+      ...(unit.type === 'const' ? { const: unit.value, default: unit.value } : { enum: unit.values }),
+      'x-jsonld-id': vocabularyIri(predicate), 'x-jsonld-type': '@id',
     }
   }
 
-  /** Build an if/then block for a hasResult child that maps into the hasResult object. */
-  private buildHasResultConditional(field: SchemaField, expandCurie?: (curie: string) => string): JsonSchemaObject | null {
-    if (field.type !== 'number') return null
-
-    const numVal: Record<string, unknown> = { type: 'number' as const }
-    if (field.minimum !== undefined) numVal.minimum = field.minimum
-    if (field.maximum !== undefined) numVal.maximum = field.maximum
-
-    const expandedConceptId = expandCurie ? expandCurie(field.conceptId) : field.conceptId
-
-    const hasThenProps: Record<string, unknown> = {}
-    hasThenProps.numericValue = numVal
-
-    if (field.hasUnitConstraint?.type === 'const') {
-      hasThenProps.hasUnit = { const: field.hasUnitConstraint.value }
-    } else if (field.hasUnitConstraint?.type === 'enum') {
-      hasThenProps.hasUnit = { enum: field.hasUnitConstraint.values }
+  private collection(field: SchemaField, schema: JsonSchemaObject): void {
+    const invalid = (message: string): never => {
+      throw new SourceMetadataError([{ code: 'invalid-observation-context', conceptId: field.conceptId, message }])
     }
-
-    return {
-      if: {
-        properties: {
-          observedProperty: { const: expandedConceptId },
-        },
-      },
-      then: {
-        properties: {
-          hasResult: {
-            type: 'object',
-            properties: hasThenProps as Record<string, JsonSchemaValue>,
-          },
-        },
-      },
+    const members = field.children!.filter(child => child.relationUri === sosa + 'hasMember')
+    if (!members.length) invalid(`Collection ${field.conceptId} has no explicit sosa:hasMember field.`)
+    if (field.children!.some(child => child.relationUri === sosa + 'hasResult' || child.relationUri === sosa + 'hasSimpleResult')) {
+      invalid(`Collection ${field.conceptId} cannot own a member result.`)
     }
+    for (const property of homogeneousProperties) {
+      const shared = field.children!.filter(child => child.relationUri === property)
+      if (shared.length > 1 || shared.some(child => child.isRepeatable || child.isMultiselect)) {
+        invalid(`Collection ${field.conceptId}: ${property} has maximum cardinality one in the selected profile.`)
+      }
+    }
+    for (const member of members) {
+      if (!isObservationClass(member.relevantClass)) {
+        invalid(`Invalid collection member ${member.conceptId}: expected Observation or ObservationCollection, not ${member.relevantClass ?? 'an untyped group'}.`)
+      }
+    }
+    schema.anyOf = members.map(member => ({
+      required: [member.propertyName],
+      ...(member.isRepeatable ? { properties: { [member.propertyName]: { minItems: 1 } } } : {}),
+    }))
   }
 
-  private buildFieldSchema(field: SchemaField): JsonSchemaObject | null {
-    let schemaObj: JsonSchemaObject = { title: field.label }
-
-    if (field.description) {
-      schemaObj.description = field.description
+  private condition(
+    root: JsonSchemaObject, target: Location, rawValues: string[], required: boolean,
+    locations: Map<string, Location>, objects: Map<string, JsonSchemaObject>, result: CodelistResult,
+  ): void {
+    const trigger = locations.get(target.field.condition!.path)
+    if (!trigger) throw new Error(`Unresolved conditionPath ${target.field.condition!.path} on ${target.field.conceptId}.`)
+    if (trigger.field.children?.length && !this.valuePath(trigger.schema).length) throw new Error(`Condition trigger ${trigger.field.conceptId} must be a value.`)
+    let common = 0
+    while (common < target.parents.length && common < trigger.parents.length &&
+           target.parents[common].conceptId === trigger.parents[common].conceptId) common++
+    if (trigger.parents.slice(common).some(field => field.isRepeatable || field.isMultiselect)) {
+      throw new Error(`Condition ${target.field.conceptId} crosses independent record arrays.`)
     }
-
-    if (field.type === 'object' && field.children) {
-      schemaObj.type = 'object'
-      const childProps: Record<string, JsonSchemaValue> = {}
-      const childRequired: string[] = []
-
-      for (const child of field.children) {
-        childProps[child.propertyName] = this.buildChildSchema(child) as JsonSchemaValue
-        if (child.isRequired) childRequired.push(child.propertyName)
+    const concept = result.concepts.get(trigger.field.conceptId)
+    const datatype = concept?.relevantDataType
+      ? vocabularyIri(result.expandCurie?.(concept.relevantDataType) ?? concept.relevantDataType) : undefined
+    const values = rawValues.map(raw => {
+      if (datatype === vocabularyIri('xsd:boolean')) {
+        if (!['true', 'false'].includes(raw)) throw new Error(`Invalid boolean condition "${raw}" on ${target.field.conceptId}.`)
+        return raw === 'true'
       }
-
-      schemaObj.properties = childProps
-      if (childRequired.length > 0) schemaObj.required = childRequired
-    } else if (!field.condition || !field.condition.path) {
-      // Leaf types — emit normally only when no condition blocks visibility at domain level
-      schemaObj.type = field.type
-      if (field.enumValues !== undefined && field.enumValues!.length > 0) {
-        schemaObj.enum = field.enumValues
-      }
-      if (field.minimum !== undefined) schemaObj.minimum = field.minimum
-      if (field.maximum !== undefined) schemaObj.maximum = field.maximum
-      if (field.pattern) schemaObj.pattern = field.pattern
-    } else {
-      return null
-    }
-
-    // Merge extensions (x-jsonld-id, x-jsonld-type, etc.) into the schema object
-    if (field.extensions && Object.keys(field.extensions).length > 0) {
-      for (const [key, val] of Object.entries(field.extensions)) {
-        schemaObj[key] = val
-      }
-    }
-
-    // UI ordering annotations (x-ui-first / x-ui-after)
-    this.applyUiOrdering(schemaObj, field)
-
-    // Wrap in array for repeatable fields
-    if (field.isRepeatable) {
-      const wrapped: JsonSchemaObject = { type: 'array', items: schemaObj }
-      if (field.isRequired) wrapped.minItems = 1
-      this.applyUiOrdering(wrapped, field)
-      return wrapped
-    }
-
-    return schemaObj
-  }
-
-  /** Build the hasFeatureOfInterest property from the theme's FoI field (codelist-driven label). */
-  private buildFoIProperty(foiField: SchemaField | undefined, result: CodelistResult): JsonSchemaValue {
-    if (!foiField) {
-      return {
-        type: 'string',
-        allOf: [{ $ref: `${this.baseRef}#/properties/hasFeatureOfInterest` }] as JsonSchemaValue[],
-      }
-    }
-    const foiConcept = result.concepts.get(foiField.conceptId)
-    const foiBase: JsonSchemaObject = { title: foiField.label }
-    if (foiField.description) {
-      foiBase.description = foiField.description
-    }
-    const isMultiselect = foiConcept?.isMultiselect === true
-    if (foiField.type === 'array' || foiField.isRepeatable || isMultiselect) {
-      foiBase.type = 'array'
-      foiBase.items = { $ref: `${this.baseRef}#/properties/hasFeatureOfInterest` }
-    } else {
-      foiBase.type = 'string'
-      foiBase.allOf = [{ $ref: `${this.baseRef}#/properties/hasFeatureOfInterest` }] as JsonSchemaValue[]
-    }
-    return foiBase
-  }
-
-  /**
-   * Look up the theme's codelist concept for an envelope relation (leaf scheme wins)
-   * and return a title/description override block, or null when the codelist has none.
-   */
-  private codelistLabelBlock(relation: string, chain: ThemeChain, result: CodelistResult): JsonSchemaObject | null {
-    for (let i = chain.schemeIds.length - 1; i >= 0; i--) {
-      const schemeId = chain.schemeIds[i]
-      for (const concept of result.concepts.values()) {
-        if (concept.inScheme !== schemeId || concept.relation !== relation) continue
-        if (concept.isOnzichtbaar === true) continue
-        if (!concept.prefLabel) continue
-        const block: JsonSchemaObject = { title: concept.prefLabel }
-        if (concept.definition) block.description = concept.definition
-        return block
-      }
-    }
-    return null
-  }
-
-  private buildSubSchema(parentSchemaId: string, themeSlug: string, obsField: SchemaField, result: CodelistResult, chain: ThemeChain, foiField: SchemaField | undefined): SubSchema {
-    const subName = this.toKebabCase(obsField.propertyName)
-    const subId = `${parentSchemaId.replace(/\/schema\.json$/, '')}/${subName}/schema.json`
-
-    const subObservedPropertyValues = this.collectSubObservedPropertyValues(obsField.children || [], result)
-    const subUnitUris = this.collectSubUnitUris(obsField.children || [], result)
-
-    const childProps: Record<string, JsonSchemaValue> = {}
-    const childRequired: string[] = []
-    const hasResultChildren: SchemaField[] = []
-    // Promote relation-bearing children from nested composites to sub-schema root level
-    const promotedRelationFields: SchemaField[] = []
-
-    for (const child of obsField.children || []) {
-      if (child.isHasResult === true) {
-        hasResultChildren.push(child)
-        continue
-      }
-      // Skip promotion for merged groups (objects with condition + children): emit as normal nested properties
-      const hasChildren = !!child.children && child.children.length > 0
-      const isMergedGroup = child.type === 'object' && hasChildren && !!child.condition
-      if (isMergedGroup) {
-        const childSchema = this.buildChildSchema(child)
-        if (childSchema && Object.keys(childSchema).length > 0) {
-          childProps[child.propertyName] = childSchema as JsonSchemaValue
-          if (child.isRequired) childRequired.push(child.propertyName)
+      if (datatype === vocabularyIri('xsd:integer') || datatype === vocabularyIri('xsd:decimal')) {
+        const number = Number(raw)
+        if (!/^-?(0|[1-9]\d*)(\.\d+)?([eE][+-]?\d+)?$/.test(raw) || !Number.isFinite(number) ||
+            (datatype === vocabularyIri('xsd:integer') && !Number.isSafeInteger(number))) {
+          throw new Error(`Invalid numeric condition "${raw}" on ${target.field.conceptId}; use explicit domain data, not NaN.`)
         }
-        continue
+        return number
       }
-      // Extract relation-bearing children from non-merged nested composites and promote them
-      if (child.type === 'object' && child.children?.length) {
-        for (const grandchild of child.children) {
-          if (grandchild.relationUri) {
-            promotedRelationFields.push(grandchild)
-          }
-        }
+      const value = trigger.field.enumValues?.length ? result.expandCurie?.(raw) ?? raw : raw
+      if (trigger.field.enumValues?.length && !trigger.field.enumValues.includes(value)) {
+        throw new Error(`Condition value "${raw}" is not an option of ${trigger.field.conceptId}.`)
       }
-      if (child.relationUri) {
-        promotedRelationFields.push(child)
-      } else {
-        const childSchema = this.buildChildSchema(child)
-        if (childSchema && Object.keys(childSchema).length > 0) {
-          childProps[child.propertyName] = childSchema as JsonSchemaValue
-          if (child.isRequired) childRequired.push(child.propertyName)
-        }
-      }
+      return value
+    })
+    const match: JsonSchemaObject = values.length === 1 ? { const: values[0] } : { enum: values }
+    let valueMatch = match
+    for (const key of this.valuePath(trigger.schema).reverse()) {
+      valueMatch = { required: [key], properties: { [key]: valueMatch } }
     }
-
-    // Generate conditional-required blocks for merged groups in sub-schema allOf
-    const requiredConditionals = this.collectRequiredConditionals(obsField.children || [])
-
-    const observedPropAllOf: JsonSchemaValue[] = [
-      { $ref: `${this.baseRef}#/properties/observedProperty` },
-    ]
-    if (subObservedPropertyValues.length > 0) {
-      observedPropAllOf.push({ enum: subObservedPropertyValues })
+    const triggerValue: JsonSchemaObject = trigger.field.isMultiselect || trigger.field.isRepeatable ? { contains: valueMatch } : valueMatch
+    let test: JsonSchemaObject = { required: [trigger.field.propertyName], properties: { [trigger.field.propertyName]: triggerValue } }
+    for (const parent of trigger.parents.slice(common).reverse()) {
+      test = { required: [parent.propertyName], properties: { [parent.propertyName]: test } }
     }
-
-    const hasResultAllOf: JsonSchemaValue[] = [
-      { $ref: `${this.baseRef}#/properties/hasResult` },
-    ]
-    if (subUnitUris.length > 0) {
-      hasResultAllOf.push({
-        type: 'object',
-        properties: {
-          hasUnit: subUnitUris.length === 1 ? { const: subUnitUris[0] } : { enum: subUnitUris },
-        },
-      })
-    }
-
-    // Build promoted relation field schemas with extensions (deduplicate on collision)
-    const promotedDeduped = this.deduplicateRelationFields(promotedRelationFields)
-    const promotedProps: Record<string, JsonSchemaValue> = {}
-    for (const [key, pf] of promotedDeduped) {
-      promotedProps[key] = this.buildChildSchema(pf) as JsonSchemaValue
-    }
-
-    const memberProperties: Record<string, JsonSchemaValue> = {
-      resultTime: { $ref: `${this.baseRef}#/properties/resultTime` },
-      wasOriginatedBy: { $ref: `${this.baseRef}#/properties/wasOriginatedBy` },
-      hasFeatureOfInterest: { $ref: `${this.baseRef}#/properties/hasFeatureOfInterest` },
-      observedProperty: {
-        type: 'string',
-        allOf: observedPropAllOf,
-      },
-      hasResult: {
-        allOf: hasResultAllOf,
-      },
-      ...promotedProps,
-      ...childProps,
-    }
-    const memberAllOf: JsonSchemaValue[] = [
-      { $ref: this.baseRef },
-      ...hasResultChildren.map(c => this.buildHasResultConditional(c, result.expandCurie)).filter((x): x is JsonSchemaObject => x !== null),
-      ...requiredConditionals,
-    ]
-
-    if (isCollectionClass(obsField.relevantClass)) {
-      // Collection envelope: shared feature of interest + hoisted (optional) member
-      // properties at collection level, with the individual observations wrapped
-      // under hasMember. Hoisted props stay optional on members (collection may
-      // supply them); hasResult stays required per member.
-      // Hoisted envelope labels come from the theme's codelist when it names the
-      // relation; the label block precedes the base $ref so it wins in allOf merges.
-      const hoistedObservedLabel = this.codelistLabelBlock('sosa:observedProperty', chain, result)
-      const hoistedResultTimeLabel = this.codelistLabelBlock('sosa:resultTime', chain, result)
-      const hoistedObservedAllOf: JsonSchemaValue[] = [
-        ...(hoistedObservedLabel ? [hoistedObservedLabel] : []),
-        { $ref: `${this.baseRef}#/properties/observedProperty` },
-      ]
-      if (subObservedPropertyValues.length > 0) {
-        hoistedObservedAllOf.push({ enum: subObservedPropertyValues })
-      }
-      const hoistedResultTime: JsonSchemaValue = hoistedResultTimeLabel
-        ? { allOf: [hoistedResultTimeLabel, { $ref: `${this.baseRef}#/properties/resultTime` }] }
-        : { $ref: `${this.baseRef}#/properties/resultTime` }
-      return {
-        name: subName,
-        schema: {
-          $schema: 'https://json-schema.org/draft/2020-12/schema',
-          $id: subId,
-          description: `RIE-IEPR observatieverzameling voor ${obsField.label}`,
-          type: 'object',
-          'x-jsonld-type': 'http://www.w3.org/ns/sosa/ObservationCollection',
-          required: [...new Set(['hasFeatureOfInterest', 'hasMember'])],
-          properties: {
-            hasFeatureOfInterest: this.buildFoIProperty(foiField, result),
-            created: {
-              title: 'Gemaakt op',
-              description: 'Creatietijdstip van de verzameling.',
-              type: 'string',
-              format: 'date-time',
-              'x-jsonld-id': 'http://purl.org/dc/terms/created',
-              'x-jsonld-type': 'http://www.w3.org/2001/XMLSchema#dateTime',
-            },
-            observedProperty: {
-              type: 'string',
-              allOf: hoistedObservedAllOf,
-            },
-            resultTime: hoistedResultTime,
-            wasOriginatedBy: { $ref: `${this.baseRef}#/properties/wasOriginatedBy` },
-            hasMember: {
-              title: 'Observaties',
-              description: 'De individuele observaties die deel uitmaken van deze verzameling.',
-              type: 'array',
-              minItems: 1,
-              'x-jsonld-id': 'http://www.w3.org/ns/sosa/hasMember',
-              items: {
-                type: 'object',
-                required: [...new Set(['hasResult', ...childRequired])],
-                properties: memberProperties,
-                allOf: memberAllOf,
-              },
-            },
-          },
-        },
-      }
-    }
-
-    return {
-      name: subName,
-      schema: {
-        $schema: 'https://json-schema.org/draft/2020-12/schema',
-        $id: subId,
-        description: `RIE-IEPR observatie voor ${obsField.label}`,
-        type: 'object',
-        required: [...new Set(['resultTime', 'observedProperty', 'hasFeatureOfInterest', 'hasResult', ...childRequired])],
-        properties: memberProperties,
-        allOf: [
-          { $ref: parentSchemaId },
-          ...memberAllOf,
-        ],
-      },
-    }
+    const owner = common ? objects.get(this.pathKey(target.parents.slice(0, common)))! : root
+    const rule: JsonSchemaObject = { if: test }
+    if (required) rule.then = this.targetRule(target, common, { required: [target.field.propertyName] })
+    rule.else = this.targetRule(target, common, { properties: { [target.field.propertyName]: { not: {} } } })
+    owner.allOf = [...(owner.allOf ?? []), rule]
+    target.schema['x-visible-when'] = { sourceConcept: trigger.field.extensions?.['x-source-concept'], values }
   }
 
-   private toKebabCase(str: string): string {
-    return str.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)
+  private targetRule(target: Location, common: number, leaf: JsonSchemaObject): JsonSchemaObject {
+    let rule = leaf
+    for (const parent of target.parents.slice(common).reverse()) {
+      rule = { properties: { [parent.propertyName]: parent.isRepeatable || parent.isMultiselect ? { items: rule } : rule } }
+    }
+    return rule
   }
 
-  /**
-   * Deduplicate property names: only prefix with CURIE when there is a collision.
-   * Fields sharing the same relation (e.g. concentratie and jaarvracht, both
-   * qudt:numericValue) cannot be told apart by prefix and get a name derived from
-   * their concept ID instead. Renamed fields are registered so x-ui-after /
-   * x-variabele references to them resolve to the final key.
-   */
-  private deduplicateRelationFields(fields: SchemaField[]): Map<string, SchemaField> {
-    const nameCount = new Map<string, number>()
-    const relationCount = new Map<string, number>()
-    for (const f of fields) {
-      nameCount.set(f.propertyName, (nameCount.get(f.propertyName) || 0) + 1)
-      if (f.relationUri) relationCount.set(f.relationUri, (relationCount.get(f.relationUri) || 0) + 1)
-    }
-    const result = new Map<string, SchemaField>()
-    for (const f of fields) {
-      let key = f.propertyName
-      if (nameCount.get(f.propertyName)! > 1 && f.relationUri) {
-        key = relationCount.get(f.relationUri)! > 1 ? this.conceptLocalName(f.conceptId) : this.toPrefixedName(f.relationUri, f.propertyName)
-      }
-      if (key !== f.propertyName) this.conceptToPropertyName.set(f.conceptId, key)
-      result.set(key, f)
-    }
-    return result
+  private pathKey(parents: SchemaField[]): string {
+    return JSON.stringify(parents.map(parent => parent.conceptId))
   }
 
-  /** camelCase local name of a concept ID (e.g. "water:lozing-jaarvracht" → "lozingJaarvracht"). */
-  private conceptLocalName(conceptId: string): string {
-    const localPart = conceptId.split(':').pop() || conceptId
-    return localPart.toLowerCase().replace(/[-_]([a-z0-9])/g, (_, c: string) => c.toUpperCase())
+  private slug(id: string): string {
+    const slug = localName(id).replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase().replace(/_/g, '-')
+    if (!/^[a-z0-9][a-z0-9-]*$/.test(slug)) throw new Error(`Unsupported source identifier for schema path: ${id}.`)
+    return slug
   }
-
-  /** Derive prefixed name from URI (e.g. "http://www.w3.org/2000/01/rdf-schema#comment" → "rdfs-comment"). */
-  private toPrefixedName(uri: string, localPart: string): string {
-    // Walk known relation prefixes in reverse length order for best match
-    const prefixes = [
-      ['schema.org/comment', 'schema'],
-      ['https://schema.org/', 'schema'],
-      ['http://purl.org/dc/terms/', 'dcterms'],
-      ['http://purl.org/dc/elements/1.1/', 'dc'],
-      ['http://www.w3.org/ns/sosa/', 'sosa'],
-      ['http://www.w3.org/2000/01/rdf-schema#', 'rdfs'],
-      ['http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'rdf'],
-    ]
-    for (const [suffix, prefix] of prefixes) {
-      if (uri.includes(suffix)) return `${prefix}-${localPart}`
-    }
-    // Last resort: use concept ID prefix
-    const idx = uri.lastIndexOf('#')
-    const base = idx >= 0 ? uri.substring(0, idx + 1) : uri
-    const name = base.length > 0 ? base.replace(/[^a-zA-Z0-9#]/g, '-') + localPart : localPart
-    return name
-  }
-
-  private collectSubObservedPropertyValues(children: SchemaField[], result: CodelistResult): string[] {
-    const values: string[] = []
-    const seenIds = new Set<string>()
-    for (const child of children) {
-      const concept = result.concepts.get(child.conceptId)
-      if (!concept) continue
-      if (concept.isOnzichtbaar === true) continue
-      if (!concept.relevantDataType && !concept.relevantUnit) continue
-      const expandedId = result.expandCurie?.(child.conceptId) ?? child.conceptId
-      if (!seenIds.has(expandedId)) {
-        values.push(expandedId)
-        seenIds.add(expandedId)
-      }
-    }
-    return values
-  }
-
-  private collectSubUnitUris(children: SchemaField[], result: CodelistResult): string[] {
-    const uriSet = new Set<string>()
-    for (const child of children) {
-      if (child.hasUnitConstraint?.type === 'const') uriSet.add(child.hasUnitConstraint.value)
-      if (child.hasUnitConstraint?.type === 'enum') {
-        for (const v of child.hasUnitConstraint.values) uriSet.add(v)
-      }
-      const concept = result.concepts.get(child.conceptId)
-      if (concept?.relevantUnit) {
-        for (const u of concept.relevantUnit) {
-          if (!isPlaceholderUrl(u)) uriSet.add(u)
-        }
-      }
-    }
-    return [...uriSet]
-  }
-
-  /** Collect conditional-required blocks from merged groups in an observation composite's child tree. */
-  private collectRequiredConditionals(fields: SchemaField[]): JsonSchemaObject[] {
-    const conditionals: JsonSchemaObject[] = []
-
-    // Resolve a condition trigger (raw concept id) to its real JSON property name in this schema.
-    const resolveTrigger = (path: string): string => {
-      const mapped = this.conceptToPropertyName.get(path)
-      if (mapped) return mapped
-      const localPart = path.split(':').pop() || path
-      return localPart.replace(/[-_]/g, '_').toLowerCase().replace(/_([a-z])/g, (_, c) => c.toUpperCase())
-    }
-
-    // Find merged groups (objects with condition + children) and their child fields with requiredConditions
-    const walk = (fs: SchemaField[]): void => {
-      for (const f of fs) {
-        const groupHasChildren = !!f.children && f.children.length > 0
-        if (f.type === 'object' && groupHasChildren && f.condition) {
-          const triggerProperty = resolveTrigger(f.condition.path)
-
-          // This is a merged group — emit visibility conditional first
-          const triggerValues = f.condition.values ?? []
-          if (triggerValues.length > 0) {
-            const thenProps: Record<string, JsonSchemaValue> = {}
-            thenProps[f.propertyName] = {} as JsonSchemaValue
-            conditionals.push({
-              if: {
-                properties: { [triggerProperty]: triggerValues.length === 1 ? { const: triggerValues[0] } : { anyOf: triggerValues.map(v => ({ const: v })) } },
-              },
-              then: { properties: thenProps },
-            })
-          }
-
-          // Now process children that have requiredConditions
-          const reqByValue = new Map<string, Set<string>>()
-          for (const child of f.children!) {
-            if (child.requiredConditions && child.requiredConditions.length > 0) {
-              for (const val of child.requiredConditions) {
-                if (!reqByValue.has(val)) reqByValue.set(val, new Set())
-                reqByValue.get(val)!.add(child.propertyName)
-              }
-            }
-          }
-          for (const [val, propNames] of reqByValue) {
-            conditionals.push({
-              if: {
-                properties: { [triggerProperty]: { const: val } },
-              },
-              then: {
-                properties: {
-                  [f.propertyName]: { required: [...propNames] },
-                },
-              },
-            })
-          }
-        }
-        if (f.children) {
-          walk(f.children)
-        }
-      }
-    }
-
-    walk(fields)
-    return conditionals
-  }
-
-  private buildChildSchema(child: SchemaField): JsonSchemaObject {
-    let schema: JsonSchemaObject = { title: child.label }
-    if (child.description) schema.description = child.description
-
-    // Handle nested object with children (merged groups or recursive composites)
-    if (child.type === 'object' && child.children) {
-      schema.type = 'object'
-      const nestedProps: Record<string, JsonSchemaValue> = {}
-      const nestedRequired: string[] = []
-      for (const grandchild of child.children) {
-        nestedProps[grandchild.propertyName] = this.buildChildSchema(grandchild) as JsonSchemaValue
-        if (grandchild.isRequired) nestedRequired.push(grandchild.propertyName)
-      }
-      schema.properties = nestedProps
-      if (nestedRequired.length > 0) schema.required = nestedRequired
-    } else {
-      schema.type = child.type
-      if (child.enumValues && child.enumValues.length > 0) schema.enum = child.enumValues
-      if (child.minimum !== undefined) schema.minimum = child.minimum
-      if (child.maximum !== undefined) schema.maximum = child.maximum
-      if (child.pattern) schema.pattern = child.pattern
-    }
-
-    // Merge extensions (x-jsonld-id, x-jsonld-type, etc.) into the schema object
-    if (child.extensions && Object.keys(child.extensions).length > 0) {
-      for (const [key, val] of Object.entries(child.extensions)) {
-        schema[key] = val
-      }
-    }
-    // UI ordering annotations (x-ui-first / x-ui-after) — skip warnings for unresolved merged children
-    const wasSilentUiAfter = child.uiAfterConceptId
-    this.applyUiOrdering(schema, child)
-
-    if (child.isRepeatable) {
-      schema = { type: 'array', items: schema }
-      if (child.isRequired) schema.minItems = 1
-      this.applyUiOrdering(schema, child)
-    }
-    return schema
-  }
-}
-
-function isPlaceholderUrl(url: string): boolean {
-  return config.placeholderMarkers.some(marker => url.includes(marker))
 }

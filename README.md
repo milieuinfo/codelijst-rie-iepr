@@ -55,6 +55,18 @@ De volgende conceptschema's zijn opgenomen (id onder `https://data.omgeving.vlaa
 | `operationeel_<stroom>` en hun stappen (bv. `operationeel_lucht_emissie`) | Stappen en velden van de thematische stromen |
 | `operationeel_<lijst>` (bv. `operationeel_peilmethode`) en `herkomst_water` | Selectielijsten voor velden van de operationele gegevens |
 
+De [JSON Schema-POC](poc/poc-json-schema/README.md) en
+[ODS-POC](poc/poc-json-schema-ods/docs/PROJECT_OUTLINE.md) leiden rapportageschema's,
+invulsjablonen en omkeerbare JSON/ODS-export af uit de bestaande kolommen.
+Werkende doorsneden zijn de drie grondwatermetingen, brandstof en luchtemissies,
+normale en abnormale lozingen en zelfcontrole water. Resultaatkenmerken blijven
+binnen hun `riepr:Resultaat`; ontbrekende eenheden en materiaalcodes blokkeren
+de betrokken doorsneden expliciet. Volledige Teepak-dekking is nog in uitvoering.
+Met `npm --prefix poc/poc-json-schema run generate -- --allow-incomplete`
+genereer je expliciet alleen de bruikbare doorsneden, met alle blokkeringen in
+`schema/index.json` en een waarschuwing bij ODS-sync en -gebruik. Zonder die vlag
+blijft onvolledige bronmetadata een fout.
+
 ## Uitvoerformaten
 
 De codelijsten worden gegenereerd in de volgende formaten:

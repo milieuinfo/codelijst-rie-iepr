@@ -1,21 +1,32 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { sha256 } from './services/schema-writer.js'
+import { SourceMetadataError, generationWarning, type GenerationReport } from './services/generation-report.js'
+import type { ThemeChain } from './services/theme-resolver.js'
+import type { JsonSchemaObject, SubSchema } from './models/index.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 async function main() {
   const args = process.argv.slice(2)
   let themeFilter: string | undefined
+  let sectionFilter: string | undefined
+  let allowIncomplete = false
   let outDir = path.resolve(__dirname, '../output')
 
   for (let i = 0; i < args.length; i++) {
-    if (args[i] === '--theme' && args[i + 1]) {
+    if (args[i] === '--theme' && args[i + 1] && !args[i + 1].startsWith('--')) {
       themeFilter = args[++i]
-    } else if (args[i] === '--out' && args[i + 1]) {
+    } else if (args[i] === '--section' && args[i + 1] && !args[i + 1].startsWith('--')) {
+      sectionFilter = args[++i]
+    } else if (args[i] === '--out' && args[i + 1] && !args[i + 1].startsWith('--')) {
       outDir = path.resolve(args[++i])
-    }
+    } else if (args[i] === '--allow-incomplete') {
+      allowIncomplete = true
+    } else throw new Error(`Unknown option or missing value: ${args[i]}`)
   }
+  if (sectionFilter && !themeFilter) throw new Error('--section requires --theme to select an explicit reporting entry point.')
 
   const codelistPath = path.resolve(__dirname, '../public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld')
 
@@ -30,7 +41,13 @@ async function main() {
   // Step 1: Parse codelist
   const { CodelistParser } = await import('./services/codelist-parser.js')
   const parser = new CodelistParser()
-  const raw = JSON.parse(await fs.readFile(codelistPath, 'utf-8'))
+  const codelistContent = await fs.readFile(codelistPath, 'utf-8')
+  const sourceSha256 = sha256(codelistContent)
+  const { sourceSnapshot } = await import('../scripts/source-snapshot.mjs')
+  if (sourceSha256 !== sha256(sourceSnapshot())) {
+    throw new Error('Stale codelist input. Run `npm run predev` before generating schemas.')
+  }
+  const raw = JSON.parse(codelistContent)
   const result = parser.parseData(raw)
   console.log(`Parsed codelist: ${result.schemes.size} schemes, ${result.concepts.size} concepts`)
 
@@ -62,65 +79,89 @@ async function main() {
   const { ChainComposer } = await import('./services/chain-composer.js')
   const composer = new ChainComposer()
 
-  const { ConditionalValidatorGenerator } = await import('./services/conditional-validator.js')
-  const conditionalGen = new ConditionalValidatorGenerator()
-
   const { SchemaAssembler } = await import('./services/schema-assembler.js')
   const assembler = new SchemaAssembler(baseSchema)
 
   const { SchemaWriter } = await import('./services/schema-writer.js')
   const writer = new SchemaWriter(outDir)
+  const pending: { schema: JsonSchemaObject; publish: () => Promise<void> }[] = [
+    { schema: baseSchema, publish: () => writer.writeBase(baseSchema) },
+    { schema: collectionSchema, publish: () => writer.writeCollection(collectionSchema) },
+  ]
+  const report: GenerationReport = {
+    mode: allowIncomplete ? 'allow-incomplete' : 'strict',
+    complete: true,
+    ...(themeFilter ? { theme: themeFilter } : {}),
+    ...(sectionFilter ? { sectionConceptId: result.expandCurie?.(sectionFilter) ?? sectionFilter } : {}),
+    blockedSections: [],
+  }
+  let sectionCount = 0
 
-  // Step 5: Generate schemas per theme
+  const compile = (theme: string, chain: ThemeChain, section?: string) => {
+    const fields = composer.composeThemeFields(result, chain, mapper, section).fields
+    return assembler.assemble(theme, compositeBuilder.buildNestedStructure(fields), null, chain, result)
+  }
+  const stageSection = (section: SubSchema, theme: string, themeConceptId: string) => {
+    pending.push({ schema: section.schema, publish: () => writer.writeSubSchema(theme, section.name, section.schema, themeConceptId) })
+    sectionCount++
+  }
+
+  // Compile before writing so source/schema errors cannot replace an existing snapshot.
   for (const [themeName, chain] of themes) {
     if (themeFilter && themeName !== themeFilter) continue
-
     console.log(`Generating schema for theme: ${themeName}`)
-    mapper.resetNames()
-
-    // Compose fields from all schemes in the chain
-    const fieldSet = composer.composeThemeFields(result, chain, mapper)
-
-    // Build nested structure (composite grouping)
-    const nestedFields = compositeBuilder.buildNestedStructure(fieldSet.fields)
-
-    // Merge related sibling composites into single groups
-    const mergedFields = compositeBuilder.mergeRelatedGroups(nestedFields)
-
-    // Collect conditions from composed + nested fields
-    const conditions = conditionalGen.collectConditions(mergedFields)
-    const conditionBlock = conditionalGen.generateAllConditionals(conditions)
-
-    // Assemble final domain schema
-    const { domainSchema, subSchemas } = assembler.assemble(themeName, mergedFields, conditionBlock, chain, result)
-
-    // Write output files
-    await writer.writeBase(baseSchema)
-    await writer.writeCollection(collectionSchema)
-    await writer.writeTheme(themeName, domainSchema)
-
-    if (subSchemas) {
+    const themeConceptId = result.expandCurie?.(chain.themeConcept.id) ?? chain.themeConcept.id
+    if (!allowIncomplete) {
+      const { domainSchema, subSchemas } = compile(themeName, chain, sectionFilter)
+      const themeSlug = domainSchema['x-theme-slug']
+      if (typeof themeSlug !== 'string') throw new Error(`Missing generated theme identity: ${themeName}`)
+      pending.push({ schema: domainSchema, publish: () => writer.writeTheme(themeSlug, domainSchema, themeConceptId) })
       for (const sub of subSchemas) {
-        await writer.writeSubSchema(themeName, sub.name, sub.schema)
+        stageSection(sub, themeSlug, themeConceptId)
+      }
+      continue
+    }
+
+    const sections = sectionFilter ? [sectionFilter] : composer.getReportingSections(result, chain).map(section => section.id)
+    if (!sections.length) throw new Error(`No reachable reporting sections found for ${themeName}.`)
+    for (const sectionId of sections) {
+      const sectionConceptId = result.expandCurie?.(sectionId) ?? sectionId
+      try {
+        const { subSchemas } = compile(themeName, chain, sectionId)
+        const section = subSchemas.find(sub => sub.schema['x-section-concept'] === sectionConceptId)
+        if (!section) throw new Error(`No generated schema for reporting section ${sectionId}.`)
+        const themeSlug = section.schema['x-theme-slug']
+        if (typeof themeSlug !== 'string') throw new Error(`Missing generated theme identity: ${themeName}`)
+        stageSection(section, themeSlug, themeConceptId)
+      } catch (error) {
+        if (!(error instanceof SourceMetadataError)) throw error
+        const sectionLabel = result.concepts.get(sectionId)?.prefLabel ??
+          [...result.concepts.values()].find(concept => result.expandCurie?.(concept.id) === sectionConceptId)?.prefLabel ?? sectionId
+        report.blockedSections.push({
+          theme: themeName, themeConceptId, sectionConceptId, sectionLabel,
+          issues: error.issues.map(issue => ({
+            ...issue, conceptId: result.expandCurie?.(issue.conceptId) ?? issue.conceptId,
+          })),
+        })
+        console.warn(`Blocked ${themeName} / ${sectionLabel} (${sectionId}):\n${error.message}`)
       }
     }
   }
 
-  // Step 6: Validate all generated schemas
+  report.complete = report.blockedSections.length === 0
+  if (allowIncomplete && !sectionCount) throw new Error('No usable reporting sections; no schema index was published.')
+
   const { SchemaValidator } = await import('./services/schema-validator.js')
   const validator = new SchemaValidator()
-  const validationResults = await validator.validateAll(outDir)
+  const generated = pending.map(document => document.schema)
+  if (new Set(generated.map(schema => schema.$id)).size !== generated.length) throw new Error('Duplicate generated schema identities.')
+  for (const schema of generated) validator.validateInstance(schema, {}, generated)
+  for (const document of pending) await document.publish()
 
-  const failures = validationResults.filter((r: any) => !r.valid)
-  if (failures.length > 0) {
-    console.error(`Validation failed for ${failures.length} schema(s):`)
-    for (const failure of failures) {
-      console.error(`  ${failure.filePath}: ${failure.errors?.join(', ')}`)
-    }
-    process.exit(1)
-  }
-
-  console.log(`Validated ${validationResults.length} schema(s) successfully.`)
+  await writer.finalize(sourceSha256, report)
+  const warning = generationWarning(report)
+  if (warning) console.warn(warning)
+  console.log(`Validated ${generated.length} schema(s); generated ${sectionCount} reporting section(s).`)
   console.log('Done. Generated schemas written to', outDir)
 }
 

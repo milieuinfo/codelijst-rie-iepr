@@ -16,8 +16,41 @@ Use the `codelijst-rie-iepr` MCP server tools; do not edit `thematypes.csv` or `
 - `conditionPath`/`conditionValue` show a field only when another field of the step has that value.
 - `related` lists alternative **variants** of one logical field (shown as one group, the active variant follows the condition).
 - `_ui_first`/`_ui_after` set the **order** among siblings; conditional fields are always shown after their trigger.
-- A value about a stof (concentratie, jaarvracht, ...) carries `kwantiteitsAspect` (`csor_kwantificeerbaaraspect:`), `drager` (`csor_drager:`, e.g. DR_1 water, DR_8 lucht), `soortWaartbepaling` (`csor_soortwaardebepaling:`, usually SWB_1 standaard) and `variabele`: the field of the same group where the stof is selected (whose `relevantCodeList` is a collection of CSOR variabelen).
+- A value about a stof (concentratie, jaarvracht, ...) carries `kwantiteitsAspect` (`csor_kwantificeerbaaraspect:`), `drager` (`csor_drager:`, e.g. DR_1 water, DR_8 lucht), `soortWaartbepaling` (`csor_soortwaardebepaling:`, usually SWB_1 standaard) and `variabele`: the field where the stof is selected (whose `relevantCodeList` is a collection of CSOR variabelen). It may belong to the same record or an ancestor/singleton context; never cross an independent repeated group.
 - `relevantDataType` → input control, `relevantCodeList` → select, `relevantRiepr` → picker of systems (with `relevantClass sosa:FeatureOfInterest`: the system the report is about), `relevantUnit` → unit, `minValue`/`maxValue` → allowed range of a numeric field (`xsd:decimal`/`xsd:integer` only).
+
+## Reporting-schema and ODS consumers
+
+The JSON Schema/ODS POCs preserve this ownership tree; do not add presentation
+columns or use false semantic classes to force worksheet boundaries. Every
+repeatable group becomes a linked row set; singleton Sample/Sampling/result
+details stay inline. Existing identifier predicates provide readable references.
+Declare leaf datatypes and real units explicitly. A numeric `NaN` condition is
+not missingness: resolve the business choice before changing its source rows.
+
+The selected homogeneous collection profile is the SSN Extensions Working Draft
+of 16 January 2020: `sosa:hasMember` targets Observations or nested
+ObservationCollections, never physical Samples. Shared collection feature/time/
+procedure properties are single-valued and must agree with descendants; results
+belong to member observations. Sampling provenance/time is not collection-shared
+observation context. The supplied RIE-IEPR model declares
+`riepr:Observatie`/`ObservatieVerzameling` as SOSA subclasses, not equivalents.
+`riepr:Resultaat` subclasses `sosa:Result` and `qb:Observation`: its result
+characteristics belong inside the source-owned Resultaat, not on the outer
+Observation. Use `qudt:numericValue`/`qudt:hasUnit` for its numeric value/unit.
+For characteristics without an appropriate specific predicate, the approved
+`schema:additionalProperty`/`schema:PropertyValue` pattern derives `propertyID`
+from the field concept and preserves its datatype/choices in `schema:value`.
+Numeric scalar `riepr:Observatie` members also get a typed Resultaat when no unit
+is declared; do not guess a unit from the label. Standard-property selectors stay
+on their Observation, outside Resultaat. Related source variants remain distinct
+conditional JSON properties with `x-related-concepts`; the POC no longer merges
+their children by label or invents cross-parent ordering links.
+
+The approved groundwater model is **one kwaliteitsmeting per monster**:
+singleton Sample -> singleton Sampling, with repeated parameter Observations
+under the kwaliteitsmeting. Do not add a repeated Monsteranalyses layer.
+See the POC READMEs/source review for supported sections and remaining gaps.
 
 ## Viewing
 

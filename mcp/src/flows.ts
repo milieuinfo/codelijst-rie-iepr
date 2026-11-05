@@ -273,7 +273,7 @@ export function describeField(repo: Repo, field: Located, all: Located[]): UiFie
     const next = splitValues(r.vervolgstap);
     if (next.length) ui.nextStep = refs(repo, next);
     const semantics: Record<string, string | string[]> = {};
-    for (const key of ['relevantClass', 'relevantFeatureClass', 'relation', 'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'variabele']) {
+    for (const key of ['relevantClass', 'relevantFeatureClass', 'relevantObservation', '_table_workbook', '_table_sheet', 'relation', 'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'variabele']) {
         if (r[key]) semantics[key] = splitValues(r[key]).length > 1 ? splitValues(r[key]) : r[key];
     }
     if (Object.keys(semantics).length) ui.semantics = semantics;

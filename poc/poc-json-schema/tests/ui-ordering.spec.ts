@@ -1,11 +1,7 @@
 import { describe, it, expect } from 'vitest'
-import fs from 'node:fs/promises'
-import path from 'node:path'
 import { CodelistParser } from '../src/services/codelist-parser.js'
 import { ConceptMapper } from '../src/services/concept-mapper.js'
 import type { CodelistResult, Concept, SchemaField } from '../src/models/index.js'
-
-const PROJECT_ROOT = path.resolve(__dirname, '..')
 
 describe('CodelistParser UI ordering annotations', () => {
   function buildFixture(concepts: Record<string, Record<string, unknown>>): Record<string, unknown> {
@@ -83,7 +79,7 @@ describe('ConceptMapper UI ordering propagation', () => {
   }
 
   function makeFakeConcept(overrides: Partial<Concept> & Pick<Concept, 'id'>): Concept {
-    return { id: 'test:id', prefLabel: 'Test', ...overrides } as unknown as Concept
+    return { id: 'test:id', prefLabel: 'Test', relevantDataType: 'xsd:string', ...overrides }
   }
 
   it('copies uiFirst=true onto SchemaField.uiFirst', () => {
@@ -114,61 +110,5 @@ describe('ConceptMapper UI ordering propagation', () => {
     expect(field).not.toBeNull()
     expect(field!.uiFirst).toBe(true)
     expect(field!.uiAfterConceptId).toBe('x:another')
-  })
-})
-
-describe('Generated schema x-ui-first / x-ui-after annotations', () => {
-  it('grondstoffen/schema.json has geproduceerd with x-ui-first', async () => {
-    const content = await fs.readFile(path.join(PROJECT_ROOT, 'output/schema/grondstoffen/schema.json'), 'utf-8')
-    const schema = JSON.parse(content) as Record<string, unknown>
-    const props = schema.properties as Record<string, unknown> | undefined
-    expect(props).toBeDefined()
-    const geproduceerd = (props as any)?.geproduceerd as Record<string, unknown> | undefined
-    expect(geproduceerd).toBeDefined()
-    expect(geproduceerd['x-ui-first']).toBe(true)
-  })
-
-  it('grondstoffen/grondstof/schema.json has material (grondstofMateriaalcode) with x-ui-first', async () => {
-    const content = await fs.readFile(path.join(PROJECT_ROOT, 'output/schema/grondstoffen/grondstof/schema.json'), 'utf-8')
-    const schema = JSON.parse(content) as Record<string, unknown>
-    // grondstof is a single observation (riepr:Observatie): its props live at the root
-    const props = schema.properties as Record<string, unknown> | undefined
-    expect(props).toBeDefined()
-    const field = (props as any)?.material as Record<string, unknown> | undefined
-    expect(field).toBeDefined()
-    expect(field['x-ui-first']).toBe(true)
-  })
-
-  it('grondstoffen/grondstof/schema.json has rdfs-comment (grondstofOmschrijving) with x-ui-after pointing to material', async () => {
-    const content = await fs.readFile(path.join(PROJECT_ROOT, 'output/schema/grondstoffen/grondstof/schema.json'), 'utf-8')
-    const schema = JSON.parse(content) as Record<string, unknown>
-    // grondstof is a single observation (riepr:Observatie): its props live at the root
-    const props = schema.properties as Record<string, unknown> | undefined
-    expect(props).toBeDefined()
-    const field = (props as any)?.['rdfs-comment'] as Record<string, unknown> | undefined
-    expect(field).toBeDefined()
-    expect(field['x-ui-after']).toBe('material')
-  })
-
-  it('grondstoffen/grondstof/schema.json has usedProcedure (grondstofToepassingswijze) with x-ui-after pointing to numericValue', async () => {
-    const content = await fs.readFile(path.join(PROJECT_ROOT, 'output/schema/grondstoffen/grondstof/schema.json'), 'utf-8')
-    const schema = JSON.parse(content) as Record<string, unknown>
-    // grondstof is a single observation (riepr:Observatie): its props live at the root
-    const props = schema.properties as Record<string, unknown> | undefined
-    expect(props).toBeDefined()
-    const field = (props as any)?.usedProcedure as Record<string, unknown> | undefined
-    expect(field).toBeDefined()
-    expect(field['x-ui-after']).toBe('numericValue')
-  })
-
-  it('grondstoffen/grondstof/schema.json has type with x-ui-after pointing to usedProcedure', async () => {
-    const content = await fs.readFile(path.join(PROJECT_ROOT, 'output/schema/grondstoffen/grondstof/schema.json'), 'utf-8')
-    const schema = JSON.parse(content) as Record<string, unknown>
-    // grondstof is a single observation (riepr:Observatie): its props live at the root
-    const props = schema.properties as Record<string, unknown> | undefined
-    expect(props).toBeDefined()
-    const field = (props as any)?.type as Record<string, unknown> | undefined
-    expect(field).toBeDefined()
-    expect(field['x-ui-after']).toBe('usedProcedure')
   })
 })

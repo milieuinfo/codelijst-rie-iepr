@@ -9,14 +9,20 @@ importers:
   .:
     dependencies:
       '@domg-wc/components':
-        specifier: 2.16.0
-        version: 2.16.0(@floating-ui/utils@0.2.12)(i18next@23.16.8)(pinia@2.1.7(typescript@5.8.3)(vue@3.5.43(typescript@5.8.3)))
+        specifier: 2.22.0
+        version: 2.22.0(@floating-ui/utils@0.2.12)(i18next@23.16.8)(pinia@2.1.7(typescript@5.8.3)(vue@3.5.43(typescript@5.8.3)))
       '@domg-wc/styles':
-        specifier: 2.16.0
-        version: 2.16.0
+        specifier: 2.22.0
+        version: 2.22.0
       '@domg/govflanders-style':
-        specifier: 21.3.0
-        version: 21.3.0(lit@3.3.3)
+        specifier: 21.4.0
+        version: 21.4.0(lit@3.3.3)
+      '@noble/hashes':
+        specifier: ^1.8.0
+        version: 1.8.0
+      codelijst-rie-iepr-poc-json-schema:
+        specifier: link:../poc-json-schema
+        version: link:../poc-json-schema
       lit:
         specifier: ^3.2.0
         version: 3.3.3
@@ -579,19 +585,19 @@ packages:
     resolution: {integrity: sha512-Vj1jF3cPfxg7OAfoI7QnVKLoILlm2JF9pnVHrX8qx7AHMiYWT+NDAA7jChlNgRS4WTLc/fD1lXLmPixluj+3Gg==}
     engines: {node: '>=6.9.0'}
 
-  '@domg-wc/common@2.16.0':
-    resolution: {integrity: sha512-zPAfdePQ7LAWv7SbBL961Kv4WstTOmjEyfpHfzR1UQuoL5KEFu0u7vXtSqpDG12ZRvqENrKpMVEmmwQlN9GpKA==, tarball: https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/@domg-wc/common/-/@domg-wc/common-2.16.0.tgz}
+  '@domg-wc/common@2.22.0':
+    resolution: {integrity: sha512-GDXDtI/ss35h7c/ZgYdENETno3gUGQKCYh+Ynfuxkxgdpv5j0Td0gfLj5eyEPdvwQd02TkObN06heyIVv71XwA==, tarball: https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/@domg-wc/common/-/@domg-wc/common-2.22.0.tgz}
 
-  '@domg-wc/components@2.16.0':
-    resolution: {integrity: sha512-FuaTQhkyQlLhkYbUt/GEuYjy+/f3bs2SPLTotPwgIyiPdOZe/8qgOJUqgYVdwJxIvJ5ISC3VKYnNFsAJXg3Sog==, tarball: https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/@domg-wc/components/-/@domg-wc/components-2.16.0.tgz}
+  '@domg-wc/components@2.22.0':
+    resolution: {integrity: sha512-F4RdA7V07Rl13K4b5rLwpaKWTwGyauku7Keb4w3CUkq+PxDH6QEYbCTOTttN3ez61eWg/JJJXgk/ZIGt1rSFaQ==, tarball: https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/@domg-wc/components/-/@domg-wc/components-2.22.0.tgz}
 
-  '@domg-wc/styles@2.16.0':
-    resolution: {integrity: sha512-fLd2a1o0AyEV8B0+LrzzTjWLrfb5gEjD9A2+7ZUEK1XRFsD4sS0bh44pbt4t0XePcy/6PWi9Qj0/5bA/pZXwbQ==, tarball: https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/@domg-wc/styles/-/@domg-wc/styles-2.16.0.tgz}
+  '@domg-wc/styles@2.22.0':
+    resolution: {integrity: sha512-H6n5zhS/qPEy9QuxM2Jjsl/0MC5vQtDMoJmkArQTx0ZU3/F/sFRE6a95W6CVKTTfONb/7byljb9VOq5EWjZDgQ==, tarball: https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/@domg-wc/styles/-/@domg-wc/styles-2.22.0.tgz}
 
-  '@domg/govflanders-style@21.3.0':
-    resolution: {integrity: sha512-+hfMctSvAZtv7k0mVuetqG5849HJu4/nvVIHnJ7hkhGE3XlDYMLuGrbYINaSsgWyOJfxvIqhY3gh+ayiXJi8Kg==, tarball: https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/@domg/govflanders-style/govflanders-style-21.3.0.tgz}
+  '@domg/govflanders-style@21.4.0':
+    resolution: {integrity: sha512-R3yNvFPR1eAmKCiWwimS7ufybIfBBK9aXNbwX3ghpIxuOaz0ih9/VWC8wsRzoJ9YbYXW62lUI0uh2ZLBiD6vqw==, tarball: https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/@domg/govflanders-style/govflanders-style-21.4.0.tgz}
     peerDependencies:
-      lit: 3.1.0
+      lit: 3.3.3
 
   '@es-joy/jsdoccomment@0.46.0':
     resolution: {integrity: sha512-C3Axuq1xd/9VqFZpW4YAzOx5O9q/LP46uIQy/iNDpHG3fmPa6TBtvfglMCs3RBiBxAIi0Go97r8+jvTt55XMyQ==}
@@ -783,8 +789,8 @@ packages:
   '@govflanders/vl-widget-global-footer-types@1.0.28':
     resolution: {integrity: sha512-8TJXaCllvzo+aX2OfBU4rjCXpR+Q7ZmahxbA3+3/c3voRfpFOL0re4WAuLC2oAn7GRDlGYIdqI92VYM573QLmw==}
 
-  '@govflanders/vl-widget-global-header-types@2.0.20':
-    resolution: {integrity: sha512-pdr9LOe6EqGnNHQ3rn3wR9K67W3rfsYeetmCiVauJ4iQnsWodjxsKu+u1cfJOE8/TdqgN9qu8O1S3C/kLowzpg==}
+  '@govflanders/vl-widget-global-header-types@2.0.39':
+    resolution: {integrity: sha512-wWYfnJ5YYFLhJUh3P334X7fmfTxNwhSLZRq0UfMShdmHablWmbZ1v6oKBTUgZVE1b9g5gf22EZeRgKiCFIFeXQ==}
 
   '@govflanders/vl-widget-shared@1.0.17':
     resolution: {integrity: sha512-y1VdJS3rsGK8AJdMoSc7R2JZLBPJZUA60L8dWEm9XAVKi5bEdAJrkTYxE1ekxA2u++kF18ozYOuDoXFucCt33g==}
@@ -840,6 +846,10 @@ packages:
     cpu: [x64]
     os: [linux]
 
+  '@noble/hashes@1.8.0':
+    resolution: {integrity: sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A==}
+    engines: {node: ^14.21.3 || >=16}
+
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -851,6 +861,9 @@ packages:
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
+
+  '@oddbird/popover-polyfill@0.6.1':
+    resolution: {integrity: sha512-Papau51NPG+NajXvoEHCNT1CBJv4WIyvIGfH5gpJPLL8MZJt/4giC0jJ/mNZRtJmdzRuXWpUFB6QxkJa1RvMAQ==}
 
   '@open-wc/form-control@1.0.0':
     resolution: {integrity: sha512-4QW7FZcq1r7vKzs+ULAqc8vcjs+15kiGksoLiNMi1lbHX52MC+jonveEhvzX1rs0QUXv57V7F6rGt/q+UZh61Q==}
@@ -2020,9 +2033,6 @@ packages:
 
   lit-html@3.3.3:
     resolution: {integrity: sha512-el8M6jK2o3RXBnrSHX3ZKrsN8zEV63pSExTO1wYJz7QndGYZ8353e2a5PPX+qHe2aGayfnchQmkAojaWAREOIA==}
-
-  lit@3.1.0:
-    resolution: {integrity: sha512-rzo/hmUqX8zmOdamDAeydfjsGXbbdtAFqMhmocnh2j9aDYqbu0fjXygjCa0T99Od9VQ/2itwaGrjZz/ZELVl7w==}
 
   lit@3.3.3:
     resolution: {integrity: sha512-fycuvZg/hkpozL00lm1pEJH5nN/lr9ZXd6mJI2HSN4+Bzc+LDNdEApJ6HFbPkdFNHLvOplIIuJvxkS4XUxqirw==}
@@ -3504,19 +3514,20 @@ snapshots:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@domg-wc/common@2.16.0':
+  '@domg-wc/common@2.22.0':
     dependencies:
-      '@domg-wc/styles': 2.16.0
-      lit: 3.1.0
+      '@domg-wc/styles': 2.22.0
+      lit: 3.3.3
 
-  '@domg-wc/components@2.16.0(@floating-ui/utils@0.2.12)(i18next@23.16.8)(pinia@2.1.7(typescript@5.8.3)(vue@3.5.43(typescript@5.8.3)))':
+  '@domg-wc/components@2.22.0(@floating-ui/utils@0.2.12)(i18next@23.16.8)(pinia@2.1.7(typescript@5.8.3)(vue@3.5.43(typescript@5.8.3)))':
     dependencies:
-      '@domg-wc/common': 2.16.0
-      '@domg-wc/styles': 2.16.0
-      '@domg/govflanders-style': 21.3.0(lit@3.1.0)
+      '@domg-wc/common': 2.22.0
+      '@domg-wc/styles': 2.22.0
+      '@domg/govflanders-style': 21.4.0(lit@3.3.3)
       '@floating-ui/dom': 1.7.6
       '@govflanders/vl-widget-global-footer-types': 1.0.28(i18next@23.16.8)(pinia@2.1.7(typescript@5.8.3)(vue@3.5.43(typescript@5.8.3)))
-      '@govflanders/vl-widget-global-header-types': 2.0.20(i18next@23.16.8)(pinia@2.1.7(typescript@5.8.3)(vue@3.5.43(typescript@5.8.3)))
+      '@govflanders/vl-widget-global-header-types': 2.0.39(i18next@23.16.8)(pinia@2.1.7(typescript@5.8.3)(vue@3.5.43(typescript@5.8.3)))
+      '@oddbird/popover-polyfill': 0.6.1
       '@open-wc/form-control': 1.0.0
       '@open-wc/form-helpers': 1.0.0
       choices.js: 11.1.0
@@ -3524,7 +3535,7 @@ snapshots:
       composed-offset-position: 0.0.6(@floating-ui/utils@0.2.12)
       dropzone: 5.9.3
       flatpickr: 4.6.13
-      lit: 3.1.0
+      lit: 3.3.3
       reflect-metadata: 0.2.2
       swipe-detect: 1.0.1
       tinymce: 6.8.3
@@ -3534,17 +3545,13 @@ snapshots:
       - i18next
       - pinia
 
-  '@domg-wc/styles@2.16.0':
+  '@domg-wc/styles@2.22.0':
     dependencies:
-      '@domg/govflanders-style': 21.3.0(lit@3.1.0)
+      '@domg/govflanders-style': 21.4.0(lit@3.3.3)
       construct-style-sheets-polyfill: 3.1.0
-      lit: 3.1.0
+      lit: 3.3.3
 
-  '@domg/govflanders-style@21.3.0(lit@3.1.0)':
-    dependencies:
-      lit: 3.1.0
-
-  '@domg/govflanders-style@21.3.0(lit@3.3.3)':
+  '@domg/govflanders-style@21.4.0(lit@3.3.3)':
     dependencies:
       lit: 3.3.3
 
@@ -3673,7 +3680,7 @@ snapshots:
       - i18next
       - pinia
 
-  '@govflanders/vl-widget-global-header-types@2.0.20(i18next@23.16.8)(pinia@2.1.7(typescript@5.8.3)(vue@3.5.43(typescript@5.8.3)))':
+  '@govflanders/vl-widget-global-header-types@2.0.39(i18next@23.16.8)(pinia@2.1.7(typescript@5.8.3)(vue@3.5.43(typescript@5.8.3)))':
     dependencies:
       '@govflanders/vl-widget-shared': 1.0.17(i18next@23.16.8)(pinia@2.1.7(typescript@5.8.3)(vue@3.5.43(typescript@5.8.3)))
     transitivePeerDependencies:
@@ -3732,6 +3739,8 @@ snapshots:
   '@napi-rs/lzma-linux-x64-gnu@1.5.1':
     optional: true
 
+  '@noble/hashes@1.8.0': {}
+
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -3743,6 +3752,8 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.20.3
+
+  '@oddbird/popover-polyfill@0.6.1': {}
 
   '@open-wc/form-control@1.0.0': {}
 
@@ -5036,12 +5047,6 @@ snapshots:
   lit-html@3.3.3:
     dependencies:
       '@types/trusted-types': 2.0.7
-
-  lit@3.1.0:
-    dependencies:
-      '@lit/reactive-element': 2.1.2
-      lit-element: 4.2.2
-      lit-html: 3.3.3
 
   lit@3.3.3:
     dependencies:

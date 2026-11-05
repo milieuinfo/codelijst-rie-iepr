@@ -25,31 +25,24 @@ export interface JsonSchemaObject {
 
 export type JsonSchemaValue = JsonSchemaObject | string
 
-/** Tracks source-variant appearances of a merged child (conditionValue + required flag) */
-export interface AppearanceInfo {
-  value: string
-  required: boolean
-}
-
 export interface SchemaField {
   /** Original SKOS concept ID (e.g. "lucht:feature_ep") */
   conceptId: string
   propertyName: string
   label: string
   description?: string
-  type: 'string' | 'number' | 'boolean' | 'array' | 'object'
+  type: 'string' | 'number' | 'integer' | 'boolean' | 'array' | 'object'
   isRequired: boolean
   isRepeatable: boolean
+  isMultiselect?: boolean
+  format?: string
   enumValues?: unknown[]
   condition?: { path: string; values: string[] }
-  /** Trigger values under which this field is required (for merged children) */
-  requiredConditions?: string[]
-  /** Source variant appearances for merged children */
-  appearances?: AppearanceInfo[]
   children?: SchemaField[]
   relevantClass?: string
+  relevantObservation?: string[]
   extensions?: Record<string, unknown>
-  /** Concept ID of the stof field this value is about (resolved to x-variabele at assembly time) */
+  /** Source concept of the selected stof, resolved in the owning record/ancestor scope. */
   variabeleConceptId?: string
   /** Unit constraint derived from relevantUnit on the concept */
   hasUnitConstraint?: { type: 'const'; value: string } | { type: 'enum'; values: string[] }

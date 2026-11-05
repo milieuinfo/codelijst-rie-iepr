@@ -27,6 +27,7 @@ test('list_flows follows vervolgstap from the thema through the steps', () => {
     const lucht = listFlows().flows.find(f => f.id === 'thema:lucht')!;
     assert.deepEqual(lucht.steps.map(s => s.id), [
         'conceptscheme:operationeel_lucht', 'conceptscheme:operationeel_lucht_bron', 'conceptscheme:operationeel_lucht_rapportering',
+        'conceptscheme:operationeel_lucht_emissie',
     ]);
 });
 
@@ -37,14 +38,16 @@ test('get_step describes the form in display order, with conditions and options'
     assert.equal(grondstof.control, 'group');
     assert.equal(grondstof.repeatable, true);
     assert.deepEqual(grondstof.visibleWhen, { field: 'grondstoffen:geproduceerd', fieldLabel: 'Heeft u grondstoffen geproduceerd?', equals: 'true', equalsLabel: undefined });
-    const parts = grondstof.parts!.map(p => p.id);
-    assert.deepEqual(parts.slice(0, 3), ['grondstoffen:grondstof_materiaalcode', 'grondstoffen:grondstof_omschrijving', 'grondstoffen:grondstof_hoeveelheid']);
+    const resultaat = grondstof.parts![0];
+    assert.equal(resultaat.id, 'grondstoffen:grondstof_resultaat');
+    assert.deepEqual(resultaat.parts!.slice(0, 3).map(p => p.id), ['grondstoffen:grondstof_materiaalcode', 'grondstoffen:grondstof_omschrijving', 'grondstoffen:grondstof_hoeveelheid']);
     const variant = grondstof.parts!.find(p => p.id === 'grondstoffen:bestemmingsidentificatie-be')!;
     assert.equal(variant.variantOf?.length, 3);
     assert.equal(variant.visibleWhen?.equals, 'bestemming:belgisch');
 
     const peilmeting = getStep({ step: 'operationeel_grondwater' }).fields.find(f => f.id === 'grondwater:peilmeting')!;
-    const peilmethode = peilmeting.parts!.find(p => p.id === 'grondwater:peilmethode')!;
+    const peilresultaat = peilmeting.parts!.find(p => p.id === 'grondwater:peilmeting-resultaat')!;
+    const peilmethode = peilresultaat.parts!.find(p => p.id === 'grondwater:peilmethode')!;
     assert.equal(peilmethode.control, 'select');
     assert.deepEqual(peilmethode.options?.items?.map(i => i.label), ['Peillint', 'Automatische sonde', 'Andere methode']);
     assert.equal(peilmeting.parts!.find(p => p.id === 'grondwater:peilmeting_feature')!.control, 'feature-picker');

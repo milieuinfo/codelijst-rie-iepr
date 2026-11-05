@@ -184,6 +184,8 @@ pipeline {
 						container('node') {
 							sh '''
 								corepack enable
+								(cd poc/poc-json-schema && npm ci && npm run predev && npm run build && npm run generate -- --allow-incomplete)
+								(cd poc/poc-json-schema-ods && npm ci)
 								for project in poc/poc-flow-operationeel poc/poc-flow-structuur poc/poc-landing; do
 									echo "Building ${project}"
 									(cd "$project" && pnpm install --frozen-lockfile && pnpm run build)

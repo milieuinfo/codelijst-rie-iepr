@@ -1,6 +1,7 @@
-import { copyFileSync, existsSync, mkdirSync } from 'node:fs'
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
+import { sourceSnapshot } from './source-snapshot.mjs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const pocRoot = resolve(__dirname, '..')
@@ -10,12 +11,20 @@ const SRC_PATH = resolve(repoRoot, 'src/main/resources/be/vlaanderen/omgeving/da
 const DST_DIR = resolve(pocRoot, 'public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr')
 const DST_PATH = join(DST_DIR, 'rie-iepr.jsonld')
 
-if (!existsSync(SRC_PATH)) {
-  console.warn('[sync-codelist] Warning: source file not found at', SRC_PATH)
-  console.warn('[sync-codelist] Skipping sync — leaving existing destination untouched.')
-  process.exit(0)
+export function syncCodelist(source = SRC_PATH, destination = DST_PATH) {
+  if (!existsSync(source)) {
+    throw new Error(`Codelist source not found: ${source}. Generate SKOS before syncing; stale copies cannot be used.`)
+  }
+  mkdirSync(dirname(destination), { recursive: true })
+  writeFileSync(destination, sourceSnapshot(source))
+  console.log('[sync-codelist] Synced rie-iepr.jsonld →', destination)
 }
 
-mkdirSync(DST_DIR, { recursive: true })
-copyFileSync(SRC_PATH, DST_PATH)
-console.log('[sync-codelist] Synced rie-iepr.jsonld →', DST_PATH)
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+  try {
+    syncCodelist()
+  } catch (error) {
+    console.error(error.message)
+    process.exitCode = 1
+  }
+}

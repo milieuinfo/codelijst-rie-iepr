@@ -1,0 +1,432 @@
+{
+  "status": "review-required",
+  "referencePrefix": "teepak-2024-imjv2-",
+  "sosaProfile": "https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/",
+  "scope": "Operational reporting only. Header inventory, not populated business data. Approved Resultaat ownership corrections cover all eight operational CSVs; eight reporting sections round-trip. Deferred metadata and missing Teepak facts remain explicit blockers.",
+  "otherOperationalImplementation": {
+    "status": "supported-slices-schema-and-ods-round-trip-verified",
+    "sourceWritesApplied": 73,
+    "supportedSchemaEntries": [
+      "lucht/brandstof/schema.json",
+      "lucht/emissie/schema.json",
+      "water/lozing/schema.json",
+      "water/abnormale-lozing/schema.json",
+      "zelfcontrole-water/meting/schema.json"
+    ],
+    "sourceDecisions": "Fuel and normal discharge remain collections with three/four member Observations. Air emissions are reachable. Water lab and parameter groups belong to Meting. Water sample kind is text; frequency reuses the existing Test-only list.",
+    "resultModel": "Explicit singleton Resultaat groups retain result fields, local numericValue/hasUnit and contextual PropertyValue/value/unitCode. Numeric scalar RIEPR Observations without a declared unit also own typed Resultaat; no unit is guessed.",
+    "variants": "Distinct conditional source variants, with original identity, requiredness and multiplicity. Generated x-related-concepts supports unified UI presentation without label-based merging.",
+    "remainingBlockers": [
+      "Five TODO units: three air-material quantities, air self-control concentration and materials quantity.",
+      "The approved temporary material-code scheme is intentionally empty; real options are still needed.",
+      "Three contextual consumption stubs remain untyped and their step unreachable."
+    ],
+    "officeCompatibility": "All sixteen templates/exports for the eight working sections pass official ODF 1.3 XML and ZIP/manifest checks. Calc reopen/save is unverified.",
+    "coverageLimit": "Not full Teepak coverage. Separate source-defined sections/roles are not merged to reproduce tabs; missing facts and unspecified units remain documented."
+  },
+  "groundwaterQualityImplementation": {
+    "status": "generated-schema-and-ods-round-trip-verified",
+    "schemaEntry": "grondwater/kwaliteitsmeting/schema.json",
+    "sourceWritesApplied": 18,
+    "recordArrays": [
+      {"owner": "root", "path": "/kwaliteitsmeting", "sheet": "Kwaliteitsmeting"},
+      {"owner": "/kwaliteitsmeting", "path": "/hasMember", "sheet": "Parameter"},
+      {"owner": "/kwaliteitsmeting", "path": "/hasFeatureOfInterest/isResultOf/hasFeatureOfInterest", "sheet": "Peilfilter Pompfilter"},
+      {"owner": "/kwaliteitsmeting", "path": "/hasFeatureOfInterest/isResultOf/kwaliteitsmetingReferentiepunt", "sheet": "Referentiepunt"}
+    ],
+    "presentationReview": "Accepted by the user: the two structural-reference arrays use linked value sheets instead of Teepak multiline cells, and Voorblad is a singleton wide row. Sample and Sampling remain inline; no extra monster level is introduced.",
+    "officeCompatibility": "ODF 1.3 XML validation passed. LibreOffice reopen/save is unverified because Calc is not installed."
+  },
+  "groundwaterDebitImplementation": {
+    "status": "generated-schema-and-ods-round-trip-verified",
+    "schemaEntry": "grondwater/onttrekking/schema.json",
+    "sourceWritesApplied": 3,
+    "recordArrays": [{"owner": "root", "path": "/onttrekking", "sheet": "Onttrekking infiltratie"}],
+    "inputRule": "Reported volume is required; begin/end readings are optional and may coexist. No calculation, equality constraint or mode switch.",
+    "observationModel": "Three distinct singleton hasMember Observations inline in the debit record, with source-concept observedProperty and local E_32 quantity units. The period is reporting metadata, not shared phenomenonTime/resultTime.",
+    "remainingGaps": "The example's gewonnen category and spui-included flag still need review; existing debit types are not recoded by label."
+  },
+  "groundwaterLevelImplementation": {
+    "status": "generated-schema-and-ods-round-trip-verified",
+    "schemaEntry": "grondwater/peilmeting/schema.json",
+    "sourceWritesApplied": 15,
+    "recordArrays": [{"owner": "root", "path": "/peilmeting", "sheet": "Peilmeting"}],
+    "observationModel": "One riepr:Observatie with a required singleton reference point and source-owned required riepr:Resultaat (sosa:Result and qb:Observation). Feature/time/reference stay outside; literal depth/unit, method and conditional contextual PropertyValues stay inside the result.",
+    "componentModel": "Depth uses qudt:numericValue/qudt:hasUnit, method uses schema:measurementMethod. Other characteristics use schema:additionalProperty/PropertyValue, existing field-concept propertyID, typed value and applicable unitCode.",
+    "remainingGaps": "Distance to ground level is missing. A physical instrument is not assumed equivalent to method. One datetime cell differs from the reference's separate date/time columns."
+  },
+  "confirmedGroundwaterDecisions": {
+    "qualityMeasurementGrouping": "One existing kwaliteitsmeting represents one monster and its analysis collection. Do not add Monsteranalyses or another repeatable monster layer. Any overarching grouping of multiple monsters remains out of scope.",
+    "sampling": "A distinct sosa:Sampling activity owns sampling metadata, separate from the Sample and its laboratory observations.",
+    "labTimestamp": "Per parameter/result.",
+    "sampleNumber": "String value with dcterms:identifier, retaining the existing published concept URI.",
+    "detectionInformation": "An above/below detection qualifier, not a numeric threshold; a new inline list in operationeel_misc.csv is approved.",
+    "resultUnit": "mg/L (csor_eenheid:E_1) for the current six chemical parameters; this does not approve additional parameters or units.",
+    "debitInput": "Required reported volume, optional begin/end readings; three approved source edits applied, removing NaN conditions and adding member relations.",
+    "levelResult": "Required depth and exactly one required reference point. Source-owned Resultaat contains all six original result characteristics with standards-based predicates; pump-state conditions remain active."
+  },
+  "sharedSheets": {
+    "Voorblad": ["Gegeven", "Waarde"],
+    "Keuzelijsten": ["Soort", "Veld", "ID of waarde", "Omschrijving"]
+  },
+  "classifications": {
+    "existing": "Current source anchor; generator must preserve its ownership and semantics.",
+    "review": "Existing anchor needs a domain decision or source correction.",
+    "missing": "No complete current source field; new domain data needs approval.",
+    "reference": "Runtime instance data or a derived parent reference, not a new structural ODS field.",
+    "presentation": "Presentation can differ under the zero-new-column derivation rules."
+  },
+  "workbooks": [
+    {
+      "file": "energiegebruik.ods",
+      "sheets": [{
+        "name": "Energiegebruik",
+        "columns": [
+          {"label": "energieverbruik (TJ)", "concepts": ["contextueel:energieverbruik"], "classification": "review", "decision": "Currently untyped and unreachable; approve reporting scope, decimal datatype and TJ unit."}
+        ]
+      }]
+    },
+    {
+      "file": "grondstoffen-geproduceerd.ods",
+      "sheets": [
+        {
+          "name": "Geproduceerde grondstoffen",
+          "columns": [
+            {"label": "materiaalcode", "concepts": ["grondstoffen:grondstof_materiaalcode"], "classification": "review", "decision": "Approved empty temporary scheme operationeel_materiaalcodes is referenced inside Resultaat. Real material codes remain required; no fictitious options."},
+            {"label": "omschrijving", "concepts": ["grondstoffen:grondstof_omschrijving"], "classification": "existing"},
+            {"label": "hoeveelheid", "concepts": ["grondstoffen:grondstof_hoeveelheid"], "classification": "review", "decision": "Resolve TODO unit; do not infer a mass unit from a header without one."},
+            {"label": "toepassingswijze", "concepts": ["grondstoffen:grondstof_toepassingswijze"], "classification": "existing"}
+          ]
+        },
+        {
+          "name": "Bestemmingen",
+          "columns": [
+            {"label": "type bestemming", "concepts": ["grondstoffen:grondstof_bestemming_type"], "classification": "presentation", "decision": "Selector is inside Resultaat; existing singleton destination Agent variants remain outside and conditionally reference it. Preserve distinct source variants; no new multiplicity or forced destination sheet."},
+            {"label": "BTW-nummer", "concepts": ["grondstoffen:bestemmingsidentificatie-buitenland-btw"], "classification": "existing"},
+            {"label": "ondernemingsnummer", "concepts": ["grondstoffen:bestemmingsidentificatie-be-on"], "classification": "existing"},
+            {"label": "vestigingseenheidsnummer", "concepts": ["grondstoffen:bestemmingsidentificatie-be-ve"], "classification": "existing"},
+            {"label": "Firmanaam", "concepts": ["grondstoffen:bestemmingsidentificatie-be-naam", "grondstoffen:bestemmingsidentificatie-buitenland-naam", "grondstoffen:bestemmingsidentificatie-none-naam", "grondstoffen:bestemmingsidentificatie-werf-naam"], "classification": "existing"},
+            {"label": "Adres", "concepts": ["grondstoffen:bestemmingsidentificatie-none-adres"], "classification": "review", "decision": "Review which destination variants require an address. Preserve current conditional variants."}
+          ]
+        }
+      ]
+    },
+    {
+      "file": "grondstoffen-inkomend.ods",
+      "sheets": [{
+        "name": "Inkomende grondstoffen",
+        "columns": [
+          {"label": "aard", "concepts": ["contextueel:grondstoffenverbruik"], "classification": "missing", "decision": "Define a repeatable incoming-material record and its installation/facility context."},
+          {"label": "hoeveelheid", "concepts": ["contextueel:grondstoffenverbruik"], "classification": "missing", "decision": "Approve quantity datatype and unit/list."}
+        ]
+      }]
+    },
+    {
+      "file": "grondwater-debieten.ods",
+      "sheets": [{
+        "name": "Debieten",
+        "columns": [
+          {"label": "Debietmeter", "concepts": ["grondwater:onttrekking_feature"], "classification": "reference", "generated": {"record": "Onttrekking infiltratie", "columnPointer": "/hasFeatureOfInterest", "schemaPointer": "/properties/onttrekking/items/properties/hasFeatureOfInterest"}},
+          {"label": "Type", "concepts": ["grondwater:type-debiet"], "classification": "review", "decision": "Reference example uses gewonnen; current selection list uses Onttrekking and other debit roles. No label-based recoding.", "generated": {"record": "Onttrekking infiltratie", "columnPointer": "/type", "schemaPointer": "/properties/onttrekking/items/properties/type"}},
+          {"label": "Startdatum", "concepts": ["grondwater:periode"], "classification": "presentation", "decision": "Generic temporal range start component, a typed ODF date/datetime cell.", "generated": {"record": "Onttrekking infiltratie", "columnPointer": "/periode/start", "schemaPointer": "/properties/onttrekking/items/properties/periode/properties/start"}},
+          {"label": "Startmeterstand", "concepts": ["grondwater:begintoestand"], "classification": "existing", "decision": "Applied: optional inline member Observation, no NaN condition, existing decimal/E_32 result retained.", "generated": {"record": "Onttrekking infiltratie", "columnPointer": "/begintoestand/hasResult/numericValue", "schemaPointer": "/properties/onttrekking/items/properties/begintoestand/properties/hasResult/properties/numericValue"}},
+          {"label": "Einddatum", "concepts": ["grondwater:periode"], "classification": "presentation", "decision": "Generic temporal range end component; not a shared observation timestamp.", "generated": {"record": "Onttrekking infiltratie", "columnPointer": "/periode/end", "schemaPointer": "/properties/onttrekking/items/properties/periode/properties/end"}},
+          {"label": "Eindmeterstand", "concepts": ["grondwater:eindtoestand"], "classification": "existing", "decision": "Applied: optional inline member Observation that may coexist with reported volume; no NaN condition.", "generated": {"record": "Onttrekking infiltratie", "columnPointer": "/eindtoestand/hasResult/numericValue", "schemaPointer": "/properties/onttrekking/items/properties/eindtoestand/properties/hasResult/properties/numericValue"}},
+          {"label": "Hoeveelheid", "concepts": ["grondwater:volume"], "classification": "existing", "decision": "Required reported decimal/E_32 result, explicit inline member Observation. Never derived from readings.", "generated": {"record": "Onttrekking infiltratie", "columnPointer": "/volume/hasResult/numericValue", "schemaPointer": "/properties/onttrekking/items/properties/volume/properties/hasResult/properties/numericValue"}},
+          {"label": "Spui meegeteld in rondgepompt debiet", "concepts": [], "classification": "missing", "decision": "Approve boolean meaning and applicable debit types."}
+        ]
+      }]
+    },
+    {
+      "file": "grondwater-kwaliteitsanalyses.ods",
+      "sheets": [
+        {
+          "name": "Monsters",
+          "columns": [
+            {"label": "Put(ten) en filter(s)", "concepts": ["grondwater:kwaliteitsmeting_feature"], "classification": "presentation", "decision": "Approved Sampling provenance, retaining multiple source references. The user accepted linked scalar-reference rows instead of multiline cells.", "generated": {"record": "Peilfilter Pompfilter", "columnPointer": "", "schemaPointer": "/properties/kwaliteitsmeting/items/properties/hasFeatureOfInterest/properties/isResultOf/properties/hasFeatureOfInterest/items"}},
+            {"label": "Monsternummer", "concepts": ["grondwater:kwaliteitsmeting-monsternummer"], "classification": "existing", "decision": "Applied: singleton Sample, dcterms:identifier, string datatype. No invented uniqueness constraint.", "generated": {"record": "Kwaliteitsmeting", "columnPointer": "/hasFeatureOfInterest/identifier", "schemaPointer": "/properties/kwaliteitsmeting/items/properties/hasFeatureOfInterest/properties/identifier"}},
+            {"label": "Datum en tijdstip monstername", "concepts": ["grondwater:kwaliteitsmeting-datum"], "classification": "existing", "decision": "Applied: Sampling owner, sosa:resultTime, xsd:dateTime.", "generated": {"record": "Kwaliteitsmeting", "columnPointer": "/hasFeatureOfInterest/isResultOf/resultTime", "schemaPointer": "/properties/kwaliteitsmeting/items/properties/hasFeatureOfInterest/properties/isResultOf/properties/resultTime"}},
+            {"label": "Datum en tijdstip laboanalyse", "concepts": ["grondwater:kwaliteitsmeting-parameter-datum"], "classification": "presentation", "decision": "Confirmed per parameter/result, so this is on Parameter rather than the monster row.", "generated": {"record": "Parameter", "columnPointer": "/resultTime", "schemaPointer": "/properties/kwaliteitsmeting/items/properties/hasMember/items/properties/resultTime"}},
+            {"label": "Uitvoerder", "concepts": ["grondwater:kwaliteitsmeting-labo-naam"], "classification": "review", "decision": "Existing required lab name is retained; a distinct sampling performer, if required by this reference column, remains unresolved.", "generated": {"record": "Kwaliteitsmeting", "columnPointer": "/kwaliteitsmetingLabo/kwaliteitsmetingLaboNaam", "schemaPointer": "/properties/kwaliteitsmeting/items/properties/kwaliteitsmetingLabo/properties/kwaliteitsmetingLaboNaam"}},
+            {"label": "Referentiepunt", "concepts": ["grondwater:kwaliteitsmeting-referentiepunt"], "classification": "presentation", "decision": "Applied Sampling ownership; retained required repeatable structural selections. The user accepted linked value rows instead of a multiline cell.", "generated": {"record": "Referentiepunt", "columnPointer": "", "schemaPointer": "/properties/kwaliteitsmeting/items/properties/hasFeatureOfInterest/properties/isResultOf/properties/kwaliteitsmetingReferentiepunt/items"}},
+            {"label": "Diepte t.o.v. referentiepunt", "concepts": ["grondwater:kwaliteitsmeting-diepte"], "classification": "existing", "decision": "Applied: numeric Sampling metadata with the existing E_59 unit, not an Observation or Sampling result.", "generated": {"record": "Kwaliteitsmeting", "columnPointer": "/hasFeatureOfInterest/isResultOf/kwaliteitsmetingDiepte/numericValue", "schemaPointer": "/properties/kwaliteitsmeting/items/properties/hasFeatureOfInterest/properties/isResultOf/properties/kwaliteitsmetingDiepte/properties/numericValue"}},
+            {"label": "Afstand tot maaiveld", "concepts": [], "classification": "missing", "decision": "Determine whether supplied structural context or an operational sampling measurement; approve unit."},
+            {"label": "Techniek", "concepts": ["grondwater:kwaliteitsmeting-techniek"], "classification": "review", "decision": "Applied Sampling/sosa:usedProcedure ownership, retaining only the approved existing aftap option. Extending technique coverage still needs a list decision.", "generated": {"record": "Kwaliteitsmeting", "columnPointer": "/hasFeatureOfInterest/isResultOf/usedProcedure", "schemaPointer": "/properties/kwaliteitsmeting/items/properties/hasFeatureOfInterest/properties/isResultOf/properties/usedProcedure"}}
+          ]
+        },
+        {
+          "name": "Meetresultaten",
+          "columns": [
+            {"label": "Monster", "concepts": [], "classification": "reference", "decision": "Derived visible _parent_ref links to the owning monster/quality row using its declared sample identifier; hidden transport IDs preserve ownership."},
+            {"label": "Parameter", "concepts": ["grondwater:kwaliteitsmeting-parameter-parameter"], "classification": "review", "decision": "Current six-parameter collection is retained as full URI values; extending coverage still requires review.", "generated": {"record": "Parameter", "columnPointer": "/observedProperty", "schemaPointer": "/properties/kwaliteitsmeting/items/properties/hasMember/items/properties/observedProperty"}},
+            {"label": "Meetwaarde", "concepts": ["grondwater:kwaliteitsmeting-parameter-meetwaarde"], "classification": "existing", "decision": "Applied decimal Result in mg/L, preserving local CSOR annotations and the variable field link.", "generated": {"record": "Parameter", "columnPointer": "/hasResult/numericValue", "schemaPointer": "/properties/kwaliteitsmeting/items/properties/hasMember/items/properties/hasResult/properties/numericValue"}},
+            {"label": "Eenheid", "concepts": ["grondwater:kwaliteitsmeting-parameter-meetwaarde"], "classification": "existing", "decision": "Approved fixed mg/L (E_1) for the current six chemical parameters; no broader unit assumption.", "generated": {"record": "Parameter", "columnPointer": "/hasResult/hasUnit", "schemaPointer": "/properties/kwaliteitsmeting/items/properties/hasMember/items/properties/hasResult/properties/hasUnit"}},
+            {"label": "Detectielimiet", "concepts": ["grondwater:kwaliteitsmeting-parameter-limiet"], "classification": "existing", "decision": "Applied approved inline Boven/Onder qualifier, not a numeric detection threshold.", "generated": {"record": "Parameter", "columnPointer": "/kwaliteitsmetingParameterLimiet", "schemaPointer": "/properties/kwaliteitsmeting/items/properties/hasMember/items/properties/kwaliteitsmetingParameterLimiet"}},
+            {"label": "Veld- of laboanalyse", "concepts": [], "classification": "missing", "decision": "Approve categorical meaning and published vs inline list."},
+            {"label": "Analysemethode", "concepts": ["grondwater:kwaliteitsmeting-parameter-methode"], "classification": "existing", "generated": {"record": "Parameter", "columnPointer": "/kwaliteitsmetingParameterMethode", "schemaPointer": "/properties/kwaliteitsmeting/items/properties/hasMember/items/properties/kwaliteitsmetingParameterMethode"}}
+          ]
+        }
+      ]
+    },
+    {
+      "file": "grondwater-peilmetingen.ods",
+      "sheets": [{
+        "name": "Peilmetingen",
+        "columns": [
+          {"label": "Put en filter", "concepts": ["grondwater:peilmeting_feature"], "classification": "reference", "generated": {"record": "Peilmeting", "columnPointer": "/hasFeatureOfInterest", "schemaPointer": "/properties/peilmeting/items/properties/hasFeatureOfInterest"}},
+          {"label": "Referentiepunt", "concepts": ["grondwater:referentiepunt"], "classification": "existing", "decision": "Approved required singleton reference point.", "generated": {"record": "Peilmeting", "columnPointer": "/referentiepunt", "schemaPointer": "/properties/peilmeting/items/properties/referentiepunt"}},
+          {"label": "Afstand tot maaiveld", "concepts": [], "classification": "missing", "decision": "Determine structural reference data vs new operational value."},
+          {"label": "Meetinstrument", "concepts": ["grondwater:peilmethode"], "classification": "review", "decision": "Method and physical instrument are not necessarily interchangeable; the generated column is Peilmethode.", "generated": {"record": "Peilmeting", "columnPointer": "/hasResult/measurementMethod", "schemaPointer": "/properties/peilmeting/items/properties/hasResult/properties/measurementMethod"}},
+          {"label": "Toestand", "concepts": ["grondwater:pomptoestand"], "classification": "existing", "generated": {"record": "Peilmeting", "columnPointer": "/hasResult/pomptoestand/value", "schemaPointer": "/properties/peilmeting/items/properties/hasResult/properties/pomptoestand/properties/value"}},
+          {"label": "Datum", "concepts": ["grondwater:datum"], "classification": "presentation", "decision": "Current datetime is one value; keep one reversible cell unless a generic date/time split is justified.", "generated": {"record": "Peilmeting", "columnPointer": "/resultTime", "schemaPointer": "/properties/peilmeting/items/properties/resultTime"}},
+          {"label": "Tijdstip", "concepts": ["grondwater:datum"], "classification": "presentation", "decision": "Same datetime as Datum; no duplicate canonical value.", "generated": {"record": "Peilmeting", "columnPointer": "/resultTime", "schemaPointer": "/properties/peilmeting/items/properties/resultTime"}},
+          {"label": "Diepte", "concepts": ["grondwater:diepte"], "classification": "existing", "generated": {"record": "Peilmeting", "columnPointer": "/hasResult/numericValue", "schemaPointer": "/properties/peilmeting/items/properties/hasResult/properties/numericValue"}},
+          {"label": "Tijd pompen stil", "concepts": ["grondwater:duur-stil"], "classification": "existing", "generated": {"record": "Peilmeting", "columnPointer": "/hasResult/duurStil/value", "schemaPointer": "/properties/peilmeting/items/properties/hasResult/properties/duurStil/properties/value"}},
+          {"label": "Gewonnen volume 8u voor stilstand", "concepts": ["grondwater:volume-rust"], "classification": "existing", "generated": {"record": "Peilmeting", "columnPointer": "/hasResult/volumeRust/value", "schemaPointer": "/properties/peilmeting/items/properties/hasResult/properties/volumeRust/properties/value"}},
+          {"label": "Gewonnen volume 1u voor meting", "concepts": ["grondwater:volume-werking"], "classification": "existing", "generated": {"record": "Peilmeting", "columnPointer": "/hasResult/volumeWerking/value", "schemaPointer": "/properties/peilmeting/items/properties/hasResult/properties/volumeWerking/properties/value"}}
+        ]
+      }]
+    },
+    {
+      "file": "lucht-emissies.ods",
+      "sheets": [
+        {
+          "name": "Emissiegehelen",
+          "columns": [
+            {"label": "verwijzing naar emissiepunt", "concepts": ["lucht:feature_ep"], "classification": "reference", "generated": {"schemaEntry": "lucht/emissie/schema.json", "record": "Voorblad", "columnPointer": "/featureEp", "schemaPointer": "/properties/featureEp"}},
+            {"label": "verwijzing naar bron-installatie(s)", "concepts": ["lucht:feature_bron"], "classification": "reference"},
+            {"label": "verwijzing naar stof(fen)", "concepts": ["lucht:brandstof", "lucht:verbruikte_stof", "lucht:geproduceerde_stof"], "classification": "review", "decision": "No explicit emission-to-material record relation exists; approve semantics rather than join by label."},
+            {"label": "emissie-ID", "concepts": ["lucht:emissie"], "classification": "review", "decision": "Add approved semantic identifier or use a generated technical reference."},
+            {"label": "soort emissie", "concepts": ["lucht:emissietype"], "classification": "existing", "generated": {"schemaEntry": "lucht/emissie/schema.json", "record": "Emissie", "columnPointer": "/type", "schemaPointer": "/properties/emissie/items/properties/type"}},
+            {"label": "oorzaak van abnormale emissie", "concepts": [], "classification": "missing", "decision": "Approve text field and condition."},
+            {"label": "luchtvochtigsheidstoestand", "concepts": ["lucht:emissietoestand"], "classification": "existing", "generated": {"schemaEntry": "lucht/emissie/schema.json", "record": "Emissie", "columnPointer": "/emissietoestand", "schemaPointer": "/properties/emissie/items/properties/emissietoestand"}},
+            {"label": "vochtgehalte (% H2O)", "concepts": ["lucht:emissie_vochtgehalte"], "classification": "existing", "generated": {"schemaEntry": "lucht/emissie/schema.json", "record": "Emissie", "columnPointer": "/emissieVochtgehalte/hasResult/numericValue", "schemaPointer": "/properties/emissie/items/properties/emissieVochtgehalte/properties/hasResult/properties/numericValue"}},
+            {"label": "zuurstofgehalte (%)", "concepts": ["lucht:emissie_zuurstofgehalte"], "classification": "existing", "generated": {"schemaEntry": "lucht/emissie/schema.json", "record": "Emissie", "columnPointer": "/emissieZuurstofgehalte/hasResult/numericValue", "schemaPointer": "/properties/emissie/items/properties/emissieZuurstofgehalte/properties/hasResult/properties/numericValue"}},
+            {"label": "luchtoverschot", "concepts": ["lucht:emissie_luchtoverschot"], "classification": "review", "decision": "Review existing percent unit against the intended physical quantity.", "generated": {"schemaEntry": "lucht/emissie/schema.json", "record": "Emissie", "columnPointer": "/emissieLuchtoverschot/hasResult/numericValue", "schemaPointer": "/properties/emissie/items/properties/emissieLuchtoverschot/properties/hasResult/properties/numericValue"}},
+            {"label": "emissieritme", "concepts": ["lucht:emissieritme"], "classification": "existing", "generated": {"schemaEntry": "lucht/emissie/schema.json", "record": "Emissie", "columnPointer": "/emissieritme", "schemaPointer": "/properties/emissie/items/properties/emissieritme"}},
+            {"label": "emissieperiode", "concepts": ["lucht:emissieperiode"], "classification": "review", "decision": "Current free text/phenomenonTime mapping needs a reviewed temporal encoding.", "generated": {"schemaEntry": "lucht/emissie/schema.json", "record": "Emissie", "columnPointer": "/phenomenonTime", "schemaPointer": "/properties/emissie/items/properties/phenomenonTime"}},
+            {"label": "emissieduur (uren)", "concepts": ["lucht:emissieduur"], "classification": "review", "decision": "Current integer lacks an explicit hour unit.", "generated": {"schemaEntry": "lucht/emissie/schema.json", "record": "Emissie", "columnPointer": "/hasDuration", "schemaPointer": "/properties/emissie/items/properties/hasDuration"}},
+            {"label": "temperatuur (°C)", "concepts": ["lucht:emissie_temperatuur"], "classification": "existing", "generated": {"schemaEntry": "lucht/emissie/schema.json", "record": "Emissie", "columnPointer": "/emissieTemperatuur/hasResult/numericValue", "schemaPointer": "/properties/emissie/items/properties/emissieTemperatuur/properties/hasResult/properties/numericValue"}},
+            {"label": "debiet (Nm3/uur)", "concepts": [], "classification": "missing", "decision": "Approve standardized-volume flow quantity and unit."}
+          ]
+        },
+        {
+          "name": "Geëmitteerde polluenten",
+          "columns": [
+            {"label": "emissie-ID", "concepts": [], "classification": "reference", "decision": "Derived parent link."},
+            {"label": "verontreinigende stoffen en broeikasgassen", "concepts": ["lucht:emissie_parameter_parameter"], "classification": "existing", "generated": {"schemaEntry": "lucht/emissie/schema.json", "record": "Verontreinigende stof of BKG", "columnPointer": "/observedProperty", "schemaPointer": "/properties/emissie/items/properties/emissieParameter/items/properties/observedProperty"}},
+            {"label": "controle-instantie", "concepts": [], "classification": "missing", "decision": "Approve agent role and identifier/name representation."},
+            {"label": "meetfrequentie", "concepts": ["lucht:emissie_parameter_meetfrequentie"], "classification": "review", "decision": "Approved reuse of the existing Test-only frequency list inside Resultaat. Broader real-world choices remain unresolved.", "generated": {"schemaEntry": "lucht/emissie/schema.json", "record": "Verontreinigende stof of BKG", "columnPointer": "/hasResult/accrualPeriodicity", "schemaPointer": "/properties/emissie/items/properties/emissieParameter/items/properties/hasResult/properties/accrualPeriodicity"}},
+            {"label": "concentratie (mg/Nm3)", "concepts": [], "classification": "missing", "decision": "Approve quantity semantics and unit at the pollutant result."},
+            {"label": "standaardafwijking (%)", "concepts": ["lucht:emissie_parameter_standaardafwijking"], "classification": "existing", "generated": {"schemaEntry": "lucht/emissie/schema.json", "record": "Verontreinigende stof of BKG", "columnPointer": "/hasResult/additionalProperty/value", "schemaPointer": "/properties/emissie/items/properties/emissieParameter/items/properties/hasResult/properties/additionalProperty/properties/value"}},
+            {"label": "massastroom (kg/uur)", "concepts": ["lucht:emissie_parameter_massastroom"], "classification": "existing", "generated": {"schemaEntry": "lucht/emissie/schema.json", "record": "Verontreinigende stof of BKG", "columnPointer": "/hasResult/numericValue", "schemaPointer": "/properties/emissie/items/properties/emissieParameter/items/properties/hasResult/properties/numericValue"}},
+            {"label": "[jaar]emissie (ton/jaar)", "concepts": [], "classification": "missing", "decision": "Approve annual emission quantity and unit."},
+            {"label": "bepalingsmethode", "concepts": [], "classification": "missing", "decision": "Approve list and relation to a procedure."},
+            {"label": "meetmethode", "concepts": [], "classification": "missing", "decision": "Approve link to reusable procedure descriptions."}
+          ]
+        },
+        {
+          "name": "Toegepaste meetmethoden",
+          "columns": [
+            {"label": "beschrijving", "concepts": [], "classification": "missing", "decision": "Define procedure identity and description."},
+            {"label": "verontreinigende stof / broeikasgas waarop toegepast", "concepts": [], "classification": "missing", "decision": "Relate procedure applicability to parameters."},
+            {"label": "meetnorm/protocol", "concepts": [], "classification": "missing", "decision": "Approve free text vs published protocol list."}
+          ]
+        }
+      ]
+    },
+    {
+      "file": "lucht-verbeteringen.ods",
+      "sheets": [{
+        "name": "Geplande verbeteringen",
+        "columns": [
+          {"label": "beschrijvende maatregel", "concepts": [], "classification": "missing", "decision": "Define a genuinely planned measure, not a completed Observation just to obtain a worksheet."},
+          {"label": "verwacht jaar ingebruikname", "concepts": [], "classification": "missing", "decision": "Approve year datatype and any bounds."},
+          {"label": "verwacht reductiepotentieel (%)", "concepts": [], "classification": "missing", "decision": "Approve percentage quantity and constraints."}
+        ]
+      }]
+    },
+    {
+      "file": "lucht-verbruiken-productie.ods",
+      "sheets": [
+        {
+          "name": "Verbruiken en productie",
+          "columns": [
+            {"label": "verwijzing naar installatie", "concepts": ["lucht:feature_bron"], "classification": "reference"},
+            {"label": "benaming stof", "concepts": ["lucht:brandstof_naam", "lucht:verbruikte_stof_naam", "lucht:geproduceerde_stof_naam", "lucht:afvalproduct_naam"], "classification": "existing", "generated": {"schemaEntry": "lucht/brandstof/schema.json", "record": "Verbruikte brandstof", "columnPointer": "/label", "schemaPointer": "/properties/brandstof/items/properties/label"}},
+            {"label": "aard en/of samenstelling stof", "concepts": ["lucht:verbruikte_stof_aard", "lucht:geproduceerde_stof_aard", "lucht:afvalproduct_aard"], "classification": "review", "decision": "No equivalent fuel composition field exists."},
+            {"label": "stoffunctie", "concepts": ["lucht:brandstof", "lucht:verbruikte_stof", "lucht:geproduceerde_stof", "lucht:afvalproduct"], "classification": "presentation", "decision": "Source distinguishes role-specific records. Do not invent a role enum or merge their schemas just for this tab."},
+            {"label": "S-gehalte brandstof", "concepts": ["lucht:brandstof_s"], "classification": "review", "decision": "Concentration/fraction unit remains undeclared; typed Resultaat is generated without guessing a unit.", "generated": {"schemaEntry": "lucht/brandstof/schema.json", "record": "Verbruikte brandstof", "columnPointer": "/brandstofS/hasResult/numericValue", "schemaPointer": "/properties/brandstof/items/properties/brandstofS/properties/hasResult/properties/numericValue"}},
+            {"label": "asgehalte brandstof", "concepts": ["lucht:brandstof_as"], "classification": "review", "decision": "Concentration/fraction unit remains undeclared; typed Resultaat is generated without guessing a unit.", "generated": {"schemaEntry": "lucht/brandstof/schema.json", "record": "Verbruikte brandstof", "columnPointer": "/brandstofAs/hasResult/numericValue", "schemaPointer": "/properties/brandstof/items/properties/brandstofAs/properties/hasResult/properties/numericValue"}},
+            {"label": "[jaarvracht] (verbruik/productie/doorzet)", "concepts": ["lucht:brandstof_verbruik", "lucht:verbruikte_stof_hoeveelheid", "lucht:geproduceerde_stof_hoeveelheid", "lucht:afvalproduct_hoeveelheid"], "classification": "review", "decision": "Generated pointer covers fuel/E_89 only; other material units remain TODO. Energy and material throughput are not interchangeable.", "generated": {"schemaEntry": "lucht/brandstof/schema.json", "record": "Verbruikte brandstof", "columnPointer": "/brandstofVerbruik/hasResult/numericValue", "schemaPointer": "/properties/brandstof/items/properties/brandstofVerbruik/properties/hasResult/properties/numericValue"}}
+          ]
+        },
+        {
+          "name": "Brandstoftypes (voorlopig)",
+          "columns": [
+            {"label": "type brandstof", "concepts": [], "classification": "missing", "decision": "Approve published vs inline fuel-type list and its owner."}
+          ]
+        }
+      ]
+    },
+    {
+      "file": "lucht-zelfcontrole.ods",
+      "sheets": [
+        {
+          "name": "Metingen",
+          "columns": [
+            {"label": "meetpunt", "concepts": ["zelfcontrole-lucht:feature"], "classification": "reference"},
+            {"label": "labo/uitvoerder", "concepts": ["zelfcontrole-lucht:labo"], "classification": "existing"},
+            {"label": "meetmoment", "concepts": ["zelfcontrole-lucht:datum"], "classification": "review", "decision": "Current date-only field cannot preserve time."}
+          ]
+        },
+        {
+          "name": "Meetresultaten",
+          "columns": [
+            {"label": "parameter", "concepts": ["zelfcontrole-lucht:parameter-parameter"], "classification": "existing"},
+            {"label": "concentratie bij standaardomstandigheden", "concepts": ["zelfcontrole-lucht:parameter-concentratie"], "classification": "review", "decision": "Resolve parameter-dependent unit from approved quantity metadata."},
+            {"label": "meetonzekerheid", "concepts": ["zelfcontrole-lucht:parameter-meetonzekerheid"], "classification": "existing"},
+            {"label": "massastroom", "concepts": [], "classification": "missing", "decision": "Approve quantity and unit."},
+            {"label": "gehanteerde meetfrequentie", "concepts": ["zelfcontrole-lucht:parameter-meetfrequentie"], "classification": "review", "decision": "Current list contains only Test; approve usable list or numeric encoding."},
+            {"label": "bron meetfrequentie", "concepts": [], "classification": "missing", "decision": "Approve meaning and list/text representation."}
+          ]
+        }
+      ]
+    },
+    {
+      "file": "oppervlaktewater-jaargegevens.ods",
+      "sheets": [
+        {
+          "name": "Watergebruik",
+          "columns": [
+            {"label": "herkomst", "concepts": ["conceptscheme:herkomst_water"], "classification": "missing", "decision": "Existing list is unused; define operational origin records and reconcile with the separate water-use section."},
+            {"label": "verbruik (m3)", "concepts": ["contextueel:waterverbruik"], "classification": "missing", "decision": "Define typed per-origin volume and scope."}
+          ]
+        },
+        {
+          "name": "Toegepaste bepalingsmethode",
+          "columns": [
+            {"label": "verontreinigende stof waarop toegepast", "concepts": ["water:lozing-stof"], "classification": "review", "decision": "Define procedure applicability instead of duplicating a result's parameter field."},
+            {"label": "methodeklassificatie (volgens EU)", "concepts": ["water:lozing-bepalingsmethodeclassificatie"], "classification": "review", "decision": "Shared Procedure owns classification as PropertyValue. Existing one-value list is retained, not expanded.", "generated": {"schemaEntry": "water/lozing/schema.json", "record": "Lozing", "columnPointer": "/usedProcedure/additionalProperty/value", "schemaPointer": "/properties/lozing/items/properties/usedProcedure/properties/additionalProperty/properties/value"}},
+            {"label": "commentaar", "concepts": [], "classification": "missing", "decision": "Define procedure description/commentary."}
+          ]
+        },
+        {
+          "name": "Waterstromen",
+          "columns": [
+            {"label": "meetputnummer van de controle-inrichting", "concepts": ["water:feature"], "classification": "reference"},
+            {"label": "naam van de controle-inrichting", "concepts": ["water:feature"], "classification": "reference", "decision": "Runtime label of the selected instance, not a separately editable canonical identity."},
+            {"label": "jaardebiet (m3)", "concepts": ["water:lozing-debiet"], "classification": "existing", "generated": {"schemaEntry": "water/lozing/schema.json", "record": "Lozing", "columnPointer": "/lozingDebiet/hasResult/numericValue", "schemaPointer": "/properties/lozing/items/properties/lozingDebiet/properties/hasResult/properties/numericValue"}},
+            {"label": "aantal dagen per jaar", "concepts": ["water:lozing-dagen"], "classification": "existing", "generated": {"schemaEntry": "water/lozing/schema.json", "record": "Lozing", "columnPointer": "/lozingDagen/hasResult/numericValue", "schemaPointer": "/properties/lozing/items/properties/lozingDagen/properties/hasResult/properties/numericValue"}}
+          ]
+        },
+        {
+          "name": "Stoffen in waterstromen",
+          "columns": [
+            {"label": "meetputnummer van de controle-inrichting", "concepts": ["water:feature"], "classification": "reference", "decision": "Preserve an explicit link to the discharge record, not only its structural feature."},
+            {"label": "verontreinigende stof", "concepts": ["water:lozing-stof"], "classification": "presentation", "decision": "Approved collection with four member Observations and shared pollutant PropertyValue; no invented pollutant subgroup or split totals.", "generated": {"schemaEntry": "water/lozing/schema.json", "record": "Lozing", "columnPointer": "/additionalProperty/value", "schemaPointer": "/properties/lozing/items/properties/additionalProperty/properties/value"}},
+            {"label": "meetfrequentie", "concepts": ["water:lozing-meetfrequentie"], "classification": "review", "decision": "Existing Test-only frequency list is retained; fuller choices still need review.", "generated": {"schemaEntry": "water/lozing/schema.json", "record": "Lozing", "columnPointer": "/accrualPeriodicity", "schemaPointer": "/properties/lozing/items/properties/accrualPeriodicity"}},
+            {"label": "gemiddelde concentratie (mg/l)", "concepts": ["water:lozing-concentratie"], "classification": "existing", "generated": {"schemaEntry": "water/lozing/schema.json", "record": "Lozing", "columnPointer": "/lozingConcentratie/hasResult/numericValue", "schemaPointer": "/properties/lozing/items/properties/lozingConcentratie/properties/hasResult/properties/numericValue"}},
+            {"label": "totale jaarvracht (kg)", "concepts": ["water:lozing-jaarvracht"], "classification": "existing", "generated": {"schemaEntry": "water/lozing/schema.json", "record": "Lozing", "columnPointer": "/lozingJaarvracht/hasResult/numericValue", "schemaPointer": "/properties/lozing/items/properties/lozingJaarvracht/properties/hasResult/properties/numericValue"}},
+            {"label": "bepalingsmethode", "concepts": ["water:lozing-bepalingsmethode"], "classification": "existing", "generated": {"schemaEntry": "water/lozing/schema.json", "record": "Lozing", "columnPointer": "/usedProcedure/type", "schemaPointer": "/properties/lozing/items/properties/usedProcedure/properties/type"}}
+          ]
+        },
+        {
+          "name": "Abnormale lozingen",
+          "columns": [
+            {"label": "verontreinigende stof", "concepts": ["water:abnormale-lozing-stof"], "classification": "existing", "generated": {"schemaEntry": "water/abnormale-lozing/schema.json", "record": "Abnormale lozing", "columnPointer": "/observedProperty", "schemaPointer": "/properties/abnormaleLozing/items/properties/observedProperty"}},
+            {"label": "lozingsduur (dagen)", "concepts": ["water:abnormale-lozing-lozingsduur"], "classification": "existing", "generated": {"schemaEntry": "water/abnormale-lozing/schema.json", "record": "Abnormale lozing", "columnPointer": "/hasResult/additionalProperty/value", "schemaPointer": "/properties/abnormaleLozing/items/properties/hasResult/properties/additionalProperty/properties/value"}},
+            {"label": "jaarvracht (kg)", "concepts": ["water:abnormale-lozing-jaarvracht"], "classification": "existing", "generated": {"schemaEntry": "water/abnormale-lozing/schema.json", "record": "Abnormale lozing", "columnPointer": "/hasResult/numericValue", "schemaPointer": "/properties/abnormaleLozing/items/properties/hasResult/properties/numericValue"}},
+            {"label": "oorzaak", "concepts": ["water:abnormale-lozing-verklaring"], "classification": "existing", "generated": {"schemaEntry": "water/abnormale-lozing/schema.json", "record": "Abnormale lozing", "columnPointer": "/hasResult/comment", "schemaPointer": "/properties/abnormaleLozing/items/properties/hasResult/properties/comment"}}
+          ]
+        },
+        {
+          "name": "Totale jaarlozingen",
+          "columns": [
+            {"label": "totale jaarvracht (kg)", "concepts": [], "classification": "missing", "decision": "Approve aggregation scope/parameter and whether reported or calculated."},
+            {"label": "verklaring voor afwijking t.o.v. eerder jaar", "concepts": [], "classification": "missing", "decision": "Approve trigger/requiredness; no automatic year comparison is assumed."}
+          ]
+        },
+        {
+          "name": "Balansen opname en lozing",
+          "columns": [
+            {"label": "opnamepunt+lozingspunt+percentage", "concepts": [], "classification": "missing", "decision": "Model separate typed intake/discharge references and percentage, not a concatenated scalar."}
+          ]
+        }
+      ]
+    },
+    {
+      "file": "oppervlaktewater-zelfcontrole.ods",
+      "sheets": [
+        {
+          "name": "Metingen",
+          "columns": [
+            {"label": "meetpunt", "concepts": ["zelfcontrole-water:feature"], "classification": "reference"},
+            {"label": "labo/uitvoerder", "concepts": ["zelfcontrole-water:labo"], "classification": "existing", "decision": "Applied lab ownership beneath Meting; name and registration stay on its Agent.", "generated": {"schemaEntry": "zelfcontrole-water/meting/schema.json", "record": "Meting", "columnPointer": "/madeBySensor/label", "schemaPointer": "/properties/meting/items/properties/madeBySensor/properties/label"}},
+            {"label": "meetmoment", "concepts": ["zelfcontrole-water:datum"], "classification": "review", "decision": "Current date-only field cannot preserve time.", "generated": {"schemaEntry": "zelfcontrole-water/meting/schema.json", "record": "Meting", "columnPointer": "/resultTime", "schemaPointer": "/properties/meting/items/properties/resultTime"}}
+          ]
+        },
+        {
+          "name": "Meetresultaten",
+          "columns": [
+            {"label": "soort monstername", "concepts": ["zelfcontrole-water:parameter-soort"], "classification": "existing", "decision": "Approved free text PropertyValue inside parameter Resultaat, as in air; no invented sample-kind list.", "generated": {"schemaEntry": "zelfcontrole-water/meting/schema.json", "record": "Parameter", "columnPointer": "/hasResult/parameterSoort/value", "schemaPointer": "/properties/meting/items/properties/hasMember/items/properties/hasResult/properties/parameterSoort/properties/value"}},
+            {"label": "parameter", "concepts": ["zelfcontrole-water:parameter-parameter"], "classification": "existing", "decision": "Applied Observation/hasMember ownership beneath Meting; observedProperty stays outside Resultaat.", "generated": {"schemaEntry": "zelfcontrole-water/meting/schema.json", "record": "Parameter", "columnPointer": "/observedProperty", "schemaPointer": "/properties/meting/items/properties/hasMember/items/properties/observedProperty"}},
+            {"label": "concentratie onder meetomstandigheden", "concepts": ["zelfcontrole-water:parameter-concentratie"], "classification": "existing", "generated": {"schemaEntry": "zelfcontrole-water/meting/schema.json", "record": "Parameter", "columnPointer": "/hasResult/numericValue", "schemaPointer": "/properties/meting/items/properties/hasMember/items/properties/hasResult/properties/numericValue"}},
+            {"label": "meetonzekerheid", "concepts": ["zelfcontrole-water:parameter-meetonzekerheid"], "classification": "existing", "generated": {"schemaEntry": "zelfcontrole-water/meting/schema.json", "record": "Parameter", "columnPointer": "/hasResult/parameterMeetonzekerheid/value", "schemaPointer": "/properties/meting/items/properties/hasMember/items/properties/hasResult/properties/parameterMeetonzekerheid/properties/value"}},
+            {"label": "grenswaarde", "concepts": [], "classification": "missing", "decision": "Approve limit semantics and unit; not equivalent to a detection qualifier."},
+            {"label": "gehanteerde meetfrequentie", "concepts": ["zelfcontrole-water:parameter-meetfrequentie"], "classification": "review", "decision": "Existing Test-only list is retained inside Resultaat; broader choices remain unresolved.", "generated": {"schemaEntry": "zelfcontrole-water/meting/schema.json", "record": "Parameter", "columnPointer": "/hasResult/accrualPeriodicity", "schemaPointer": "/properties/meting/items/properties/hasMember/items/properties/hasResult/properties/accrualPeriodicity"}},
+            {"label": "bron meetfrequentie", "concepts": [], "classification": "missing", "decision": "Approve list/text field and meaning."}
+          ]
+        }
+      ]
+    },
+    {
+      "file": "overig-jaargegevens.ods",
+      "sheets": [
+        {
+          "name": "Stookinstallaties",
+          "columns": [
+            {"label": "reëel thermisch vermogen (MW)", "concepts": [], "classification": "missing", "decision": "Operational actual power, not installed structural power. Define installation reference and quantity."}
+          ]
+        },
+        {
+          "name": "Productie-installaties",
+          "columns": [
+            {"label": "reële productiecapaciteit (stuks-ton-kuub/jaar)", "concepts": [], "classification": "missing", "decision": "Approve quantity dimensions, unit choices and installation scope."}
+          ]
+        },
+        {
+          "name": "IEPR-installaties",
+          "columns": [
+            {"label": "Productievolumes", "concepts": ["contextueel:productievolume"], "classification": "review", "decision": "Existing integer is now an Observation with typed Resultaat, but its step remains unreachable. Activity/installation scope, fractional values and units still need approval."}
+          ]
+        },
+        {
+          "name": "Drempelwaardeverklaringen",
+          "columns": [
+            {"label": "installatie+stof+medium+verklaring", "concepts": [], "classification": "missing", "decision": "Define separate references and explanation; do not store a concatenated scalar."}
+          ]
+        }
+      ]
+    },
+    {
+      "file": "watergebruik.ods",
+      "sheets": [
+        {
+          "name": "Totaal waterverbruik",
+          "columns": [
+            {"label": "herkomst", "concepts": ["conceptscheme:herkomst_water"], "classification": "review", "decision": "Reconcile source enum with the example vocabulary and overlapping annual-water records."},
+            {"label": "onttrokken hoeveelheid (m3)", "concepts": ["contextueel:waterverbruik"], "classification": "missing", "decision": "Withdrawal and use are not automatically identical; approve the canonical fact."}
+          ]
+        },
+        {
+          "name": "Aanwendingen van water",
+          "columns": [
+            {"label": "soort aanwending", "concepts": [], "classification": "missing", "decision": "Approve list and parent origin/use relationship."},
+            {"label": "aandeel (percentage)", "concepts": [], "classification": "missing", "decision": "Approve percentage unit, bounds and whether a cross-record total is required."}
+          ]
+        }
+      ]
+    }
+  ]
+}

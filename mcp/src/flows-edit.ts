@@ -17,10 +17,10 @@ const FIELD_CODE = /^[a-z][a-z0-9_-]*$/;
 
 /** Column order of a new operationeel_*.csv file. */
 const OPERATIONAL_HEADER = [
-    '_id', '_type', 'topConceptOf', 'inScheme', 'prefLabel', 'definition', 'broaderPartitive', 'relevantClass',
+    '_id', '_type', 'topConceptOf', 'inScheme', 'prefLabel', 'definition', 'broaderPartitive', 'relevantObservation', 'relevantClass',
     'relevantFeatureClass', 'relevantDataType', 'relation', 'vervolgstap', 'relevantRiepr', 'conditionPath', 'conditionValue',
     'relevantCodeList', 'relevantUnit', 'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'variabele', 'minValue', 'maxValue',
-    'isVerplicht', 'isMeervoudig', 'isMultiselect', 'isOnzichtbaar', '_ui_after', '_ui_first', 'related',
+    'isVerplicht', 'isMeervoudig', 'isMultiselect', 'isOnzichtbaar', '_table_workbook', '_table_sheet', '_ui_after', '_ui_first', 'related',
 ];
 
 export interface FieldProperties {
@@ -34,6 +34,9 @@ export interface FieldProperties {
     unit?: string[];
     relevantClass?: string;
     relevantFeatureClass?: string[];
+    relevantObservation?: string[];
+    tableWorkbook?: string;
+    tableSheet?: string;
     relevantRiepr?: string[];
     /** Next step(s): concept schemes. */
     vervolgstap?: string[];
@@ -69,6 +72,9 @@ const COLUMNS: Record<keyof FieldProperties, string> = {
     unit: 'relevantUnit',
     relevantClass: 'relevantClass',
     relevantFeatureClass: 'relevantFeatureClass',
+    relevantObservation: 'relevantObservation',
+    tableWorkbook: '_table_workbook',
+    tableSheet: '_table_sheet',
     relevantRiepr: 'relevantRiepr',
     vervolgstap: 'vervolgstap',
     conditionPath: 'conditionPath',
@@ -88,7 +94,7 @@ const COLUMNS: Record<keyof FieldProperties, string> = {
     uiFirst: '_ui_first',
 };
 
-const LIST_FIELDS = new Set<keyof FieldProperties>(['codeList', 'unit', 'relevantFeatureClass', 'relevantRiepr', 'vervolgstap', 'related']);
+const LIST_FIELDS = new Set<keyof FieldProperties>(['codeList', 'unit', 'relevantFeatureClass', 'relevantObservation', 'relevantRiepr', 'vervolgstap', 'related']);
 const FLAG_FIELDS = new Set<keyof FieldProperties>(['isVerplicht', 'isMeervoudig', 'isMultiselect', 'isOnzichtbaar', 'uiFirst']);
 
 function fieldProperties(record: CsvRecord): FieldProperties {
@@ -135,7 +141,7 @@ class Files {
         const terms = contextTerms();
         for (const [column, value] of Object.entries(record)) {
             if (!value || csv.hasColumn(column)) continue;
-            if (!terms.has(column)) throw new ValidationError(`Column '${column}' is not a term in src/source/context.json.`);
+            if (!terms.has(column) && !['_table_workbook', '_table_sheet'].includes(column)) throw new ValidationError(`Column '${column}' is not a term in src/source/context.json.`);
             // Keep the column order of OPERATIONAL_HEADER: after the nearest preceding column the file has.
             const known = OPERATIONAL_HEADER.indexOf(column);
             const after = known > 0 ? OPERATIONAL_HEADER.slice(0, known).reverse().find(c => csv.hasColumn(c)) : undefined;
@@ -240,6 +246,16 @@ function checkField(repo: Repo, scheme: string, id: string, p: FieldProperties):
         if (value) checkReference(value, field, errors);
     }
     for (const value of p.relevantFeatureClass ?? []) checkReference(value, 'relevantFeatureClass', errors);
+    for (const target of p.relevantObservation ?? []) {
+        const type = target === id ? p.relevantClass : repo.byId.get(target)?.record.relevantClass;
+        if (target !== id && !inStep.has(target)) errors.push(`relevantObservation ${target} is not a field of ${scheme}.`);
+        else if (!['riepr:Observatie', 'riepr:ObservatieVerzameling', 'sosa:Observation', 'sosa:ObservationCollection'].includes(type ?? '')) {
+            errors.push(`relevantObservation ${target} is not an observation or observation collection.`);
+        }
+    }
+    if (Boolean(p.tableWorkbook) !== Boolean(p.tableSheet)) errors.push('tableWorkbook and tableSheet go together.');
+    if (p.tableWorkbook && !/^[^/\\]+\.ods$/.test(p.tableWorkbook)) errors.push('tableWorkbook must be an .ods filename without a directory.');
+    if (p.tableSheet && (p.tableSheet.length > 31 || /[\[\]:*?/\\]/.test(p.tableSheet))) errors.push('tableSheet must be a worksheet name of at most 31 characters without []:*?/\\.');
     if (p.variabele) {
         const selector = repo.byId.get(p.variabele)?.record;
         if (p.variabele === id) errors.push('variabele cannot point to the field itself.');

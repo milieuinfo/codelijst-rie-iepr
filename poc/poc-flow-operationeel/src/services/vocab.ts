@@ -82,7 +82,7 @@ export const PREFIXES: Record<string, string> = {
   conceptscheme: 'https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/',
   collectie: 'https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/',
   concept: 'https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/',
-  thema: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/thema-type/',
+  thema: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/thematype/',
   csor: 'https://data.omgeving.vlaanderen.be/id/conceptscheme/csor/',
   csor_eenheid: 'https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/',
   csor_variabele: 'https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/',
