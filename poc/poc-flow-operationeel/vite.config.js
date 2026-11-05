@@ -17,7 +17,7 @@ export default defineConfig({
     sourcemap: true
   },
   optimizeDeps: {
-    include: ['codelijst-rie-iepr-poc-json-schema-ods/browser']
+    exclude: ['codelijst-rie-iepr-poc-json-schema-ods/browser']
   },
   resolve: {}
 })

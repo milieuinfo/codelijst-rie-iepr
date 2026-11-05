@@ -1,10 +1,42 @@
 # Project Outline — RIE-IEPR Codelist-to-JSON-Schema POC
 
-## Status: Planning
+## Current status: shared groundwater reporting contract
 
-This proof of concept builds a **transformation pipeline** that reads the RIE-IEPR SKOS/JSON-LD codelist (`rie-iepr.jsonld`) and generates a set of **JSON Schema (Draft 2020-12)** documents following the pattern established in `docs/archive/`. The generated schemas validate observation data reported through the RIE-IEPR framework.
+The implemented generator compiles the groundwater source CSV and supporting
+lists into JSON Schema Draft 2020-12. Its three reporting sections are consumed
+by both the operational UI and reversible ODS workbooks. Neither consumer
+reconstructs the reporting model independently from RDF.
 
-The POC shares conceptual overlap with [`poc-flow-operationeel`](../poc-flow-operationeel/) (same source codelist, same interpretation model), but it must be **standalone** — no code reuse from the other POC. Only lightweight infrastructure like the sync script may be copied as a starting point.
+The [Dutch mapping guide](../../../README.md#van-csv-naar-json-schema-ui-en-ods)
+explains the transformation column by column. The [package README](../README.md)
+documents generation, snapshot provenance, validation and commands.
+
+| Concern | Active contract |
+|---|---|
+| Entry and scope | Direct `conceptscheme:operationeel_grondwater`; no theme-list dependency or other operational CSVs |
+| Sections | Onttrekking and kwaliteitsmeting are collections; peilmeting is an observation |
+| Ownership | `broaderPartitive` establishes source groups; `relevantObservation` assigns semantic owners independently of presentation |
+| Predicates | Real declared relations; missing nested relations block generation except explicit feature inputs |
+| Members | One `hasMember` array with `observedProperty` variants |
+| Additional characteristics | One `additionalProperty` array of PropertyValues identified by `propertyID` |
+| Required variants | `contains` cardinalities on each discriminator, plus required fields inside each object |
+| Laboratory | `wasAssociatedWith` to a `prov:Agent` with `label`; no invented Sample/Sampling layer |
+| Numeric observations | Implicit typed Resultaat with numeric value and declared unit |
+| Shared dates | One visible source copied to existing targets in the same record; conflicts fail |
+| Presentation | Source labels, hidden containers, order and workbook/sheet annotations survive canonical grouping |
+| Consumers | Shared canonical/presentation data and path mappings; structural and semantic validation |
+| Output provenance | Indexed source/schema fingerprints; stale snapshots and incompatible workbooks are rejected |
+
+Generation does not invent units, choices, predicates or missing domain facts.
+Feature construction, full RDF serialization and persistent storage are outside
+the POC. Current groundwater examples and generated ODS are round-trip checked.
+
+## Historical planning notes (superseded)
+
+Everything below preserves the initial multi-theme proposal, not the current
+architecture, source inventory or acceptance criteria. In particular, remote
+schema dependencies, unresolved-list fallbacks and `seeAlso` entry discovery
+are not the active contract. Use the current guides linked above.
 
 ---
 
@@ -29,7 +61,7 @@ The output should match the structure and intent of the manually-created schemas
 
 ## Codelist Interpretation Model
 
-The authoritative specification lives in the root [`README.md`](../../../../README.md), section **"Interpretatie"**. Key mappings relevant to this POC:
+The original specification referred to the root [`README.md`](../../../README.md), section **"Interpretatie"**. The following table records the historical proposal:
 
 | Codelist Property | JSON Schema Mapping | Notes |
 |---|---|---|
@@ -80,18 +112,16 @@ Any missing business logic needed for meaningful schemas (value ranges, patterns
 
 ### Output Structure
 
-```
-output/
-├── schema/                          # Generated schemas root
-│   ├── observatie.json              # Base observation schema (shared across all themes)
-│   └── <theme>/
-│       └── schema.json              # Per-theme domain schema extending base
-│           ├── grondstoffen/schema.json
-│           ├── grondwater/schema.json
-│           ├── lucht/schema.json
-│           ├── water/schema.json
-│           ├── zelfcontrole-lucht/schema.json
-│           └── zelfcontrole-water/schema.json
+```mermaid
+flowchart LR
+    output["output/"] --> schemas["schema/"]
+    schemas --> base["observatie.json<br/>Shared observation base"]
+    schemas --> materials["grondstoffen/schema.json"]
+    schemas --> groundwater["grondwater/schema.json"]
+    schemas --> air["lucht/schema.json"]
+    schemas --> water["water/schema.json"]
+    schemas --> airChecks["zelfcontrole-lucht/schema.json"]
+    schemas --> waterChecks["zelfcontrole-water/schema.json"]
 ```
 
 The transformation tool should accept a `--theme` flag to generate a single theme's schema, or run without arguments to generate all.

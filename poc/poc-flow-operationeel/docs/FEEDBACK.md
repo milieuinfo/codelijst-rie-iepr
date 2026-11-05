@@ -1,4 +1,11 @@
 # Issues/changes reported during testing
+
+> Historical feedback for the earlier RDF-driven form. Current schema-driven
+> controls, units, conditions and mapping are documented in the
+> [POC README](../README.md) and
+> [Dutch transformation guide](../../../README.md#van-csv-naar-json-schema-ui-en-ods).
+> This list is not a current unresolved-work checklist.
+
 - when xsd:boolean is used a checkbox is shown, but the prefLabel is missing next to the checkbox
 - For units; relevantUnit, the label should be fetched remotely (rdfs:label), maybe make a configurable whitelist that resolves online based on the base URI
 - If a relevantRiepr is used on the conceptscheme like is the case with "Controleinrichting", then the children should not show unless something is selected first since the "Lozing" applies to the selected controleinrichting.

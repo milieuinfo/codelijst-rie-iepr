@@ -1,5 +1,6 @@
 export { InstanceValidator as SchemaValidator } from './services/instance-validator.js'
 export { materializeDerivedValues } from './services/derived-values.js'
+export { presentationSchema, transformMemberData, selectMemberVariant, canonicalDataPath, presentationDataPath, canonicalColumnPath, canonicalRecordPath } from './services/member-layout.js'
 export type { InstanceDiagnostic, InstanceValidationResult } from './services/instance-validator.js'
 export { SemanticValidator } from './services/semantic-validator.js'
 export type { ReferenceRecord, ReferenceContext, SemanticDiagnostic } from './services/semantic-validator.js'

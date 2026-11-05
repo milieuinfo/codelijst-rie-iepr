@@ -3,44 +3,48 @@
     {
       "hasFeatureOfInterest": "urn:test:debietmeter:1",
       "type": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-debiettype/onttrekking",
-      "onttrekkingSpui": false,
-      "onttrekkingHoeveelheid": {
+      "additionalProperty": [{
+        "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-spui",
+        "value": false
+      }],
+      "hasMember": [{
         "resultTime": "2024-12-30",
         "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-hoeveelheid",
         "hasResult": {
           "numericValue": 0,
           "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32"
         }
-      }
+      }]
     },
     {
       "hasFeatureOfInterest": "urn:test:debietmeter:1",
       "type": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-debiettype/onttrekking",
-      "onttrekkingSpui": true,
-      "onttrekkingStartmeterstand": {
+      "additionalProperty": [{
+        "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-spui",
+        "value": true
+      }],
+      "hasMember": [{
         "resultTime": "2024-01-01",
         "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-startmeterstand",
         "hasResult": {
           "numericValue": 100,
           "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32"
         }
-      },
-      "onttrekkingEindmeterstand": {
+      }, {
         "resultTime": "2024-12-31",
         "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-eindmeterstand",
         "hasResult": {
           "numericValue": 150,
           "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32"
         }
-      },
-      "onttrekkingHoeveelheid": {
+      }, {
         "resultTime": "2024-12-31",
         "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-hoeveelheid",
         "hasResult": {
           "numericValue": 10.123,
           "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32"
         }
-      }
+      }]
     }
   ]
 }

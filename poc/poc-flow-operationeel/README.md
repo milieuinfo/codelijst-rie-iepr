@@ -24,6 +24,8 @@ choice lists, with a direct concept-scheme entry point (no `thematypes.csv`).
 Strict generation remains the default; the current source generates all three
 groundwater sections. `--allow-incomplete` reports blocked sections, but cannot
 publish an entirely blocked snapshot. See the [generator contract](../poc-json-schema/README.md).
+The Dutch [end-to-end mapping guide](../../README.md#van-csv-naar-json-schema-ui-en-ods)
+explains how to interpret the CSV columns and derive the schema, form and workbook.
 
 Dev/build hooks rebuild the linked schema runtime, verify and synchronize the
 existing generated snapshot, generate matching downloadable ODS templates,
@@ -34,6 +36,14 @@ explicitly. `pnpm sync:schemas` performs just the schema runtime build and sync.
 
 ## Editing and validation
 
+- The schema and exported JSON are canonical: observations share `hasMember`,
+  distinguished by `observedProperty`; additional characteristics share
+  `additionalProperty`, distinguished by `propertyID`. Presentation annotations
+  restore fixed columns, simple selections and repeated detail groups without
+  introducing concept-named properties in exported JSON. The lab remains a
+  `prov:Agent` under `wasAssociatedWith`, with its visible name in `label`.
+  Required member/property kinds are checked independently in each owning record;
+  another array item cannot satisfy a missing required kind.
 - Select a production year, theme and indexed reporting section. Download
   buttons provide its blank ODS template and exact generated JSON Schema.
   Templates contain the published choice lists and fictional structural
@@ -68,8 +78,10 @@ explicitly. `pnpm sync:schemas` performs just the schema runtime build and sync.
   Workbook reference labels are retained as demonstration choices, and references
   from another reporting year are rejected. Only current generated templates
   are supported, not arbitrary or legacy spreadsheets.
-  The importer remains lazy-loaded; its dependencies are pre-optimized at dev
-  server startup so the first upload does not trigger a Vite reload.
+  Import dependencies are loaded at startup, so the first upload does not
+  trigger dependency discovery and a Vite reload.
+  Regenerate/download templates after source or schema changes; matching
+  filenames do not make an older workbook compatible.
 - Required fields have markers. Dates and datetimes use the Flux datepicker
   (`type="date-time"` for `xsd:dateTime`). Date-time input uses the browser's
   local timezone and is stored as a UTC ISO timestamp; dates remain `YYYY-MM-DD`.
@@ -109,10 +121,11 @@ overrides the port), never an unrelated already-running development server.
 The Jenkins pipeline builds this POC together with `poc-flow-structuur` and `poc-landing` and
 publishes them on GitHub Pages:
 
-```
-/                  ← poc-landing
-/operationeel/     ← this POC
-/structuur/        ← poc-flow-structuur
+```mermaid
+flowchart LR
+    site["GitHub Pages"] --> landing["/<br/>poc-landing"]
+    site --> operationeel["/operationeel/<br/>poc-flow-operationeel"]
+    site --> structuur["/structuur/<br/>poc-flow-structuur"]
 ```
 
 The Vite build uses `base: './'`, so the assets load relatively and the build works both on GitHub
@@ -121,7 +134,7 @@ dev server keeps running at `/`.
 
 ## Data synchronisation
 
-`pnpm dev` and `pnpm build` first run three sync scripts:
+`pnpm dev` and `pnpm build` first run these synchronization/download steps:
 
 - `scripts/sync-schemas.mjs` — shares the ODS snapshot-sync implementation; copies
   only indexed schemas into `public/schema/` and matching `public/codelist.jsonld`,

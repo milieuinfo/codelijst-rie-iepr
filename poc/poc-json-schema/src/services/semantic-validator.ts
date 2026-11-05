@@ -2,6 +2,7 @@ import type { JsonSchemaObject } from '../models/index.js'
 import { isCollectionClass, isObservationClass } from '../config.js'
 import { homogeneousProperties } from './schema-assembler.js'
 import { pointerToken, schemaObject, SchemaRegistry } from './schema-registry.js'
+import { selectMemberVariant } from './member-layout.js'
 
 export interface ReferenceRecord {
   id: string
@@ -77,7 +78,12 @@ export class SemanticValidator {
       location: ValueLocation, inherited = new Map<string, ValueLocation>(),
       referenceScope = new Set(options.referenceContext?.ids ?? []),
     ): void => {
-      const node = registry.resolve(location.schema)
+      let node: JsonSchemaObject
+      try { node = selectMemberVariant(registry.resolve(location.schema), location.value) }
+      catch (error) {
+        report(location, 'membership', error instanceof Error ? error.message : String(error))
+        return
+      }
       const value = location.value
       const expectedTypes = node['x-reference-types']
       if (typeof value === 'string' && Array.isArray(expectedTypes)) {
@@ -156,8 +162,9 @@ export class SemanticValidator {
       }
       for (const child of properties) {
         if (members.includes(child)) {
-          const memberSchema = registry.resolve(child.schema.items ? schemaObject(child.schema.items) : child.schema)
-          if (!isObservationClass(String(memberSchema['x-jsonld-type']))) {
+          const definition = registry.resolve(child.schema.items ? schemaObject(child.schema.items) : child.schema)
+          const definitions = Array.isArray(definition.oneOf) ? definition.oneOf.map(schemaObject) : [definition]
+          if (definitions.some(member => !isObservationClass(String(member['x-jsonld-type'])))) {
             report(child, 'membership', 'Collection members must be Observations or ObservationCollections, not physical Samples or other entities.')
           }
           visit(child, effective, localScope)

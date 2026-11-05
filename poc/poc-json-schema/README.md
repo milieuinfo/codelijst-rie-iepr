@@ -2,6 +2,9 @@
 
 Compile the groundwater CSV into JSON Schema Draft 2020-12, shared by the UI and
 ODS consumers.
+The Dutch [CSV-to-schema/UI/ODS guide](../../README.md#van-csv-naar-json-schema-ui-en-ods)
+is the conceptual specification, including ownership, predicates, required kinds
+and reversible spreadsheet mappings.
 
 ## Current groundwater CSV profile
 
@@ -42,13 +45,34 @@ publishing an index if all three are blocked.
 | `relevantObservation` | Observation ownership independent of table/`broaderPartitive` layout; multiple targets allowed |
 | `relevantFeatureClass` | `x-feature-mapping` / `x-relevant-feature-classes`; picker inputs map to one constructed feature (e.g. annual Onttrekking or grouped Emissie), not several shared features; actual construction/storage is outside this POC |
 | Numeric `riepr:Observatie` | Observation with an implicit typed `hasResult` / `riepr:Resultaat` and `qudt:numericValue` |
-| Non-SOSA characteristics of an Observation | Inside its implicit Resultaat, retaining declared predicates (otherwise the source concept URI) |
+| Non-SOSA characteristics of an Observation | Inside its implicit Resultaat, retaining declared predicates; missing relations block generation |
 | `relevantUnit` | Fixed unit or expanded unit-collection choices, never a collection URI used as a unit |
 
 The active reporting schemas do not add synthetic entity `@id` fields or ODS
 row/link fields. They retain only source fields, necessary semantic structure,
 units and declared constants; the ODS consumer does not turn machine constants
 into input columns.
+
+Collections expose one `hasMember` array, never separate concept-named observation
+properties. Its `items.oneOf` variants require `observedProperty`: scalar readings
+use their published source concept URI; parameter analyses retain their selected
+parameter URI. `contains` cardinalities require the reported quantity and prevent
+duplicate singleton readings. Quality depth and parameter results share this array.
+`x-member-layout` preserves singleton input columns and repeated detail groups.
+The shared presentation/data/path mappings let UI and ODS edit those groups while
+validating and exporting the canonical array.
+
+Every nested reporting property must declare a predicate, except explicit
+feature-construction inputs. A class alone is not a relation: the laboratory is
+`wasAssociatedWith` (`prov:wasAssociatedWith`) targeting its typed `prov:Agent`
+with `rdfs:label`. This PROV association also classifies its owning observation
+collection as an Activity. Reference points and the spui indicator use
+`schema:additionalProperty` / `schema:PropertyValue`, never concept URIs as
+predicates. All additional properties share one `additionalProperty` array,
+discriminated by constant `propertyID`; `contains` constraints preserve required
+fields and singleton cardinalities. Their source input layout, units and
+conditions are preserved by `x-property-layout`. Source omissions are errors,
+not silently synthesized predicates.
 
 The CSV declares `sosa:resultTime` on Startdatum and Einddatum.
 Startdatum targets startmeterstand; Einddatum targets both
@@ -68,48 +92,7 @@ shared end dates, pump-state conditions and multiple selected filters.
 They are reporting inputs: `x-feature-mapping` still describes a later feature
 construction step, not an already completed RDF storage transformation.
 
-## Previous multi-theme profile (historical)
-
-The following describes the earlier published model and its regression fixtures,
-not the active CSV entry-point/scope or the current source's completeness.
-
-### Supported sections
-
-The approved groundwater **kwaliteitsmeting**, **onttrekking** and **peilmeting** compile and
-round-trip through the [ODS POC](../poc-json-schema-ods/docs/PROJECT_OUTLINE.md).
-One kwaliteitsmeting is one monster's analysis collection: a singleton Sample,
-its singleton Sampling, and repeated parameter Observations. There is no
-additional repeated monster layer. Onttrekking contains a required reported-volume
-observation and optional begin/end-reading observations, with no calculation or
-input-mode switch. Its reporting period is not a shared observation timestamp.
-Peilmeting is one Observation with a required singleton reference point and a
-source-owned Resultaat containing depth, method and conditional pump-state details.
-The same source-owned Resultaat pattern now covers the other operational lists:
-
-| Theme | Working source sections |
-|---|---|
-| Grondwater | `grondwater:kwaliteitsmeting`, `grondwater:onttrekking`, `grondwater:peilmeting` |
-| Lucht | `lucht:brandstof`, `lucht:emissie` |
-| Water | `water:lozing`, `water:abnormale-lozing` |
-| Zelfcontrole water | `zelfcontrole-water:meting` |
-
-Fuel and normal discharge retain their collection classes and distinct scalar
-member Observations. Air emissions are explicitly reachable. Self-control
-parameter values live inside Resultaat, with lab/parameter groups under their
-measurement. Five unresolved unit references still block air substances/waste,
-air self-control and materials. The new temporary material-code scheme is
-deliberately empty and also blocks compilation. Contextual production volume
-compiles in isolation as an integer Observation/Resultaat, but its step remains
-unreachable and its three consumption stubs untyped. Full-repository generation
-therefore still fails explicitly by default; no invented choices or units bypass these gaps.
-
-```bash
-npm install
-npm run predev
-npm run build
-npm run generate -- --theme Grondwater --section grondwater:kwaliteitsmeting
-npm test
-```
+## Selecting sections and handling incomplete metadata
 
 `--out <directory>` creates an independent snapshot. `--section` requires
 `--theme` and accepts the published source concept's CURIE or full IRI. It must
@@ -119,22 +102,20 @@ metadata is complete. `--theme` uses the theme's display label.
 Use `--section grondwater:onttrekking` or `--section grondwater:peilmeting` for
 the other groundwater slices. Omit `--section` to generate all three together.
 Filtered snapshots contain only the selected section.
-For example, `--theme Lucht --section lucht:emissie` generates the air-emission
-slice without including the unresolved material-quantity sections.
 
-To generate all currently usable sections without resolving deferred source facts:
+For example:
 
 ```bash
-npm run generate -- --allow-incomplete
+npm run generate -- --theme Grondwater --section grondwater:kwaliteitsmeting
 ```
 
-This explicit mode discovers reachable reporting sections and compiles each
+`--allow-incomplete` compiles sections in the requested active scope
 independently. It emits bases and valid section schemas, **not combined theme
 schemas**, and reports every blocked section to stderr and
 `output/schema/index.json` under `generation.blockedSections`. Diagnostics include
-the section/field source identities, issue codes and messages. The current source
-produces eight sections and five blocked sections; materials reports both its
-TODO unit and empty code list. No field is silently dropped from a valid section.
+the section/field source identities, issue codes and messages.
+No field is silently dropped from a valid section. This flag does not enable
+other operational CSVs or restore the removed theme-entry scheme.
 
 The index records `generation.mode` and `generation.complete`. Completeness is
 within the requested reachable scope, with optional `theme`/`sectionConceptId`
@@ -159,16 +140,18 @@ excluding them; ODS import continues to reject inactive supplied cells.
 
 | Existing source information | Generated contract |
 |---|---|
-| `vervolgstap` (`qb:codeList`) | Explicit reachable step graph, including branch edges; no name/sub-string discovery |
-| `broaderPartitive` | Object ownership; a relation never promotes a child out of its owner |
+| `vervolgstap` (`qb:codeList`) | Navigation metadata; not the active groundwater entry mechanism |
+| `broaderPartitive` / `relevantObservation` | Source grouping / explicit semantic ownership; table placement cannot change the owner |
 | `isMeervoudig` / `isMultiselect` | Distinct record arrays / value-reference arrays, at every depth |
-| `relevantClass` / `relation` | `x-jsonld-type` / `x-jsonld-id`; preserve Sample, Sampling, agents and supporting records |
+| `relevantClass` / `relation` | `x-jsonld-type` / `x-jsonld-id`; preserve source-declared objects and agents, never invent a Sample/Sampling layer |
 | Integer, decimal, boolean | Real JSON integer, number, boolean values |
 | Date, datetime, duration | Strings with enforced `date`, `date-time`, `duration` formats |
 | `dcterms:temporal` | `{start,end}`, either both dates or both datetimes |
 | `relevantUnit` | Local `{numericValue,hasUnit}`; on a literal `qudt:numericValue`, `hasUnit` belongs to its owning object |
 | `schema:PropertyValue` leaf | `{propertyID,value,unitCode?}`; published field URI identifies the property, constraints/references/formats stay on `value` |
-| Scalar Observation | Reconstructible object with observed property and result, not a new unrelated array |
+| Scalar Observation | Member in canonical `hasMember`, with a fixed `observedProperty` and typed result |
+| `schema:additionalProperty` | Canonical PropertyValue array with `propertyID`; source-shaped input retained separately |
+| `isVerplicht` on predicate-array variants | Discriminator-specific `contains` / `minContains`; `maxContains: 1` for singleton kinds |
 | Numeric `riepr:Observatie` | Typed `riepr:Resultaat` with `numericValue`, including when no unit is declared; no unit is guessed |
 | `relevantCodeList` | Full URI enums; partial/unresolved lists are errors |
 | `relevantRiepr` | URI references annotated with `x-reference-types`; runtime instances are supplied separately (synthetic example: `examples/refs.json`) |
@@ -179,7 +162,10 @@ excluding them; ODS import continues to reject inactive supplied cells.
 
 Every source field retains `x-source-concept`. Source datatypes, code lists,
 variable concepts and ordering concepts also retain their expanded identities.
-Machine property names derive from source/predicate URIs, not translated labels.
+Canonical data-property names derive from predicates, not translated labels;
+source concept identities discriminate members/PropertyValues, not invented predicates.
+The reporting envelope and explicit feature-construction inputs are exceptions,
+not RDF assertions. Source-shaped presentation keys are not canonical JSON keys.
 Independent repeated records cannot be joined implicitly by a condition.
 The same URI-derived collision handling applies to root selectors and children.
 `x-variable-location: {ancestorDepth,path}` resolves a selected substance from the
@@ -255,10 +241,13 @@ new incomplete snapshots are explicitly marked and warn during ODS sync/use.
 ## Remaining work
 
 The [14-workbook Teepak inventory](../poc-json-schema-ods/docs/TEEPAK_MAPPING.md)
-records missing facts, source corrections and presentation differences. All
-remaining domain changes require MCP dry runs and user approval, especially debit
-type/spui coverage, missing level-measurement facts, TODO units/lists,
-missing reporting groups and shared water-use facts. The user-approved destination
-contract keeps each source variant as a separate conditional property; future UI
-consumers can use `x-related-concepts` to present one logical selector/group.
-The operational UI is not migrated, and full Teepak coverage is not yet implemented.
+is a historical review of the wider model, not the current groundwater contract.
+Other operational CSVs, full Teepak coverage, feature construction and production
+storage are outside the active scope. Future domain/source changes require MCP
+dry runs, user approval and successful SKOS regeneration.
+
+The UI already consumes these schemas and supports ODS downloads/imports.
+Older multi-theme fixtures may still expect the removed theme-entry scheme;
+their old section/blocker counts do not describe the active groundwater snapshot.
+The [original project outline](docs/PROJECT_OUTLINE.md#historical-planning-notes-superseded)
+retains the earlier design for context, not as implementation instructions.

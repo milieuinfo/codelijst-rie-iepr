@@ -1,5 +1,9 @@
 # Feedback POC 2026-08-04
 
+> Historical multi-theme feedback, not the active groundwater mapping contract.
+> See the [current generator guide](../README.md) for semantic ownership,
+> canonical predicate arrays and explicit later feature construction.
+
 1. The output of "lucht" schema has the following data:
 ```
     "featureEp": {

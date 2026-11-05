@@ -1,5 +1,5 @@
 import { compileTabularPlan, ODSImporter, readOdf, workbookMetadata } from 'codelijst-rie-iepr-poc-json-schema-ods/browser'
-import type { JsonSchemaObject, ReferenceRecord } from 'codelijst-rie-iepr-poc-json-schema/browser'
+import { type JsonSchemaObject, type ReferenceRecord } from 'codelijst-rie-iepr-poc-json-schema/browser'
 import { SchemaEditor, isObject } from './schema-editor.js'
 
 export async function uploadOds(
@@ -23,7 +23,7 @@ export async function uploadOds(
   const references = new Map(options.references.map(reference => [reference.id, reference]))
   for (const reference of metadata.references) references.set(reference.id, reference)
   const editor = new SchemaEditor(options.schema, options.dependencies, [...references.values()], { year: options.year })
-  for (const [key, value] of Object.entries(data)) editor.set([key], value)
+  editor.load(data)
   const result = editor.validate()
   if (result.diagnostics.length) {
     throw new Error(result.diagnostics.map(error => `${error.instancePath || '/'}: ${error.message}`).join('\n'))

@@ -1,5 +1,38 @@
 # Architecture Documentation
 
+## Current schema-driven architecture
+
+The [Dutch mapping guide](../../../README.md#van-csv-naar-json-schema-ui-en-ods)
+and [POC README](../README.md) describe the active groundwater contract.
+The UI consumes verified JSON Schemas, not an independently inferred RDF form.
+
+```mermaid
+flowchart TD
+    snapshot["Verified schema snapshot<br/>Source/schema fingerprints"]
+    layout["Presentation schema<br/>Source labels, columns and detail groups"]
+    draft["Editable draft<br/>Per reporting year and section"]
+    canonical["Canonical projection<br/>hasMember and additionalProperty arrays"]
+    validation["Shared structural and semantic validation"]
+    json["Validated reporting JSON"]
+    upload["Filled current ODS<br/>Local import and validation"]
+    downloads["Matching JSON Schema and blank ODS downloads"]
+    snapshot --> layout --> draft --> canonical --> validation --> json
+    snapshot --> downloads
+    snapshot --> upload
+    upload -->|"Confirm replacement; no reload"| draft
+```
+
+Presentation restores singleton columns and full-width expandable child tables.
+`observedProperty` and `propertyID` identify canonical variants; their required
+cardinalities remain enforced. The lab is an Agent under `wasAssociatedWith`.
+No Sample/Sampling layer, backend storage or feature construction is added.
+
+## Historical RDF-form architecture (superseded)
+
+The remaining sections describe the earlier UI, including its old components,
+dependency versions and fallback behavior. They are not current implementation
+instructions; unresolved required metadata now fails explicitly.
+
 ## Overview
 
 This proof of concept demonstrates how RIE-IEPR codelists are read and visualized using modern web technologies.
@@ -14,29 +47,21 @@ This proof of concept demonstrates how RIE-IEPR codelists are read and visualize
 
 ## Project Structure
 
-```
-poc/
-├── src/
-│   ├── components/     # Lit web components
-│   │   └── *.ts       # Individual component implementations
-│   ├── services/       # Data services
-│   │   ├── codelist-service.ts  # Thin façade (stable public API)
-│   │   ├── codelist-parse.ts    # JSON-LD flattening + typed views
-│   │   └── concept-query.ts     # Pure query helpers over the result
-│   ├── models/         # TypeScript interfaces and types
-│   │   ├── concept.interface.ts # Concept
-│   │   ├── scheme.interface.ts  # Scheme
-│   │   ├── codelist-result.ts   # CodelistResult / JsonLdNode
-│   │   └── index.ts             # Barrel re-exports
-│   ├── pages/          # Page-level components (none yet)
-│   └── styles/         # CSS styles (minimal, using vl-* tokens)
-├── docs/
-│   └── tasks/          # Task epics and documentation
-├── dist/               # Build output (generated)
-├── index.html          # Main HTML entry point
-├── package.json        # Dependencies and scripts
-├── tsconfig.json       # TypeScript configuration
-└── vite.config.js      # Vite configuration
+```mermaid
+flowchart LR
+    root["poc/"] --> src["src/"]
+    src --> components["components/<br/>Lit web components"]
+    src --> services["services/"]
+    services --> facade["codelist-service.ts<br/>Public facade"]
+    services --> parser["codelist-parse.ts<br/>JSON-LD parsing"]
+    services --> query["concept-query.ts<br/>Query helpers"]
+    src --> models["models/<br/>Concept, Scheme, CodelistResult and exports"]
+    src --> pages["pages/"]
+    src --> styles["styles/"]
+    root --> docs["docs/tasks/"]
+    root --> dist["dist/<br/>Generated build"]
+    root --> entry["index.html"]
+    root --> config["package.json, tsconfig.json, vite.config.js"]
 ```
 
 ## Core Services
@@ -106,18 +131,16 @@ A reusable component for theme selection that:
 
 The RIE-IEPR codelist is organized as:
 
-```
-conceptscheme:               # Root concept scheme
-├── thema-type               # Themes (water, lucht, grondwater, etc.)
-│   ├── conceptscheme:operationeel-water
-│   ├── conceptscheme:operationeel-lucht
-│   └── ...
-├── operationeel-<domain>    # Operational schemas per domain
-│   ├── <property-group>
-│   │   ├── property-1       # With relevantDataType, relevantCodeList
-│   │   └── property-2
-│   └── ...
-└── <other-schemes>          # E.g., emissiepunt-type, filter-type, etc.
+```mermaid
+flowchart LR
+    root["conceptscheme:"] --> themes["thema-type<br/>Historical theme entry"]
+    themes --> water["conceptscheme:operationeel-water"]
+    themes --> air["conceptscheme:operationeel-lucht"]
+    root --> operational["Operational domain schemes"]
+    operational --> group["Property group"]
+    group --> propertyOne["Property 1<br/>Datatype and choices"]
+    group --> propertyTwo["Property 2"]
+    root --> other["Other schemes<br/>System types and properties"]
 ```
 
 ## Integration with @domg-wc/components (vl-*)

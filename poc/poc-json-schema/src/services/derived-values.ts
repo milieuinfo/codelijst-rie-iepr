@@ -1,5 +1,6 @@
 import type { JsonSchemaObject } from '../models/json-schema.js'
 import { SchemaRegistry, schemaObject } from './schema-registry.js'
+import { memberLayouts, memberVariants, selectMemberVariant } from './member-layout.js'
 
 /** Fill shared source values only inside the same repeated reporting record. */
 export function materializeDerivedValues(schema: JsonSchemaObject, data: unknown, dependencies: JsonSchemaObject[] = []): unknown {
@@ -17,7 +18,16 @@ export function materializeDerivedValues(schema: JsonSchemaObject, data: unknown
       for (const [key, child] of Object.entries(node.properties ?? {})) {
         const definition = registry.resolve(schemaObject(child))
         locations.push({ node: definition, owner: value, key, scope })
-        if (Object.hasOwn(value, key)) visit(definition, value[key], scope, `${path}/${key}`)
+        const layouts = memberLayouts(node)
+        const members = value[key]
+        if (key === 'hasMember' && layouts.length && Array.isArray(members)) {
+          members.forEach((member, index) => {
+            const variant = selectMemberVariant(schemaObject(definition.items), member)
+            const layout = layouts[memberVariants(node).indexOf(variant)]
+            const memberPath = `${path}/${key}/${index}`
+            visit(variant, member, layout.repeatable ? memberPath : scope, memberPath)
+          })
+        } else if (Object.hasOwn(value, key)) visit(definition, value[key], scope, `${path}/${key}`)
       }
     }
   }

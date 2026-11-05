@@ -66,16 +66,20 @@ export class CompositeGroupBuilder {
 
 ### Example: Grondstoffen → Grondstof Composite
 
+```mermaid
+flowchart TD
+    root["Root fields"] --> produced["Heeft u grondstoffen geproduceerd?<br/>Optional boolean"]
+    root --> material["Grondstof<br/>Repeatable composite object"]
+    material --> destination["Bestemming type<br/>String; code-list enum"]
+    material --> quantity["Hoeveelheid<br/>Number; unresolved TODO unit"]
+    material --> code["Materiaalcode<br/>String; unresolved list"]
+    material --> description["Omschrijving<br/>Optional string"]
+    material --> comment["Opmerking<br/>Optional string"]
+    material --> application["Toepassingswijze<br/>String; code-list enum"]
 ```
-Root field: "Heeft u grondstoffen geproduceerd?"  → boolean, required=false
-Root field: "Grondstof"                            → object (composite, repeatable)
-  ├─ "Bestemming type"                             → string, enum from codeList
-  ├─ "Hoeveelheid"                                 → number, unit=http://TODO
-  ├─ "Materiaalcode"                               → string, enum=[] (unresolved ref)
-  ├─ "Omschrijving"                                → string, required=false
-  ├─ "Opmerking"                                   → string, required=false
-  └─ "Toepassingswijze"                            → string, enum from codeList
-```
+
+This historical example records unresolved metadata, not permission to generate
+an empty enum or skip a required unit in the current strict compiler.
 
 In JSON Schema this becomes:
 

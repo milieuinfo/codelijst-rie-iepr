@@ -1,6 +1,7 @@
 import type { CodelistResult, SchemaField } from '../models/index.js'
 import { isCollectionClass, isObservationClass } from '../config.js'
 import { vocabularyIri } from './vocabulary.js'
+import { SourceMetadataError } from './generation-report.js'
 
 const sosa = 'http://www.w3.org/ns/sosa/'
 
@@ -101,8 +102,10 @@ export function observationOwnership(input: SchemaField[], result: CodelistResul
     for (const component of components) {
       component.broaderPartitive = [resultId]
       if (!component.relationUri) {
-        component.relationUri = result.expandCurie?.(component.conceptId) ?? component.conceptId
-        component.extensions!['x-jsonld-id'] = component.relationUri
+        throw new SourceMetadataError([{
+          code: 'missing-relation', conceptId: component.conceptId,
+          message: `Missing relation for ${component.conceptId}. Declare a predicate in the source.`,
+        }])
       }
     }
     fields.push({

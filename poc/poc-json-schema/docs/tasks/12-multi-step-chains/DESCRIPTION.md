@@ -60,11 +60,12 @@ export class ChainComposer {
    The innermost (leaf) scheme generates the primary measurement Observation. Higher levels in
    the chain generate contextual Observations (structural selection, installation context).
    Fields are grouped per scheme level rather than merged flat:
-   ```
-   operationeel_lucht (level 1):          → Structural observation: emissiepunt selected
-     operationeel_lucht_bron (level 2):    → Structural observation: bron(nen) selected
-       operationeel_lucht_rapportering     → Primary observation: brandstof/afvalproduct/stof data
-         (level 3, leaf):
+   ```mermaid
+   flowchart TD
+       air["operationeel_lucht<br/>Level 1: emissiepunt context"]
+       source["operationeel_lucht_bron<br/>Level 2: selected source context"]
+       report["operationeel_lucht_rapportering<br/>Level 3: primary measurement"]
+       air --> source --> report
    ```
 
 4. **Build hierarchical output**: The leaf-level scheme's fields form the primary domain schema.

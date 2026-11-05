@@ -1,5 +1,11 @@
 # Known Issues and Limitations
 
+> Historical RDF-form issue log, not the current groundwater acceptance status.
+> The [current guide](../README.md) documents schema-driven behavior: unresolved
+> required source metadata blocks generation, dates/durations use schema formats,
+> and no silent free-text or missing-unit fallback repairs incomplete metadata.
+> Older issue statuses and proposed tasks below are retained for context only.
+
 This file tracks data-quality gaps in the source codelist and environment
 constraints discovered while building the POC, per PROJECT_OUTLINE.md's
 instruction to report rather than silently work around them.

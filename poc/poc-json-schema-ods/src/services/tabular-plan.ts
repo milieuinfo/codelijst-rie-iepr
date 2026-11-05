@@ -1,4 +1,4 @@
-import { SchemaRegistry, schemaObject, pointerToken, SchemaValidator } from 'codelijst-rie-iepr-poc-json-schema/browser';
+import { SchemaRegistry, schemaObject, pointerToken, SchemaValidator, presentationSchema } from 'codelijst-rie-iepr-poc-json-schema/browser';
 import { hash } from './runtime.js';
 import type { JsonSchemaObject } from 'codelijst-rie-iepr-poc-json-schema';
 import type { RecordPlan, TabularPlan } from '../models/tabular-plan.js';
@@ -13,7 +13,8 @@ export function compileTabularPlan(
   if (!schema.$id || !/^[a-f0-9]{64}$/.test(options.sourceSha256)) throw new Error('A schema identity and source fingerprint are required.');
   const dependencies = options.dependencies ?? [];
   new SchemaValidator().validateInstance(schema, {}, dependencies);
-  const registry = new SchemaRegistry(schema, dependencies);
+  const layout = presentationSchema(schema);
+  const registry = new SchemaRegistry(layout, dependencies.filter(dependency => dependency.$id !== schema.$id));
   const records: RecordPlan[] = [];
   const active = new Set<string>();
   const makeRecord = (input: JsonSchemaObject, path: string[], title: string, parent?: RecordPlan): RecordPlan => {
@@ -123,8 +124,8 @@ export function compileTabularPlan(
     active.delete(definitionId);
     return record;
   };
-  if (registry.resolve(schema).type !== 'object') throw new Error('A reporting section must have an object root.');
-  makeRecord(schema, [], schema.title ?? 'Rapportage');
+  if (registry.resolve(layout).type !== 'object') throw new Error('A reporting section must have an object root.');
+  makeRecord(layout, [], schema.title ?? 'Rapportage');
   const names = new Set(['voorblad', 'keuzelijsten', '_riepr']);
   for (const record of records) {
     const base = record.title.replace(/[\[\]:*?/\\]/g, ' ').trim().slice(0, 31) || 'Gegevens';
@@ -150,7 +151,7 @@ export function compileTabularPlan(
   }
   return {
     version: 1, schemaId: schema.$id, schemaSha256: options.schemaSha256 ?? hash(JSON.stringify(schema)),
-    sourceSha256: options.sourceSha256, schema, dependencies, records,
+    sourceSha256: options.sourceSha256, schema, presentationSchema: layout, dependencies, records,
   };
 }
 

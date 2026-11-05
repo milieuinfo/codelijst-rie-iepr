@@ -41,6 +41,7 @@ export interface TabularPlan {
   schemaSha256: string;
   sourceSha256: string;
   schema: JsonSchemaObject;
+  presentationSchema: JsonSchemaObject;
   dependencies: JsonSchemaObject[];
   records: RecordPlan[];
 }

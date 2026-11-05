@@ -15,7 +15,7 @@ import { workbookMetadata } from '../src/services/workbook-metadata.js';
 import { ODSGenerator } from '../src/services/ods-generator.js';
 import { ODSImporter } from '../src/services/ods-importer.js';
 import { CodelistEnricher } from '../src/services/codelist-enricher.js';
-import { readOdf, odfCell } from '../src/services/odf.js';
+import { readOdf, odfCell, columnLetter } from '../src/services/odf.js';
 import { cells, row, modifyTable } from './fixtures.js';
 
 const sections = compileGroundwater().subSchemas;
@@ -103,6 +103,24 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
     ]);
   });
 
+  it('round-trips multiple reference-point PropertyValues in one Monsters selection cell', async () => {
+    const section = compileGroundwater(JSON.parse(sourceSnapshot())).subSchemas.find(section => section.name === 'kwaliteitsmeting')!;
+    const plan = compileTabularPlan(section.schema, { sourceSha256: hash(sourceSnapshot()) });
+    const fixture = (await generationFixture(plan))!;
+    const data = JSON.parse(JSON.stringify(fixture.data));
+    const reference = {
+      id: 'urn:test:referentiepunt:buis', label: 'Bovenkant peilbuis', year: 2024,
+      types: ['https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunteigenschappen/referentiepunt'],
+    };
+    const first = data.kwaliteitsmeting[0].additionalProperty[0];
+    data.kwaliteitsmeting[0].additionalProperty.push({ propertyID: first.propertyID, value: reference.id });
+    const workbook = await new ODSGenerator().generate({
+      plan, ...fixture, data, references: [...fixture.references, reference],
+    });
+    expect(await new ODSImporter().import(workbook, plan)).toEqual(data);
+    expect(plan.records.map(record => record.sheetName)).toEqual(['Voorblad', 'Monsters', 'Meetresultaten']);
+  });
+
   it('physically omits technical and constant identity columns, not just hiding them', async () => {
     const forbidden = ['Rij-ID', 'Bovenliggende rij-ID', 'Containers', 'Referentie', 'Bovenliggende referentie',
       'Entiteits-ID', 'observedProperty', 'propertyID', '_row_id', '_parent_id', '_containers', '_ref'];
@@ -120,7 +138,7 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
         expect(machine).toEqual(machineColumns(plan, record.id));
         if (record.sheetName === 'Meetresultaten') {
           expect(headers[0]).toBe('Monster');
-          expect(headers[1]).toBe('Parameter');
+          expect(headers[1]).toBe('Parameter *');
         } else expect(machine).not.toContain('_parent_ref');
         const ids = layoutColumns(plan, record);
         for (const [index] of machine.entries()) {
@@ -166,6 +184,15 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
     expect(result?.parentInstancePath).toBe('/kwaliteitsmeting/0');
     const mapping = metadata.jsonMapping[plan.records.find(record => record.sheetName === 'Meetresultaten')!.id];
     expect(mapping.parentIdentifierPath).toBe('/kwaliteitsmeting/*/identifier');
+    const monster = tables.find(table => table.name === 'Monsters')!;
+    const monsterPaths = monster.rows.find(row => row.number === 2)!.cells.map(cell => cell.text);
+    expect(monsterPaths).toContain('/wasAssociatedWith/label');
+    expect(monsterPaths).toContain(
+      '$["additionalProperty"][?(@.propertyID == "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-referentiepunt")]["value"]',
+    );
+    expect(monsterPaths).toContain(
+      '$["hasMember"][?(@.observedProperty == "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-diepte")]["hasResult"]["numericValue"]',
+    );
     expect(await new ODSImporter().import(workbook, plan)).toEqual(data.data);
     const xml = await (await JSZip.loadAsync(workbook)).file('content.xml')!.async('string');
     expect(xml).not.toContain('@record:');
@@ -211,7 +238,7 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
   it('keeps monster links when rows are sorted and business values are edited', async () => {
     const plan = plans[2];
     const data = { kwaliteitsmeting: ['0001', '0002'].map((identifier, index) => ({
-      identifier, labo: { label: `Labo ${index}` },
+      identifier, wasAssociatedWith: { label: `Labo ${index}` },
       hasMember: [{
         observedProperty: 'https://example.test/parameters/a',
         hasResult: { numericValue: index, hasUnit: 'https://example.test/units/mgL' },
@@ -237,13 +264,13 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
 
   it('recomputes hidden shared dates after editing the single visible Einddatum', async () => {
     const plan = plans[0];
-    const record = schemaObject(schemaObject(plan.schema.properties!.onttrekking).items);
+    const record = schemaObject(schemaObject(plan.presentationSchema.properties!.onttrekking).items);
     const reading = (name: string, value: number) => ({
       observedProperty: schemaObject(schemaObject(record.properties![name]).properties!.observedProperty).const,
       resultTime: '2024-12-30',
       hasResult: { numericValue: value, hasUnit: 'https://example.test/units/m3' },
     });
-    const data = { onttrekking: [{ eindmeterstand: reading('eindmeterstand', 150), hoeveelheid: reading('hoeveelheid', 0) }] };
+    const data = { onttrekking: [{ hasMember: [reading('eindmeterstand', 150), reading('hoeveelheid', 0)] }] };
     let workbook = await new ODSGenerator().generate({ plan, data, label: value => value.split('/').at(-1)! });
     const debit = plan.records.find(record => record.sheetName === 'Debieten')!;
     const date = debit.columns.find(column => column.path.join('/') === 'hoeveelheid/resultTime')!;
@@ -253,9 +280,21 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
       return [...rows.slice(0, 3), row(columns), ...rows.slice(4)];
     });
     const expected = structuredClone(data);
-    expected.onttrekking[0].eindmeterstand.resultTime = '2024-12-31';
-    expected.onttrekking[0].hoeveelheid.resultTime = '2024-12-31';
+    expected.onttrekking[0].hasMember.forEach(member => { member.resultTime = '2024-12-31'; });
     expect(await new ODSImporter().import(workbook, plan)).toEqual(expected);
+    const quantity = debit.columns.find(column => column.path.join('/') === 'hoeveelheid/hasResult/numericValue')!;
+    const index = layoutColumns(plan, debit).indexOf(quantity.id);
+    const incomplete = await modifyTable(workbook, 'Debieten', rows => {
+      const columns = cells(rows[3]);
+      columns[index] = '<table:table-cell/>';
+      return [...rows.slice(0, 3), row(columns), ...rows.slice(4)];
+    });
+    await expect(new ODSImporter().import(incomplete, plan)).rejects.toMatchObject({
+      diagnostics: expect.arrayContaining([expect.objectContaining({
+        instancePath: '/onttrekking/0/hasMember/1/hasResult/numericValue',
+        sheet: 'Debieten', row: 4, column: columnLetter(index),
+      })]),
+    });
   });
 
   it('puts every unit immediately to the right of its numeric value, with exact source headings', () => {
@@ -276,7 +315,7 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
     const data = {
       kwaliteitsmeting: [{
         identifier: '0001', hasFeatureOfInterest: references.map(reference => reference.id),
-        labo: { label: 'Synthetisch laboratorium' },
+        wasAssociatedWith: { label: 'Synthetisch laboratorium' },
         hasMember: [0, 1.234567890123].map((numericValue, index) => ({
           observedProperty: `https://example.test/parameters/${index ? 'b' : 'a'}`,
           hasResult: { numericValue, hasUnit: `https://example.test/units/${index ? 'gL' : 'mgL'}`, limiet: 'onder' },
@@ -304,14 +343,14 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
 
   it('requires no meter readings to enter an end date for a reported quantity', async () => {
     const plan = plans[0];
-    const record = schemaObject(schemaObject(plan.schema.properties!.onttrekking).items);
+    const record = schemaObject(schemaObject(plan.presentationSchema.properties!.onttrekking).items);
     const amount = schemaObject(record.properties!.hoeveelheid);
     const data = { onttrekking: [{
-      hoeveelheid: {
+      hasMember: [{
         observedProperty: schemaObject(amount.properties!.observedProperty).const,
         resultTime: '2024-12-31',
         hasResult: { numericValue: 0, hasUnit: 'https://example.test/units/m3' },
-      },
+      }],
     }] };
     const workbook = await new ODSGenerator().generate({ plan, data });
     expect(await new ODSImporter().import(workbook, plan)).toEqual(data);

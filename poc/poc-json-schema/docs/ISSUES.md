@@ -1,5 +1,11 @@
 # Known Issues — Codelist-to-JSON-Schema POC
 
+> Historical source-review log for the earlier multi-theme model. Counts,
+> column inventories and issue statuses below are not an audit of the current
+> groundwater CSV. The [current contract](../README.md) supports declared
+> numeric bounds, enforces formats and rejects unresolved required metadata.
+> Other operational CSVs are outside the active generation scope.
+
 This file tracks data-quality gaps in the source codelist (`rie-iepr.jsonld`) that prevent
 the generation of semantically rich JSON Schemas. These issues represent **missing business
 logic** in the codelist metadata itself — constraints, ranges, patterns, and validation rules

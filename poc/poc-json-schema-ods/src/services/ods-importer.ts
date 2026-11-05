@@ -1,5 +1,5 @@
 import { randomUUID, equalJson } from './runtime.js';
-import { materializeDerivedValues } from 'codelijst-rie-iepr-poc-json-schema/browser';
+import { materializeDerivedValues, transformMemberData, presentationDataPath } from 'codelijst-rie-iepr-poc-json-schema/browser';
 import type { ReferenceRecord, ReferenceContext } from 'codelijst-rie-iepr-poc-json-schema';
 import type { CellValue, ContainerPlan, RecordPlan, TabularColumn, TabularPlan, WorkbookDiagnostic, WorkbookMetadata } from '../models/tabular-plan.js';
 import { WorkbookError } from '../models/tabular-plan.js';
@@ -122,7 +122,10 @@ export class ODSImporter {
     for (const baseline of Object.values(metadata.rows)) {
       const record = plan.records.find(record => record.id === baseline.recordId);
       const parent = baseline.parentId ? metadata.rows[baseline.parentId] : undefined;
-      const prefix = parent && record ? `${parent.instancePath}${pointer(record.path)}/` : undefined;
+      const mapping = record && metadata.jsonMapping[record.id];
+      const relativePath = mapping?.parentPathTemplate === undefined ? undefined
+        : mapping.pathTemplate.slice(mapping.parentPathTemplate.length, -2);
+      const prefix = parent && relativePath !== undefined ? `${parent.instancePath}${relativePath}/` : undefined;
       const valid = record && (record.id === 'root'
         ? !baseline.parentId && baseline.instancePath === '' && baseline.parentInstancePath === undefined
         : parent !== undefined && parent.recordId === record.parentId && baseline.parentInstancePath === parent.instancePath &&
@@ -336,12 +339,15 @@ export class ODSImporter {
         found.value.push(row.value);
       }
     }
-    const data = materializeDerivedValues(plan.schema, rootRows[0].value, plan.dependencies);
+    const data = materializeDerivedValues(plan.schema, transformMemberData(plan.schema, rootRows[0].value, 'canonical'), plan.dependencies);
     try { validateData(plan, data, options.references ?? metadata.references, options.referenceContext ?? metadata.referenceContext); }
     catch (error) {
       if (!(error instanceof WorkbookError)) throw error;
       throw new WorkbookError(error.diagnostics.map(diagnostic => {
-        const path = diagnostic.instancePath ?? '';
+        const canonical = diagnostic.instancePath ?? '';
+        const tokens = canonical ? canonical.slice(1).split('/').map(token =>
+          /^(0|[1-9]\d*)$/.test(token) ? Number(token) : token.replace(/~1/g, '/').replace(/~0/g, '~')) : [];
+        const path = pointer(presentationDataPath(plan.schema, data, tokens).map(String));
         const row = parsed.filter(row => path === row.instancePath || path.startsWith(row.instancePath + '/'))
           .sort((a, b) => b.instancePath.length - a.instancePath.length)[0] ?? rootRows[0];
         const relative = path.slice(row.instancePath.length);

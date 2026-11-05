@@ -1,4 +1,4 @@
-import { type JsonSchemaObject, type ReferenceRecord, SchemaRegistry, schemaObject } from 'codelijst-rie-iepr-poc-json-schema/browser'
+import { type JsonSchemaObject, type ReferenceRecord, SchemaRegistry, schemaObject, presentationSchema } from 'codelijst-rie-iepr-poc-json-schema/browser'
 import type { CodelistResult } from '../models/index.js'
 import { CSOR } from './csor.js'
 import { expandUri } from './uri.js'
@@ -22,7 +22,8 @@ export class SchemaLookups {
   label = (value: unknown): string => this.labels.get(String(value)) ?? String(value)
 
   references(schema: JsonSchemaObject, dependencies: JsonSchemaObject[], year: number): ReferenceRecord[] {
-    const registry = new SchemaRegistry(schema, dependencies)
+    const input = presentationSchema(schema)
+    const registry = new SchemaRegistry(input, dependencies.filter(dependency => dependency.$id !== schema.$id))
     const references = new Map<string, ReferenceRecord>()
     const visited = new Set<JsonSchemaObject>()
     const walk = (node: JsonSchemaObject) => {
@@ -48,7 +49,7 @@ export class SchemaLookups {
       for (const child of Object.values(resolved.properties ?? {})) walk(schemaObject(child))
       if (resolved.items) walk(schemaObject(resolved.items))
     }
-    walk(schema)
+    walk(input)
     return [...references.values()]
   }
 }

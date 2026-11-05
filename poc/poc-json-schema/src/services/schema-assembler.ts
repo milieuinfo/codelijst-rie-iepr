@@ -4,6 +4,7 @@ import { config, isCollectionClass, isObservationClass } from '../config.js'
 import { localName, vocabularyIri } from './vocabulary.js'
 import { schemaObject } from './schema-registry.js'
 import { SourceMetadataError } from './generation-report.js'
+import { canonicalMemberSchema } from './member-layout.js'
 
 interface Location {
   field: SchemaField
@@ -78,7 +79,7 @@ export class SchemaAssembler {
       }
       if (field.condition) this.condition(root, location, field.condition.values, field.isRequired, locations, objectSchemas, result)
     }
-    return {
+    const schema = canonicalMemberSchema({
       $schema: 'https://json-schema.org/draft/2020-12/schema',
       $id: id,
       title,
@@ -88,7 +89,26 @@ export class SchemaAssembler {
       'x-theme-label': chain.themeConcept.prefLabel ?? title,
       'x-semantic-profile': 'https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/',
       'x-flow-transitions': chain.transitions ?? [],
+    })
+    if (result.reportingProfile === 'groundwater-csv-v1') this.requireRelations(schema, true)
+    return schema
+  }
+
+  private requireRelations(node: JsonSchemaObject, envelope = false): void {
+    for (const [key, child] of Object.entries(node.properties ?? {})) {
+      const property = schemaObject(child)
+      const mapping = property['x-feature-mapping'] ??
+        (property.items ? schemaObject(property.items)['x-feature-mapping'] : undefined)
+      if (!envelope && typeof property['x-jsonld-id'] !== 'string' && !mapping) {
+        throw new SourceMetadataError([{
+          code: 'missing-relation', conceptId: String(property['x-source-concept'] ?? key),
+          message: `Missing relation for ${String(property['x-source-concept'] ?? key)}. Declare a predicate in the source.`,
+        }])
+      }
+      this.requireRelations(property)
     }
+    if (node.items) this.requireRelations(schemaObject(node.items))
+    for (const variant of Array.isArray(node.oneOf) ? node.oneOf : []) this.requireRelations(schemaObject(variant))
   }
 
   private object(
@@ -166,7 +186,7 @@ export class SchemaAssembler {
       if (field.extensions?.['x-scalar-observation']) {
         node.properties!.observedProperty = {
           type: 'string', const: result.expandCurie?.(field.conceptId) ?? field.conceptId,
-          'x-jsonld-id': sosa + 'observedProperty', 'x-ui-hidden': true,
+          'x-jsonld-id': sosa + 'observedProperty', 'x-jsonld-type': '@id', 'x-ui-hidden': true,
         }
         node.required = [...(node.required ?? []), 'observedProperty']
       }

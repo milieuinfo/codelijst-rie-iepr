@@ -1,5 +1,35 @@
 # Teepak reference contract and source review
 
+## Current groundwater contract
+
+The inventory and review below preserve the earlier multi-theme model. They
+are historical review material, not current generation instructions. In
+particular, the old Sample/Sampling layer, technical input columns, linked
+selection sheets and old sheet names have been superseded for groundwater.
+See the [current workbook contract](./PROJECT_OUTLINE.md) and
+[Dutch mapping guide](../../../README.md#van-csv-naar-json-schema-ui-en-ods).
+
+```mermaid
+flowchart TD
+    collection["Kwaliteitsmeting<br/>One collection per monster; Monsters row"]
+    lab["prov:Agent<br/>Visible label: Labo naam"]
+    references["Reference-point PropertyValues<br/>propertyID and selected value"]
+    depth["Depth observation<br/>Fixed observedProperty; inline on Monsters"]
+    parameters["Parameter observations<br/>Selected observedProperty; Meetresultaten rows"]
+    result["riepr:Resultaat<br/>Numeric value, unit and result characteristics"]
+    collection -->|"prov:wasAssociatedWith"| lab
+    collection -->|"schema:additionalProperty"| references
+    collection -->|"sosa:hasMember"| depth
+    collection -->|"sosa:hasMember"| parameters
+    parameters -->|"sosa:hasResult"| result
+```
+
+The active scope has only groundwater quality, flow and level measurements.
+Source workbook/sheet annotations determine business layout, while canonical
+`hasMember` and `additionalProperty` arrays determine data ownership.
+
+## Historical inventory and source review (superseded)
+
 The complete header-by-header inventory is
 [`teepak-mapping.json`](./teepak-mapping.json). It covers all 14 operational
 reference workbooks, including empty sheets, without copying populated business
@@ -22,11 +52,15 @@ entity, not an observation-collection member.
 
 For groundwater:
 
-```text
-Kwaliteitsmetingen[] (one ObservationCollection per monster)
-  hasFeatureOfInterest: Sample (identifier, sample details)
-    isResultOf: Sampling (sampling time, provenance, technique, instrument)
-  hasMember: parameter observations[] (property, lab timestamp, result, unit)
+```mermaid
+flowchart TD
+    collection["Historical kwaliteitsmetingen<br/>One ObservationCollection per monster"]
+    sample["Historical Sample<br/>Identifier and sample details"]
+    sampling["Historical Sampling<br/>Time, provenance, technique and instrument"]
+    parameters["Parameter observations<br/>Property, lab timestamp, result and unit"]
+    collection -->|"hasFeatureOfInterest"| sample
+    sample -->|"isResultOf"| sampling
+    collection -->|"hasMember"| parameters
 ```
 
 The generated `Kwaliteitsmeting` sheet holds sample-analysis collection rows with

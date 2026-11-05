@@ -1,5 +1,11 @@
 # Component catalog
 
+> Historical RDF-form catalog. The current schema-driven UI uses rich tables,
+> full-width expandable details, schema/ODS downloads and local ODS import.
+> See the [POC README](../README.md) and
+> [current architecture](./ARCHITECTURE.md#current-schema-driven-architecture).
+> The components and responsibilities below are not the active form contract.
+
 Catalog of this POC's custom Lit components. For the `vl-*` (`@domg-wc/components`)
 elements they render, the authoritative API reference is the `.component.d.ts` /
 `static get properties()` in `node_modules/@domg-wc/components/**` - this file

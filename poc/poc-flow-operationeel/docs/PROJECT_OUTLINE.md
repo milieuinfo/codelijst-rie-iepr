@@ -5,13 +5,18 @@
 The operational form has been replaced by editable Flux 2.22.0 rich data tables
 consuming the same indexed JSON Schemas as the ODS generator. This supersedes
 the historical raw-RDF navigation migration described below.
+The [Dutch mapping guide](../../../README.md#van-csv-naar-json-schema-ui-en-ods)
+is the conceptual specification; the [POC README](../README.md) covers operation.
 
 ### Contract and scope
 
 - Discover available themes/sections from the generated index and show blocked
   sections with their actual source diagnostics.
 - Flatten singleton detail objects into columns; render repeated child records
-  as independent nested tables, and value/reference arrays as multiselects.
+  as full-width expandable detail tables, and value/reference arrays as multiselects.
+- Edit a source-shaped presentation while validating/exporting canonical
+  `hasMember` and `additionalProperty` arrays, identified by `observedProperty`
+  and `propertyID`. Required kinds retain discriminator-specific cardinalities.
 - Preserve ownership without ODS parent-ID/link tables.
 - Resolve generated conditions generically within the owning record/ancestors.
   Inactive fields are grey/disabled; retain drafts but omit inactive values from
@@ -21,13 +26,19 @@ the historical raw-RDF navigation migration described below.
   semantic validators. Show errors at data paths/cells and JSON only on success.
 - Verify indexed source/schema fingerprints; refuse stale or malformed input.
 - Use RDF and CSOR only for labels and explicitly fictional structural references.
-- No source layout columns, hardcoded section whitelist, persistence/backend,
-  import UI, domain calculations or manufactured missing source facts.
+- Offer matching JSON Schema and blank ODS downloads; import filled current
+  templates locally into editable drafts without a page reload.
+- Confirm replacement of existing input; reject incompatible schema/source
+  fingerprints, invalid links/values and wrong-year references before replacement.
+- Use compact controls, date-time pickers, value/unit cells and icon-only delete actions.
+- No persistence/backend, domain calculations, feature construction or
+  manufactured missing source facts.
 
-Current usable coverage is eight sections (groundwater quality/flow/levels, air
-fuel/emission, water normal/abnormal discharge, water self-control). Five sections
-are explicitly blocked by incomplete source metadata. This is not full Teepak
-acceptance.
+The active scope is the three groundwater sections: quality, flow and levels.
+The generator enters `conceptscheme:operationeel_grondwater` directly, not via
+the removed theme list. Source `_table_workbook` / `_table_sheet` annotations
+control the corresponding ODS layout, not semantic ownership.
+Other operational CSVs and full Teepak acceptance remain outside this scope.
 
 ### Implementation surfaces
 

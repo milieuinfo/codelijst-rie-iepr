@@ -6,6 +6,7 @@ import { SchemaValidator } from '../src/services/schema-validator.js'
 import { materializeDerivedValues } from '../src/services/derived-values.js'
 import { schemaObject } from '../src/services/schema-registry.js'
 import { compileGroundwater, groundwaterFixture } from './groundwater-csv-fixture.js'
+import { memberVariants, presentationSchema, transformMemberData } from '../src/services/member-layout.js'
 
 describe('Groundwater CSV reporting profile', () => {
   it('parses only groundwater reports and supporting choices, without thematypes', () => {
@@ -25,7 +26,7 @@ describe('Groundwater CSV reporting profile', () => {
     expect(sections.map(section => section.schema['x-table-workbook'])).toEqual([
       'grondwater-debieten.ods', 'grondwater-peilmetingen.ods', 'grondwater-kwaliteitsanalyses.ods',
     ])
-    const record = schemaObject(schemaObject(sections[0].schema.properties!.onttrekking).items)
+    const record = schemaObject(schemaObject(presentationSchema(sections[0].schema).properties!.onttrekking).items)
     expect(record['x-table-sheet']).toBe('Debieten')
     const observation = schemaObject(record.properties!.startmeterstand)
     expect(schemaObject(observation.properties!.resultTime).title).toBe('Startdatum')
@@ -48,10 +49,10 @@ describe('Groundwater CSV reporting profile', () => {
       classes: ['https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie'],
     })
     expect(filters['x-jsonld-id']).toBeUndefined()
-    const agent = schemaObject(quality.properties!.labo)
+    const agent = schemaObject(quality.properties!.wasAssociatedWith)
     expect(agent['x-jsonld-type']).toBe('http://www.w3.org/ns/prov#Agent')
     expect(schemaObject(agent.properties!.label).title).toBe('Labo naam')
-    const member = schemaObject(schemaObject(quality.properties!.hasMember).items)
+    const member = memberVariants(quality)[0]
     expect(member.properties).toHaveProperty('observedProperty')
     expect(schemaObject(schemaObject(member.properties!.hasResult).properties!.hasUnit).enum).toEqual([
       'https://example.test/units/mgL', 'https://example.test/units/gL',
@@ -60,7 +61,7 @@ describe('Groundwater CSV reporting profile', () => {
 
   it('copies a shared result time per record without crossing records or accepting conflicts', () => {
     const schema = compileGroundwater().subSchemas[0].schema
-    const record = schemaObject(schemaObject(schema.properties!.onttrekking).items)
+    const record = schemaObject(schemaObject(presentationSchema(schema).properties!.onttrekking).items)
     const value = (name: string, numericValue: number, resultTime?: string) => {
       const observation = schemaObject(record.properties![name])
       return {
@@ -72,12 +73,13 @@ describe('Groundwater CSV reporting profile', () => {
     const data = { onttrekking: ['2024-12-30', '2024-12-31'].map(date => ({
       eindmeterstand: value('eindmeterstand', 150), hoeveelheid: value('hoeveelheid', 0, date),
     })) }
-    const output = materializeDerivedValues(schema, data) as typeof data
+    const canonical = materializeDerivedValues(schema, transformMemberData(schema, data, 'canonical'))
+    const output = transformMemberData(schema, canonical, 'presentation') as typeof data
     expect(output.onttrekking.map(row => row.eindmeterstand.resultTime)).toEqual(['2024-12-30', '2024-12-31'])
     expect(data.onttrekking[0].eindmeterstand.resultTime).toBeUndefined()
-    expect(new SchemaValidator().validateInstance(schema, output).errors).toEqual([])
+    expect(new SchemaValidator().validateInstance(schema, canonical).errors).toEqual([])
     output.onttrekking[0].eindmeterstand.resultTime = '2024-01-01'
-    expect(() => materializeDerivedValues(schema, output)).toThrow('Conflicting derived value')
+    expect(() => materializeDerivedValues(schema, transformMemberData(schema, output, 'canonical'))).toThrow('Conflicting derived value')
   })
 
   it('rejects stale source references rather than guessing replacements', () => {

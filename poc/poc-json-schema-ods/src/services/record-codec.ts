@@ -1,5 +1,5 @@
 import { randomUUID } from './runtime.js';
-import { SchemaValidator, SemanticValidator, pointerToken, schemaObject, materializeDerivedValues } from 'codelijst-rie-iepr-poc-json-schema/browser';
+import { SchemaValidator, SemanticValidator, pointerToken, schemaObject, materializeDerivedValues, transformMemberData, canonicalDataPath } from 'codelijst-rie-iepr-poc-json-schema/browser';
 import type { ReferenceRecord, ReferenceContext } from 'codelijst-rie-iepr-poc-json-schema';
 import type { CellValue, LookupChoice, RecordPlan, TabularPlan, WorkbookMetadata, WorkbookRow } from '../models/tabular-plan.js';
 import { WorkbookError } from '../models/tabular-plan.js';
@@ -90,7 +90,8 @@ export function workbookRows(
   const tables = new Map(plan.records.map(record => [record.id, [] as WorkbookRow[]]));
   const entities = new Map<string, WorkbookRow>();
   const paths = new Map<string, string>();
-  const extract = (record: RecordPlan, value: unknown, parent?: WorkbookRow, instancePath = ''): void => {
+  const inputData = options.data === undefined ? {} : transformMemberData(plan.schema, options.data, 'presentation');
+  const extract = (record: RecordPlan, value: unknown, parent?: WorkbookRow, dataPath: (string | number)[] = []): void => {
     const values: Record<string, CellValue> = {};
     for (const column of record.columns) {
       const current = getPath(value, column.path);
@@ -116,15 +117,15 @@ export function workbookRows(
     row.reference = recordReference(record, values, row.id);
     tables.get(record.id)!.push(row);
     entities.set(row.id, row);
-    paths.set(row.id, instancePath);
+    paths.set(row.id, pointer(canonicalDataPath(plan.schema, inputData, dataPath).map(String)));
     for (const child of plan.records.filter(candidate => candidate.parentId === record.id)) {
       const found = getPath(value, child.path);
       if (!found.present) continue;
       if (!Array.isArray(found.value)) throw new Error(`Expected a record array at ${pointer(child.path)}.`);
-      found.value.forEach((item, index) => extract(child, item, row, `${instancePath}${pointer(child.path)}/${index}`));
+      found.value.forEach((item, index) => extract(child, item, row, [...dataPath, ...child.path, index]));
     }
   };
-  extract(plan.records[0], options.data ?? {});
+  extract(plan.records[0], inputData);
   const metadata: WorkbookMetadata = {
     version: 2, schemaId: plan.schemaId, schemaSha256: plan.schemaSha256, sourceSha256: plan.sourceSha256,
     planSha256: planFingerprint(plan), lookups: {}, rows: {}, references, referenceContext: options.referenceContext,

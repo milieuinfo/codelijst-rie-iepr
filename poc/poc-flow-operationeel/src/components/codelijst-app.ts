@@ -5,6 +5,7 @@ import { CodelistService } from '../services/codelist-service.js'
 import { loadSchemaSnapshot, type SchemaSnapshot } from '../services/schema-snapshot.js'
 import { SchemaEditor } from '../services/schema-editor.js'
 import { SchemaLookups } from '../services/schema-lookups.js'
+import { uploadOds } from '../services/ods-upload.js'
 import './schema-rich-table.js'
 
 export class CodelijstApp extends LitElement {
@@ -118,7 +119,6 @@ export class CodelijstApp extends LitElement {
     try {
       if (!file.name.toLowerCase().endsWith('.ods')) throw new Error('Selecteer een ODS-bestand.')
       if (file.size > 20 * 1024 * 1024) throw new Error('Het ODS-bestand mag maximaal 20 MB groot zijn.')
-      const { uploadOds } = await import('../services/ods-upload.js')
       const imported = await uploadOds(new Uint8Array(await file.arrayBuffer()), {
         schema: editor.schema, dependencies: [...snapshot.schemas.values()],
         sourceSha256: snapshot.index.sourceSha256, schemaSha256: entry.sha256,
@@ -174,7 +174,7 @@ export class CodelijstApp extends LitElement {
   private renderEditor() {
     const editor = this.editor
     if (!editor || !this.lookups) return nothing
-    const properties = Object.entries(editor.resolve(editor.schema).properties ?? {})
+    const properties = Object.entries(editor.resolve(editor.inputSchema).properties ?? {})
     const context = properties.filter(([, node]) => !this.isTable(schemaObject(node)))
     return html`
       ${this.renderDownloads()}
@@ -200,7 +200,7 @@ export class CodelijstApp extends LitElement {
       ${context.length ? html`<section aria-label="Rapporteringscontext">
         <h2>Rapporteringscontext</h2>
         <schema-rich-table .editor=${editor}
-          .node=${{ ...editor.schema, properties: Object.fromEntries(context) }}
+          .node=${{ ...editor.inputSchema, properties: Object.fromEntries(context) }}
           .revision=${this.revision} .label=${this.fieldLabel} @schema-edit=${this.edited}></schema-rich-table>
       </section>` : nothing}
       ${properties.filter(([, node]) => this.isTable(schemaObject(node))).map(([name, node]) => html`

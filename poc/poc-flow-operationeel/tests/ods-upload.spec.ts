@@ -100,10 +100,10 @@ for (const [name, label, valuePath, value] of [
     await expect(page.getByRole('status')).toContainText('De gegevens staan in het formulier.')
     await expect(page.locator(`td[data-instance-path="${valuePath}"] input`)).toHaveValue(value)
     if (name === 'kwaliteitsmeting') {
-      await expect(page.locator('td[data-instance-path="/kwaliteitsmeting/0/kwaliteitsmetingLabo/label"] input'))
+      await expect(page.locator('td[data-instance-path="/kwaliteitsmeting/0/wasAssociatedWith/label"] input'))
         .toHaveValue('Synthetisch laboratorium')
       await page.locator('td[data-row-expand="/kwaliteitsmeting/0"]').getByRole('button').click()
-      await expect(page.locator('td[data-instance-path="/kwaliteitsmeting/0/hasMember/0/hasResult/numericValue"] input'))
+      await expect(page.locator('td[data-instance-path="/kwaliteitsmeting/0/kwaliteitsmetingResultaten/0/hasResult/numericValue"] input'))
         .toHaveValue('0')
     }
     await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()

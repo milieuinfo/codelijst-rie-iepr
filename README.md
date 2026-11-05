@@ -83,17 +83,16 @@ De codelijsten worden gegenereerd in de volgende formaten:
 
 ## Projectstructuur
 
-```
-src/
-├── source/
-│   ├── codelijst-source.csv   # Brondata
-│   ├── config.yml             # Configuratie (paden, prefixen, metadata)
-│   └── context.json           # JSON-LD context
-├── main/resources/be/vlaanderen/omgeving/
-│   └── ...                    # Gegenereerde output en AP-constraints
-├── 01_codelijst_skos_from_csv.js  # Genereert SKOS-bestanden vanuit CSV
-├── 02_metadata.js                  # Genereert DCAT-metadata
-└── 99_deploy_latest.js             # Publiceert naar Virtuoso triplestore
+```mermaid
+flowchart LR
+    src["src/"] --> source["source/"]
+    source --> csv["*.csv<br/>Brondata"]
+    source --> config["config.yml<br/>Paden, prefixen en metadata"]
+    source --> context["context.json<br/>JSON-LD-context"]
+    src --> resources["main/resources/be/vlaanderen/omgeving/<br/>Gegenereerde output en AP-constraints"]
+    src --> skos["01_codelijst_skos_from_csv.js<br/>SKOS-generatie"]
+    src --> metadata["02_metadata.js<br/>DCAT-metadata"]
+    src --> deploy["99_deploy_latest.js<br/>Publicatie naar Virtuoso"]
 ```
 
 ## Gebruik
@@ -300,18 +299,21 @@ opnieuw de rapportagestructuur af uit RDF. RDF/CSOR blijven wel nodig voor label
 en keuzelijsten. De voorbeelden onder `analyse/` zijn een referentie voor de
 ODS-presentatie, geen bron waaruit de applicatie regels of bedrijfsdata kopieert.
 
-```text
-Rapportageconcepten + ondersteunende keuzelijsten
-                         |
-         Groepen, waarden en relaties herkennen
-                         |
-         Bepalen bij welke observatie data hoort
-                         |
-                JSON Schema 2020-12
-                    /                \
-            Webformulier          ODS-invulsjabloon
-                    \                /
-               rapportage-JSON + gedeelde validatie
+```mermaid
+flowchart TD
+    source["Rapportageconcepten en ondersteunende keuzelijsten"]
+    groups["Groepen, waarden en relaties herkennen"]
+    ownership["Bepalen bij welke observatie data hoort"]
+    schema["JSON Schema 2020-12"]
+    ui["Webformulier"]
+    ods["ODS-invulsjabloon"]
+    json["Rapportage-JSON en gedeelde validatie"]
+    source --> groups --> ownership --> schema
+    schema --> ui
+    schema --> ods
+    ui --> json
+    ods --> json
+    ods -->|"Ingevuld sjabloon importeren"| ui
 ```
 
 Lees de kolommen in deze volgorde:
@@ -354,12 +356,13 @@ dat een property binnen een observatie of haar resultaat moet staan.
 | `prefLabel`, `definition` | `title`, `description` | Bronlabel als kolomkop/veldlabel; geen technisch propertypad als label |
 | `relation` | Propertynaam uit de lokale naam van het predicaat; volledige URI in `x-jsonld-id` | `schema:measurementMethod` wordt `measurementMethod` |
 | `relevantClass` | `x-jsonld-type` op het object | Klasse bewaren zonder een invoerveld voor de klasse te tonen |
+| `relevantFeatureClass` | `x-feature-mapping` | Invoer voor later te construeren feature; geen extra feature-object verzinnen |
 | `relevantDataType` | `type` en waar nodig `format` | Tekst, getal, boolean, datum, datum-tijd of duur |
 | `broaderPartitive` | Geneste `properties` | Singleton details worden kolommen binnen dezelfde rij |
 | `relevantObservation` | Property onder de aangewezen observatie of verzameling | De presentatiegroep hoeft niet de data-eigenaar te zijn |
 | `isMeervoudig` | `type: array` met `items` | Herhaalbare records |
 | `isMultiselect` | Array van selectiewaarden | Meerdere referenties/keuzes, geen herhaalbaar volledig record |
-| `isVerplicht` | `required`; bij verplichte arrays ook `minItems: 1` | Validatie-eis, niet automatisch een ingevuld record |
+| `isVerplicht` | `required`; bij verplichte arrays ook `minItems: 1`; bij predicaatlijsten `contains`/`minContains` op `observedProperty` of `propertyID` | Validatie-eis, niet automatisch een ingevuld record |
 | `relevantCodeList` | `enum` met volledige concept-URI's | Labels tonen, URI's bewaren |
 | `relevantRiepr` | `x-reference-types` | Kiezen uit instanties van de gevraagde structurele types |
 | `relevantUnit` | `const` of `enum` op `hasUnit`/`unitCode` | Vast symbool of selecteerbare eenheid |
@@ -398,13 +401,43 @@ Analysemethode in de huidige bron verplicht is. Zonder `isVerplicht` komt
 de property niet in `required`. Met `isMeervoudig` wordt de waarde omgeven
 door een array met `items`; een verplichte array krijgt `minItems: 1`.
 
-**Propertynamen zijn niet de semantische identiteit.** Als `relation` ontbreekt,
-wordt teruggevallen op camelCase van het concept-id. Bij meerdere
-onderdelen onder dezelfde ouder met dezelfde propertynaam worden eveneens
-conceptnamen gebruikt om een botsing te vermijden; die velden worden niet automatisch onder één
-relation-array. Bijvoorbeeld: meerdere `schema:additionalProperty`-velden bij
-peilmeting houden verschillende JSON-sleutels, maar hetzelfde `x-jsonld-id`.
-Lees daarom de annotaties voor RDF-mapping, niet alleen de JSON-sleutel.
+**Iedere data-eigenschap heeft een relatie.** Een klasse zoals `prov:Agent`
+zegt wat het object is, maar niet hoe het met zijn eigenaar verbonden is.
+Daarom krijgt Labo de relatie `prov:wasAssociatedWith` en de JSON-sleutel
+`wasAssociatedWith`, met het labo als getypeerd object en `label` als onderdeel.
+Volgens PROV modelleert deze relatie de observatie(verzameling) tevens als activiteit.
+
+`sosa:hasMember` wordt één ledenlijst, onderscheiden via `observedProperty`.
+`schema:additionalProperty` wordt eveneens één lijst, onderscheiden via
+`propertyID`. Dit geldt ook als er maar één soort aanvullende eigenschap is.
+Referentiepunt en Spui gebruiken dit `schema:PropertyValue`-patroon; hun
+concept-URI identificeert de eigenschap, maar is **geen predicaat**.
+Verplichte aanvullende eigenschappen worden met `contains`/`minContains` op
+`propertyID` afgedwongen, net zoals verplichte observaties op `observedProperty`.
+
+Bijvoorbeeld: Spui wordt geen afzonderlijke JSON-sleutel, maar een aanvullende
+eigenschap van de onttrekking:
+
+```json
+{
+  "additionalProperty": [{
+    "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-spui",
+    "value": false
+  }]
+}
+```
+
+`additionalProperty`, `propertyID`, `value` en eventueel `unitCode` verwijzen
+respectievelijk naar de gelijknamige `schema.org`-predicaten. Een geselecteerd
+referentiepunt gebruikt dezelfde vorm, maar met de referentie-URI als `value`.
+Een herhaalbare selectie wordt meerdere PropertyValues met dezelfde `propertyID`,
+niet een array binnen één `value`. `maxContains: 1` geldt alleen voor een
+niet-herhaalbare eigenschap; een optionele eigenschap mag ontbreken.
+
+Ontbrekende bronrelaties blokkeren de grondwatergeneratie. Er worden geen
+relaties verzonnen uit conceptnamen. De drie buitenste rapportagelijsten zijn
+alleen de rapportage-envelop; pickerwaarden met `x-feature-mapping` zijn expliciete
+invoer voor latere featureconstructie en geen rechtstreekse RDF-uitspraken.
 Een onbekend of ontbrekend noodzakelijk datatype, onopgeloste lijst of
 ambigu eigenaarschap is een fout, geen aanleiding om data te verzinnen.
 
@@ -417,7 +450,8 @@ dat doelen bestaan, observaties/verzamelingen zijn en geen cyclus of koppeling
 tussen onafhankelijke herhaalbare records veroorzaken.
 
 - Een `riepr:ObservatieVerzameling` bundelt observaties via `sosa:hasMember`.
-  De verzameling bezit geen meetresultaat van een lid.
+  In JSON is dat één `hasMember`-array. De verzameling bezit geen meetresultaat
+  van een lid.
 - Een numeriek concept met klasse `riepr:Observatie` wordt een observatieobject
   met impliciet `hasResult`, getypeerd als `riepr:Resultaat`, en
   `qudt:numericValue`/`qudt:hasUnit`. Een vaste `observedProperty` identificeert
@@ -425,15 +459,16 @@ tussen onafhankelijke herhaalbare records veroorzaken.
 - Bij een observatie met onderdelen blijven SOSA-relaties zoals
   `observedProperty`, `resultTime` en `usedProcedure` op de observatie.
   Niet-SOSA-resultaatkenmerken verhuizen naar het impliciete Resultaat en
-  behouden hun gedeclareerde relaties. Zonder relatie gebruikt deze
-  resultaattransformatie voorlopig de bronconcept-URI als predicaat.
+  behouden hun gedeclareerde relaties. Zonder relatie stopt de generatie met
+  een bronfout; een concept-URI wordt niet als vervangend predicaat gebruikt.
 - `schema:PropertyValue` wordt `{propertyID, value, unitCode?}`. `propertyID`
   is de vaste concept-URI; datatype, keuzelijst en voorwaarden gelden voor
   `value`. De gebruiker vult alleen de waarde in.
 
 **Voorbeeld: kwaliteitsmeting.** Eén monster is één observatieverzameling;
 er wordt geen extra `sosa:Sample` aangemaakt. Het verborgen labo blijft een
-`prov:Agent` met `rdfs:label`; alleen **Labo naam** is een invoerveld.
+`prov:Agent` met `rdfs:label`, verbonden via `prov:wasAssociatedWith`;
+alleen **Labo naam** is een invoerveld.
 Diepte is een eigen lid-observatie. De herhaalbare parameterobservaties staan
 onder `hasMember`; één resultaat ziet er bijvoorbeeld zo uit:
 
@@ -443,10 +478,10 @@ onder `hasMember`; één resultaat ziet er bijvoorbeeld zo uit:
   "hasResult": {
     "numericValue": 0.12,
     "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_1",
-    "additionalProperty": {
+    "additionalProperty": [{
       "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-limiet",
       "value": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-onder"
-    },
+    }],
     "measurementMethod": "Voorbeeldmethode",
     "type": "Labo"
   }
@@ -468,6 +503,53 @@ wordt die waarde gekopieerd naar bestaande doelen binnen dezelfde rapportagerij.
 Hierdoor ontstaat geen optionele eindmeterstand; tegenstrijdige waarden zijn
 ongeldig. De hoeveelheid blijft een expliciet in te vullen
 observatie, geen berekend verschil tussen meterstanden.
+
+Een hoeveelheid wordt dus niet als `onttrekkingHoeveelheid` naast de verzameling
+opgeslagen, maar als een lid met de concept-URI als `observedProperty`:
+
+```json
+{
+  "onttrekking": [{
+    "hasMember": [{
+      "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-hoeveelheid",
+      "resultTime": "2024-12-31",
+      "hasResult": {
+        "numericValue": 10.123,
+        "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32"
+      }
+    }]
+  }]
+}
+```
+
+In het schema beschrijft `items.oneOf` de mogelijke soorten observaties.
+Iedere variant heeft haar eigen `observedProperty`: een vaste concept-URI voor
+bijvoorbeeld hoeveelheid of diepte, of een parameterkeuzelijst voor analyses.
+`contains` met `minContains`/`maxContains` bewaakt welke soorten verplicht zijn
+en welke hoogstens één keer mogen voorkomen. Zo blijft hoeveelheid verplicht
+en worden start- en eindmeterstand niet onbedoeld herhaalbaar.
+Alleen `required: ["hasMember"]` zou niet volstaan: ook een lijst met uitsluitend
+meterstanden zou daar immers aan voldoen. De soortspecifieke `contains`-regel
+vereist daadwerkelijk een hoeveelheidobservatie in **elke** verzameling.
+Binnen ieder lid blijven de eigen `required`-velden gelden, waaronder
+`observedProperty` en de verplichte resultaatvelden. Een ander concept of een
+onvolledig lid kan de verplichte observatie dus niet vervangen.
+
+Deze gemeenschappelijke ledenlijst verplicht de gebruiker niet om alles in één
+generieke tabel in te voeren. Presentatieannotaties (`x-member-layout`) behouden
+welke observatie een vaste kolom is en welke een herhaalbare detailgroep vormt.
+De UI en ODS vertalen die presentatie steeds naar dezelfde `hasMember`-structuur.
+Bij kwaliteitsmeting komen diepte en de parameteranalyses samen in deze lijst,
+hoewel diepte op **Monsters** staat en analyses op **Meetresultaten**.
+`x-property-layout` doet hetzelfde voor aanvullende eigenschappen. De invoer
+mag dus vaste kolommen en eenvoudige multiselects aanbieden, terwijl de
+opgeslagen JSON uitsluitend de canonieke predicaatlijsten bevat.
+
+| Rapportagegroep | Semantische structuur | UI / ODS |
+|---|---|---|
+| Onttrekking | Verzameling met verplichte hoeveelheid en optionele start-/eindmeterstand als leden; Spui als aanvullende eigenschap | Eén rij op **Debieten**, alle singletonleden als kolommen |
+| Peilmeting | Eén observatie met eigen Resultaat; referentiepunt als aanvullende eigenschap van het resultaat | Eén rij op **Peilmetingen**, resultaatdetails inline |
+| Kwaliteitsmeting | Eén verzameling per monster; diepte en herhaalbare parameterobservaties als leden; labo en referentiepunten bij de verzameling | Context en diepte op **Monsters**, parameterleden op **Meetresultaten** of in de uitklapbare UI-detailtabel |
 
 **Featureselectie is niet hetzelfde als featureconstructie.**
 `relevantRiepr` levert de te kiezen instanties; `relevantFeatureClass` beschrijft
@@ -568,6 +650,20 @@ bijvoorbeeld `/kwaliteitsmeting/0/hasMember/1`, met ouder
 Het lege pad duidt de JSON-root aan; `~` en `/` in propertynamen worden
 respectievelijk als `~0` en `~1` geschreven.
 
+Waar meerdere observaties dezelfde array delen, volstaat een indexloos Pointer-pad
+niet om een vaste kolom te onderscheiden. Die kolommen gebruiken een
+**JSONPath-filter op `observedProperty`**, bijvoorbeeld
+`$["hasMember"][?(@.observedProperty == "<concept-URI>")]["hasResult"]["numericValue"]`.
+Zo blijft de kolom Hoeveelheid herkenbaar, ongeacht op welke array-index dat lid
+staat. Concrete rij- en ouderpaden blijven JSON Pointers.
+Aanvullende eigenschappen gebruiken analoog
+`$["additionalProperty"][?(@.propertyID == "<concept-URI>")]["value"]`.
+De labonaam heeft het gewone relatieve pad `/wasAssociatedWith/label`.
+Deze filters beschrijven welke waarde gezocht wordt; ze zijn geen vrije
+spreadsheetformules. De mapping herstelt ook de bijbehorende constanten en
+objectcontainers. Een `*`-pad is een padpatroon, geen letterlijk RFC 6901
+JSON Pointer; pas na invullen van de indexen ontstaat een concrete Pointer.
+
 Deze concrete paden beschrijven de oorspronkelijke export. Bij nieuwe,
 verplaatste of gesorteerde rijen worden de actuele array-indexen opnieuw
 bepaald aan de hand van de werkbladvolgorde en monsternummers. Daardoor zijn
@@ -614,11 +710,43 @@ bevestiging nodig; bij een fout of annulering blijft die invoer behouden.
 Na een geslaagde import zijn ook de geneste meetresultaten verder bewerkbaar
 en kan dezelfde JSON-validatie worden uitgevoerd als bij handmatige invoer.
 De verwerking gebeurt lokaal in de browser, zonder opslag op een server.
+De maximale bestandsgrootte is 20 MB. Een import laadt het formulier zonder
+paginavernieuwing; de invoer blijft alleen in het geheugen bewaard.
 
 Bij het genereren van de grondwatersjablonen wordt ook een ingevulde versie met
 fictieve gegevens teruggelezen en vergeleken met de oorspronkelijke JSON.
 Een afwijking of validatiefout blokkeert de generatie; de download zelf blijft
 leeg. Ook ingevulde exports moeten zonder gegevensverlies terug naar JSON kunnen.
+De presentatie groepeert leden per bronvariant. Als een aangeleverde
+canonieke ledenvolgorde daardoor niet exact teruggelezen kan worden, wordt de
+export afgekeurd in plaats van de volgorde stilzwijgend te wijzigen.
+
+### 8. Versies, fouten en grenzen
+
+Schema's, brongegevens en ODS-mapping vormen één versieerbaar geheel.
+Vingerafdrukken controleren dat deze onderdelen bij elkaar horen; een gelijk
+bestandsnaampatroon of ongewijzigd label garandeert geen compatibiliteit.
+Na een bron- of schemawijziging moeten de schema's en downloads opnieuw worden
+gegenereerd. Gebruik vervolgens het nieuwe ODS-sjabloon. Oude sjablonen,
+oorspronkelijke Teepak-bestanden en bestanden zonder de verborgen mapping worden
+niet automatisch gemigreerd.
+
+| Situatie | Verwacht gedrag |
+|---|---|
+| Verplichte hoeveelheid ontbreekt, maar meterstanden zijn aanwezig | Ongeldig: ieder verplicht lidtype wordt afzonderlijk gecontroleerd |
+| Verplicht referentiepunt ontbreekt, maar een andere aanvullende eigenschap bestaat | Ongeldig: de juiste `propertyID` moet aanwezig zijn |
+| Onbekende keuze, verkeerd referentietype of referentie uit een ander productiejaar | Ongeldig; labels vervangen de URI-/contextcontrole niet |
+| Inactief voorwaardelijk veld | UI bewaart de conceptinvoer maar laat haar weg uit JSON; een ingevulde inactieve ODS-cel geeft een fout |
+| Dubbel of ontbrekend monsternummer bij gekoppelde resultaten | Ongeldig: de import raadt de ouder niet |
+| Verouderde of beschadigde mapping, gewijzigde keuzemappings of formulecellen | Import geweigerd; bestaande formulierinvoer blijft behouden |
+| Sjabloon met fictieve validatiegegevens | Alleen een afzonderlijke controlekopie bevat die gegevens; het downloadsjabloon blijft leeg |
+
+De POCs leveren gevalideerde rapportage-JSON, geen volledige JSON-LD/RDF-export,
+featureconstructie of permanente opslag. JSON-getallen behouden de
+JavaScript/IEEE-754-precisie; weergaveopmaak is geen afrondingsregel.
+Het opnieuw opslaan in een kantoorapplicatie is een aparte compatibiliteitsstap:
+de automatische roundtrip bewijst de eigen exporter/importer, niet elke
+spreadsheetapplicatie of haar behoud van datum-tijdzones.
 
 Bij uitbreiding: leg businessfeiten en relaties in de bron vast, pas generieke
 mappingregels alleen aan als een constructie nog niet wordt ondersteund, en

@@ -1,5 +1,9 @@
 # Operational JSON Schema -> reversible ODS
 
+The Dutch [end-to-end guide](../../../README.md#van-csv-naar-json-schema-ui-en-ods)
+explains the CSV interpretation and schema/UI/ODS mapping without implementation
+details. This document describes the workbook contract and CLI operation.
+
 ## Current groundwater CSV profile
 
 The active generator scope is groundwater only. It passes source-authored
@@ -26,18 +30,29 @@ on `Monsters`. This business identifier must be filled and unique when linking
 detail rows; ambiguous or missing references are errors, not guessed links.
 Top-level `Debieten`, `Peilmetingen` and `Monsters` need no parent-reference column.
 
-Hidden row 1 now contains a JSON Pointer template, e.g.
+Hidden row 1 contains a JSON Pointer-style path template, e.g.
 `/kwaliteitsmeting/*/hasMember/*`, instead of an opaque `@record:r_...` marker.
 Hidden row 2 contains record-relative JSON Pointers such as
-`/hasResult/numericValue`. The parent-reference column carries the target
+`/hasResult/numericValue`. Singleton observation columns use JSONPath filters,
+e.g. `$["hasMember"][?(@.observedProperty == "<concept URI>")]["hasResult"]["numericValue"]`,
+because all observations share the canonical `hasMember` array. The filter
+identifies an observation by concept instead of assuming an array index.
+Depth and parameter analyses share that array despite their different sheets.
+Additional-property columns similarly filter `additionalProperty` by `propertyID`.
+Laboratory names map to `/wasAssociatedWith/label`. Reference points remain
+ordinary selection cells; import wraps each selected value in its typed
+PropertyValue with constant `propertyID`, without adding technical input columns.
+The parent-reference column carries the target
 identifier template `/kwaliteitsmeting/*/identifier`; its visible values remain
 monsternummers. `*` denotes an array index in templates; concrete row pointers
 in `_riepr` use actual indices, e.g. `/kwaliteitsmeting/0/hasMember/1`, with
 `parentInstancePath: "/kwaliteitsmeting/0"`. The root pointer is the empty string.
 Property tokens use RFC 6901 escaping (`~0`, `~1`).
+Wildcard templates are mapping patterns, not literal RFC 6901 Pointers until
+their array indices have been substituted.
 
 Transport metadata version 2 includes `jsonMapping`: per-record path templates,
-parent templates/identifier targets and column-ID-to-relative-pointer mappings.
+parent templates/identifier targets and column-ID-to-relative-path mappings.
 Existing row snapshots also include `instancePath` and `parentInstancePath`.
 The importer checks these mappings against the schema and rejects inconsistent
 parent paths. Concrete pointers describe the original export; after sorting,
@@ -46,7 +61,9 @@ and row order, not treated as immutable row IDs. Older workbooks must be
 regenerated; their opaque mapping format is not silently interpreted as pointers.
 
 Every populated generation is immediately imported and compared with its
-materialized input JSON; any difference blocks output. CLI groundwater template
+materialized input JSON; any difference blocks output. Presentation groups
+canonical members by source variant; an input order that cannot be reconstructed
+exactly is rejected, not silently normalized. CLI groundwater template
 generation and UI download generation additionally perform this check with the
 synthetic groundwater examples and their reference context. These dummy values
 are used only in the verification workbook, never in the downloaded blank
@@ -111,77 +128,26 @@ the other examples. These workbooks go to `output/examples/grondwater/`, keeping
 the blank templates separate. Reference context is required because the
 demonstration structural instances belong to reporting year 2024.
 
-## Previous multi-theme profile (historical)
-
-The remaining notes describe the earlier source model and legacy fixtures, not
-the current active generation scope or current source completeness.
-
-Eight approved sections support templates, populated exports and ODS imports:
-the three groundwater sections, fuel, air emissions, normal/abnormal discharge,
-and water self-control. Every array level gets an independently linked row set; singleton
-Sample/Sampling/result details stay in their owning row. There are no
-theme-specific generator branches or new authored layout columns.
-Full coverage of the 14 reference workbooks is **not** complete; remaining domain
-changes are listed in [the source review](./TEEPAK_MAPPING.md).
-
-## Run
-
-First install/build `poc-json-schema` and generate the supported source slice:
-
-```bash
-npm --prefix poc/poc-json-schema install
-npm --prefix poc/poc-json-schema run predev
-npm --prefix poc/poc-json-schema run build
-npm --prefix poc/poc-json-schema run generate -- --theme Grondwater --section grondwater:kwaliteitsmeting
-
-npm --prefix poc/poc-json-schema-ods install
-npm --prefix poc/poc-json-schema-ods run predev
-npm --prefix poc/poc-json-schema-ods run build
-```
+## CLI operations
 
 The ODS POC links the sibling schema package to reuse its offline structural and
 semantic validators. Its build/test commands build that dependency first.
 
-For debits, generate `--section grondwater:onttrekking` and use ODS section
-`onttrekking`. The required reported volume and optional begin/end readings are
-singleton observations inline in `Onttrekking infiltratie`, not three new sheets.
-No volume calculation or mode switch is introduced. Period start/end values are
-typed ODF dates or datetimes; the reporting period is not shared observation time.
-For level measurements, use schema section `grondwater:peilmeting` and ODS
-section `peilmeting`. The single `Peilmeting` sheet inlines the required Resultaat:
-literal depth/unit, method and conditional PropertyValue components. Feature,
-datetime and the required singleton reference point remain on the observation.
-Property identifiers/units are constants; they do not create optional components
-in empty templates or newly entered rows. Inactive-component errors identify the
-entered value cell, not a constant identifier cell.
+For debits, use ODS section `onttrekking`; for level measurements, `peilmeting`.
+Their singleton observation/result details remain inline in `Debieten` and
+`Peilmetingen`. Quality depth stays on `Monsters`; only repeated parameter
+observations use `Meetresultaten`. No quantity calculation or extra
+Sample/Sampling entity is introduced. Source-declared resultTime ownership,
+including the shared end date for quantity/end reading, remains intact.
+Hidden constants do not create optional components in otherwise empty rows.
+Inactive-component errors identify the entered value cell, not an identifier.
+
 A filtered schema index replaces the previous snapshot. Omit schema `--section`
 to generate all three groundwater sections together, or use separate snapshots.
 
-Other working selections are schema `--theme Lucht --section lucht:brandstof`
-or `lucht:emissie`, `--theme Water`, and `--theme "Zelfcontrole water"`.
-ODS uses slugs `lucht/{brandstof,emissie}`, `water/{lozing,abnormale-lozing}` and
-`zelfcontrole-water/meting`. Fuel's three observations inline on
-`Verbruikte brandstof`; air pollutant observations get linked
-`Verontreinigende stof of BKG` rows. Normal discharge's four member observations
-and shared Procedure inline on `Lozing`. Water self-control lab details inline on
-`Meting`, with linked `Parameter` rows and nested Resultaat columns.
-Structural-reference arrays remain separate linked sheets, not multiline cells.
-
-Source corrections are also applied to the remaining lists, but five TODO units,
-the empty temporary material-code scheme, untyped contextual consumption fields
-and the unreachable contextual step remain explicit blockers. The existing
-Test-only frequency list is retained by user choice, not silently expanded.
-
-To sync every currently usable section in one snapshot, run schema generation
-with `npm --prefix poc/poc-json-schema run generate -- --allow-incomplete`,
-then the ODS `predev` command. This explicit mode emits bases and valid sections,
-not partial combined theme schemas. The index retains its structured
-`generation.blockedSections` report; sync and all ODS CLI commands warn
-`INCOMPLETE schema snapshot` when sections were blocked. Only indexed valid
-sections are offered. Missing metadata is never patched or silently omitted
-from an exported section. Completeness refers to the requested reachable scope,
-not all code lists or full Teepak coverage. Invalid generation reports are errors;
-older indexes without the optional report remain supported.
+Other operational CSVs are not part of active generation. The wider
+[Teepak source review](./TEEPAK_MAPPING.md) and multi-theme fixtures are historical;
+their section counts and Sample/Sampling layouts do not describe groundwater.
 
 ```bash
 # Inspect the derived records, ancestry and exact column schema pointers.
@@ -192,7 +158,7 @@ npm --prefix poc/poc-json-schema-ods run generate -- template --theme grondwater
 
 npm --prefix poc/poc-json-schema-ods run generate -- export --theme grondwater --section kwaliteitsmeting --data report.json --references refs.json --out ./exports
 
-npm --prefix poc/poc-json-schema-ods run generate -- import --theme grondwater --section kwaliteitsmeting --ods ./exports/grondwater/kwaliteitsmeting.ods --out ./report-imported.json
+npm --prefix poc/poc-json-schema-ods run generate -- import --theme grondwater --section kwaliteitsmeting --ods ./exports/grondwater/grondwater-kwaliteitsanalyses.ods --out ./report-imported.json
 
 npm --prefix poc/poc-json-schema-ods test
 ```
@@ -261,16 +227,19 @@ are disambiguated rather than mapped to the first match.
 |---|---|
 | Workbook boundary | One indexed reporting section, independent of instance count |
 | `Voorblad` | One root-context row; unlike Teepak's key/value cover |
-| Domain sheets | One row per repeated object; every nested array has its own sheet |
-| Scalar/reference arrays | Linked value sheets, not lossy comma/multiline cells |
+| Domain sheets | One row per presentation record; repeated object details have linked sheets, singleton members stay inline |
+| Scalar/reference arrays | In a declared business sheet: one selection cell with optional JSON array; otherwise generic linked value sheets |
 | Singleton objects | Inline columns, preserving object/empty-container presence |
 | `Keuzelijsten` | Label/value/type mappings with standard ODF range validations |
 | Hidden `_riepr` | Version, schema/source/plan fingerprints, lookup/reference snapshots, original row links |
-| Hidden rows 1/2 | Record identity and stable column identities |
+| Hidden rows 1/2 | JSON record-path templates and relative column mappings |
 | Row 3 | Editable readable headers; names are not machine identifiers |
-| Hidden first three columns | Transport row ID, parent ID, container presence |
-| Visible reference columns | Readable row and parent references |
+| Business-layout columns | No technical IDs; declared business parent reference only where needed |
+| Generic-layout columns | Hidden transport IDs/container presence and visible readable references |
 
+The following transport-ID behavior applies only to schemas **without**
+source-declared workbook layout. Groundwater uses the business layout and
+JSON-path metadata described above; its monsternummers must be unambiguous.
 Technical row IDs are workbook-scoped and distinct from JSON-LD `@id`, published
 concept URIs and business identifiers. Readable references use real
 `dcterms:identifier`, `schema:identifier` or `rdfs:label` predicates, falling back
@@ -285,7 +254,7 @@ rows/reordering columns/renaming headers preserves ownership; worksheet order
 determines array order within each parent.
 
 Editing a visible parent reference intentionally reparents a row; unchanged
-hidden links are reconciled against the original snapshot. Contradictory hidden
+generic hidden links are reconciled against the original snapshot. Contradictory hidden
 edits, duplicate IDs, ambiguous parents, orphans, missing metadata, unknown columns,
 unexpected sheets and edited lookup mappings are errors. Delete a worksheet row
 to remove that record; clearing required business values leaves an invalid record.
@@ -297,7 +266,7 @@ decimal arithmetic. Unsafe integers are rejected. Numeric text accepts a decimal
 point or comma, not thousands separators. Formula cells are unsupported.
 
 Untouched template rows are ignored, including their prefilled constants.
-Source-required record/reference arrays still apply: an entirely blank water
+Source-required record/reference arrays still apply: an entirely blank required
 template is incomplete and is rejected, not returned as successful empty data.
 Zero/false and typed empty strings are not blanks. Optional absent objects remain
 absent; explicitly empty containers round-trip. Constants are restored only
@@ -324,8 +293,10 @@ before sync/generation/import; stale inputs are errors. Cleanup is restricted to
 previously indexed, unmodified files. Retained legacy/unindexed files cannot
 create workbooks.
 
-Regression coverage includes all eight actual-source round trips, extra synthetic
-nesting, independent sibling arrays, empty records, duplicate labels, new rows,
+Current groundwater coverage includes all three populated examples,
+discriminator-specific required fields, hidden JSON mappings, multi-reference
+PropertyValues and dummy-data checks for blank templates. Synthetic coverage
+also includes nesting, independent sibling arrays, empty records, duplicate labels, new rows,
 sorting/reordered columns, typed values, conditions and failing CLI imports.
 Generated representative XML was validated against the official OASIS ODF 1.3
 schema. Office-application reopen/save compatibility remains unverified: the local

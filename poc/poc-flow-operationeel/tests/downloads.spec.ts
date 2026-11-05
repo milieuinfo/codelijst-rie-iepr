@@ -51,12 +51,14 @@ for (const [section, filename, sheets] of [
       expect(table.rows.find(row => row.number === 1)!.cells[0].text).toMatch(/^\/[^ ]+\/\*$/)
       const headings = table.rows.find(row => row.number === 3)!
       expect(headings.cells.some(cell => cell.text.startsWith('Eenheid'))).toBe(true)
-      expect(table.rows.find(row => row.number === 2)!.cells.every(cell => cell.text.startsWith('/'))).toBe(true)
+      expect(table.rows.find(row => row.number === 2)!.cells.every(cell => /^[/$]/.test(cell.text))).toBe(true)
     }
     if (section === 'Kwaliteitsmeting') {
-      const result = schema.properties.kwaliteitsmeting.items.properties.hasMember.items.properties.hasResult
+      const variants = schema.properties.kwaliteitsmeting.items.properties.hasMember.items.oneOf
+      const result = variants.find((variant: { properties: { observedProperty: { enum?: unknown[] } } }) =>
+        variant.properties.observedProperty.enum)?.properties.hasResult
       expect(result.properties.measurementMethod['x-jsonld-id']).toBe('https://schema.org/measurementMethod')
-      expect(result.properties.additionalProperty.properties.value['x-jsonld-id']).toBe('https://schema.org/value')
+      expect(result.properties.additionalProperty.items.oneOf[0].properties.value['x-jsonld-id']).toBe('https://schema.org/value')
       expect(result.properties).not.toHaveProperty('kwaliteitsmetingResultatenLimiet')
     }
   })

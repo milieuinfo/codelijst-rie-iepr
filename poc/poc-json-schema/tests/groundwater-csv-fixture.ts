@@ -66,7 +66,8 @@ export function groundwaterFixture() {
         isMultiselect: true, ...table('grondwater-kwaliteitsanalyses.ods', 'Monsters'),
       }),
       field('labo', 'Labo', 'kwaliteitsmeting', {
-        relevantClass: 'prov:Agent', isOnzichtbaar: true, ...table('grondwater-kwaliteitsanalyses.ods', 'Monsters'),
+        relevantClass: 'prov:Agent', relation: 'prov:wasAssociatedWith', isOnzichtbaar: true,
+        ...table('grondwater-kwaliteitsanalyses.ods', 'Monsters'),
       }),
       field('labo-naam', 'Labo naam', 'labo', {
         relevantDataType: 'xsd:string', relation: 'rdfs:label', ...table('grondwater-kwaliteitsanalyses.ods', 'Monsters'),
@@ -83,7 +84,8 @@ export function groundwaterFixture() {
         ...table('grondwater-kwaliteitsanalyses.ods', 'Meetresultaten'), _table_order: 1,
       }),
       field('limiet', 'Detectielimiet', 'resultaten', {
-        relevantDataType: 'xsd:string', ...table('grondwater-kwaliteitsanalyses.ods', 'Meetresultaten'), _table_order: 2,
+        relevantDataType: 'xsd:string', relation: 'https://example.test/relations/limiet',
+        ...table('grondwater-kwaliteitsanalyses.ods', 'Meetresultaten'), _table_order: 2,
       }),
       { id: 'collectie:parameters', _type: 'skos:Collection', member: ['parameter:a', 'parameter:b'] },
       { id: 'collectie:units', _type: 'skos:Collection', member: ['unit:mgL', 'unit:gL'] },

@@ -1,6 +1,7 @@
 import {
   SchemaRegistry, SchemaValidator, SemanticValidator, schemaObject, pointerToken,
   materializeDerivedValues,
+  presentationSchema, transformMemberData, presentationDataPath,
   type JsonSchemaObject, type ReferenceRecord, type ReferenceContext,
 } from 'codelijst-rie-iepr-poc-json-schema/browser'
 
@@ -15,6 +16,7 @@ const prefix = (ancestor: DataPath, path: DataPath) => ancestor.length <= path.l
 
 export class SchemaEditor {
   readonly registry: SchemaRegistry
+  readonly inputSchema: JsonSchemaObject
   readonly draft: Record<string, unknown> = {}
   revision = 0
   diagnostics: EditorDiagnostic[] = []
@@ -24,11 +26,24 @@ export class SchemaEditor {
     readonly schema: JsonSchemaObject, readonly dependencies: JsonSchemaObject[] = [],
     readonly references: ReferenceRecord[] = [], readonly referenceContext: ReferenceContext = {},
   ) {
-    this.registry = new SchemaRegistry(schema, dependencies)
+    this.inputSchema = presentationSchema(schema)
+    this.registry = new SchemaRegistry(this.inputSchema, dependencies.filter(dependency => dependency.$id !== schema.$id))
     new SchemaValidator().validateInstance(schema, {}, dependencies)
   }
 
   resolve(schema: JsonSchemaObject): JsonSchemaObject { return this.registry.resolve(schema) }
+
+  load(data: Record<string, unknown>): void {
+    const draft = transformMemberData(this.schema, structuredClone(data), 'presentation')
+    if (!isObject(draft)) throw new Error('Een rapport moet een JSON-object zijn.')
+    for (const key of Object.keys(this.draft)) delete this.draft[key]
+    for (const [key, value] of Object.entries(draft)) Object.defineProperty(this.draft, key, {
+      value, writable: true, enumerable: true, configurable: true,
+    })
+    this.revision++
+    this.locations = undefined
+    this.diagnostics = []
+  }
 
   get(path: DataPath): unknown {
     return path.reduce<unknown>((value, key) =>
@@ -99,7 +114,7 @@ export class SchemaEditor {
 
   schemaAt(path: DataPath): JsonSchemaObject {
     return path.reduce((schema, key) => this.resolve(schemaObject(typeof key === 'number'
-      ? schema.items : schema.properties?.[key])), this.resolve(this.schema))
+      ? schema.items : schema.properties?.[key])), this.resolve(this.inputSchema))
   }
 
   isActive(path: DataPath, active = new Set<string>()): boolean {
@@ -175,9 +190,9 @@ export class SchemaEditor {
       }
       return value
     }
-    const output = visit(this.schema, this.draft, [], true)
+    const output = visit(this.inputSchema, this.draft, [], true)
     if (!isObject(output)) throw new Error('Een rapport moet een JSON-object zijn.')
-    const materialized = materializeDerivedValues(this.schema, output, this.dependencies)
+    const materialized = materializeDerivedValues(this.schema, transformMemberData(this.schema, output, 'canonical'), this.dependencies)
     if (!isObject(materialized)) throw new Error('Een rapport moet een JSON-object zijn.')
     return materialized
   }
@@ -192,6 +207,11 @@ export class SchemaEditor {
     this.diagnostics.push(...new SemanticValidator().validate(this.schema, data, {
       dependencies: this.dependencies, references: this.references, referenceContext: this.referenceContext,
     }).map(error => ({ instancePath: error.instancePath, message: error.message })))
+    this.diagnostics = this.diagnostics.map(error => {
+      const path = error.instancePath ? error.instancePath.slice(1).split('/').map(token =>
+        /^(0|[1-9]\d*)$/.test(token) ? Number(token) : token.replace(/~1/g, '/').replace(/~0/g, '~')) : []
+      return { ...error, instancePath: jsonPointer(presentationDataPath(this.schema, data, path)) }
+    })
     return { data, diagnostics: this.diagnostics }
   }
 
@@ -209,7 +229,7 @@ export class SchemaEditor {
         if (Array.isArray(values)) values.forEach((_, index) => walk(schemaObject(schema.items), [...path, index], source))
       }
     }
-    walk(this.schema, [])
+    walk(this.inputSchema, [])
     this.locations = result
     return result
   }

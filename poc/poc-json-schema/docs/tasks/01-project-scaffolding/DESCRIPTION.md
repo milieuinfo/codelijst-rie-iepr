@@ -7,24 +7,22 @@ tool, not a running web app. No Vite, no Lit components, no browser runtime need
 
 ### Directory Structure
 
-```
-poc/poc-json-schema/
-├── src/
-│   ├── models/          # TypeScript interfaces (codelist + schema types)
-│   ├── services/        # Parsing and generation services
-│   └── cli.ts           # Entry point / CLI script
-├── scripts/
-│   └── sync-codelist.mjs  # Codelist sync from upstream source
-├── public/              # Local codelist copy (synced target)
-├── output/              # Generated JSON Schema files (output dir)
-├── docs/
-│   ├── PROJECT_OUTLINE.md
-│   ├── ISSUES.md
-│   ├── archive/         # Archived reference schemas
-│   └── tasks/           # Task documentation
-├── package.json
-├── tsconfig.json
-└── README.md
+```mermaid
+flowchart LR
+    root["poc/poc-json-schema/"] --> src["src/"]
+    src --> models["models/<br/>Codelist and schema types"]
+    src --> services["services/<br/>Parsing and generation"]
+    src --> cli["cli.ts"]
+    root --> scripts["scripts/sync-codelist.mjs"]
+    root --> public["public/<br/>Synced codelist"]
+    root --> output["output/<br/>Generated schemas"]
+    root --> docs["docs/"]
+    docs --> outline["PROJECT_OUTLINE.md"]
+    docs --> issues["ISSUES.md"]
+    docs --> archive["archive/<br/>Reference schemas"]
+    docs --> tasks["tasks/"]
+    root --> config["package.json and tsconfig.json"]
+    root --> readme["README.md"]
 ```
 
 ### Package Configuration (`package.json`)

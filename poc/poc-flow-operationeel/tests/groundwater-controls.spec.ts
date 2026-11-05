@@ -20,11 +20,17 @@ test('uses the Flux date-time picker and stores local input as a valid UTC times
   await picker.getByRole('textbox').fill('05.11.2026 14:30')
   await picker.getByRole('textbox').blur()
   await field(page, '/peilmeting/0/hasResult/numericValue').locator('input').fill('0')
-  await field(page, '/peilmeting/0/hasResult/peilmetingReferentiepunt').locator('select').selectOption({ index: 1 })
+  await field(page, '/peilmeting/0/hasResult/peilmetingReferentiepunt/value').locator('select').selectOption({ index: 1 })
   await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
   const output = page.locator('#validated-json')
   await expect(output).toBeVisible()
-  expect(JSON.parse(await output.innerText()).peilmeting[0].resultTime).toBe('2026-11-05T13:30:00.000Z')
+  const measurement = JSON.parse(await output.innerText()).peilmeting[0]
+  expect(measurement.resultTime).toBe('2026-11-05T13:30:00.000Z')
+  expect(measurement.hasResult).not.toHaveProperty('peilmetingReferentiepunt')
+  expect(measurement.hasResult.additionalProperty).toEqual([expect.objectContaining({
+    propertyID: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-referentiepunt',
+    value: expect.any(String),
+  })])
   await picker.getByRole('button', { name: /datumkiezer/ }).click()
   await expect(picker.locator('.flatpickr-calendar')).toBeVisible()
   await expect(picker.locator('.flatpickr-hour')).toBeVisible()
@@ -57,6 +63,28 @@ test('uses date-only pickers without changing calendar dates', async ({ page }) 
   await picker.getByRole('textbox').fill('05.11.2026')
   await picker.getByRole('textbox').blur()
   await expect(picker).toHaveJSProperty('value', '2026-11-05')
+  await field(page, '/onttrekking/0/type').locator('select').selectOption({ label: 'Onttrekking' })
+  await field(page, '/onttrekking/0/additionalProperty/value').locator('select').selectOption({ label: 'Nee' })
+  await field(page, '/onttrekking/0/onttrekkingHoeveelheid/hasResult/numericValue').getByRole('spinbutton').fill('0')
+  await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
+  await expect(page.locator('#validated-json')).toBeVisible()
+  const record = JSON.parse(await page.locator('#validated-json').innerText()).onttrekking[0]
+  expect(record).not.toHaveProperty('onttrekkingHoeveelheid')
+  expect(record).not.toHaveProperty('onttrekkingSpui')
+  expect(record.additionalProperty).toEqual([{
+    propertyID: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-spui',
+    value: false,
+  }])
+  expect(record.hasMember).toEqual([expect.objectContaining({
+    observedProperty: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-hoeveelheid',
+    resultTime: '2026-11-05', hasResult: expect.objectContaining({ numericValue: 0 }),
+  })])
+  await field(page, '/onttrekking/0/onttrekkingStartmeterstand/hasResult/numericValue').getByRole('spinbutton').fill('12')
+  const quantity = field(page, '/onttrekking/0/onttrekkingHoeveelheid/hasResult/numericValue')
+  await quantity.getByRole('spinbutton').fill('')
+  await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
+  await expect(page.locator('#validated-json')).toHaveCount(0)
+  await expect(quantity.getByRole('alert')).toBeVisible()
 })
 
 test('keeps simple rows compact and deletes with an accessible icon-only button', async ({ page }) => {
@@ -118,7 +146,7 @@ test('edits repeated measurements only in full-width expandable details', async 
   expect(dimensions.span).toBe(dimensions.columns)
   expect(dimensions.width).toBeCloseTo(dimensions.parentWidth, 0)
   await details.getByRole('button', { name: 'Rij toevoegen', exact: true }).click()
-  const value = field(page, '/kwaliteitsmeting/0/hasMember/0/hasResult/numericValue').getByRole('spinbutton')
+  const value = field(page, '/kwaliteitsmeting/0/kwaliteitsmetingResultaten/0/hasResult/numericValue').getByRole('spinbutton')
   await value.fill('12.5')
   await expand.getByRole('button', { name: 'Details inklappen', exact: true }).click()
   await expect(details).toBeHidden()
@@ -128,16 +156,16 @@ test('edits repeated measurements only in full-width expandable details', async 
   await page.locator('td[data-row-expand="/kwaliteitsmeting/1"]').getByRole('button').click()
   const second = page.locator('tr[data-row-details="/kwaliteitsmeting/1"]')
   await second.getByRole('button', { name: 'Rij toevoegen', exact: true }).click()
-  await field(page, '/kwaliteitsmeting/1/hasMember/0/hasResult/numericValue').getByRole('spinbutton').fill('7')
+  await field(page, '/kwaliteitsmeting/1/kwaliteitsmetingResultaten/0/hasResult/numericValue').getByRole('spinbutton').fill('7')
   await page.locator('td[data-row-actions="/kwaliteitsmeting/0"]').getByRole('button').click()
-  await expect(field(page, '/kwaliteitsmeting/0/hasMember/0/hasResult/numericValue').getByRole('spinbutton')).toHaveValue('7')
-  await page.locator('td[data-row-actions="/kwaliteitsmeting/0/hasMember/0"]').getByRole('button').click()
-  await expect(field(page, '/kwaliteitsmeting/0/hasMember/0/hasResult/numericValue')).toHaveCount(0)
+  await expect(field(page, '/kwaliteitsmeting/0/kwaliteitsmetingResultaten/0/hasResult/numericValue').getByRole('spinbutton')).toHaveValue('7')
+  await page.locator('td[data-row-actions="/kwaliteitsmeting/0/kwaliteitsmetingResultaten/0"]').getByRole('button').click()
+  await expect(field(page, '/kwaliteitsmeting/0/kwaliteitsmetingResultaten/0/hasResult/numericValue')).toHaveCount(0)
 })
 
 test('opens collapsed details for validation errors without preventing manual collapse', async ({ page }) => {
   await openSection(page, 'Kwaliteitsmeting')
-  const reference = field(page, '/kwaliteitsmeting/0/kwaliteitsmetingReferentiepunt')
+  const reference = field(page, '/kwaliteitsmeting/0/additionalProperty')
   await reference.getByRole('textbox').fill('Referentiepunt 1')
   await reference.getByRole('option', { name: 'Referentiepunt 1', exact: true }).click()
   await field(page, '/kwaliteitsmeting/0/kwaliteitsmetingDiepte/hasResult/numericValue').getByRole('spinbutton').fill('0')
@@ -145,15 +173,15 @@ test('opens collapsed details for validation errors without preventing manual co
   await expand.click()
   const details = page.locator('tr[data-row-details="/kwaliteitsmeting/0"]')
   await details.getByRole('button', { name: 'Rij toevoegen', exact: true }).click()
-  await field(page, '/kwaliteitsmeting/0/hasMember/0/observedProperty').locator('select').selectOption({ index: 1 })
-  await field(page, '/kwaliteitsmeting/0/hasMember/0/hasResult/numericValue')
+  await field(page, '/kwaliteitsmeting/0/kwaliteitsmetingResultaten/0/observedProperty').locator('select').selectOption({ index: 1 })
+  await field(page, '/kwaliteitsmeting/0/kwaliteitsmetingResultaten/0/hasResult/numericValue')
     .locator('vl-input-field').evaluate(input =>
       input.dispatchEvent(new CustomEvent('vl-input', { detail: { value: 'invalid-number' } })))
   await expand.click()
   await expect(details).toBeHidden()
   await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
   await expect(details).toBeVisible()
-  await expect(details.getByRole('alert').first()).toBeVisible()
+  await expect(field(page, '/kwaliteitsmeting/0/kwaliteitsmetingResultaten/0/hasResult/numericValue').getByRole('alert')).toBeVisible()
   await expand.click()
   await expect(details).toBeHidden()
 })
