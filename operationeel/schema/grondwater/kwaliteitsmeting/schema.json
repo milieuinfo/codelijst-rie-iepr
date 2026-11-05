@@ -99,7 +99,7 @@
             "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#dateTime",
             "title": "Datum en tijdstip laboanalyse"
           },
-          "kwaliteitsmetingLabo": {
+          "wasAssociatedWith": {
             "type": "object",
             "properties": {
               "label": {
@@ -126,101 +126,9 @@
             "x-relevant-observations": [
               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting"
             ],
+            "x-jsonld-id": "http://www.w3.org/ns/prov#wasAssociatedWith",
             "title": "Labo",
             "description": "Labo dat de meting uitvoerde."
-          },
-          "kwaliteitsmetingReferentiepunt": {
-            "type": "array",
-            "title": "Referentiepunt",
-            "items": {
-              "type": "string",
-              "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-referentiepunt",
-              "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
-              "x-table-sheet": "Monsters",
-              "x-table-order": 27,
-              "x-relevant-observations": [
-                "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting"
-              ],
-              "x-reference-types": [
-                "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunteigenschappen/referentiepunt"
-              ],
-              "x-jsonld-type": "@id",
-              "title": "Referentiepunt"
-            },
-            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-referentiepunt",
-            "x-array-kind": "values",
-            "minItems": 1,
-            "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
-            "x-table-sheet": "Monsters",
-            "x-table-order": 27
-          },
-          "kwaliteitsmetingDiepte": {
-            "type": "object",
-            "properties": {
-              "hasResult": {
-                "type": "object",
-                "properties": {
-                  "numericValue": {
-                    "type": "number",
-                    "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
-                    "x-table-order": 28,
-                    "title": "Diepte/hoogte (TAW) t.o.v. referentiepunt",
-                    "x-ui-first": true
-                  },
-                  "hasUnit": {
-                    "type": "string",
-                    "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_59",
-                    "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_59",
-                    "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
-                    "x-jsonld-type": "@id",
-                    "title": "Eenheid",
-                    "x-ui-after": "numericValue"
-                  }
-                },
-                "additionalProperties": false,
-                "dependentRequired": {
-                  "numericValue": [
-                    "hasUnit"
-                  ]
-                },
-                "required": [
-                  "numericValue",
-                  "hasUnit"
-                ],
-                "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
-                "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
-                "x-implicit-result": true,
-                "x-ui-hidden-container": true,
-                "title": "Diepte/hoogte (TAW) t.o.v. referentiepunt"
-              },
-              "observedProperty": {
-                "type": "string",
-                "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-diepte",
-                "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
-                "x-ui-hidden": true
-              }
-            },
-            "additionalProperties": false,
-            "required": [
-              "hasResult",
-              "observedProperty"
-            ],
-            "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
-            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-diepte",
-            "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
-            "x-table-sheet": "Monsters",
-            "x-table-order": 28,
-            "x-relevant-observations": [
-              "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting"
-            ],
-            "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
-            "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
-            "x-value-path": [
-              "hasResult",
-              "numericValue"
-            ],
-            "x-scalar-observation": true,
-            "title": "Diepte/hoogte (TAW) t.o.v. referentiepunt"
           },
           "usedProcedure": {
             "type": "string",
@@ -243,217 +151,499 @@
           },
           "hasMember": {
             "type": "array",
-            "title": "Meetresultaten",
+            "title": "Observaties",
+            "minItems": 1,
+            "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
             "items": {
-              "type": "object",
-              "properties": {
-                "observedProperty": {
-                  "type": "string",
-                  "enum": [
-                    "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_246",
-                    "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_247",
-                    "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_251",
-                    "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_321",
-                    "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_337",
-                    "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_329"
-                  ],
-                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-parameter",
-                  "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
-                  "x-table-sheet": "Meetresultaten",
-                  "x-table-order": 30,
-                  "x-relevant-observations": [
-                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten"
-                  ],
-                  "x-code-lists": [
-                    "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_parameters_grondwater"
-                  ],
-                  "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
-                  "x-jsonld-type": "@id",
-                  "title": "Parameter",
-                  "x-ui-first": true
-                },
-                "hasResult": {
+              "oneOf": [
+                {
                   "type": "object",
                   "properties": {
-                    "numericValue": {
-                      "type": "number",
-                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-meetwaarde",
-                      "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
-                      "x-table-sheet": "Meetresultaten",
-                      "x-table-order": 32,
-                      "x-relevant-observations": [
-                        "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten"
-                      ],
-                      "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
-                      "x-kwantiteitsaspect": "https://data.omgeving.vlaanderen.be/id/concept/csor/kwantificeerbaaraspect/KWA_1",
-                      "x-drager": "https://data.omgeving.vlaanderen.be/id/concept/csor/drager/DR_1",
-                      "x-soortwaardebepaling": "https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/SWB_1",
-                      "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
-                      "title": "Meetwaarde",
-                      "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-parameter",
-                      "x-variabele": "observedProperty",
-                      "x-variable-location": {
-                        "ancestorDepth": 1,
-                        "path": [
-                          "observedProperty"
-                        ]
-                      }
-                    },
-                    "additionalProperty": {
+                    "hasResult": {
                       "type": "object",
-                      "additionalProperties": false,
-                      "required": [
-                        "propertyID",
-                        "value"
-                      ],
                       "properties": {
-                        "propertyID": {
-                          "type": "string",
-                          "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-limiet",
-                          "x-jsonld-id": "https://schema.org/propertyID",
-                          "x-jsonld-type": "@id",
-                          "x-ui-hidden": true
+                        "numericValue": {
+                          "type": "number",
+                          "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
+                          "x-table-order": 28,
+                          "title": "Diepte/hoogte (TAW) t.o.v. referentiepunt",
+                          "x-ui-first": true
                         },
-                        "value": {
+                        "hasUnit": {
                           "type": "string",
-                          "enum": [
-                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-boven",
-                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-onder"
-                          ],
-                          "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-limiet",
-                          "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
-                          "x-table-sheet": "Meetresultaten",
-                          "x-table-order": 33,
-                          "x-relevant-observations": [
-                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten"
-                          ],
-                          "x-code-lists": [
-                            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_detectiegrensindicator"
-                          ],
-                          "x-jsonld-id": "https://schema.org/value",
+                          "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_59",
+                          "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_59",
+                          "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
                           "x-jsonld-type": "@id",
-                          "title": "Detectielimiet"
+                          "title": "Eenheid",
+                          "x-ui-after": "numericValue"
                         }
                       },
-                      "x-jsonld-type": "https://schema.org/PropertyValue",
-                      "x-value-path": [
-                        "value"
+                      "additionalProperties": false,
+                      "dependentRequired": {
+                        "numericValue": [
+                          "hasUnit"
+                        ]
+                      },
+                      "required": [
+                        "numericValue",
+                        "hasUnit"
                       ],
-                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-limiet",
+                      "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
+                      "x-implicit-result": true,
+                      "x-ui-hidden-container": true,
+                      "title": "Diepte/hoogte (TAW) t.o.v. referentiepunt"
+                    },
+                    "observedProperty": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-diepte",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "hasResult",
+                    "observedProperty"
+                  ],
+                  "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-diepte",
+                  "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
+                  "x-table-sheet": "Monsters",
+                  "x-table-order": 28,
+                  "x-relevant-observations": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting"
+                  ],
+                  "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                  "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
+                  "x-value-path": [
+                    "hasResult",
+                    "numericValue"
+                  ],
+                  "x-scalar-observation": true,
+                  "title": "Diepte/hoogte (TAW) t.o.v. referentiepunt"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "observedProperty": {
+                      "type": "string",
+                      "enum": [
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_246",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_247",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_251",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_321",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_337",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_329"
+                      ],
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-parameter",
                       "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
                       "x-table-sheet": "Meetresultaten",
-                      "x-table-order": 33,
+                      "x-table-order": 30,
                       "x-relevant-observations": [
                         "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten"
                       ],
                       "x-code-lists": [
-                        "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_detectiegrensindicator"
+                        "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_parameters_grondwater"
                       ],
-                      "x-jsonld-id": "https://schema.org/additionalProperty",
-                      "title": "Detectielimiet",
-                      "description": "Een aanduiding of de meetwaarde boven of onder de detectielimiet ligt."
-                    },
-                    "measurementMethod": {
-                      "type": "string",
-                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-methode",
-                      "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
-                      "x-table-sheet": "Meetresultaten",
-                      "x-table-order": 34,
-                      "x-relevant-observations": [
-                        "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten"
-                      ],
-                      "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
-                      "x-jsonld-id": "https://schema.org/measurementMethod",
-                      "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
-                      "title": "Analysemethode"
-                    },
-                    "type": {
-                      "type": "string",
-                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-bemonsteringsinstrument",
-                      "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
-                      "x-table-sheet": "Meetresultaten",
-                      "x-table-order": 35,
-                      "x-relevant-observations": [
-                        "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten"
-                      ],
-                      "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
-                      "x-jsonld-id": "http://purl.org/dc/terms/type",
-                      "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
-                      "title": "Veld- of laboanalyse"
-                    },
-                    "hasUnit": {
-                      "type": "string",
-                      "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_1",
-                      "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_1",
-                      "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
                       "x-jsonld-type": "@id",
-                      "title": "Eenheid",
-                      "x-ui-after": "numericValue"
+                      "title": "Parameter",
+                      "x-ui-first": true
+                    },
+                    "hasResult": {
+                      "type": "object",
+                      "properties": {
+                        "numericValue": {
+                          "type": "number",
+                          "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-meetwaarde",
+                          "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
+                          "x-table-sheet": "Meetresultaten",
+                          "x-table-order": 32,
+                          "x-relevant-observations": [
+                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten"
+                          ],
+                          "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                          "x-kwantiteitsaspect": "https://data.omgeving.vlaanderen.be/id/concept/csor/kwantificeerbaaraspect/KWA_1",
+                          "x-drager": "https://data.omgeving.vlaanderen.be/id/concept/csor/drager/DR_1",
+                          "x-soortwaardebepaling": "https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/SWB_1",
+                          "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
+                          "title": "Meetwaarde",
+                          "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-parameter",
+                          "x-variabele": "observedProperty",
+                          "x-variable-location": {
+                            "ancestorDepth": 1,
+                            "path": [
+                              "observedProperty"
+                            ]
+                          }
+                        },
+                        "measurementMethod": {
+                          "type": "string",
+                          "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-methode",
+                          "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
+                          "x-table-sheet": "Meetresultaten",
+                          "x-table-order": 34,
+                          "x-relevant-observations": [
+                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten"
+                          ],
+                          "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                          "x-jsonld-id": "https://schema.org/measurementMethod",
+                          "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                          "title": "Analysemethode"
+                        },
+                        "type": {
+                          "type": "string",
+                          "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-bemonsteringsinstrument",
+                          "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
+                          "x-table-sheet": "Meetresultaten",
+                          "x-table-order": 35,
+                          "x-relevant-observations": [
+                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten"
+                          ],
+                          "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                          "x-jsonld-id": "http://purl.org/dc/terms/type",
+                          "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                          "title": "Veld- of laboanalyse"
+                        },
+                        "hasUnit": {
+                          "type": "string",
+                          "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_1",
+                          "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_1",
+                          "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
+                          "x-jsonld-type": "@id",
+                          "title": "Eenheid",
+                          "x-ui-after": "numericValue"
+                        },
+                        "additionalProperty": {
+                          "type": "array",
+                          "title": "Aanvullende eigenschappen",
+                          "minItems": 1,
+                          "x-jsonld-id": "https://schema.org/additionalProperty",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": [
+                                  "propertyID",
+                                  "value"
+                                ],
+                                "properties": {
+                                  "propertyID": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-limiet",
+                                    "x-jsonld-id": "https://schema.org/propertyID",
+                                    "x-jsonld-type": "@id",
+                                    "x-ui-hidden": true
+                                  },
+                                  "value": {
+                                    "type": "string",
+                                    "enum": [
+                                      "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-boven",
+                                      "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-onder"
+                                    ],
+                                    "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-limiet",
+                                    "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
+                                    "x-table-sheet": "Meetresultaten",
+                                    "x-table-order": 33,
+                                    "x-relevant-observations": [
+                                      "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten"
+                                    ],
+                                    "x-code-lists": [
+                                      "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_detectiegrensindicator"
+                                    ],
+                                    "x-jsonld-id": "https://schema.org/value",
+                                    "x-jsonld-type": "@id",
+                                    "title": "Detectielimiet"
+                                  }
+                                },
+                                "x-jsonld-type": "https://schema.org/PropertyValue",
+                                "x-value-path": [
+                                  "value"
+                                ],
+                                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-limiet",
+                                "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
+                                "x-table-sheet": "Meetresultaten",
+                                "x-table-order": 33,
+                                "x-relevant-observations": [
+                                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten"
+                                ],
+                                "x-code-lists": [
+                                  "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_detectiegrensindicator"
+                                ],
+                                "x-jsonld-id": "https://schema.org/additionalProperty",
+                                "title": "Detectielimiet",
+                                "description": "Een aanduiding of de meetwaarde boven of onder de detectielimiet ligt."
+                              }
+                            ]
+                          },
+                          "allOf": [
+                            {
+                              "contains": {
+                                "type": "object",
+                                "required": [
+                                  "propertyID"
+                                ],
+                                "properties": {
+                                  "propertyID": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-limiet",
+                                    "x-jsonld-id": "https://schema.org/propertyID",
+                                    "x-jsonld-type": "@id",
+                                    "x-ui-hidden": true
+                                  }
+                                }
+                              },
+                              "minContains": 0,
+                              "maxContains": 1
+                            }
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "dependentRequired": {
+                        "numericValue": [
+                          "hasUnit"
+                        ]
+                      },
+                      "x-table-sheet": "Meetresultaten",
+                      "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
+                      "x-implicit-result": true,
+                      "x-ui-hidden-container": true,
+                      "title": "Meetresultaten",
+                      "x-property-input-constraints": {
+                        "dependentRequired": {
+                          "numericValue": [
+                            "hasUnit"
+                          ]
+                        }
+                      },
+                      "required": [],
+                      "x-property-layout": [
+                        {
+                          "key": "additionalProperty",
+                          "repeatable": false,
+                          "required": false,
+                          "annotations": {}
+                        }
+                      ]
                     }
                   },
                   "additionalProperties": false,
-                  "dependentRequired": {
-                    "numericValue": [
-                      "hasUnit"
-                    ]
-                  },
                   "x-table-sheet": "Meetresultaten",
-                  "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
-                  "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
-                  "x-implicit-result": true,
-                  "x-ui-hidden-container": true,
-                  "title": "Meetresultaten"
+                  "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten",
+                  "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
+                  "x-table-order": 31,
+                  "x-relevant-observations": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting"
+                  ],
+                  "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
+                  "title": "Meetresultaten",
+                  "required": [
+                    "observedProperty"
+                  ]
                 }
-              },
-              "additionalProperties": false,
-              "x-table-sheet": "Meetresultaten",
-              "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
-              "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten",
-              "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
-              "x-table-order": 31,
-              "x-relevant-observations": [
-                "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting"
-              ],
-              "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
-              "title": "Meetresultaten"
+              ]
             },
-            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten",
-            "x-array-kind": "records",
-            "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
-            "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
-            "x-table-sheet": "Meetresultaten",
-            "x-table-order": 31
+            "allOf": [
+              {
+                "contains": {
+                  "type": "object",
+                  "required": [
+                    "observedProperty"
+                  ],
+                  "properties": {
+                    "observedProperty": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-diepte",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    }
+                  }
+                },
+                "minContains": 0,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "type": "object",
+                  "required": [
+                    "observedProperty"
+                  ],
+                  "properties": {
+                    "observedProperty": {
+                      "type": "string",
+                      "enum": [
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_246",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_247",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_251",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_321",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_337",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_329"
+                      ],
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-parameter",
+                      "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
+                      "x-table-sheet": "Meetresultaten",
+                      "x-table-order": 30,
+                      "x-relevant-observations": [
+                        "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten"
+                      ],
+                      "x-code-lists": [
+                        "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_parameters_grondwater"
+                      ],
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "title": "Parameter",
+                      "x-ui-first": true
+                    }
+                  }
+                },
+                "minContains": 0
+              }
+            ]
+          },
+          "additionalProperty": {
+            "type": "array",
+            "title": "Aanvullende eigenschappen",
+            "minItems": 1,
+            "x-jsonld-id": "https://schema.org/additionalProperty",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "propertyID",
+                    "value"
+                  ],
+                  "properties": {
+                    "propertyID": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-referentiepunt",
+                      "x-jsonld-id": "https://schema.org/propertyID",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    },
+                    "value": {
+                      "type": "string",
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-referentiepunt",
+                      "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
+                      "x-table-sheet": "Monsters",
+                      "x-table-order": 27,
+                      "x-relevant-observations": [
+                        "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting"
+                      ],
+                      "x-reference-types": [
+                        "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunteigenschappen/referentiepunt"
+                      ],
+                      "x-jsonld-id": "https://schema.org/value",
+                      "x-jsonld-type": "@id",
+                      "title": "Referentiepunt"
+                    }
+                  },
+                  "x-jsonld-type": "https://schema.org/PropertyValue",
+                  "x-value-path": [
+                    "value"
+                  ],
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-referentiepunt",
+                  "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
+                  "x-table-sheet": "Monsters",
+                  "x-table-order": 27,
+                  "x-relevant-observations": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting"
+                  ],
+                  "x-reference-types": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunteigenschappen/referentiepunt"
+                  ],
+                  "x-jsonld-id": "https://schema.org/additionalProperty",
+                  "title": "Referentiepunt"
+                }
+              ]
+            },
+            "allOf": [
+              {
+                "contains": {
+                  "type": "object",
+                  "required": [
+                    "propertyID"
+                  ],
+                  "properties": {
+                    "propertyID": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-referentiepunt",
+                      "x-jsonld-id": "https://schema.org/propertyID",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    }
+                  }
+                },
+                "minContains": 1
+              }
+            ]
           }
         },
         "additionalProperties": false,
         "required": [
-          "kwaliteitsmetingLabo",
-          "kwaliteitsmetingReferentiepunt"
+          "wasAssociatedWith",
+          "hasMember",
+          "additionalProperty"
         ],
         "x-table-sheet": "Monsters",
         "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#ObservatieVerzameling",
-        "anyOf": [
-          {
-            "required": [
-              "kwaliteitsmetingDiepte"
-            ]
-          },
-          {
-            "required": [
-              "hasMember"
-            ],
-            "properties": {
-              "hasMember": {
-                "minItems": 1
-              }
-            }
-          }
-        ],
         "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting",
         "x-table-order": 3,
         "title": "Kwaliteitsmeting",
         "description": "Een kwaliteitsmeting van een pomp- of peilput.",
-        "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting"
+        "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
+        "x-member-layout": [
+          {
+            "key": "kwaliteitsmetingDiepte",
+            "repeatable": false,
+            "required": false,
+            "annotations": {}
+          },
+          {
+            "key": "kwaliteitsmetingResultaten",
+            "repeatable": true,
+            "required": false,
+            "annotations": {
+              "type": "array",
+              "title": "Meetresultaten",
+              "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten",
+              "x-array-kind": "records",
+              "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
+              "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
+              "x-table-sheet": "Meetresultaten",
+              "x-table-order": 31
+            }
+          }
+        ],
+        "x-property-input-constraints": {},
+        "x-property-layout": [
+          {
+            "key": "additionalProperty",
+            "repeatable": true,
+            "required": true,
+            "annotations": {
+              "type": "array",
+              "title": "Referentiepunt",
+              "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-referentiepunt",
+              "x-array-kind": "values",
+              "minItems": 1,
+              "x-jsonld-id": "https://schema.org/additionalProperty",
+              "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
+              "x-table-sheet": "Monsters",
+              "x-table-order": 27
+            },
+            "unwrapValue": true
+          }
+        ]
       },
       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting",
       "x-array-kind": "records",

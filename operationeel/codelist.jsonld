@@ -917,6 +917,14 @@
       ]
     },
     {
+      "id": "prov:wasAssociatedWith",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-05T14:08:25.297Z",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
       "id": "rov:registration",
       "_type": [
         "rdfs:Resource"
@@ -933,7 +941,7 @@
       "_type": [
         "rdfs:Resource"
       ],
-      "created": "2026-11-05T13:28:25.193Z",
+      "created": "2026-11-05T14:08:25.297Z",
       "status": "https://purl.archive.org/adms/status/Active"
     },
     {
@@ -3748,7 +3756,7 @@
       "_type": [
         "rdfs:Resource"
       ],
-      "created": "2026-11-05T13:28:25.193Z",
+      "created": "2026-11-05T14:08:25.297Z",
       "status": "https://purl.archive.org/adms/status/Active"
     },
     {
@@ -3762,7 +3770,7 @@
       "_type": [
         "rdfs:Resource"
       ],
-      "created": "2026-11-05T13:28:25.193Z",
+      "created": "2026-11-05T14:08:25.297Z",
       "status": "https://purl.archive.org/adms/status/Active"
     },
     {
@@ -4449,7 +4457,9 @@
       "prefLabel": "Spui meegeteld in rondgepompt debiet",
       "broaderPartitive": "grondwater:onttrekking",
       "relevantObservation": "grondwater:onttrekking",
+      "relevantClass": "schema:PropertyValue",
       "relevantDataType": "xsd:boolean",
+      "relation": "schema:additionalProperty",
       "isVerplicht": true,
       "_table_workbook": "grondwater-debieten.ods",
       "_table_sheet": "Debieten",
@@ -4482,6 +4492,8 @@
       "prefLabel": "Referentiepunt",
       "broaderPartitive": "grondwater:peilmeting",
       "relevantObservation": "grondwater:peilmeting",
+      "relevantClass": "schema:PropertyValue",
+      "relation": "schema:additionalProperty",
       "relevantRiepr": "meetpunteigenschappen:referentiepunt",
       "isVerplicht": true,
       "_table_workbook": "grondwater-peilmetingen.ods",
@@ -4672,6 +4684,7 @@
       "broaderPartitive": "grondwater:kwaliteitsmeting",
       "relevantObservation": "grondwater:kwaliteitsmeting",
       "relevantClass": "prov:Agent",
+      "relation": "prov:wasAssociatedWith",
       "isVerplicht": true,
       "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
       "_table_sheet": "Monsters"
@@ -4697,6 +4710,8 @@
       "prefLabel": "Referentiepunt",
       "broaderPartitive": "grondwater:kwaliteitsmeting",
       "relevantObservation": "grondwater:kwaliteitsmeting",
+      "relevantClass": "schema:PropertyValue",
+      "relation": "schema:additionalProperty",
       "relevantRiepr": "meetpunteigenschappen:referentiepunt",
       "isVerplicht": true,
       "isMeervoudig": true,
@@ -4713,6 +4728,7 @@
       "relevantObservation": "grondwater:kwaliteitsmeting",
       "relevantClass": "riepr:Observatie",
       "relevantDataType": "xsd:decimal",
+      "relation": "sosa:hasMember",
       "relevantUnit": "csor_eenheid:E_59",
       "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
       "_table_sheet": "Monsters"
