@@ -1,0 +1,388 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.riepr.omgeving.vlaanderen.be/schema/2026/observatie/grondwater/onttrekking/schema.json",
+  "title": "Onttrekking/infiltratie",
+  "type": "object",
+  "properties": {
+    "onttrekking": {
+      "type": "array",
+      "title": "Onttrekking/infiltratie",
+      "items": {
+        "type": "object",
+        "properties": {
+          "hasFeatureOfInterest": {
+            "type": "string",
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-feature",
+            "x-table-workbook": "grondwater-debieten.ods",
+            "x-table-sheet": "Debieten",
+            "x-table-order": 4,
+            "x-relevant-observations": [
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking"
+            ],
+            "x-relevant-feature-classes": [
+              "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Onttrekking"
+            ],
+            "x-reference-types": [
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunttype/debietmeter"
+            ],
+            "x-jsonld-type": "@id",
+            "x-feature-mapping": {
+              "relation": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
+              "classes": [
+                "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Onttrekking"
+              ],
+              "referenceTypes": [
+                "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunttype/debietmeter"
+              ]
+            },
+            "title": "Debietmeter",
+            "description": "Actieve debietmeters in het productiejaar.",
+            "x-ui-first": true
+          },
+          "onttrekkingStartmeterstand": {
+            "type": "object",
+            "properties": {
+              "resultTime": {
+                "type": "string",
+                "format": "date",
+                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-startdatum",
+                "x-table-workbook": "grondwater-debieten.ods",
+                "x-table-sheet": "Debieten",
+                "x-table-order": 5,
+                "x-relevant-observations": [
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-startmeterstand"
+                ],
+                "x-source-datatype": "http://www.w3.org/2001/XMLSchema#date",
+                "x-jsonld-id": "http://www.w3.org/ns/sosa/resultTime",
+                "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#date",
+                "title": "Startdatum",
+                "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-feature"
+              },
+              "hasResult": {
+                "type": "object",
+                "properties": {
+                  "numericValue": {
+                    "type": "number",
+                    "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
+                    "x-table-order": 6,
+                    "title": "Startmeterstand",
+                    "x-ui-first": true
+                  },
+                  "hasUnit": {
+                    "type": "string",
+                    "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32",
+                    "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32",
+                    "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
+                    "x-jsonld-type": "@id",
+                    "title": "Eenheid",
+                    "x-ui-after": "numericValue"
+                  }
+                },
+                "additionalProperties": false,
+                "dependentRequired": {
+                  "numericValue": [
+                    "hasUnit"
+                  ]
+                },
+                "required": [
+                  "numericValue",
+                  "hasUnit"
+                ],
+                "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
+                "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
+                "x-implicit-result": true,
+                "x-ui-hidden-container": true,
+                "title": "Startmeterstand"
+              },
+              "observedProperty": {
+                "type": "string",
+                "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-startmeterstand",
+                "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                "x-ui-hidden": true
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "hasResult",
+              "observedProperty"
+            ],
+            "x-table-sheet": "Debieten",
+            "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-startmeterstand",
+            "x-table-workbook": "grondwater-debieten.ods",
+            "x-table-order": 6,
+            "x-relevant-observations": [
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking"
+            ],
+            "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+            "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
+            "x-value-path": [
+              "hasResult",
+              "numericValue"
+            ],
+            "x-scalar-observation": true,
+            "title": "Startmeterstand",
+            "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-startdatum"
+          },
+          "onttrekkingEindmeterstand": {
+            "type": "object",
+            "properties": {
+              "resultTime": {
+                "type": "string",
+                "format": "date",
+                "x-table-workbook": "grondwater-debieten.ods",
+                "x-table-sheet": "Debieten",
+                "x-table-order": 7,
+                "x-relevant-observations": [
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-eindmeterstand",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-hoeveelheid"
+                ],
+                "x-source-datatype": "http://www.w3.org/2001/XMLSchema#date",
+                "x-jsonld-id": "http://www.w3.org/ns/sosa/resultTime",
+                "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#date",
+                "x-derived-from-source": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-einddatum",
+                "x-ui-hidden": true,
+                "title": "Einddatum",
+                "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-startmeterstand"
+              },
+              "hasResult": {
+                "type": "object",
+                "properties": {
+                  "numericValue": {
+                    "type": "number",
+                    "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
+                    "x-table-order": 8,
+                    "title": "Eindmeterstand",
+                    "x-ui-first": true
+                  },
+                  "hasUnit": {
+                    "type": "string",
+                    "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32",
+                    "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32",
+                    "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
+                    "x-jsonld-type": "@id",
+                    "title": "Eenheid",
+                    "x-ui-after": "numericValue"
+                  }
+                },
+                "additionalProperties": false,
+                "dependentRequired": {
+                  "numericValue": [
+                    "hasUnit"
+                  ]
+                },
+                "required": [
+                  "numericValue",
+                  "hasUnit"
+                ],
+                "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
+                "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
+                "x-implicit-result": true,
+                "x-ui-hidden-container": true,
+                "title": "Eindmeterstand"
+              },
+              "observedProperty": {
+                "type": "string",
+                "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-eindmeterstand",
+                "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                "x-ui-hidden": true
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "resultTime",
+              "hasResult",
+              "observedProperty"
+            ],
+            "x-table-sheet": "Debieten",
+            "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-eindmeterstand",
+            "x-table-workbook": "grondwater-debieten.ods",
+            "x-table-order": 8,
+            "x-relevant-observations": [
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking"
+            ],
+            "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+            "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
+            "x-value-path": [
+              "hasResult",
+              "numericValue"
+            ],
+            "x-scalar-observation": true,
+            "title": "Eindmeterstand",
+            "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-einddatum"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-debiettype/infiltratie",
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-debiettype/onttrekking",
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-debiettype/totaal_rondgepompd",
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-debiettype/spui"
+            ],
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-type-debiet",
+            "x-table-workbook": "grondwater-debieten.ods",
+            "x-table-sheet": "Debieten",
+            "x-table-order": 9,
+            "x-relevant-observations": [
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking"
+            ],
+            "x-code-lists": [
+              "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_debiettypes"
+            ],
+            "x-jsonld-id": "http://purl.org/dc/terms/type",
+            "x-jsonld-type": "@id",
+            "title": "Type debiet",
+            "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-eindmeterstand",
+            "x-ui-after": "onttrekkingEindmeterstand"
+          },
+          "onttrekkingHoeveelheid": {
+            "type": "object",
+            "properties": {
+              "resultTime": {
+                "type": "string",
+                "format": "date",
+                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-einddatum",
+                "x-table-workbook": "grondwater-debieten.ods",
+                "x-table-sheet": "Debieten",
+                "x-table-order": 7,
+                "x-relevant-observations": [
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-eindmeterstand",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-hoeveelheid"
+                ],
+                "x-source-datatype": "http://www.w3.org/2001/XMLSchema#date",
+                "x-jsonld-id": "http://www.w3.org/ns/sosa/resultTime",
+                "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#date",
+                "title": "Einddatum",
+                "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-startmeterstand"
+              },
+              "hasResult": {
+                "type": "object",
+                "properties": {
+                  "numericValue": {
+                    "type": "number",
+                    "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
+                    "x-table-order": 10,
+                    "title": "Hoeveelheid",
+                    "x-ui-first": true
+                  },
+                  "hasUnit": {
+                    "type": "string",
+                    "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32",
+                    "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32",
+                    "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
+                    "x-jsonld-type": "@id",
+                    "title": "Eenheid",
+                    "x-ui-after": "numericValue"
+                  }
+                },
+                "additionalProperties": false,
+                "dependentRequired": {
+                  "numericValue": [
+                    "hasUnit"
+                  ]
+                },
+                "required": [
+                  "numericValue",
+                  "hasUnit"
+                ],
+                "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
+                "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
+                "x-implicit-result": true,
+                "x-ui-hidden-container": true,
+                "title": "Hoeveelheid"
+              },
+              "observedProperty": {
+                "type": "string",
+                "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-hoeveelheid",
+                "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                "x-ui-hidden": true
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "resultTime",
+              "hasResult",
+              "observedProperty"
+            ],
+            "x-table-sheet": "Debieten",
+            "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-hoeveelheid",
+            "x-table-workbook": "grondwater-debieten.ods",
+            "x-table-order": 10,
+            "x-relevant-observations": [
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking"
+            ],
+            "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+            "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
+            "x-value-path": [
+              "hasResult",
+              "numericValue"
+            ],
+            "x-scalar-observation": true,
+            "title": "Hoeveelheid",
+            "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-type-debiet",
+            "x-ui-after": "type"
+          },
+          "onttrekkingSpui": {
+            "type": "boolean",
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-spui",
+            "x-table-workbook": "grondwater-debieten.ods",
+            "x-table-sheet": "Debieten",
+            "x-table-order": 11,
+            "x-relevant-observations": [
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking"
+            ],
+            "x-source-datatype": "http://www.w3.org/2001/XMLSchema#boolean",
+            "title": "Spui meegeteld in rondgepompt debiet",
+            "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-hoeveelheid",
+            "x-ui-after": "onttrekkingHoeveelheid"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "onttrekkingHoeveelheid",
+          "onttrekkingSpui"
+        ],
+        "x-table-sheet": "Debieten",
+        "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#ObservatieVerzameling",
+        "anyOf": [
+          {
+            "required": [
+              "onttrekkingStartmeterstand"
+            ]
+          },
+          {
+            "required": [
+              "onttrekkingEindmeterstand"
+            ]
+          },
+          {
+            "required": [
+              "onttrekkingHoeveelheid"
+            ]
+          }
+        ],
+        "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
+        "x-table-order": 0,
+        "title": "Onttrekking/infiltratie",
+        "description": "Een meting van de onttrekking van een pompput.",
+        "x-ui-first": true
+      },
+      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
+      "x-array-kind": "records",
+      "x-ui-first": true,
+      "x-table-sheet": "Debieten",
+      "x-table-order": 0
+    }
+  },
+  "additionalProperties": false,
+  "x-theme-concept": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
+  "x-theme-slug": "grondwater",
+  "x-theme-label": "Grondwater",
+  "x-semantic-profile": "https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/",
+  "x-flow-transitions": [],
+  "x-section-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
+  "x-table-workbook": "grondwater-debieten.ods"
+}

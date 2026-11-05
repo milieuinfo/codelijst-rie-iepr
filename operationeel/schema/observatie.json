@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.riepr.omgeving.vlaanderen.be/schema/2026/observatie/observatie.json",
+  "title": "Observatie",
+  "type": "object",
+  "x-jsonld-type": "http://www.w3.org/ns/sosa/Observation",
+  "properties": {
+    "hasFeatureOfInterest": {
+      "x-jsonld-id": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "object"
+        }
+      ],
+      "x-jsonld-type": "@id"
+    },
+    "hasUltimateFeatureOfInterest": {
+      "x-jsonld-id": "http://www.w3.org/ns/sosa/hasUltimateFeatureOfInterest",
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "object"
+        }
+      ],
+      "x-jsonld-type": "@id"
+    },
+    "madeBySensor": {
+      "x-jsonld-id": "http://www.w3.org/ns/sosa/madeBySensor",
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "object"
+        }
+      ],
+      "x-jsonld-type": "@id"
+    },
+    "observedProperty": {
+      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "object"
+        }
+      ],
+      "x-jsonld-type": "@id"
+    },
+    "phenomenonTime": {
+      "x-jsonld-id": "http://www.w3.org/ns/sosa/phenomenonTime",
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "object",
+          "required": [
+            "start",
+            "end"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "start": {
+              "type": "string"
+            },
+            "end": {
+              "type": "string"
+            }
+          },
+          "anyOf": [
+            {
+              "properties": {
+                "start": {
+                  "format": "date"
+                },
+                "end": {
+                  "format": "date"
+                }
+              }
+            },
+            {
+              "properties": {
+                "start": {
+                  "format": "date-time"
+                },
+                "end": {
+                  "format": "date-time"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "resultTime": {
+      "x-jsonld-id": "http://www.w3.org/ns/sosa/resultTime",
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "object",
+          "required": [
+            "start",
+            "end"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "start": {
+              "type": "string"
+            },
+            "end": {
+              "type": "string"
+            }
+          },
+          "anyOf": [
+            {
+              "properties": {
+                "start": {
+                  "format": "date"
+                },
+                "end": {
+                  "format": "date"
+                }
+              }
+            },
+            {
+              "properties": {
+                "start": {
+                  "format": "date-time"
+                },
+                "end": {
+                  "format": "date-time"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "usedProcedure": {
+      "x-jsonld-id": "http://www.w3.org/ns/sosa/usedProcedure",
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "object"
+        }
+      ],
+      "x-jsonld-type": "@id"
+    }
+  },
+  "not": {
+    "required": [
+      "hasMember"
+    ]
+  }
+}

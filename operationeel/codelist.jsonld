@@ -1,0 +1,4820 @@
+{
+  "x-source-profile": "groundwater-csv-v1",
+  "@context": {
+    "about": {
+      "@id": "https://schema.org/about",
+      "@type": "@id"
+    },
+    "accessRights": {
+      "@id": "http://purl.org/dc/terms/accessRights",
+      "@type": "@id"
+    },
+    "accessURL": {
+      "@id": "http://www.w3.org/ns/dcat#accessURL",
+      "@type": "@id"
+    },
+    "achternaam": {
+      "@id": "http://www.w3.org/2006/vcard/ns#family-name"
+    },
+    "actedOnBehalfOf": {
+      "@id": "http://www.w3.org/ns/prov#actedOnBehalfOf",
+      "@type": "@id"
+    },
+    "alternative": {
+      "@id": "http://purl.org/dc/terms/alternative",
+      "@language": "nl"
+    },
+    "altLabel": {
+      "@id": "http://www.w3.org/2004/02/skos/core#altLabel",
+      "@language": "nl"
+    },
+    "applicableUnit": {
+      "@id": "http://qudt.org/schema/qudt/applicableUnit",
+      "@type": "@id"
+    },
+    "asWKT": {
+      "@id": "http://www.opengis.net/ont/geosparql#asWKT",
+      "@type": "http://www.opengis.net/ont/geosparql#wktLiteral"
+    },
+    "availableGraphs": {
+      "@id": "http://www.w3.org/ns/sparql-service-description#availableGraphs",
+      "@type": "@id"
+    },
+    "bedrijfsklasse": {
+      "@id": "https://data.vlaanderen.be/ns/omgevingsvergunning#juridischeKwalificatie",
+      "@type": "@id"
+    },
+    "belongsTo": {
+      "@id": "http://rdf-vocabulary.ddialliance.org/xkos#belongsTo",
+      "@type": "@id"
+    },
+    "boolean_value": {
+      "@id": "rdf:value",
+      "@type": "xsd:boolean"
+    },
+    "broader": {
+      "@id": "http://www.w3.org/2004/02/skos/core#broader",
+      "@type": "@id"
+    },
+    "broaderPartitive": {
+      "@id": "http://purl.org/iso25964/skos-thes#broaderPartitive",
+      "@type": "@id"
+    },
+    "narrowerPartitive": {
+      "@id": "http://purl.org/iso25964/skos-thes#narrowerPartitive",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "broaderTransitive": {
+      "@id": "http://www.w3.org/2004/02/skos/core#broaderTransitive",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "broadMatch": {
+      "@id": "http://www.w3.org/2004/02/skos/core#broadMatch",
+      "@type": "@id"
+    },
+    "casNumber": {
+      "@id": "dbo:casNumber"
+    },
+    "closeMatch": {
+      "@id": "http://www.w3.org/2004/02/skos/core#closeMatch",
+      "@type": "@id"
+    },
+    "code": {
+      "@id": "http://www.w3.org/2004/02/skos/core#notation"
+    },
+    "collections": {
+      "@type": "@id",
+      "@reverse": "member"
+    },
+    "comment": {
+      "@id": "rdfs:comment",
+      "@language": "nl"
+    },
+    "compressFormat": {
+      "@id": "http://www.w3.org/ns/dcat#compressFormat",
+      "@type": "@id"
+    },
+    "conformsTo": {
+      "@id": "http://purl.org/dc/terms/conformsTo",
+      "@type": "@id"
+    },
+    "contact": {
+      "@id": "http://www.w3.org/ns/dcat#contactPoint",
+      "@type": "@id"
+    },
+    "contactLabel": {
+      "@id": "http://www.w3.org/2006/vcard/ns#fn"
+    },
+    "contactPoint": {
+      "@id": "http://www.w3.org/ns/dcat#contactPoint",
+      "@type": "@id"
+    },
+    "created": {
+      "@id": "http://purl.org/dc/terms/created",
+      "@type": "xsd:dateTime"
+    },
+    "dataset": {
+      "@id": "http://www.w3.org/ns/dcat#dataset",
+      "@type": "@id"
+    },
+    "dateAccepted": {
+      "@id": "http://purl.org/dc/terms/dateAccepted",
+      "@type": "xsd:dateTime"
+    },
+    "datum": {
+      "@id": "http://purl.org/dc/terms/date",
+      "@type": "xsd:date"
+    },
+    "dc_identifier": {
+      "@id": "http://purl.org/dc/elements/1.1/identifier"
+    },
+    "dc_language": {
+      "@id": "http://purl.org/dc/elements/1.1/language",
+      "@language": "nl"
+    },
+    "dc_source": {
+      "@id": "http://purl.org/dc/elements/1.1/source"
+    },
+    "dct_language": {
+      "@id": "http://purl.org/dc/terms/language",
+      "@type": "@id"
+    },
+    "dct_type": {
+      "@id": "http://purl.org/dc/terms/type",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "dc_type": {
+      "@id": "http://purl.org/dc/elements/1.1/type"
+    },
+    "defaultDataset": {
+      "@id": "http://www.w3.org/ns/sparql-service-description#defaultDataset",
+      "@type": "@id"
+    },
+    "defaultGraph": {
+      "@id": "http://www.w3.org/ns/sparql-service-description#defaultGraph",
+      "@type": "@id"
+    },
+    "definition": {
+      "@id": "http://www.w3.org/2004/02/skos/core#definition",
+      "@language": "nl"
+    },
+    "description": {
+      "@id": "http://purl.org/dc/terms/description",
+      "@language": "nl"
+    },
+    "distribution": {
+      "@id": "http://www.w3.org/ns/dcat#distribution",
+      "@type": "@id"
+    },
+    "downloadLocation": {
+      "@id": "http://spdx.org/rdf/terms#downloadLocation",
+      "@type": "@id"
+    },
+    "downloadURL": {
+      "@id": "http://www.w3.org/ns/dcat#downloadURL",
+      "@type": "@id"
+    },
+    "drager": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#drager",
+      "@type": "@id"
+    },
+    "endpointDescription": {
+      "@id": "http://www.w3.org/ns/dcat#endpointDescription",
+      "@type": "@id"
+    },
+    "endpoint": {
+      "@id": "http://www.w3.org/ns/sparql-service-description#endpoint",
+      "@type": "@id"
+    },
+    "endpointURL": {
+      "@id": "http://www.w3.org/ns/dcat#endpointURL",
+      "@type": "@id"
+    },
+    "exactMatch": {
+      "@id": "http://www.w3.org/2004/02/skos/core#exactMatch",
+      "@type": "@id"
+    },
+    "exploitant": {
+      "@id": "https://data.vlaanderen.be/ns/omgevingsvergunning#verantwoordelijke",
+      "@type": "@id"
+    },
+    "feature": {
+      "@id": "http://www.w3.org/ns/sparql-service-description#feature",
+      "@type": "@id"
+    },
+    "format": {
+      "@id": "http://purl.org/dc/terms/format",
+      "@type": "@id"
+    },
+    "forProperty": {
+      "@id": "http://www.w3.org/ns/ssn/forProperty",
+      "@type": "@id"
+    },
+    "gemeentecode": {
+      "@id": "http://purl.org/dc/terms/coverage",
+      "@type": "@id"
+    },
+    "gemeente": {
+      "@id": "http://www.w3.org/ns/locn#postName"
+    },
+    "geolocatie": {
+      "@id": "http://www.w3.org/ns/locn#geometry"
+    },
+    "graph": {
+      "@id": "@graph"
+    },
+    "hasGeometry": {
+      "@id": "http://www.opengis.net/ont/geosparql#hasGeometry",
+      "@type": "@id"
+    },
+    "hasOperatingProperty": {
+      "@id": "http://www.w3.org/ns/ssn/systems/hasOperatingProperty",
+      "@type": "@id"
+    },
+    "hasOperatingRange": {
+      "@id": "http://www.w3.org/ns/ssn/systems/hasOperatingRange",
+      "@type": "@id"
+    },
+    "hasProcedureForProperty": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#hasProcedureForProperty",
+      "@type": "@id"
+    },
+    "hasProperty": {
+      "@id": "http://www.w3.org/ns/ssn/hasProperty",
+      "@type": "@id"
+    },
+    "hasResult": {
+      "@id": "sosa:hasResult",
+      "@type": "@id"
+    },
+    "hasTopConcept": {
+      "@id": "http://www.w3.org/2004/02/skos/core#hasTopConcept",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "hasVersion": {
+      "@id": "http://purl.org/dc/terms/hasVersion",
+      "@type": "@id"
+    },
+    "identifier": {
+      "@id": "http://purl.org/dc/terms/identifier",
+      "@type": "@id"
+    },
+    "uri": {
+      "@id": "@id",
+      "@type": "@id"
+    },
+    "_id": {
+      "@id": "@id",
+      "@type": "@id"
+    },
+    "id": {
+      "@id": "@id",
+      "@type": "@id"
+    },
+    "inScheme": {
+      "@id": "http://www.w3.org/2004/02/skos/core#inScheme",
+      "@type": "@id"
+    },
+    "inrichtingnummer": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#inrichtingsnummer"
+    },
+    "inrichtingsnummer": {
+      "@type": "https://data.riepr.omgeving.vlaanderen.be/id/datatype/inrichtingsnummer",
+      "@id": "http://www.w3.org/2004/02/skos/core#notation"
+    },
+    "integer_value": {
+      "@id": "rdf:value",
+      "@type": "xsd:integer"
+    },
+    "intervalcategorie": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#intervalcategorie"
+    },
+    "inXSDDateTime": {
+      "@id": "http://www.w3.org/2006/time#inXSDDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "hasPart": {
+      "@id": "http://purl.org/dc/terms/hasPart",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "isPartOf": {
+      "@id": "http://purl.org/dc/terms/isPartOf",
+      "@type": "@id"
+    },
+    "isPropertyOf": {
+      "@id": "http://www.w3.org/ns/ssn/isPropertyOf",
+      "@type": "@id"
+    },
+    "isReferencedBy": {
+      "@id": "http://purl.org/dc/terms/isReferencedBy",
+      "@type": "@id"
+    },
+    "status": {
+      "@id": "http://www.w3.org/ns/adms#status",
+      "@type": "@id"
+    },
+    "issued": {
+      "@id": "http://purl.org/dc/terms/issued",
+      "@type": "xsd:dateTime"
+    },
+    "isVersionOf": {
+      "@id": "http://purl.org/dc/terms/isVersionOf",
+      "@type": "@id"
+    },
+    "kwalitatieve_waarde": {
+      "@id": "rdf:value",
+      "@type": "@id"
+    },
+    "label": {
+      "@id": "rdfs:label",
+      "@language": "nl"
+    },
+    "modified": {
+      "@id": "http://purl.org/dc/terms/modified",
+      "@type": "xsd:dateTime"
+    },
+    "language": "http://publications.europa.eu/resource/authority/language/",
+    "landingPage": {
+      "@id": "http://www.w3.org/ns/dcat#landingPage",
+      "@type": "@id"
+    },
+    "accrualPeriodicity": {
+      "@id": "http://purl.org/dc/terms/accrualPeriodicity",
+      "@type": "@id"
+    },
+    "license": {
+      "@id": "http://purl.org/dc/terms/license",
+      "@type": "@id"
+    },
+    "lokaleId": {
+      "@id": "http://purl.org/dc/elements/1.1/identifier"
+    },
+    "locatie": {
+      "@id": "http://www.w3.org/ns/locn#location",
+      "@type": "@id"
+    },
+    "madeBySensor": {
+      "@id": "sosa:madeBySensor",
+      "@type": "@id"
+    },
+    "mappingRelation": {
+      "@id": "http://www.w3.org/2004/02/skos/core#mappingRelation",
+      "@type": "@id"
+    },
+    "maxValue": {
+      "@id": "https://schema.org/maxValue",
+      "@type": "xsd:decimal"
+    },
+    "mediaType": {
+      "@id": "http://www.w3.org/ns/dcat#mediaType",
+      "@type": "@id"
+    },
+    "member": {
+      "@id": "http://www.w3.org/2004/02/skos/core#member",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "minValue": {
+      "@id": "https://schema.org/minValue",
+      "@type": "xsd:decimal"
+    },
+    "naam": {
+      "@id": "http://www.w3.org/2004/02/skos/core#prefLabel"
+    },
+    "namedGraph": {
+      "@id": "http://www.w3.org/ns/sparql-service-description#namedGraph",
+      "@type": "@id"
+    },
+    "name": {
+      "@id": "http://spdx.org/rdf/terms#name"
+    },
+    "narrower": {
+      "@id": "http://www.w3.org/2004/02/skos/core#narrower",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "narrowerTransitive": {
+      "@id": "http://www.w3.org/2004/02/skos/core#narrowerTransitive",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "narrowMatch": {
+      "@id": "http://www.w3.org/2004/02/skos/core#narrowMatch",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "normstatus": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#normstatus",
+      "@language": "nl"
+    },
+    "notation": {
+      "@id": "http://www.w3.org/2004/02/skos/core#notation"
+    },
+    "note": {
+      "@id": "http://www.w3.org/2004/02/skos/core#note",
+      "@language": "nl"
+    },
+    "numerieke_waarde": {
+      "@id": "rdf:value",
+      "@type": "xsd:decimal"
+    },
+    "nummer": {
+      "@id": "http://www.w3.org/ns/locn#locatorDesignator"
+    },
+    "observedProperty": {
+      "@id": "sosa:observedProperty",
+      "@type": "@id"
+    },
+    "ondernemingsnummer": {
+      "@id": "http://www.w3.org/ns/org#identifier"
+    },
+    "operatie": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#operatie",
+      "@language": "nl"
+    },
+    "organisatie": {
+      "@id": "http://www.w3.org/2006/vcard/ns#org",
+      "@type": "@id"
+    },
+    "organisatienaam": {
+      "@id": "http://www.w3.org/2006/vcard/ns#organization-name"
+    },
+    "packageFileName": {
+      "@id": "http://spdx.org/rdf/terms#packageFileName"
+    },
+    "packageName": {
+      "@id": "http://spdx.org/rdf/terms#packageName"
+    },
+    "page": {
+      "@id": "http://xmlns.com/foaf/0.1/page",
+      "@type": "@id"
+    },
+    "phenomenonTime": {
+      "@id": "sosa:phenomenonTime",
+      "@type": "xsd:dateTime"
+    },
+    "postcode": {
+      "@id": "http://www.w3.org/ns/locn#postCode"
+    },
+    "prefLabel": {
+      "@id": "http://www.w3.org/2004/02/skos/core#prefLabel",
+      "@language": "nl"
+    },
+    "provenance": {
+      "@id": "http://purl.org/dc/terms/provenance"
+    },
+    "publisher": {
+      "@id": "http://purl.org/dc/terms/publisher",
+      "@type": "@id"
+    },
+    "rechtspersoonlijkheid": {
+      "@id": "http://www.w3.org/ns/org#classificatie",
+      "@type": "@id"
+    },
+    "references": {
+      "@id": "http://purl.org/dc/terms/references",
+      "@type": "@id"
+    },
+    "referentiewaardeType": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#referentiewaardeType"
+    },
+    "related": {
+      "@id": "http://www.w3.org/2004/02/skos/core#related",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "relation": {
+      "@id": "http://purl.org/dc/terms/relation",
+      "@type": "@id"
+    },
+    "relationshipType_packageOf": {
+      "@id": "http://spdx.org/rdf/terms#relationshipType_packageOf",
+      "@type": "@id"
+    },
+    "relevantCodeList": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantCodeList",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "relevantDataType": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantDataType",
+      "@type": "@id"
+    },
+    "relevantObservation": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantObservation",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "relevantClass": {
+      "@id": "http://www.w3.org/ns/shacl#class",
+      "@type": "@id"
+    },
+    "relevantRiepr": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantRiepr",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "relevantProperty": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantProperty",
+      "@type": "@id"
+    },
+    "relevantQuantityKind": {
+      "@id": "http://qudt.org/schema/qudt/relevantQuantityKind",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "relevantSystem": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantSystem",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "relevantFeatureClass": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantFeatureClass",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "relevantUnit": {
+      "@id": "http://qudt.org/schema/qudt/relevantUnit",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "resultFormat": {
+      "@id": "http://www.w3.org/ns/sparql-service-description#resultFormat",
+      "@type": "@id"
+    },
+    "result": {
+      "@id": "sosa:hasResult",
+      "@type": "@id"
+    },
+    "resultTime": {
+      "@id": "sosa:resultTime",
+      "@type": "xsd:dateTime"
+    },
+    "rightsHolder": {
+      "@id": "http://purl.org/dc/terms/rightsHolder",
+      "@type": "@id"
+    },
+    "rootResource": {
+      "@id": "http://rdfs.org/ns/void#rootResource",
+      "@type": "@id"
+    },
+    "schemaAgency": {
+      "@id": "http://www.w3.org/ns/adms#schemaAgency"
+    },
+    "scopeNote": {
+      "@id": "http://www.w3.org/2004/02/skos/core#scopeNote",
+      "@language": "nl"
+    },
+    "seeAlso": {
+      "@id": "rdfs:seeAlso",
+      "@type": "@id"
+    },
+    "semanticRelation": {
+      "@id": "http://www.w3.org/2004/02/skos/core#semanticRelation",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "servesDataset": {
+      "@id": "http://www.w3.org/ns/dcat#servesDataset",
+      "@type": "@id"
+    },
+    "service": {
+      "@id": "http://www.w3.org/ns/dcat#service",
+      "@type": "@id"
+    },
+    "severity": {
+      "@id": "http://www.w3.org/ns/shacl#severity",
+      "@type": "@id"
+    },
+    "simple_result": {
+      "@id": "sosa:hasSimpleResult"
+    },
+    "soortWaartbepaling": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#soortWaartbepaling",
+      "@type": "@id"
+    },
+    "source": {
+      "@id": "http://purl.org/dc/terms/source",
+      "@type": "@id"
+    },
+    "sparql-service-description-graph": {
+      "@id": "http://www.w3.org/ns/sparql-service-description#graph",
+      "@type": "@id"
+    },
+    "sparql-service-description-name": {
+      "@id": "http://www.w3.org/ns/sparql-service-description#name",
+      "@type": "@id"
+    },
+    "spatial": {
+      "@id": "http://purl.org/dc/terms/spatial",
+      "@type": "@id"
+    },
+    "straatnaam": {
+      "@id": "http://www.w3.org/ns/locn#thoroughfare"
+    },
+    "subject": {
+      "@id": "http://purl.org/dc/terms/subject",
+      "@type": "@id"
+    },
+    "supportedLanguage": {
+      "@id": "http://www.w3.org/ns/sparql-service-description#supportedLanguage",
+      "@type": "@id"
+    },
+    "systeem": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#systeemDimensie",
+      "@type": "@id"
+    },
+    "kwantiteitsAspect": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#kwantiteitsAspect",
+      "@type": "@id"
+    },
+    "temporal": {
+      "@id": "http://purl.org/dc/terms/temporal",
+      "@type": "@id"
+    },
+    "theme": {
+      "@id": "http://www.w3.org/ns/dcat#theme",
+      "@type": "@id"
+    },
+    "timePeriod": {
+      "@id": "http://purl.org/linked-data/sdmx/2009/dimension#timePeriod",
+      "@type": "xsd:dateTime"
+    },
+    "title": {
+      "@id": "http://purl.org/dc/terms/title",
+      "@language": "nl"
+    },
+    "topConceptOf": {
+      "@id": "http://www.w3.org/2004/02/skos/core#topConceptOf",
+      "@type": "@id"
+    },
+    "_type": {
+      "@id": "@type",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "url": {
+      "@id": "http://www.w3.org/ns/sparql-service-description#url",
+      "@type": "@id"
+    },
+    "used": {
+      "@id": "http://www.w3.org/ns/prov#used",
+      "@type": "@id"
+    },
+    "usedProcedure": {
+      "@id": "sosa:usedProcedure",
+      "@type": "@id"
+    },
+    "value": {
+      "@id": "https://schema.org/value",
+      "@type": "xsd:decimal"
+    },
+    "_value": "@value",
+    "variabele": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#variabele",
+      "@type": "@id"
+    },
+    "vcard_note": {
+      "@id": "http://www.w3.org/2006/vcard/ns#note"
+    },
+    "version": {
+      "@id": "http://www.w3.org/2002/07/owl#versionInfo"
+    },
+    "vervolgstap": {
+      "@id": "http://purl.org/linked-data/cube#codeList",
+      "@type": "@id"
+    },
+    "versionInfo": {
+      "@id": "http://spdx.org/rdf/terms#versionInfo"
+    },
+    "isVerplicht": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#isVerplicht",
+      "@type": "xsd:boolean"
+    },
+    "isMeervoudig": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#isMeervoudig",
+      "@type": "xsd:boolean"
+    },
+    "isMultiselect": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#isMultiselect",
+      "@type": "xsd:boolean"
+    },
+    "isMeetbaar": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#isMeetbaar",
+      "@type": "xsd:boolean"
+    },
+    "isOnzichtbaar": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#isOnzichtbaar",
+      "@type": "xsd:boolean"
+    },
+    "wasAssociatedWith": {
+      "@id": "http://www.w3.org/ns/prov#wasAssociatedWith",
+      "@type": "@id"
+    },
+    "wasInformedBy": {
+      "@id": "http://www.w3.org/ns/prov#wasInformedBy",
+      "@type": "@id"
+    },
+    "conditionPath": {
+      "@id": "http://www.w3.org/ns/shacl#path",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "conditionValue": {
+      "@id": "http://www.w3.org/ns/shacl#hasValue",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "_ui_after": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#uiAfter",
+      "@type": "@id"
+    },
+    "_ui_first": {
+      "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#uiFirst",
+      "@type": "xsd:boolean"
+    },
+    "concept": "https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/",
+    "collectie": "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/",
+    "aangiftestatus": "https://data.omgeving.vlaanderen.be/id/concept/riepr/aangiftestatus/",
+    "aangifte": "https://data.omgeving.vlaanderen.be/id/concept/riepr/aangiftetype/",
+    "bandbreedte": "https://data.omgeving.vlaanderen.be/id/concept/riepr/norm_bandbreedte/",
+    "bepalingsmethode": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bepalingsmethode/",
+    "bepalingsmethodeclassificatie": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bepalingsmethodeclassificatie/",
+    "bestemming": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/",
+    "contextueel": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-contextueel/",
+    "debiet": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-debiettype/",
+    "emissie": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissietype/",
+    "emissiepunteigenschappen": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunteigenschappen/",
+    "emissiepunt-selectiemogelijkheden": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunteigenschappen-selectiemogelijkheden/",
+    "emissiepunt": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/",
+    "filter": "https://data.omgeving.vlaanderen.be/id/concept/riepr/filtertype/",
+    "filtereigenschappen": "https://data.omgeving.vlaanderen.be/id/concept/riepr/filtereigenschappen/",
+    "grondstoffen": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/",
+    "grondwater": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/",
+    "installatie-eigenschappen": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen/",
+    "installatie-selectiemogelijkheden": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatie-eigenschappen-selectiemogelijkheden/",
+    "installatie": "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatietype/",
+    "lozingsplaats": "https://data.omgeving.vlaanderen.be/id/concept/riepr/lozingspunt-lozingsplaats/",
+    "lucht": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/",
+    "meetfrequentie": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-meetfrequentie/",
+    "meetinstrument": "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetinstrumenttype/",
+    "meetpunteigenschappen": "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunteigenschappen/",
+    "meetpunt-selectiemogelijkheden": "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunteigenschappen-selectiemogelijkheden/",
+    "meetpunt": "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunttype/",
+    "onttrekkingspunteigenschappen": "https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunteigenschappen/",
+    "onttrekkingspunt": "https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunttype/",
+    "peilmethode": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-peilmethode/",
+    "pomptoestand": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/",
+    "procedure": "https://data.omgeving.vlaanderen.be/id/concept/riepr/proceduretype/",
+    "procesvariabele": "https://data.omgeving.vlaanderen.be/id/concept/riepr/procesvariabeletype/",
+    "rubriek": "https://data.omgeving.vlaanderen.be/id/concept/riepr/rubriektype/",
+    "statustype": "https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/",
+    "techniekmonstername": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-techniekmonstername/",
+    "toepassingswijze": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toepassingswijze/",
+    "toestand-indicator": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toestand-indicator/",
+    "uitwisselpunteigenschappen": "https://data.omgeving.vlaanderen.be/id/concept/riepr/uitwisselpunteigenschappen/",
+    "uitwisselpunt": "https://data.omgeving.vlaanderen.be/id/concept/riepr/uitwisselpunttype/",
+    "water": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/",
+    "zelfcontrole-lucht": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/",
+    "zelfcontrole-water": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/",
+    "csor": "https://data.omgeving.vlaanderen.be/id/conceptscheme/csor/",
+    "csor_eenheid": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/",
+    "csor_variabele": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/",
+    "csor_drager": "https://data.omgeving.vlaanderen.be/id/concept/csor/drager/",
+    "csor_kwantificeerbaaraspect": "https://data.omgeving.vlaanderen.be/id/concept/csor/kwantificeerbaaraspect/",
+    "csor_soortwaardebepaling": "https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/",
+    "access_right": "http://publications.europa.eu/resource/authority/access-right/",
+    "adms": "http://www.w3.org/ns/adms#",
+    "agent": "https://data.riepr.omgeving.vlaanderen.be/id/agent/",
+    "assettype": "http://purl.org/adms/assettype/",
+    "conceptscheme-alg": "https://data.omgeving.vlaanderen.be/id/conceptscheme/",
+    "conceptscheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/",
+    "country": "http://publications.europa.eu/resource/authority/country/",
+    "datasets": "https://datasets.omgeving.vlaanderen.be/",
+    "datatheme_be": "http://vocab.belgif.be/auth/datatheme/",
+    "datatheme_eu": "http://publications.europa.eu/resource/authority/data-theme/",
+    "dbo": "http://dbpedia.org/ontology/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "dcmitype": "http://purl.org/dc/dcmitype/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dr": "https://data.omgeving.vlaanderen.be/id/concept/drager/",
+    "eurovoc": "http://eurovoc.europa.eu/",
+    "file_type": "http://publications.europa.eu/resource/authority/file-type/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "formats": "http://www.w3.org/ns/formats/",
+    "frequency": "http://publications.europa.eu/resource/authority/frequency/",
+    "gemet": "http://www.eionet.europa.eu/gemet/concept/",
+    "gml": "http://www.opengis.net/ont/gml#",
+    "gsp": "http://www.opengis.net/ont/geosparql#",
+    "iioa": "https://data.riepr.omgeving.vlaanderen.be/id/iioa/",
+    "platform": "https://data.riepr.omgeving.vlaanderen.be/id/platform/",
+    "licence": "http://data.vlaanderen.be/id/licentie/modellicentie-gratis-hergebruik/",
+    "locn": "http://www.w3.org/ns/locn#",
+    "riepr": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#",
+    "riepr-vocab": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#",
+    "metadata": "https://data.omgeving.vlaanderen.be/ns/metadata#",
+    "observatie": "https://data.riepr.omgeving.vlaanderen.be/id/observation/",
+    "omg_catalog_doc": "https://data.omgeving.vlaanderen.be/doc/catalog/",
+    "omg_catalog": "https://data.omgeving.vlaanderen.be/id/catalog/",
+    "omg_collection": "https://data.omgeving.vlaanderen.be/id/collection/",
+    "omg_dataservice": "https://data.omgeving.vlaanderen.be/id/dataservice/",
+    "omg_dataset_doc": "https://data.omgeving.vlaanderen.be/doc/dataset/",
+    "omg_dataset": "https://data.omgeving.vlaanderen.be/id/dataset/",
+    "omg_distribution_doc": "https://data.omgeving.vlaanderen.be/doc/distribution/",
+    "omg_distribution": "https://data.omgeving.vlaanderen.be/id/distribution/",
+    "omg_graphcollection": "https://data.omgeving.vlaanderen.be/id/graphcollection/",
+    "omg_graph": "https://data.omgeving.vlaanderen.be/id/graph/",
+    "omg": "https://data.vlaanderen.be/ns/omgevingsvergunning#",
+    "omg_id": "https://data.omgeving.vlaanderen.be/id/",
+    "omg_named_graph": "https://data.omgeving.vlaanderen.be/id/namedgraph/",
+    "omg_ontology": "https://data.omgeving.vlaanderen.be/id/ontology/",
+    "omg_package": "https://data.omgeving.vlaanderen.be/id/package/",
+    "omg_periodoftime": "https://data.omgeving.vlaanderen.be/id/periodoftime/",
+    "omg_service": "https://data.omgeving.vlaanderen.be/id/service/",
+    "omg_vcard": "https://data.omgeving.vlaanderen.be/id/vcard/",
+    "org": "http://www.w3.org/ns/org#",
+    "ovo": "http://data.vlaanderen.be/id/organisatie/",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "observatieprocedure": "https://data.omgeving.vlaanderen.be/id/concept/observatieprocedure/",
+    "property": "https://id.erfgoed.net/property/",
+    "provenancestatement": "https://data.omgeving.vlaanderen.be/id/provenancestatement/dataset/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "qb": "http://purl.org/linked-data/cube#",
+    "quantitykind": "http://qudt.org/vocab/quantitykind/",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "qudt-schema": "https://qudt.org/schema/qudt/",
+    "qudt-unit": "https://qudt.org/vocab/unit/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "rechtspers": "https://data.cbb.omgeving.vlaanderen.be/id/concept/orgrechtspersoonlijkheid/",
+    "refnis2025": "http://vocab.belgif.be/auth/refnis2025/",
+    "repo": "https://repo.omgeving.vlaanderen.be/artifactory/release/",
+    "rov": "http://www.w3.org/ns/regorg#",
+    "schema": "https://schema.org/",
+    "sdmx-attribute": "http://purl.org/linked-data/sdmx/2009/attribute#",
+    "sdmx-dimension": "http://purl.org/linked-data/sdmx/2009/dimension#",
+    "sdmx-measure": "http://purl.org/linked-data/sdmx/2009/measure#",
+    "sh": "http://www.w3.org/ns/shacl#",
+    "site": "https://data.riepr.omgeving.vlaanderen.be/id/site/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "spdx": "http://spdx.org/rdf/terms#",
+    "ssd": "http://www.w3.org/ns/sparql-service-description#",
+    "ssn": "http://www.w3.org/ns/ssn/",
+    "ssn-system": "http://www.w3.org/ns/ssn/systems/",
+    "time": "http://www.w3.org/2006/time#",
+    "unit": "http://qudt.org/vocab/unit/",
+    "vcard": "http://www.w3.org/2006/vcard/ns#",
+    "vlarem-klasse": "https://data.omgeving.vlaanderen.be/id/concept/vlarem-klasse/",
+    "void": "http://rdfs.org/ns/void#",
+    "wise": "http://dd.eionet.europa.eu/vocabulary/wise/ObservedProperty/",
+    "xkos": "http://rdf-vocabulary.ddialliance.org/xkos#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "vmm": "http://vmm.be#",
+    "@base": "https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/"
+  },
+  "graph": [
+    {
+      "id": "qudt:numericValue",
+      "_type": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "rdfs:comment",
+      "_type": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "rdfs:label",
+      "_type": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "rdfs:value",
+      "_type": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "time:hasDuration",
+      "_type": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "adms:identifier",
+      "_type": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "rov:registration",
+      "_type": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "sosa:hasFeatureOfInterest",
+      "_type": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "sosa:hasMember",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-05T12:53:32.429Z",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "sosa:hasResult",
+      "_type": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "sosa:madeBySensor",
+      "_type": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "sosa:observedProperty",
+      "_type": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "sosa:phenomenonTime",
+      "_type": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "sosa:resultTime",
+      "_type": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "sosa:usedProcedure",
+      "_type": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "collectie:operationeel_parameters_grondwater",
+      "_type": "skos:Collection",
+      "_table_order": 65,
+      "prefLabel": "Parameters grondwaterkwaliteit",
+      "member": [
+        "csor_variabele:V_246",
+        "csor_variabele:V_247",
+        "csor_variabele:V_251",
+        "csor_variabele:V_321",
+        "csor_variabele:V_337",
+        "csor_variabele:V_329"
+      ]
+    },
+    {
+      "id": "collectie:operationeel_stoffen_lucht",
+      "_type": "skos:Collection",
+      "_table_order": 49,
+      "prefLabel": "Verontreinigende stoffen en broeikasgassen (lucht)",
+      "member": [
+        "csor_variabele:V_1057",
+        "csor_variabele:V_1919",
+        "csor_variabele:V_1685",
+        "csor_variabele:V_1901",
+        "csor_variabele:V_1686",
+        "csor_variabele:V_1060"
+      ]
+    },
+    {
+      "id": "collectie:operationeel_stoffen_water",
+      "_type": "skos:Collection",
+      "_table_order": 57,
+      "prefLabel": "Verontreinigende stoffen (water)",
+      "member": [
+        "csor_variabele:V_424",
+        "csor_variabele:V_231",
+        "csor_variabele:V_46",
+        "csor_variabele:V_316",
+        "csor_variabele:V_351",
+        "csor_variabele:V_333"
+      ]
+    },
+    {
+      "id": "collectie:opslagcapaciteit_eenheden",
+      "_type": [
+        "skos:Collection"
+      ],
+      "definition": "De eenheden waarin de geïnstalleerde opslag- of overslagcapaciteit uitgedrukt kan worden.",
+      "member": [
+        "csor_eenheid:E_32",
+        "csor_eenheid:E_33",
+        "csor_eenheid:E_41",
+        "csor_eenheid:E_83"
+      ],
+      "note": "De eenheden waarin de geïnstalleerde opslag- of overslagcapaciteit uitgedrukt kan worden.",
+      "prefLabel": "Verzameling van CSOR eenheden"
+    },
+    {
+      "id": "collectie:productiecapaciteit_eenheden",
+      "_type": [
+        "skos:Collection"
+      ],
+      "definition": "De eenheden waarin de geïnstalleerde productiecapaciteit uitgedrukt kan worden.",
+      "member": [
+        "csor_eenheid:E_15"
+      ],
+      "note": "De eenheden waarin de geïnstalleerde productiecapaciteit uitgedrukt kan worden.",
+      "prefLabel": "Verzameling van CSOR eenheden"
+    },
+    {
+      "id": "collectie:vermogen_eenheden",
+      "_type": [
+        "skos:Collection"
+      ],
+      "member": [
+        "csor_eenheid:E_92"
+      ],
+      "prefLabel": "Verzameling van CSOR eenheden"
+    },
+    {
+      "id": "collectie:verwijderingsrendement_stoffen",
+      "_type": [
+        "skos:Collection"
+      ],
+      "member": [
+        "csor_variabele:V_1096",
+        "csor_variabele:V_2217"
+      ],
+      "prefLabel": "Verzameling van CSOR stoffen"
+    },
+    {
+      "id": "aangiftestatus:concept",
+      "_type": [
+        "skos:Concept"
+      ],
+      "seeAlso": "http://purl.org/adms/status/UnderDevelopment",
+      "inScheme": "conceptscheme:aangiftestatussen",
+      "code": "AANGIFTE_STATUS_CONCEPT",
+      "prefLabel": "Status concept",
+      "topConceptOf": "conceptscheme:aangiftestatussen",
+      "relevantDataType": "http://www.w3.org/ns/adms#"
+    },
+    {
+      "id": "aangiftestatus:gefaald",
+      "_type": [
+        "skos:Concept"
+      ],
+      "inScheme": "conceptscheme:aangiftestatussen",
+      "code": "AANGIFTE_STATUS_GEFAALD",
+      "prefLabel": "Gefaald",
+      "topConceptOf": "conceptscheme:aangiftestatussen"
+    },
+    {
+      "id": "aangiftestatus:ingediend",
+      "_type": [
+        "skos:Concept"
+      ],
+      "seeAlso": "http://purl.org/adms/status/Completed",
+      "inScheme": "conceptscheme:aangiftestatussen",
+      "code": "AANGIFTE_STATUS_INGEDIEND",
+      "prefLabel": "Ingediend",
+      "topConceptOf": "conceptscheme:aangiftestatussen",
+      "relevantDataType": "http://www.w3.org/ns/adms#"
+    },
+    {
+      "id": "aangiftestatus:ingetrokken",
+      "_type": [
+        "skos:Concept"
+      ],
+      "seeAlso": "http://purl.org/adms/status/Withdrawn",
+      "inScheme": "conceptscheme:aangiftestatussen",
+      "code": "AANGIFTE_STATUS_INGETROKKEN",
+      "prefLabel": "Ingetrokken",
+      "topConceptOf": "conceptscheme:aangiftestatussen",
+      "relevantDataType": "http://www.w3.org/ns/adms#"
+    },
+    {
+      "id": "aangifte:operationeel",
+      "_type": [
+        "skos:Concept"
+      ],
+      "inScheme": "conceptscheme:aangiftetypes",
+      "code": "OPERATIONELE_GEGEVENS",
+      "prefLabel": "Operationeel",
+      "topConceptOf": "conceptscheme:aangiftetypes"
+    },
+    {
+      "id": "aangifte:structuur",
+      "_type": [
+        "skos:Concept"
+      ],
+      "inScheme": "conceptscheme:aangiftetypes",
+      "code": "VASTE_GEGEVENS",
+      "prefLabel": "Structuur",
+      "topConceptOf": "conceptscheme:aangiftetypes"
+    },
+    {
+      "id": "emissiepunt-selectiemogelijkheden:collector",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "Lozing op een collector.",
+      "inScheme": "conceptscheme:lozingspunt_lozingsplaats",
+      "note": "Lozing op een collector.",
+      "prefLabel": "Collector",
+      "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats"
+    },
+    {
+      "id": "emissiepunt-selectiemogelijkheden:externe_waterzuivering",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "Lozing of afvoer naar een externe waterzuivering.",
+      "inScheme": "conceptscheme:lozingspunt_lozingsplaats",
+      "note": "Lozing of afvoer naar een externe waterzuivering.",
+      "prefLabel": "Externe waterzuivering",
+      "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats"
+    },
+    {
+      "id": "emissiepunt-selectiemogelijkheden:grondwater",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "Lozing in grondwater.",
+      "inScheme": "conceptscheme:lozingspunt_lozingsplaats",
+      "note": "Lozing in grondwater.",
+      "prefLabel": "Grondwater",
+      "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats"
+    },
+    {
+      "id": "emissiepunt-selectiemogelijkheden:oppervlaktewater",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "Lozing in oppervlaktewater.",
+      "inScheme": "conceptscheme:lozingspunt_lozingsplaats",
+      "note": "Lozing in oppervlaktewater.",
+      "prefLabel": "Oppervlaktewater",
+      "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats"
+    },
+    {
+      "id": "emissiepunt-selectiemogelijkheden:regenwaterriool",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "Lozing op een regenwaterriool.",
+      "inScheme": "conceptscheme:lozingspunt_lozingsplaats",
+      "note": "Lozing op een regenwaterriool.",
+      "prefLabel": "Regenwaterriolering",
+      "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats"
+    },
+    {
+      "id": "emissiepunt-selectiemogelijkheden:riool",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "Lozing op riolering.",
+      "inScheme": "conceptscheme:lozingspunt_lozingsplaats",
+      "note": "Lozing op riolering.",
+      "prefLabel": "Riool",
+      "topConceptOf": "conceptscheme:lozingspunt_lozingsplaats"
+    },
+    {
+      "id": "emissiepunteigenschappen:aantal_punten",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "definition": "Het aantal gegroepeerde emissiepunten.",
+      "inScheme": "conceptscheme:emissiepunteigenschappen",
+      "note": "Het aantal gegroepeerde emissiepunten.",
+      "prefLabel": "Aantal uitstroompunten",
+      "topConceptOf": "conceptscheme:emissiepunteigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantDataType": "xsd:integer",
+      "relevantRiepr": [
+        "emissiepunt:emissiepunt_lucht",
+        "emissiepunt:fakkel",
+        "emissiepunt:gebouw",
+        "emissiepunt:installatie",
+        "emissiepunt:schoorsteen",
+        "emissiepunt:schoorsteen_horizontale_uitstroom",
+        "emissiepunt:schoorsteen_verticale_uitstroom"
+      ]
+    },
+    {
+      "id": "emissiepunteigenschappen:diameter",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "relevantUnit": [
+        "csor_eenheid:E_59"
+      ],
+      "definition": "De diameter van de opening van het emissiepunt naar de lucht, of, voor een opening die niet rond is, de equivalente diameter die op dezelfde oppervlakte neerkomt.",
+      "inScheme": "conceptscheme:emissiepunteigenschappen",
+      "note": "De diameter van de opening van het emissiepunt naar de lucht, of, voor een opening die niet rond is, de equivalente diameter die op dezelfde oppervlakte neerkomt.",
+      "prefLabel": "Diameter",
+      "topConceptOf": "conceptscheme:emissiepunteigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "true",
+      "relevantDataType": "xsd:decimal",
+      "relevantProperty": "dbo:diameter",
+      "relevantRiepr": [
+        "emissiepunt:emissiepunt_lucht",
+        "emissiepunt:fakkel",
+        "emissiepunt:gebouw",
+        "emissiepunt:installatie",
+        "emissiepunt:schoorsteen",
+        "emissiepunt:schoorsteen_horizontale_uitstroom",
+        "emissiepunt:schoorsteen_verticale_uitstroom"
+      ]
+    },
+    {
+      "id": "emissiepunteigenschappen:hoogte",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "relevantUnit": [
+        "csor_eenheid:E_59"
+      ],
+      "definition": "De hoogte van het emissiepunt naar de lucht ten opzichte van het maaiveld.",
+      "inScheme": "conceptscheme:emissiepunteigenschappen",
+      "note": "De hoogte van het emissiepunt naar de lucht ten opzichte van het maaiveld.",
+      "prefLabel": "Hoogte",
+      "topConceptOf": "conceptscheme:emissiepunteigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "true",
+      "relevantDataType": "xsd:decimal",
+      "relevantProperty": "dbo:height",
+      "relevantRiepr": [
+        "emissiepunt:emissiepunt_lucht",
+        "emissiepunt:fakkel",
+        "emissiepunt:gebouw",
+        "emissiepunt:installatie",
+        "emissiepunt:schoorsteen",
+        "emissiepunt:schoorsteen_horizontale_uitstroom",
+        "emissiepunt:schoorsteen_verticale_uitstroom"
+      ]
+    },
+    {
+      "id": "emissiepunteigenschappen:lozingspunt-lozingsplaats",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "definition": "Typering van de plaats waar het water geloosd wordt.",
+      "inScheme": "conceptscheme:emissiepunteigenschappen",
+      "note": "Typering van de plaats waar het water geloosd wordt.",
+      "prefLabel": "Lozingsplaats",
+      "topConceptOf": "conceptscheme:emissiepunteigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "true",
+      "relevantCodeList": [
+        "conceptscheme:lozingspunt_lozingsplaats"
+      ],
+      "relevantRiepr": [
+        "emissiepunt:lozingspunt"
+      ]
+    },
+    {
+      "id": "emissiepunt:emissiepunt_lucht",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Een emissie naar de lucht.",
+      "inScheme": "conceptscheme:emissiepunttypes",
+      "narrower": [
+        "emissiepunt:fakkel",
+        "emissiepunt:gebouw",
+        "emissiepunt:installatie",
+        "emissiepunt:schoorsteen"
+      ],
+      "narrowerTransitive": [
+        "emissiepunt:fakkel",
+        "emissiepunt:gebouw",
+        "emissiepunt:installatie",
+        "emissiepunt:schoorsteen",
+        "emissiepunt:schoorsteen_horizontale_uitstroom",
+        "emissiepunt:schoorsteen_verticale_uitstroom"
+      ],
+      "note": "Een emissie naar de lucht.",
+      "prefLabel": "Emissiepunt lucht",
+      "semanticRelation": [
+        "emissiepunt:fakkel",
+        "emissiepunt:gebouw",
+        "emissiepunt:installatie",
+        "emissiepunt:schoorsteen",
+        "emissiepunt:schoorsteen_horizontale_uitstroom",
+        "emissiepunt:schoorsteen_verticale_uitstroom"
+      ],
+      "topConceptOf": "conceptscheme:emissiepunttypes",
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "true"
+    },
+    {
+      "id": "emissiepunt:fakkel",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "broader": "emissiepunt:emissiepunt_lucht",
+      "broaderTransitive": [
+        "emissiepunt:emissiepunt_lucht"
+      ],
+      "definition": "Een apparaat bestemd voor de afgassen in een noodsituatie.",
+      "inScheme": "conceptscheme:emissiepunttypes",
+      "note": "Een apparaat bestemd voor de afgassen in een noodsituatie.",
+      "prefLabel": "Fakkel",
+      "semanticRelation": [
+        "emissiepunt:emissiepunt_lucht"
+      ],
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "emissiepunt:gebouw",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "broader": "emissiepunt:emissiepunt_lucht",
+      "broaderTransitive": [
+        "emissiepunt:emissiepunt_lucht"
+      ],
+      "definition": "Emissie uit een gebouw.",
+      "inScheme": "conceptscheme:emissiepunttypes",
+      "note": "Emissie uit een gebouw.",
+      "prefLabel": "Gebouw",
+      "semanticRelation": [
+        "emissiepunt:emissiepunt_lucht"
+      ],
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "emissiepunt:installatie",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "broader": "emissiepunt:emissiepunt_lucht",
+      "broaderTransitive": [
+        "emissiepunt:emissiepunt_lucht"
+      ],
+      "definition": "Emissie uit een installatie.",
+      "inScheme": "conceptscheme:emissiepunttypes",
+      "note": "Emissie uit een installatie.",
+      "prefLabel": "Installatie",
+      "semanticRelation": [
+        "emissiepunt:emissiepunt_lucht"
+      ],
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "emissiepunt:lozingspunt",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Een lozing naar water.",
+      "inScheme": "conceptscheme:emissiepunttypes",
+      "note": "Een lozing naar water.",
+      "prefLabel": "Lozingspunt",
+      "topConceptOf": "conceptscheme:emissiepunttypes",
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "emissiepunt:schoorsteen",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "broader": "emissiepunt:emissiepunt_lucht",
+      "broaderTransitive": [
+        "emissiepunt:emissiepunt_lucht"
+      ],
+      "definition": "Een schoorsteen.",
+      "inScheme": "conceptscheme:emissiepunttypes",
+      "narrower": [
+        "emissiepunt:schoorsteen_horizontale_uitstroom",
+        "emissiepunt:schoorsteen_verticale_uitstroom"
+      ],
+      "narrowerTransitive": [
+        "emissiepunt:schoorsteen_horizontale_uitstroom",
+        "emissiepunt:schoorsteen_verticale_uitstroom"
+      ],
+      "note": "Een schoorsteen.",
+      "prefLabel": "Schoorsteen",
+      "semanticRelation": [
+        "emissiepunt:emissiepunt_lucht",
+        "emissiepunt:schoorsteen_horizontale_uitstroom",
+        "emissiepunt:schoorsteen_verticale_uitstroom"
+      ],
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "true"
+    },
+    {
+      "id": "emissiepunt:schoorsteen_horizontale_uitstroom",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "broader": "emissiepunt:schoorsteen",
+      "broaderTransitive": [
+        "emissiepunt:emissiepunt_lucht",
+        "emissiepunt:schoorsteen"
+      ],
+      "definition": "Een schoorsteen met een horizontale uitstroom.",
+      "inScheme": "conceptscheme:emissiepunttypes",
+      "note": "Een schoorsteen met een horizontale uitstroom.",
+      "prefLabel": "Schoorsteen met horizontale uitstroom",
+      "semanticRelation": [
+        "emissiepunt:emissiepunt_lucht",
+        "emissiepunt:schoorsteen"
+      ],
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "emissiepunt:schoorsteen_verticale_uitstroom",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "broader": "emissiepunt:schoorsteen",
+      "broaderTransitive": [
+        "emissiepunt:emissiepunt_lucht",
+        "emissiepunt:schoorsteen"
+      ],
+      "definition": "Een schoorsteen met een verticale uitstroom.",
+      "inScheme": "conceptscheme:emissiepunttypes",
+      "note": "Een schoorsteen met een verticale uitstroom.",
+      "prefLabel": "Schoorsteen met verticale uitstroom",
+      "semanticRelation": [
+        "emissiepunt:emissiepunt_lucht",
+        "emissiepunt:schoorsteen"
+      ],
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "emissie:abnormale",
+      "_type": [
+        "skos:Concept"
+      ],
+      "inScheme": "conceptscheme:emissietypes",
+      "code": "EMISSIE_ABNORMALE",
+      "prefLabel": "Abnormale emissie",
+      "topConceptOf": "conceptscheme:emissietypes"
+    },
+    {
+      "id": "emissie:geleide",
+      "_type": [
+        "skos:Concept"
+      ],
+      "inScheme": "conceptscheme:emissietypes",
+      "code": "EMISSIE_GELEIDE",
+      "prefLabel": "Geleide emissie",
+      "topConceptOf": "conceptscheme:emissietypes"
+    },
+    {
+      "id": "emissie:niet-geleide",
+      "_type": [
+        "skos:Concept"
+      ],
+      "inScheme": "conceptscheme:emissietypes",
+      "narrower": [
+        "emissie:niet-geleide-fakkel",
+        "emissie:niet-geleide-lekverlies",
+        "emissie:niet-geleide-opslagverlies",
+        "emissie:niet-geleide-overslagverlies"
+      ],
+      "narrowerTransitive": [
+        "emissie:niet-geleide-fakkel",
+        "emissie:niet-geleide-lekverlies",
+        "emissie:niet-geleide-opslagverlies",
+        "emissie:niet-geleide-overslagverlies"
+      ],
+      "code": "EMISSIE_NIET_GELEIDE",
+      "prefLabel": "Niet-geleide emissie",
+      "semanticRelation": [
+        "emissie:niet-geleide-fakkel",
+        "emissie:niet-geleide-lekverlies",
+        "emissie:niet-geleide-opslagverlies",
+        "emissie:niet-geleide-overslagverlies"
+      ],
+      "topConceptOf": "conceptscheme:emissietypes"
+    },
+    {
+      "id": "emissie:niet-geleide-fakkel",
+      "_type": [
+        "skos:Concept"
+      ],
+      "broader": "emissie:niet-geleide",
+      "broaderTransitive": [
+        "emissie:niet-geleide"
+      ],
+      "inScheme": "conceptscheme:emissietypes",
+      "code": "EMISSIE_NIET_GELEIDE_FAKKEL",
+      "prefLabel": "Fakkel",
+      "semanticRelation": [
+        "emissie:niet-geleide"
+      ],
+      "topConceptOf": "conceptscheme:emissietypes",
+      "relevantRiepr": [
+        "installatie:fakkel"
+      ]
+    },
+    {
+      "id": "emissie:niet-geleide-lekverlies",
+      "_type": [
+        "skos:Concept"
+      ],
+      "broader": "emissie:niet-geleide",
+      "broaderTransitive": [
+        "emissie:niet-geleide"
+      ],
+      "inScheme": "conceptscheme:emissietypes",
+      "code": "EMISSIE_NIET_GELEIDE_LEKVERLIES",
+      "prefLabel": "Lekverlies",
+      "semanticRelation": [
+        "emissie:niet-geleide"
+      ],
+      "topConceptOf": "conceptscheme:emissietypes"
+    },
+    {
+      "id": "emissie:niet-geleide-opslagverlies",
+      "_type": [
+        "skos:Concept"
+      ],
+      "broader": "emissie:niet-geleide",
+      "broaderTransitive": [
+        "emissie:niet-geleide"
+      ],
+      "inScheme": "conceptscheme:emissietypes",
+      "code": "EMISSIE_NIET_GELEIDE_OPSLAGVERLIES",
+      "prefLabel": "Opslagverlies",
+      "semanticRelation": [
+        "emissie:niet-geleide"
+      ],
+      "topConceptOf": "conceptscheme:emissietypes",
+      "relevantRiepr": [
+        "installatie:opslag_overslag"
+      ]
+    },
+    {
+      "id": "emissie:niet-geleide-overslagverlies",
+      "_type": [
+        "skos:Concept"
+      ],
+      "broader": "emissie:niet-geleide",
+      "broaderTransitive": [
+        "emissie:niet-geleide"
+      ],
+      "inScheme": "conceptscheme:emissietypes",
+      "code": "EMISSIE_NIET_GELEIDE_OVERSLAGVERLIES",
+      "prefLabel": "Overslag verlies",
+      "semanticRelation": [
+        "emissie:niet-geleide"
+      ],
+      "topConceptOf": "conceptscheme:emissietypes",
+      "relevantRiepr": [
+        "installatie:opslag_overslag"
+      ]
+    },
+    {
+      "id": "filtereigenschappen:diepte",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "relevantUnit": [
+        "csor_eenheid:E_59"
+      ],
+      "definition": "De diepte van de onderkant van de filter ten opzichte van het maaiveld.",
+      "inScheme": "conceptscheme:filtereigenschappen",
+      "note": "De diepte van de onderkant van de filter ten opzichte van het maaiveld.",
+      "prefLabel": "Diepte onderkant van de filter",
+      "topConceptOf": "conceptscheme:filtereigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantDataType": "xsd:decimal",
+      "relevantProperty": "dbo:depth",
+      "relevantRiepr": [
+        "filter:filter",
+        "filter:injectie",
+        "filter:omkeerbaar",
+        "filter:peil",
+        "filter:pomp"
+      ]
+    },
+    {
+      "id": "filtereigenschappen:diepte_pomp",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "relevantUnit": [
+        "csor_eenheid:E_59"
+      ],
+      "definition": "De diepte van de pomp ten opzichte van het maaiveld.",
+      "inScheme": "conceptscheme:filtereigenschappen",
+      "note": "De diepte van de pomp ten opzichte van het maaiveld.",
+      "prefLabel": "Diepte pomp",
+      "topConceptOf": "conceptscheme:filtereigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantDataType": "xsd:decimal",
+      "relevantProperty": "dbo:depth",
+      "relevantRiepr": [
+        "filter:pomp"
+      ]
+    },
+    {
+      "id": "filtereigenschappen:lengte",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "relevantUnit": [
+        "csor_eenheid:E_59"
+      ],
+      "definition": "De lengte van de filter gemeten van de onderkant tot de bovenkant.",
+      "inScheme": "conceptscheme:filtereigenschappen",
+      "note": "De lengte van de filter gemeten van de onderkant tot de bovenkant.",
+      "prefLabel": "Lengte van de filter",
+      "topConceptOf": "conceptscheme:filtereigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantDataType": "xsd:decimal",
+      "relevantRiepr": [
+        "filter:filter",
+        "filter:injectie",
+        "filter:omkeerbaar",
+        "filter:peil",
+        "filter:pomp"
+      ]
+    },
+    {
+      "id": "filtereigenschappen:watervoerendeLaag",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "definition": "De watervoerende laag (aquifer) waarin de filter zich bevindt.",
+      "inScheme": "conceptscheme:filtereigenschappen",
+      "note": "De watervoerende laag (aquifer) waarin de filter zich bevindt.",
+      "prefLabel": "Watervoerende laag",
+      "topConceptOf": "conceptscheme:filtereigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "true",
+      "relevantCodeList": [
+        "https://data.bodemenondergrond.vlaanderen.be/id/conceptscheme/aquiferhcovv2"
+      ],
+      "relevantRiepr": [
+        "filter:filter",
+        "filter:injectie",
+        "filter:omkeerbaar",
+        "filter:peil",
+        "filter:pomp"
+      ]
+    },
+    {
+      "id": "filter:filter",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Het geperforeerde deel van een put waarlangs grondwater in of uit de put stroomt.",
+      "inScheme": "conceptscheme:filtertypes",
+      "narrower": [
+        "filter:injectie",
+        "filter:omkeerbaar",
+        "filter:peil",
+        "filter:pomp"
+      ],
+      "narrowerTransitive": [
+        "filter:injectie",
+        "filter:omkeerbaar",
+        "filter:peil",
+        "filter:pomp"
+      ],
+      "note": "Het geperforeerde deel van een put waarlangs grondwater in of uit de put stroomt.",
+      "prefLabel": "Filter",
+      "semanticRelation": [
+        "filter:injectie",
+        "filter:omkeerbaar",
+        "filter:peil",
+        "filter:pomp"
+      ],
+      "topConceptOf": "conceptscheme:filtertypes",
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "true"
+    },
+    {
+      "id": "filter:injectie",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "broader": "filter:filter",
+      "broaderTransitive": [
+        "filter:filter"
+      ],
+      "definition": "Een filter die uitsluitend gebruikt wordt voor het injecteren van (grond)water in de ondergrond.",
+      "inScheme": "conceptscheme:filtertypes",
+      "note": "Een filter die uitsluitend gebruikt wordt voor het injecteren van (grond)water in de ondergrond.",
+      "prefLabel": "Injectiefilter",
+      "semanticRelation": [
+        "filter:filter"
+      ],
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "filter:omkeerbaar",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "broader": "filter:filter",
+      "broaderTransitive": [
+        "filter:filter"
+      ],
+      "definition": "Een filter die zowel grondwater kan injecteren als onttrekken, meestal in de context van geothermische installaties.",
+      "inScheme": "conceptscheme:filtertypes",
+      "note": "Een filter die zowel grondwater kan injecteren als onttrekken, meestal in de context van geothermische installaties.",
+      "prefLabel": "Omkeerbare filter",
+      "semanticRelation": [
+        "filter:filter"
+      ],
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "filter:peil",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "broader": "filter:filter",
+      "broaderTransitive": [
+        "filter:filter"
+      ],
+      "definition": "Een filter waaruit geen grondwater kan worden gepompt en die uitsluitend voor peilmetingen en grondwaterstaalname wordt benut.",
+      "inScheme": "conceptscheme:filtertypes",
+      "note": "Een filter waaruit geen grondwater kan worden gepompt en die uitsluitend voor peilmetingen en grondwaterstaalname wordt benut.",
+      "prefLabel": "Peilfilter",
+      "semanticRelation": [
+        "filter:filter"
+      ],
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "filter:pomp",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "broader": "filter:filter",
+      "broaderTransitive": [
+        "filter:filter"
+      ],
+      "definition": "Een filter waaruit grondwater wordt opgepompt of onttrokken.",
+      "inScheme": "conceptscheme:filtertypes",
+      "note": "Een filter waaruit grondwater wordt opgepompt of onttrokken.",
+      "prefLabel": "Pompfilter",
+      "semanticRelation": [
+        "filter:filter"
+      ],
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "installatie-selectiemogelijkheden:andere",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "De stookinstallatie wekt een andere soort energie op.",
+      "inScheme": "conceptscheme:installatie_soort_opgewekte_energie",
+      "note": "De stookinstallatie wekt een andere soort energie op.",
+      "prefLabel": "Andere",
+      "topConceptOf": "conceptscheme:installatie_soort_opgewekte_energie"
+    },
+    {
+      "id": "installatie-selectiemogelijkheden:andere_motor",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "Een ander type motor dan de opgesomde.",
+      "inScheme": "conceptscheme:installatie_type_stookinstallatie",
+      "note": "Een ander type motor dan de opgesomde.",
+      "prefLabel": "Andere motor",
+      "topConceptOf": "conceptscheme:installatie_type_stookinstallatie"
+    },
+    {
+      "id": "installatie-selectiemogelijkheden:andere_stookinstallatie",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "Een ander type stookinstallatie dan de opgesomde.",
+      "inScheme": "conceptscheme:installatie_type_stookinstallatie",
+      "note": "Een ander type stookinstallatie dan de opgesomde.",
+      "prefLabel": "Andere stookinstallatie",
+      "topConceptOf": "conceptscheme:installatie_type_stookinstallatie"
+    },
+    {
+      "id": "installatie-selectiemogelijkheden:boiler",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "Een stookinstallatie die water of stoom verwarmt.",
+      "inScheme": "conceptscheme:installatie_type_stookinstallatie",
+      "note": "Een stookinstallatie die water of stoom verwarmt.",
+      "prefLabel": "Boiler",
+      "topConceptOf": "conceptscheme:installatie_type_stookinstallatie"
+    },
+    {
+      "id": "installatie-selectiemogelijkheden:dieselmotor",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "Een verbrandingsmotor op diesel.",
+      "inScheme": "conceptscheme:installatie_type_stookinstallatie",
+      "note": "Een verbrandingsmotor op diesel.",
+      "prefLabel": "Dieselmotor",
+      "topConceptOf": "conceptscheme:installatie_type_stookinstallatie"
+    },
+    {
+      "id": "installatie-selectiemogelijkheden:druk",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "De stookinstallatie wekt druk op.",
+      "inScheme": "conceptscheme:installatie_soort_opgewekte_energie",
+      "note": "De stookinstallatie wekt druk op.",
+      "prefLabel": "Druk",
+      "topConceptOf": "conceptscheme:installatie_soort_opgewekte_energie"
+    },
+    {
+      "id": "installatie-selectiemogelijkheden:dual_fuel_motor",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "Een motor die op twee brandstoffen kan werken.",
+      "inScheme": "conceptscheme:installatie_type_stookinstallatie",
+      "note": "Een motor die op twee brandstoffen kan werken.",
+      "prefLabel": "Dual fuel motor",
+      "topConceptOf": "conceptscheme:installatie_type_stookinstallatie"
+    },
+    {
+      "id": "installatie-selectiemogelijkheden:elektriciteit",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "De stookinstallatie wekt elektriciteit op.",
+      "inScheme": "conceptscheme:installatie_soort_opgewekte_energie",
+      "note": "De stookinstallatie wekt elektriciteit op.",
+      "prefLabel": "Elektriciteit",
+      "topConceptOf": "conceptscheme:installatie_soort_opgewekte_energie"
+    },
+    {
+      "id": "installatie-selectiemogelijkheden:gasmotor",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "Een verbrandingsmotor op gas.",
+      "inScheme": "conceptscheme:installatie_type_stookinstallatie",
+      "note": "Een verbrandingsmotor op gas.",
+      "prefLabel": "Gasmotor",
+      "topConceptOf": "conceptscheme:installatie_type_stookinstallatie"
+    },
+    {
+      "id": "installatie-selectiemogelijkheden:gasturbine",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "Een turbine aangedreven door de verbranding van gas.",
+      "inScheme": "conceptscheme:installatie_type_stookinstallatie",
+      "note": "Een turbine aangedreven door de verbranding van gas.",
+      "prefLabel": "Gasturbine",
+      "topConceptOf": "conceptscheme:installatie_type_stookinstallatie"
+    },
+    {
+      "id": "installatie-selectiemogelijkheden:mechanische_energie",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "De stookinstallatie wekt mechanische energie op.",
+      "inScheme": "conceptscheme:installatie_soort_opgewekte_energie",
+      "note": "De stookinstallatie wekt mechanische energie op.",
+      "prefLabel": "Mechanische energie",
+      "topConceptOf": "conceptscheme:installatie_soort_opgewekte_energie"
+    },
+    {
+      "id": "installatie-selectiemogelijkheden:stoom",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "De stookinstallatie wekt stoom op.",
+      "inScheme": "conceptscheme:installatie_soort_opgewekte_energie",
+      "note": "De stookinstallatie wekt stoom op.",
+      "prefLabel": "Stoom",
+      "topConceptOf": "conceptscheme:installatie_soort_opgewekte_energie"
+    },
+    {
+      "id": "installatie-selectiemogelijkheden:warm_water",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "De stookinstallatie wekt warm water op.",
+      "inScheme": "conceptscheme:installatie_soort_opgewekte_energie",
+      "note": "De stookinstallatie wekt warm water op.",
+      "prefLabel": "Warm water",
+      "topConceptOf": "conceptscheme:installatie_soort_opgewekte_energie"
+    },
+    {
+      "id": "installatie-selectiemogelijkheden:warme_lucht",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "De stookinstallatie wekt warme lucht op.",
+      "inScheme": "conceptscheme:installatie_soort_opgewekte_energie",
+      "note": "De stookinstallatie wekt warme lucht op.",
+      "prefLabel": "Warme lucht",
+      "topConceptOf": "conceptscheme:installatie_soort_opgewekte_energie"
+    },
+    {
+      "id": "installatie-selectiemogelijkheden:wkk",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "Een warmtekrachtkoppeling die gelijktijdig warmte en elektriciteit opwekt.",
+      "inScheme": "conceptscheme:installatie_type_stookinstallatie",
+      "note": "Een warmtekrachtkoppeling die gelijktijdig warmte en elektriciteit opwekt.",
+      "prefLabel": "WKK",
+      "topConceptOf": "conceptscheme:installatie_type_stookinstallatie"
+    },
+    {
+      "id": "installatie-eigenschappen:geinstalleerde_opslag_overslagcapaciteit",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "relevantUnit": [
+        "collectie:opslagcapaciteit_eenheden"
+      ],
+      "definition": "De geïnstalleerde opslag- of overslagcapaciteit.",
+      "inScheme": "conceptscheme:installatie-eigenschappen",
+      "note": "De geïnstalleerde opslag- of overslagcapaciteit.",
+      "prefLabel": "Geinstalleerde opslag/overslagcapaciteit",
+      "topConceptOf": "conceptscheme:installatie-eigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantDataType": "xsd:decimal",
+      "relevantRiepr": [
+        "installatie:opslag_overslag"
+      ]
+    },
+    {
+      "id": "installatie-eigenschappen:geinstalleerde_productiecapaciteit",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "relevantUnit": [
+        "collectie:productiecapaciteit_eenheden"
+      ],
+      "definition": "De maximale geïnstalleerde hoeveelheid stof of producten die een productie-installatie in een jaar kan produceren.",
+      "inScheme": "conceptscheme:installatie-eigenschappen",
+      "note": "De maximale geïnstalleerde hoeveelheid stof of producten die een productie-installatie in een jaar kan produceren.",
+      "prefLabel": "Geinstalleerde productiecapaciteit",
+      "topConceptOf": "conceptscheme:installatie-eigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantDataType": "xsd:decimal",
+      "relevantRiepr": [
+        "installatie:productie_installatie"
+      ]
+    },
+    {
+      "id": "installatie-eigenschappen:geproduceerde_stof_of_product",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "definition": "Een beschrijving van de producten of stoffen die door de productie-installatie worden geproduceerd.",
+      "inScheme": "conceptscheme:installatie-eigenschappen",
+      "note": "Een beschrijving van de producten of stoffen die door de productie-installatie worden geproduceerd.",
+      "prefLabel": "Geproduceerd product of stof",
+      "topConceptOf": "conceptscheme:installatie-eigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantDataType": "xsd:string",
+      "relevantRiepr": [
+        "installatie:productie_installatie"
+      ]
+    },
+    {
+      "id": "installatie-eigenschappen:luchtzuiverings_techniek",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "definition": "Een beschrijving van de toegepaste luchtzuiveringstechniek.",
+      "inScheme": "conceptscheme:installatie-eigenschappen",
+      "note": "Een beschrijving van de toegepaste luchtzuiveringstechniek.",
+      "prefLabel": "Luchtzuiveringstechniek",
+      "topConceptOf": "conceptscheme:installatie-eigenschappen",
+      "isMeervoudig": "true",
+      "isVerplicht": "true",
+      "relevantCodeList": [
+        "https://vito.be/codelijst/luchtzuiveringstechniek"
+      ],
+      "relevantRiepr": [
+        "installatie:luchtzuivering"
+      ]
+    },
+    {
+      "id": "installatie-eigenschappen:nominaal_thermisch_vermogen",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "relevantUnit": [
+        "collectie:vermogen_eenheden"
+      ],
+      "definition": "Het nominaal thermisch vermogen van een stookinstallatie.",
+      "inScheme": "conceptscheme:installatie-eigenschappen",
+      "note": "Het nominaal thermisch vermogen van een stookinstallatie.",
+      "prefLabel": "Nominaal thermisch vermogen",
+      "topConceptOf": "conceptscheme:installatie-eigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "true",
+      "relevantDataType": "xsd:decimal",
+      "relevantRiepr": [
+        "installatie:directe_stookinstallatie",
+        "installatie:indirecte_stookinstallatie",
+        "installatie:stookinstallatie"
+      ]
+    },
+    {
+      "id": "installatie-eigenschappen:omschrijving",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "definition": "Een algemene beschrijving van de productie-installatie.",
+      "inScheme": "conceptscheme:installatie-eigenschappen",
+      "note": "Een algemene beschrijving van de productie-installatie.",
+      "prefLabel": "Beschrijving",
+      "topConceptOf": "conceptscheme:installatie-eigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantDataType": "xsd:string",
+      "relevantRiepr": [
+        "installatie:productie_installatie"
+      ]
+    },
+    {
+      "id": "installatie-eigenschappen:opslagen_overgeslagen_stof",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "definition": "De op- of overgeslagen stof (zoals benzine, white spirit, zand).",
+      "inScheme": "conceptscheme:installatie-eigenschappen",
+      "note": "De op- of overgeslagen stof (zoals benzine, white spirit, zand).",
+      "prefLabel": "Op- of overgeslagen stof",
+      "topConceptOf": "conceptscheme:installatie-eigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantDataType": "xsd:string",
+      "relevantRiepr": [
+        "installatie:opslag_overslag"
+      ]
+    },
+    {
+      "id": "installatie-eigenschappen:soort_opgewekte_energie",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "definition": "Het soort energie dat door de stookinstallatie wordt opgewekt.",
+      "inScheme": "conceptscheme:installatie-eigenschappen",
+      "note": "Het soort energie dat door de stookinstallatie wordt opgewekt.",
+      "prefLabel": "Soort opgewekte energie",
+      "topConceptOf": "conceptscheme:installatie-eigenschappen",
+      "isMeervoudig": "true",
+      "isVerplicht": "true",
+      "relevantCodeList": [
+        "conceptscheme:installatie_soort_opgewekte_energie"
+      ],
+      "relevantRiepr": [
+        "installatie:directe_stookinstallatie",
+        "installatie:indirecte_stookinstallatie",
+        "installatie:stookinstallatie"
+      ]
+    },
+    {
+      "id": "installatie-eigenschappen:technische_kenmerken",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "definition": "Een beschrijving van de technische kenmerken van een fakkel.",
+      "inScheme": "conceptscheme:installatie-eigenschappen",
+      "note": "Een beschrijving van de technische kenmerken van een fakkel.",
+      "prefLabel": "Technische kenmerken",
+      "topConceptOf": "conceptscheme:installatie-eigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "true",
+      "relevantDataType": "xsd:string",
+      "relevantRiepr": [
+        "installatie:fakkel"
+      ]
+    },
+    {
+      "id": "installatie-eigenschappen:type_opslag_overslag",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "definition": "Een beschrijving van het type opslag of overslag (zoals tank met vlottend dak; tank met vast dak).",
+      "inScheme": "conceptscheme:installatie-eigenschappen",
+      "note": "Een beschrijving van het type opslag of overslag (zoals tank met vlottend dak; tank met vast dak).",
+      "prefLabel": "Type opslag",
+      "topConceptOf": "conceptscheme:installatie-eigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantDataType": "xsd:string",
+      "relevantRiepr": [
+        "installatie:opslag_overslag"
+      ]
+    },
+    {
+      "id": "installatie-eigenschappen:type_stookinstallatie",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "definition": "Het type stookinstallatie.",
+      "inScheme": "conceptscheme:installatie-eigenschappen",
+      "note": "Het type stookinstallatie.",
+      "prefLabel": "Type stookinstallatie",
+      "topConceptOf": "conceptscheme:installatie-eigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "true",
+      "relevantCodeList": [
+        "conceptscheme:installatie_type_stookinstallatie"
+      ],
+      "relevantRiepr": [
+        "installatie:directe_stookinstallatie",
+        "installatie:indirecte_stookinstallatie",
+        "installatie:stookinstallatie"
+      ]
+    },
+    {
+      "id": "installatie-eigenschappen:verwijderingsrendement",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "narrowerPartitive": [
+        "installatie-eigenschappen:verwijderingsrendement_percentage",
+        "installatie-eigenschappen:verwijderingsrendement_stof"
+      ],
+      "definition": "Samengestelde eigenschap voor verwijderingsrendement (stof en percentage).",
+      "inScheme": "conceptscheme:installatie-eigenschappen",
+      "note": "Samengestelde eigenschap voor verwijderingsrendement (stof en percentage).",
+      "prefLabel": "Verwijderingsrendement",
+      "topConceptOf": "conceptscheme:installatie-eigenschappen",
+      "isMeervoudig": "true",
+      "isVerplicht": "false"
+    },
+    {
+      "id": "installatie-eigenschappen:verwijderingsrendement_percentage",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "broaderPartitive": "installatie-eigenschappen:verwijderingsrendement",
+      "relevantUnit": [
+        "csor_eenheid:E_43"
+      ],
+      "definition": "Het % waarmee de verontreinigende stof door de luchtzuivering wordt verwijderd",
+      "inScheme": "conceptscheme:installatie-eigenschappen",
+      "note": "Het % waarmee de verontreinigende stof door de luchtzuivering wordt verwijderd",
+      "prefLabel": "Rendement",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantDataType": "xsd:decimal"
+    },
+    {
+      "id": "installatie-eigenschappen:verwijderingsrendement_stof",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "riepr:parameter",
+      "broaderPartitive": "installatie-eigenschappen:verwijderingsrendement",
+      "definition": "De verontreinigende stoffen en broeikasgassen die door de luchtzuivering verwijderd worden.",
+      "inScheme": "conceptscheme:installatie-eigenschappen",
+      "note": "De verontreinigende stoffen en broeikasgassen die door de luchtzuivering verwijderd worden.",
+      "prefLabel": "Stof of BKG",
+      "isMeervoudig": "false",
+      "isVerplicht": "true",
+      "relevantCodeList": [
+        "collectie:verwijderingsrendement_stoffen"
+      ],
+      "relevantRiepr": [
+        "installatie:luchtzuivering"
+      ]
+    },
+    {
+      "id": "installatie-eigenschappen:waterzuiveringstechniek",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "narrowerPartitive": [
+        "installatie-eigenschappen:waterzuiveringstechniek_ingebruikvan",
+        "installatie-eigenschappen:waterzuiveringstechniek_techniek"
+      ],
+      "definition": "Samengestelde eigenschap voor waterzuiveringstechniek.",
+      "inScheme": "conceptscheme:installatie-eigenschappen",
+      "note": "Samengestelde eigenschap voor waterzuiveringstechniek.",
+      "prefLabel": "Waterzuiveringstechniek",
+      "topConceptOf": "conceptscheme:installatie-eigenschappen",
+      "isMeervoudig": "true",
+      "isVerplicht": "false",
+      "relevantRiepr": [
+        "installatie:waterzuivering"
+      ]
+    },
+    {
+      "id": "installatie-eigenschappen:waterzuiveringstechniek_ingebruikvan",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "riepr:inGebruikVanaf",
+      "broaderPartitive": "installatie-eigenschappen:waterzuiveringstechniek",
+      "definition": "De datum van ingebruikname van de waterzuiveringstechniek.",
+      "inScheme": "conceptscheme:installatie-eigenschappen",
+      "note": "De datum van ingebruikname van de waterzuiveringstechniek.",
+      "prefLabel": "Techniek in gebruik van",
+      "isMeervoudig": "false",
+      "isVerplicht": "true",
+      "relevantDataType": "xsd:date"
+    },
+    {
+      "id": "installatie-eigenschappen:waterzuiveringstechniek_techniek",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "broaderPartitive": "installatie-eigenschappen:waterzuiveringstechniek",
+      "definition": "De techniek gebruikt voor de zuivering van water.",
+      "inScheme": "conceptscheme:installatie-eigenschappen",
+      "note": "De techniek gebruikt voor de zuivering van water.",
+      "prefLabel": "Techniek",
+      "isMeervoudig": "false",
+      "isVerplicht": "true",
+      "relevantCodeList": [
+        "https://vito.be/codelijst/waterzuiveringstechniek"
+      ]
+    },
+    {
+      "id": "installatie:directe_stookinstallatie",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "broader": "installatie:stookinstallatie",
+      "broaderTransitive": [
+        "installatie:stookinstallatie"
+      ],
+      "definition": "Een stookinstallatie waarbij de verbrandingsgassen rechtstreeks in contact komen met de te verwarmen of te behandelen lucht, voorwerpen of materialen.",
+      "inScheme": "conceptscheme:installatietypes",
+      "note": "Een stookinstallatie waarbij de verbrandingsgassen rechtstreeks in contact komen met de te verwarmen of te behandelen lucht, voorwerpen of materialen.",
+      "prefLabel": "Directe Stookinstallatie",
+      "semanticRelation": [
+        "installatie:stookinstallatie"
+      ],
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "installatie:fakkel",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Een installatie bestemd voor de verbranding van afgassen in de open lucht in noodsituaties.",
+      "inScheme": "conceptscheme:installatietypes",
+      "note": "Een installatie bestemd voor de verbranding van afgassen in de open lucht in noodsituaties.",
+      "prefLabel": "Fakkel installatie",
+      "topConceptOf": "conceptscheme:installatietypes",
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "installatie:geothermisch",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Een installatie die grondwater benut voor verwarming en koeling.",
+      "inScheme": "conceptscheme:installatietypes",
+      "note": "Een installatie die grondwater benut voor verwarming en koeling.",
+      "prefLabel": "Geothermische installatie",
+      "topConceptOf": "conceptscheme:installatietypes",
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "installatie:gpbv",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Een vaste technische eenheid waarin een of meer van de activiteiten en processen vermeld in de indelingslijst plaatsvinden, aangeduid met de letter X in de vierde kolom van de indelingslijst.",
+      "inScheme": "conceptscheme:installatietypes",
+      "note": "Een vaste technische eenheid waarin een of meer van de activiteiten en processen vermeld in de indelingslijst plaatsvinden, aangeduid met de letter X in de vierde kolom van de indelingslijst.",
+      "prefLabel": "GPBV Installatie",
+      "topConceptOf": "conceptscheme:installatietypes",
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "true"
+    },
+    {
+      "id": "installatie:indirecte_stookinstallatie",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "broader": "installatie:stookinstallatie",
+      "broaderTransitive": [
+        "installatie:stookinstallatie"
+      ],
+      "definition": "Een stookinstallatie waarbij de warmte van de verbrandingsgassen indirect wordt overgedragen aan de te verwarmen lucht, vloeistoffen, voorwerpen of materialen, bijvoorbeeld via een warmtewisselaar of tussenmedium. De verbrandingsgassen komen daarbij niet in rechtstreeks contact met het te verwarmen medium of materiaal, maar worden afzonderlijk afgevoerd.",
+      "inScheme": "conceptscheme:installatietypes",
+      "note": "Een stookinstallatie waarbij de warmte van de verbrandingsgassen indirect wordt overgedragen aan de te verwarmen lucht, vloeistoffen, voorwerpen of materialen, bijvoorbeeld via een warmtewisselaar of tussenmedium. De verbrandingsgassen komen daarbij niet in rechtstreeks contact met het te verwarmen medium of materiaal, maar worden afzonderlijk afgevoerd.",
+      "prefLabel": "Indirecte stookinstallatie",
+      "semanticRelation": [
+        "installatie:stookinstallatie"
+      ],
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "installatie:luchtzuivering",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Een installatie bestemd voor de zuivering van verontreinigde lucht.",
+      "inScheme": "conceptscheme:installatietypes",
+      "note": "Een installatie bestemd voor de zuivering van verontreinigde lucht.",
+      "prefLabel": "Luchtzuiveringsinstallatie",
+      "topConceptOf": "conceptscheme:installatietypes",
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "installatie:opslag_overslag",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Een plaats of ruimte bestemd voor de opslag of overslag van stoffen waaronder grondstoffen, producten en afval.",
+      "inScheme": "conceptscheme:installatietypes",
+      "note": "Een plaats of ruimte bestemd voor de opslag of overslag van stoffen waaronder grondstoffen, producten en afval.",
+      "prefLabel": "Opslag/Overslag",
+      "topConceptOf": "conceptscheme:installatietypes",
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "installatie:productie_installatie",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Een installatie of samenhangend geheel van installaties dat instaat voor of deel uitmaakt van een productieproces en dat emissies van afvalwater, afgassen en/of afvalstoffen genereert.",
+      "inScheme": "conceptscheme:installatietypes",
+      "note": "Een installatie of samenhangend geheel van installaties dat instaat voor of deel uitmaakt van een productieproces en dat emissies van afvalwater, afgassen en/of afvalstoffen genereert.",
+      "prefLabel": "Productie installatie",
+      "topConceptOf": "conceptscheme:installatietypes",
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "installatie:stookinstallatie",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Elk technisch toestel waarin brandstoffen worden geoxideerd ten einde de aldus opgewekte warmte te gebruiken.",
+      "inScheme": "conceptscheme:installatietypes",
+      "narrower": [
+        "installatie:directe_stookinstallatie",
+        "installatie:indirecte_stookinstallatie"
+      ],
+      "narrowerTransitive": [
+        "installatie:directe_stookinstallatie",
+        "installatie:indirecte_stookinstallatie"
+      ],
+      "note": "Elk technisch toestel waarin brandstoffen worden geoxideerd ten einde de aldus opgewekte warmte te gebruiken.",
+      "prefLabel": "Stookinstallatie",
+      "semanticRelation": [
+        "installatie:directe_stookinstallatie",
+        "installatie:indirecte_stookinstallatie"
+      ],
+      "topConceptOf": "conceptscheme:installatietypes",
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "installatie:waterzuivering",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Een installatie bestemd voor de zuivering van bedrijfsafvalwater.",
+      "inScheme": "conceptscheme:installatietypes",
+      "note": "Een installatie bestemd voor de zuivering van bedrijfsafvalwater.",
+      "prefLabel": "Waterzuiveringsinstallatie",
+      "topConceptOf": "conceptscheme:installatietypes",
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "meetpunt-selectiemogelijkheden:ander_referentiepunt",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "Een ander referentiepunt dan de opgesomde.",
+      "inScheme": "conceptscheme:meetpunt_referentiepunt_naam",
+      "note": "Een ander referentiepunt dan de opgesomde.",
+      "prefLabel": "Ander referentiepunt",
+      "topConceptOf": "conceptscheme:meetpunt_referentiepunt_naam"
+    },
+    {
+      "id": "meetpunt-selectiemogelijkheden:bovenkant_beschermbuis",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "De bovenkant van de beschermbuis.",
+      "inScheme": "conceptscheme:meetpunt_referentiepunt_naam",
+      "note": "De bovenkant van de beschermbuis.",
+      "prefLabel": "Bovenkant beschermbuis",
+      "topConceptOf": "conceptscheme:meetpunt_referentiepunt_naam"
+    },
+    {
+      "id": "meetpunt-selectiemogelijkheden:bovenkant_peilbuis",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "De bovenkant van de peilbuis.",
+      "inScheme": "conceptscheme:meetpunt_referentiepunt_naam",
+      "note": "De bovenkant van de peilbuis.",
+      "prefLabel": "Bovenkant peilbuis",
+      "topConceptOf": "conceptscheme:meetpunt_referentiepunt_naam"
+    },
+    {
+      "id": "meetpunt-selectiemogelijkheden:bovenkant_straatpot",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "De bovenkant van de straatpot.",
+      "inScheme": "conceptscheme:meetpunt_referentiepunt_naam",
+      "note": "De bovenkant van de straatpot.",
+      "prefLabel": "Bovenkant straatpot",
+      "topConceptOf": "conceptscheme:meetpunt_referentiepunt_naam"
+    },
+    {
+      "id": "meetpunt-selectiemogelijkheden:maaiveld",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "Het maaiveld ter hoogte van de peilput.",
+      "inScheme": "conceptscheme:meetpunt_referentiepunt_naam",
+      "note": "Het maaiveld ter hoogte van de peilput.",
+      "prefLabel": "Maaiveld",
+      "topConceptOf": "conceptscheme:meetpunt_referentiepunt_naam"
+    },
+    {
+      "id": "meetpunt-selectiemogelijkheden:onbekend",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "Het referentiepunt is niet gekend.",
+      "inScheme": "conceptscheme:meetpunt_referentiepunt_naam",
+      "note": "Het referentiepunt is niet gekend.",
+      "prefLabel": "Onbekend",
+      "topConceptOf": "conceptscheme:meetpunt_referentiepunt_naam"
+    },
+    {
+      "id": "meetpunteigenschappen:diepte",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "relevantUnit": [
+        "csor_eenheid:E_59"
+      ],
+      "definition": "De diepte van de peilput ten opzichte van het maaiveld.",
+      "inScheme": "conceptscheme:meetpunteigenschappen",
+      "note": "De diepte van de peilput ten opzichte van het maaiveld.",
+      "prefLabel": "Diepte",
+      "topConceptOf": "conceptscheme:meetpunteigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantDataType": "xsd:decimal",
+      "relevantRiepr": [
+        "meetpunt:peilput"
+      ]
+    },
+    {
+      "id": "meetpunteigenschappen:merk",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "definition": "Het merk van de debietmeter.",
+      "inScheme": "conceptscheme:meetpunteigenschappen",
+      "note": "Het merk van de debietmeter.",
+      "prefLabel": "Merk",
+      "topConceptOf": "conceptscheme:meetpunteigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantDataType": "xsd:string",
+      "relevantRiepr": [
+        "meetpunt:debietmeter"
+      ]
+    },
+    {
+      "id": "meetpunteigenschappen:putnummer",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "adms:identifier",
+      "definition": "Het identificatienummer waaronder de controleinrichting bij VMM gekend is.",
+      "inScheme": "conceptscheme:meetpunteigenschappen",
+      "note": "Het identificatienummer waaronder de controleinrichting bij VMM gekend is.",
+      "prefLabel": "VMM meetputnummer",
+      "topConceptOf": "conceptscheme:meetpunteigenschappen",
+      "schemaAgency": "VMM",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantDataType": "vmm:putNummer",
+      "relevantRiepr": [
+        "meetpunt:controleinrichting"
+      ]
+    },
+    {
+      "id": "meetpunteigenschappen:referentiepunt",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "narrowerPartitive": [
+        "meetpunteigenschappen:referentiepunt_diepte",
+        "meetpunteigenschappen:referentiepunt_naam"
+      ],
+      "definition": "Samengestelde eigenschap voor referentiepunt (naam en hoogte in meter).",
+      "inScheme": "conceptscheme:meetpunteigenschappen",
+      "note": "Samengestelde eigenschap voor referentiepunt (naam en hoogte in meter).",
+      "prefLabel": "Referentiepunt",
+      "topConceptOf": "conceptscheme:meetpunteigenschappen",
+      "isMeervoudig": "true",
+      "isVerplicht": "true"
+    },
+    {
+      "id": "meetpunteigenschappen:referentiepunt_diepte",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "broaderPartitive": "meetpunteigenschappen:referentiepunt",
+      "relevantUnit": [
+        "csor_eenheid:E_59"
+      ],
+      "definition": "De hoogte waarmee het referentiepunt uitsteekt ten opzichte van het maaiveld.",
+      "inScheme": "conceptscheme:meetpunteigenschappen",
+      "note": "De hoogte waarmee het referentiepunt uitsteekt ten opzichte van het maaiveld.",
+      "prefLabel": "Hoogte",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantDataType": "xsd:decimal",
+      "relevantRiepr": [
+        "meetpunt:peilput"
+      ]
+    },
+    {
+      "id": "meetpunteigenschappen:referentiepunt_naam",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:label",
+      "broaderPartitive": "meetpunteigenschappen:referentiepunt",
+      "definition": "De naam van het referentiepunt.",
+      "inScheme": "conceptscheme:meetpunteigenschappen",
+      "note": "De naam van het referentiepunt.",
+      "prefLabel": "Naam",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantCodeList": [
+        "conceptscheme:meetpunt_referentiepunt_naam"
+      ],
+      "relevantRiepr": [
+        "meetpunt:peilput"
+      ]
+    },
+    {
+      "id": "meetpunteigenschappen:serienummer",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "definition": "Het serienummer van de debietmeter.",
+      "inScheme": "conceptscheme:meetpunteigenschappen",
+      "note": "Het serienummer van de debietmeter.",
+      "prefLabel": "Serienummer",
+      "topConceptOf": "conceptscheme:meetpunteigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantDataType": "xsd:string",
+      "relevantRiepr": [
+        "meetpunt:debietmeter"
+      ]
+    },
+    {
+      "id": "meetpunt:controleinrichting",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
+      "inScheme": "conceptscheme:meetpunttypes",
+      "note": "Een controleinrichting is een meetpunt voorafgaand een lozingspunt of na een opnamepunt.",
+      "prefLabel": "Controleinrichting",
+      "topConceptOf": "conceptscheme:meetpunttypes",
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "meetpunt:debietmeter",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Een meetinrichting is een meetpunt voor een pompput.",
+      "inScheme": "conceptscheme:meetpunttypes",
+      "note": "Een meetinrichting is een meetpunt voor een pompput.",
+      "prefLabel": "Debietmeter grondwater",
+      "topConceptOf": "conceptscheme:meetpunttypes",
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "meetpunt:peilput",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+      "inScheme": "conceptscheme:meetpunttypes",
+      "note": "Een peilput is een put voor het meting van het grondwaterpeil en de kwaliteit van het grondwater",
+      "prefLabel": "Peilput",
+      "topConceptOf": "conceptscheme:meetpunttypes",
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "onttrekkingspunteigenschappen:omschrijving",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "definition": "Een algemene beschrijving van het opnamepunt oppervlaktewater.",
+      "inScheme": "conceptscheme:onttrekkingspunteigenschappen",
+      "note": "Een algemene beschrijving van het opnamepunt oppervlaktewater.",
+      "prefLabel": "Omschrijving",
+      "topConceptOf": "conceptscheme:onttrekkingspunteigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantDataType": "xsd:string",
+      "relevantRiepr": [
+        "onttrekkingspunt:opnamepunt"
+      ]
+    },
+    {
+      "id": "onttrekkingspunt:opnamepunt",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Plaats waar het oppervlaktewater wordt gewonnen voor gebruik in bedrijfsprocessen.",
+      "inScheme": "conceptscheme:onttrekkingspunttypes",
+      "note": "Plaats waar het oppervlaktewater wordt gewonnen voor gebruik in bedrijfsprocessen.",
+      "prefLabel": "Opnamepunt oppervlaktewater",
+      "topConceptOf": "conceptscheme:onttrekkingspunttypes",
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "procedure:emissie",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "De procedure emissie via een emissiepunt.",
+      "inScheme": "conceptscheme:proceduretypes",
+      "code": "EMISSIE",
+      "note": "De procedure emissie via een emissiepunt.",
+      "prefLabel": "Emissie",
+      "topConceptOf": "conceptscheme:proceduretypes",
+      "relevantDataType": "sosa:Procedure"
+    },
+    {
+      "id": "procedure:hoofdactiviteit",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "De procedure die de hoofdactiviteit aangeeft.",
+      "inScheme": "conceptscheme:proceduretypes",
+      "code": "HOOFDACTIVITEIT",
+      "note": "De procedure die de hoofdactiviteit aangeeft.",
+      "prefLabel": "Hoofdactiviteit",
+      "topConceptOf": "conceptscheme:proceduretypes",
+      "relevantDataType": "sosa:Procedure"
+    },
+    {
+      "id": "procedure:meting",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "De procedure meting via een meetpunt.",
+      "inScheme": "conceptscheme:proceduretypes",
+      "code": "METING",
+      "note": "De procedure meting via een meetpunt.",
+      "prefLabel": "Meting",
+      "topConceptOf": "conceptscheme:proceduretypes",
+      "relevantDataType": "sosa:Procedure"
+    },
+    {
+      "id": "procedure:onttrekking",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "De procedure onttrekking via een onttrekingspunt.",
+      "inScheme": "conceptscheme:proceduretypes",
+      "code": "ONTTREKKING",
+      "note": "De procedure onttrekking via een onttrekingspunt.",
+      "prefLabel": "Onttrekking",
+      "topConceptOf": "conceptscheme:proceduretypes",
+      "relevantDataType": "sosa:Procedure"
+    },
+    {
+      "id": "procedure:transport",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "De procedure transport tussen twee processen.",
+      "inScheme": "conceptscheme:proceduretypes",
+      "code": "TRANSPORT",
+      "note": "De procedure transport tussen twee processen.",
+      "prefLabel": "Transport",
+      "topConceptOf": "conceptscheme:proceduretypes",
+      "relevantDataType": "sosa:Procedure"
+    },
+    {
+      "id": "procedure:uitwissel",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "De procedure uitwissel via een uitwisselpunt.",
+      "inScheme": "conceptscheme:proceduretypes",
+      "code": "UITWISSEL",
+      "note": "De procedure uitwissel via een uitwisselpunt.",
+      "prefLabel": "Uitwissel",
+      "topConceptOf": "conceptscheme:proceduretypes",
+      "relevantDataType": "sosa:Procedure"
+    },
+    {
+      "id": "procedure:verwerking",
+      "_type": [
+        "skos:Concept"
+      ],
+      "definition": "De procedure verwerking door een installatie.",
+      "inScheme": "conceptscheme:proceduretypes",
+      "code": "VERWERKING",
+      "note": "De procedure verwerking door een installatie.",
+      "prefLabel": "Verwerking",
+      "topConceptOf": "conceptscheme:proceduretypes",
+      "relevantDataType": "sosa:Procedure"
+    },
+    {
+      "id": "rubriek:vlarem",
+      "_type": [
+        "skos:Concept"
+      ],
+      "inScheme": "conceptscheme:rubriektypes",
+      "code": "vlarem",
+      "prefLabel": "VLAREM",
+      "topConceptOf": "conceptscheme:rubriektypes",
+      "isMeetbaar": "true"
+    },
+    {
+      "id": "statustype:definitief_uit_dienst",
+      "_type": [
+        "skos:Concept"
+      ],
+      "seeAlso": "http://purl.org/adms/status/Withdrawn",
+      "definition": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
+      "inScheme": "conceptscheme:statustypes",
+      "code": "DEFINITIEF_UIT_DIENST",
+      "note": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
+      "prefLabel": "Definitief uit dienst",
+      "topConceptOf": "conceptscheme:statustypes",
+      "relevantDataType": "http://www.w3.org/ns/adms#"
+    },
+    {
+      "id": "statustype:in_dienst",
+      "_type": [
+        "skos:Concept"
+      ],
+      "seeAlso": "http://purl.org/adms/status/Completed",
+      "definition": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
+      "inScheme": "conceptscheme:statustypes",
+      "code": "IN_DIENST",
+      "note": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
+      "prefLabel": "In dienst",
+      "topConceptOf": "conceptscheme:statustypes",
+      "relevantDataType": "http://www.w3.org/ns/adms#"
+    },
+    {
+      "id": "statustype:ontmanteld",
+      "_type": [
+        "skos:Concept"
+      ],
+      "seeAlso": "http://purl.org/adms/status/Withdrawn",
+      "definition": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
+      "inScheme": "conceptscheme:statustypes",
+      "code": "ONTMANTELD",
+      "note": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
+      "prefLabel": "Ontmanteld",
+      "topConceptOf": "conceptscheme:statustypes",
+      "relevantDataType": "http://www.w3.org/ns/adms#"
+    },
+    {
+      "id": "statustype:tijdelijk_uit_dienst",
+      "_type": [
+        "skos:Concept"
+      ],
+      "seeAlso": "http://purl.org/adms/status/Deprecated",
+      "definition": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
+      "inScheme": "conceptscheme:statustypes",
+      "code": "TIJDELIJK_UIT_DIENST",
+      "note": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
+      "prefLabel": "Tijdelijk uit dienst",
+      "topConceptOf": "conceptscheme:statustypes",
+      "relevantDataType": "http://www.w3.org/ns/adms#"
+    },
+    {
+      "id": "statustype:verkeerde_registratie",
+      "_type": [
+        "skos:Concept"
+      ],
+      "seeAlso": "http://purl.org/adms/status/Withdrawn",
+      "definition": "De status verkeerde registratie  geeft aan deze entiteit verkeerd werd geregistreerd en dus niet van toepassing is",
+      "inScheme": "conceptscheme:statustypes",
+      "code": "VERKEERDE_REGISTRATIE",
+      "note": "De status verkeerde registratie  geeft aan deze entiteit verkeerd werd geregistreerd en dus niet van toepassing is",
+      "prefLabel": "Verkeerde Registratie",
+      "topConceptOf": "conceptscheme:statustypes",
+      "relevantDataType": "http://www.w3.org/ns/adms#"
+    },
+    {
+      "id": "statustype:voorgesteld",
+      "_type": [
+        "skos:Concept"
+      ],
+      "seeAlso": "http://purl.org/adms/status/UnderDevelopment",
+      "definition": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
+      "inScheme": "conceptscheme:statustypes",
+      "code": "VOORGESTELD",
+      "note": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
+      "prefLabel": "Voorgesteld Ontwerp",
+      "topConceptOf": "conceptscheme:statustypes",
+      "relevantDataType": "http://www.w3.org/ns/adms#"
+    },
+    {
+      "id": "uitwisselpunteigenschappen:diepte",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "relation": "rdfs:value",
+      "relevantUnit": [
+        "csor_eenheid:E_59"
+      ],
+      "definition": "De diepte van de pompput ten opzichte van het maaiveld.",
+      "inScheme": "conceptscheme:uitwisselpunteigenschappen",
+      "note": "De diepte van de pompput ten opzichte van het maaiveld.",
+      "prefLabel": "Diepte",
+      "topConceptOf": "conceptscheme:uitwisselpunteigenschappen",
+      "isMeervoudig": "false",
+      "isVerplicht": "false",
+      "relevantDataType": "xsd:decimal",
+      "relevantProperty": "dbo:depth",
+      "relevantRiepr": [
+        "uitwisselpunt:pompput"
+      ]
+    },
+    {
+      "id": "uitwisselpunt:pompput",
+      "_type": [
+        "skos:Concept"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Een put voor de winning van of injectie naar grondwater.",
+      "inScheme": "conceptscheme:uitwisselpunttypes",
+      "note": "Een put voor de winning van of injectie naar grondwater.",
+      "prefLabel": "Pompput",
+      "topConceptOf": "conceptscheme:uitwisselpunttypes",
+      "isMeetbaar": "true",
+      "isOnzichtbaar": "false"
+    },
+    {
+      "id": "conceptscheme:aangiftestatussen",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "hasTopConcept": [
+        "aangiftestatus:concept",
+        "aangiftestatus:gefaald",
+        "aangiftestatus:ingediend",
+        "aangiftestatus:ingetrokken",
+        {
+          "id": "aangiftestatus:concept"
+        },
+        {
+          "id": "aangiftestatus:gefaald"
+        },
+        {
+          "id": "aangiftestatus:ingediend"
+        },
+        {
+          "id": "aangiftestatus:ingetrokken"
+        }
+      ],
+      "prefLabel": "Aangifte status"
+    },
+    {
+      "id": "conceptscheme:aangiftetypes",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "definition": "Een typering van verschillende aangiftes",
+      "hasTopConcept": [
+        "aangifte:operationeel",
+        "aangifte:structuur",
+        {
+          "id": "aangifte:operationeel"
+        },
+        {
+          "id": "aangifte:structuur"
+        }
+      ],
+      "note": "Een typering van verschillende aangiftes",
+      "prefLabel": "Aangifte types"
+    },
+    {
+      "id": "conceptscheme:emissiepunteigenschappen",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "definition": "Een typering van verschillende eigenschappen voor emissiepunten.",
+      "hasTopConcept": [
+        "emissiepunteigenschappen:aantal_punten",
+        "emissiepunteigenschappen:diameter",
+        "emissiepunteigenschappen:hoogte",
+        "emissiepunteigenschappen:lozingspunt-lozingsplaats",
+        {
+          "id": "emissiepunteigenschappen:aantal_punten"
+        },
+        {
+          "id": "emissiepunteigenschappen:diameter"
+        },
+        {
+          "id": "emissiepunteigenschappen:hoogte"
+        },
+        {
+          "id": "emissiepunteigenschappen:lozingspunt-lozingsplaats"
+        }
+      ],
+      "note": "Een typering van verschillende eigenschappen voor emissiepunten.",
+      "prefLabel": "Emissiepunt eigenschappen"
+    },
+    {
+      "id": "conceptscheme:emissiepunttypes",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Een typering van verschillende soorten emissiepunten.",
+      "hasTopConcept": [
+        "emissiepunt:emissiepunt_lucht",
+        "emissiepunt:lozingspunt",
+        {
+          "id": "emissiepunt:emissiepunt_lucht"
+        },
+        {
+          "id": "emissiepunt:lozingspunt"
+        }
+      ],
+      "note": "Een typering van verschillende soorten emissiepunten.",
+      "prefLabel": "Emissiepunt types"
+    },
+    {
+      "id": "conceptscheme:emissietypes",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "hasTopConcept": [
+        "emissie:abnormale",
+        "emissie:geleide",
+        "emissie:niet-geleide-fakkel",
+        "emissie:niet-geleide",
+        "emissie:niet-geleide-lekverlies",
+        "emissie:niet-geleide-opslagverlies",
+        "emissie:niet-geleide-overslagverlies",
+        {
+          "id": "emissie:abnormale"
+        },
+        {
+          "id": "emissie:geleide"
+        },
+        {
+          "id": "emissie:niet-geleide"
+        },
+        {
+          "id": "emissie:niet-geleide-fakkel"
+        },
+        {
+          "id": "emissie:niet-geleide-lekverlies"
+        },
+        {
+          "id": "emissie:niet-geleide-opslagverlies"
+        },
+        {
+          "id": "emissie:niet-geleide-overslagverlies"
+        }
+      ],
+      "prefLabel": "Emissie type"
+    },
+    {
+      "id": "conceptscheme:filtereigenschappen",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "definition": "Een typering van verschillende eigenschappen voor filters.",
+      "hasTopConcept": [
+        "filtereigenschappen:diepte",
+        "filtereigenschappen:diepte_pomp",
+        "filtereigenschappen:lengte",
+        "filtereigenschappen:watervoerendeLaag",
+        {
+          "id": "filtereigenschappen:diepte"
+        },
+        {
+          "id": "filtereigenschappen:diepte_pomp"
+        },
+        {
+          "id": "filtereigenschappen:lengte"
+        },
+        {
+          "id": "filtereigenschappen:watervoerendeLaag"
+        }
+      ],
+      "note": "Een typering van verschillende eigenschappen voor filters.",
+      "prefLabel": "Filter eigenschappen"
+    },
+    {
+      "id": "conceptscheme:filtertypes",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "hasTopConcept": [
+        "filter:filter",
+        {
+          "id": "filter:filter"
+        }
+      ],
+      "prefLabel": "Filter type"
+    },
+    {
+      "id": "conceptscheme:herkomst_water",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 40,
+      "prefLabel": "Herkomst water"
+    },
+    {
+      "id": "conceptscheme:installatie-eigenschappen",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "definition": "Een typering van verschillende eigenschappen voor installaties.",
+      "hasTopConcept": [
+        "installatie-eigenschappen:geinstalleerde_opslag_overslagcapaciteit",
+        "installatie-eigenschappen:geinstalleerde_productiecapaciteit",
+        "installatie-eigenschappen:geproduceerde_stof_of_product",
+        "installatie-eigenschappen:luchtzuiverings_techniek",
+        "installatie-eigenschappen:nominaal_thermisch_vermogen",
+        "installatie-eigenschappen:omschrijving",
+        "installatie-eigenschappen:opslagen_overgeslagen_stof",
+        "installatie-eigenschappen:soort_opgewekte_energie",
+        "installatie-eigenschappen:technische_kenmerken",
+        "installatie-eigenschappen:type_opslag_overslag",
+        "installatie-eigenschappen:type_stookinstallatie",
+        "installatie-eigenschappen:verwijderingsrendement",
+        "installatie-eigenschappen:waterzuiveringstechniek",
+        {
+          "id": "installatie-eigenschappen:geinstalleerde_opslag_overslagcapaciteit"
+        },
+        {
+          "id": "installatie-eigenschappen:geinstalleerde_productiecapaciteit"
+        },
+        {
+          "id": "installatie-eigenschappen:geproduceerde_stof_of_product"
+        },
+        {
+          "id": "installatie-eigenschappen:luchtzuiverings_techniek"
+        },
+        {
+          "id": "installatie-eigenschappen:nominaal_thermisch_vermogen"
+        },
+        {
+          "id": "installatie-eigenschappen:omschrijving"
+        },
+        {
+          "id": "installatie-eigenschappen:opslagen_overgeslagen_stof"
+        },
+        {
+          "id": "installatie-eigenschappen:soort_opgewekte_energie"
+        },
+        {
+          "id": "installatie-eigenschappen:technische_kenmerken"
+        },
+        {
+          "id": "installatie-eigenschappen:type_opslag_overslag"
+        },
+        {
+          "id": "installatie-eigenschappen:type_stookinstallatie"
+        },
+        {
+          "id": "installatie-eigenschappen:verwijderingsrendement"
+        },
+        {
+          "id": "installatie-eigenschappen:waterzuiveringstechniek"
+        }
+      ],
+      "note": "Een typering van verschillende eigenschappen voor installaties.",
+      "prefLabel": "Installatie eigenschappen"
+    },
+    {
+      "id": "conceptscheme:installatie_soort_opgewekte_energie",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "definition": "De soorten energie die een stookinstallatie kan opwekken.",
+      "hasTopConcept": [
+        "installatie-selectiemogelijkheden:andere",
+        "installatie-selectiemogelijkheden:druk",
+        "installatie-selectiemogelijkheden:elektriciteit",
+        "installatie-selectiemogelijkheden:mechanische_energie",
+        "installatie-selectiemogelijkheden:stoom",
+        "installatie-selectiemogelijkheden:warm_water",
+        "installatie-selectiemogelijkheden:warme_lucht",
+        {
+          "id": "installatie-selectiemogelijkheden:andere"
+        },
+        {
+          "id": "installatie-selectiemogelijkheden:druk"
+        },
+        {
+          "id": "installatie-selectiemogelijkheden:elektriciteit"
+        },
+        {
+          "id": "installatie-selectiemogelijkheden:mechanische_energie"
+        },
+        {
+          "id": "installatie-selectiemogelijkheden:stoom"
+        },
+        {
+          "id": "installatie-selectiemogelijkheden:warm_water"
+        },
+        {
+          "id": "installatie-selectiemogelijkheden:warme_lucht"
+        }
+      ],
+      "note": "De soorten energie die een stookinstallatie kan opwekken.",
+      "prefLabel": "Soort opgewekte energie"
+    },
+    {
+      "id": "conceptscheme:installatie_type_stookinstallatie",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "definition": "De mogelijke types van een stookinstallatie.",
+      "hasTopConcept": [
+        "installatie-selectiemogelijkheden:andere_motor",
+        "installatie-selectiemogelijkheden:andere_stookinstallatie",
+        "installatie-selectiemogelijkheden:boiler",
+        "installatie-selectiemogelijkheden:dieselmotor",
+        "installatie-selectiemogelijkheden:dual_fuel_motor",
+        "installatie-selectiemogelijkheden:gasmotor",
+        "installatie-selectiemogelijkheden:gasturbine",
+        "installatie-selectiemogelijkheden:wkk",
+        {
+          "id": "installatie-selectiemogelijkheden:andere_motor"
+        },
+        {
+          "id": "installatie-selectiemogelijkheden:andere_stookinstallatie"
+        },
+        {
+          "id": "installatie-selectiemogelijkheden:boiler"
+        },
+        {
+          "id": "installatie-selectiemogelijkheden:dieselmotor"
+        },
+        {
+          "id": "installatie-selectiemogelijkheden:dual_fuel_motor"
+        },
+        {
+          "id": "installatie-selectiemogelijkheden:gasmotor"
+        },
+        {
+          "id": "installatie-selectiemogelijkheden:gasturbine"
+        },
+        {
+          "id": "installatie-selectiemogelijkheden:wkk"
+        }
+      ],
+      "note": "De mogelijke types van een stookinstallatie.",
+      "prefLabel": "Type stookinstallatie"
+    },
+    {
+      "id": "conceptscheme:installatietypes",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Een typering van verschillende soorten installaties.",
+      "hasTopConcept": [
+        "installatie:fakkel",
+        "installatie:opslag_overslag",
+        "installatie:productie_installatie",
+        "installatie:luchtzuivering",
+        "installatie:stookinstallatie",
+        "installatie:waterzuivering",
+        "installatie:geothermisch",
+        "installatie:gpbv",
+        {
+          "id": "installatie:fakkel"
+        },
+        {
+          "id": "installatie:geothermisch"
+        },
+        {
+          "id": "installatie:gpbv"
+        },
+        {
+          "id": "installatie:luchtzuivering"
+        },
+        {
+          "id": "installatie:opslag_overslag"
+        },
+        {
+          "id": "installatie:productie_installatie"
+        },
+        {
+          "id": "installatie:stookinstallatie"
+        },
+        {
+          "id": "installatie:waterzuivering"
+        }
+      ],
+      "note": "Een typering van verschillende soorten installaties.",
+      "prefLabel": "Installatie types"
+    },
+    {
+      "id": "conceptscheme:lozingspunt_lozingsplaats",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "hasTopConcept": [
+        "emissiepunt-selectiemogelijkheden:collector",
+        "emissiepunt-selectiemogelijkheden:externe_waterzuivering",
+        "emissiepunt-selectiemogelijkheden:grondwater",
+        "emissiepunt-selectiemogelijkheden:oppervlaktewater",
+        "emissiepunt-selectiemogelijkheden:regenwaterriool",
+        "emissiepunt-selectiemogelijkheden:riool",
+        {
+          "id": "emissiepunt-selectiemogelijkheden:collector"
+        },
+        {
+          "id": "emissiepunt-selectiemogelijkheden:externe_waterzuivering"
+        },
+        {
+          "id": "emissiepunt-selectiemogelijkheden:grondwater"
+        },
+        {
+          "id": "emissiepunt-selectiemogelijkheden:oppervlaktewater"
+        },
+        {
+          "id": "emissiepunt-selectiemogelijkheden:regenwaterriool"
+        },
+        {
+          "id": "emissiepunt-selectiemogelijkheden:riool"
+        }
+      ]
+    },
+    {
+      "id": "conceptscheme:meetpunt_referentiepunt_naam",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "definition": "De mogelijke referentiepunten voor de hoogtemeting van een peilput.",
+      "hasTopConcept": [
+        "meetpunt-selectiemogelijkheden:ander_referentiepunt",
+        "meetpunt-selectiemogelijkheden:bovenkant_beschermbuis",
+        "meetpunt-selectiemogelijkheden:bovenkant_peilbuis",
+        "meetpunt-selectiemogelijkheden:bovenkant_straatpot",
+        "meetpunt-selectiemogelijkheden:maaiveld",
+        "meetpunt-selectiemogelijkheden:onbekend",
+        {
+          "id": "meetpunt-selectiemogelijkheden:ander_referentiepunt"
+        },
+        {
+          "id": "meetpunt-selectiemogelijkheden:bovenkant_beschermbuis"
+        },
+        {
+          "id": "meetpunt-selectiemogelijkheden:bovenkant_peilbuis"
+        },
+        {
+          "id": "meetpunt-selectiemogelijkheden:bovenkant_straatpot"
+        },
+        {
+          "id": "meetpunt-selectiemogelijkheden:maaiveld"
+        },
+        {
+          "id": "meetpunt-selectiemogelijkheden:onbekend"
+        }
+      ],
+      "note": "De mogelijke referentiepunten voor de hoogtemeting van een peilput.",
+      "prefLabel": "Referentiepunt naam"
+    },
+    {
+      "id": "conceptscheme:meetpunteigenschappen",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "definition": "Een typering van verschillende eigenschappen voor meetpunten.",
+      "hasTopConcept": [
+        "meetpunteigenschappen:diepte",
+        "meetpunteigenschappen:merk",
+        "meetpunteigenschappen:putnummer",
+        "meetpunteigenschappen:referentiepunt",
+        "meetpunteigenschappen:serienummer",
+        {
+          "id": "meetpunteigenschappen:diepte"
+        },
+        {
+          "id": "meetpunteigenschappen:merk"
+        },
+        {
+          "id": "meetpunteigenschappen:putnummer"
+        },
+        {
+          "id": "meetpunteigenschappen:referentiepunt"
+        },
+        {
+          "id": "meetpunteigenschappen:serienummer"
+        }
+      ],
+      "note": "Een typering van verschillende eigenschappen voor meetpunten.",
+      "prefLabel": "Meetpunt eigenschappen"
+    },
+    {
+      "id": "conceptscheme:meetpunttypes",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "hasTopConcept": [
+        "meetpunt:peilput",
+        "meetpunt:debietmeter",
+        "meetpunt:controleinrichting",
+        {
+          "id": "meetpunt:controleinrichting"
+        },
+        {
+          "id": "meetpunt:debietmeter"
+        },
+        {
+          "id": "meetpunt:peilput"
+        }
+      ],
+      "prefLabel": "Meetpunt types"
+    },
+    {
+      "id": "conceptscheme:onttrekkingspunteigenschappen",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "definition": "Een typering van verschillende eigenschappen voor onttrekkingspunten.",
+      "hasTopConcept": [
+        "onttrekkingspunteigenschappen:omschrijving",
+        {
+          "id": "onttrekkingspunteigenschappen:omschrijving"
+        }
+      ],
+      "note": "Een typering van verschillende eigenschappen voor onttrekkingspunten.",
+      "prefLabel": "Onttrekkingspunt eigenschappen"
+    },
+    {
+      "id": "conceptscheme:onttrekkingspunttypes",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Een typering van verschillende soorten onttrekkingspunten.",
+      "hasTopConcept": [
+        "onttrekkingspunt:opnamepunt",
+        {
+          "id": "onttrekkingspunt:opnamepunt"
+        }
+      ],
+      "note": "Een typering van verschillende soorten onttrekkingspunten.",
+      "prefLabel": "Onttrekkingspunt types"
+    },
+    {
+      "id": "conceptscheme:proceduretypes",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "definition": "Een typering van verschillende procedures.",
+      "hasTopConcept": [
+        "procedure:emissie",
+        "procedure:hoofdactiviteit",
+        "procedure:meting",
+        "procedure:onttrekking",
+        "procedure:transport",
+        "procedure:uitwissel",
+        "procedure:verwerking",
+        {
+          "id": "procedure:emissie"
+        },
+        {
+          "id": "procedure:hoofdactiviteit"
+        },
+        {
+          "id": "procedure:meting"
+        },
+        {
+          "id": "procedure:onttrekking"
+        },
+        {
+          "id": "procedure:transport"
+        },
+        {
+          "id": "procedure:uitwissel"
+        },
+        {
+          "id": "procedure:verwerking"
+        }
+      ],
+      "note": "Een typering van verschillende procedures.",
+      "prefLabel": "Procedure types"
+    },
+    {
+      "id": "conceptscheme:rubriektypes",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "hasTopConcept": [
+        "rubriek:vlarem",
+        {
+          "id": "rubriek:vlarem"
+        }
+      ],
+      "prefLabel": "Rubriek types"
+    },
+    {
+      "id": "conceptscheme:statustypes",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "definition": "Een typering van verschillende statussen (actief, inactief, ...).",
+      "hasTopConcept": [
+        "statustype:definitief_uit_dienst",
+        "statustype:in_dienst",
+        "statustype:ontmanteld",
+        "statustype:tijdelijk_uit_dienst",
+        "statustype:verkeerde_registratie",
+        "statustype:voorgesteld",
+        {
+          "id": "statustype:definitief_uit_dienst"
+        },
+        {
+          "id": "statustype:in_dienst"
+        },
+        {
+          "id": "statustype:ontmanteld"
+        },
+        {
+          "id": "statustype:tijdelijk_uit_dienst"
+        },
+        {
+          "id": "statustype:verkeerde_registratie"
+        },
+        {
+          "id": "statustype:voorgesteld"
+        }
+      ],
+      "note": "Een typering van verschillende statussen (actief, inactief, ...).",
+      "prefLabel": "Status types"
+    },
+    {
+      "id": "conceptscheme:systeemeigenschappen",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "hasPart": [
+        "emissiepunteigenschappen:aantal_punten",
+        "conceptscheme:emissiepunteigenschappen",
+        "emissiepunteigenschappen:diameter",
+        "emissiepunteigenschappen:hoogte",
+        "emissiepunteigenschappen:lozingspunt-lozingsplaats",
+        "filtereigenschappen:diepte",
+        "conceptscheme:filtereigenschappen",
+        "filtereigenschappen:diepte_pomp",
+        "filtereigenschappen:lengte",
+        "filtereigenschappen:watervoerendeLaag",
+        "installatie-eigenschappen:geinstalleerde_opslag_overslagcapaciteit",
+        "conceptscheme:installatie-eigenschappen",
+        "installatie-eigenschappen:geinstalleerde_productiecapaciteit",
+        "installatie-eigenschappen:geproduceerde_stof_of_product",
+        "installatie-eigenschappen:luchtzuiverings_techniek",
+        "installatie-eigenschappen:nominaal_thermisch_vermogen",
+        "installatie-eigenschappen:omschrijving",
+        "installatie-eigenschappen:opslagen_overgeslagen_stof",
+        "installatie-eigenschappen:soort_opgewekte_energie",
+        "installatie-eigenschappen:technische_kenmerken",
+        "installatie-eigenschappen:type_opslag_overslag",
+        "installatie-eigenschappen:type_stookinstallatie",
+        "installatie-eigenschappen:verwijderingsrendement",
+        "installatie-eigenschappen:verwijderingsrendement_percentage",
+        "installatie-eigenschappen:verwijderingsrendement_stof",
+        "installatie-eigenschappen:waterzuiveringstechniek",
+        "installatie-eigenschappen:waterzuiveringstechniek_ingebruikvan",
+        "installatie-eigenschappen:waterzuiveringstechniek_techniek",
+        "meetpunteigenschappen:diepte",
+        "conceptscheme:meetpunteigenschappen",
+        "meetpunteigenschappen:merk",
+        "meetpunteigenschappen:putnummer",
+        "meetpunteigenschappen:referentiepunt",
+        "meetpunteigenschappen:referentiepunt_diepte",
+        "meetpunteigenschappen:referentiepunt_naam",
+        "meetpunteigenschappen:serienummer",
+        "onttrekkingspunteigenschappen:omschrijving",
+        "conceptscheme:onttrekkingspunteigenschappen",
+        "uitwisselpunteigenschappen:diepte",
+        "conceptscheme:uitwisselpunteigenschappen"
+      ],
+      "prefLabel": "Systeem eigenschappen",
+      "relevantCodeList": [
+        "conceptscheme:systeemtypes"
+      ]
+    },
+    {
+      "id": "conceptscheme:systeemtypes",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "hasPart": [
+        "emissiepunt:emissiepunt_lucht",
+        "emissiepunt:fakkel",
+        "emissiepunt:gebouw",
+        "emissiepunt:installatie",
+        "emissiepunt:schoorsteen",
+        "emissiepunt:schoorsteen_horizontale_uitstroom",
+        "emissiepunt:schoorsteen_verticale_uitstroom",
+        "emissiepunt:lozingspunt",
+        "conceptscheme:emissiepunttypes",
+        "installatie:fakkel",
+        "installatie:opslag_overslag",
+        "filter:filter",
+        "filter:injectie",
+        "filter:omkeerbaar",
+        "filter:peil",
+        "filter:pomp",
+        "conceptscheme:filtertypes",
+        "installatie:productie_installatie",
+        "installatie:luchtzuivering",
+        "installatie:directe_stookinstallatie",
+        "installatie:indirecte_stookinstallatie",
+        "installatie:stookinstallatie",
+        "installatie:waterzuivering",
+        "conceptscheme:installatietypes",
+        "installatie:geothermisch",
+        "installatie:gpbv",
+        "meetpunt:peilput",
+        "meetpunt:debietmeter",
+        "meetpunt:controleinrichting",
+        "conceptscheme:meetpunttypes",
+        "onttrekkingspunt:opnamepunt",
+        "conceptscheme:onttrekkingspunttypes",
+        "uitwisselpunt:pompput",
+        "conceptscheme:uitwisselpunttypes"
+      ],
+      "prefLabel": "Systeem types"
+    },
+    {
+      "id": "conceptscheme:uitwisselpunteigenschappen",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "isPartOf": "conceptscheme:systeemeigenschappen",
+      "definition": "Een typering van verschillende eigenschappen voor uitwisselpunten.",
+      "hasTopConcept": [
+        "uitwisselpunteigenschappen:diepte",
+        {
+          "id": "uitwisselpunteigenschappen:diepte"
+        }
+      ],
+      "note": "Een typering van verschillende eigenschappen voor uitwisselpunten.",
+      "prefLabel": "Uitwisselpunt eigenschappen"
+    },
+    {
+      "id": "conceptscheme:uitwisselpunttypes",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "isPartOf": "conceptscheme:systeemtypes",
+      "definition": "Een typering van verschillende soorten uitwisselpunten.",
+      "hasTopConcept": [
+        "uitwisselpunt:pompput",
+        {
+          "id": "uitwisselpunt:pompput"
+        }
+      ],
+      "note": "Een typering van verschillende soorten uitwisselpunten.",
+      "prefLabel": "Uitwisselpunt types"
+    },
+    {
+      "id": "riepr:inGebruikVanaf",
+      "_type": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "riepr:parameter",
+      "_type": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "schema:additionalProperty",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-05T12:53:32.429Z",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "schema:material",
+      "_type": [
+        "rdfs:Resource"
+      ]
+    },
+    {
+      "id": "schema:measurementMethod",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-05T12:53:32.429Z",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "conceptscheme:operationeel_bepalingsmethode",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 0,
+      "prefLabel": "Bepalingsmethode",
+      "hasTopConcept": [
+        {
+          "id": "bepalingsmethode:gemeten"
+        },
+        {
+          "id": "bepalingsmethode:berekend"
+        },
+        {
+          "id": "bepalingsmethode:geschat"
+        },
+        {
+          "id": "bepalingsmethode:voorgesteld"
+        }
+      ]
+    },
+    {
+      "id": "bepalingsmethode:gemeten",
+      "_type": "skos:Concept",
+      "_table_order": 1,
+      "topConceptOf": "conceptscheme:operationeel_bepalingsmethode",
+      "inScheme": "conceptscheme:operationeel_bepalingsmethode",
+      "prefLabel": "Gemeten"
+    },
+    {
+      "id": "bepalingsmethode:berekend",
+      "_type": "skos:Concept",
+      "_table_order": 2,
+      "topConceptOf": "conceptscheme:operationeel_bepalingsmethode",
+      "inScheme": "conceptscheme:operationeel_bepalingsmethode",
+      "prefLabel": "Berekend"
+    },
+    {
+      "id": "bepalingsmethode:geschat",
+      "_type": "skos:Concept",
+      "_table_order": 3,
+      "topConceptOf": "conceptscheme:operationeel_bepalingsmethode",
+      "inScheme": "conceptscheme:operationeel_bepalingsmethode",
+      "prefLabel": "Geschat"
+    },
+    {
+      "id": "bepalingsmethode:voorgesteld",
+      "_type": "skos:Concept",
+      "_table_order": 4,
+      "topConceptOf": "conceptscheme:operationeel_bepalingsmethode",
+      "inScheme": "conceptscheme:operationeel_bepalingsmethode",
+      "prefLabel": "Voorgesteld",
+      "isOnzichtbaar": true
+    },
+    {
+      "id": "conceptscheme:operationeel_bepalingsmethodeclassificatie",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 6,
+      "prefLabel": "Bepalingsmethodeclassificatie",
+      "hasTopConcept": [
+        {
+          "id": "bepalingsmethodeclassificatie:vrachten"
+        }
+      ]
+    },
+    {
+      "id": "bepalingsmethodeclassificatie:vrachten",
+      "_type": "skos:Concept",
+      "_table_order": 7,
+      "topConceptOf": "conceptscheme:operationeel_bepalingsmethodeclassificatie",
+      "inScheme": "conceptscheme:operationeel_bepalingsmethodeclassificatie",
+      "prefLabel": "Specifiek vrachten"
+    },
+    {
+      "id": "conceptscheme:operationeel_pomptoestand",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 9,
+      "prefLabel": "Pomptoestand",
+      "hasTopConcept": [
+        {
+          "id": "pomptoestand:rust"
+        },
+        {
+          "id": "pomptoestand:werking"
+        }
+      ]
+    },
+    {
+      "id": "pomptoestand:rust",
+      "_type": "skos:Concept",
+      "_table_order": 10,
+      "topConceptOf": "conceptscheme:operationeel_pomptoestand",
+      "inScheme": "conceptscheme:operationeel_pomptoestand",
+      "prefLabel": "Rust"
+    },
+    {
+      "id": "pomptoestand:werking",
+      "_type": "skos:Concept",
+      "_table_order": 11,
+      "topConceptOf": "conceptscheme:operationeel_pomptoestand",
+      "inScheme": "conceptscheme:operationeel_pomptoestand",
+      "prefLabel": "In werking"
+    },
+    {
+      "id": "conceptscheme:operationeel_peilmethode",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 13,
+      "prefLabel": "Peilmethode",
+      "hasTopConcept": [
+        {
+          "id": "peilmethode:peillint"
+        },
+        {
+          "id": "peilmethode:automatische_sonde"
+        },
+        {
+          "id": "peilmethode:overige"
+        }
+      ]
+    },
+    {
+      "id": "peilmethode:peillint",
+      "_type": "skos:Concept",
+      "_table_order": 14,
+      "topConceptOf": "conceptscheme:operationeel_peilmethode",
+      "inScheme": "conceptscheme:operationeel_peilmethode",
+      "prefLabel": "Peillint"
+    },
+    {
+      "id": "peilmethode:automatische_sonde",
+      "_type": "skos:Concept",
+      "_table_order": 15,
+      "topConceptOf": "conceptscheme:operationeel_peilmethode",
+      "inScheme": "conceptscheme:operationeel_peilmethode",
+      "prefLabel": "Automatische sonde"
+    },
+    {
+      "id": "peilmethode:overige",
+      "_type": "skos:Concept",
+      "_table_order": 16,
+      "topConceptOf": "conceptscheme:operationeel_peilmethode",
+      "inScheme": "conceptscheme:operationeel_peilmethode",
+      "prefLabel": "Andere methode"
+    },
+    {
+      "id": "conceptscheme:operationeel_debiettypes",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 18,
+      "prefLabel": "Type debiet",
+      "hasTopConcept": [
+        {
+          "id": "debiet:infiltratie"
+        },
+        {
+          "id": "debiet:onttrekking"
+        },
+        {
+          "id": "debiet:totaal_rondgepompd"
+        },
+        {
+          "id": "debiet:spui"
+        }
+      ]
+    },
+    {
+      "id": "debiet:infiltratie",
+      "_type": "skos:Concept",
+      "_table_order": 19,
+      "topConceptOf": "conceptscheme:operationeel_debiettypes",
+      "inScheme": "conceptscheme:operationeel_debiettypes",
+      "prefLabel": "Infiltratie"
+    },
+    {
+      "id": "debiet:onttrekking",
+      "_type": "skos:Concept",
+      "_table_order": 20,
+      "topConceptOf": "conceptscheme:operationeel_debiettypes",
+      "inScheme": "conceptscheme:operationeel_debiettypes",
+      "prefLabel": "Onttrekking"
+    },
+    {
+      "id": "debiet:totaal_rondgepompd",
+      "_type": "skos:Concept",
+      "_table_order": 21,
+      "topConceptOf": "conceptscheme:operationeel_debiettypes",
+      "inScheme": "conceptscheme:operationeel_debiettypes",
+      "prefLabel": "Totaal rondgepompd"
+    },
+    {
+      "id": "debiet:spui",
+      "_type": "skos:Concept",
+      "_table_order": 22,
+      "topConceptOf": "conceptscheme:operationeel_debiettypes",
+      "inScheme": "conceptscheme:operationeel_debiettypes",
+      "prefLabel": "Spui"
+    },
+    {
+      "id": "conceptscheme:operationeel_toepassingwijze",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 24,
+      "prefLabel": "Toepassingswijze",
+      "hasTopConcept": [
+        {
+          "id": "toepassingswijze:dispers"
+        },
+        {
+          "id": "toepassingswijze:brandstof"
+        },
+        {
+          "id": "toepassingswijze:overige"
+        }
+      ]
+    },
+    {
+      "id": "toepassingswijze:dispers",
+      "_type": "skos:Concept",
+      "_table_order": 25,
+      "topConceptOf": "conceptscheme:operationeel_toepassingwijze",
+      "inScheme": "conceptscheme:operationeel_toepassingwijze",
+      "prefLabel": "Dispers gebruik"
+    },
+    {
+      "id": "toepassingswijze:brandstof",
+      "_type": "skos:Concept",
+      "_table_order": 26,
+      "topConceptOf": "conceptscheme:operationeel_toepassingwijze",
+      "inScheme": "conceptscheme:operationeel_toepassingwijze",
+      "prefLabel": "Gebruik als brandstof"
+    },
+    {
+      "id": "toepassingswijze:overige",
+      "_type": "skos:Concept",
+      "_table_order": 27,
+      "topConceptOf": "conceptscheme:operationeel_toepassingwijze",
+      "inScheme": "conceptscheme:operationeel_toepassingwijze",
+      "prefLabel": "Ander gebruik in de ingedeelde inrichting"
+    },
+    {
+      "id": "conceptscheme:operationeel_bestemmingstype",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 29,
+      "prefLabel": "Bestemmingstype",
+      "hasTopConcept": [
+        {
+          "id": "bestemming:belgisch"
+        },
+        {
+          "id": "bestemming:buitenlands"
+        },
+        {
+          "id": "bestemming:werf"
+        },
+        {
+          "id": "bestemming:dispers"
+        },
+        {
+          "id": "bestemming:geen_onderneming"
+        },
+        {
+          "id": "bestemming:particulier"
+        }
+      ]
+    },
+    {
+      "id": "bestemming:belgisch",
+      "_type": "skos:Concept",
+      "_table_order": 30,
+      "topConceptOf": "conceptscheme:operationeel_bestemmingstype",
+      "inScheme": "conceptscheme:operationeel_bestemmingstype",
+      "prefLabel": "Belgische vestiging"
+    },
+    {
+      "id": "bestemming:buitenlands",
+      "_type": "skos:Concept",
+      "_table_order": 31,
+      "topConceptOf": "conceptscheme:operationeel_bestemmingstype",
+      "inScheme": "conceptscheme:operationeel_bestemmingstype",
+      "prefLabel": "Buitenlandse vestiging"
+    },
+    {
+      "id": "bestemming:werf",
+      "_type": "skos:Concept",
+      "_table_order": 32,
+      "topConceptOf": "conceptscheme:operationeel_bestemmingstype",
+      "inScheme": "conceptscheme:operationeel_bestemmingstype",
+      "prefLabel": "Werf"
+    },
+    {
+      "id": "bestemming:dispers",
+      "_type": "skos:Concept",
+      "_table_order": 33,
+      "topConceptOf": "conceptscheme:operationeel_bestemmingstype",
+      "inScheme": "conceptscheme:operationeel_bestemmingstype",
+      "prefLabel": "Dispers gebruik"
+    },
+    {
+      "id": "bestemming:geen_onderneming",
+      "_type": "skos:Concept",
+      "_table_order": 34,
+      "topConceptOf": "conceptscheme:operationeel_bestemmingstype",
+      "inScheme": "conceptscheme:operationeel_bestemmingstype",
+      "prefLabel": "Geen onderneming"
+    },
+    {
+      "id": "bestemming:particulier",
+      "_type": "skos:Concept",
+      "_table_order": 35,
+      "topConceptOf": "conceptscheme:operationeel_bestemmingstype",
+      "inScheme": "conceptscheme:operationeel_bestemmingstype",
+      "prefLabel": "Particulier"
+    },
+    {
+      "id": "conceptscheme:operationeel_techniekmonstername",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 37,
+      "prefLabel": "Techniek monstername",
+      "hasTopConcept": [
+        {
+          "id": "techniekmonstername:aftap"
+        }
+      ]
+    },
+    {
+      "id": "techniekmonstername:aftap",
+      "_type": "skos:Concept",
+      "_table_order": 38,
+      "topConceptOf": "conceptscheme:operationeel_techniekmonstername",
+      "inScheme": "conceptscheme:operationeel_techniekmonstername",
+      "prefLabel": "Aftap via monsterkraantje"
+    },
+    {
+      "id": "conceptscheme:operationeel_zelfcontrole_meetfrequentie",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 42,
+      "prefLabel": "Meetfrequentie",
+      "hasTopConcept": [
+        {
+          "id": "meetfrequentie:test"
+        }
+      ]
+    },
+    {
+      "id": "meetfrequentie:test",
+      "_type": "skos:Concept",
+      "_table_order": 43,
+      "topConceptOf": "conceptscheme:operationeel_zelfcontrole_meetfrequentie",
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_meetfrequentie",
+      "prefLabel": "Test"
+    },
+    {
+      "id": "conceptscheme:operationeel_toestand_indicator",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 45,
+      "hasTopConcept": [
+        {
+          "id": "toestand-indicator:nat"
+        },
+        {
+          "id": "toestand-indicator:droog"
+        }
+      ]
+    },
+    {
+      "id": "toestand-indicator:nat",
+      "_type": "skos:Concept",
+      "_table_order": 46,
+      "topConceptOf": "conceptscheme:operationeel_toestand_indicator",
+      "inScheme": "conceptscheme:operationeel_toestand_indicator",
+      "prefLabel": "Nat"
+    },
+    {
+      "id": "toestand-indicator:droog",
+      "_type": "skos:Concept",
+      "_table_order": 47,
+      "topConceptOf": "conceptscheme:operationeel_toestand_indicator",
+      "inScheme": "conceptscheme:operationeel_toestand_indicator",
+      "prefLabel": "Droog"
+    },
+    {
+      "id": "csor_variabele:V_1057",
+      "_type": "",
+      "_table_order": 50
+    },
+    {
+      "id": "csor_variabele:V_1919",
+      "_type": "",
+      "_table_order": 51
+    },
+    {
+      "id": "csor_variabele:V_1685",
+      "_type": "",
+      "_table_order": 52
+    },
+    {
+      "id": "csor_variabele:V_1901",
+      "_type": "",
+      "_table_order": 53
+    },
+    {
+      "id": "csor_variabele:V_1686",
+      "_type": "",
+      "_table_order": 54
+    },
+    {
+      "id": "csor_variabele:V_1060",
+      "_type": "",
+      "_table_order": 55
+    },
+    {
+      "id": "csor_variabele:V_424",
+      "_type": "",
+      "_table_order": 58
+    },
+    {
+      "id": "csor_variabele:V_231",
+      "_type": "",
+      "_table_order": 59
+    },
+    {
+      "id": "csor_variabele:V_46",
+      "_type": "",
+      "_table_order": 60
+    },
+    {
+      "id": "csor_variabele:V_316",
+      "_type": "",
+      "_table_order": 61
+    },
+    {
+      "id": "csor_variabele:V_351",
+      "_type": "",
+      "_table_order": 62
+    },
+    {
+      "id": "csor_variabele:V_333",
+      "_type": "",
+      "_table_order": 63
+    },
+    {
+      "id": "csor_variabele:V_246",
+      "_type": "",
+      "_table_order": 66
+    },
+    {
+      "id": "csor_variabele:V_247",
+      "_type": "",
+      "_table_order": 67
+    },
+    {
+      "id": "csor_variabele:V_251",
+      "_type": "",
+      "_table_order": 68
+    },
+    {
+      "id": "csor_variabele:V_321",
+      "_type": "",
+      "_table_order": 69
+    },
+    {
+      "id": "csor_variabele:V_337",
+      "_type": "",
+      "_table_order": 70
+    },
+    {
+      "id": "csor_variabele:V_329",
+      "_type": "",
+      "_table_order": 71
+    },
+    {
+      "id": "conceptscheme:operationeel_detectiegrensindicator",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 73,
+      "prefLabel": "Ligging ten opzichte van de detectielimiet",
+      "definition": "Een aanduiding of de meetwaarde boven of onder de detectielimiet ligt.",
+      "hasTopConcept": [
+        {
+          "id": "grondwater:detectiegrens-boven"
+        },
+        {
+          "id": "grondwater:detectiegrens-onder"
+        }
+      ]
+    },
+    {
+      "id": "grondwater:detectiegrens-boven",
+      "_type": "skos:Concept",
+      "_table_order": 74,
+      "topConceptOf": "conceptscheme:operationeel_detectiegrensindicator",
+      "inScheme": "conceptscheme:operationeel_detectiegrensindicator",
+      "prefLabel": "Boven",
+      "definition": "De meetwaarde ligt boven de detectielimiet.",
+      "_ui_first": true
+    },
+    {
+      "id": "grondwater:detectiegrens-onder",
+      "_type": "skos:Concept",
+      "_table_order": 75,
+      "topConceptOf": "conceptscheme:operationeel_detectiegrensindicator",
+      "inScheme": "conceptscheme:operationeel_detectiegrensindicator",
+      "prefLabel": "Onder",
+      "definition": "De meetwaarde ligt onder de detectielimiet.",
+      "_ui_after": "grondwater:detectiegrens-boven"
+    },
+    {
+      "id": "conceptscheme:operationeel_materiaalcodes",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 77,
+      "prefLabel": "Materiaalcodes (tijdelijk)",
+      "definition": "Tijdelijke keuzelijst voor materiaalcodes waarvan de definitieve opties nog moeten worden toegevoegd."
+    },
+    {
+      "id": "conceptscheme:operationeel_grondwater",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 1,
+      "hasTopConcept": [
+        {
+          "id": "grondwater:onttrekking"
+        },
+        {
+          "id": "grondwater:peilmeting"
+        },
+        {
+          "id": "grondwater:kwaliteitsmeting"
+        }
+      ]
+    },
+    {
+      "id": "grondwater:onttrekking",
+      "_type": "skos:Concept",
+      "_table_order": 0,
+      "topConceptOf": "conceptscheme:operationeel_grondwater",
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Onttrekking/infiltratie",
+      "definition": "Een meting van de onttrekking van een pompput.",
+      "relevantClass": "riepr:ObservatieVerzameling",
+      "isMeervoudig": true,
+      "_ui_first": true
+    },
+    {
+      "id": "grondwater:peilmeting",
+      "_type": "skos:Concept",
+      "_table_order": 2,
+      "topConceptOf": "conceptscheme:operationeel_grondwater",
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Peilmeting",
+      "definition": "Een peilmeting van een pomp- of peilput.",
+      "relevantClass": "riepr:Observatie",
+      "isMeervoudig": true,
+      "_ui_after": "grondwater:onttrekking"
+    },
+    {
+      "id": "grondwater:kwaliteitsmeting",
+      "_type": "skos:Concept",
+      "_table_order": 3,
+      "topConceptOf": "conceptscheme:operationeel_grondwater",
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Kwaliteitsmeting",
+      "definition": "Een kwaliteitsmeting van een pomp- of peilput.",
+      "relevantClass": "riepr:ObservatieVerzameling",
+      "isMeervoudig": true,
+      "_ui_after": "grondwater:peilmeting"
+    },
+    {
+      "id": "grondwater:onttrekking-feature",
+      "_type": "skos:Concept",
+      "_table_order": 4,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Debietmeter",
+      "definition": "Actieve debietmeters in het productiejaar.",
+      "broaderPartitive": "grondwater:onttrekking",
+      "relevantObservation": "grondwater:onttrekking",
+      "relevantClass": "sosa:FeatureOfInterest",
+      "relevantFeatureClass": "riepr:Onttrekking",
+      "relation": "sosa:hasFeatureOfInterest",
+      "relevantRiepr": "meetpunt:debietmeter",
+      "_table_workbook": "grondwater-debieten.ods",
+      "_table_sheet": "Debieten",
+      "_ui_first": true
+    },
+    {
+      "id": "grondwater:onttrekking-startdatum",
+      "_type": "skos:Concept",
+      "_table_order": 5,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Startdatum",
+      "broaderPartitive": "grondwater:onttrekking",
+      "relevantObservation": "grondwater:onttrekking-startmeterstand",
+      "relevantDataType": "xsd:date",
+      "relation": "sosa:resultTime",
+      "_table_workbook": "grondwater-debieten.ods",
+      "_table_sheet": "Debieten",
+      "_ui_after": "grondwater:onttrekking-feature"
+    },
+    {
+      "id": "grondwater:onttrekking-startmeterstand",
+      "_type": "skos:Concept",
+      "_table_order": 6,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Startmeterstand",
+      "broaderPartitive": "grondwater:onttrekking",
+      "relevantObservation": "grondwater:onttrekking",
+      "relevantClass": "riepr:Observatie",
+      "relevantDataType": "xsd:decimal",
+      "relation": "sosa:hasMember",
+      "relevantUnit": "csor_eenheid:E_32",
+      "isVerplicht": false,
+      "_table_workbook": "grondwater-debieten.ods",
+      "_table_sheet": "Debieten",
+      "_ui_after": "grondwater:onttrekking-startdatum"
+    },
+    {
+      "id": "grondwater:onttrekking-einddatum",
+      "_type": "skos:Concept",
+      "_table_order": 7,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Einddatum",
+      "broaderPartitive": "grondwater:onttrekking",
+      "relevantObservation": [
+        "grondwater:onttrekking-eindmeterstand",
+        "grondwater:onttrekking-hoeveelheid"
+      ],
+      "relevantDataType": "xsd:date",
+      "relation": "sosa:resultTime",
+      "isVerplicht": true,
+      "_table_workbook": "grondwater-debieten.ods",
+      "_table_sheet": "Debieten",
+      "_ui_after": "grondwater:onttrekking-startmeterstand"
+    },
+    {
+      "id": "grondwater:onttrekking-eindmeterstand",
+      "_type": "skos:Concept",
+      "_table_order": 8,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Eindmeterstand",
+      "broaderPartitive": "grondwater:onttrekking",
+      "relevantObservation": "grondwater:onttrekking",
+      "relevantClass": "riepr:Observatie",
+      "relevantDataType": "xsd:decimal",
+      "relation": "sosa:hasMember",
+      "relevantUnit": "csor_eenheid:E_32",
+      "isVerplicht": false,
+      "_table_workbook": "grondwater-debieten.ods",
+      "_table_sheet": "Debieten",
+      "_ui_after": "grondwater:onttrekking-einddatum"
+    },
+    {
+      "id": "grondwater:onttrekking-type-debiet",
+      "_type": "skos:Concept",
+      "_table_order": 9,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Type debiet",
+      "broaderPartitive": "grondwater:onttrekking",
+      "relevantObservation": "grondwater:onttrekking",
+      "relation": "dcterms:type",
+      "relevantCodeList": "conceptscheme:operationeel_debiettypes",
+      "isVerplicht": true,
+      "_table_workbook": "grondwater-debieten.ods",
+      "_table_sheet": "Debieten",
+      "_ui_after": "grondwater:onttrekking-eindmeterstand"
+    },
+    {
+      "id": "grondwater:onttrekking-hoeveelheid",
+      "_type": "skos:Concept",
+      "_table_order": 10,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Hoeveelheid",
+      "broaderPartitive": "grondwater:onttrekking",
+      "relevantObservation": "grondwater:onttrekking",
+      "relevantClass": "riepr:Observatie",
+      "relevantDataType": "xsd:decimal",
+      "relation": "sosa:hasMember",
+      "relevantUnit": "csor_eenheid:E_32",
+      "isVerplicht": true,
+      "_table_workbook": "grondwater-debieten.ods",
+      "_table_sheet": "Debieten",
+      "_ui_after": "grondwater:onttrekking-type-debiet"
+    },
+    {
+      "id": "grondwater:onttrekking-spui",
+      "_type": "skos:Concept",
+      "_table_order": 11,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Spui meegeteld in rondgepompt debiet",
+      "broaderPartitive": "grondwater:onttrekking",
+      "relevantObservation": "grondwater:onttrekking",
+      "relevantDataType": "xsd:boolean",
+      "isVerplicht": true,
+      "_table_workbook": "grondwater-debieten.ods",
+      "_table_sheet": "Debieten",
+      "_ui_after": "grondwater:onttrekking-hoeveelheid"
+    },
+    {
+      "id": "grondwater:peilmeting-feature",
+      "_type": "skos:Concept",
+      "_table_order": 12,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Filter",
+      "definition": "Actieve peil- en pompfilters in het productiejaar.",
+      "broaderPartitive": "grondwater:peilmeting",
+      "relevantObservation": "grondwater:peilmeting",
+      "relevantClass": "sosa:FeatureOfInterest",
+      "relation": "sosa:hasFeatureOfInterest",
+      "relevantRiepr": [
+        "filter:peil",
+        "filter:pomp"
+      ],
+      "_table_workbook": "grondwater-peilmetingen.ods",
+      "_table_sheet": "Peilmetingen",
+      "_ui_first": true
+    },
+    {
+      "id": "grondwater:peilmeting-referentiepunt",
+      "_type": "skos:Concept",
+      "_table_order": 14,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Referentiepunt",
+      "broaderPartitive": "grondwater:peilmeting",
+      "relevantObservation": "grondwater:peilmeting",
+      "relevantRiepr": "meetpunteigenschappen:referentiepunt",
+      "isVerplicht": true,
+      "_table_workbook": "grondwater-peilmetingen.ods",
+      "_table_sheet": "Peilmetingen",
+      "_ui_after": "grondwater:peilmeting-feature"
+    },
+    {
+      "id": "grondwater:peilmeting-peilmethode",
+      "_type": "skos:Concept",
+      "_table_order": 15,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Peilmethode",
+      "broaderPartitive": "grondwater:peilmeting",
+      "relevantObservation": "grondwater:peilmeting",
+      "relation": "schema:measurementMethod",
+      "relevantCodeList": "conceptscheme:operationeel_peilmethode",
+      "_table_workbook": "grondwater-peilmetingen.ods",
+      "_table_sheet": "Peilmetingen",
+      "_ui_after": "grondwater:peilmeting-diepte"
+    },
+    {
+      "id": "grondwater:peilmeting-pomptoestand",
+      "_type": "skos:Concept",
+      "_table_order": 16,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Pomptoestand",
+      "broaderPartitive": "grondwater:peilmeting",
+      "relevantObservation": "grondwater:peilmeting",
+      "relevantClass": "schema:PropertyValue",
+      "relation": "schema:additionalProperty",
+      "relevantCodeList": "conceptscheme:operationeel_pomptoestand",
+      "_table_workbook": "grondwater-peilmetingen.ods",
+      "_table_sheet": "Peilmetingen",
+      "_ui_after": "grondwater:peilmeting-peilmethode"
+    },
+    {
+      "id": "grondwater:peilmeting-datum",
+      "_type": "skos:Concept",
+      "_table_order": 17,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Datum en tijdstip",
+      "broaderPartitive": "grondwater:peilmeting",
+      "relevantObservation": "grondwater:peilmeting",
+      "relevantDataType": "xsd:dateTime",
+      "relation": "sosa:resultTime",
+      "_table_workbook": "grondwater-peilmetingen.ods",
+      "_table_sheet": "Peilmetingen",
+      "_ui_after": "grondwater:peilmeting-feature"
+    },
+    {
+      "id": "grondwater:peilmeting-diepte",
+      "_type": "skos:Concept",
+      "_table_order": 13,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Diepte/hoogte (TAW) t.o.v. referentiepunt",
+      "broaderPartitive": "grondwater:peilmeting",
+      "relevantObservation": "grondwater:peilmeting",
+      "relevantDataType": "xsd:decimal",
+      "relation": "qudt:numericValue",
+      "relevantUnit": "csor_eenheid:E_59",
+      "isVerplicht": true,
+      "_table_workbook": "grondwater-peilmetingen.ods",
+      "_table_sheet": "Peilmetingen",
+      "_ui_first": true
+    },
+    {
+      "id": "grondwater:peilmeting-duur-stil",
+      "_type": "skos:Concept",
+      "_table_order": 18,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Duur pompen stil",
+      "broaderPartitive": "grondwater:peilmeting",
+      "relevantObservation": "grondwater:peilmeting",
+      "relevantClass": "schema:PropertyValue",
+      "relevantDataType": "xsd:duration",
+      "relation": "schema:additionalProperty",
+      "conditionPath": "grondwater:peilmeting-pomptoestand",
+      "conditionValue": "pomptoestand:rust",
+      "_table_workbook": "grondwater-peilmetingen.ods",
+      "_table_sheet": "Peilmetingen",
+      "_ui_after": "grondwater:peilmeting-pomptoestand"
+    },
+    {
+      "id": "grondwater:peilmeting-volume-rust",
+      "_type": "skos:Concept",
+      "_table_order": 19,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Volume (8u voor stilstand)",
+      "broaderPartitive": "grondwater:peilmeting",
+      "relevantObservation": "grondwater:peilmeting",
+      "relevantClass": "schema:PropertyValue",
+      "relevantDataType": "xsd:decimal",
+      "relation": "schema:additionalProperty",
+      "conditionPath": "grondwater:peilmeting-pomptoestand",
+      "conditionValue": "pomptoestand:rust",
+      "relevantUnit": "csor_eenheid:E_32",
+      "_table_workbook": "grondwater-peilmetingen.ods",
+      "_table_sheet": "Peilmetingen",
+      "_ui_after": "grondwater:peilmeting-duur-stil"
+    },
+    {
+      "id": "grondwater:peilmeting-volume-werking",
+      "_type": "skos:Concept",
+      "_table_order": 20,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Volume (1 uur voor meting)",
+      "broaderPartitive": "grondwater:peilmeting",
+      "relevantObservation": "grondwater:peilmeting",
+      "relevantClass": "schema:PropertyValue",
+      "relevantDataType": "xsd:decimal",
+      "relation": "schema:additionalProperty",
+      "conditionPath": "grondwater:peilmeting-pomptoestand",
+      "conditionValue": "pomptoestand:werking",
+      "relevantUnit": "csor_eenheid:E_32",
+      "_table_workbook": "grondwater-peilmetingen.ods",
+      "_table_sheet": "Peilmetingen",
+      "_ui_after": "grondwater:peilmeting-volume-rust"
+    },
+    {
+      "id": "grondwater:kwaliteitsmeting-feature",
+      "_type": "skos:Concept",
+      "_table_order": 21,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Filter(s)",
+      "definition": "Actieve peil- en pompfilters in het productiejaar.",
+      "broaderPartitive": "grondwater:kwaliteitsmeting",
+      "relevantObservation": "grondwater:kwaliteitsmeting",
+      "relevantClass": "sosa:FeatureOfInterest",
+      "relevantFeatureClass": "riepr:Emissie",
+      "relation": "sosa:hasFeatureOfInterest",
+      "relevantRiepr": [
+        "filter:peil",
+        "filter:pomp"
+      ],
+      "isMultiselect": true,
+      "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
+      "_table_sheet": "Monsters",
+      "_ui_first": true
+    },
+    {
+      "id": "grondwater:kwaliteitsmeting-monsternummer",
+      "_type": "skos:Concept",
+      "_table_order": 22,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Monsternummer",
+      "broaderPartitive": "grondwater:kwaliteitsmeting",
+      "relevantObservation": "grondwater:kwaliteitsmeting",
+      "relevantDataType": "xsd:string",
+      "relation": "dcterms:identifier",
+      "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
+      "_table_sheet": "Monsters",
+      "_ui_after": "grondwater:kwaliteitsmeting-feature"
+    },
+    {
+      "id": "grondwater:kwaliteitsmeting-datum",
+      "_type": "skos:Concept",
+      "_table_order": 23,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Datum en tijdstip",
+      "broaderPartitive": "grondwater:kwaliteitsmeting",
+      "relevantObservation": "grondwater:kwaliteitsmeting",
+      "relevantDataType": "xsd:dateTime",
+      "relation": "sosa:phenomenonTime",
+      "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
+      "_table_sheet": "Monsters",
+      "_ui_after": "grondwater:kwaliteitsmeting-monsternummer"
+    },
+    {
+      "id": "grondwater:kwaliteitsmeting-labo-datum",
+      "_type": "skos:Concept",
+      "_table_order": 24,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Datum en tijdstip laboanalyse",
+      "broaderPartitive": "grondwater:kwaliteitsmeting",
+      "relevantObservation": "grondwater:kwaliteitsmeting",
+      "relevantDataType": "xsd:dateTime",
+      "relation": "sosa:resultTime",
+      "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
+      "_table_sheet": "Monsters"
+    },
+    {
+      "id": "grondwater:kwaliteitsmeting-labo",
+      "_type": "skos:Concept",
+      "_table_order": 25,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Labo",
+      "definition": "Labo dat de meting uitvoerde.",
+      "broaderPartitive": "grondwater:kwaliteitsmeting",
+      "relevantObservation": "grondwater:kwaliteitsmeting",
+      "relevantClass": "prov:Agent",
+      "isVerplicht": true,
+      "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
+      "_table_sheet": "Monsters"
+    },
+    {
+      "id": "grondwater:kwaliteitsmeting-labo-naam",
+      "_type": "skos:Concept",
+      "_table_order": 26,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Labo naam",
+      "broaderPartitive": "grondwater:kwaliteitsmeting-labo",
+      "relevantObservation": "grondwater:kwaliteitsmeting",
+      "relevantDataType": "xsd:string",
+      "relation": "rdfs:label",
+      "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
+      "_table_sheet": "Monsters"
+    },
+    {
+      "id": "grondwater:kwaliteitsmeting-referentiepunt",
+      "_type": "skos:Concept",
+      "_table_order": 27,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Referentiepunt",
+      "broaderPartitive": "grondwater:kwaliteitsmeting",
+      "relevantObservation": "grondwater:kwaliteitsmeting",
+      "relevantRiepr": "meetpunteigenschappen:referentiepunt",
+      "isVerplicht": true,
+      "isMeervoudig": true,
+      "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
+      "_table_sheet": "Monsters"
+    },
+    {
+      "id": "grondwater:kwaliteitsmeting-diepte",
+      "_type": "skos:Concept",
+      "_table_order": 28,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Diepte/hoogte (TAW) t.o.v. referentiepunt",
+      "broaderPartitive": "grondwater:kwaliteitsmeting",
+      "relevantObservation": "grondwater:kwaliteitsmeting",
+      "relevantClass": "riepr:Observatie",
+      "relevantDataType": "xsd:decimal",
+      "relevantUnit": "csor_eenheid:E_59",
+      "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
+      "_table_sheet": "Monsters"
+    },
+    {
+      "id": "grondwater:kwaliteitsmeting-techniek",
+      "_type": "skos:Concept",
+      "_table_order": 29,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Techniek monstername",
+      "broaderPartitive": "grondwater:kwaliteitsmeting",
+      "relevantObservation": "grondwater:kwaliteitsmeting",
+      "relation": "sosa:usedProcedure",
+      "relevantCodeList": "conceptscheme:operationeel_techniekmonstername",
+      "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
+      "_table_sheet": "Monsters"
+    },
+    {
+      "id": "grondwater:kwaliteitsmeting-resultaten",
+      "_type": "skos:Concept",
+      "_table_order": 31,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Meetresultaten",
+      "broaderPartitive": "grondwater:kwaliteitsmeting",
+      "relevantObservation": "grondwater:kwaliteitsmeting",
+      "relevantClass": "riepr:Observatie",
+      "relation": "sosa:hasMember",
+      "isMeervoudig": true,
+      "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
+      "_table_sheet": "Meetresultaten"
+    },
+    {
+      "id": "grondwater:kwaliteitsmeting-resultaten-parameter",
+      "_type": "skos:Concept",
+      "_table_order": 30,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Parameter",
+      "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
+      "relevantObservation": "grondwater:kwaliteitsmeting-resultaten",
+      "relation": "sosa:observedProperty",
+      "relevantCodeList": "collectie:operationeel_parameters_grondwater",
+      "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
+      "_table_sheet": "Meetresultaten",
+      "_ui_first": true
+    },
+    {
+      "id": "grondwater:kwaliteitsmeting-resultaten-meetwaarde",
+      "_type": "skos:Concept",
+      "_table_order": 32,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Meetwaarde",
+      "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
+      "relevantObservation": "grondwater:kwaliteitsmeting-resultaten",
+      "relevantDataType": "xsd:decimal",
+      "relevantUnit": "csor_eenheid:E_1",
+      "kwantiteitsAspect": "csor_kwantificeerbaaraspect:KWA_1",
+      "drager": "csor_drager:DR_1",
+      "soortWaartbepaling": "csor_soortwaardebepaling:SWB_1",
+      "variabele": "grondwater:kwaliteitsmeting-resultaten-parameter",
+      "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
+      "_table_sheet": "Meetresultaten"
+    },
+    {
+      "id": "grondwater:kwaliteitsmeting-resultaten-limiet",
+      "_type": "skos:Concept",
+      "_table_order": 33,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Detectielimiet",
+      "definition": "Een aanduiding of de meetwaarde boven of onder de detectielimiet ligt.",
+      "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
+      "relevantObservation": "grondwater:kwaliteitsmeting-resultaten",
+      "relevantClass": "schema:PropertyValue",
+      "relation": "schema:additionalProperty",
+      "relevantCodeList": "conceptscheme:operationeel_detectiegrensindicator",
+      "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
+      "_table_sheet": "Meetresultaten"
+    },
+    {
+      "id": "grondwater:kwaliteitsmeting-resultaten-methode",
+      "_type": "skos:Concept",
+      "_table_order": 34,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Analysemethode",
+      "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
+      "relevantObservation": "grondwater:kwaliteitsmeting-resultaten",
+      "relevantDataType": "xsd:string",
+      "relation": "schema:measurementMethod",
+      "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
+      "_table_sheet": "Meetresultaten"
+    },
+    {
+      "id": "grondwater:kwaliteitsmeting-bemonsteringsinstrument",
+      "_type": "skos:Concept",
+      "_table_order": 35,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Veld- of laboanalyse",
+      "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
+      "relevantObservation": "grondwater:kwaliteitsmeting-resultaten",
+      "relevantDataType": "xsd:string",
+      "relation": "dcterms:type",
+      "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
+      "_table_sheet": "Meetresultaten"
+    }
+  ]
+}
