@@ -9,15 +9,20 @@ The UI consumes verified JSON Schemas, not an independently inferred RDF form.
 ```mermaid
 flowchart TD
     snapshot["Verified schema snapshot<br/>Source/schema fingerprints"]
+    references["Current reference instances<br/>Reporting year and parent context"]
+    personal["Personal schema<br/>Reference enums and labels"]
     layout["Presentation schema<br/>Source labels, columns and detail groups"]
     draft["Editable draft<br/>Per reporting year and section"]
     canonical["Canonical projection<br/>hasMember and additionalProperty arrays"]
     validation["Shared structural and semantic validation"]
     json["Validated reporting JSON"]
     upload["Filled current ODS<br/>Local import and validation"]
-    downloads["Matching JSON Schema and blank ODS downloads"]
-    snapshot --> layout --> draft --> canonical --> validation --> json
+    downloads["Generic and personal JSON Schemas<br/>Matching blank ODS download"]
+    snapshot --> personal
+    references --> personal
+    personal --> layout --> draft --> canonical --> validation --> json
     snapshot --> downloads
+    personal --> downloads
     snapshot --> upload
     upload -->|"Confirm replacement; no reload"| draft
 ```

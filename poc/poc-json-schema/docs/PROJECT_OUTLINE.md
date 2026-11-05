@@ -26,8 +26,11 @@ documents generation, snapshot provenance, validation and commands.
 | Presentation | Source labels, hidden containers, order and workbook/sheet annotations survive canonical grouping |
 | Consumers | Shared canonical/presentation data and path mappings; structural and semantic validation |
 | Output provenance | Indexed source/schema fingerprints; stale snapshots and incompatible workbooks are rejected |
+| Reference validation | Generic annotations plus semantic checks; optional personal variants embed URI enums, labels and context for standard validation |
 
 Generation does not invent units, choices, predicates or missing domain facts.
+Personal variants are derived from supplied instances, never guessed. The generic
+contract stays unchanged and both variants remain available to consumers.
 Feature construction, full RDF serialization and persistent storage are outside
 the POC. Current groundwater examples and generated ODS are round-trip checked.
 

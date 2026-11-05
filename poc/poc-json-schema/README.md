@@ -129,6 +129,64 @@ the flag, incomplete source metadata still fails generation.
 
 ## Compilation contract
 
+### Generic and personalized variants
+
+The generic schema keeps external structural selections as strings annotated
+with `x-reference-types`. Standard JSON Schema validators do not interpret this
+annotation. The shared semantic validator already checks supplied reference
+identities, types, reporting year and actual selected parent context.
+
+Generate both generic and personalized schemas in one run:
+
+```bash
+npm run generate -- --theme Grondwater \
+  --references examples/refs.json \
+  --reference-context examples/reference-context.json
+```
+
+Paths are relative to the package working directory (`npm --prefix` also changes
+that directory). `--references` is an array of `{id,label,types,year?,parents?}`;
+`--reference-context` is `{year?,ids?}` and requires `--references`.
+Without these options, generation remains generic-only: the generator never
+guesses an organization's instances or inserts demonstration references by default.
+
+Each theme/section retains its unchanged `schema.json` and gains
+`schema.personalized.json`. The index records personalized files as
+`kind: "personalized"` with `genericSchemaId`, separate IDs and content hashes;
+they are variants, not duplicate reporting sections. A later generic-only run
+removes obsolete indexed variants using the same owned-file safeguards.
+Use a private `--out` directory for real organization data: synchronized indexed
+files may otherwise be copied into publicly deployed consumer assets.
+
+`personalizeReferenceSchema(schema, {references, referenceContext, dependencies})`
+is shared by Node and browser consumers. It returns an independent schema with:
+
+- Reference enums at scalar leaves, array items and PropertyValue values, including
+  inside discriminated `oneOf` branches; existing enums/constants are intersected.
+- Type/year filtering and possible record/ancestor/external parent scope.
+  Missing matching instances produce `not: {}`, never invalid `enum: []`
+  or a permissive string fallback.
+- `x-reference-options: [{id,label}]` for dropdown labels, and a root
+  `x-reference-snapshot` containing `genericSchemaId`, the used references and
+  `referenceContext`. `referenceSnapshot()` reads that metadata.
+- Inlined offline schema references; all original required-member, singleton,
+  numeric, format and conditional constraints remain in force.
+
+The result validates offline with an ordinary Draft 2020-12 validator, without
+the reference service. Personalization does not modify the generic input.
+Year-scoped references require matching context; timeless references remain
+eligible. Labels are presentation metadata; enums contain exact URI identities.
+
+Enums describe possible selections, not every combination of selections:
+an admitted child may still require an actually selected parent in its record.
+Keep semantic validation for those relationships, collection context, identity
+and temporal-range rules. `SemanticValidator` defaults to the embedded snapshot
+when explicit reference options are absent. A personal schema is a snapshot,
+not live database validation or authorization, and must be regenerated when its
+reference data/context changes.
+
+### Shared consumers
+
 The [operational table UI](../poc-flow-operationeel/README.md) is another consumer
 of this exact indexed snapshot. Its dev/build hooks and the ODS sync wrapper share
 `scripts/sync-schema-snapshot.mjs`; neither consumer invents missing source facts.

@@ -4,12 +4,12 @@ import { fileURLToPath } from 'node:url';
 import { CodelistEnricher } from './services/codelist-enricher.js';
 import { loadSchemaIndex } from './services/schema-index.js';
 import { compileTabularPlan } from './services/tabular-plan.js';
-import { ODSGenerator } from './services/ods-generator.js';
+import { ODSGenerator, type ODSOptions } from './services/ods-generator.js';
 import { ODSImporter } from './services/ods-importer.js';
 import { referenceData, referenceContext } from './services/workbook-metadata.js';
 import { collectCsorValues, fetchCsorLabels } from './services/csor-labels.js';
 import { generationFixture } from './services/generation-fixture.js';
-import { schemaObject, generationWarning } from 'codelijst-rie-iepr-poc-json-schema';
+import { schemaObject, generationWarning, referenceSnapshot, parseReferenceContext } from 'codelijst-rie-iepr-poc-json-schema';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -21,7 +21,7 @@ async function main(): Promise<void> {
   for (let index = 0; index < argv.length; index++) {
     const key = argv[index];
     if (args.has(key)) throw new Error(`Duplicate option: ${key}`);
-    if (key === '--dry-run' || key === '--fetch-labels' || key === '--allow-incomplete') { args.set(key, 'true'); continue; }
+    if (key === '--dry-run' || key === '--fetch-labels' || key === '--allow-incomplete' || key === '--personalized') { args.set(key, 'true'); continue; }
     if (!['--theme', '--section', '--out', '--data', '--references', '--reference-context', '--ods', '--input-dir'].includes(key) ||
         !argv[index + 1] || argv[index + 1].startsWith('--')) throw new Error(`Unknown option or missing value: ${key}`);
     args.set(key, argv[++index]);
@@ -35,6 +35,11 @@ async function main(): Promise<void> {
   if (args.has('--theme')) entries = entries.filter(entry => entry.theme === args.get('--theme'));
   if (args.has('--section')) entries = entries.filter(entry =>
     entry.path.split('/').at(-2) === args.get('--section') || entry.id === args.get('--section'));
+  if (args.has('--personalized')) entries = entries.map(generic => {
+    const personalized = index.files.find(entry => entry.kind === 'personalized' && entry.genericSchemaId === generic.id);
+    if (!personalized) throw new Error(`No personalized schema for ${generic.id}. Regenerate schemas with --references and --reference-context.`);
+    return personalized;
+  });
   if (!entries.length) throw new Error('No matching reporting sections in the generated index. Generate and sync the selected section first.');
   if (['import', 'export'].includes(command) && entries.length !== 1) throw new Error('Import/export requires one explicit --theme and --section.');
   if (command === 'export' && !args.has('--data')) throw new Error('Export requires --data <json-file>.');
@@ -48,6 +53,10 @@ async function main(): Promise<void> {
   for (const entry of entries) {
     try {
       const schema = schemaObject(JSON.parse(await readFile(join(input, 'schema', entry.path), 'utf8')));
+      const snapshot = referenceSnapshot(schema);
+      if (snapshot && context && JSON.stringify(parseReferenceContext(context)) !== JSON.stringify(snapshot.referenceContext)) {
+        throw new Error('Reference context differs from the personalized schema. Regenerate it for the requested context.');
+      }
       const plan = compileTabularPlan(schema, { sourceSha256: index.sourceSha256, schemaSha256: entry.sha256, dependencies });
       if (args.has('--fetch-labels') && enricher) enricher.addExternalLabels(await fetchCsorLabels(collectCsorValues(schema)));
       if (command === 'plan' || args.has('--dry-run')) {
@@ -68,13 +77,24 @@ async function main(): Promise<void> {
         console.log(`Imported ${output}`);
       } else {
         const data: unknown = command === 'export' ? JSON.parse(await readFile(resolve(args.get('--data')!), 'utf8')) : undefined;
+        let validationData: ODSOptions['validationData'] = command === 'template' ? await generationFixture(plan) : undefined;
+        if (command === 'template' && args.has('--data')) validationData = {
+          data: JSON.parse(await readFile(resolve(args.get('--data')!), 'utf8')),
+          references: references ?? snapshot?.references,
+          referenceContext: context ?? snapshot?.referenceContext,
+        };
+        else if (validationData && snapshot) validationData = {
+          ...validationData, references: references ?? snapshot.references,
+          referenceContext: context ?? snapshot.referenceContext,
+        };
         const workbook = await new ODSGenerator().generate({
           plan, data, references, referenceContext: context, label: value => enricher!.resolve(value).displayLabel,
-          validationData: command === 'template' ? await generationFixture(plan) : undefined,
+          validationData,
         });
         const workbookName = schema['x-table-workbook'] ?? `${entry.path.split('/').at(-2)}.ods`;
         if (typeof workbookName !== 'string' || !/^[^/\\]+\.ods$/.test(workbookName)) throw new Error(`Invalid workbook filename: ${String(workbookName)}`);
-        const output = resolve(args.get('--out') ?? join(root, 'output'), entry.theme!, workbookName);
+        const output = resolve(args.get('--out') ?? join(root, 'output'), entry.theme!,
+          snapshot ? workbookName.replace(/\.ods$/, '.personalized.ods') : workbookName);
         await mkdir(dirname(output), { recursive: true });
         await writeFile(output, workbook);
         console.log(`Written ${output}`);

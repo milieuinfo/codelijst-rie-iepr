@@ -4,6 +4,8 @@ export { presentationSchema, transformMemberData, selectMemberVariant, canonical
 export type { InstanceDiagnostic, InstanceValidationResult } from './services/instance-validator.js'
 export { SemanticValidator } from './services/semantic-validator.js'
 export type { ReferenceRecord, ReferenceContext, SemanticDiagnostic } from './services/semantic-validator.js'
+export { personalizeReferenceSchema, referenceSnapshot, parseReferenceData, parseReferenceContext } from './services/reference-schema.js'
+export type { ReferenceSnapshot } from './services/reference-schema.js'
 export { SchemaRegistry, schemaObject, pointerToken } from './services/schema-registry.js'
 export { parseSchemaIndex } from './services/schema-index.js'
 export type { SchemaIndex, SchemaIndexEntry } from './services/schema-index.js'

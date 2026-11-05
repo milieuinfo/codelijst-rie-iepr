@@ -3,6 +3,7 @@ import { isCollectionClass, isObservationClass } from '../config.js'
 import { homogeneousProperties } from './schema-assembler.js'
 import { pointerToken, schemaObject, SchemaRegistry } from './schema-registry.js'
 import { selectMemberVariant } from './member-layout.js'
+import { referenceSnapshot } from './reference-schema.js'
 
 export interface ReferenceRecord {
   id: string
@@ -62,6 +63,11 @@ export class SemanticValidator {
     schema: JsonSchemaObject, data: unknown,
     options: { dependencies?: JsonSchemaObject[]; references?: ReferenceRecord[]; referenceContext?: ReferenceContext } = {},
   ): SemanticDiagnostic[] {
+    const snapshot = referenceSnapshot(schema)
+    if (snapshot) options = {
+      ...options, references: options.references ?? snapshot.references,
+      referenceContext: options.referenceContext ?? snapshot.referenceContext,
+    }
     const registry = new SchemaRegistry(schema, options.dependencies)
     const errors: SemanticDiagnostic[] = []
     const references = new Map<string, ReferenceRecord>()

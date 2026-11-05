@@ -12,6 +12,7 @@ function selectedMemberBranches(schema: JsonSchemaObject, data: unknown) {
     if (Array.isArray(node.oneOf) && node.oneOf.every(variant => {
       const definition = schemaObject(variant)
       const key = definition.properties?.observedProperty ? 'observedProperty' : 'propertyID'
+      if (!definition.properties?.[key]) return false
       const observed = schemaObject(definition.properties?.[key])
       return definition.required?.includes(key) &&
         (Object.hasOwn(observed, 'const') || Array.isArray(observed.enum))

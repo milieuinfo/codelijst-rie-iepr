@@ -4,7 +4,7 @@ import { ODSGenerator } from '../../poc-json-schema-ods/src/services/ods-generat
 import { compileTabularPlan } from '../../poc-json-schema-ods/src/services/tabular-plan.js'
 import { generationFixture } from '../../poc-json-schema-ods/src/services/generation-fixture.js'
 import { loadSchemaIndex } from '../../poc-json-schema-ods/src/services/schema-index.js'
-import { schemaObject } from 'codelijst-rie-iepr-poc-json-schema/browser'
+import { schemaObject, SchemaValidator } from 'codelijst-rie-iepr-poc-json-schema/browser'
 import { join } from 'node:path'
 import { modifyTable, tableRows } from '../../poc-json-schema-ods/tests/fixtures.js'
 import { readOdf, workbookMetadata } from 'codelijst-rie-iepr-poc-json-schema-ods/browser'
@@ -109,6 +109,15 @@ for (const [name, label, valuePath, value] of [
     await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
     await expect(page.locator('#validated-json')).toBeVisible()
     expect(JSON.parse(await page.locator('#validated-json').innerText())).toEqual(source.data)
+    const download = page.waitForEvent('download')
+    await page.getByRole('link', { name: 'Persoonlijk JSON-schema downloaden', exact: true }).click()
+    const personal = await download
+    const path = await personal.path()
+    if (!path) throw new Error('Missing personalized schema after ODS import.')
+    const personalSchema = JSON.parse(await readFile(path, 'utf8'))
+    expect(new SchemaValidator().validateInstance(personalSchema, source.data).valid).toBe(true)
+    expect(personalSchema['x-reference-snapshot'].references.some((reference: { id: string }) =>
+      reference.id.startsWith('urn:test:'))).toBe(true)
     await page.locator(`td[data-instance-path="${valuePath}"] input`).fill('1.5')
     await expect(page.locator('#validated-json')).toHaveCount(0)
     await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()

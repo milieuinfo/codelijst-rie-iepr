@@ -12,6 +12,9 @@ describe('Groundwater schema-driven table projection', () => {
     const data = JSON.parse(readFileSync(new URL(`../../../poc-json-schema/examples/grondwater/${name}.json`, import.meta.url), 'utf8'))
     const references = JSON.parse(readFileSync(new URL('../../../poc-json-schema/examples/refs.json', import.meta.url), 'utf8'))
     const editor = new SchemaEditor(schema, [], references, { year: 2024 })
+    expect(editor.personalizedSchema['x-reference-snapshot']).toMatchObject({
+      genericSchemaId: schema.$id, referenceContext: { year: 2024 },
+    })
     editor.load(data)
     expect(editor.validate()).toEqual({ data, diagnostics: [] })
     const record = schemaObject(schemaObject(editor.inputSchema.properties![name]).items)
@@ -27,6 +30,19 @@ describe('Groundwater schema-driven table projection', () => {
       expect(columns[index - 1].path.slice(0, -1)).toEqual(column.path.slice(0, -1))
       expect(column.title).toBe('Eenheid')
     }
+  })
+
+  it('gets reference choices from its personalized schema and rejects unknown references', () => {
+    const schema = compileGroundwater(JSON.parse(sourceSnapshot())).subSchemas.find(section => section.name === 'peilmeting')!.schema
+    const references = JSON.parse(readFileSync(new URL('../../../poc-json-schema/examples/refs.json', import.meta.url), 'utf8'))
+    const editor = new SchemaEditor(schema, [], references, { year: 2024 })
+    expect(editor.schemaAt(['peilmeting', 0, 'hasFeatureOfInterest']).enum).toEqual(['urn:test:filter:peil:1', 'urn:test:filter:pomp:1'])
+    const data = JSON.parse(readFileSync(new URL('../../../poc-json-schema/examples/grondwater/peilmeting.json', import.meta.url), 'utf8'))
+    editor.load(data)
+    editor.set(['peilmeting', 0, 'hasFeatureOfInterest'], 'urn:unknown')
+    expect(editor.validate().diagnostics).toEqual(expect.arrayContaining([
+      expect.objectContaining({ instancePath: '/peilmeting/0/hasFeatureOfInterest', message: expect.stringContaining('allowed values') }),
+    ]))
   })
 
   it('only asks the lab name, while keeping its typed Agent object in the JSON', () => {

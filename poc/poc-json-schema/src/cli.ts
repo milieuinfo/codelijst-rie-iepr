@@ -5,6 +5,7 @@ import { sha256 } from './services/schema-writer.js'
 import { SourceMetadataError, generationWarning, type GenerationReport } from './services/generation-report.js'
 import type { ThemeChain } from './services/theme-resolver.js'
 import type { JsonSchemaObject, SubSchema } from './models/index.js'
+import { personalizeReferenceSchema, parseReferenceData, parseReferenceContext, referenceSnapshot } from './services/reference-schema.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -13,6 +14,8 @@ async function main() {
   let themeFilter: string | undefined
   let sectionFilter: string | undefined
   let allowIncomplete = false
+  let referencesPath: string | undefined
+  let referenceContextPath: string | undefined
   let outDir = path.resolve(__dirname, '../output')
 
   for (let i = 0; i < args.length; i++) {
@@ -24,9 +27,17 @@ async function main() {
       outDir = path.resolve(args[++i])
     } else if (args[i] === '--allow-incomplete') {
       allowIncomplete = true
+    } else if (args[i] === '--references' && args[i + 1] && !args[i + 1].startsWith('--')) {
+      referencesPath = path.resolve(args[++i])
+    } else if (args[i] === '--reference-context' && args[i + 1] && !args[i + 1].startsWith('--')) {
+      referenceContextPath = path.resolve(args[++i])
     } else throw new Error(`Unknown option or missing value: ${args[i]}`)
   }
   if (sectionFilter && !themeFilter) throw new Error('--section requires --theme to select an explicit reporting entry point.')
+  if (referenceContextPath && !referencesPath) throw new Error('--reference-context requires --references.')
+  const references = referencesPath ? parseReferenceData(JSON.parse(await fs.readFile(referencesPath, 'utf8'))) : undefined
+  const referenceContext = referenceContextPath
+    ? parseReferenceContext(JSON.parse(await fs.readFile(referenceContextPath, 'utf8'))) : {}
 
   const codelistPath = path.resolve(__dirname, '../public/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld')
 
@@ -154,14 +165,23 @@ async function main() {
   const { SchemaValidator } = await import('./services/schema-validator.js')
   const validator = new SchemaValidator()
   const generated = pending.map(document => document.schema)
+  const personalized = references ? pending.slice(2).map(document =>
+    personalizeReferenceSchema(document.schema, { references, referenceContext, dependencies: generated })) : []
   if (new Set(generated.map(schema => schema.$id)).size !== generated.length) throw new Error('Duplicate generated schema identities.')
   for (const schema of generated) validator.validateInstance(schema, {}, generated)
+  for (const schema of personalized) validator.validateInstance(schema, {})
   for (const document of pending) await document.publish()
+  for (const schema of personalized) {
+    const genericId = referenceSnapshot(schema)!.genericSchemaId
+    const generic = writer.getEntries().find(entry => entry.id === genericId)
+    if (!generic) throw new Error(`Missing generic schema: ${genericId}`)
+    await writer.writePersonalized(generic, schema)
+  }
 
   await writer.finalize(sourceSha256, report)
   const warning = generationWarning(report)
   if (warning) console.warn(warning)
-  console.log(`Validated ${generated.length} schema(s); generated ${sectionCount} reporting section(s).`)
+  console.log(`Validated ${generated.length} generic and ${personalized.length} personalized schema(s); generated ${sectionCount} reporting section(s).`)
   console.log('Done. Generated schemas written to', outDir)
 }
 

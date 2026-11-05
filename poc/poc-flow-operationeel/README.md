@@ -44,8 +44,17 @@ explicitly. `pnpm sync:schemas` performs just the schema runtime build and sync.
   `prov:Agent` under `wasAssociatedWith`, with its visible name in `label`.
   Required member/property kinds are checked independently in each owning record;
   another array item cannot satisfy a missing required kind.
+  Input controls read reference enums from the personalized presentation schema,
+  rather than building a second type-based choice list. Structural validation
+  uses the same personal schema; semantic validation still checks actual selected
+  parents, shared observation context and other cross-field rules.
 - Select a production year, theme and indexed reporting section. Download
-  buttons provide its blank ODS template and exact generated JSON Schema.
+  buttons provide its blank ODS template, exact **generic JSON Schema**, and
+  a **personal JSON Schema** for the selected year/current reference snapshot.
+  The personal download contains real `enum` constraints plus embedded labels
+  and reference context; standard offline validators can reject unknown,
+  wrong-type and wrong-year URI choices without loading external reference data.
+  It is rebuilt when year/section changes or an ODS import replaces the editor.
   Templates contain the published choice lists and fictional structural
   references from the shared examples, not the current in-memory UI draft.
   ODS workbooks use Teepak-style green headers, readable column widths and
@@ -94,6 +103,11 @@ explicitly. `pnpm sync:schemas` performs just the schema runtime build and sync.
 - “Valideren en JSON tonen” runs the shared structural and semantic validators.
   Errors show data paths and matching cell messages; JSON appears only on success.
   Any edit clears the previous success output.
+- The static ODS download retains the indexed generic schema/transport contract.
+  Upload checks that contract first, then rebuilds the personal form schema with
+  the imported reference labels. Separately generated personal-schema ODS files
+  use their own schema fingerprints and are imported through the matching ODS
+  CLI/API plan, not silently treated as generic UI templates.
 - Structural choices are explicitly fictional demonstration instances, scoped
   to the reporting year, not real reported installations or measuring points.
 

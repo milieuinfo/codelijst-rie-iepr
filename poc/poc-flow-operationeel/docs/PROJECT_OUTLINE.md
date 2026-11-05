@@ -28,6 +28,9 @@ is the conceptual specification; the [POC README](../README.md) covers operation
 - Use RDF and CSOR only for labels and explicitly fictional structural references.
 - Offer matching JSON Schema and blank ODS downloads; import filled current
   templates locally into editable drafts without a page reload.
+- Offer both generic and personalized JSON Schemas. The personal schema supplies
+  reference enums/labels for controls and structural validation; regenerate it
+  from the active year's references and after a successful ODS import.
 - Confirm replacement of existing input; reject incompatible schema/source
   fingerprints, invalid links/values and wrong-year references before replacement.
 - Use compact controls, date-time pickers, value/unit cells and icon-only delete actions.

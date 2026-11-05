@@ -271,7 +271,7 @@ export class SchemaRichTable extends LitElement {
     if (references !== undefined && (!Array.isArray(references) || !references.every(type => typeof type === 'string'))) {
       throw new Error('Ongeldige referentietypes in schema.')
     }
-    const choices: unknown[] | undefined = item.enum ?? (Array.isArray(references)
+    const choices: unknown[] | undefined = item.enum ?? (Array.isArray(item['x-reference-options']) ? [] : Array.isArray(references)
       ? this.editor.references.filter(reference => reference.types.some(type => references.includes(type))).map(reference => reference.id)
       : item.type === 'boolean' ? [true, false] : undefined)
     const value = this.editor.get(path)

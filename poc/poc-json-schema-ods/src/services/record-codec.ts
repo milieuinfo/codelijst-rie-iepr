@@ -1,5 +1,5 @@
 import { randomUUID } from './runtime.js';
-import { SchemaValidator, SemanticValidator, pointerToken, schemaObject, materializeDerivedValues, transformMemberData, canonicalDataPath } from 'codelijst-rie-iepr-poc-json-schema/browser';
+import { SchemaValidator, SemanticValidator, pointerToken, schemaObject, materializeDerivedValues, transformMemberData, canonicalDataPath, referenceSnapshot } from 'codelijst-rie-iepr-poc-json-schema/browser';
 import type { ReferenceRecord, ReferenceContext } from 'codelijst-rie-iepr-poc-json-schema';
 import type { CellValue, LookupChoice, RecordPlan, TabularPlan, WorkbookMetadata, WorkbookRow } from '../models/tabular-plan.js';
 import { WorkbookError } from '../models/tabular-plan.js';
@@ -82,7 +82,9 @@ export function workbookRows(
   plan: TabularPlan,
   options: { data?: unknown; references?: ReferenceRecord[]; referenceContext?: ReferenceContext; label?: (value: string) => string },
 ): { tables: Map<string, WorkbookRow[]>; metadata: WorkbookMetadata } {
-  const references = referenceData(options.references ?? []);
+  const snapshot = referenceSnapshot(plan.schema);
+  const references = referenceData(options.references ?? snapshot?.references ?? []);
+  options = { ...options, referenceContext: options.referenceContext ?? snapshot?.referenceContext };
   if (options.data !== undefined) options = {
     ...options, data: materializeDerivedValues(plan.schema, options.data, plan.dependencies),
   };
@@ -172,6 +174,9 @@ export function workbookRows(
       } else if (definition.type === 'boolean') {
         values = [true, false];
       } else if (Array.isArray(expectedTypes)) {
+        if (Array.isArray(definition['x-reference-options']) && !definition['x-reference-options'].length) {
+          throw new Error(`No permitted references for ${record.title}: ${column.title}.`);
+        }
         values = references.filter(reference => reference.types.some(type => expectedTypes.includes(type))).map(reference => reference.id);
         if (!values.length) throw new Error(`Reference data is required for ${record.title}: ${column.title}.`);
       }

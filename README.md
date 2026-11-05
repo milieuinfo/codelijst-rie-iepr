@@ -304,12 +304,17 @@ flowchart TD
     source["Rapportageconcepten en ondersteunende keuzelijsten"]
     groups["Groepen, waarden en relaties herkennen"]
     ownership["Bepalen bij welke observatie data hoort"]
-    schema["JSON Schema 2020-12"]
+    schema["Generiek JSON Schema 2020-12"]
+    references["Referentiegegevens en rapportagecontext"]
+    personal["Persoonlijk JSON Schema<br/>Toegestane referenties als enum"]
     ui["Webformulier"]
     ods["ODS-invulsjabloon"]
     json["Rapportage-JSON en gedeelde validatie"]
     source --> groups --> ownership --> schema
-    schema --> ui
+    schema --> personal
+    references --> personal
+    personal --> ui
+    personal --> ods
     schema --> ods
     ui --> json
     ods --> json
@@ -583,6 +588,71 @@ kolom of invoerveld een andere betekenis hebben dan de data waarin het terechtko
 Versiecontroles voorkomen daarom dat schema's en codelijsten uit verschillende
 generaties worden gecombineerd.
 
+#### Generiek en persoonlijk JSON-schema
+
+Er zijn twee schemaweergaven van hetzelfde rapportagecontract:
+
+| Variant | Referentievelden | Gebruik |
+|---|---|---|
+| Generiek | `type: string` met `x-reference-types` | Publiceerbaar contract, onafhankelijk van onderneming of productiejaar |
+| Persoonlijk | Dezelfde velden met `enum` van toegestane instantie-URI's | Zelfstandig valideerbaar contract voor een concrete referentiesnapshot en context |
+
+`x-reference-types` is een annotatie, geen standaard JSON Schema-validatieregel.
+Een gewone validator weet daardoor niet of een URI bestaat of naar een filter
+van het juiste type verwijst. De UI en ODS controleren dit al aanvullend met de
+referentiegegevens; het generieke schema alleen doet dat niet.
+
+Om een persoonlijk schema te maken, lees je bij elk referentieveld de
+gevraagde types. Selecteer de referentie-instanties die minstens één van die
+types hebben en waarvan het productiejaar met de context overeenkomt.
+Jaarloze instanties blijven bruikbaar. Behoud eventuele bestaande `enum`- en
+`const`-beperkingen. Houd rekening met de externe oudercontext en met ouders die
+op dezelfde rij of in een bovenliggend record geselecteerd kunnen worden;
+een onafhankelijk herhaalbaar record levert geen oudercontext.
+Schrijf de overblijvende URI's als `enum` op de **waarde**: op een
+enkelvoudige string, op `items` bij een multiselect, of op `value` bij een
+PropertyValue. Objectcontainers zelf krijgen geen URI-enum.
+
+```json
+{
+  "type": "string",
+  "x-reference-types": ["https://data.omgeving.vlaanderen.be/id/concept/riepr/filtertype/peil"],
+  "enum": ["urn:voorbeeld:peilfilter:1"],
+  "x-reference-options": [
+    {"id": "urn:voorbeeld:peilfilter:1", "label": "Peilfilter 1"}
+  ]
+}
+```
+
+`enum` is de echte validatieregel; `x-reference-options` levert de leesbare
+keuzelabels. Zijn er geen toegestane instanties, dan krijgt de waarde
+`not: {}`: niets mag ingevuld worden. Een optioneel veld mag nog ontbreken;
+een verplicht veld kan dan niet geldig ingevuld worden. Een lege lijst
+`enum: []` of een terugval naar vrije tekst wordt niet gebruikt.
+
+Het persoonlijke schema behoudt alle bestaande structuur-, formaat-, voorwaarde-
+en verplichte-lidregels. Het krijgt een eigen, snapshotgebonden `$id`, een verwijzing naar het
+generieke schema en `x-reference-snapshot` met referenties en context. Benodigde
+schema-afhankelijkheden worden ingebed, zodat gewone JSON Schema 2020-12-validatie
+offline kan werken. Het generieke schema wordt niet aangepast.
+
+**Enums vervangen niet alle betekeniscontroles.** Een enum kan vooraf zeggen
+welke referenties mogelijk zijn, maar niet dat de gebruiker de bijbehorende
+ouder daadwerkelijk op deze rij selecteerde. Zulke rij-/ouderafhankelijkheden,
+gedeelde SOSA-context en chronologie blijven aanvullend gecontroleerd.
+Ook is dit een referentiesnapshot, geen live controle of autorisatie tegen een
+databank. Bij gewijzigde referenties, jaar of context maak je het persoonlijke
+schema opnieuw. De context maakt rapportagedatums niet automatisch jaargeldig.
+
+De UI gebruikt de persoonlijke keuzes voor haar invoervelden. Een ODS-consument
+kan dezelfde enums en ingesloten labels gebruiken zonder de externe
+referentielijsten opnieuw op te bouwen. Beide JSON-schemavarianten blijven
+downloadbaar; het persoonlijke schema volgt het geselecteerde productiejaar en
+de actuele formulierreferenties, ook na een ODS-import. De huidige POC gebruikt
+fictieve referenties, geen werkelijk persoonlijke bedrijfsgegevens.
+Echte persoonlijke schema's bevatten instantie-URI's en labels en horen niet
+zonder toegangscontrole op een publieke downloadlocatie.
+
 ### 5. Hoe de web-UI het schema omzet
 
 De UI biedt de rapportagegroepen uit de schema's aan. Voor elke combinatie van
@@ -695,7 +765,8 @@ lid-observaties van dezelfde kwaliteitsmeting. In de UI verschijnen ze als
 uitklapbare detailtabel. Dit zijn dus drie weergaven van dezelfde structuur,
 niet drie verschillende datamodellen.
 
-De download van het JSON-schema bevat het contract dat het formulier gebruikt.
+De generieke JSON-schemadownload bevat het gedeelde contract; de persoonlijke
+download voegt de referentie-enums van de actuele context toe.
 De ODS-download is een leeg invulsjabloon van datzelfde contract, niet een export
 van de actuele formulierinvoer. Een ingevulde ODS kan terug naar rapportage-JSON:
 leesbare labels worden weer URI's, werkbladkoppelingen worden geneste objecten
@@ -730,6 +801,8 @@ Na een bron- of schemawijziging moeten de schema's en downloads opnieuw worden
 gegenereerd. Gebruik vervolgens het nieuwe ODS-sjabloon. Oude sjablonen,
 oorspronkelijke Teepak-bestanden en bestanden zonder de verborgen mapping worden
 niet automatisch gemigreerd.
+Een wijziging van uitsluitend persoonlijke referenties laat het generieke
+contract intact, maar vereist wel een nieuwe persoonlijke variant.
 
 | Situatie | Verwacht gedrag |
 |---|---|

@@ -2,6 +2,7 @@ import {
   SchemaRegistry, SchemaValidator, SemanticValidator, schemaObject, pointerToken,
   materializeDerivedValues,
   presentationSchema, transformMemberData, presentationDataPath,
+  personalizeReferenceSchema,
   type JsonSchemaObject, type ReferenceRecord, type ReferenceContext,
 } from 'codelijst-rie-iepr-poc-json-schema/browser'
 
@@ -17,6 +18,7 @@ const prefix = (ancestor: DataPath, path: DataPath) => ancestor.length <= path.l
 export class SchemaEditor {
   readonly registry: SchemaRegistry
   readonly inputSchema: JsonSchemaObject
+  readonly personalizedSchema: JsonSchemaObject
   readonly draft: Record<string, unknown> = {}
   revision = 0
   diagnostics: EditorDiagnostic[] = []
@@ -26,9 +28,11 @@ export class SchemaEditor {
     readonly schema: JsonSchemaObject, readonly dependencies: JsonSchemaObject[] = [],
     readonly references: ReferenceRecord[] = [], readonly referenceContext: ReferenceContext = {},
   ) {
-    this.inputSchema = presentationSchema(schema)
-    this.registry = new SchemaRegistry(this.inputSchema, dependencies.filter(dependency => dependency.$id !== schema.$id))
-    new SchemaValidator().validateInstance(schema, {}, dependencies)
+    this.personalizedSchema = personalizeReferenceSchema(schema, { references, referenceContext, dependencies })
+    this.inputSchema = presentationSchema(this.personalizedSchema)
+    this.registry = new SchemaRegistry(this.inputSchema, dependencies.filter(dependency =>
+      dependency.$id !== schema.$id && dependency.$id !== this.personalizedSchema.$id))
+    new SchemaValidator().validateInstance(this.personalizedSchema, {})
   }
 
   resolve(schema: JsonSchemaObject): JsonSchemaObject { return this.registry.resolve(schema) }
@@ -199,7 +203,7 @@ export class SchemaEditor {
 
   validate(): { data: Record<string, unknown>; diagnostics: EditorDiagnostic[] } {
     const data = this.project()
-    const structural = new SchemaValidator().validateInstance(this.schema, data, this.dependencies)
+    const structural = new SchemaValidator().validateInstance(this.personalizedSchema, data)
     this.diagnostics = structural.errors.map(error => ({
       instancePath: error.property ? `${error.instancePath}/${pointerToken(error.property)}` : error.instancePath,
       message: error.message,

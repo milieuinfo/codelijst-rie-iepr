@@ -4,7 +4,8 @@ export interface SchemaIndexEntry {
   path: string
   id: string
   sha256: string
-  kind: 'base' | 'theme' | 'section'
+  kind: 'base' | 'theme' | 'section' | 'personalized'
+  genericSchemaId?: string
   theme?: string
   themeConceptId?: string
 }
@@ -21,7 +22,8 @@ function isEntry(value: unknown): value is SchemaIndexEntry {
     'path' in value && typeof value.path === 'string' &&
     'id' in value && typeof value.id === 'string' && value.id.length > 0 &&
     'sha256' in value && typeof value.sha256 === 'string' && /^[a-f0-9]{64}$/.test(value.sha256) &&
-    'kind' in value && (value.kind === 'base' || value.kind === 'theme' || value.kind === 'section') &&
+    'kind' in value && (value.kind === 'base' || value.kind === 'theme' || value.kind === 'section' || value.kind === 'personalized') &&
+    (value.kind !== 'personalized' || ('genericSchemaId' in value && typeof value.genericSchemaId === 'string')) &&
     (!('theme' in value) || typeof value.theme === 'string') &&
     (!('themeConceptId' in value) || typeof value.themeConceptId === 'string')
 }
@@ -49,6 +51,11 @@ export function parseSchemaIndex(raw: unknown): SchemaIndex {
     paths.add(entry.path)
     ids.add(entry.id)
     files.push(entry)
+  }
+  for (const entry of files.filter(entry => entry.kind === 'personalized')) {
+    if (!files.some(generic => generic.kind !== 'personalized' && generic.id === entry.genericSchemaId && generic.theme === entry.theme)) {
+      throw new Error(`Missing generic schema for personalized variant: ${entry.path}`)
+    }
   }
   return { version: 1, sourceSha256: raw.sourceSha256, files, ...(generation ? { generation } : {}) }
 }

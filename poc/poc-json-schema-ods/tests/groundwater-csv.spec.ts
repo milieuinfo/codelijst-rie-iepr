@@ -4,7 +4,7 @@ import { XMLParser } from 'fast-xml-parser';
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { schemaObject } from 'codelijst-rie-iepr-poc-json-schema';
+import { schemaObject, personalizeReferenceSchema, referenceSnapshot } from 'codelijst-rie-iepr-poc-json-schema';
 import { compileGroundwater } from '../../poc-json-schema/tests/groundwater-csv-fixture.js';
 import { sourceSnapshot } from '../../poc-json-schema/scripts/source-snapshot.mjs';
 import { compileTabularPlan, hash } from '../src/services/tabular-plan.js';
@@ -26,6 +26,30 @@ const references = [
 ];
 
 describe('Groundwater CSV -> JSON Schema -> ODS', () => {
+  it.each(['onttrekking', 'peilmeting', 'kwaliteitsmeting'])('uses embedded personal reference enums and labels for %s without a separate lookup input', async name => {
+    const section = compileGroundwater(JSON.parse(sourceSnapshot())).subSchemas.find(section => section.name === name)!;
+    const references = JSON.parse(readFileSync(new URL('../../poc-json-schema/examples/refs.json', import.meta.url), 'utf8'));
+    const schema = personalizeReferenceSchema(section.schema, { references, referenceContext: { year: 2024 } });
+    const plan = compileTabularPlan(schema, { sourceSha256: hash(sourceSnapshot()) });
+    const data = JSON.parse(readFileSync(new URL(`../../poc-json-schema/examples/grondwater/${name}.json`, import.meta.url), 'utf8'));
+    const workbook = await new ODSGenerator().generate({ plan, data });
+    expect(await new ODSImporter().import(workbook, plan)).toEqual(data);
+    const tables = await readOdf(workbook);
+    const metadata = workbookMetadata(JSON.parse(tables.find(table => table.name === '_riepr')!.rows
+      .slice(1).map(row => row.cells[0].text).join('')));
+    expect(metadata.references).toEqual(referenceSnapshot(schema)!.references);
+    expect(metadata.referenceContext).toEqual({ year: 2024 });
+    const referenceIds = new Set(metadata.references.map(reference => reference.id));
+    const referenceChoices = Object.values(metadata.lookups).flat().filter(choice => referenceIds.has(String(choice.value)));
+    expect(referenceChoices.length).toBeGreaterThan(0);
+    for (const choice of referenceChoices) {
+      expect(choice.display).toBe(metadata.references.find(reference => reference.id === choice.value)!.label);
+    }
+    const invalid = structuredClone(data);
+    invalid[name][0].hasFeatureOfInterest = name === 'kwaliteitsmeting' ? ['urn:unknown'] : 'urn:unknown';
+    await expect(new ODSGenerator().generate({ plan, data: invalid })).rejects.toThrow();
+  });
+
   it('uses fixed dropdown ranges, Teepak-style headers and 1000 formatted input rows', async () => {
     const refs = JSON.parse(readFileSync(new URL('../../poc-json-schema/examples/refs.json', import.meta.url), 'utf8'));
     for (const section of compileGroundwater(JSON.parse(sourceSnapshot())).subSchemas) {

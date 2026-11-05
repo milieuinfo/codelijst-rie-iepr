@@ -37,6 +37,13 @@ export class SchemaWriter {
     await this.write(`${theme}/${subName}/schema.json`, schema, { kind: 'section', theme, themeConceptId })
   }
 
+  async writePersonalized(generic: SchemaIndexEntry, schema: JsonSchemaObject): Promise<void> {
+    if (!['theme', 'section'].includes(generic.kind)) throw new Error('Only reporting schemas can have a personalized variant.')
+    await this.write(generic.path.replace(/schema\.json$/, 'schema.personalized.json'), schema, {
+      kind: 'personalized', theme: generic.theme, themeConceptId: generic.themeConceptId, genericSchemaId: generic.id,
+    })
+  }
+
   /** Publish only this run; a filtered run is deliberately a filtered snapshot. */
   async finalize(sourceSha256: string, generation?: GenerationReport): Promise<SchemaIndex> {
     if (!/^[a-f0-9]{64}$/.test(sourceSha256)) throw new Error('Invalid source fingerprint.')
@@ -87,7 +94,7 @@ export class SchemaWriter {
   private async write(
     relativePath: string,
     schema: JsonSchemaObject,
-    metadata: Pick<SchemaIndexEntry, 'kind' | 'theme' | 'themeConceptId'>,
+    metadata: Pick<SchemaIndexEntry, 'kind' | 'theme' | 'themeConceptId' | 'genericSchemaId'>,
   ): Promise<void> {
     this.assertRelativePath(relativePath)
     if (!schema.$id) throw new Error(`Generated schema has no $id: ${relativePath}`)

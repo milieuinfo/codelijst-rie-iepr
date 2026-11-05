@@ -37,8 +37,15 @@ export class CodelijstApp extends LitElement {
   private uploadError?: string
   private uploadMessage?: string
   private uploadOpen = false
+  private personalizedDownload?: { editor: SchemaEditor; url: string }
 
   override firstUpdated() { void this.load() }
+
+  override disconnectedCallback() {
+    super.disconnectedCallback()
+    if (this.personalizedDownload) URL.revokeObjectURL(this.personalizedDownload.url)
+    this.personalizedDownload = undefined
+  }
 
   private async load() {
     try {
@@ -161,13 +168,22 @@ export class CodelijstApp extends LitElement {
       new URL(parts.map(encodeURIComponent).join('/'), document.baseURI).href
     const schemaName = typeof workbook === 'string'
       ? workbook.replace(/\.ods$/, '.schema.json') : `${directory.at(-1)}.schema.json`
+    if (this.personalizedDownload?.editor !== this.editor) {
+      if (this.personalizedDownload) URL.revokeObjectURL(this.personalizedDownload.url)
+      const blob = new Blob([JSON.stringify(this.editor.personalizedSchema, null, 2) + '\n'], { type: 'application/schema+json' })
+      this.personalizedDownload = { editor: this.editor, url: URL.createObjectURL(blob) }
+    }
     return html`<div class="downloads" role="group" aria-label="Downloads voor deze doorsnede">
       ${typeof workbook === 'string' ? html`<vl-button secondary icon="file-download"
         cta-link=${resourceUrl(['templates', ...directory, workbook])}
         download=${workbook}>ODS-sjabloon downloaden</vl-button>` : nothing}
       <vl-button secondary icon="file-download"
         cta-link=${resourceUrl(['schema', ...entry.path.split('/')])}
-        download=${schemaName}>JSON-schema downloaden</vl-button>
+        download=${schemaName}>Generiek JSON-schema downloaden</vl-button>
+      <vl-button secondary icon="file-download"
+        cta-link=${this.personalizedDownload.url}
+        download=${schemaName.replace(/\.schema\.json$/, `.personalized.${this.year}.schema.json`)}
+        >Persoonlijk JSON-schema downloaden</vl-button>
     </div>`
   }
 

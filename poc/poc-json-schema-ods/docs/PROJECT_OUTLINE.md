@@ -130,6 +130,45 @@ demonstration structural instances belong to reporting year 2024.
 
 ## CLI operations
 
+### Reference enums from a personalized schema
+
+The schema generator can publish `schema.json` and `schema.personalized.json`
+side by side using `--references` and `--reference-context`; see the
+[variant generation guide](../../poc-json-schema/README.md#generic-and-personalized-variants).
+Sync that index as usual, then select the personal variant explicitly:
+
+```bash
+npm --prefix poc/poc-json-schema-ods run generate -- template --theme grondwater --personalized
+npm --prefix poc/poc-json-schema-ods run generate -- export \
+  --theme grondwater --section kwaliteitsmeting --personalized \
+  --data ../poc-json-schema/examples/grondwater/kwaliteitsmeting.json --out output/examples
+npm --prefix poc/poc-json-schema-ods run generate -- import \
+  --theme grondwater --section kwaliteitsmeting --personalized \
+  --ods output/examples/grondwater/grondwater-kwaliteitsanalyses.personalized.ods \
+  --out output/examples/kwaliteitsmeting.personalized.json
+```
+
+`--personalized` applies to plan/template/export/import and fails if the indexed
+generic section has no corresponding personal variant. It does not duplicate
+the section selection. Generic operation remains the default.
+Personal ODS filenames end in `.personalized.ods`, preserving generic outputs.
+Embedded reference enums drive dropdown values; snapshot references provide
+their labels, types, year and parent context without a separate `--references`
+file. Ordinary code-list labels can still be enriched with `--fetch-labels`.
+An empty permitted reference set is an explicit generation error, not free text.
+
+Personal groundwater templates still run populated round-trip checks. The
+default examples must be valid for that personal snapshot. For different
+organization references, pass `template --data <synthetic-validation.json>` to
+provide compatible dummy data; it is used only for the separate verification
+workbook, and the emitted template remains blank. Supplied context must match
+the personal schema's snapshot. A matching personal schema/plan is also required
+on import: fingerprints are not interchangeable with generic workbooks.
+The UI's standard ODS download/import remains on the generic transport contract;
+its personal JSON schema download follows the current browser reference context.
+
+### General commands
+
 The ODS POC links the sibling schema package to reuse its offline structural and
 semantic validators. Its build/test commands build that dependency first.
 
