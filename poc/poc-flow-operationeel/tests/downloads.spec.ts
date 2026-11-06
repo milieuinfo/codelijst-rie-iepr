@@ -11,10 +11,10 @@ for (const [section, filename, sheets] of [
 ] as const) {
   test(`downloads the authoritative schema and matching blank ODS for ${section}`, async ({ page }) => {
     await page.goto('/')
-    await expect(page.getByRole('group', { name: 'Downloads voor deze doorsnede' })).toHaveCount(0)
+    await expect(page.getByRole('group', { name: 'Downloads voor dit rapporteringsonderdeel' })).toHaveCount(0)
     await page.locator('select#productie-jaar').selectOption('2026')
     await page.locator('select#thema').selectOption({ label: 'Grondwater' })
-    await page.locator('select#doorsnede').selectOption({ label: section })
+    await page.getByLabel('Rapporteringsonderdeel', { exact: true }).selectOption({ label: section })
     const schemaDownload = page.waitForEvent('download')
     await page.getByRole('link', { name: 'Generiek JSON-schema downloaden', exact: true }).click()
     const schemaFile = await schemaDownload
@@ -79,7 +79,15 @@ for (const [section, filename, sheets] of [
       expect(table.rows.find(row => row.number === 1)!.cells[0].text).toMatch(/^\/[^ ]+\/\*$/)
       const headings = table.rows.find(row => row.number === 3)!
       expect(headings.cells.some(cell => cell.text.startsWith('Eenheid'))).toBe(true)
-      expect(table.rows.find(row => row.number === 2)!.cells.every(cell => /^[/$]/.test(cell.text))).toBe(true)
+      const mappings = table.rows.find(row => row.number === 2)!.cells.map(cell => cell.text)
+      if (sheet === 'Meetresultaten') {
+        expect(schema.properties.kwaliteitsmeting.items['x-table-key']).toEqual([
+          'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-monsternummer',
+        ])
+        expect(mappings.shift()).toBe(`@parent-key:${schema.properties.kwaliteitsmeting.items['x-table-key'][0]}`)
+        expect(headings.cells[0].text).toBe('Monsternummer')
+      }
+      expect(mappings.every(mapping => /^[/$]/.test(mapping))).toBe(true)
     }
     if (section === 'Kwaliteitsmeting') {
       const variants = schema.properties.kwaliteitsmeting.items.properties.hasMember.items.oneOf

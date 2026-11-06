@@ -1,5 +1,5 @@
 import type { CodelistResult, SchemaField } from '../models/index.js'
-import { isCollectionClass, isObservationClass } from '../config.js'
+import { isCollectionClass, isObservationClass, isSourceReportingProfile } from '../config.js'
 import { vocabularyIri } from './vocabulary.js'
 import { SourceMetadataError } from './generation-report.js'
 
@@ -7,7 +7,7 @@ const sosa = 'http://www.w3.org/ns/sosa/'
 
 /** Separate the source's presentation ownership from Observation/Resultaat ownership. */
 export function observationOwnership(input: SchemaField[], result: CodelistResult): SchemaField[] {
-  if (result.reportingProfile !== 'groundwater-csv-v1') return input
+  if (!isSourceReportingProfile(result.reportingProfile)) return input
   const fields: SchemaField[] = input.map(field => ({ ...field, extensions: { ...field.extensions } }))
   const byId = new Map(fields.map(field => [field.conceptId, field]))
   const belongsTo = (field: SchemaField, target: string): boolean => {

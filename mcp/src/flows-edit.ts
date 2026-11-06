@@ -20,7 +20,8 @@ const OPERATIONAL_HEADER = [
     '_id', '_type', 'topConceptOf', 'inScheme', 'prefLabel', 'definition', 'broaderPartitive', 'relevantObservation', 'relevantClass',
     'relevantFeatureClass', 'relevantDataType', 'relation', 'vervolgstap', 'relevantRiepr', 'conditionPath', 'conditionValue',
     'relevantCodeList', 'relevantUnit', 'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'variabele', 'minValue', 'maxValue',
-    'isVerplicht', 'isMeervoudig', 'isMultiselect', 'isOnzichtbaar', '_table_workbook', '_table_sheet', '_ui_after', '_ui_first', 'related',
+    'isVerplicht', 'isMeervoudig', 'isMultiselect', 'isOnzichtbaar', '_table_workbook', '_table_sheet', '_table_key',
+    'referenceParent', 'referenceRelation', '_ui_after', '_ui_first', 'related',
 ];
 
 export interface FieldProperties {
@@ -37,6 +38,9 @@ export interface FieldProperties {
     relevantObservation?: string[];
     tableWorkbook?: string;
     tableSheet?: string;
+    tableKey?: string[];
+    referenceParent?: string;
+    referenceRelation?: string;
     relevantRiepr?: string[];
     /** Next step(s): concept schemes. */
     vervolgstap?: string[];
@@ -75,6 +79,9 @@ const COLUMNS: Record<keyof FieldProperties, string> = {
     relevantObservation: 'relevantObservation',
     tableWorkbook: '_table_workbook',
     tableSheet: '_table_sheet',
+    tableKey: '_table_key',
+    referenceParent: 'referenceParent',
+    referenceRelation: 'referenceRelation',
     relevantRiepr: 'relevantRiepr',
     vervolgstap: 'vervolgstap',
     conditionPath: 'conditionPath',
@@ -94,7 +101,7 @@ const COLUMNS: Record<keyof FieldProperties, string> = {
     uiFirst: '_ui_first',
 };
 
-const LIST_FIELDS = new Set<keyof FieldProperties>(['codeList', 'unit', 'relevantFeatureClass', 'relevantObservation', 'relevantRiepr', 'vervolgstap', 'related']);
+const LIST_FIELDS = new Set<keyof FieldProperties>(['codeList', 'unit', 'relevantFeatureClass', 'relevantObservation', 'relevantRiepr', 'vervolgstap', 'related', 'tableKey']);
 const FLAG_FIELDS = new Set<keyof FieldProperties>(['isVerplicht', 'isMeervoudig', 'isMultiselect', 'isOnzichtbaar', 'uiFirst']);
 
 function fieldProperties(record: CsvRecord): FieldProperties {
@@ -141,7 +148,7 @@ class Files {
         const terms = contextTerms();
         for (const [column, value] of Object.entries(record)) {
             if (!value || csv.hasColumn(column)) continue;
-            if (!terms.has(column) && !['_table_workbook', '_table_sheet'].includes(column)) throw new ValidationError(`Column '${column}' is not a term in src/source/context.json.`);
+            if (!terms.has(column) && !['_table_workbook', '_table_sheet', '_table_key'].includes(column)) throw new ValidationError(`Column '${column}' is not a term in src/source/context.json.`);
             // Keep the column order of OPERATIONAL_HEADER: after the nearest preceding column the file has.
             const known = OPERATIONAL_HEADER.indexOf(column);
             const after = known > 0 ? OPERATIONAL_HEADER.slice(0, known).reverse().find(c => csv.hasColumn(c)) : undefined;
@@ -256,6 +263,56 @@ function checkField(repo: Repo, scheme: string, id: string, p: FieldProperties):
     if (Boolean(p.tableWorkbook) !== Boolean(p.tableSheet)) errors.push('tableWorkbook and tableSheet go together.');
     if (p.tableWorkbook && !/^[^/\\]+\.ods$/.test(p.tableWorkbook)) errors.push('tableWorkbook must be an .ods filename without a directory.');
     if (p.tableSheet && (p.tableSheet.length > 31 || /[\[\]:*?/\\]/.test(p.tableSheet))) errors.push('tableSheet must be a worksheet name of at most 31 characters without []:*?/\\.');
+    if (Boolean(p.referenceParent) !== Boolean(p.referenceRelation)) errors.push('referenceParent and referenceRelation go together.');
+    if (p.referenceParent) {
+        const parent = repo.byId.get(p.referenceParent)?.record;
+        if (p.referenceParent === id || !inStep.has(p.referenceParent)) errors.push('referenceParent must identify another field of the same step.');
+        else if (!parent?.relevantRiepr) errors.push('referenceParent must be a structural selection.');
+        if (!p.relevantRiepr?.length) errors.push('referenceParent only applies to structural selections.');
+        const repeatedAncestors = (parentId: string | undefined): Set<string> => {
+            const result = new Set<string>();
+            const seen = new Set<string>();
+            while (parentId && !seen.has(parentId)) {
+                seen.add(parentId);
+                const ancestor = repo.byId.get(parentId)?.record;
+                if (ancestor?.isMeervoudig === 'true') result.add(parentId);
+                parentId = ancestor?.broaderPartitive;
+            }
+            return result;
+        };
+        const ownScopes = repeatedAncestors(p.parent);
+        if ((parent?.isMeervoudig === 'true' && repo.rows.some(row => row.record.broaderPartitive === parent._id)) ||
+            [...repeatedAncestors(parent?.broaderPartitive)].some(scope => !ownScopes.has(scope))) {
+            errors.push('referenceParent cannot cross an independent repeated record.');
+        }
+        const seen = new Set([id]);
+        let current: string | undefined = p.referenceParent;
+        while (current && !seen.has(current)) {
+            seen.add(current);
+            current = repo.byId.get(current)?.record.referenceParent || undefined;
+        }
+        if (current) errors.push('referenceParent creates a dependency cycle.');
+    }
+    if (p.referenceRelation) checkReference(p.referenceRelation, 'referenceRelation', errors);
+    if (new Set(p.tableKey).size !== (p.tableKey?.length ?? 0)) errors.push('tableKey cannot contain duplicate fields.');
+    for (const key of p.tableKey ?? []) {
+        if (key === id || !inStep.has(key)) errors.push(`tableKey ${key} must identify a child field of the same step.`);
+        else {
+            let current = repo.byId.get(key)?.record;
+            if (current?.relevantUnit ||
+                repo.rows.some(row => row.record.broaderPartitive === key) ||
+                !(current?.relevantDataType || current?.relevantRiepr || current?.relevantCodeList)) {
+                errors.push(`tableKey ${key} must be a scalar field or selection.`);
+            }
+            const seen = new Set<string>();
+            while (current?.broaderPartitive && current.broaderPartitive !== id && !seen.has(current._id)) {
+                seen.add(current._id);
+                current = repo.byId.get(current.broaderPartitive)?.record;
+                if (current?.isMeervoudig === 'true') errors.push(`tableKey ${key} crosses an independent repeated record.`);
+            }
+            if (current?.broaderPartitive !== id) errors.push(`tableKey ${key} is not owned by ${id}.`);
+        }
+    }
     if (p.variabele) {
         const selector = repo.byId.get(p.variabele)?.record;
         if (p.variabele === id) errors.push('variabele cannot point to the field itself.');
@@ -399,6 +456,8 @@ export type FieldChanges = Changes<FieldProperties> & { notation?: string | null
 
 export function updateFlowItem({ id, set, dryRun = true }: { id: string; set: FieldChanges; dryRun?: boolean }): WriteResult {
     if ('code' in set || '_id' in set) throw new ValidationError('The id is a published URI and cannot be changed; add a new item and delete this one instead.');
+    const unknown = Object.keys(set).filter(key => !Object.hasOwn(COLUMNS, key) && key !== 'notation');
+    if (unknown.length) throw new ValidationError(`Unknown field properties: ${unknown.join(', ')}.`);
     const repo = new Repo();
     const at = located(repo, id, 'a thema, step or field');
     const files = new Files();
@@ -452,6 +511,111 @@ export function updateFlowItem({ id, set, dryRun = true }: { id: string; set: Fi
     changes.unshift({ file: `src/source/${at.file}`, line: row.index + 1, before: oldLine, after: newLine });
     files.saveAll(dryRun);
     return writeResult({ action: `update ${id}`, changes, warnings, dryRun });
+}
+
+/** Move a complete ownership subtree without deleting or renaming published concepts. */
+export function moveField({ field, step, parent, dryRun = true }: {
+    field: string; step: string; parent?: string; dryRun?: boolean;
+}): WriteResult {
+    const repo = new Repo();
+    const source = located(repo, field, 'an operational field');
+    if (source.record._type !== 'skos:Concept' || source.file === THEMA_FILE) {
+        throw new ValidationError(`${field} is not an operational field.`);
+    }
+    const destination = resolveStep(repo, step);
+    if (source.file !== destination.file) {
+        throw new ValidationError('move_field currently supports steps in the same operational CSV only.');
+    }
+    if (source.record.inScheme === destination.record._id && (source.record.broaderPartitive || undefined) === parent) {
+        throw new ValidationError('The field is already in this step and parent.');
+    }
+    const subtree = new Set([field]);
+    let changed = true;
+    while (changed) {
+        changed = false;
+        for (const at of repo.rows) {
+            if (at.record._type === 'skos:Concept' && subtree.has(at.record.broaderPartitive) && !subtree.has(at.record._id)) {
+                if (at.file !== source.file || at.record.inScheme !== source.record.inScheme) {
+                    throw new ValidationError(`Part ${at.record._id} is outside the source step; repair its ownership before moving.`);
+                }
+                subtree.add(at.record._id);
+                changed = true;
+            }
+        }
+    }
+    if (parent && (subtree.has(parent) || !repo.conceptsOf(destination.record._id).some(at => at.record._id === parent))) {
+        throw new ValidationError('The destination parent must be an existing field of the target step outside the moved subtree.');
+    }
+    const repeatedScope = (id: string | undefined): string[] => {
+        const scope: string[] = [];
+        const seen = new Set<string>();
+        while (id && !seen.has(id)) {
+            seen.add(id);
+            const record = repo.byId.get(id)?.record;
+            if (record?.isMeervoudig === 'true') scope.unshift(id);
+            id = record?.broaderPartitive;
+        }
+        return scope;
+    };
+    const problemsFor = (record: CsvRecord): Problems => {
+        const problems = checkField(repo, record.inScheme, record._id, fieldProperties(record));
+        const ownScope = repeatedScope(record.broaderPartitive);
+        for (const column of ['conditionPath', 'variabele', 'referenceParent', 'relevantObservation']) {
+            for (const target of splitValues(record[column])) {
+                const other = repo.byId.get(target)?.record;
+                if (!other) continue;
+                const targetScope = repeatedScope(column === 'relevantObservation' ? target : other.broaderPartitive);
+                if (targetScope.some((id, index) => ownScope[index] !== id)) {
+                    problems.errors.push(`${column} ${target} crosses independent repeated records.`);
+                }
+            }
+        }
+        return problems;
+    };
+    const affected = repo.rows.filter(at => at.file === source.file && at.record._type === 'skos:Concept');
+    const before = new Map(affected.map(at => [at.record._id,
+        problemsFor(at.record)]));
+    const updates = new Map<string, CsvInput>();
+    for (const at of affected.filter(at => !subtree.has(at.record._id) && at.record._ui_after === field)) {
+        updates.set(at.record._id, source.record._ui_first === 'true'
+            ? { _ui_first: 'true', _ui_after: '' } : { _ui_after: source.record._ui_after });
+    }
+    const siblings = uiOrder(siblingsOf(repo, destination.record._id, parent).filter(row => !subtree.has(row._id)));
+    for (const id of subtree) {
+        updates.set(id, { inScheme: destination.record._id,
+            topConceptOf: id === field && !parent ? destination.record._id : '' });
+    }
+    updates.set(field, { ...updates.get(field), broaderPartitive: parent ?? '',
+        _ui_first: siblings.length ? '' : 'true', _ui_after: siblings.at(-1)?._id ?? '' });
+    for (const [id, update] of updates) Object.assign(repo.byId.get(id)!.record, update);
+    const errors: string[] = [];
+    const warnings: string[] = [];
+    for (const at of affected) {
+        const problems = newProblems(before.get(at.record._id)!,
+            problemsFor(at.record));
+        errors.push(...problems.errors.map(error => `${at.record._id}: ${error}`));
+        if (subtree.has(at.record._id)) warnings.push(...problems.warnings.map(warning => `${at.record._id}: ${warning}`));
+    }
+    for (const scheme of new Set(affected.map(at => at.record.inScheme))) {
+        const groups = new Map<string, CsvRecord[]>();
+        for (const { record } of repo.conceptsOf(scheme)) {
+            groups.set(record.broaderPartitive, [...(groups.get(record.broaderPartitive) ?? []), record]);
+        }
+        for (const group of groups.values()) uiOrder(group);
+    }
+    fail(errors);
+    const files = new Files();
+    const csv = files.get(source.file);
+    const changes: LineChange[] = [];
+    for (const [id, update] of updates) {
+        const row = files.row(source.file, id)!;
+        const before = csv.lines[row.index];
+        const after = csv.replaceLine(row.index, { ...row.record, ...update });
+        if (before !== after) changes.push({ file: `src/source/${source.file}`, line: row.index + 1, before, after });
+    }
+    files.saveAll(dryRun);
+    return writeResult({ action: `move ${field} with ${subtree.size - 1} part(s) to ${destination.record._id}`,
+        changes, warnings, dryRun });
 }
 
 /** Repoints _ui_after of the siblings that follow a removed field, so the order stays intact. */
@@ -528,13 +692,14 @@ export function reorderFields({ step, parent, order, dryRun = true }: { step: st
         if (after !== before) changes.push({ file: `src/source/${scheme.file}`, line: row.index + 1, before, after });
     });
     if (changes.length === 0) throw new ValidationError('The fields are already in this order.');
-    const conditional = siblings.filter(s => s.conditionPath && ids.includes(s.conditionPath)).map(s => s._id);
+    const conditional = siblings.filter(s => s.conditionPath && ids.includes(s.conditionPath) &&
+        order.indexOf(s._id) < order.indexOf(s.conditionPath)).map(s => s._id);
     files.saveAll(dryRun);
     return writeResult({
         action: `reorder ${order.length} fields in ${scheme.record._id}`,
         changes,
         warnings: conditional.length
-            ? [`Conditional fields (${conditional.join(', ')}) are always rendered after the other fields, whatever their position here.`]
+            ? [`Conditional fields (${conditional.join(', ')}) must render after their triggers; their requested positions will be adjusted.`]
             : [],
         dryRun,
     });
@@ -740,6 +905,6 @@ export function addFlowCollection(params: {
     files.saveAll(dryRun);
     return writeResult({
         action: `${extend ? 'extend' : 'add'} collection ${listId}`, file: `src/source/${FLOW_LISTS_FILE}`, insertedLines: lines, changes, warnings, dryRun,
-        use: `Reference it from add_field/update_flow_item with codeList=['${listId}'].`,
+        use: `Reference it from add_field/update_flow_item with codeList=['${listId}'], or unit=['${listId}'] for a collection of numeric units.`,
     });
 }

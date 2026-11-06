@@ -2,6 +2,7 @@ export type JsonLdNode = Record<string, unknown>
 
 export interface CodelistResult {
   reportingProfile?: string
+  reportingEntries?: { schemeId: string; slug: string; label: string }[]
   nodesById: Map<string, JsonLdNode>
   schemes: Map<string, Scheme>
   concepts: Map<string, Concept>
@@ -51,6 +52,9 @@ export interface Concept {
   relevantFeatureClass?: string[]
   tableWorkbook?: string
   tableSheet?: string
+  tableKey?: string[]
+  referenceParent?: string
+  referenceRelation?: string
   tableOrder?: number
   conditionPath?: string
   conditionValue?: string

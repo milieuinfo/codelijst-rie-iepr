@@ -64,6 +64,7 @@ export interface RecordJsonMapping {
   pathTemplate: string;
   parentPathTemplate?: string;
   parentIdentifierPath?: string;
+  parentKeyPaths?: Record<string, string>;
   columns: Record<string, string>;
 }
 

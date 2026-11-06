@@ -94,10 +94,14 @@ export function groundwaterFixture() {
 }
 
 export function compileGroundwater(data: Record<string, unknown> = groundwaterFixture(), section?: string) {
+  return compileTheme(data, 'Grondwater', section)
+}
+
+export function compileTheme(data: Record<string, unknown>, theme: string, section?: string) {
   const result = new CodelistParser().parseData(data)
-  const chain = new ThemeResolver().resolveAllThemes(result).get('Grondwater')!
+  const chain = new ThemeResolver().resolveAllThemes(result).get(theme)!
   const mapper = new ConceptMapper(result)
   const fields = new ChainComposer().composeThemeFields(result, chain, mapper, section).fields
-  return new SchemaAssembler({}).assemble('Grondwater',
+  return new SchemaAssembler({}).assemble(theme,
     new CompositeGroupBuilder(result, mapper).buildNestedStructure(fields), null, chain, result)
 }

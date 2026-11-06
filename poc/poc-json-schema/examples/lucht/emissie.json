@@ -1,0 +1,51 @@
+{
+  "emissie": [
+    {
+      "featureEp": "urn:test:emissiepunt:lucht:1",
+      "featureBron": ["urn:test:installatie:1"],
+      "type": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissietype/abnormale",
+      "additionalProperty": [
+        {
+          "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_oorzaak",
+          "value": "Synthetische test: tijdelijke storing"
+        },
+        {
+          "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissietoestand",
+          "value": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toestand-indicator/droog"
+        },
+        {
+          "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieperiode",
+          "value": "Maandag tot vrijdag"
+        },
+        {
+          "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieduur",
+          "value": 0,
+          "unitCode": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_94"
+        }
+      ],
+      "hasMember": [
+        {
+          "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_debiet",
+          "hasResult": {
+            "numericValue": 0,
+            "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_175"
+          }
+        },
+        {
+          "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_255",
+          "hasResult": {
+            "numericValue": 1.25,
+            "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_13",
+            "additionalProperty": [
+              {
+                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_standaardafwijking",
+                "value": 0,
+                "unitCode": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

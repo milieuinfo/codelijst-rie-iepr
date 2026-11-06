@@ -4,17 +4,42 @@ The Dutch [end-to-end guide](../../../README.md#van-csv-naar-json-schema-ui-en-o
 explains the CSV interpretation and schema/UI/ODS mapping without implementation
 details. This document describes the workbook contract and CLI operation.
 
-## Current groundwater CSV profile
+## Current operational CSV profile
 
-The active generator scope is groundwater only. It passes source-authored
+The active generator scope includes groundwater, air emissions and four separate
+annual material sections per installation. It passes source-authored
 `_table_workbook` and `_table_sheet` through the indexed JSON Schemas.
 The ODS CLI uses those filenames; record tabs use those sheet names. Expected
 workbooks are `grondwater-debieten.ods` (`Debieten`),
 `grondwater-peilmetingen.ods` (`Peilmetingen`) and
 `grondwater-kwaliteitsanalyses.ods` (`Monsters`, `Meetresultaten`), alongside the
-context, lookup and hidden transport metadata tabs.
+context, lookup and hidden transport metadata tabs. Air adds `lucht-emissies.ods`
+with `Emissiegehelen` and a repeated pollutant-result sheet. Detail rows repeat
+the selected point and source set, without a new Emissie-ID. The pollutant sheet
+currently uses its source label.
+Materials add `lucht-brandstoffen.ods`, `lucht-verbruikte-stoffen.ods`,
+`lucht-geproduceerde-stoffen.ods` and `lucht-afvalproducten.ods`, each with one
+business sheet and no parent identifier. Installation is the first column;
+singleton result fields stay inline in source-defined sibling order.
+Composition and fuel sulfur/ash are optional. Fuel consumption is fixed GJ;
+other quantities offer the shared seven-unit collection.
+Emission-context material references, remaining pollutant fields and self-control
+are not enabled.
 
-Each numeric quantity has `Eenheid` immediately to its right. A unit collection
+Water adds `water-lozingen.ods`: `Waterstromen` holds annual flow/days per
+control point, and `Stoffen in waterstromen` holds its repeated pollutant
+collections, linked by the source-declared control-point key. Concentration,
+annual load, integer measurement frequency and the procedure stay on each
+pollutant row. `water-abnormale-lozingen.ods` has one `Abnormale lozingen` sheet.
+The existing units and choices remain unchanged, including abnormal duration in
+hours. Optional annual load and its unit remain absent when only duration is
+reported. Nested collection class constants are hidden schema-derived values, not
+editable columns or invented observed properties.
+Water use, standalone method declarations, totals, balances and bundling
+independent sections into one workbook are not covered.
+
+Each numeric quantity has `Eenheid` immediately to its right. Optional quantities
+do not prefill a fixed unit until a value is supplied. A unit collection
 becomes a dropdown backed by `Keuzelijsten`; fixed units retain their exact URI.
 Headings preserve source labels, including `Labo naam`, while typed structural
 objects such as the lab Agent remain in the imported JSON.
@@ -25,9 +50,13 @@ or constant `observedProperty` columns, not even hidden ones. Machine mappings
 remain in hidden metadata rows/the `_riepr` sheet, never in the JSON reporting
 schema. Schema constants and shared timestamps are reconstructed on import.
 The selectable `Parameter` remains a real input column.
-As in Teepak, `Meetresultaten` starts with `Monster`, referencing `Monsternummer`
-on `Monsters`. This business identifier must be filled and unique when linking
+`Meetresultaten` starts with `Monsternummer`, repeating the existing field from
+`Monsters`. The source explicitly declares it as the single component of
+`_table_key`; air uses the same contract with point and source-set components.
+This business identifier must be filled and unique when linking
 detail rows; ambiguous or missing references are errors, not guessed links.
+For records without an explicit `x-table-key`, existing identifier predicates
+remain supported as a backwards-compatible fallback.
 Top-level `Debieten`, `Peilmetingen` and `Monsters` need no parent-reference column.
 
 Hidden row 1 contains a JSON Pointer-style path template, e.g.
@@ -42,9 +71,9 @@ Additional-property columns similarly filter `additionalProperty` by `propertyID
 Laboratory names map to `/wasAssociatedWith/label`. Reference points remain
 ordinary selection cells; import wraps each selected value in its typed
 PropertyValue with constant `propertyID`, without adding technical input columns.
-The parent-reference column carries the target
-identifier template `/kwaliteitsmeting/*/identifier`; its visible values remain
-monsternummers. `*` denotes an array index in templates; concrete row pointers
+The repeated key column carries `@parent-key:<source concept URI>`; its
+`parentKeyPaths` mapping points to `/identifier` within the parent. Its visible
+values remain monsternummers. `*` denotes an array index in templates; concrete row pointers
 in `_riepr` use actual indices, e.g. `/kwaliteitsmeting/0/hasMember/1`, with
 `parentInstancePath: "/kwaliteitsmeting/0"`. The root pointer is the empty string.
 Property tokens use RFC 6901 escaping (`~0`, `~1`).
@@ -52,7 +81,10 @@ Wildcard templates are mapping patterns, not literal RFC 6901 Pointers until
 their array indices have been substituted.
 
 Transport metadata version 2 includes `jsonMapping`: per-record path templates,
-parent templates/identifier targets and column-ID-to-relative-path mappings.
+parent templates/identifier targets, any source-declared parent-key component
+paths, and column-ID-to-relative-path mappings. Each parent-key mapping names
+the source concept and the exact parent-field JSON Pointer. Reference snapshots
+preserve declared reference relations so dependency checks still run on import.
 Existing row snapshots also include `instancePath` and `parentInstancePath`.
 The importer checks these mappings against the schema and rejects inconsistent
 parent paths. Concrete pointers describe the original export; after sorting,
@@ -61,11 +93,11 @@ and row order, not treated as immutable row IDs. Older workbooks must be
 regenerated; their opaque mapping format is not silently interpreted as pointers.
 
 Every populated generation is immediately imported and compared with its
-materialized input JSON; any difference blocks output. Presentation groups
-canonical members by source variant; an input order that cannot be reconstructed
-exactly is rejected, not silently normalized. CLI groundwater template
-generation and UI download generation additionally perform this check with the
-synthetic groundwater examples and their reference context. These dummy values
+materialized input JSON after regrouping canonical predicate arrays by source
+variant; any other difference blocks output. Order within repeated records of
+the same variant is preserved. CLI template generation and UI download
+generation additionally perform this check with the synthetic groundwater,
+air and water examples and their reference context. These dummy values
 are used only in the verification workbook, never in the downloaded blank
 template.
 
@@ -89,7 +121,7 @@ input. Other selections reject values outside their list. Boolean inputs offer
 Arrays without declared table placement retain the previous linked-row behavior.
 
 Dropdown formulas use absolute sheet/column/row references and an explicit base
-cell, so Calc does not shift a lookup range to another sheet. `Monster` is a live
+cell, so Calc does not shift a lookup range to another sheet. `Monsternummer` is a live
 dropdown over the `Monsternummer` input range on `Monsters`, including new rows.
 Declared business sheets have 1000 additional formatted/validated input rows.
 The Teepak-inspired presentation uses green (`#447A6D`) wrapped headers with bold
@@ -102,15 +134,21 @@ Generate and sync the schema snapshot before using the ODS CLI:
 ```bash
 npm --prefix poc/poc-json-schema run predev
 npm --prefix poc/poc-json-schema run build
-npm --prefix poc/poc-json-schema run generate -- --theme Grondwater
+npm --prefix poc/poc-json-schema run generate
 npm --prefix poc/poc-json-schema-ods run predev
 npm --prefix poc/poc-json-schema-ods run build
 npm --prefix poc/poc-json-schema-ods run generate -- template --theme grondwater --references ../poc-json-schema/examples/refs.json --fetch-labels
 ```
 
-The current CSV generates all three templates under `output/grondwater/`.
-See the [generator's source contract](../../poc-json-schema/README.md#current-groundwater-csv-profile).
-Groundwater tests cover the three layouts and populated round trips.
+The groundwater command generates three templates under `output/grondwater/`.
+Use `--theme lucht` in the ODS command to generate the air workbook under
+`output/lucht/`.
+Use `--theme water` for the two water workbooks under `output/water/`.
+Blank discharge templates can be downloaded, but importing an entirely blank
+`water-lozingen.ods` correctly fails the source's required-discharge constraint;
+the optional abnormal-discharge workbook imports empty as `{}`.
+See the [generator's source contract](../../poc-json-schema/README.md#current-operational-csv-profile).
+Source-based tests cover all four layouts and populated round trips.
 
 To export the synthetic input examples, use the same schema snapshot:
 
@@ -273,8 +311,8 @@ are disambiguated rather than mapped to the first match.
 | Hidden `_riepr` | Version, schema/source/plan fingerprints, lookup/reference snapshots, original row links |
 | Hidden rows 1/2 | JSON record-path templates and relative column mappings |
 | Row 3 | Editable readable headers; names are not machine identifiers |
-| Business-layout columns | No technical IDs; declared business parent reference only where needed |
-| Generic-layout columns | Hidden transport IDs/container presence and visible readable references |
+| Business-layout columns | No technical IDs; repeated source key fields or, absent those, a declared business parent reference |
+| Generic-layout columns | Hidden transport IDs/container presence; source-key links show repeated parent fields instead of a visible parent-reference field |
 
 The following transport-ID behavior applies only to schemas **without**
 source-declared workbook layout. Groundwater uses the business layout and
@@ -288,15 +326,24 @@ new business uniqueness constraint is invented.
 New rows do not require editing hidden columns. Fill business values and a visible
 parent reference; for new parent records a declared business identifier can derive
 the reference. Enter an explicit distinct visible reference when identifiers are
-ambiguous. Top-level records have the unique cover/context as parent. Sorting
-rows/reordering columns/renaming headers preserves ownership; worksheet order
-determines array order within each parent.
+ambiguous. If the owning repeated record declares `x-table-key` as source concept
+URIs, the child sheet instead repeats those key fields, with the parent's labels
+and choice validation. Key values are matched by decoded JSON type and URI/value,
+not by displayed labels. Scalar arrays are unordered sets for key matching and
+duplicate elements are rejected. Empty key components, duplicate parent keys,
+and orphan/ambiguous child keys are errors. The repeated fields are transport
+columns only: they are not added to the nested JSON child record. Without
+`x-table-key`, existing identifier/visible-reference linking is unchanged.
+Top-level records have the unique cover/context as parent. Sorting rows,
+inserting rows, reordering columns or renaming headers preserves ownership;
+worksheet order determines array order within each parent.
 
-Editing a visible parent reference intentionally reparents a row; unchanged
-generic hidden links are reconciled against the original snapshot. Contradictory hidden
-edits, duplicate IDs, ambiguous parents, orphans, missing metadata, unknown columns,
-unexpected sheets and edited lookup mappings are errors. Delete a worksheet row
-to remove that record; clearing required business values leaves an invalid record.
+Editing a visible parent reference or a repeated key intentionally reparents a row;
+unchanged generic hidden links are reconciled against the original snapshot.
+Contradictory hidden edits, duplicate IDs, ambiguous parents, orphans, missing
+metadata, unknown columns, unexpected sheets and edited lookup mappings are errors.
+Delete a worksheet row to remove that record; clearing required business values
+leaves an invalid record.
 
 Cells carry real ODF number/boolean/date/time values. Strings preserve leading
 zeros, whitespace and Unicode. Numeric values are not rounded before writing;

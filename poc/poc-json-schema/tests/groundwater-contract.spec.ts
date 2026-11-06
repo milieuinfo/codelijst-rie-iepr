@@ -31,6 +31,13 @@ const references = JSON.parse(readFileSync(new URL('../examples/refs.json', impo
 const validator = new SchemaValidator()
 
 describe('Current groundwater CSV source contract (no cached schemas)', () => {
+  it('declares Monsternummer as the quality record key without adding an identifier field', () => {
+    expect(record('kwaliteitsmeting')['x-table-key']).toEqual([
+      result.expandCurie!('grondwater:kwaliteitsmeting-monsternummer'),
+    ])
+    expect(property(record('kwaliteitsmeting'), 'identifier')['x-jsonld-id']).toBe('http://purl.org/dc/terms/identifier')
+  })
+
   it('maps every data property to an explicit predicate or declared feature-construction input', () => {
     const visit = (node: ReturnType<typeof schema>, envelope = false) => {
       for (const [key, value] of Object.entries(node.properties ?? {})) {
@@ -56,10 +63,11 @@ describe('Current groundwater CSV source contract (no cached schemas)', () => {
     }
   })
 
-  it('generates exactly three sections without thematypes or other operational flows', () => {
+  it('keeps the three groundwater sections isolated from air without thematypes', () => {
     expect(sections.map(section => section.name).sort()).toEqual(['kwaliteitsmeting', 'onttrekking', 'peilmeting'])
     expect(result.schemes.has('conceptscheme:thematypes')).toBe(false)
-    expect(result.schemes.has('conceptscheme:operationeel_lucht')).toBe(false)
+    expect(result.schemes.has('conceptscheme:operationeel_lucht')).toBe(true)
+    expect(chain.schemeIds).toEqual(['conceptscheme:operationeel_grondwater'])
     for (const section of sections) expect(JSON.stringify(section.schema)).not.toContain('"@id":{')
   })
 

@@ -4,6 +4,10 @@
  */
 import { vocabularyIri } from './services/vocabulary.js'
 
+export function isSourceReportingProfile(profile: string | undefined): boolean {
+  return profile === 'operational-csv-v1' || profile === 'groundwater-csv-v1'
+}
+
 export interface TransformConfig {
   /** Published theme entry schemes (current source and existing published ID). */
   readonly themeSchemeIds: readonly string[]

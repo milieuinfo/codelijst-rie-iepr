@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { afterEach, beforeEach, test } from 'vitest';
 import { updateFlowItem } from '../src/flows-edit.js';
 import { CsvFile } from '../src/csv.js';
+import { getStep, validateFlows } from '../src/flows.js';
 
 const realRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 let root: string;
@@ -64,4 +65,39 @@ test('can clear both table placement fields together', () => {
     const record = new CsvFile(file()).records.find(record => record._id === id)!;
     assert.equal(record._table_workbook, '');
     assert.equal(record._table_sheet, '');
+});
+
+test('previews explicit reference dependencies and composite keys without writing', () => {
+    const before = fs.readFileSync(file(), 'utf8');
+    const dependency = updateFlowItem({ id: 'grondwater:kwaliteitsmeting-feature', set: {
+        referenceParent: 'grondwater:kwaliteitsmeting-referentiepunt', referenceRelation: 'prov:wasDerivedFrom',
+    }, dryRun: true });
+    assert.ok(dependency.changes?.some(change => change.note === 'added column referenceParent'));
+    const key = updateFlowItem({ id: 'grondwater:kwaliteitsmeting', set: {
+        tableKey: ['grondwater:kwaliteitsmeting-feature', 'grondwater:kwaliteitsmeting-monsternummer'],
+    }, dryRun: true });
+    assert.ok(key.changes?.some(change => change.after?.includes('grondwater:kwaliteitsmeting-feature|grondwater:kwaliteitsmeting-monsternummer')));
+    assert.equal(fs.readFileSync(file(), 'utf8'), before);
+    for (const set of [
+        { referenceParent: 'grondwater:kwaliteitsmeting-feature' },
+        { referenceRelation: 'prov:wasDerivedFrom' },
+        { tableKey: ['grondwater:missing'] },
+        { tableKey: ['grondwater:peilmeting-feature'] },
+        { tableKey: ['grondwater:kwaliteitsmeting-feature', 'grondwater:kwaliteitsmeting-feature'] },
+    ]) assert.throws(() => updateFlowItem({ id: 'grondwater:kwaliteitsmeting', set, dryRun: true }));
+    updateFlowItem({ id: 'grondwater:kwaliteitsmeting-feature', set: {
+        referenceParent: 'grondwater:kwaliteitsmeting-referentiepunt', referenceRelation: 'prov:wasDerivedFrom',
+    }, dryRun: false });
+    const field = getStep({ step: 'operationeel_grondwater' }).fields
+        .find(field => field.id === 'grondwater:kwaliteitsmeting')!.parts!
+        .find(field => field.id === 'grondwater:kwaliteitsmeting-feature')!;
+    assert.equal(field.semantics?.referenceParent, 'grondwater:kwaliteitsmeting-referentiepunt');
+    assert.throws(() => updateFlowItem({ id: 'grondwater:kwaliteitsmeting-referentiepunt', set: {
+        referenceParent: 'grondwater:kwaliteitsmeting-feature', referenceRelation: 'prov:wasDerivedFrom',
+    }, dryRun: true }), /cycle/);
+    assert.throws(() => updateFlowItem({ id: 'grondwater:peilmeting-feature', set: {
+        referenceParent: 'grondwater:kwaliteitsmeting-feature', referenceRelation: 'prov:wasDerivedFrom',
+    }, dryRun: true }), /independent repeated record/);
+    assert.equal(validateFlows().issues.some(issue => issue.location.includes('kwaliteitsmeting-feature') &&
+        issue.message.includes('referenceParent')), false);
 });

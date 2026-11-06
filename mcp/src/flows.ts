@@ -2,16 +2,19 @@
 // (concept schemes in operationeel_*.csv). See "Operationele gegevens" in the
 // repository README for the semantics:
 // - a thema concept points with vervolgstap to the first step (a concept scheme);
+// - direct reporting entries are declared separately in poc/reporting-entries.json;
 // - the concepts of a step are its fields; a field with vervolgstap leads to the next step;
 // - broaderPartitive makes a field part of a composite field;
 // - conditionPath/conditionValue make a field visible only for a given value;
-// - related groups alternative variants of one logical field;
+// - related links alternative conditional variants, not merged schema properties;
 // - _ui_first/_ui_after order sibling fields (as ui-sort.ts in the POC does).
 
 import fs from 'node:fs';
 import type { CsvRecord } from './csv.js';
-import { isDeclaredPrefix, isUrl, openCsv, prefixOf, sourceCsvFiles, sourceDir, splitValues, SYSTEMS, systemNames } from './repo.js';
+import { isDeclaredPrefix, isUrl, openCsv, prefixOf, repoRoot, sourceCsvFiles, sourceDir, splitValues, SYSTEMS, systemNames } from './repo.js';
 import { LIST_TYPES, NUMERIC_DATATYPES, ValidationError } from './rules.js';
+import { loadReportingEntries } from '../../scripts/reporting-entries.mjs';
+import { loadPublishedLabels } from '../../scripts/published-labels.mjs';
 
 export const THEMA_FILE = 'thematypes.csv';
 export const THEMA_SCHEME = 'conceptscheme:thematypes';
@@ -42,6 +45,7 @@ export interface Located {
 export class Repo {
     readonly rows: Located[] = [];
     readonly byId = new Map<string, Located>();
+    readonly publishedLabels = loadPublishedLabels(repoRoot());
 
     constructor() {
         for (const file of sourceCsvFiles()) {
@@ -60,7 +64,7 @@ export class Repo {
     }
 
     label(id: string): string | undefined {
-        return this.byId.get(id)?.record.prefLabel || undefined;
+        return this.byId.get(id)?.record.prefLabel || this.publishedLabels.concepts[id]?.label || undefined;
     }
 
     isScheme(id: string): boolean {
@@ -140,10 +144,24 @@ function sortByUiOrder(fields: CsvRecord[]): CsvRecord[] {
 
 /** Sibling fields in display order; fields shown on a condition come after their trigger. */
 export function uiOrder(fields: CsvRecord[]): CsvRecord[] {
-    const triggers = new Set(fields.filter(f => f.conditionPath && f.conditionValue).map(f => f.conditionPath));
-    const dependent = fields.filter(f => f.conditionPath && triggers.has(f.conditionPath) && fields.some(t => t._id === f.conditionPath));
-    const independent = fields.filter(f => !dependent.includes(f));
-    return [...sortByUiOrder(independent), ...sortByUiOrder(dependent)];
+    const byId = new Map(fields.map(field => [field._id, field]));
+    const visiting = new Set<string>();
+    const done = new Set<string>();
+    const ordered: CsvRecord[] = [];
+    const append = (field: CsvRecord): void => {
+        if (done.has(field._id)) return;
+        if (visiting.has(field._id)) throw new ValidationError(`Cyclic UI/condition ordering at ${field._id}.`);
+        visiting.add(field._id);
+        for (const id of [field._ui_after, field.conditionPath]) {
+            const previous = byId.get(id);
+            if (previous) append(previous);
+        }
+        visiting.delete(field._id);
+        done.add(field._id);
+        ordered.push(field);
+    };
+    sortByUiOrder(fields).forEach(append);
+    return ordered;
 }
 
 // ---------------------------------------------------------------------------
@@ -170,6 +188,7 @@ const CONTROL_BY_DATATYPE: Record<string, Control> = {
 interface Reference {
     id: string;
     label?: string;
+    symbol?: string;
 }
 
 export interface UiField {
@@ -193,7 +212,7 @@ export interface UiField {
     selects?: Reference[];
     /** Shown only when another field has a given value. */
     visibleWhen?: { field: string; fieldLabel?: string; equals: string; equalsLabel?: string };
-    /** Alternative variants of the same logical field; shown as one group. */
+    /** Alternative variants; generated schemas keep distinct conditional properties. */
     variantOf?: Reference[];
     /** Step(s) that follow once this field is filled in. */
     nextStep?: Reference[];
@@ -207,7 +226,10 @@ export interface UiField {
 }
 
 function refs(repo: Repo, ids: string[]): Reference[] {
-    return ids.map(id => ({ id, label: repo.label(id) }));
+    return ids.map(id => ({
+        id, label: repo.label(id),
+        ...(repo.publishedLabels.concepts[id]?.symbol ? { symbol: repo.publishedLabels.concepts[id].symbol } : {}),
+    }));
 }
 
 export function describeField(repo: Repo, field: Located, all: Located[]): UiField {
@@ -245,6 +267,10 @@ export function describeField(repo: Repo, field: Located, all: Located[]): UiFie
     else if (units.length === 1) ui.unit = { from: units[0], choose: refs(repo, repo.listMembers(units[0]).map(m => m.id)) };
     else if (units.length > 1) ui.unit = { choose: refs(repo, units) };
     for (const unit of units) if (/TODO/i.test(unit)) issues.push(`unit is a placeholder (${unit})`);
+    const unitChoices = ui.unit?.choose ?? (ui.unit?.fixed ? [ui.unit.fixed] : []);
+    if (unitChoices.some(unit => unit.id.startsWith('csor_') && !unit.label)) {
+        issues.push('Published unit labels are unavailable in the shared CSOR snapshot; run sync:csor. Unit IDs are unchanged.');
+    }
     const min = r.minValue === '' || r.minValue === undefined ? undefined : Number(r.minValue);
     const max = r.maxValue === '' || r.maxValue === undefined ? undefined : Number(r.maxValue);
     if ((min !== undefined && !Number.isFinite(min)) || (max !== undefined && !Number.isFinite(max))) {
@@ -273,7 +299,8 @@ export function describeField(repo: Repo, field: Located, all: Located[]): UiFie
     const next = splitValues(r.vervolgstap);
     if (next.length) ui.nextStep = refs(repo, next);
     const semantics: Record<string, string | string[]> = {};
-    for (const key of ['relevantClass', 'relevantFeatureClass', 'relevantObservation', '_table_workbook', '_table_sheet', 'relation', 'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'variabele']) {
+    for (const key of ['relevantClass', 'relevantFeatureClass', 'relevantObservation', '_table_workbook', '_table_sheet', '_table_key',
+        'referenceParent', 'referenceRelation', 'relation', 'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'variabele']) {
         if (r[key]) semantics[key] = splitValues(r[key]).length > 1 ? splitValues(r[key]) : r[key];
     }
     if (Object.keys(semantics).length) ui.semantics = semantics;
@@ -311,6 +338,7 @@ export function getStep({ step }: { step: string }) {
         label: scheme.record.prefLabel || undefined,
         file: `src/source/${scheme.file}`,
         reachedFrom: incoming,
+        reportingEntry: loadReportingEntries(repoRoot(), { required: false }).find(entry => entry.schemeId === id),
         usedAsCodeListBy: usedAsList.length ? usedAsList : undefined,
         fields: stepFields(repo, id),
         legend: CONTROL_LEGEND,
@@ -398,6 +426,10 @@ function resolveThema(repo: Repo, flow: string): Located | undefined {
 
 export function listFlows() {
     const repo = new Repo();
+    const reportingEntries = loadReportingEntries(repoRoot(), { required: false }).map(entry => ({
+        ...entry,
+        valid: repo.byId.get(entry.schemeId)?.file === entry.file && repo.isScheme(entry.schemeId),
+    }));
     const reached = new Set<string>();
     const flows = repo.themas().map(thema => {
         const entry = splitValues(thema.record.vervolgstap);
@@ -412,34 +444,47 @@ export function listFlows() {
         };
     });
     const codeLists = new Set(repo.rows.flatMap(r => [...splitValues(r.record.relevantCodeList), ...splitValues(r.record.relevantUnit)]));
+    const reportingReached = new Set(walk(repo, reportingEntries.filter(entry => entry.valid).map(entry => entry.schemeId)).map(step => step.id));
     const summary = (s: Located) => ({ id: s.record._id, label: s.record.prefLabel || undefined, file: `src/source/${s.file}` });
-    const unreachable: Array<ReturnType<typeof summary> & { leadsTo: string[] }> = [];
+    const unreachable: Array<ReturnType<typeof summary> & { leadsTo: string[]; reachableFromReportingEntry: boolean }> = [];
     for (const s of repo.operationalSchemes().filter(s => repo.isStep(s.record._id))) {
         if (reached.has(s.record._id)) continue;
         const sub = walk(repo, [s.record._id]).map(x => x.id);
         sub.forEach(id => reached.add(id));
-        unreachable.push({ ...summary(s), leadsTo: sub.slice(1) });
+        unreachable.push({ ...summary(s), leadsTo: sub.slice(1), reachableFromReportingEntry: reportingReached.has(s.record._id) });
     }
     const lists = repo.operationalSchemes().filter(s => !repo.isStep(s.record._id));
     const unregistered = fs.readdirSync(sourceDir()).filter(f => isOperationalFile(f) && !sourceCsvFiles().includes(f));
     return {
         flows,
+        reportingEntries: reportingEntries.map(entry => ({
+            ...entry,
+            steps: entry.valid ? walk(repo, [entry.schemeId]).map(step => ({ id: step.id, label: step.label })) : [],
+        })),
         stepsNotReachableFromAThema: unreachable.length ? unreachable : undefined,
         optionLists: lists.filter(s => codeLists.has(s.record._id)).map(summary),
         unusedOptionLists: lists.filter(s => !codeLists.has(s.record._id)).map(summary),
         filesNotInConfig: unregistered.length ? unregistered : undefined,
-        note: 'A flow starts at the thema (thematypes.csv), whose vervolgstap is the first step; fields with vervolgstap lead to the next step. Use get_flow for the full outline and get_step for the form of one step.',
+        note: 'Navigation flows start at a thema through vervolgstap. Direct reporting entries are declared in poc/reporting-entries.json and do not require a thema. Reporting entry presence does not prove schema/ODS readiness. Use get_flow for the outline and get_step for the source fields.',
     };
 }
 
 export function getFlow({ flow }: { flow: string }) {
     const repo = new Repo();
     const thema = resolveThema(repo, flow);
-    const entry = thema ? splitValues(thema.record.vervolgstap) : [resolveScheme(repo, flow).record._id];
+    const query = flow.trim().toLowerCase();
+    const reportingEntry = loadReportingEntries(repoRoot(), { required: false }).find(entry =>
+        [entry.schemeId, entry.slug, entry.label].some(value => value.toLowerCase() === query));
+    const entry = thema ? splitValues(thema.record.vervolgstap) : [reportingEntry?.schemeId ?? resolveScheme(repo, flow).record._id];
+    if (reportingEntry && (!repo.isScheme(reportingEntry.schemeId) || repo.byId.get(reportingEntry.schemeId)?.file !== reportingEntry.file)) {
+        throw new ValidationError(`Invalid reporting entry ${reportingEntry.schemeId}: expected a concept scheme in ${reportingEntry.file}.`);
+    }
     const steps = walk(repo, entry);
     const details = steps.map(step => ({ ...step, fields: stepFields(repo, step.id) }));
     const outline = [
-        thema ? `Thema: ${thema.record.prefLabel} (${thema.record._id})` : `Start bij ${entry.join(', ')} (niet gekoppeld aan een thema)`,
+        thema ? `Thema: ${thema.record.prefLabel} (${thema.record._id})`
+            : reportingEntry ? `Rapporteringsingang: ${reportingEntry.label} (${reportingEntry.schemeId}; onafhankelijk van themanavigatie)`
+            : `Start bij ${entry.join(', ')} (niet gekoppeld aan een thema)`,
         ...details.flatMap(step => [
             '',
             `Stap ${step.number}: ${step.label ? `${step.label} (${step.id})` : step.id}${step.reachedVia.length ? ` ← via ${step.reachedVia.map(v => v.label ?? v.id).join(', ')}` : ''}`,
@@ -448,6 +493,7 @@ export function getFlow({ flow }: { flow: string }) {
     ].join('\n');
     return {
         thema: thema ? { id: thema.record._id, label: thema.record.prefLabel, notation: thema.record.notation || undefined } : undefined,
+        reportingEntry,
         outline,
         steps: details,
     };
@@ -499,6 +545,61 @@ export function validateFlows() {
         if (Boolean(r.broaderPartitive) === Boolean(r.topConceptOf)) report('warning', at, 'a field has either topConceptOf (top level) or broaderPartitive (part), not both/neither.');
         if (r.conditionPath && !repo.byId.has(r.conditionPath)) report('error', at, `conditionPath ${r.conditionPath} does not exist.`);
         if (Boolean(r.conditionPath) !== Boolean(r.conditionValue)) report('warning', at, 'conditionPath and conditionValue go together.');
+        if (Boolean(r.referenceParent) !== Boolean(r.referenceRelation)) report('error', at, 'referenceParent and referenceRelation go together.');
+        if (r.referenceParent) {
+            const parent = repo.byId.get(r.referenceParent)?.record;
+            if (!parent || parent._id === r._id || parent.inScheme !== r.inScheme || !parent.relevantRiepr || !r.relevantRiepr) {
+                report('error', at, 'referenceParent must identify another structural selection of the same step.');
+            }
+            const repeatedAncestors = (field: CsvRecord): Set<string> => {
+                const result = new Set<string>();
+                const visited = new Set<string>();
+                let id = field.broaderPartitive;
+                while (id && !visited.has(id)) {
+                    visited.add(id);
+                    const ancestor = repo.byId.get(id)?.record;
+                    if (ancestor?.isMeervoudig === 'true') result.add(id);
+                    id = ancestor?.broaderPartitive ?? '';
+                }
+                return result;
+            };
+            const ownScopes = repeatedAncestors(r);
+            if (parent && ((parent.isMeervoudig === 'true' && repo.rows.some(row => row.record.broaderPartitive === parent._id)) ||
+                [...repeatedAncestors(parent)].some(scope => !ownScopes.has(scope)))) {
+                report('error', at, 'referenceParent cannot cross an independent repeated record.');
+            }
+            const seen = new Set([r._id]);
+            let current: string | undefined = r.referenceParent;
+            while (current && !seen.has(current)) {
+                seen.add(current);
+                current = repo.byId.get(current)?.record.referenceParent || undefined;
+            }
+            if (current) report('error', at, 'referenceParent creates a dependency cycle.');
+        }
+        const key = splitValues(r._table_key);
+        if (new Set(key).size !== key.length) report('error', at, '_table_key contains duplicate fields.');
+        for (const id of key) {
+            const field = repo.byId.get(id)?.record;
+            if (!field || field._id === r._id || field.inScheme !== r.inScheme) {
+                report('error', at, `_table_key ${id} is not a child field of the same step.`);
+            } else {
+                let current = field;
+                const seen = new Set<string>();
+                while (current.broaderPartitive && current.broaderPartitive !== r._id && !seen.has(current._id)) {
+                    seen.add(current._id);
+                    const parent = repo.byId.get(current.broaderPartitive)?.record;
+                    if (!parent) break;
+                    current = parent;
+                    if (current.isMeervoudig === 'true') report('error', at, `_table_key ${id} crosses an independent repeated record.`);
+                }
+                if (current.broaderPartitive !== r._id) report('error', at, `_table_key ${id} is not owned by ${r._id}.`);
+                if (field.relevantUnit ||
+                    repo.rows.some(row => row.record.broaderPartitive === id) ||
+                    !(field.relevantDataType || field.relevantRiepr || field.relevantCodeList)) {
+                    report('error', at, `_table_key ${id} must be a scalar field or selection.`);
+                }
+            }
+        }
         if (r._ui_after) {
             if (!siblings.some(s => s.record._id === r._ui_after)) report('warning', at, `_ui_after ${r._ui_after} is not a sibling field, so it has no effect.`);
             if (r._ui_first === 'true') report('warning', at, '_ui_first and _ui_after together: _ui_first wins.');
@@ -545,6 +646,12 @@ export function validateFlows() {
         groups.set(key, [...(groups.get(key) ?? []), at]);
     }
     for (const siblings of groups.values()) {
+        try {
+            uiOrder(siblings.map(sibling => sibling.record));
+        } catch (error) {
+            if (!(error instanceof ValidationError)) throw error;
+            report('error', siblings[0], error.message);
+        }
         const firsts = siblings.filter(s => s.record._ui_first === 'true');
         if (firsts.length > 1) report('warning', firsts[1], `several siblings have _ui_first (${firsts.map(f => f.record._id).join(', ')}).`);
         for (const start of siblings) {
@@ -560,7 +667,14 @@ export function validateFlows() {
     }
 
     const flows = listFlows();
+    for (const entry of flows.reportingEntries) {
+        if (!entry.valid) issues.push({
+            level: 'error', location: 'poc/reporting-entries.json',
+            message: `reporting entry ${entry.schemeId} must be a concept scheme in configured source ${entry.file}.`,
+        });
+    }
     for (const step of flows.stepsNotReachableFromAThema ?? []) {
+        if (step.reachableFromReportingEntry) continue;
         const at = repo.byId.get(step.id)!;
         issues.push({ level: 'warning', location: `src/source/${at.file}:${at.line}`, message: `step ${step.id} is not reachable from any thema (no vervolgstap leads to it).` });
     }

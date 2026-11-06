@@ -8,7 +8,7 @@ import { schemaObject, personalizeReferenceSchema, referenceSnapshot } from 'cod
 import { compileGroundwater } from '../../poc-json-schema/tests/groundwater-csv-fixture.js';
 import { sourceSnapshot } from '../../poc-json-schema/scripts/source-snapshot.mjs';
 import { compileTabularPlan, hash } from '../src/services/tabular-plan.js';
-import { layoutColumns } from '../src/services/workbook-layout.js';
+import { layoutColumns, parentKeyComponents } from '../src/services/workbook-layout.js';
 import { machineColumns } from '../src/services/json-mapping.js';
 import { generationFixture } from '../src/services/generation-fixture.js';
 import { workbookMetadata } from '../src/services/workbook-metadata.js';
@@ -81,7 +81,12 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
         expect(columns.every((column: Record<string, string>) => column['@_table:style-name'].startsWith('column'))).toBe(true);
       }
       if (section.name === 'kwaliteitsmeting') {
-        const parent = validations.find((validation: Record<string, string>) => validation['@_table:name'].startsWith('parent_'));
+        const detail = plan.records.find(record => record.sheetName === 'Meetresultaten')!;
+        const components = parentKeyComponents(plan, detail);
+        expect(components.map(component => component.sourceConcept)).toEqual([
+          'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-monsternummer',
+        ]);
+        const parent = validations.find((validation: Record<string, string>) => validation['@_table:name'] === components[0].id);
         expect(parent['@_table:condition']).toBe("of:cell-content-is-in-list([$'Monsters'.$B$4:.$B$1003])");
         const monster = spreadsheet['table:table'].find((table: Record<string, string>) => table['@_table:name'] === 'Meetresultaten');
         expect(monster['table:table-row'][3]['table:table-cell'][0]['@_table:content-validation-name']).toBe(parent['@_table:name']);
@@ -161,7 +166,7 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
         const machine = table.rows.find(row => row.number === 2)?.cells.map(cell => cell.text) ?? [];
         expect(machine).toEqual(machineColumns(plan, record.id));
         if (record.sheetName === 'Meetresultaten') {
-          expect(headers[0]).toBe('Monster');
+          expect(headers[0]).toBe('Monsternummer');
           expect(headers[1]).toBe('Parameter *');
         } else expect(machine).not.toContain('_parent_ref');
         const ids = layoutColumns(plan, record);
@@ -207,7 +212,13 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
     const result = Object.values(metadata.rows).find(row => row.instancePath === '/kwaliteitsmeting/0/hasMember/1');
     expect(result?.parentInstancePath).toBe('/kwaliteitsmeting/0');
     const mapping = metadata.jsonMapping[plan.records.find(record => record.sheetName === 'Meetresultaten')!.id];
-    expect(mapping.parentIdentifierPath).toBe('/kwaliteitsmeting/*/identifier');
+    expect(mapping.parentIdentifierPath).toBeUndefined();
+    expect(mapping.parentKeyPaths).toEqual({
+      'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-monsternummer': '/identifier',
+    });
+    expect(results.rows.find(row => row.number === 2)!.cells[0].text).toBe(
+      '@parent-key:https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-monsternummer',
+    );
     const monster = tables.find(table => table.name === 'Monsters')!;
     const monsterPaths = monster.rows.find(row => row.number === 2)!.cells.map(cell => cell.text);
     expect(monsterPaths).toContain('/wasAssociatedWith/label');

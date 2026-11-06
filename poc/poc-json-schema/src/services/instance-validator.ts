@@ -2,7 +2,7 @@ import { Ajv2020 } from 'ajv/dist/2020.js'
 import { default as formats } from 'ajv-formats'
 import type { JsonSchemaObject } from '../models/index.js'
 import { pointerToken, schemaObject } from './schema-registry.js'
-import { matchingMemberVariant } from './member-layout.js'
+import { matchingMemberVariant, memberDiscriminator } from './member-layout.js'
 
 function selectedMemberBranches(schema: JsonSchemaObject, data: unknown) {
   const branches: { schemaPath: string; instancePath: string; index: number }[] = []
@@ -11,8 +11,8 @@ function selectedMemberBranches(schema: JsonSchemaObject, data: unknown) {
   const visit = (node: JsonSchemaObject, value: unknown, schemaPath: string, instancePath: string): void => {
     if (Array.isArray(node.oneOf) && node.oneOf.every(variant => {
       const definition = schemaObject(variant)
-      const key = definition.properties?.observedProperty ? 'observedProperty' : 'propertyID'
-      if (!definition.properties?.[key]) return false
+      const key = memberDiscriminator(definition)
+      if (!key) return false
       const observed = schemaObject(definition.properties?.[key])
       return definition.required?.includes(key) &&
         (Object.hasOwn(observed, 'const') || Array.isArray(observed.enum))

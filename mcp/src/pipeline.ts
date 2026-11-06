@@ -125,6 +125,24 @@ export class GenerationError extends Error {
     }
 }
 
+const pendingWrites = new Map<string, Promise<void>>();
+
+async function withWriteLock<T>(root: string, action: () => Promise<T>): Promise<T> {
+    const key = path.resolve(root);
+    const previous = pendingWrites.get(key) ?? Promise.resolve();
+    let release!: () => void;
+    const current = new Promise<void>(resolve => { release = resolve; });
+    const tail = previous.then(() => current);
+    pendingWrites.set(key, tail);
+    await previous;
+    try {
+        return await action();
+    } finally {
+        release();
+        if (pendingWrites.get(key) === tail) pendingWrites.delete(key);
+    }
+}
+
 /**
  * Applies a write, then validates it with the generator. On failure every
  * tracked file is restored to its state before the write.
@@ -133,32 +151,31 @@ export async function validatedWrite<T>(
     write: () => T | Promise<T>,
     { root = repoRoot(), generate = runGenerateSkos, csvFix = runCsvFix }: { root?: string; generate?: (root: string) => Promise<Generation>; csvFix?: (root: string) => Promise<CsvFixResult> } = {},
 ) {
-    const before = snapshot(root);
-    let value: T;
-    try {
-        value = await write();
-    } catch (error) {
-        restore(before);
-        throw error;
-    }
-    const csvResult = await csvFix(root);
-    if (!csvResult.ok) {
-        restore(before);
-        throw new Error(`npm run csv:fix failed (exit ${csvResult.exitCode}); the change was rolled back.\n\n${csvResult.summary}`);
-    }
-    const generation = await generate(root);
-    if (!generation.ok) {
-        restore(before);
-        throw new GenerationError(
-            `npm run generate_skos failed (exit ${generation.exitCode}); the change was rolled back.\n\n${generation.summary}`,
-            generation,
-        );
-    }
-    return {
-        ...(typeof value === 'object' && value !== null ? value : {}),
-        status: 'written, csv fixed and validated with npm run generate_skos',
-        csvFix: { ok: true, durationMs: csvResult.durationMs, summary: csvResult.summary, fixedLines: csvResult.fixedLines },
-        generateSkos: { ok: true, durationMs: generation.durationMs, summary: generation.summary },
-        next: 'Run validate_codelists for warnings, then review the diff (sources and regenerated output) with the user.',
-    };
+    return withWriteLock(root, async () => {
+        const before = snapshot(root);
+        try {
+            const value = await write();
+            const csvResult = await csvFix(root);
+            if (!csvResult.ok) {
+                throw new Error(`npm run csv:fix failed (exit ${csvResult.exitCode}); the change was rolled back.\n\n${csvResult.summary}`);
+            }
+            const generation = await generate(root);
+            if (!generation.ok) {
+                throw new GenerationError(
+                    `npm run generate_skos failed (exit ${generation.exitCode}); the change was rolled back.\n\n${generation.summary}`,
+                    generation,
+                );
+            }
+            return {
+                ...(typeof value === 'object' && value !== null ? value : {}),
+                status: 'written, csv fixed and validated with npm run generate_skos',
+                csvFix: { ok: true, durationMs: csvResult.durationMs, summary: csvResult.summary, fixedLines: csvResult.fixedLines },
+                generateSkos: { ok: true, durationMs: generation.durationMs, summary: generation.summary },
+                next: 'Run validate_codelists for warnings, then review the diff (sources and regenerated output) with the user.',
+            };
+        } catch (error) {
+            restore(before);
+            throw error;
+        }
+    });
 }

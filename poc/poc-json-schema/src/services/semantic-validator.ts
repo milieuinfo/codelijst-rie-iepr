@@ -4,12 +4,14 @@ import { homogeneousProperties } from './schema-assembler.js'
 import { pointerToken, schemaObject, SchemaRegistry } from './schema-registry.js'
 import { selectMemberVariant } from './member-layout.js'
 import { referenceSnapshot } from './reference-schema.js'
+import { referenceDependency, dependencySelections, referenceMatchesDependency, type ReferenceScope } from './reference-dependency.js'
 
 export interface ReferenceRecord {
   id: string
   label: string
   types: string[]
   parents?: string[]
+  relations?: Record<string, string[]>
   year?: number
 }
 
@@ -83,6 +85,7 @@ export class SemanticValidator {
     const visit = (
       location: ValueLocation, inherited = new Map<string, ValueLocation>(),
       referenceScope = new Set(options.referenceContext?.ids ?? []),
+      scopes: ReferenceScope[] = [],
     ): void => {
       let node: JsonSchemaObject
       try { node = selectMemberVariant(registry.resolve(location.schema), location.value) }
@@ -92,6 +95,7 @@ export class SemanticValidator {
       }
       const value = location.value
       const expectedTypes = node['x-reference-types']
+      const dependency = referenceDependency(node)
       if (typeof value === 'string' && Array.isArray(expectedTypes)) {
         const reference = references.get(value)
         const local = identities.get(value)
@@ -105,7 +109,10 @@ export class SemanticValidator {
         if (reference?.year !== undefined && reference.year !== options.referenceContext?.year) {
           report(location, 'reference', `Reference ${value} belongs to reporting year ${reference.year}; supply a matching reference context.`)
         }
-        if (reference?.parents?.length && !reference.parents.some(parent => referenceScope.has(parent))) {
+        if (dependency && (!reference || !referenceMatchesDependency(reference, dependency,
+          dependencySelections(dependency, scopes, schema => registry.resolve(schema))))) {
+          report(location, 'reference', `Reference ${value} is not connected to the selected ${dependency.sourceConcept} through ${dependency.relation}.`)
+        } else if (!dependency && reference?.parents?.length && !reference.parents.some(parent => referenceScope.has(parent))) {
           report(location, 'reference', `Reference ${value} is outside the selected parent context.`)
         }
       }
@@ -113,10 +120,11 @@ export class SemanticValidator {
         if (!node.items) throw new Error(`Missing item schema at ${location.path}`)
         value.forEach((item, index) => visit({
           value: item, schema: schemaObject(node.items), path: `${location.path}/${index}`,
-        }, inherited, referenceScope))
+        }, inherited, referenceScope, scopes))
         return
       }
       if (!isObject(value)) return
+      const childScopes = [{ schema: node, value }, ...scopes]
       if (node['x-temporal-range'] && typeof value.start === 'string' && typeof value.end === 'string') {
         const start = timestamp(value.start)
         const end = timestamp(value.end)
@@ -173,8 +181,8 @@ export class SemanticValidator {
           if (definitions.some(member => !isObservationClass(String(member['x-jsonld-type'])))) {
             report(child, 'membership', 'Collection members must be Observations or ObservationCollections, not physical Samples or other entities.')
           }
-          visit(child, effective, localScope)
-        } else visit(child, undefined, localScope)
+          visit(child, effective, localScope, childScopes)
+        } else visit(child, undefined, localScope, childScopes)
       }
     }
 

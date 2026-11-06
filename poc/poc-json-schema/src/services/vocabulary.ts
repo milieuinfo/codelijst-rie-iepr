@@ -66,7 +66,7 @@ export const semanticPredicateIris: Readonly<Record<string, string>> = Object.fr
   ...Object.entries(predicateIris),
   ...[
     'relevantRiepr', 'relevantDataType', 'relevantCodeList', 'relevantProperty',
-    'relevantFeatureClass', 'relevantObservation', 'isVerplicht',
+    'relevantFeatureClass', 'relevantObservation', 'referenceParent', 'referenceRelation', 'isVerplicht',
     'isMeervoudig', 'isMeetbaar', 'isOnzichtbaar', 'isMultiselect',
     'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'variabele',
   ].flatMap(term => [

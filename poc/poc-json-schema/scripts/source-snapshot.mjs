@@ -1,14 +1,18 @@
 import { readFileSync } from 'node:fs'
-import { resolve, dirname } from 'node:path'
+import { resolve, dirname, basename } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { parse } from 'csv-parse/sync'
+import { loadReportingEntries } from '../../../scripts/reporting-entries.mjs'
 
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), '../../..')
 export const canonicalSource = resolve(repo, 'src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld')
-const groundwater = 'conceptscheme:operationeel_grondwater'
 
 /** Flatten the published supporting lists; replace reporting data with the current CSV. */
-export function sourceSnapshot(publication = canonicalSource, source = resolve(repo, 'src/source/operationeel_grondwater.csv')) {
+export function sourceSnapshot(publication = canonicalSource, source, root = repo) {
+  const configured = loadReportingEntries(root)
+  const files = source === undefined ? configured.map(entry => resolve(root, 'src/source', entry.file))
+    : Array.isArray(source) ? source : [source]
+  if (!files.length) throw new Error('At least one operational CSV is required.')
   const document = JSON.parse(readFileSync(publication, 'utf8'))
   const context = document['@context']
   const nodes = new Map()
@@ -37,12 +41,13 @@ export function sourceSnapshot(publication = canonicalSource, source = resolve(r
         [theme, oldTheme].includes(expand(id)) || [theme, oldTheme].includes(scheme)) nodes.delete(id)
   }
   // Selection lists are dependencies, not additional reporting flows.
-  const misc = parse(readFileSync(resolve(dirname(source), 'operationeel_misc.csv'), 'utf8'), {
+  const misc = parse(readFileSync(resolve(dirname(files[0]), 'operationeel_misc.csv'), 'utf8'), {
     columns: true, skip_empty_lines: true, relax_column_count: true, trim: true,
   })
-  const rows = parse(readFileSync(source, 'utf8'), {
+  const rowsByFile = new Map(files.map(file => [file, parse(readFileSync(file, 'utf8'), {
     columns: true, skip_empty_lines: true, relax_column_count: true, trim: true,
-  })
+  })]))
+  const rows = [...rowsByFile.values()].flat()
   for (const [order, row] of [...misc, ...rows].entries()) {
     if (!row._id) continue
     const node = { id: row._id, _type: row._type, _table_order: order }
@@ -68,11 +73,12 @@ export function sourceSnapshot(publication = canonicalSource, source = resolve(r
   }
   const groups = new Map()
   for (const row of rows.filter(row => row._id)) {
-    const key = row._table_sheet ? `${row._table_workbook}/${row._table_sheet}` : row.broaderPartitive || row.inScheme || row._id
+    const key = row.broaderPartitive || row.inScheme || row._id
     groups.set(key, [...(groups.get(key) ?? []), nodes.get(row._id)])
   }
-  let order = 0
-  for (const siblings of groups.values()) {
+  const orderedGroups = new Map()
+  for (const [key, siblings] of groups) {
+    const ordered = []
     const visiting = new Set()
     const done = new Set()
     const append = node => {
@@ -83,13 +89,37 @@ export function sourceSnapshot(publication = canonicalSource, source = resolve(r
       if (previous) append(previous)
       visiting.delete(node.id)
       done.add(node.id)
-      node._table_order = order++
+      ordered.push(node)
     }
     for (const node of [...siblings.filter(node => node._ui_first === true), ...siblings]) append(node)
+    orderedGroups.set(key, ordered)
   }
-  if (!nodes.has(groundwater)) throw new Error(`Missing ${groundwater} in ${source}.`)
+  // Keep singleton descendants beside their owning field when tables flatten them.
+  let order = 0
+  const assigned = new Set()
+  const assign = node => {
+    if (assigned.has(node.id)) return
+    assigned.add(node.id)
+    node._table_order = order++
+    for (const child of orderedGroups.get(node.id) ?? []) assign(child)
+  }
+  for (const [key, siblings] of orderedGroups) {
+    if (nodes.get(key)?._type === 'skos:ConceptScheme') siblings.forEach(assign)
+  }
+  for (const siblings of orderedGroups.values()) siblings.forEach(assign)
+  const entries = files.map(file => {
+    const entry = configured.find(entry => entry.file === basename(file))
+    if (!entry) throw new Error(`No reporting entry declared for ${file}.`)
+    const { schemeId, slug, label } = entry
+    const sourceRows = rowsByFile.get(file).filter(row => row._id === schemeId && row._type === 'skos:ConceptScheme')
+    if (sourceRows.length !== 1) {
+      throw new Error(`Missing or ambiguous reporting entry ${schemeId} in ${file}.`)
+    }
+    return { schemeId, slug, label }
+  })
   return JSON.stringify({
-    'x-source-profile': 'groundwater-csv-v1',
+    'x-source-profile': 'operational-csv-v1',
+    'x-reporting-entries': entries,
     '@context': context,
     graph: [...nodes.values()],
   }, null, 2) + '\n'

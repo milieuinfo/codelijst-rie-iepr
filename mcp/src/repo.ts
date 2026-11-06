@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { load as loadYaml } from 'js-yaml';
+import { AsyncLocalStorage } from 'node:async_hooks';
 import { CsvFile, type CsvRecord } from './csv.js';
 
 export const SYSTEMS = ['emissiepunt', 'filter', 'installatie', 'meetpunt', 'uitwisselpunt', 'onttrekkingspunt'] as const;
@@ -47,7 +48,15 @@ export interface IndexEntry {
     record: CsvRecord;
 }
 
+const rootContext = new AsyncLocalStorage<string>();
+
+export function withRepoRoot<T>(root: string, action: () => T): T {
+    return rootContext.run(path.resolve(root), action);
+}
+
 export function repoRoot(): string {
+    const scoped = rootContext.getStore();
+    if (scoped) return scoped;
     if (process.env.CODELIJST_ROOT) return path.resolve(process.env.CODELIJST_ROOT);
     // src/ and dist/ both sit directly below mcp/.
     return path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');

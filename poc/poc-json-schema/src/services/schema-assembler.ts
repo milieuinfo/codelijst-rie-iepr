@@ -1,6 +1,6 @@
 import type { CodelistResult, JsonSchemaObject, JsonSchemaValue, SchemaField, SubSchema } from '../models/index.js'
 import type { ThemeChain } from './theme-resolver.js'
-import { config, isCollectionClass, isObservationClass } from '../config.js'
+import { config, isCollectionClass, isObservationClass, isSourceReportingProfile } from '../config.js'
 import { localName, vocabularyIri } from './vocabulary.js'
 import { schemaObject } from './schema-registry.js'
 import { SourceMetadataError } from './generation-report.js'
@@ -29,7 +29,7 @@ export class SchemaAssembler {
     chain: ThemeChain,
     result: CodelistResult,
   ): { baseSchema: JsonSchemaObject; domainSchema: JsonSchemaObject; subSchemas: SubSchema[] } {
-    const slug = result.reportingProfile === 'groundwater-csv-v1' ? 'grondwater' : this.slug(chain.themeConcept.id)
+    const slug = chain.slug ?? this.slug(chain.themeConcept.id)
     const domainId = `${config.baseSchemaUrl}/${slug}/schema.json`
     const domainSchema = this.document(fields, domainId, themeName, chain, result)
     const sections = fields.filter(field => (field.children?.length || isObservationClass(field.relevantClass)) && !field.extensions?.['x-reference-types'])
@@ -58,6 +58,53 @@ export class SchemaAssembler {
     const root = this.object(fields, [], locations, objectSchemas, result)
     for (const location of locations.values()) {
       const field = location.field
+      const key = field.extensions?.['x-table-key']
+      if (key !== undefined) {
+        if (!Array.isArray(key) || !key.length || !key.every(value => typeof value === 'string') ||
+            new Set(key).size !== key.length) throw new Error(`Invalid table key on ${field.conceptId}.`)
+        for (const source of key) {
+          const component = [...locations.values()].find(candidate =>
+            (result.expandCurie?.(candidate.field.conceptId) ?? candidate.field.conceptId) === source)
+          const owner = component?.parents.findIndex(parent => parent.conceptId === field.conceptId) ?? -1
+          if (!component || owner < 0 ||
+              component.parents.slice(owner + 1).some(parent => parent.isRepeatable) ||
+              component.field.children?.length || component.field.hasUnitConstraint ||
+              !['string', 'number', 'integer', 'boolean'].includes(component.field.type)) {
+            throw new Error(`Table key ${source} must be a scalar or selection within ${field.conceptId}, not an independent record.`)
+          }
+        }
+      }
+      if (Boolean(field.referenceParentConceptId) !== Boolean(field.referenceRelation)) {
+        throw new SourceMetadataError([{ code: 'invalid-source-reference', conceptId: field.conceptId,
+          message: 'referenceParent and referenceRelation must be declared together.' }])
+      }
+      if (field.referenceParentConceptId) {
+        const seen = new Set([field.conceptId])
+        let current: SchemaField | undefined = field
+        while (current?.referenceParentConceptId) {
+          if (seen.has(current.referenceParentConceptId)) throw new Error(`Cyclic reference dependency on ${field.conceptId}.`)
+          seen.add(current.referenceParentConceptId)
+          current = locations.get(current.referenceParentConceptId)?.field
+        }
+        const parent = locations.get(field.referenceParentConceptId)
+        if (!parent || parent === location || !field.extensions?.['x-reference-types'] ||
+            !parent.field.extensions?.['x-reference-types'] ||
+            (parent.field.isRepeatable && Boolean(parent.field.children?.length))) {
+          throw new Error(`Invalid referenceParent ${field.referenceParentConceptId} on ${field.conceptId}.`)
+        }
+        let common = 0
+        while (common < location.parents.length && common < parent.parents.length &&
+          location.parents[common].conceptId === parent.parents[common].conceptId) common++
+        if (parent.parents.slice(common).some(ancestor => ancestor.isRepeatable)) {
+          throw new Error(`Reference dependency ${field.conceptId} crosses independent record arrays.`)
+        }
+        location.schema['x-reference-dependency'] = {
+          sourceConcept: result.expandCurie?.(parent.field.conceptId) ?? parent.field.conceptId,
+          relation: field.referenceRelation,
+        }
+        if (location.schema.items) schemaObject(location.schema.items)['x-reference-dependency'] =
+          location.schema['x-reference-dependency']
+      }
       if (field.variabeleConceptId) {
         const variable = locations.get(field.variabeleConceptId)
         if (!variable) throw new Error(`Unresolved variable ${field.variabeleConceptId} on ${field.conceptId}.`)
@@ -85,12 +132,12 @@ export class SchemaAssembler {
       title,
       ...root,
       'x-theme-concept': result.expandCurie?.(chain.themeConcept.id) ?? chain.themeConcept.id,
-      'x-theme-slug': result.reportingProfile === 'groundwater-csv-v1' ? 'grondwater' : this.slug(chain.themeConcept.id),
+      'x-theme-slug': chain.slug ?? this.slug(chain.themeConcept.id),
       'x-theme-label': chain.themeConcept.prefLabel ?? title,
       'x-semantic-profile': 'https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/',
       'x-flow-transitions': chain.transitions ?? [],
     })
-    if (result.reportingProfile === 'groundwater-csv-v1') this.requireRelations(schema, true)
+    if (isSourceReportingProfile(result.reportingProfile)) this.requireRelations(schema, true)
     return schema
   }
 
@@ -178,7 +225,7 @@ export class SchemaAssembler {
       }])
       if (sheets.size) node['x-table-sheet'] = [...sheets][0]
       if (field.relevantClass) {
-        if (result.reportingProfile !== 'groundwater-csv-v1') {
+        if (!isSourceReportingProfile(result.reportingProfile)) {
           node.properties!['@id'] = { type: 'string', minLength: 1, 'x-ui-hidden': true }
         }
         node['x-jsonld-type'] = field.relevantClass
@@ -250,7 +297,7 @@ export class SchemaAssembler {
         node = {
           type: 'object', additionalProperties: false, required: ['observedProperty', 'hasResult'],
           properties: {
-            ...(result.reportingProfile !== 'groundwater-csv-v1'
+            ...(!isSourceReportingProfile(result.reportingProfile)
               ? { '@id': { type: 'string', minLength: 1, 'x-ui-hidden': true } } : {}),
             observedProperty: { const: result.expandCurie?.(field.conceptId) ?? field.conceptId, 'x-jsonld-id': sosa + 'observedProperty', 'x-ui-hidden': true },
             hasResult: { ...node, 'x-jsonld-id': sosa + (node.type === 'object' ? 'hasResult' : 'hasSimpleResult') },
@@ -270,7 +317,7 @@ export class SchemaAssembler {
     if (field.uiFirst) node['x-ui-first'] = true
     if (field.uiAfterConceptId) {
       const sibling = result.concepts.get(field.uiAfterConceptId)
-      if (!sibling || (result.reportingProfile !== 'groundwater-csv-v1' &&
+      if (!sibling || (!isSourceReportingProfile(result.reportingProfile) &&
           (sibling.broaderPartitive?.[0] ?? '') !== (field.broaderPartitive?.[0] ?? ''))) {
         throw new Error(`Invalid sibling ordering on ${field.conceptId}.`)
       }

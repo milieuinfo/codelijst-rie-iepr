@@ -1,4 +1,5 @@
 import type { JsonSchemaObject } from '../models/json-schema.js'
+import { isCollectionClass } from '../config.js'
 import { schemaObject } from './schema-registry.js'
 
 interface MemberLayout {
@@ -47,6 +48,14 @@ function relationVariants(node: JsonSchemaObject, key: string): JsonSchemaObject
   return oneOf.map(schemaObject)
 }
 
+export function memberDiscriminator(variant: JsonSchemaObject): string | undefined {
+  return ['observedProperty', 'propertyID', '@type'].find(key => {
+    const property = variant.properties?.[key]
+    return property !== undefined &&
+      (schemaObject(property).const !== undefined || Array.isArray(schemaObject(property).enum))
+  })
+}
+
 /** Keep predicate arrays canonical while retaining their source-authored input layout. */
 export function canonicalMemberSchema(input: JsonSchemaObject): JsonSchemaObject {
   const node = structuredClone(input)
@@ -74,11 +83,25 @@ export function canonicalMemberSchema(input: JsonSchemaObject): JsonSchemaObject
           key, repeatable, required: required.has(key), annotations: repeatable ? annotations : {},
           ...(unwrapValue ? { unwrapValue: true } : {})
         })
-        const observed = variant.properties?.[group.discriminator]
-        if (!observed || (schemaObject(observed).const === undefined && !schemaObject(observed).enum)) {
+        if (group.key === 'hasMember' && isCollectionClass(String(variant['x-jsonld-type'])) &&
+            !variant.properties?.observedProperty) {
+          variant.properties!['@type'] = {
+            type: 'string', const: variant['x-jsonld-type'], 'x-jsonld-id': '@type', 'x-ui-hidden': true,
+          }
+        }
+        const discriminator = group.key === 'hasMember' ? memberDiscriminator(variant)
+          : variant.properties?.propertyID ? 'propertyID' : undefined
+        const observed = discriminator && variant.properties?.[discriminator]
+        if (!discriminator || !observed ||
+            (schemaObject(observed).const === undefined && !schemaObject(observed).enum)) {
           throw new Error(`${key} requires a ${group.discriminator} discriminator.`)
         }
-        variant.required = [...new Set([...(variant.required ?? []), group.discriminator])]
+        variant.required = [...new Set([...(variant.required ?? []), discriminator])]
+        if (discriminator === '@type' && variants.some(other =>
+          memberDiscriminator(other) === '@type' &&
+          schemaObject(other.properties!['@type']).const === schemaObject(observed).const)) {
+          throw new Error(`${key} has an ambiguous collection class discriminator.`)
+        }
         variants.push(variant)
         delete node.properties![key]
         required.delete(key)
@@ -89,7 +112,7 @@ export function canonicalMemberSchema(input: JsonSchemaObject): JsonSchemaObject
         'x-jsonld-id': group.relation,
         items: { oneOf: variants },
         allOf: variants.map((variant, index) => ({
-          contains: discriminatorSchema(variant, group.discriminator),
+          contains: discriminatorSchema(variant, memberDiscriminator(variant)!),
           minContains: layouts[index].required ? (layouts[index].annotations.minItems ?? 1) : 0,
           ...(!layouts[index].repeatable ? { maxContains: 1 }
             : layouts[index].annotations.maxItems === undefined ? {} : { maxContains: layouts[index].annotations.maxItems }),
@@ -191,9 +214,9 @@ export function matchingMemberVariant(node: JsonSchemaObject, value: unknown): J
   if (!Array.isArray(node.oneOf)) return node
   if (!object(value)) return undefined
   const candidates = node.oneOf.map(schemaObject).filter(variant => {
-    const key = variant.properties?.observedProperty ? 'observedProperty' : 'propertyID'
-    const observed = variant.properties?.[key]
-    if (!observed) return false
+    const key = memberDiscriminator(variant)
+    const observed = key && variant.properties?.[key]
+    if (!key || !observed) return false
     const discriminator = schemaObject(observed)
     return discriminator.const !== undefined ? discriminator.const === value[key]
       : discriminator.enum?.includes(value[key])
@@ -205,7 +228,7 @@ export function selectMemberVariant(node: JsonSchemaObject, value: unknown): Jso
   const variant = matchingMemberVariant(node, value)
   if (variant) return variant
   if (!object(value)) throw new Error('An observation member must be an object.')
-  throw new Error(`Unknown or ambiguous observedProperty/propertyID: ${String(value.observedProperty ?? value.propertyID)}.`)
+  throw new Error(`Unknown or ambiguous observedProperty/propertyID/@type: ${String(value.observedProperty ?? value.propertyID ?? value['@type'])}.`)
 }
 
 export function transformMemberData(schema: JsonSchemaObject, data: unknown, direction: 'canonical' | 'presentation'): unknown {
@@ -342,10 +365,12 @@ export function canonicalColumnPath(schema: JsonSchemaObject, path: string[]): s
       const index = layouts.findIndex(layout => layout.key === key)
       if (index >= 0) {
         const variant = relationVariants(node, group.key)[index]
-        const discriminator = schemaObject(variant.properties![group.discriminator])
+        const key = memberDiscriminator(variant)!
+        const discriminator = schemaObject(variant.properties![key])
+        const accessor = key === '@type' ? '@["@type"]' : `@.${key}`
         const test = discriminator.const !== undefined
-          ? `@.${group.discriminator} == ${JSON.stringify(discriminator.const)}`
-          : (discriminator.enum ?? []).map(value => `@.${group.discriminator} == ${JSON.stringify(value)}`).join(' || ')
+          ? `${accessor} == ${JSON.stringify(discriminator.const)}`
+          : (discriminator.enum ?? []).map(value => `${accessor} == ${JSON.stringify(value)}`).join(' || ')
         return `[${JSON.stringify(group.key)}][?(${test})]${layouts[index].unwrapValue ? '["value"]' : ''}${walk(variant, rest)}`
       }
     }

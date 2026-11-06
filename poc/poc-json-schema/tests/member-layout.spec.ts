@@ -72,6 +72,36 @@ describe('Canonical observation membership and presentation mapping', () => {
     const reordered = { hasMember: [canonical.hasMember[2], canonical.hasMember[0], canonical.hasMember[1]] }
     expect(materializeDerivedValues(schema, reordered)).toEqual(reordered)
   })
+
+  it('discriminates nested collections by their declared class without inventing an observed property', () => {
+    const type = 'https://data.riepr.omgeving.vlaanderen.be/ns/riepr#ObservatieVerzameling'
+    const nested = {
+      type: 'array', 'x-jsonld-id': 'http://www.w3.org/ns/sosa/hasMember',
+      items: {
+        type: 'object', additionalProperties: false, 'x-jsonld-type': type,
+        properties: { amount: observation('urn:amount') }, required: ['amount'],
+      },
+    } satisfies JsonSchemaObject
+    const schema = canonicalMemberSchema({
+      type: 'object', properties: { depth: input.properties!.depth, nested }, required: ['depth', 'nested'],
+    })
+    const draft = { depth: { observedProperty: 'urn:depth', value: 0 },
+      nested: [{ '@type': type, amount: { observedProperty: 'urn:amount', value: 0 } }] }
+    const data = transformMemberData(schema, draft, 'canonical')
+    expect(new InstanceValidator().validateInstance(schema, data).errors).toEqual([])
+    expect(transformMemberData(schema, data, 'presentation')).toEqual(draft)
+    expect(canonicalDataPath(schema, draft, ['nested', 0, 'amount', 'value']))
+      .toEqual(['hasMember', 1, 'hasMember', 0, 'value'])
+    expect(presentationDataPath(schema, data, ['hasMember', 1, 'hasMember', 0, 'value']))
+      .toEqual(['nested', 0, 'amount', 'value'])
+    expect(canonicalColumnPath(schema, ['nested', 'amount', 'value']))
+      .toBe(`$["hasMember"][?(@["@type"] == "${type}")]["hasMember"][?(@.observedProperty == "urn:amount")]["value"]`)
+    const missing = { hasMember: [draft.depth, { '@type': type, hasMember: [] }] }
+    expect(new InstanceValidator().validateInstance(schema, missing).valid).toBe(false)
+    expect(() => canonicalMemberSchema({
+      type: 'object', properties: { first: nested, second: structuredClone(nested) },
+    })).toThrow('ambiguous collection class discriminator')
+  })
 })
 
 describe('Required members are enforced by standard JSON Schema keywords', () => {

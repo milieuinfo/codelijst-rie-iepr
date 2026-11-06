@@ -36,7 +36,11 @@ describe('Groundwater schema-driven table projection', () => {
     const schema = compileGroundwater(JSON.parse(sourceSnapshot())).subSchemas.find(section => section.name === 'peilmeting')!.schema
     const references = JSON.parse(readFileSync(new URL('../../../poc-json-schema/examples/refs.json', import.meta.url), 'utf8'))
     const editor = new SchemaEditor(schema, [], references, { year: 2024 })
-    expect(editor.schemaAt(['peilmeting', 0, 'hasFeatureOfInterest']).enum).toEqual(['urn:test:filter:peil:1', 'urn:test:filter:pomp:1'])
+    expect(editor.schemaAt(['peilmeting', 0, 'hasFeatureOfInterest']).enum).toEqual(
+      references.filter((reference: { types: string[] }) => reference.types.some(type =>
+        type.endsWith('/filtertype/peil') || type.endsWith('/filtertype/pomp')))
+        .map((reference: { id: string }) => reference.id).sort(),
+    )
     const data = JSON.parse(readFileSync(new URL('../../../poc-json-schema/examples/grondwater/peilmeting.json', import.meta.url), 'utf8'))
     editor.load(data)
     editor.set(['peilmeting', 0, 'hasFeatureOfInterest'], 'urn:unknown')

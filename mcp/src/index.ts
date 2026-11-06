@@ -6,7 +6,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import { z } from 'zod';
-import { addField, addFlow, addFlowCollection, addStep, deleteField, deleteStep, reorderFields, updateFlowItem } from './flows-edit.js';
+import { addField, addFlow, addFlowCollection, addStep, deleteField, deleteStep, moveField, reorderFields, updateFlowItem } from './flows-edit.js';
 import { getFlow, getOperationalConcept, getStep, listFlows, OPERATIONAL_DATATYPES, validateFlows } from './flows.js';
 import { addProperty, deleteProperty, listProperties, updateProperty, type CodeListSource } from './eigenschappen.js';
 import {
@@ -16,6 +16,8 @@ import { runCsvFix, runGenerateSkos, validatedWrite } from './pipeline.js';
 import { getProperty, getTypeProperties, searchCodelists } from './query.js';
 import { SYSTEMS } from './repo.js';
 import { DATATYPES, KNOWN_RELATIONS, ValidationError } from './rules.js';
+import { getReportingPreview } from './reporting.js';
+import { applyOperationalBatch } from './flows-batch.js';
 import { addType, deleteType, listTypes, updateType } from './systeemtypes.js';
 import { validate } from './validate.js';
 
@@ -433,7 +435,7 @@ server.registerTool('delete_selection_list', {
 server.registerTool('list_flows', {
     title: 'Operationele flows',
     description:
-        'List the thematische stromen (thematypes.csv) with the steps of each flow. A flow starts at the thema, whose vervolgstap ' +
+        'List navigation flows (thematypes.csv) and direct reporting entries shared with the schema generator in poc/reporting-entries.json. A navigation flow starts at the thema, whose vervolgstap ' +
         'is the first step (a concept scheme in operationeel_*.csv); fields with vervolgstap lead to the next step. Also reports ' +
         'steps no thema reaches, option lists (used and unused) and operationeel_*.csv files missing from config.yml.',
     inputSchema: {},
@@ -443,10 +445,10 @@ server.registerTool('list_flows', {
 server.registerTool('get_flow', {
     title: 'Een flow bekijken',
     description:
-        'The whole flow of a thema ("lucht", "thema:grondwater", "Zelfcontrole water") or starting at a step: a readable ' +
+        'The whole flow of a thema, a direct reporting entry ("lucht", "grondwater"), or starting at a step: a readable ' +
         '`outline` (steps, fields in display order, controls, required/repeatable, conditions, next steps, problems) and ' +
         'the full UI description of every step. Show the outline to the user.',
-    inputSchema: { flow: z.string().describe('Thema (code, id, label or notation) or a step id.') },
+    inputSchema: { flow: z.string().describe('Thema, direct reporting entry (slug, label or scheme id), or a step id.') },
     annotations: readOnly,
 }, respond(args => getFlow(args)));
 
@@ -474,10 +476,24 @@ server.registerTool('validate_flows', {
     description:
         'Quick check of thematypes.csv and operationeel_*.csv: vervolgstap targets, conditions, parts, ordering (_ui_after siblings, ' +
         'cycles, several _ui_first), symmetric related, code lists, placeholders (http://TODO), unreachable steps, unused option ' +
-        'lists and files missing from config.yml.',
+        'lists and files missing from config.yml. Validates direct reporting entry declarations; active entries do not need a thema navigation link. This does not compile reporting schemas or prove ODS readiness.',
     inputSchema: {},
     annotations: readOnly,
 }, respond(() => validateFlows()));
+
+server.registerTool('get_reporting_preview', {
+    title: 'Rapporteringsgereedheid en werkbladpreview',
+    description:
+        'Read-only readiness check for declared reporting entries using the actual JSON Schema and ODS compilers against current CSVs. ' +
+        'Reports blocked sections with compiler errors, workbook/sheet names, flattened column order, required fields, unit choices and parent keys. ' +
+        'Generates blank templates only in memory; does not certify populated round-trips or business completeness. ' +
+        'Requires installed POC dependencies; rebuilds outdated compiler output without installing packages. No code lists or published snapshots are written.',
+    inputSchema: {
+        flow: z.string().optional().describe('Declared reporting entry slug, label or scheme ID; omit to check all entries.'),
+        section: z.string().optional().describe('Source section concept ID or exact label; requires flow.'),
+    },
+    annotations: readOnly,
+}, respond(args => getReportingPreview(args)));
 
 const fieldSchema = {
     prefLabel: prefLabel.describe('Label shown in the form (Dutch, capital first letter).'),
@@ -492,6 +508,9 @@ const fieldSchema = {
     relevantObservation: z.array(z.string()).describe('Observation(s) or observation collection(s) this field belongs to, independent of presentation ownership. Multiple targets share one entered value.'),
     tableWorkbook: z.string().describe('_table_workbook: ODS filename, without a directory; give together with tableSheet.'),
     tableSheet: z.string().describe('_table_sheet: worksheet name, at most 31 characters; give together with tableWorkbook.'),
+    tableKey: z.array(z.string()).min(1).describe('_table_key: child field concept IDs forming the business key for detail worksheets; selections are compared by URI, multiselects as sets. No new input ID.'),
+    referenceParent: z.string().describe('Field selecting the parent context for this structural selection, independent of vervolgstap. Give together with referenceRelation.'),
+    referenceRelation: z.string().describe('Predicate from candidate reference to the selected parent; reference data must supply these explicit relationships.'),
     relevantRiepr: z.array(z.string()).describe('Systems to select: types (emissiepunt:emissiepunt_lucht), type schemes, riepr:<Klasse> (riepr:Installatie), or an eigenschap (value taken from the selected system).'),
     vervolgstap: z.array(z.string()).describe('Next step(s) after this field (concept scheme ids).'),
     conditionPath: z.string().describe('Field that controls the visibility of this field (same step).'),
@@ -510,6 +529,26 @@ const fieldSchema = {
     uiAfter: z.string().describe('Show directly after this sibling field (_ui_after).'),
     uiFirst: z.boolean().describe('Show first among its siblings (_ui_first).'),
 };
+
+const addFieldSchema = z.object({
+    step,
+    code: z.string().describe('Lowercase id part (a-z, 0-9, _ or -); the prefix follows the step.'),
+    prefix: z.string().optional(),
+    ...Object.fromEntries(Object.entries(fieldSchema).map(([k, v]) => [k, k === 'prefLabel' ? v : v.optional()])) as {
+        [K in keyof typeof fieldSchema]: K extends 'prefLabel' ? (typeof fieldSchema)[K] : z.ZodOptional<(typeof fieldSchema)[K]>
+    },
+}).strict();
+const flowChangesSchema = z.object({
+    ...Object.fromEntries(Object.entries(fieldSchema).map(([k, v]) => [k, k === 'prefLabel' ? v.optional() : v.nullable().optional()])),
+    notation: z.string().nullable().optional().describe('Thema only.'),
+}).strict();
+const flowCollectionSchema = z.object({
+    name: z.string().describe('Collection name in snake_case or its full CURIE.'),
+    prefLabel: prefLabel.optional().describe('Required unless extend=true.'),
+    definition: definition.optional(),
+    members: z.array(z.string()).min(1).describe('Published concept CURIEs or URLs; e.g. CSOR variables or units.'),
+    extend: z.boolean().default(false),
+}).strict();
 
 server.registerTool('add_flow', {
     title: 'Nieuwe thematische stroom',
@@ -549,12 +588,7 @@ server.registerTool('add_field', {
         'add parts later with parent=<this field> (group). Without uiFirst/uiAfter the field is shown last among its siblings. ' +
         'Conditions (conditionPath/conditionValue), variants (related) and the next step (vervolgstap) are checked against the step.',
     inputSchema: {
-        step,
-        code: z.string().describe('Lowercase id part (a-z, 0-9, _ or -), e.g. brandstof_naam; the prefix follows the step.'),
-        prefix: z.string().optional().describe('Id prefix, only when it cannot be derived from the step.'),
-        ...Object.fromEntries(Object.entries(fieldSchema).map(([k, v]) => [k, k === 'prefLabel' ? v : v.optional()])) as {
-            [K in keyof typeof fieldSchema]: K extends 'prefLabel' ? (typeof fieldSchema)[K] : z.ZodOptional<(typeof fieldSchema)[K]>
-        },
+        ...addFieldSchema.shape,
         dryRun,
     },
 }, respond(write(args => addField(args))));
@@ -566,26 +600,33 @@ server.registerTool('update_flow_item', {
         'vervolgstap = first step). Only the keys in `set` change; null clears. Ids cannot change. Related variants stay symmetric.',
     inputSchema: {
         id: z.string().describe('Id of the thema, step or field.'),
-        set: z.object({
-            ...Object.fromEntries(Object.entries(fieldSchema).map(([k, v]) => [k, k === 'prefLabel' ? v.optional() : v.nullable().optional()])),
-            notation: z.string().nullable().optional().describe('Thema only.'),
-        }),
+        set: flowChangesSchema,
         dryRun,
     },
 }, respond(write(args => updateFlowItem(args as Parameters<typeof updateFlowItem>[0]))));
+
+server.registerTool('move_field', {
+    title: 'Veld of groep verplaatsen naar een stap',
+    description:
+        'Move an existing operational field and all its parts to another step or parent in the same CSV, keeping every published ID. ' +
+        'Repairs source ordering and appends at the destination. Refuses broken conditions, ownership, keys or dependencies. ' +
+        'No fields are deleted. Preview first; real writes run generate_skos and roll back on failure.',
+    inputSchema: {
+        field: z.string().describe('Published field ID of the field or group to move.'),
+        step,
+        parent: z.string().optional().describe('Destination group; omit to move to the top level of the step.'),
+        dryRun,
+    },
+}, respond(write(args => moveField(args))));
 
 server.registerTool('add_flow_collection', {
     title: 'Collectie voor een veld van een flow',
     description:
         'Create (or with extend=true, add members to) a collection of published concepts in operationeel_misc.csv, e.g. ' +
-        'the CSOR variabelen (stoffen) a field may select. Id collectie:<name>; members are listed through the collections ' +
-        'column. Then use it as codeList of the field with update_flow_item or add_field.',
+        'CSOR variabelen (stoffen) or numeric units a field may select. Id collectie:<name>; members are listed through the collections ' +
+        'column. Then use it as codeList, or unit for a numeric unit collection, with update_flow_item or add_field.',
     inputSchema: {
-        name: z.string().describe('Name in snake_case (e.g. "operationeel_stoffen_water") or the full CURIE.'),
-        prefLabel: prefLabel.optional().describe('Dutch label of the collection (required unless extend=true).'),
-        definition: definition.optional(),
-        members: z.array(z.string()).min(1).describe('CURIEs or URLs of published concepts, e.g. csor_variabele:V_424.'),
-        extend: z.boolean().default(false),
+        ...flowCollectionSchema.shape,
         dryRun,
     },
 }, respond(write(args => addFlowCollection(args))));
@@ -602,6 +643,25 @@ server.registerTool('reorder_fields', {
         dryRun,
     },
 }, respond(write(args => reorderFields(args))));
+
+server.registerTool('apply_operational_batch', {
+    title: 'Samenhangende operationele wijzigingen',
+    description:
+        'Stage a sequence of existing add_field, update_flow_item, move_field, reorder_fields and add_flow_collection operations in an isolated source copy. ' +
+        'Later operations see earlier edits. Each operation must pass its normal checks; no deletion or new flow configuration is supported. ' +
+        'Dry-run returns only the final removed/resulting CSV lines. Show them and obtain approval before dryRun=false. ' +
+        'Real writes use one csv:fix and one generate_skos, restoring the entire batch and generated output on failure.',
+    inputSchema: {
+        operations: z.array(z.discriminatedUnion('tool', [
+            z.object({ tool: z.literal('add_field'), args: addFieldSchema }).strict(),
+            z.object({ tool: z.literal('update_flow_item'), args: z.object({ id: z.string(), set: flowChangesSchema }).strict() }).strict(),
+            z.object({ tool: z.literal('move_field'), args: z.object({ field: z.string(), step, parent: z.string().optional() }).strict() }).strict(),
+            z.object({ tool: z.literal('reorder_fields'), args: z.object({ step, parent: z.string().optional(), order: z.array(z.string()).min(1) }).strict() }).strict(),
+            z.object({ tool: z.literal('add_flow_collection'), args: flowCollectionSchema }).strict(),
+        ])).min(1),
+        dryRun,
+    },
+}, respond(write(args => applyOperationalBatch(args as Parameters<typeof applyOperationalBatch>[0]))));
 
 server.registerTool('delete_field', {
     title: 'Veld verwijderen',

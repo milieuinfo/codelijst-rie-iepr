@@ -3,6 +3,7 @@ import {
   materializeDerivedValues,
   presentationSchema, transformMemberData, presentationDataPath,
   personalizeReferenceSchema,
+  referenceDependency, dependencySelections, referenceMatchesDependency,
   type JsonSchemaObject, type ReferenceRecord, type ReferenceContext,
 } from 'codelijst-rie-iepr-poc-json-schema/browser'
 
@@ -121,6 +122,24 @@ export class SchemaEditor {
       ? schema.items : schema.properties?.[key])), this.resolve(this.inputSchema))
   }
 
+  referenceChoices(path: DataPath, choices: unknown[]): unknown[] {
+    const node = this.schemaAt(path)
+    const item = node.type === 'array' ? this.resolve(schemaObject(node.items)) : node
+    const dependency = referenceDependency(item)
+    if (!dependency) return choices
+    const scopes = []
+    for (let depth = path.length - 1; depth >= 0; depth--) {
+      const here = path.slice(0, depth)
+      const schema = this.schemaAt(here)
+      if (schema.type === 'object') scopes.push({ schema, value: this.get(here) })
+    }
+    const selected = dependencySelections(dependency, scopes, schema => this.resolve(schema))
+    return choices.filter(id => {
+      const reference = this.references.find(reference => reference.id === id)
+      return reference && referenceMatchesDependency(reference, dependency, selected)
+    })
+  }
+
   isActive(path: DataPath, active = new Set<string>()): boolean {
     for (let depth = 0; depth <= path.length; depth++) {
       const here = path.slice(0, depth)
@@ -180,6 +199,8 @@ export class SchemaEditor {
         let meaningful = false
         for (const [name, child] of Object.entries(schema.properties ?? {})) {
           const resolved = this.resolve(schemaObject(child))
+          if (name === 'hasUnit' && resolved.const !== undefined && schema.properties?.numericValue &&
+              !schema.required?.includes(name) && object.numericValue === undefined && object[name] === undefined) continue
           const projected = visit(resolved, object[name], [...path, name], schema.required?.includes(name) ?? false)
           if (projected !== undefined) {
             output[name] = projected

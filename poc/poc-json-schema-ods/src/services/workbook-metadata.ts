@@ -1,4 +1,4 @@
-import { SchemaValidator } from 'codelijst-rie-iepr-poc-json-schema/browser';
+import { SchemaValidator, parseReferenceData } from 'codelijst-rie-iepr-poc-json-schema/browser';
 import type { JsonSchemaObject, ReferenceRecord, ReferenceContext } from 'codelijst-rie-iepr-poc-json-schema';
 import type { WorkbookMetadata } from '../models/tabular-plan.js';
 
@@ -8,7 +8,8 @@ const reference: JsonSchemaObject = {
   type: 'object', additionalProperties: false, required: ['id', 'label', 'types'],
   properties: {
     id: { type: 'string', minLength: 1 }, label: { type: 'string', minLength: 1 },
-    types: { type: 'array', minItems: 1, items: string }, parents: strings, year: { type: 'integer' },
+    types: { type: 'array', minItems: 1, items: string }, parents: strings,
+    relations: { type: 'object', additionalProperties: false, patternProperties: { '^.*$': strings } }, year: { type: 'integer' },
   },
 };
 const referencesSchema: JsonSchemaObject = { type: 'array', items: reference };
@@ -37,6 +38,7 @@ const metadataSchema: JsonSchemaObject = {
         type: 'object', additionalProperties: false, required: ['pathTemplate', 'columns'],
         properties: {
           pathTemplate: string, parentPathTemplate: string, parentIdentifierPath: string,
+          parentKeyPaths: { type: 'object', additionalProperties: false, patternProperties: { '^.*$': string } },
           columns: { type: 'object', additionalProperties: false, patternProperties: { '^.*$': string } },
         } },
       },
@@ -81,9 +83,7 @@ export function referenceContext(value: unknown): ReferenceContext {
 
 export function referenceData(value: unknown): ReferenceRecord[] {
   assertValid(referencesSchema, value, 'Invalid reference data');
-  const references = value as ReferenceRecord[];
-  if (new Set(references.map(reference => reference.id)).size !== references.length) throw new Error('Duplicate reference-data identities.');
-  return references;
+  return parseReferenceData(value);
 }
 
 export function workbookMetadata(value: unknown): WorkbookMetadata {

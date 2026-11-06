@@ -15,8 +15,8 @@ is the conceptual specification; the [POC README](../README.md) covers operation
 - Flatten singleton detail objects into columns; render repeated child records
   as full-width expandable detail tables, and value/reference arrays as multiselects.
 - Edit a source-shaped presentation while validating/exporting canonical
-  `hasMember` and `additionalProperty` arrays, identified by `observedProperty`
-  and `propertyID`. Required kinds retain discriminator-specific cardinalities.
+  `hasMember` and `additionalProperty` arrays, identified by `observedProperty`,
+  collection `@type` and `propertyID`. Required kinds retain discriminator-specific cardinalities.
 - Preserve ownership without ODS parent-ID/link tables.
 - Resolve generated conditions generically within the owning record/ancestors.
   Inactive fields are grey/disabled; retain drafts but omit inactive values from
@@ -37,11 +37,29 @@ is the conceptual specification; the [POC README](../README.md) covers operation
 - No persistence/backend, domain calculations, feature construction or
   manufactured missing source facts.
 
-The active scope is the three groundwater sections: quality, flow and levels.
-The generator enters `conceptscheme:operationeel_grondwater` directly, not via
-the removed theme list. Source `_table_workbook` / `_table_sheet` annotations
+The active scope is the three groundwater sections (quality, flow and levels)
+plus **Lucht -> Emissie, Verbruikte brandstof, Verbruikte stof, Geproduceerde stof
+and Afvalproduct**, plus **Water -> Lozing and Abnormale lozing**.
+The source snapshot declares direct scheme entries,
+not navigation through the removed theme list; the UI discovers all themes
+from the generated index. Source `_table_workbook` / `_table_sheet` annotations
 control the corresponding ODS layout, not semantic ownership.
-Other operational CSVs and full Teepak acceptance remain outside this scope.
+Air includes point/source-set selections, emission context, conditional abnormal
+cause and nested pollutant mass-flow results, with composite-key ODS links.
+Material sections report annual quantities per installation, outside the
+emission group. Each has a separate ODS template; installation is the first
+column, composition is optional, and quantities retain source-defined units.
+Fuel sulfur/ash are optional percentages bounded to 0–100.
+Water keeps annual flow/days per control point and expands repeated pollutant
+collections beneath that record. Their concentration/load observations and
+procedure stay within each pollutant record; measurement frequency is a
+non-negative integer. The two-sheet discharge template links by control-point
+URI; abnormal discharges have a separate workbook. Existing units and lists
+remain unchanged. Water use, standalone methods, totals, balances and a combined
+seven-sheet workbook remain outside this slice.
+Source connectivity, emission-context material references, self-control, missing pollutant
+quantities/methods and improvements are not yet covered. Other operational CSVs
+and full Teepak acceptance remain outside this scope.
 
 ### Implementation surfaces
 

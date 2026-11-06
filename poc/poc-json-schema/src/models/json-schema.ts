@@ -41,6 +41,8 @@ export interface SchemaField {
   children?: SchemaField[]
   relevantClass?: string
   relevantObservation?: string[]
+  referenceParentConceptId?: string
+  referenceRelation?: string
   extensions?: Record<string, unknown>
   /** Source concept of the selected stof, resolved in the owning record/ancestor scope. */
   variabeleConceptId?: string

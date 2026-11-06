@@ -1,7 +1,7 @@
 import type { CodelistResult, Concept, SchemaField } from '../models/index.js'
 import type { ThemeChain } from './theme-resolver.js'
 import { ConceptMapper } from './concept-mapper.js'
-import { isObservationClass } from '../config.js'
+import { isObservationClass, isSourceReportingProfile } from '../config.js'
 import { SourceMetadataError, type SourceMetadataIssue } from './generation-report.js'
 
 export interface ThemeFieldSet {
@@ -65,7 +65,7 @@ export class ChainComposer {
           !concepts.some(child => child.broaderPartitive?.includes(root.id)))
       })
       const rootFields = filtered.flatMap(concept => {
-        if (result.reportingProfile === 'groundwater-csv-v1') {
+        if (isSourceReportingProfile(result.reportingProfile)) {
           for (const [column, refs] of Object.entries({
             conditionPath: concept.conditionPath ? [concept.conditionPath] : [],
             variabele: concept.variabele ? [concept.variabele] : [],

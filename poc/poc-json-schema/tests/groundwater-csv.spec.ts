@@ -9,11 +9,11 @@ import { compileGroundwater, groundwaterFixture } from './groundwater-csv-fixtur
 import { memberVariants, presentationSchema, transformMemberData } from '../src/services/member-layout.js'
 
 describe('Groundwater CSV reporting profile', () => {
-  it('parses only groundwater reports and supporting choices, without thematypes', () => {
+  it('parses active reports with supporting choices, without thematypes', () => {
     const result = new CodelistParser().parseData(JSON.parse(sourceSnapshot()))
-    expect([...new ThemeResolver().resolveAllThemes(result).keys()]).toEqual(['Grondwater'])
-    expect(result.schemes.has('conceptscheme:operationeel_lucht')).toBe(false)
-    expect(result.concepts.has('lucht:emissie')).toBe(false)
+    expect([...new ThemeResolver().resolveAllThemes(result).keys()]).toEqual(['Grondwater', 'Lucht', 'Water'])
+    expect(result.schemes.has('conceptscheme:operationeel_lucht')).toBe(true)
+    expect(result.concepts.has('lucht:emissie')).toBe(true)
     expect(result.schemes.has('conceptscheme:thematypes')).toBe(false)
     expect(result.collections.get('collectie:operationeel_parameters_grondwater')).toHaveLength(6)
     const feature = result.concepts.get('grondwater:onttrekking-feature')!

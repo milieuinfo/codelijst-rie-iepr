@@ -52,7 +52,10 @@ export function compileTabularPlan(
       if (current.type === 'array') {
         if (!current.items) throw new Error(`Array without an item schema at ${pointer(path)}.`);
         const item = registry.resolve(schemaObject(current.items));
-        if (typeof current['x-table-sheet'] === 'string' && !['object', 'array'].includes(item.type ?? '')) {
+        const declaredKey = Array.isArray(node['x-table-key']) &&
+          node['x-table-key'].includes(current['x-source-concept']);
+        if ((typeof current['x-table-sheet'] === 'string' || declaredKey) &&
+            !['object', 'array'].includes(item.type ?? '')) {
           const location = registry.location(current);
           record.columns.push({
             id: 'c_' + hash(JSON.stringify([id, path])).slice(0, 24), path,

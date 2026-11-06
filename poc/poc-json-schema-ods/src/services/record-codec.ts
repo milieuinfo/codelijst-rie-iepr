@@ -5,8 +5,9 @@ import type { CellValue, LookupChoice, RecordPlan, TabularPlan, WorkbookMetadata
 import { WorkbookError } from '../models/tabular-plan.js';
 import { planFingerprint, pointer } from './tabular-plan.js';
 import { referenceData } from './workbook-metadata.js';
-import { businessLayout, identifierColumn } from './workbook-layout.js';
+import { businessLayout, identifierColumn, keyComponentsForParent, parentKeyComponents } from './workbook-layout.js';
 import { jsonMapping } from './json-mapping.js';
+import { encodedKeyValues, keyIdentity } from './table-key.js';
 
 export function isObject(value: unknown): value is Record<string, unknown> {
   return !!value && typeof value === 'object' && !Array.isArray(value);
@@ -128,6 +129,21 @@ export function workbookRows(
     }
   };
   extract(plan.records[0], inputData);
+  for (const child of plan.records) {
+    const components = parentKeyComponents(plan, child);
+    if (!components.length) continue;
+    const parent = plan.records.find(candidate => candidate.id === child.parentId)!;
+    const seen = new Set<string>();
+    for (const row of tables.get(parent.id)!) {
+      let identity: string;
+      try { identity = keyIdentity(encodedKeyValues(row.values, components), components); }
+      catch (error) {
+        throw new Error(`${parent.sheetName}: invalid x-table-key on ${parent.title}: ${error instanceof Error ? error.message : String(error)}.`);
+      }
+      if (seen.has(identity)) throw new Error(`${parent.sheetName}: x-table-key components must be unique.`);
+      seen.add(identity);
+    }
+  }
   const metadata: WorkbookMetadata = {
     version: 2, schemaId: plan.schemaId, schemaSha256: plan.schemaSha256, sourceSha256: plan.sourceSha256,
     planSha256: planFingerprint(plan), lookups: {}, rows: {}, references, referenceContext: options.referenceContext,
@@ -137,6 +153,7 @@ export function workbookRows(
     metadata.layout = 'business-v1';
     metadata.businessRows = {};
     for (const record of plan.records.filter(record => plan.records.some(child => child.parentId === record.id && record.id !== 'root'))) {
+      if (keyComponentsForParent(plan, record).length) continue;
       const identifier = identifierColumn(record);
       if (!identifier) throw new Error(`${record.sheetName}: a business identifier is required to link detail sheets.`);
       const seen = new Set<string>();
@@ -181,6 +198,7 @@ export function workbookRows(
         if (!values.length) throw new Error(`Reference data is required for ${record.title}: ${column.title}.`);
       }
       if (values) metadata.lookups[column.id] = choices(values, value => {
+        if (column.schema['x-ui-hidden']) return String(value);
         const reference = references.find(reference => reference.id === value);
         return reference?.label ?? (typeof value === 'boolean' ? value ? 'Ja' : 'Nee'
           : typeof value === 'string' ? options.label?.(value) ?? value : String(value));

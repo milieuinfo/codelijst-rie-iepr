@@ -1,28 +1,40 @@
 # Code lists -> operational JSON Schema
 
-Compile the groundwater CSV into JSON Schema Draft 2020-12, shared by the UI and
+Compile the groundwater, air and water CSVs into JSON Schema Draft 2020-12, shared by the UI and
 ODS consumers.
 The Dutch [CSV-to-schema/UI/ODS guide](../../README.md#van-csv-naar-json-schema-ui-en-ods)
 is the conceptual specification, including ownership, predicates, required kinds
 and reversible spreadsheet mappings.
 
-## Current groundwater CSV profile
+## Current operational CSV profile
 
 `npm run predev` creates a deterministic input snapshot from
-`src/source/operationeel_grondwater.csv`, `operationeel_misc.csv` (choice lists),
-and the published JSON-LD supporting lists/prefixes. Other operational CSVs and
-`thematypes.csv` are not parsed. The reporting entry point is explicitly
-`conceptscheme:operationeel_grondwater`; its three top-level concepts define the
-three reporting sections. Publication/source changes invalidate the snapshot.
+`src/source/operationeel_grondwater.csv`, `operationeel_lucht.csv`,
+`operationeel_water.csv`, `operationeel_misc.csv` (choice lists), and the published JSON-LD supporting
+lists/prefixes. The snapshot declares direct reporting entry schemes through
+`x-reporting-entries` under `operational-csv-v1`; labels/slugs follow the selected
+CSV filenames. The resolver, ownership mapper, UI and ODS consumers do not
+special-case a theme. `thematypes.csv` is not needed. Other operational CSVs
+remain excluded. Publication/source changes invalidate the snapshot.
 
 ```bash
 npm install
 npm run predev
 npm run build
-npm run generate -- --theme Grondwater
+npm run generate
 ```
 
-The current source generates all three sections without incomplete mode.
+The current source generates three groundwater sections and five air sections
+without incomplete mode: `Emissie`, `Verbruikte brandstof`, `Verbruikte stof`,
+`Geproduceerde stof` and `Afvalproduct`, plus water sections `Lozing` and
+`Abnormale lozing`. Use `--theme Grondwater`, `--theme Lucht` or `--theme Water`
+only when deliberately generating a filtered snapshot; omit `--theme` to keep
+all available in the UI.
+`poc/reporting-entries.json` (relative to the repository root) declares the active
+source files, scheme IDs, slugs and labels. The MCP uses this same declaration to
+distinguish reporting availability from `vervolgstap` navigation reachability.
+The snapshot requires explicit valid entries; source filenames do not implicitly
+enable other themes. This is consumer profile configuration, not published RDF.
 Ordering, conditions, variable references, shared end-date ownership and the
 `Debieten` sheet name are source-authored. Quality reporting does not introduce a separate
 Sample entity: the `Monsters` row is the collection context, and parameter
@@ -35,7 +47,7 @@ is a `schema:PropertyValue` with a constant published `propertyID` and a selecta
 source labels and hide that constant identifier.
 The compiler does not repair inconsistent source facts, invent aliases or publish a
 partial section. `--allow-incomplete` reports each blocked section and fails without
-publishing an index if all three are blocked.
+publishing an index if all selected sections are blocked.
 
 | Source | Current schema contract |
 |---|---|
@@ -47,6 +59,52 @@ publishing an index if all three are blocked.
 | Numeric `riepr:Observatie` | Observation with an implicit typed `hasResult` / `riepr:Resultaat` and `qudt:numericValue` |
 | Non-SOSA characteristics of an Observation | Inside its implicit Resultaat, retaining declared predicates; missing relations block generation |
 | `relevantUnit` | Fixed unit or expanded unit-collection choices, never a collection URI used as a unit |
+| `referenceParent`, `referenceRelation` | Explicit structural-selection dependency, independent of navigation; `x-reference-dependency` identifies the parent source concept and candidate-to-parent predicate |
+| `_table_key` | Existing child concepts forming the ODS parent key; `x-table-key` preserves their full source URIs without adding a reporting ID |
+
+Dependency rules use supplied reference `relations: {predicateURI: parentURI[]}`,
+not field names or an assumed point/source direction. Every selected candidate
+must connect to an actually selected parent in its record/singleton ancestor.
+Independent repeated records cannot supply a parent. Personalized schemas
+preserve these relationships and enforce dependencies between ordinary fields
+in the same singleton context using standard `if`/`then` constraints.
+Dependencies inherited across repeated detail boundaries, or whose parent is
+stored in a canonical discriminated PropertyValue array, still require semantic
+validation.
+The UI filters actual choices with the same shared dependency helper.
+Composite keys are source-declared transport layout, not domain identity;
+their presence does not assert uniqueness of a FeatureOfInterest in the ontology.
+Groundwater explicitly declares its existing Monsternummer as a one-component
+key. Air's approved key contains the existing point and unordered source set.
+These source declarations use the same schema/ODS contract. Air generates
+`lucht/emissie/schema.json` and `lucht-emissies.ods`; its parameter observations
+are repeated detail rows linked by point and source set.
+
+The four material sections report annual quantities directly per installation,
+separately from emission point/source combinations. Fuel uses fixed GJ; other
+material quantities expand the shared seven-unit collection. Composition and
+fuel sulfur/ash percentages are optional; percentages are bounded to 0–100.
+Depth-first source ordering keeps flattened singleton results beside their owner
+after the installation picker in both the UI and ODS.
+
+Water reports one annual discharge per control point. Flow and days stay on the
+parent; repeated pollutant collections own concentration/load observations and
+their procedure. `_table_key=water:feature` links detail rows by the selected
+control-point URI within the reporting year. Frequency is an optional,
+non-negative integer measurement count. Existing units and pollutant/method lists
+are retained. Each pollutant collection needs at least one result observation.
+Nested member collections carry a hidden constant `@type` from their declared
+class, rather than an invented shared `observedProperty`; their numeric members
+retain ordinary observed-property discriminators.
+Water use, standalone method declarations, annual aggregates, balances and
+combining independent sections into one workbook remain outside this slice.
+
+Air is a testable **partial Teepak mapping**, not full Teepak coverage. Material
+references in emission context, self-control, concentration, annual pollutant emission,
+complete frequency/method lists, improvement records and other remaining source
+fixes still need approval. The source picker currently permits all matching
+installations; no source-to-point dependency is asserted without an agreed
+relationship predicate. Demo references remain fictional.
 
 The active reporting schemas do not add synthetic entity `@id` fields or ODS
 row/link fields. They retain only source fields, necessary semantic structure,
@@ -85,8 +143,8 @@ The UI projection and ODS import/export use that helper.
 
 Synthetic end-to-end contracts live in `tests/groundwater-csv*.ts` and the
 corresponding UI/ODS tests. They do not rewrite or silently correct the real CSV.
-`tests/groundwater-contract.spec.ts` compiles the actual CSV and validates the
-persistent input examples in `examples/grondwater/*.json`, using `refs.json` and
+`tests/groundwater-contract.spec.ts`, `tests/air-csv.spec.ts` and `tests/water-csv.spec.ts` compile the actual CSVs and validate the
+persistent input examples in `examples/grondwater/*.json`, `examples/lucht/*.json` and `examples/water/*.json`, using `refs.json` and
 `reference-context.json`. The examples cover zero values, optional readings,
 shared end dates, pump-state conditions and multiple selected filters.
 They are reporting inputs: `x-feature-mapping` still describes a later feature
@@ -145,7 +203,7 @@ npm run generate -- --theme Grondwater \
 ```
 
 Paths are relative to the package working directory (`npm --prefix` also changes
-that directory). `--references` is an array of `{id,label,types,year?,parents?}`;
+that directory). `--references` is an array of `{id,label,types,year?,parents?,relations?}`;
 `--reference-context` is `{year?,ids?}` and requires `--references`.
 Without these options, generation remains generic-only: the generator never
 guesses an organization's instances or inserts demonstration references by default.

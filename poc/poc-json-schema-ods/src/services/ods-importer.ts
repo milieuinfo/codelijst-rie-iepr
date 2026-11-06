@@ -7,9 +7,10 @@ import { cellValue, getPath, isObject, recordReference, setPath, validateData } 
 import { planFingerprint, pointer } from './tabular-plan.js';
 import { columnLetter, readOdf } from './odf.js';
 import type { OdfCell, OdfTable } from './odf.js';
-import { businessLayout, identifierColumn, inputColumns, layoutColumns, parentColumn } from './workbook-layout.js';
+import { businessLayout, identifierColumn, inputColumns, keyComponentsForParent, layoutColumns, parentColumn, parentKeyComponents, quantityValueColumn } from './workbook-layout.js';
 import { workbookMetadata } from './workbook-metadata.js';
 import { jsonMapping, machineColumns } from './json-mapping.js';
+import { keyIdentity } from './table-key.js';
 
 interface ImportedRow {
   id: string;
@@ -23,6 +24,7 @@ interface ImportedRow {
   record: RecordPlan;
   instancePath: string;
   indices: Map<string, number>;
+  keyValues?: unknown[];
 }
 
 const populated = (cell?: OdfCell): boolean => !!cell && (cell.type !== undefined || cell.value !== undefined || !!cell.text || !!cell.formula);
@@ -166,9 +168,14 @@ export class ODSImporter {
       const header = table.rows.find(row => row.number === 3) ?? (business && !expected.length ? { number: 3, cells: [] } : undefined);
       if (!machineRow || !header) throw new WorkbookError([{ sheet: table.name, message: 'Required column metadata/header rows were lost.' }]);
       const indices = new Map<string, number>();
+      const pathQueues = new Map<string, string[]>();
+      expected.forEach((id, index) => {
+        const path = paths[index];
+        pathQueues.set(path, [...(pathQueues.get(path) ?? []), id]);
+      });
       machineRow.cells.forEach((cell, index) => {
         if (!cell.text && !paths.includes('')) return;
-        const id = expected[paths.indexOf(cell.text)];
+        const id = pathQueues.get(cell.text)?.shift();
         if (id === undefined || indices.has(id)) {
           diagnostics.push({ sheet: table.name, row: 2, column: columnLetter(index), message: 'Unexpected or duplicate column identity.' });
         }
@@ -181,10 +188,11 @@ export class ODSImporter {
       if (business && record.id === 'root' && !dataRows.length) dataRows.push({ number: 4, cells: [] });
       for (const data of dataRows) {
         const physical = (id: string): OdfCell => data.cells[indices.get(id)!] ?? empty;
+        const keyComponents = parentKeyComponents(plan, record);
         const issue = (message: string, index?: number) => diagnostics.push({
           sheet: table.name, row: data.number, column: index === undefined ? undefined : columnLetter(index), message,
         });
-        const active = business ? record.id === 'root' || !!physical('_parent_ref').text ||
+        const active = business ? record.id === 'root' || keyComponents.some(component => populated(physical(component.id))) || !!physical('_parent_ref').text ||
           inputColumns(record).some(column => column.schema.const === undefined && populated(physical(column.id))) ||
           data.cells.some((cell, index) => populated(cell) && ![...indices.values()].includes(index)) : true;
         if (!active) continue;
@@ -242,7 +250,8 @@ export class ODSImporter {
         };
         const rawId = get('_row_id').text;
         const baseline = rawId ? metadata.rows[rawId] : undefined;
-        const populatedRow = !!rawId || !!get('_ref').text || !!get('_parent_ref').text || !!get('_containers').text ||
+        const populatedRow = !!rawId || keyComponents.some(component => populated(physical(component.id))) ||
+          !!get('_ref').text || !!get('_parent_ref').text || !!get('_containers').text ||
           record.columns.some(column => column.schema.const === undefined && populated(get(column.id))) ||
           data.cells.some((cell, index) => populated(cell) && ![...indices.values()].includes(index));
         if (!populatedRow) continue;
@@ -262,6 +271,16 @@ export class ODSImporter {
         } catch (error) { issue(error instanceof Error ? error.message : String(error), indices.get('_containers')); }
         const constants: { column: TabularColumn; value: CellValue }[] = [];
         const decoded: Record<string, CellValue> = {};
+        const keyValues: unknown[] = [];
+        for (const component of keyComponents) {
+          try {
+            const value = scalar(physical(component.id), component.column, metadata);
+            keyValues.push(value === undefined ? undefined : component.column.schema['x-inline-array'] ? JSON.parse(String(value)) : value);
+          } catch (error) {
+            issue(error instanceof Error ? error.message : String(error), indices.get(component.id));
+            keyValues.push(undefined);
+          }
+        }
         for (const column of record.columns) {
           try {
             const current = scalar(get(column.id), column, metadata);
@@ -281,12 +300,16 @@ export class ODSImporter {
           issue('An existing row lost its technical ID; new rows must use a distinct reference.');
         }
         for (const { column, value: constant } of constants) {
+          const quantity = quantityValueColumn(record, column);
+          if (quantity && !getPath(value, quantity.path).present &&
+              decoded[column.id] === undefined && snapshot?.values[column.id] === undefined) continue;
           if (!column.path.length || getPath(value, column.path.slice(0, -1)).present) value = setPath(value, column.path, constant);
         }
         if (record.kind === 'value' && value === undefined) issue('A scalar-array row requires a value.');
         const row: ImportedRow = {
           id, reference, hiddenParent: get('_parent_id').text || undefined, parentReference: get('_parent_ref').text,
           value, sheet: table.name, number: data.number, record, instancePath: '', indices,
+          ...(keyComponents.length ? { keyValues } : {}),
         };
         parsed.push(row);
         byId.set(id, row);
@@ -297,14 +320,56 @@ export class ODSImporter {
     if (rootRows.length !== 1 || !metadata.rows[rootRows[0]?.id]) {
       diagnostics.push({ sheet: 'Voorblad', message: 'Exactly one original reporting-context row is required.' });
     }
-    if (business) for (const record of plan.records.filter(record => record.id !== 'root' && plan.records.some(child => child.parentId === record.id))) {
+    for (const record of plan.records.filter(record => record.id !== 'root' && plan.records.some(child => child.parentId === record.id))) {
+      if (keyComponentsForParent(plan, record).length) continue;
+      if (!business) continue;
       const references = parsed.filter(row => row.record.id === record.id && row.reference.trim()).map(row => row.reference);
       if (new Set(references).size !== references.length) {
         diagnostics.push({ sheet: record.sheetName, message: 'Ambiguous parent reference; business identifiers must be unique.' });
       }
     }
+    for (const child of plan.records) {
+      const components = parentKeyComponents(plan, child);
+      if (!components.length) continue;
+      const parentRecord = plan.records.find(record => record.id === child.parentId)!;
+      const parentRows = parsed.filter(row => row.record.id === parentRecord.id);
+      const identities = new Map<string, ImportedRow>();
+      for (const parent of parentRows) {
+        const values = components.map(component => getPath(parent.value, component.column.path).value);
+        try {
+          const identity = keyIdentity(values, components);
+          if (identities.has(identity)) {
+            diagnostics.push({ sheet: parent.sheet, row: parent.number,
+              column: columnLetter(parent.indices.get(components[0].column.id)!),
+              message: 'Duplicate parent x-table-key.' });
+          } else identities.set(identity, parent);
+        } catch (error) {
+          diagnostics.push({ sheet: parent.sheet, row: parent.number,
+            column: columnLetter(parent.indices.get(components[0].column.id)!),
+            message: `Missing or invalid parent x-table-key: ${error instanceof Error ? error.message : String(error)}` });
+        }
+      }
+      for (const row of parsed.filter(candidate => candidate.record.id === child.id)) {
+        try {
+          const identity = keyIdentity(row.keyValues ?? [], components);
+          const parent = identities.get(identity);
+          if (!parent) {
+            diagnostics.push({ sheet: row.sheet, row: row.number,
+              column: columnLetter(row.indices.get(components[0].id)!),
+              message: 'Missing or orphan parent x-table-key.' });
+            continue;
+          }
+          row.parentId = parent.id;
+        } catch (error) {
+          diagnostics.push({ sheet: row.sheet, row: row.number,
+            column: columnLetter(row.indices.get(components[0].id)!),
+            message: `Missing or invalid child x-table-key: ${error instanceof Error ? error.message : String(error)}` });
+        }
+      }
+    }
     for (const row of parsed) {
       if (!row.record.parentId) continue;
+      if (parentKeyComponents(plan, row.record).length) continue;
       const baseline = metadata.rows[row.id];
       const parents = parsed.filter(parent => parent.record.id === row.record.parentId);
       const candidates = row.parentReference ? parents.filter(parent =>

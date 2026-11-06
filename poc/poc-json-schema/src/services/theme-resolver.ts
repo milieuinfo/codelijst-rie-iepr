@@ -9,6 +9,7 @@ export interface StepTransition {
 
 export interface ThemeChain {
   themeConcept: Concept
+  slug?: string
   schemeIds: string[]
   structuralChains: Map<string, string>
   /** Retained for the existing assembler; all branch leaves are in leafSchemeIds. */
@@ -19,11 +20,26 @@ export interface ThemeChain {
 
 export class ThemeResolver {
   resolveAllThemes(result: CodelistResult): Map<string, ThemeChain> {
+    if (result.reportingProfile === 'operational-csv-v1') {
+      if (!result.reportingEntries?.length) throw new Error('Missing source reporting entries.')
+      const themes = new Map<string, ThemeChain>()
+      const slugs = new Set<string>()
+      for (const { schemeId, label, slug } of result.reportingEntries) {
+        if (!result.schemes.has(schemeId)) throw new Error(`Missing reporting entry scheme ${schemeId}.`)
+        if (themes.has(label) || slugs.has(slug)) throw new Error(`Duplicate reporting entry ${label} (${slug}).`)
+        themes.set(label, {
+          themeConcept: { id: schemeId, prefLabel: label }, slug, schemeIds: [schemeId],
+          structuralChains: new Map(), leafSchemeId: schemeId, leafSchemeIds: [schemeId], transitions: [],
+        })
+        slugs.add(slug)
+      }
+      return themes
+    }
     if (result.reportingProfile === 'groundwater-csv-v1') {
       const id = 'conceptscheme:operationeel_grondwater'
       if (!result.schemes.has(id)) throw new Error(`Missing reporting entry scheme ${id}.`)
       return new Map([['Grondwater', {
-        themeConcept: { id, prefLabel: 'Grondwater' }, schemeIds: [id],
+        themeConcept: { id, prefLabel: 'Grondwater' }, slug: 'grondwater', schemeIds: [id],
         structuralChains: new Map(), leafSchemeId: id, leafSchemeIds: [id], transitions: [],
       }]])
     }

@@ -42,6 +42,8 @@ export class ConceptMapper {
       narrower: concept.narrower,
       relevantClass: concept.relevantClass ? this.expandVocabulary(concept.relevantClass) : undefined,
       relevantObservation: concept.relevantObservation,
+      referenceParentConceptId: concept.referenceParent,
+      referenceRelation: concept.referenceRelation ? this.expandVocabulary(concept.referenceRelation) : undefined,
       isFeatureOfInterest: relation === vocabularyIri('sosa:hasFeatureOfInterest'),
       isHasResult: relation === vocabularyIri('sosa:hasResult'),
       isObservedProperty: relation === vocabularyIri('sosa:observedProperty'),
@@ -58,6 +60,8 @@ export class ConceptMapper {
     }
     if (concept.tableWorkbook) schemaField.extensions!['x-table-workbook'] = concept.tableWorkbook
     if (concept.tableSheet) schemaField.extensions!['x-table-sheet'] = concept.tableSheet
+    if (concept.tableKey?.length) schemaField.extensions!['x-table-key'] = concept.tableKey.map(value =>
+      this.result.expandCurie?.(value) ?? value)
     if (concept.tableOrder !== undefined) schemaField.extensions!['x-table-order'] = concept.tableOrder
     if (concept.relevantObservation?.length) {
       schemaField.extensions!['x-relevant-observations'] = concept.relevantObservation.map(value =>

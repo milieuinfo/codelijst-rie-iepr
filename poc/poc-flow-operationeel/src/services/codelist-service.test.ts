@@ -3,6 +3,7 @@ import path from 'node:path'
 import { CodelistService, type CodelistResult } from './codelist-service.js'
 import type { Concept, Scheme } from '../models/index.js'
 import { resolveUnitLabel } from './unit-labels.js'
+import { parseCodelist, parseCodelistAsync } from './codelist-parse.js'
 
 const FIXTURE_PATH = path.resolve(
   __dirname,
@@ -32,6 +33,30 @@ function loadFixture(): CodelistResult {
   cachedResult = access(service).parseData(readFileSync(FIXTURE_PATH, 'utf-8'), true)
   return cachedResult
 }
+
+describe('Chunked codelist parsing', () => {
+  it('preserves the published RDF index and yields while parsing', async () => {
+    let yielded = false
+    setTimeout(() => { yielded = true }, 0)
+    const result = await parseCodelistAsync(readFileSync(FIXTURE_PATH, 'utf-8'), true)
+    expect(yielded).toBe(true)
+    expect(result).toEqual(loadFixture())
+  })
+
+  it('preserves Unicode, multiline literals and RDF tokens across chunk boundaries', async () => {
+    const opening = `
+      @prefix ex: <https://example.test/> .
+      @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+      ex:water a skos:Concept; skos:prefLabel """`
+    const label = 'x'.repeat(4095 - opening.length) + '\ud83d\udca7\n' + 'Water \u00e9\n'.repeat(700)
+    const turtle = opening + label + '"""@nl .'
+    expect(await parseCodelistAsync(turtle, false)).toEqual(parseCodelist(turtle, false))
+  })
+
+  it('rejects malformed Turtle rather than returning a partial index', async () => {
+    await expect(parseCodelistAsync(' '.repeat(5000) + '<invalid', true)).rejects.toThrow()
+  })
+})
 
 describe('CodelistService — fixture parsing', () => {
   describe('loading/parsing the codelist', () => {
@@ -78,12 +103,12 @@ describe('CodelistService — fixture parsing', () => {
     it('returns top concepts for operationeel_lucht scheme', () => {
       const result = loadFixture()
       const topConcepts = CodelistServiceMock.getTopConceptsForScheme(result, 'conceptscheme:operationeel_lucht')
-      // In the updated codelist format, operationeel_lucht has feature_ep as its sole top concept.
-      // feature_bron was moved to operationeel_lucht_bron scheme (accessed via vervolgstap navigation).
-      expect(topConcepts.length).toBeGreaterThanOrEqual(1)
-      // Verify feature_ep is present
-      const featureEp = topConcepts.find(c => c.id.includes('feature_ep'))
-      expect(featureEp).toBeDefined()
+      expect(topConcepts.map(concept => concept.id).sort()).toEqual([
+        'lucht:afvalproduct', 'lucht:brandstof', 'lucht:emissie',
+        'lucht:geproduceerde_stof', 'lucht:verbruikte_stof',
+      ])
+      expect(CodelistServiceMock.getChildren(result, result.concepts.get('lucht:emissie')!)
+        .some(concept => concept.id === 'lucht:feature_ep')).toBe(true)
     })
 
     it('returns empty array for unknown scheme id', () => {
@@ -287,12 +312,12 @@ describe('CodelistService — fixture parsing', () => {
    * New properties from updated codelist format: vervolgstap, isMultiselect, relevantClass.
    */
   describe('new codelist properties', () => {
-    it('parses vervolgstap on a concept that chains to a sub-scheme', () => {
+    it('keeps the air source selector inside the emission instead of navigating to material reporting', () => {
       const result = loadFixture()
-      // feature_bron has vervolgstap → operationeel_lucht_rapportering
       const concept = result.concepts.get('lucht:feature_bron')
       expect(concept).toBeDefined()
-      expect(concept!.vervolgstap).toContain('conceptscheme:operationeel_lucht_rapportering')
+      expect(concept!.vervolgstap).toBeUndefined()
+      expect(CodelistServiceMock.getParent(result, concept!)?.id).toBe('lucht:emissie')
     })
 
     it('parses isMultiselect as boolean when normalizeBooleans is true', () => {
@@ -339,9 +364,9 @@ describe('CSOR collections and variabele', () => {
 
   it('getCodeListOptions still resolves a conceptscheme to its top concepts', () => {
     const result = loadFixture()
-    const meetfrequentie = result.concepts.get('water:lozing-meetfrequentie')!
-    const options = CodelistServiceMock.getCodeListOptions(result, meetfrequentie)
-    const topConcepts = CodelistServiceMock.getTopConceptsForScheme(result, 'conceptscheme:operationeel_zelfcontrole_meetfrequentie')
+    const methode = result.concepts.get('water:lozing-bepalingsmethode')!
+    const options = CodelistServiceMock.getCodeListOptions(result, methode)
+    const topConcepts = CodelistServiceMock.getTopConceptsForScheme(result, 'conceptscheme:operationeel_bepalingsmethode')
     expect(options.map(o => o.value)).toEqual(topConcepts.map(c => c.id))
   })
 

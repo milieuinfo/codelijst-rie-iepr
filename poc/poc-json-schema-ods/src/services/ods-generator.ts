@@ -1,14 +1,15 @@
 import JSZip from 'jszip';
 import { isDeepStrictEqual } from 'node:util';
-import { materializeDerivedValues } from 'codelijst-rie-iepr-poc-json-schema';
+import { materializeDerivedValues, transformMemberData } from 'codelijst-rie-iepr-poc-json-schema';
 import type { ReferenceRecord, ReferenceContext } from 'codelijst-rie-iepr-poc-json-schema';
 import type { CellValue, TabularPlan, WorkbookRow } from '../models/tabular-plan.js';
 import { cellValue, workbookRows } from './record-codec.js';
 import { columnLetter, escapeXml, odfCell, odfRow } from './odf.js';
 import { automaticStyles, columnStyle } from './workbook-styles.js';
-import { businessLayout, identifierColumn, inputColumns, layoutColumns, parentColumn, parentTitle, technicalColumns } from './workbook-layout.js';
+import { businessLayout, identifierColumn, inputColumns, keyComponentsForParent, layoutColumns, parentColumn, parentKeyComponents, parentTitle, quantityValueColumn, technicalColumns } from './workbook-layout.js';
 import { machineColumns } from './json-mapping.js';
 import { ODSImporter } from './ods-importer.js';
+import { encodedKeyValues } from './table-key.js';
 export { technicalColumns } from './workbook-layout.js';
 
 const templateRows = 1000;
@@ -55,29 +56,64 @@ export class ODSGenerator {
       validations.push(listValidation(`parent_${record.id}`, parent.sheetName, columnLetter(index), 4,
         3 + tables.get(parent.id)!.length + templateRows));
     }
+    for (const record of options.plan.records.filter(record => parentKeyComponents(options.plan, record).length)) {
+      const parent = options.plan.records.find(candidate => candidate.id === record.parentId)!;
+      for (const component of parentKeyComponents(options.plan, record)) {
+        const index = layoutColumns(options.plan, parent).indexOf(component.column.id);
+        if (index < 0) throw new Error(`${parent.sheetName}: x-table-key requires a visible parent input column.`);
+        validations.push(listValidation(component.id, parent.sheetName, columnLetter(index), 4,
+          3 + tables.get(parent.id)!.length + templateRows, !!component.column.schema['x-inline-array']));
+      }
+    }
+    const rowsById = new Map([...tables.values()].flat().map(row => [row.id, row]));
     const sheets = options.plan.records.map(record => {
       const fields = business ? inputColumns(record) : record.columns;
+      const keyComponents = parentKeyComponents(options.plan, record);
       const columns = layoutColumns(options.plan, record);
       const headings = fields.map(column => column.title + (column.required ? ' *' : ''));
       const rows = [
         odfRow([odfCell(metadata.jsonMapping[record.id].pathTemplate)], true),
         odfRow(machineColumns(options.plan, record.id).map(value => odfCell(value)), true),
-        odfRow((business ? [...(parentColumn(options.plan, record) ? [parentTitle(options.plan, record)] : []), ...headings]
-          : ['Rij-ID', 'Bovenliggende rij-ID', 'Containers', 'Referentie', 'Bovenliggende referentie', ...headings])
+        odfRow((business ? [...keyComponents.map(component => component.column.title), ...(parentColumn(options.plan, record) ? [parentTitle(options.plan, record)] : []), ...headings]
+          : ['Rij-ID', 'Bovenliggende rij-ID', 'Containers', 'Referentie', 'Bovenliggende referentie',
+            ...keyComponents.map(component => component.column.title), ...headings])
           .map(value => odfCell(value, undefined, undefined, 'headerCell')), false, true),
       ];
       const dataRows: (WorkbookRow | undefined)[] = [...tables.get(record.id)!];
       if (record.id !== 'root') dataRows.push(...Array.from({ length: 10 }, () => undefined));
       let blankCells: string[] = [];
       for (const row of dataRows) {
-        const cells = business ? (parentColumn(options.plan, record)
-          ? [odfCell(row?.parentReference, undefined, `parent_${record.id}`, 'textCell')] : []) : [
+        const keyCells = keyComponents.map(component => {
+          const parentRow = row?.parentId ? rowsById.get(row.parentId) : undefined;
+          let value: CellValue | undefined;
+          if (parentRow) {
+            const raw = encodedKeyValues(parentRow.values, [component])[0];
+            value = component.column.schema['x-inline-array'] ? JSON.stringify(raw) : raw as CellValue;
+            const choices = metadata.lookups[component.column.id];
+            if (choices && typeof value === 'string') {
+              const label = (item: unknown) => {
+                const choice = choices.find(choice => choice.value === item);
+                if (!choice) throw new Error(`Unknown selection in ${record.title}: ${component.column.title}.`);
+                return choice.display;
+              };
+              if (component.column.schema['x-inline-array']) {
+                const selected = (JSON.parse(value) as unknown[]).map(label);
+                value = selected.length === 1 ? selected[0] : JSON.stringify(selected);
+              } else value = label(value);
+            }
+          }
+          return odfCell(value, component.column, component.id);
+        });
+        const cells = business ? [...keyCells, ...(parentColumn(options.plan, record)
+          ? [odfCell(row?.parentReference, undefined, `parent_${record.id}`, 'textCell')] : [])] : [
           odfCell(row?.id), odfCell(row?.parentId), odfCell(row ? JSON.stringify(row.containers) : undefined),
           odfCell(row?.reference), odfCell(row?.parentReference),
+          ...keyCells,
         ];
         for (const column of fields) {
           let value: CellValue | undefined = row?.values[column.id];
-          if (!row && cellValue(column.schema.const)) value = column.schema.const;
+          const quantity = quantityValueColumn(record, column);
+          if (!row && cellValue(column.schema.const) && (!quantity || quantity.required)) value = column.schema.const;
           if (value !== undefined && metadata.lookups[column.id] && typeof value === 'string') {
             const display = (value: unknown) => {
               const choice = metadata.lookups[column.id].find(choice => choice.value === value);
@@ -97,9 +133,15 @@ export class ODSGenerator {
       if (business && record.id !== 'root') {
         rows.push(odfRow(blankCells, false, false, templateRows - 10));
       }
-      const styles = columns.map(id => columnStyle(fields.find(column => column.id === id)));
+      const styles = columns.map(id => columnStyle(fields.find(column => column.id === id) ??
+        keyComponents.find(component => component.id === id)?.column));
+      const hidden = business ? [] : [
+        ...(keyComponents.length ? [columns.indexOf('_parent_ref')] : []),
+        ...record.columns.flatMap((column, index) => column.schema['x-ui-hidden']
+          ? [technicalColumns.length + keyComponents.length + index] : []),
+      ].filter(index => index >= 0);
       return tableXml(record.sheetName, rows, columns.length, business ? 0 : 3, false,
-        business ? [] : record.columns.flatMap((column, index) => column.schema['x-ui-hidden'] ? [technicalColumns.length + index] : []), styles);
+        hidden, styles);
     });
     sheets.push(tableXml('Keuzelijsten', lookupRows, 5, 1, false, [], ['column1_1', 'column3', 'column2_4', 'column3', 'column1_1']));
     const serialized = JSON.stringify(metadata);
@@ -139,7 +181,10 @@ export class ODSGenerator {
     const workbook = await zip.generateAsync({ type: 'uint8array', compression: 'DEFLATE' });
     if (options.data !== undefined) {
       const imported = await new ODSImporter().import(workbook, options.plan);
-      const expected = materializeDerivedValues(options.plan.schema, options.data, options.plan.dependencies);
+      const derived = materializeDerivedValues(options.plan.schema, options.data, options.plan.dependencies);
+      // Predicate arrays regroup by source kind; repeated rows within each kind retain their order.
+      const expected = transformMemberData(options.plan.schema,
+        transformMemberData(options.plan.schema, derived, 'presentation'), 'canonical');
       if (!isDeepStrictEqual(imported, expected)) throw new Error('Generated ODS failed JSON round-trip validation.');
     } else if (options.validationData) {
       await this.generate({

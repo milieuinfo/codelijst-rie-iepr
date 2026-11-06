@@ -11,7 +11,7 @@ const readIndex = file => parseSchemaIndex(JSON.parse(readFileSync(file, 'utf8')
 export function syncSchemaSnapshot({ schemaSource, codelistSource, canonicalSource, inputDir }) {
   const index = readIndex(join(schemaSource, 'index.json'));
   const codelist = readFileSync(codelistSource);
-  const canonical = JSON.parse(codelist.toString())['x-source-profile'] === 'groundwater-csv-v1'
+  const canonical = ['groundwater-csv-v1', 'operational-csv-v1'].includes(JSON.parse(codelist.toString())['x-source-profile'])
     ? sourceSnapshot(canonicalSource) : readFileSync(canonicalSource);
   if (sha256(codelist) !== index.sourceSha256 || sha256(canonical) !== index.sourceSha256) {
     throw new Error('Stale schema/codelist input. Sync and regenerate poc-json-schema before syncing input.');

@@ -16,7 +16,7 @@
  */
 
 import type { CodelistOptions, CodelistResult, Concept, Scheme } from '../models/index.js'
-import { parseCodelist } from './codelist-parse.js'
+import { parseCodelist, parseCodelistAsync } from './codelist-parse.js'
 import * as query from './concept-query.js'
 
 export type { CodelistOptions, CodelistResult, RdfNode } from '../models/index.js'
@@ -45,7 +45,7 @@ export class CodelistService {
       throw new Error(`Failed to fetch codelist: ${response.status} ${response.statusText}`)
     }
 
-    return this.parseData(await response.text(), normalizeBooleans)
+    return parseCodelistAsync(await response.text(), normalizeBooleans)
   }
 
   /**

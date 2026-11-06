@@ -3,11 +3,67 @@ import type { ReferenceContext, ReferenceRecord } from './semantic-validator.js'
 import { SchemaRegistry, schemaObject } from './schema-registry.js'
 import { sha256 } from '@noble/hashes/sha256'
 import { bytesToHex } from '@noble/hashes/utils'
+import { referenceDependency } from './reference-dependency.js'
 
 export interface ReferenceSnapshot {
   genericSchemaId: string
   references: ReferenceRecord[]
   referenceContext: ReferenceContext
+}
+
+function parseRelations(value: unknown): Record<string, string[]> {
+  const object = schemaObject(value)
+  const output: Record<string, string[]> = {}
+  for (const [relation, targets] of Object.entries(object)) {
+    if (!relation || !Array.isArray(targets) || !targets.every((id): id is string => typeof id === 'string' && !!id)) {
+      throw new Error('Invalid reference relationships.')
+    }
+    Object.defineProperty(output, relation, { value: [...targets], enumerable: true })
+  }
+  return output
+}
+
+function dependencyConstraints(node: JsonSchemaObject, references: ReferenceRecord[]): void {
+  const fields: { path: string[]; schema: JsonSchemaObject; source?: unknown }[] = []
+  const collect = (schema: JsonSchemaObject, path: string[]): void => {
+    if (schema['x-source-concept'] && (schema['x-reference-types'] ||
+        (schema.items && schemaObject(schema.items)['x-reference-types']))) {
+      const source = schema['x-source-concept']
+      const valuePath = schema['x-value-path']
+      if (valuePath !== undefined) {
+        if (!Array.isArray(valuePath) || !valuePath.every((key): key is string => typeof key === 'string')) throw new Error('Invalid x-value-path.')
+        for (const key of valuePath) schema = schemaObject(schema.properties?.[key])
+        path = [...path, ...valuePath]
+      }
+      fields.push({ path, schema, source })
+      return
+    }
+    if (schema.type === 'object') for (const [key, child] of Object.entries(schema.properties ?? {})) {
+      collect(schemaObject(child), [...path, key])
+    }
+  }
+  collect(node, [])
+  const at = (path: string[], rule: JsonSchemaObject): JsonSchemaObject =>
+    path.reduceRight<JsonSchemaObject>((child, key) => ({ required: [key], properties: { [key]: child } }), rule)
+  for (const field of fields) {
+    const definition = field.schema.type === 'array' ? schemaObject(field.schema.items) : field.schema
+    const dependency = referenceDependency(definition)
+    if (!dependency) continue
+    const parents = fields.filter(candidate => candidate.source === dependency.sourceConcept)
+    if (parents.length > 1) throw new Error(`Ambiguous reference parent ${dependency.sourceConcept}.`)
+    const parent = parents[0]
+    if (!parent) continue // An enclosing singleton/record owns the parent.
+    const rules = references.filter(reference => definition.enum?.includes(reference.id)).map(reference => {
+      const targets = reference.relations?.[dependency.relation] ?? []
+      const selected: JsonSchemaObject = { const: reference.id }
+      const allowed: JsonSchemaObject = targets.length ? { enum: targets } : { not: {} }
+      return {
+        if: at(field.path, field.schema.type === 'array' ? { contains: selected } : selected),
+        then: at(parent.path, parent.schema.type === 'array' ? { contains: allowed } : allowed),
+      }
+    })
+    node.allOf = [...(node.allOf ?? []), ...rules]
+  }
 }
 
 export function parseReferenceData(value: unknown): ReferenceRecord[] {
@@ -24,6 +80,7 @@ export function parseReferenceData(value: unknown): ReferenceRecord[] {
     return {
       id: record.id, label: record.label, types: [...record.types],
       ...(record.parents !== undefined ? { parents: [...record.parents] } : {}),
+      ...(record.relations !== undefined ? { relations: parseRelations(record.relations) } : {}),
       ...(record.year !== undefined ? { year: Number(record.year) } : {}),
     }
   })
@@ -104,8 +161,10 @@ export function personalizeReferenceSchema(
       allowed = next
     }
     allowed.forEach(reference => scope.add(reference.id))
-    const choices = candidates(resolved)?.filter(reference =>
-      !reference.parents?.length || reference.parents.some(parent => scope.has(parent)))
+    const dependency = referenceDependency(resolved)
+    const choices = candidates(resolved)?.filter(reference => dependency
+      ? !!reference.relations?.[dependency.relation]?.length
+      : !reference.parents?.length || reference.parents.some(parent => scope.has(parent)))
     if (choices) {
       choices.forEach(reference => used.add(reference.id))
       node['x-reference-options'] = choices.map(({ id, label }) => ({ id, label }))
@@ -132,6 +191,7 @@ export function personalizeReferenceSchema(
         typeof child === 'boolean' ? child : visit(schemaObject(child), scope))
     }
     if (choices?.length === 0) node.not = {}
+    if (node.type === 'object') dependencyConstraints(node, references)
     active.delete(input)
     return node
   }

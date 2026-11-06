@@ -7,7 +7,7 @@
  * the POC, with the POC's own prefixes taking precedence over the document's.
  */
 
-import { Parser, type Term } from 'n3'
+import { Parser, StreamParser, type Quad, type Term } from 'n3'
 import type { CodelistResult, RdfNode, Scheme, Concept } from '../models/index.js'
 import {
   DCTERMS_HAS_PART, PREFIXES, QB_CODE_LIST, QUDT_RELEVANT_UNIT, RDF_TYPE, SH, SKOS, THES, VOCAB,
@@ -222,7 +222,51 @@ function parseBoolean(value: string | undefined): boolean | undefined {
 export function parseCodelist(turtle: string, normalizeBooleans: boolean): CodelistResult {
   const documentPrefixes: Record<string, string> = {}
   const quads = new Parser().parse(turtle, null, (prefix, iri) => { documentPrefixes[prefix] = iri.value })
+  return indexCodelist(quads, documentPrefixes, normalizeBooleans)
+}
 
+/**
+ * Parses bounded Turtle chunks, yielding between writes to keep the UI responsive.
+ * @param turtle - The Turtle (or N-Triples) document.
+ * @param normalizeBooleans - Whether to coerce boolean flag literals.
+ * @returns The parsed codelist.
+ */
+export function parseCodelistAsync(turtle: string, normalizeBooleans: boolean): Promise<CodelistResult> {
+  return new Promise((resolve, reject) => {
+    const parser = new StreamParser()
+    const quads: Quad[] = []
+    const documentPrefixes: Record<string, string> = {}
+    parser.on('data', (quad: Quad) => { quads.push(quad) })
+    parser.on('prefix', (prefix: string, iri: Term) => { documentPrefixes[prefix] = iri.value })
+    parser.on('error', (error: Error) => { parser.destroy(); reject(error) })
+    parser.on('end', () => { resolve(indexCodelist(quads, documentPrefixes, normalizeBooleans)) })
+
+    // WebKit's regex scans are costly when the lexer receives the entire document at once.
+    const chunkSize = 4096
+    let offset = 0
+    const writeNext = () => {
+      if (parser.destroyed) return
+      if (offset >= turtle.length) { parser.end(); return }
+      let end = Math.min(offset + chunkSize, turtle.length)
+      const last = turtle.charCodeAt(end - 1)
+      if (last >= 0xd800 && last <= 0xdbff && end < turtle.length) end++
+      const chunk = turtle.slice(offset, end)
+      offset = end
+      if (parser.write(chunk)) setTimeout(writeNext, 0)
+      else parser.once('drain', () => { setTimeout(writeNext, 0) })
+    }
+    writeNext()
+  })
+}
+
+/**
+ * Indexes parsed RDF while keeping the synchronous and chunked readers equivalent.
+ * @param quads - Parsed RDF quads.
+ * @param documentPrefixes - Prefixes declared in the document.
+ * @param normalizeBooleans - Whether to coerce boolean flag literals.
+ * @returns The indexed codelist.
+ */
+function indexCodelist(quads: Quad[], documentPrefixes: Record<string, string>, normalizeBooleans: boolean): CodelistResult {
   // The POC's own prefixes win: the CURIEs used in code must not depend on the publisher's prefix names.
   const ownNamespaces = new Set(Object.values(PREFIXES))
   const prefixes: Record<string, string> = {}

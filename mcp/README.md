@@ -28,7 +28,7 @@ dependencies) voert bij de eerste start `npm ci` uit en bouwt opnieuw wanneer `m
 is dan `mcp/dist/`; alle npm-uitvoer gaat naar stderr zodat stdout vrij blijft voor MCP. De
 server is geregistreerd voor opencode, Codex, Gemini CLI, Cursor, VS Code, GitHub Copilot CLI en
 Claude Code; de configuratiebestanden staan opgesomd in `AGENTS.md`. De bijhorende skills staan in `.agents/skills/`:
-`codelijst-opvragen`, `codelijst-systeemtype`, `codelijst-eigenschap` en `codelijst-wijzigen`.
+`codelijst-opvragen`, `codelijst-systeemtype`, `codelijst-eigenschap`, `codelijst-wijzigen` en `codelijst-flows`.
 
 ## Tools
 
@@ -57,17 +57,20 @@ Claude Code; de configuratiebestanden staan opgesomd in `AGENTS.md`. De bijhoren
 
 | Tool | Doel |
 |---|---|
-| `list_flows` | Thematische stromen met hun stappen; onbereikbare stappen, (ongebruikte) optielijsten, bestanden die niet in `config.yml` staan |
+| `list_flows` | Navigatiestromen en directe rapporteringsingangen; bereikbaarheid, (ongebruikte) optielijsten, bestanden die niet in `config.yml` staan |
 | `get_flow` | Volledige flow van een thema als leesbare outline + UI-beschrijving per stap |
 | `get_step` | Formulier van één stap: velden in weergavevolgorde, control, verplicht/meervoudig, opties, eenheden, bereik (`minValue`/`maxValue`), voorwaarden, varianten, volgende stap |
 | `get_flow_item` | Record, UI-beschrijving en verwijzingen van een thema, stap, veld of optie |
-| `validate_flows` | seeAlso, voorwaarden, onderdelen, volgorde, `related`, codelijsten, placeholders (`http://TODO`) |
+| `validate_flows` | `vervolgstap`, rapporteringsingangen, voorwaarden, onderdelen, volgorde, `related`, codelijsten, placeholders (`http://TODO`) |
+| `get_reporting_preview` | Actieve onderdelen compileren met de echte schema-/ODS-compilers; fouten per fase, werkboeken, afgevlakte kolommen, eenheden en koppelsleutels |
 | `add_flow` | Nieuwe stroom: thema, `operationeel_<code>.csv` met eerste stap, `config.yml` en prefix |
-| `add_step` | Stap toevoegen, gekoppeld via `seeAlso` vanuit een veld |
+| `add_step` | Stap toevoegen, gekoppeld via `vervolgstap` vanuit een veld |
 | `add_field` | Veld of onderdeel toevoegen; komt standaard achteraan bij de broers/zussen |
 | `update_flow_item` | Veld, stap(label) of thema aanpassen |
+| `move_field` | Veld met alle onderdelen naar een andere stap/groep in hetzelfde CSV verplaatsen, zonder ids te wijzigen |
 | `reorder_fields` | Volgorde van velden zetten (`_ui_first`/`_ui_after`) |
-| `delete_field`, `delete_step` | Verwijderen; volgorde en `related` worden bijgewerkt, `unlink` haalt `seeAlso`-links weg |
+| `apply_operational_batch` | Samenhangende veld-/collectiewijzigingen voorbereiden en als één gevalideerde transactie uitvoeren |
+| `delete_field`, `delete_step` | Verwijderen; volgorde en `related` worden bijgewerkt, `unlink` haalt `vervolgstap`-links weg |
 
 `add_field` en `update_flow_item` ondersteunen `relevantObservation` (een lijst
 van observaties/verzamelingen binnen dezelfde stap), `tableWorkbook`
@@ -76,8 +79,54 @@ van observaties/verzamelingen binnen dezelfde stap), `tableWorkbook`
 opgegeven of gewist. Tabelkolommen zijn presentatiemetadata, geen RDF-predicaten;
 `relevantObservation` wordt wel als URI-verwijzing gepubliceerd.
 
-De UI-beschrijving volgt de interpretatie van `poc/poc-flow-operationeel` (volgorde volgens
-`ui-sort.ts`, controls zoals `field-control-factory.ts`).
+De UI-beschrijving toont het bronmodel en de volgorde, niet de exacte afgevlakte
+kolommen van de actuele schema-tabel. Singleton resultaten blijven in UI/ODS
+inline; een bronstap is niet noodzakelijk één scherm of werkboek.
+
+### Navigatie en rapporteringsingangen
+
+`poc/reporting-entries.json` is de gedeelde declaratie voor de MCP-server en de
+JSON Schema-snapshotgenerator: per ingang een bronbestand, `schemeId`, `slug`
+en Nederlands `label`. De huidige ingangen zijn grondwater en lucht. Aanwezigheid
+betekent dat het profiel de ingang moet compileren, niet dat die compilatie slaagt.
+De declaratie is POC-configuratie, geen gepubliceerde codelijst of nieuwe RDF-relatie.
+
+`list_flows` houdt `flows` voor themanavigatie en voegt `reportingEntries` toe,
+met geldigheid en bereikbare stappen. `stepsNotReachableFromAThema` blijft de
+navigatiestatus tonen; `reachableFromReportingEntry` maakt duidelijk of er wel
+een directe rapporteringsingang bestaat. `get_flow` accepteert ook zo'n slug of
+label; `get_step` vermeldt de bijbehorende `reportingEntry`.
+
+`validate_flows` geeft geen onbereikbaarheidswaarschuwing voor geldige directe
+ingangen of hun navigatievervolgstappen. Onjuiste bestand/schemaverwijzingen zijn
+fouten; overige losse stappen blijven waarschuwingen. Zonder het optionele
+manifest ondersteunt de MCP-server nog gewone themanavigatie; de snapshotgenerator
+vereist een expliciete niet-lege declaratie en verzint geen ingangen op basis
+van bestandsnamen. Ongeldige JSON, dubbele ingangen en onveilige namen worden geweigerd.
+Er is nog geen MCP-schrijfhandeling om deze profielconfiguratie te wijzigen.
+
+Deze snelle broncontrole vervangt geen strikte schemageneratie of ODS-roundtrip.
+Na wijzigingen aan actieve onderdelen moeten de schema's en beide consumers
+opnieuw worden gegenereerd/gesynchroniseerd, met controle van kolomvolgorde,
+voorwaarden, eenheden en gedeelde demonstratiereferenties.
+
+`get_reporting_preview({flow?, section?})` controleert alle gedeclareerde ingangen
+of één ingang/onderdeel (bronconcept-ID of exact label). Het leest de huidige
+CSV's met de gepubliceerde ondersteunende lijsten en gebruikt dezelfde compilers
+als de POCs, zonder eigen domeinvalidatie. De uitvoer onderscheidt `schema`,
+`tabular`, `template` en `ready`, met concrete fouten en controles per onderdeel.
+Het lege sjabloon wordt enkel in geheugen aangemaakt. `populatedRoundTrip: false`
+maakt expliciet dat ingevulde voorbeelden en volledige Teepak-dekking hiermee
+niet gecertificeerd zijn. Snapshots en codelijsten worden niet geschreven.
+De POC-dependencies moeten geïnstalleerd zijn; verouderde compileroutput wordt
+bij de aanvraag herbouwd, ontbrekende packages worden niet automatisch geïnstalleerd.
+
+Eenheden en andere CSOR-concepten krijgen waar beschikbaar labels en symbolen
+uit dezelfde gepubliceerde-labelsnapshot als de UI
+(`poc/poc-flow-operationeel/src/generated/csor.json`, gegenereerd met `sync:csor`).
+Er wordt geen tweede CSOR-parser of netwerkopvraging toegevoegd. De bron-ID's
+blijven behouden. Bij ontbrekende eenheidlabels geeft de veldbeschrijving een
+expliciete melding; de preview vermeldt of de labelsnapshot beschikbaar was.
 
 Alle schrijvende tools staan standaard op `dryRun: true` en tonen de regels die ze zouden
 invoegen, wijzigen of verwijderen. Pas met `dryRun: false` wordt er geschreven.
@@ -87,6 +136,23 @@ Faalt die, dan worden `src/source/`, `README.md`, de gegenereerde output en
 `validation/validation_result.json` teruggezet naar de toestand van vóór de wijziging en geeft de
 tool de fouten van de generator terug. Omdat de generator de vorige release ophaalt voor de
 versionering, is netwerktoegang nodig om te kunnen schrijven.
+
+`apply_operational_batch({operations, dryRun})` ondersteunt `add_field`,
+`update_flow_item`, `move_field`, `reorder_fields` en `add_flow_collection`.
+Elke operatie heeft `{tool, args}` zonder eigen `dryRun`. De bestaande controles
+worden achtereenvolgens op een tijdelijke bronkopie uitgevoerd; volgende operaties
+zien eerder toegevoegde velden en collecties. De root is contextgebonden, zonder
+de procesomgeving te wijzigen. Een fout tijdens voorbereiding schrijft niets
+naar de oorspronkelijke repository.
+
+De dry-run toont per bestand alleen de uiteindelijke verwijderde en resulterende
+CSV-regels. Na goedkeuring wordt de hele batch opnieuw voorbereid en eenmaal
+geschreven, gevolgd door één `csv:fix` en één `generate_skos`. Elke validatiefout
+of exception herstelt alle bronwijzigingen en gegenereerde uitvoer naar de toestand
+vóór de batch, inclusief bestaande niet-gecommitte wijzigingen. Er zijn geen
+verwijderoperaties of wijzigingen aan flow-/profielconfiguratie in deze batchtool.
+Gevalideerde writes voor dezelfde repository worden binnen één serverproces
+geserialiseerd, zodat een rollback geen andere gelijktijdige tool-write overschrijft.
 
 ### Aanpassen en verwijderen
 
@@ -118,6 +184,37 @@ ondersteunt, en anders weigert de tool met de vraag om het na te vragen.
 - Alle CURIE-prefixen moeten gedeclareerd zijn in `config.yml`
 - Meerdere waarden in één cel worden met `|` gescheiden
 
+### Declaratieve operationele koppelingen
+
+Operationele velden ondersteunen `referenceParent` en `referenceRelation`
+als expliciete selectieafhankelijkheid, onafhankelijk van `vervolgstap`.
+`tableKey` op een groep schrijft `_table_key`: concept-ID's van bestaande
+onderdelen waarmee ODS detailrijen koppelt zonder een extra business-ID.
+`add_field`/`update_flow_item` controleren verwijzingen en behouden de gewone
+dry-run/goedkeuringscyclus. De verbindingen tussen echte systemen komen uit
+referentiedata, niet uit de codelijst. Een sleutel legt geen ontologische
+identiteit vast; de ODS-import weigert ontbrekende of dubbele combinaties.
+De volgorde volgt de volledige `_ui_after`-keten, ook door conditionele velden
+heen. Een conditioneel veld komt na zijn trigger, niet automatisch na alle
+andere velden. Tegenstrijdige UI- en conditieafhankelijkheden zijn fouten.
+
+`move_field({field, step, parent?, dryRun})` verplaatst de volledige
+`broaderPartitive`-subboom. Zonder `parent` wordt het veld een topconcept van de
+doelstap. De tool herstelt de volgordeketen op de oude plaats en voegt de groep
+achteraan toe op de nieuwe plaats. Interne ids, selecties en metadata blijven
+behouden; voorwaarden, observatieverwijzingen, sleutels en selectieafhankelijkheden
+die door de verplaatsing ongeldig worden, blokkeren de wijziging. De tool herleidt
+of verwijdert zulke verwijzingen niet automatisch. Verplaatsingen tussen
+verschillende CSV-bestanden worden expliciet geweigerd. Gebruik eerst een dry
+run en bevestig de getoonde regels voordat `dryRun: false` wordt gebruikt.
+
+Na wijzigingen aan de servercode moet de MCP-client de stdio-server opnieuw
+verbinden en de tooldefinities opnieuw ophalen. De launcher bouwt verouderde
+TypeScript-output bij het starten, maar vervangt geen al draaiend serverproces.
+Een verse verbinding biedt `tableKey`, `referenceParent` en `referenceRelation`
+op `add_field`/`update_flow_item`, en de tool `move_field`. Onbekende
+updatevelden worden geweigerd in plaats van stilzwijgend genegeerd.
+
 ## Ontwikkeling
 
 | Bestand | Inhoud |
@@ -129,6 +226,8 @@ ondersteunt, en anders weigert de tool met de vraag om het na te vragen.
 | `src/query.ts` | Vragen over types en eigenschappen (overerving, zoeken) |
 | `src/flows.ts` | Operationele flows lezen: stappen, UI-volgorde en -beschrijving, validatie |
 | `src/flows-edit.ts` | Flows, stappen en velden toevoegen, aanpassen, herschikken en verwijderen |
+| `src/flows-batch.ts` | Bestaande operationele bewerkingen isoleren, gezamenlijke eindpreview en atomair schrijven |
+| `src/reporting.ts` | Read-only adapter naar de gedeelde schema-/ODS-preview |
 | `src/references.ts` | Verwijzingen zoeken en hulpfuncties voor aanpassen/verwijderen |
 | `src/rules.ts` | Gedeelde conventies en controles |
 | `src/validate.ts` | `validate_codelists` |

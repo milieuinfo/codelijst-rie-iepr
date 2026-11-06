@@ -1,6 +1,6 @@
 import type { RecordJsonMapping, TabularPlan } from '../models/tabular-plan.js';
 import { pointer } from './tabular-plan.js';
-import { identifierColumn, layoutColumns } from './workbook-layout.js';
+import { identifierColumn, layoutColumns, parentKeyComponents } from './workbook-layout.js';
 import { canonicalColumnPath, canonicalRecordPath } from 'codelijst-rie-iepr-poc-json-schema/browser';
 import { schemaObject } from 'codelijst-rie-iepr-poc-json-schema/browser';
 import type { JsonSchemaObject } from 'codelijst-rie-iepr-poc-json-schema/browser';
@@ -31,10 +31,16 @@ export function jsonMapping(plan: TabularPlan): Record<string, RecordJsonMapping
     const pathTemplate = parentPath === undefined ? '' :
       `${parentPath}${pointer(canonicalRecordPath(canonicalRecordSchema(plan, parent!.id), record.path))}/*`;
     const identifier = parent && identifierColumn(parent);
+    const keyComponents = parent ? parentKeyComponents(plan, record) : [];
     mappings[record.id] = {
       pathTemplate,
       ...(parentPath === undefined ? {} : { parentPathTemplate: parentPath }),
-      ...(identifier ? { parentIdentifierPath: `${parentPath}${pointer(identifier.path)}` } : {}),
+      ...(identifier && !keyComponents.length ? { parentIdentifierPath: `${parentPath}${pointer(identifier.path)}` } : {}),
+      ...(keyComponents.length ? {
+        parentKeyPaths: Object.fromEntries(keyComponents.map(component => [
+          component.sourceConcept, pointer(component.column.path),
+        ])),
+      } : {}),
       columns: Object.fromEntries(record.columns.map(column => {
         const path = canonicalColumnPath(schema, column.path);
         return [column.id, path.includes('[?(') ? path : pointer(column.path)];
@@ -47,6 +53,8 @@ export function jsonMapping(plan: TabularPlan): Record<string, RecordJsonMapping
 export function machineColumns(plan: TabularPlan, recordId: string): string[] {
   const record = plan.records.find(record => record.id === recordId)!;
   const mapping = jsonMapping(plan)[recordId];
+  const keyPaths = Object.fromEntries(parentKeyComponents(plan, record).map(component =>
+    [component.id, `@parent-key:${component.sourceConcept}`]));
   return layoutColumns(plan, record).map(id =>
-    id === '_parent_ref' && mapping.parentIdentifierPath ? mapping.parentIdentifierPath : mapping.columns[id] ?? id);
+    keyPaths[id] ?? (id === '_parent_ref' && mapping.parentIdentifierPath ? mapping.parentIdentifierPath : mapping.columns[id] ?? id));
 }

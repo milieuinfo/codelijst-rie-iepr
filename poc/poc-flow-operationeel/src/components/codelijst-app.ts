@@ -132,10 +132,10 @@ export class CodelijstApp extends LitElement {
         year, references: editor.references,
       })
       if (key !== `${this.year}:${this.section}` || editor !== this.editor) {
-        throw new Error('De selectie is gewijzigd tijdens de upload. Selecteer de juiste doorsnede en upload opnieuw.')
+        throw new Error('De selectie is gewijzigd tijdens de upload. Selecteer het juiste rapporteringsonderdeel en upload opnieuw.')
       }
       if (Object.keys(editor.draft).length &&
-          !window.confirm('De ODS vervangt alle huidige invoer voor deze doorsnede en dit productiejaar. Doorgaan?')) return
+          !window.confirm('De ODS vervangt alle huidige invoer voor dit rapporteringsonderdeel en dit productiejaar. Doorgaan?')) return
       this.editors.set(key, imported)
       this.validatedJson = undefined
       this.validated = false
@@ -173,7 +173,7 @@ export class CodelijstApp extends LitElement {
       const blob = new Blob([JSON.stringify(this.editor.personalizedSchema, null, 2) + '\n'], { type: 'application/schema+json' })
       this.personalizedDownload = { editor: this.editor, url: URL.createObjectURL(blob) }
     }
-    return html`<div class="downloads" role="group" aria-label="Downloads voor deze doorsnede">
+    return html`<div class="downloads" role="group" aria-label="Downloads voor dit rapporteringsonderdeel">
       ${typeof workbook === 'string' ? html`<vl-button secondary icon="file-download"
         cta-link=${resourceUrl(['templates', ...directory, workbook])}
         download=${workbook}>ODS-sjabloon downloaden</vl-button>` : nothing}
@@ -205,7 +205,7 @@ export class CodelijstApp extends LitElement {
         <label for="ods-upload">Ingevulde ODS uploaden</label>
         <input id="ods-upload" type="file" accept=".ods,application/vnd.oasis.opendocument.spreadsheet"
           ?disabled=${this.uploading} @change=${this.uploadOds}>
-        <p>Upload een ingevuld sjabloon voor deze doorsnede en dit productiejaar. Na controle vervangt het de huidige invoer.</p>
+        <p>Upload een ingevuld sjabloon voor dit rapporteringsonderdeel en dit productiejaar. Na controle vervangt het de huidige invoer.</p>
         ${this.uploading ? html`<p role="status">ODS wordt gecontroleerd...</p>` : nothing}
         ${this.uploadMessage ? html`<p role="status">${this.uploadMessage}</p>` : nothing}
         ${this.uploadError ? html`<vl-alert type="error" title="ODS kon niet worden ingelezen"
@@ -254,7 +254,7 @@ export class CodelijstApp extends LitElement {
       ${this.error ? html`<vl-alert type="error" title="Schemaformulier niet beschikbaar" message=${this.error}></vl-alert>`
         : !this.snapshot ? html`<p>Schema's laden...</p>` : html`
           ${report && !report.complete ? html`<vl-alert type="warning" title="Onvolledige schemasnapshot"
-            message="${report.blockedSections.length} doorsneden zijn geblokkeerd door ontbrekende bronmetadata. Alleen geldige doorsneden zijn bewerkbaar."></vl-alert>` : nothing}
+            message="${report.blockedSections.length} rapporteringsonderdelen zijn geblokkeerd door ontbrekende bronmetadata. Alleen geldige rapporteringsonderdelen zijn bewerkbaar."></vl-alert>` : nothing}
           <vl-form-label for="productie-jaar" label="Productiejaar" block></vl-form-label>
           <vl-select id="productie-jaar" label="Productiejaar" placeholder="Selecteer een productiejaar"
             .options=${years.map(year => ({ value: String(year), label: String(year), selected: year === this.year }))}
@@ -273,14 +273,14 @@ export class CodelijstApp extends LitElement {
                 this.selectionChanged()
               }}></vl-select>
             ${this.entries.length ? html`
-              <vl-form-label for="doorsnede" label="Doorsnede" block></vl-form-label>
-              <vl-select id="doorsnede" label="Doorsnede" .options=${this.entries.map(entry => ({
+              <vl-form-label for="doorsnede" label="Rapporteringsonderdeel" block></vl-form-label>
+              <vl-select id="doorsnede" label="Rapporteringsonderdeel" .options=${this.entries.map(entry => ({
                 value: entry.id, label: this.snapshot!.schemas.get(entry.id)?.title || entry.path, selected: entry.id === this.section,
               }))} .value=${this.section} @vl-input=${(event: CustomEvent<{ value: string }>) => {
                 this.section = event.detail.value
                 this.selectionChanged()
               }}></vl-select>` : this.theme ? html`<p>Voor dit thema zijn nog geen geldige rapportageschema's beschikbaar.</p>` : nothing}
-            ${blocked.length ? html`<details><summary>Geblokkeerde doorsneden (${blocked.length})</summary>
+            ${blocked.length ? html`<details><summary>Geblokkeerde rapporteringsonderdelen (${blocked.length})</summary>
               <ul>${blocked.map(section => html`<li>${section.sectionLabel}
                 <ul>${section.issues.map(issue => html`<li>${issue.message}</li>`)}</ul></li>`)}</ul></details>` : nothing}
             ${this.renderEditor()}

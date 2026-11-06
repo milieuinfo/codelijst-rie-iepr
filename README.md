@@ -57,11 +57,11 @@ De volgende conceptschema's zijn opgenomen (id onder `https://data.omgeving.vlaa
 De [JSON Schema-POC](poc/poc-json-schema/README.md),
 [operationele UI](poc/poc-flow-operationeel/README.md) en
 [ODS-POC](poc/poc-json-schema-ods/docs/PROJECT_OUTLINE.md) delen één gegenereerd
-rapportagecontract. De **actieve scope is grondwater**: onttrekking/infiltratie,
-peilmeting en kwaliteitsmeting. `thematypes.csv` is verwijderd; de generator
-begint rechtstreeks bij `conceptscheme:operationeel_grondwater` en parseert geen
-andere operationele stromen. Eerdere multi-thema-implementaties en tests zijn
-geen garantie dat die stromen in de huidige snapshot worden aangeboden.
+rapportagecontract. De **actieve scope is grondwater, lucht en water**:
+drie grondwateronderdelen, emissies en vier materiaalonderdelen voor lucht,
+en lozingen/abnormale lozingen voor water. `poc/reporting-entries.json`
+declareert hun rechtstreekse conceptschema-ingangen, zonder `thematypes.csv`.
+Andere operationele stromen en volledige Teepak-dekking zijn niet ingeschakeld.
 Zie [Van CSV naar JSON Schema, UI en ODS](#van-csv-naar-json-schema-ui-en-ods)
 voor de transformaties en mappingregels.
 Met `npm --prefix poc/poc-json-schema run generate -- --allow-incomplete`
@@ -238,7 +238,8 @@ Een composite eigenschap bestaat uit een ouder en onderdelen die naar de ouder v
 ### Operationele gegevens
 Operationele gegevens beschrijven rapportagegroepen, velden en hun betekenis.
 De voorbeelden van andere stromen hieronder beschrijven het bredere model;
-de huidige POCs verwerken alleen grondwater. De algemene bouwstenen zijn:
+de huidige POCs verwerken grondwater, lucht en de jaarlijkse lozingen voor water.
+De dekking is nog niet volledig gelijk aan Teepak. De algemene bouwstenen zijn:
 - `skos:ConceptScheme` voor elk scherm/stap dat we aan de gebruiker willen tonen
 - `vervolgstap` (`qb:codeList`) is een link tussen een concept en concept scheme en bepaalt welke stap volgt
 - `conditionPath`/`conditionValue` bepalen dat een concept getoond mag worden indien het concept op het pad (`conditionPath`) een bepaalde waarde (`conditionValue`) heeft
@@ -263,8 +264,8 @@ de huidige POCs verwerken alleen grondwater. De algemene bouwstenen zijn:
 
 #### Thematische stroom
 1. De gebruiker kiest een productiejaar. Dit begrenst de structurele referenties en hun validatiecontext; de POC maakt hiervan niet automatisch een `sosa:phenomenonTime`.
-2. De huidige UI leest thema's en doorsneden uit `schema/index.json`, niet uit `thematypes.csv`. Het grondwater-conceptschema is het expliciete startpunt van de generator.
-3. In het eerdere multi-thema-model verbonden `vervolgstap`-relaties (`qb:codeList`) thema's en stappen. Die navigatie blijft modelinformatie, maar is niet het startmechanisme van het actieve grondwaterprofiel.
+2. De huidige UI leest thema's en rapporteringsonderdelen uit `schema/index.json`, niet uit `thematypes.csv`. `poc/reporting-entries.json` declareert het grondwater-, lucht- en water-conceptschema als expliciete startpunten; MCP en bronsnapshot gebruiken dezelfde declaratie. Een geldige ingang bewijst nog niet dat alle onderdelen genereerbaar zijn: daarvoor gebruikt `get_reporting_preview` de echte schema-/ODS-compilers, met werkblad- en kolompreview.
+3. In het eerdere multi-thema-model verbonden `vervolgstap`-relaties (`qb:codeList`) thema's en stappen. Die navigatie blijft modelinformatie, maar is niet het startmechanisme van het actieve CSV-profiel.
 
 > De bedoeling is dat de applicatie zo weinig mogelijk logica omvat voor zowel UI als data ophalen/bewaren voor de thematische stromen. Zo kunnen a.h.v. deze codelijsten alle business regels worden bijgesteld waar nodig zonder al te grote wijzigingen te vereisen.
 
@@ -285,9 +286,22 @@ de huidige POCs verwerken alleen grondwater. De algemene bouwstenen zijn:
 5.  Bijvoorbeeld. Peilmeting heeft een `relevantRiepr` met `filter:peil,filter:pomp`. In de JSON(-LD) zal dit als twee relaties komen te staan waardoor we dus zowel alle peil- en pompputten willen weergeven.
 
 #### Lucht
-4.  De stroom lucht `conceptscheme:operationeel_lucht` vereist als eerste stap dat je een emissiepunt (voor lucht) selecteerd
-5.  Vervolgens moet je als multiselect bronnen selecteren (`riepr:Installatie`) verbonden met het emissiepunt. We weten dat we niet alle installaties zoeken omdat bij de selectie van het emissiepunt we als `relevantClass` = `sosa:FeatureOfInterest` hebben en dus binnen deze feature moeten zoeken
-6.  Onderliggende rapportering zoals `lucht:brandstof` wordt op de bron+emissiepunt combinatie uitgevoerd en zijn composite concepten
+4.  Elke herhaalbare Emissie bevat eerst een emissiepunt en een multiselect van bronnen (`riepr:Installatie`), gevolgd door de emissiecontext en herhaalbare stofresultaten.
+5.  Punt en bronnenverzameling vormen samen de expliciete `_table_key`; detailbladen herhalen deze waarden zonder nieuw Emissie-ID. De JSON blijft genest.
+6.  Alleen aangesloten bronnen mogen uiteindelijk selecteerbaar zijn. Dit volgt niet uit `sosa:FeatureOfInterest` of navigatie: daarvoor moeten `referenceParent`/`referenceRelation` en echte relaties in de referentiesnapshot worden vastgelegd. De huidige test-UI filtert deze verbinding nog niet.
+7.  Verbruikte brandstof, verbruikte stof, geproduceerde stof en afvalproduct zijn afzonderlijke herhaalbare secties per installatie, elk met een eigen ODS-bestand. Installatie komt eerst, gevolgd door naam, optionele aard/samenstelling en hoeveelheid. Brandstofverbruik heeft de vaste eenheid GJ; de andere hoeveelheden laten de gedeelde zeven-eenhedenlijst kiezen. S- en AS-gehalte zijn optionele percentages van 0 tot 100.
+8.  Materiaalverwijzingen vanuit emissiecontext, zelfcontrole, ontbrekende stofhoeveelheden/methoden en maatregelen behoren nog niet tot de ingeschakelde luchtdekking.
+
+#### Water
+Elke jaarlijkse Lozing bevat één controleinrichting, het jaardebiet en het aantal
+dagen. Herhaalbare stofverzamelingen bevatten de concentratie-/jaarvrachtobservaties,
+een optioneel geheel aantal metingen vanaf nul en de bepalingsprocedure.
+`water-lozingen.ods` verdeelt deze gegevens over `Waterstromen` en
+`Stoffen in waterstromen`; `_table_key=water:feature` koppelt de detailrijen aan
+één lozing per controleinrichting en productiejaar. Abnormale lozingen krijgen
+een afzonderlijk ODS-bestand. Bestaande eenheden en stof-/methodenlijsten blijven
+behouden; watergebruik, afzonderlijke methodedeclaraties, totalen en balansen
+behoren nog niet tot deze dekking.
 
 ## Van CSV naar JSON Schema, UI en ODS
 
@@ -334,11 +348,11 @@ Lees de kolommen in deze volgorde:
 
 ### 1. Rapportagegroepen en onderdelen herkennen
 
-De huidige scope is `conceptscheme:operationeel_grondwater`.
+De huidige ingangen staan in `poc/reporting-entries.json`: grondwater, lucht en water.
 De ondersteunende lijsten leveren keuzes zoals detectiegrensindicatoren,
-geen extra rapportagegroepen. Andere operationele stromen worden niet verwerkt.
+geen extra rapportagegroepen. Niet-gedeclareerde operationele stromen worden niet verwerkt.
 
-Begin bij de drie zelfstandige rapportagegroepen: onttrekking, peilmeting en
+Voor grondwater begin je bij de drie zelfstandige rapportagegroepen: onttrekking, peilmeting en
 kwaliteitsmeting. Voor elke groep ontstaat een afzonderlijk JSON-schema.
 De bijbehorende `_table_workbook`-waarden verdelen de invoer over drie
 ODS-bestanden.
@@ -456,7 +470,10 @@ tussen onafhankelijke herhaalbare records veroorzaken.
 
 - Een `riepr:ObservatieVerzameling` bundelt observaties via `sosa:hasMember`.
   In JSON is dat één `hasMember`-array. De verzameling bezit geen meetresultaat
-  van een lid.
+  van een lid. Geneste verzamelingen, zoals een stofrecord in een waterlozing,
+  dragen een verborgen constante `@type` uit hun gedeclareerde klasse om ze
+  van observatieleden te onderscheiden. Er wordt geen gedeelde
+  `observedProperty` verzonnen; hun eigen observatieleden behouden die selector.
 - Een numeriek concept met klasse `riepr:Observatie` wordt een observatieobject
   met impliciet `hasResult`, getypeerd als `riepr:Resultaat`, en
   `qudt:numericValue`/`qudt:hasUnit`. Een vaste `observedProperty` identificeert
@@ -562,6 +579,33 @@ welke feature later uit die invoer moet worden opgebouwd, bijvoorbeeld een
 `riepr:Onttrekking` of `riepr:Emissie`. De generator bewaart dit als
 `x-feature-mapping`. Meerdere geselecteerde filters zijn dus niet automatisch
 meerdere rechtstreeks gedeelde SOSA-features.
+
+**Selectieafhankelijkheden staan los van navigatie.**
+Een structurele selectie kan `referenceParent` (het concept van een andere
+selectie) en `referenceRelation` (een predicaat-URI) declareren. Samen geven ze
+aan dat elke kandidaat via die relatie verbonden moet zijn met minstens één
+daadwerkelijk geselecteerde ouder in hetzelfde record of zijn singletoncontext.
+`vervolgstap` bepaalt geen verbondenheid en is hiervoor niet nodig.
+De referentiesnapshot levert de organisatiegebonden verbindingen als
+`relations: {"<predicaat-URI>": ["<ouder-URI>"]}`. De codelijst bevat alleen
+de regel, niet de instanties. Ontbrekende verbindingen geven geen vrije keuze.
+De UI filtert op de huidige selectie; validatie controleert dezelfde relatie.
+Een gewijzigde ouder wist eerder ingevoerde ongeldige keuzes niet stilzwijgend.
+Persoonlijke schemas bevatten bovendien gewone JSON Schema-voorwaarden voor
+afhankelijkheden waarvan beide selecties binnen dezelfde singletoncontext staan.
+Over overgeërfde context bij herhaalde detailrecords en over ouders in canonieke
+PropertyValue-arrays blijft semantische validatie noodzakelijk.
+
+**Werkbladkoppelingen hoeven geen nieuw identificatieveld te introduceren.**
+Een herhaalbare groep kan met `_table_key` de concepten van haar bestaande
+sleutelvelden declareren, gescheiden door `|`. Dit wordt `x-table-key` met volledige
+concept-URI's. ODS herhaalt die velden op het detailblad en vergelijkt de
+gedecodeerde waarden; referenties gebruiken URI's, multiselecties ongeordende
+verzamelingen. Alle sleutelonderdelen moeten ingevuld zijn en de combinatie moet
+uniek zijn binnen het ouderblad. Dubbele, ontbrekende en verweesde koppelingen
+zijn fouten. De herhaalde koppeling is transportmetadata, geen extra eigenschap
+in de geneste rapportage-JSON. Zonder `_table_key` blijft een bestaand expliciet
+identificatieveld, zoals Monsternummer, de koppeling bepalen.
 
 ### 4. Voorwaarden, variabelen en validatie publiceren
 

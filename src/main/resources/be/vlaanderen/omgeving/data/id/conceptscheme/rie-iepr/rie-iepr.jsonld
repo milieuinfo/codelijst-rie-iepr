@@ -504,6 +504,14 @@
             "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantDataType",
             "@type": "@id"
         },
+        "referenceParent": {
+            "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#referenceParent",
+            "@type": "@id"
+        },
+        "referenceRelation": {
+            "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#referenceRelation",
+            "@type": "@id"
+        },
         "relevantObservation": {
             "@id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#relevantObservation",
             "@type": "@id",
@@ -904,12 +912,6 @@
             ]
         },
         {
-            "id": "time:hasDuration",
-            "_type": [
-                "rdfs:Resource"
-            ]
-        },
-        {
             "id": "adms:identifier",
             "_type": [
                 "rdfs:Resource"
@@ -920,7 +922,7 @@
             "_type": [
                 "rdfs:Resource"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "status": "https://purl.archive.org/adms/status/Active"
         },
         {
@@ -940,7 +942,7 @@
             "_type": [
                 "rdfs:Resource"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "status": "https://purl.archive.org/adms/status/Active"
         },
         {
@@ -980,6 +982,26 @@
             ]
         },
         {
+            "id": "collectie:operationeel_eenheden_stofhoeveelheid",
+            "_type": [
+                "skos:Collection"
+            ],
+            "created": "2026-11-06T10:44:53.594Z",
+            "definition": "Toegelaten eenheden voor het jaarlijkse verbruik, de productie of de doorzet van stoffen en afvalproducten.",
+            "member": [
+                "csor_eenheid:E_32",
+                "csor_eenheid:E_33",
+                "csor_eenheid:E_41",
+                "csor_eenheid:E_59",
+                "csor_eenheid:E_83",
+                "csor_eenheid:E_89",
+                "csor_eenheid:E_95"
+            ],
+            "note": "Toegelaten eenheden voor het jaarlijkse verbruik, de productie of de doorzet van stoffen en afvalproducten.",
+            "prefLabel": "Eenheden stofhoeveelheid",
+            "status": "https://purl.archive.org/adms/status/Active"
+        },
+        {
             "id": "collectie:operationeel_parameters_grondwater",
             "_type": [
                 "skos:Collection"
@@ -999,13 +1021,18 @@
             "_type": [
                 "skos:Collection"
             ],
+            "isVersionOf": "collectie:operationeel_stoffen_lucht",
+            "modified": "2026-11-06T10:44:53.594Z",
             "member": [
                 "csor_variabele:V_1057",
                 "csor_variabele:V_1060",
                 "csor_variabele:V_1685",
                 "csor_variabele:V_1686",
+                "csor_variabele:V_1751",
                 "csor_variabele:V_1901",
-                "csor_variabele:V_1919"
+                "csor_variabele:V_1919",
+                "csor_variabele:V_255",
+                "csor_variabele:V_256"
             ],
             "prefLabel": "Verontreinigende stoffen en broeikasgassen (lucht)"
         },
@@ -2943,7 +2970,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "contextueel:productievolume",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "definition": "Totale productie (geheel getal)",
             "inScheme": "conceptscheme:operationeel_contextueel_iepr_activiteit",
             "note": "Totale productie (geheel getal)",
@@ -3003,7 +3030,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:bestemmingsidentificatie-be",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "broaderPartitive": "grondstoffen:grondstof",
             "narrowerPartitive": [
                 "grondstoffen:bestemmingsidentificatie-be-naam",
@@ -3243,7 +3270,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:grondstof",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "narrowerPartitive": [
                 "grondstoffen:bestemmingsidentificatie-be",
                 "grondstoffen:bestemmingsidentificatie-buitenland",
@@ -3270,7 +3297,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:grondstof_bestemming_type",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "dcterms:type",
             "broaderPartitive": "grondstoffen:grondstof_resultaat",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
@@ -3287,7 +3314,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:grondstof_hoeveelheid",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "qudt:numericValue",
             "broaderPartitive": "grondstoffen:grondstof_resultaat",
             "relevantUnit": [
@@ -3305,7 +3332,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:grondstof_materiaalcode",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "schema:material",
             "broaderPartitive": "grondstoffen:grondstof_resultaat",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
@@ -3321,7 +3348,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:grondstof_omschrijving",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "rdfs:comment",
             "broaderPartitive": "grondstoffen:grondstof_resultaat",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
@@ -3336,7 +3363,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:grondstof_opmerking",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "rdfs:comment",
             "broaderPartitive": "grondstoffen:grondstof_resultaat",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
@@ -3350,7 +3377,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasResult",
             "broaderPartitive": "grondstoffen:grondstof",
             "narrowerPartitive": [
@@ -3376,7 +3403,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:grondstof_toepassingswijze",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "grondstoffen:grondstof_resultaat",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
@@ -3393,7 +3420,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "definition": "De meetwaarde ligt boven de detectielimiet.",
             "inScheme": "conceptscheme:operationeel_detectiegrensindicator",
             "note": "De meetwaarde ligt boven de detectielimiet.",
@@ -3407,7 +3434,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "definition": "De meetwaarde ligt onder de detectielimiet.",
             "inScheme": "conceptscheme:operationeel_detectiegrensindicator",
             "note": "De meetwaarde ligt onder de detectielimiet.",
@@ -3422,7 +3449,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:kwaliteitsmeting",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "narrowerPartitive": [
                 "grondwater:kwaliteitsmeting-resultaten",
                 "grondwater:kwaliteitsmeting-datum",
@@ -3449,7 +3476,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:kwaliteitsmeting-bemonsteringsinstrument",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "dcterms:type",
             "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3465,7 +3492,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:kwaliteitsmeting-datum",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:phenomenonTime",
             "broaderPartitive": "grondwater:kwaliteitsmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3482,7 +3509,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:kwaliteitsmeting-diepte",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "grondwater:kwaliteitsmeting",
             "relevantUnit": [
@@ -3501,7 +3528,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "grondwater:kwaliteitsmeting",
             "definition": "Actieve peil- en pompfilters in het productiejaar.",
@@ -3529,7 +3556,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:kwaliteitsmeting-labo",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "prov:wasAssociatedWith",
             "broaderPartitive": "grondwater:kwaliteitsmeting",
             "narrowerPartitive": [
@@ -3550,7 +3577,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:resultTime",
             "broaderPartitive": "grondwater:kwaliteitsmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3567,7 +3594,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:kwaliteitsmeting-labo-naam",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "rdfs:label",
             "broaderPartitive": "grondwater:kwaliteitsmeting-labo",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3583,7 +3610,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:kwaliteitsmeting-monsternummer",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "dcterms:identifier",
             "broaderPartitive": "grondwater:kwaliteitsmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3600,7 +3627,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:kwaliteitsmeting-referentiepunt",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "grondwater:kwaliteitsmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3620,7 +3647,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "grondwater:kwaliteitsmeting",
             "narrowerPartitive": [
@@ -3644,7 +3671,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
             "definition": "Een aanduiding of de meetwaarde boven of onder de detectielimiet ligt.",
@@ -3665,7 +3692,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
             "relevantUnit": [
                 "csor_eenheid:E_1"
@@ -3687,7 +3714,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "schema:measurementMethod",
             "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3703,7 +3730,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:observedProperty",
             "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3723,7 +3750,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:kwaliteitsmeting-techniek",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:usedProcedure",
             "broaderPartitive": "grondwater:kwaliteitsmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3741,7 +3768,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:onttrekking",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "narrowerPartitive": [
                 "grondwater:onttrekking-einddatum",
                 "grondwater:onttrekking-eindmeterstand",
@@ -3766,7 +3793,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:resultTime",
             "broaderPartitive": "grondwater:onttrekking",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3785,7 +3812,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "grondwater:onttrekking",
             "relevantUnit": [
@@ -3807,7 +3834,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "grondwater:onttrekking",
             "definition": "Actieve debietmeters in het productiejaar.",
@@ -3832,7 +3859,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "grondwater:onttrekking",
             "relevantUnit": [
@@ -3854,7 +3881,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "grondwater:onttrekking",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3873,7 +3900,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:resultTime",
             "broaderPartitive": "grondwater:onttrekking",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3890,7 +3917,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "grondwater:onttrekking",
             "relevantUnit": [
@@ -3912,7 +3939,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "dcterms:type",
             "broaderPartitive": "grondwater:onttrekking",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3933,7 +3960,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:peilmeting",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "narrowerPartitive": [
                 "grondwater:peilmeting-datum",
                 "grondwater:peilmeting-feature",
@@ -3959,7 +3986,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:resultTime",
             "broaderPartitive": "grondwater:peilmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3976,7 +4003,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "qudt:numericValue",
             "broaderPartitive": "grondwater:peilmeting",
             "relevantUnit": [
@@ -3997,7 +4024,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "grondwater:peilmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -4021,7 +4048,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "grondwater:peilmeting",
             "definition": "Actieve peil- en pompfilters in het productiejaar.",
@@ -4044,7 +4071,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "schema:measurementMethod",
             "broaderPartitive": "grondwater:peilmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -4063,7 +4090,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "grondwater:peilmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -4083,7 +4110,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "grondwater:peilmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -4104,7 +4131,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "grondwater:peilmeting",
             "relevantUnit": [
@@ -4131,7 +4158,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "grondwater:peilmeting",
             "relevantUnit": [
@@ -4159,20 +4186,18 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:afvalproduct",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "narrowerPartitive": [
+                "lucht:afvalproduct_installatie",
                 "lucht:afvalproduct_resultaat"
             ],
-            "definition": "Afvalproduct",
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
-            "note": "Afvalproduct",
+            "definition": "Jaarlijkse productie van een afvalproduct door een installatie.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Jaarlijkse productie van een afvalproduct door een installatie.",
             "prefLabel": "Afvalproduct",
-            "topConceptOf": "conceptscheme:operationeel_lucht_rapportering",
+            "topConceptOf": "conceptscheme:operationeel_lucht",
             "relevantClass": "riepr:Observatie",
             "isMeervoudig": "true",
-            "relevantFeatureClass": [
-                "riepr:Verbruik"
-            ],
             "_ui_after": "lucht:geproduceerde_stof"
         },
         {
@@ -4181,14 +4206,13 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:afvalproduct_aard",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "rdfs:comment",
             "broaderPartitive": "lucht:afvalproduct_resultaat",
-            "definition": "Aard van de afvalproduct.",
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
-            "note": "Aard van de afvalproduct.",
-            "prefLabel": "Aard",
-            "isVerplicht": "true",
+            "definition": "Beschrijving van de aard of samenstelling van het afvalproduct.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Beschrijving van de aard of samenstelling van het afvalproduct.",
+            "prefLabel": "Aard en/of samenstelling",
             "relevantDataType": "xsd:string",
             "_ui_after": "lucht:afvalproduct_naam"
         },
@@ -4198,16 +4222,38 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:afvalproduct_hoeveelheid",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "qudt:numericValue",
             "broaderPartitive": "lucht:afvalproduct_resultaat",
             "relevantUnit": [
-                "http://TODO"
+                "collectie:operationeel_eenheden_stofhoeveelheid"
             ],
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
-            "prefLabel": "Verbruik",
+            "definition": "Jaarlijks geproduceerde hoeveelheid afvalproduct, uitgedrukt in de geselecteerde eenheid.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Jaarlijks geproduceerde hoeveelheid afvalproduct, uitgedrukt in de geselecteerde eenheid.",
+            "prefLabel": "Hoeveelheid afvalproduct",
             "relevantDataType": "xsd:decimal",
             "_ui_after": "lucht:afvalproduct_aard"
+        },
+        {
+            "id": "lucht:afvalproduct_installatie",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-06T10:44:53.594Z",
+            "relation": "sosa:hasFeatureOfInterest",
+            "broaderPartitive": "lucht:afvalproduct",
+            "definition": "Installatie waarvoor de jaarlijkse productie van afvalproducten wordt gerapporteerd.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Installatie waarvoor de jaarlijkse productie van afvalproducten wordt gerapporteerd.",
+            "prefLabel": "Installatie",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "relevantClass": "sosa:FeatureOfInterest",
+            "isVerplicht": "true",
+            "relevantRiepr": [
+                "riepr:Installatie"
+            ],
+            "_ui_first": "true"
         },
         {
             "id": "lucht:afvalproduct_naam",
@@ -4215,11 +4261,11 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:afvalproduct_naam",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "rdfs:label",
             "broaderPartitive": "lucht:afvalproduct_resultaat",
             "definition": "Naam van het afvalproduct.",
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "note": "Naam van het afvalproduct.",
             "prefLabel": "Naam",
             "isVerplicht": "true",
@@ -4231,7 +4277,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasResult",
             "broaderPartitive": "lucht:afvalproduct",
             "narrowerPartitive": [
@@ -4240,36 +4286,54 @@
                 "lucht:afvalproduct_hoeveelheid"
             ],
             "definition": "Het resultaatrecord van het gerapporteerde afvalproduct.",
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "note": "Het resultaatrecord van het gerapporteerde afvalproduct.",
             "prefLabel": "Resultaat afvalproduct",
             "status": "https://purl.archive.org/adms/status/Active",
             "relevantClass": "riepr:Resultaat",
             "isVerplicht": "true",
-            "_ui_first": "true"
+            "_ui_after": "lucht:afvalproduct_installatie"
         },
         {
             "id": "lucht:brandstof",
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "lucht:brandstof",
+            "modified": "2026-11-06T10:44:53.594Z",
             "narrowerPartitive": [
+                "lucht:brandstof_aard",
                 "lucht:brandstof_as",
+                "lucht:brandstof_installatie",
                 "lucht:brandstof_naam",
                 "lucht:brandstof_s",
                 "lucht:brandstof_verbruik"
             ],
-            "definition": "Geef de verbruikte brondstoffen op.",
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
-            "note": "Geef de verbruikte brondstoffen op.",
+            "definition": "Jaarlijks verbruik van een brandstof door een installatie.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Jaarlijks verbruik van een brandstof door een installatie.",
             "prefLabel": "Verbruikte brandstof",
-            "topConceptOf": "conceptscheme:operationeel_lucht_rapportering",
+            "topConceptOf": "conceptscheme:operationeel_lucht",
             "relevantClass": "riepr:ObservatieVerzameling",
             "isMeervoudig": "true",
-            "relevantFeatureClass": [
-                "riepr:Verbruik"
+            "_ui_after": "lucht:emissie"
+        },
+        {
+            "id": "lucht:brandstof_aard",
+            "_type": [
+                "skos:Concept"
             ],
-            "_ui_first": "true"
+            "created": "2026-11-06T10:44:53.594Z",
+            "relation": "schema:additionalProperty",
+            "broaderPartitive": "lucht:brandstof",
+            "definition": "Beschrijving van de aard of samenstelling van de brandstof.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Beschrijving van de aard of samenstelling van de brandstof.",
+            "prefLabel": "Aard en/of samenstelling",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "relevantClass": "schema:PropertyValue",
+            "relevantDataType": "xsd:string",
+            "_ui_after": "lucht:brandstof_naam"
         },
         {
             "id": "lucht:brandstof_as",
@@ -4277,30 +4341,56 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:brandstof_as",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "lucht:brandstof",
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
+            "relevantUnit": [
+                "csor_eenheid:E_43"
+            ],
+            "inScheme": "conceptscheme:operationeel_lucht",
             "prefLabel": "AS-gehalte",
             "relevantClass": "riepr:Observatie",
-            "isVerplicht": "true",
             "relevantDataType": "xsd:decimal",
-            "_ui_after": "lucht:brandstof_s"
+            "_ui_after": "lucht:brandstof_s",
+            "maxValue": "100",
+            "minValue": "0"
+        },
+        {
+            "id": "lucht:brandstof_installatie",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-06T10:44:53.594Z",
+            "relation": "sosa:hasFeatureOfInterest",
+            "broaderPartitive": "lucht:brandstof",
+            "definition": "Installatie waarvoor het jaarlijkse brandstofverbruik wordt gerapporteerd.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Installatie waarvoor het jaarlijkse brandstofverbruik wordt gerapporteerd.",
+            "prefLabel": "Installatie",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "relevantClass": "sosa:FeatureOfInterest",
+            "isVerplicht": "true",
+            "relevantRiepr": [
+                "riepr:Installatie"
+            ],
+            "_ui_first": "true"
         },
         {
             "id": "lucht:brandstof_naam",
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "lucht:brandstof_naam",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "rdfs:label",
             "broaderPartitive": "lucht:brandstof",
             "definition": "Naam van de brandstof.",
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "note": "Naam van de brandstof.",
             "prefLabel": "Naam",
             "isVerplicht": "true",
             "relevantDataType": "xsd:string",
-            "_ui_first": "true"
+            "_ui_after": "lucht:brandstof_installatie"
         },
         {
             "id": "lucht:brandstof_s",
@@ -4308,15 +4398,19 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:brandstof_s",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "lucht:brandstof",
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
+            "relevantUnit": [
+                "csor_eenheid:E_43"
+            ],
+            "inScheme": "conceptscheme:operationeel_lucht",
             "prefLabel": "S-gehalte",
             "relevantClass": "riepr:Observatie",
-            "isVerplicht": "true",
             "relevantDataType": "xsd:decimal",
-            "_ui_after": "lucht:brandstof_naam"
+            "_ui_after": "lucht:brandstof_aard",
+            "maxValue": "100",
+            "minValue": "0"
         },
         {
             "id": "lucht:brandstof_verbruik",
@@ -4324,14 +4418,14 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:brandstof_verbruik",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "lucht:brandstof",
             "relevantUnit": [
                 "csor_eenheid:E_89"
             ],
             "definition": "Verbruik van de brandstof in GJ",
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "note": "Verbruik van de brandstof in GJ",
             "prefLabel": "Verbruik",
             "relevantClass": "riepr:Observatie",
@@ -4344,8 +4438,12 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "lucht:emissie",
+            "modified": "2026-11-06T10:44:53.594Z",
             "narrowerPartitive": [
+                "lucht:emissie_debiet",
                 "lucht:emissie_luchtoverschot",
+                "lucht:emissie_oorzaak",
                 "lucht:emissie_parameter",
                 "lucht:emissie_temperatuur",
                 "lucht:emissie_vochtgehalte",
@@ -4354,16 +4452,42 @@
                 "lucht:emissieperiode",
                 "lucht:emissieritme",
                 "lucht:emissietoestand",
-                "lucht:emissietype"
+                "lucht:emissietype",
+                "lucht:feature_bron",
+                "lucht:feature_ep"
             ],
-            "inScheme": "conceptscheme:operationeel_lucht_emissie",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "prefLabel": "Emissie",
-            "topConceptOf": "conceptscheme:operationeel_lucht_emissie",
+            "topConceptOf": "conceptscheme:operationeel_lucht",
             "relevantClass": "riepr:ObservatieVerzameling",
             "isMeervoudig": "true",
             "relevantFeatureClass": [
                 "riepr:Emissie"
-            ]
+            ],
+            "_ui_first": "true"
+        },
+        {
+            "id": "lucht:emissie_debiet",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-06T10:44:53.594Z",
+            "relation": "sosa:hasMember",
+            "broaderPartitive": "lucht:emissie",
+            "relevantUnit": [
+                "csor_eenheid:E_175"
+            ],
+            "definition": "Volumedebiet van het rookgas in normaal kubieke meter per uur.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Volumedebiet van het rookgas in normaal kubieke meter per uur.",
+            "prefLabel": "Debiet",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "relevantClass": "riepr:Observatie",
+            "relevantDataType": "xsd:decimal",
+            "relevantObservation": [
+                "lucht:emissie"
+            ],
+            "_ui_after": "lucht:emissie_temperatuur"
         },
         {
             "id": "lucht:emissie_luchtoverschot",
@@ -4371,16 +4495,46 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie_luchtoverschot",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "lucht:emissie",
             "relevantUnit": [
                 "csor_eenheid:E_43"
             ],
-            "inScheme": "conceptscheme:operationeel_lucht_emissie",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "prefLabel": "Luchtoverschot",
             "relevantClass": "riepr:Observatie",
-            "relevantDataType": "xsd:decimal"
+            "relevantDataType": "xsd:decimal",
+            "relevantObservation": [
+                "lucht:emissie"
+            ],
+            "_ui_after": "lucht:emissie_zuurstofgehalte"
+        },
+        {
+            "id": "lucht:emissie_oorzaak",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-06T10:44:53.594Z",
+            "relation": "schema:additionalProperty",
+            "broaderPartitive": "lucht:emissie",
+            "definition": "Beschrijving van de oorzaak van de abnormale emissie.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Beschrijving van de oorzaak van de abnormale emissie.",
+            "prefLabel": "Oorzaak abnormale emissie",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "relevantClass": "schema:PropertyValue",
+            "conditionValue": [
+                "emissie:abnormale"
+            ],
+            "conditionPath": [
+                "lucht:emissietype"
+            ],
+            "relevantDataType": "xsd:string",
+            "relevantObservation": [
+                "lucht:emissie"
+            ],
+            "_ui_after": "lucht:emissietype"
         },
         {
             "id": "lucht:emissie_parameter",
@@ -4388,17 +4542,18 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie_parameter",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "lucht:emissie",
             "narrowerPartitive": [
                 "lucht:emissie_parameter_parameter",
                 "lucht:emissie_parameter_resultaat"
             ],
-            "inScheme": "conceptscheme:operationeel_lucht_emissie",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "prefLabel": "Verontreinigende stof of BKG",
             "relevantClass": "riepr:Observatie",
-            "isMeervoudig": "true"
+            "isMeervoudig": "true",
+            "_ui_after": "lucht:emissie_debiet"
         },
         {
             "id": "lucht:emissie_parameter_massastroom",
@@ -4406,13 +4561,13 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie_parameter_massastroom",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "qudt:numericValue",
             "broaderPartitive": "lucht:emissie_parameter_resultaat",
             "relevantUnit": [
                 "csor_eenheid:E_13"
             ],
-            "inScheme": "conceptscheme:operationeel_lucht_emissie",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "prefLabel": "Massastroom",
             "drager": "csor_drager:DR_8",
             "kwantiteitsAspect": "csor_kwantificeerbaaraspect:KWA_2",
@@ -4427,10 +4582,10 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie_parameter_meetfrequentie",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "dcterms:accrualPeriodicity",
             "broaderPartitive": "lucht:emissie_parameter_resultaat",
-            "inScheme": "conceptscheme:operationeel_lucht_emissie",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "prefLabel": "Meetfrequentie",
             "relevantCodeList": [
                 "conceptscheme:operationeel_zelfcontrole_meetfrequentie"
@@ -4443,10 +4598,10 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie_parameter_parameter",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:observedProperty",
             "broaderPartitive": "lucht:emissie_parameter",
-            "inScheme": "conceptscheme:operationeel_lucht_emissie",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "prefLabel": "Stof",
             "relevantCodeList": [
                 "collectie:operationeel_stoffen_lucht"
@@ -4458,7 +4613,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasResult",
             "broaderPartitive": "lucht:emissie_parameter",
             "narrowerPartitive": [
@@ -4467,7 +4622,7 @@
                 "lucht:emissie_parameter_meetfrequentie"
             ],
             "definition": "Het resultaatrecord van de gerapporteerde verontreinigende stof of het broeikasgas.",
-            "inScheme": "conceptscheme:operationeel_lucht_emissie",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "note": "Het resultaatrecord van de gerapporteerde verontreinigende stof of het broeikasgas.",
             "prefLabel": "Resultaat luchtparameter",
             "status": "https://purl.archive.org/adms/status/Active",
@@ -4481,13 +4636,13 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie_parameter_standaardafwijking",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "lucht:emissie_parameter_resultaat",
             "relevantUnit": [
                 "csor_eenheid:E_43"
             ],
-            "inScheme": "conceptscheme:operationeel_lucht_emissie",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "prefLabel": "Standaardafwijking",
             "relevantClass": "schema:PropertyValue",
             "drager": "csor_drager:DR_8",
@@ -4503,16 +4658,20 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie_temperatuur",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "lucht:emissie",
             "relevantUnit": [
                 "csor_eenheid:E_62"
             ],
-            "inScheme": "conceptscheme:operationeel_lucht_emissie",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "prefLabel": "Temperatuur",
             "relevantClass": "riepr:Observatie",
-            "relevantDataType": "xsd:decimal"
+            "relevantDataType": "xsd:decimal",
+            "relevantObservation": [
+                "lucht:emissie"
+            ],
+            "_ui_after": "lucht:emissieduur"
         },
         {
             "id": "lucht:emissie_vochtgehalte",
@@ -4520,16 +4679,20 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie_vochtgehalte",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "lucht:emissie",
             "relevantUnit": [
                 "csor_eenheid:E_43"
             ],
-            "inScheme": "conceptscheme:operationeel_lucht_emissie",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "prefLabel": "Vochtgehalte",
             "relevantClass": "riepr:Observatie",
-            "relevantDataType": "xsd:decimal"
+            "relevantDataType": "xsd:decimal",
+            "relevantObservation": [
+                "lucht:emissie"
+            ],
+            "_ui_after": "lucht:emissietoestand"
         },
         {
             "id": "lucht:emissie_zuurstofgehalte",
@@ -4537,73 +4700,124 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie_zuurstofgehalte",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "lucht:emissie",
             "relevantUnit": [
                 "csor_eenheid:E_43"
             ],
-            "inScheme": "conceptscheme:operationeel_lucht_emissie",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "prefLabel": "Zuurstofgehalte",
             "relevantClass": "riepr:Observatie",
-            "relevantDataType": "xsd:decimal"
+            "relevantDataType": "xsd:decimal",
+            "relevantObservation": [
+                "lucht:emissie"
+            ],
+            "_ui_after": "lucht:emissie_vochtgehalte"
         },
         {
             "id": "lucht:emissieduur",
             "_type": [
                 "skos:Concept"
             ],
-            "relation": "time:hasDuration",
+            "isVersionOf": "lucht:emissieduur",
+            "modified": "2026-11-06T10:44:53.594Z",
+            "relation": "schema:additionalProperty",
             "broaderPartitive": "lucht:emissie",
-            "inScheme": "conceptscheme:operationeel_lucht_emissie",
+            "relevantUnit": [
+                "csor_eenheid:E_94"
+            ],
+            "definition": "Totaal aantal uren dat er tijdens het rapporteringsjaar werd geemitteerd.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Totaal aantal uren dat er tijdens het rapporteringsjaar werd geemitteerd.",
             "prefLabel": "Emissieduur",
-            "relevantDataType": "xsd:integer"
+            "relevantClass": "schema:PropertyValue",
+            "relevantDataType": "xsd:integer",
+            "relevantObservation": [
+                "lucht:emissie"
+            ],
+            "_ui_after": "lucht:emissieperiode"
         },
         {
             "id": "lucht:emissieperiode",
             "_type": [
                 "skos:Concept"
             ],
-            "relation": "sosa:phenomenonTime",
+            "isVersionOf": "lucht:emissieperiode",
+            "modified": "2026-11-06T10:44:53.594Z",
+            "relation": "schema:additionalProperty",
             "broaderPartitive": "lucht:emissie",
-            "inScheme": "conceptscheme:operationeel_lucht_emissie",
+            "definition": "Beschrijving van wanneer er wordt geemitteerd, bijvoorbeeld elke dag van maandag tot vrijdag gedurende 220 dagen per jaar.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Beschrijving van wanneer er wordt geemitteerd, bijvoorbeeld elke dag van maandag tot vrijdag gedurende 220 dagen per jaar.",
             "prefLabel": "Emissieperiode",
-            "relevantDataType": "xsd:string"
+            "relevantClass": "schema:PropertyValue",
+            "relevantDataType": "xsd:string",
+            "relevantObservation": [
+                "lucht:emissie"
+            ],
+            "_ui_after": "lucht:emissieritme"
         },
         {
             "id": "lucht:emissieritme",
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "lucht:emissieritme",
+            "modified": "2026-11-06T10:44:53.594Z",
+            "relation": "schema:additionalProperty",
             "broaderPartitive": "lucht:emissie",
-            "inScheme": "conceptscheme:operationeel_lucht_emissie",
+            "definition": "Beschrijving van hoeveel tijd er per tijdseenheid wordt geemitteerd, bijvoorbeeld 8 uur per dag.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Beschrijving van hoeveel tijd er per tijdseenheid wordt geemitteerd, bijvoorbeeld 8 uur per dag.",
             "prefLabel": "Emissieritme",
-            "relevantDataType": "xsd:string"
+            "relevantClass": "schema:PropertyValue",
+            "relevantDataType": "xsd:string",
+            "relevantObservation": [
+                "lucht:emissie"
+            ],
+            "_ui_after": "lucht:emissie_luchtoverschot"
         },
         {
             "id": "lucht:emissietoestand",
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "lucht:emissietoestand",
+            "modified": "2026-11-06T10:44:53.594Z",
+            "relation": "schema:additionalProperty",
             "broaderPartitive": "lucht:emissie",
-            "inScheme": "conceptscheme:operationeel_lucht_emissie",
+            "definition": "Geeft aan of de gerapporteerde rookgaswaarden betrekking hebben op nat of droog rookgas.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Geeft aan of de gerapporteerde rookgaswaarden betrekking hebben op nat of droog rookgas.",
             "prefLabel": "Toestand indicator",
+            "relevantClass": "schema:PropertyValue",
             "relevantCodeList": [
                 "conceptscheme:operationeel_toestand_indicator"
-            ]
+            ],
+            "relevantObservation": [
+                "lucht:emissie"
+            ],
+            "_ui_after": "lucht:emissie_oorzaak"
         },
         {
             "id": "lucht:emissietype",
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "lucht:emissietype",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "dcterms:type",
             "broaderPartitive": "lucht:emissie",
-            "inScheme": "conceptscheme:operationeel_lucht_emissie",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "prefLabel": "Emissietype",
             "relevantCodeList": [
                 "conceptscheme:emissietypes"
-            ]
+            ],
+            "relevantObservation": [
+                "lucht:emissie"
+            ],
+            "_ui_after": "lucht:feature_bron"
         },
         {
             "id": "lucht:feature_bron",
@@ -4611,37 +4825,48 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:feature_bron",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasFeatureOfInterest",
-            "vervolgstap": [
-                "conceptscheme:operationeel_lucht_rapportering",
-                "conceptscheme:operationeel_lucht_emissie"
-            ],
+            "broaderPartitive": "lucht:emissie",
             "definition": "Selecteer de bron(nen) waarop je wil rapporteren.",
-            "inScheme": "conceptscheme:operationeel_lucht_bron",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "note": "Selecteer de bron(nen) waarop je wil rapporteren.",
             "prefLabel": "Bron(nen)",
-            "topConceptOf": "conceptscheme:operationeel_lucht_bron",
             "relevantClass": "sosa:FeatureOfInterest",
             "isMultiselect": "true",
+            "isVerplicht": "true",
+            "relevantFeatureClass": [
+                "riepr:Emissie"
+            ],
+            "relevantObservation": [
+                "lucht:emissie"
+            ],
             "relevantRiepr": [
                 "riepr:Installatie"
             ],
-            "_ui_first": "true"
+            "_ui_after": "lucht:feature_ep"
         },
         {
             "id": "lucht:feature_ep",
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "lucht:feature_ep",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasFeatureOfInterest",
-            "vervolgstap": "conceptscheme:operationeel_lucht_bron",
+            "broaderPartitive": "lucht:emissie",
             "definition": "Selecteer het emissiepunt waarop je wil rapporteren.",
             "inScheme": "conceptscheme:operationeel_lucht",
             "note": "Selecteer het emissiepunt waarop je wil rapporteren.",
             "prefLabel": "Emissiepunt",
-            "topConceptOf": "conceptscheme:operationeel_lucht",
             "relevantClass": "sosa:FeatureOfInterest",
+            "isVerplicht": "true",
+            "relevantFeatureClass": [
+                "riepr:Emissie"
+            ],
+            "relevantObservation": [
+                "lucht:emissie"
+            ],
             "relevantRiepr": [
                 "emissiepunt:emissiepunt_lucht",
                 "emissiepunt:fakkel",
@@ -4659,20 +4884,18 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:geproduceerde_stof",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "narrowerPartitive": [
+                "lucht:geproduceerde_stof_installatie",
                 "lucht:geproduceerde_stof_resultaat"
             ],
-            "definition": "Geproduceerde stof.",
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
-            "note": "Geproduceerde stof.",
+            "definition": "Jaarlijkse productie van een stof door een installatie.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Jaarlijkse productie van een stof door een installatie.",
             "prefLabel": "Geproduceerde stof",
-            "topConceptOf": "conceptscheme:operationeel_lucht_rapportering",
+            "topConceptOf": "conceptscheme:operationeel_lucht",
             "relevantClass": "riepr:Observatie",
             "isMeervoudig": "true",
-            "relevantFeatureClass": [
-                "riepr:Verbruik"
-            ],
             "_ui_after": "lucht:verbruikte_stof"
         },
         {
@@ -4681,14 +4904,13 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:geproduceerde_stof_aard",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "rdfs:comment",
             "broaderPartitive": "lucht:geproduceerde_stof_resultaat",
-            "definition": "Aard van de geproduceerde stof.",
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
-            "note": "Aard van de geproduceerde stof.",
-            "prefLabel": "Aard",
-            "isVerplicht": "true",
+            "definition": "Beschrijving van de aard of samenstelling van de geproduceerde stof.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Beschrijving van de aard of samenstelling van de geproduceerde stof.",
+            "prefLabel": "Aard en/of samenstelling",
             "relevantDataType": "xsd:string",
             "_ui_after": "lucht:geproduceerde_stof_naam"
         },
@@ -4698,16 +4920,38 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:geproduceerde_stof_hoeveelheid",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "qudt:numericValue",
             "broaderPartitive": "lucht:geproduceerde_stof_resultaat",
             "relevantUnit": [
-                "http://TODO"
+                "collectie:operationeel_eenheden_stofhoeveelheid"
             ],
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
-            "prefLabel": "Verbruik",
+            "definition": "Jaarlijks geproduceerde hoeveelheid van de stof, uitgedrukt in de geselecteerde eenheid.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Jaarlijks geproduceerde hoeveelheid van de stof, uitgedrukt in de geselecteerde eenheid.",
+            "prefLabel": "Productie",
             "relevantDataType": "xsd:decimal",
             "_ui_after": "lucht:geproduceerde_stof_aard"
+        },
+        {
+            "id": "lucht:geproduceerde_stof_installatie",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-06T10:44:53.594Z",
+            "relation": "sosa:hasFeatureOfInterest",
+            "broaderPartitive": "lucht:geproduceerde_stof",
+            "definition": "Installatie waarvoor de jaarlijkse stofproductie wordt gerapporteerd.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Installatie waarvoor de jaarlijkse stofproductie wordt gerapporteerd.",
+            "prefLabel": "Installatie",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "relevantClass": "sosa:FeatureOfInterest",
+            "isVerplicht": "true",
+            "relevantRiepr": [
+                "riepr:Installatie"
+            ],
+            "_ui_first": "true"
         },
         {
             "id": "lucht:geproduceerde_stof_naam",
@@ -4715,11 +4959,11 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:geproduceerde_stof_naam",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "rdfs:label",
             "broaderPartitive": "lucht:geproduceerde_stof_resultaat",
             "definition": "Naam van de geproduceerde stof.",
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "note": "Naam van de geproduceerde stof.",
             "prefLabel": "Naam",
             "isVerplicht": "true",
@@ -4731,7 +4975,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasResult",
             "broaderPartitive": "lucht:geproduceerde_stof",
             "narrowerPartitive": [
@@ -4740,13 +4984,13 @@
                 "lucht:geproduceerde_stof_hoeveelheid"
             ],
             "definition": "Het resultaatrecord van de gerapporteerde geproduceerde stof.",
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "note": "Het resultaatrecord van de gerapporteerde geproduceerde stof.",
             "prefLabel": "Resultaat geproduceerde stof",
             "status": "https://purl.archive.org/adms/status/Active",
             "relevantClass": "riepr:Resultaat",
             "isVerplicht": "true",
-            "_ui_first": "true"
+            "_ui_after": "lucht:geproduceerde_stof_installatie"
         },
         {
             "id": "lucht:verbruikte_stof",
@@ -4754,21 +4998,19 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:verbruikte_stof",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "narrowerPartitive": [
+                "lucht:verbruikte_stof_installatie",
                 "lucht:verbruikte_stof_naam",
                 "lucht:verbruikte_stof_resultaat"
             ],
-            "definition": "Geef de verbruikte stoffen op.",
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
-            "note": "Geef de verbruikte stoffen op.",
+            "definition": "Jaarlijks verbruik van een stof door een installatie.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Jaarlijks verbruik van een stof door een installatie.",
             "prefLabel": "Verbruikte stof",
-            "topConceptOf": "conceptscheme:operationeel_lucht_rapportering",
+            "topConceptOf": "conceptscheme:operationeel_lucht",
             "relevantClass": "riepr:Observatie",
             "isMeervoudig": "true",
-            "relevantFeatureClass": [
-                "riepr:Verbruik"
-            ],
             "_ui_after": "lucht:brandstof"
         },
         {
@@ -4777,14 +5019,13 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:verbruikte_stof_aard",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "rdfs:comment",
             "broaderPartitive": "lucht:verbruikte_stof_resultaat",
-            "definition": "Aard van het verbruik.",
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
-            "note": "Aard van het verbruik.",
-            "prefLabel": "Aard",
-            "isVerplicht": "true",
+            "definition": "Beschrijving van de aard of samenstelling van de verbruikte stof.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Beschrijving van de aard of samenstelling van de verbruikte stof.",
+            "prefLabel": "Aard en/of samenstelling",
             "relevantDataType": "xsd:string",
             "_ui_first": "true"
         },
@@ -4794,39 +5035,63 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:verbruikte_stof_hoeveelheid",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "qudt:numericValue",
             "broaderPartitive": "lucht:verbruikte_stof_resultaat",
             "relevantUnit": [
-                "http://TODO"
+                "collectie:operationeel_eenheden_stofhoeveelheid"
             ],
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
+            "definition": "Jaarlijks verbruik van de stof, uitgedrukt in de geselecteerde eenheid.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Jaarlijks verbruik van de stof, uitgedrukt in de geselecteerde eenheid.",
             "prefLabel": "Verbruik",
             "isVerplicht": "true",
             "relevantDataType": "xsd:decimal",
             "_ui_after": "lucht:verbruikte_stof_aard"
         },
         {
+            "id": "lucht:verbruikte_stof_installatie",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-06T10:44:53.594Z",
+            "relation": "sosa:hasFeatureOfInterest",
+            "broaderPartitive": "lucht:verbruikte_stof",
+            "definition": "Installatie waarvoor het jaarlijkse stofverbruik wordt gerapporteerd.",
+            "inScheme": "conceptscheme:operationeel_lucht",
+            "note": "Installatie waarvoor het jaarlijkse stofverbruik wordt gerapporteerd.",
+            "prefLabel": "Installatie",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "relevantClass": "sosa:FeatureOfInterest",
+            "isVerplicht": "true",
+            "relevantRiepr": [
+                "riepr:Installatie"
+            ],
+            "_ui_first": "true"
+        },
+        {
             "id": "lucht:verbruikte_stof_naam",
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "lucht:verbruikte_stof_naam",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "rdfs:label",
             "broaderPartitive": "lucht:verbruikte_stof",
             "definition": "Naam van de verbruikte stof.",
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "note": "Naam van de verbruikte stof.",
             "prefLabel": "Naam",
             "isVerplicht": "true",
             "relevantDataType": "xsd:string",
-            "_ui_first": "true"
+            "_ui_after": "lucht:verbruikte_stof_installatie"
         },
         {
             "id": "lucht:verbruikte_stof_resultaat",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasResult",
             "broaderPartitive": "lucht:verbruikte_stof",
             "narrowerPartitive": [
@@ -4834,7 +5099,7 @@
                 "lucht:verbruikte_stof_hoeveelheid"
             ],
             "definition": "Het resultaatrecord van de gerapporteerde verbruikte stof.",
-            "inScheme": "conceptscheme:operationeel_lucht_rapportering",
+            "inScheme": "conceptscheme:operationeel_lucht",
             "note": "Het resultaatrecord van de gerapporteerde verbruikte stof.",
             "prefLabel": "Resultaat verbruikte stof",
             "status": "https://purl.archive.org/adms/status/Active",
@@ -4956,14 +5221,14 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:abnormale-lozing",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "narrowerPartitive": [
                 "water:abnormale-lozing-resultaat",
                 "water:abnormale-lozing-stof"
             ],
-            "inScheme": "conceptscheme:operationeel_water_lozing",
+            "inScheme": "conceptscheme:operationeel_water",
             "prefLabel": "Abnormale lozing",
-            "topConceptOf": "conceptscheme:operationeel_water_lozing",
+            "topConceptOf": "conceptscheme:operationeel_water",
             "relevantClass": "riepr:Observatie",
             "isMeervoudig": "true",
             "isVerplicht": "false",
@@ -4975,13 +5240,13 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:abnormale-lozing-jaarvracht",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "qudt:numericValue",
             "broaderPartitive": "water:abnormale-lozing-resultaat",
             "relevantUnit": [
                 "csor_eenheid:E_12"
             ],
-            "inScheme": "conceptscheme:operationeel_water_lozing",
+            "inScheme": "conceptscheme:operationeel_water",
             "prefLabel": "Jaarvracht",
             "drager": "csor_drager:DR_1",
             "kwantiteitsAspect": "csor_kwantificeerbaaraspect:KWA_2",
@@ -4996,13 +5261,13 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:abnormale-lozing-lozingsduur",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "water:abnormale-lozing-resultaat",
             "relevantUnit": [
                 "csor_eenheid:E_94"
             ],
-            "inScheme": "conceptscheme:operationeel_water_lozing",
+            "inScheme": "conceptscheme:operationeel_water",
             "prefLabel": "Lozingsduur",
             "relevantClass": "schema:PropertyValue",
             "isVerplicht": "true",
@@ -5014,7 +5279,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasResult",
             "broaderPartitive": "water:abnormale-lozing",
             "narrowerPartitive": [
@@ -5023,7 +5288,7 @@
                 "water:abnormale-lozing-verklaring"
             ],
             "definition": "Het resultaatrecord van de gerapporteerde abnormale lozing.",
-            "inScheme": "conceptscheme:operationeel_water_lozing",
+            "inScheme": "conceptscheme:operationeel_water",
             "note": "Het resultaatrecord van de gerapporteerde abnormale lozing.",
             "prefLabel": "Resultaat abnormale lozing",
             "status": "https://purl.archive.org/adms/status/Active",
@@ -5037,10 +5302,10 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:abnormale-lozing-stof",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:observedProperty",
             "broaderPartitive": "water:abnormale-lozing",
-            "inScheme": "conceptscheme:operationeel_water_lozing",
+            "inScheme": "conceptscheme:operationeel_water",
             "prefLabel": "Verontreinigende stof",
             "isVerplicht": "true",
             "relevantCodeList": [
@@ -5054,10 +5319,10 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:abnormale-lozing-verklaring",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "rdfs:comment",
             "broaderPartitive": "water:abnormale-lozing-resultaat",
-            "inScheme": "conceptscheme:operationeel_water_lozing",
+            "inScheme": "conceptscheme:operationeel_water",
             "prefLabel": "Verklaring",
             "relevantDataType": "xsd:string",
             "_ui_after": "water:abnormale-lozing-jaarvracht"
@@ -5067,16 +5332,22 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "water:feature",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasFeatureOfInterest",
-            "vervolgstap": "conceptscheme:operationeel_water_lozing",
-            "definition": "De controleinrichting waarop gerapporteed moet worden.",
+            "broaderPartitive": "water:lozing",
+            "definition": "De controleinrichting waarvoor de jaarlijkse lozing wordt gerapporteerd.",
             "inScheme": "conceptscheme:operationeel_water",
-            "note": "De controleinrichting waarop gerapporteed moet worden.",
+            "note": "De controleinrichting waarvoor de jaarlijkse lozing wordt gerapporteerd.",
             "prefLabel": "Controleinrichting",
-            "topConceptOf": "conceptscheme:operationeel_water",
             "relevantClass": "sosa:FeatureOfInterest",
-            "isMeervoudig": "true",
             "isVerplicht": "true",
+            "relevantFeatureClass": [
+                "riepr:Emissie"
+            ],
+            "relevantObservation": [
+                "water:lozing"
+            ],
             "relevantRiepr": [
                 "meetpunt:controleinrichting"
             ],
@@ -5088,19 +5359,18 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:lozing",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "narrowerPartitive": [
-                "water:lozing-procedure",
-                "water:lozing-concentratie",
-                "water:lozing-meetfrequentie",
-                "water:lozing-stof",
+                "water:feature",
+                "water:lozing-parameter",
                 "water:lozing-dagen",
-                "water:lozing-debiet",
-                "water:lozing-jaarvracht"
+                "water:lozing-debiet"
             ],
-            "inScheme": "conceptscheme:operationeel_water_lozing",
+            "definition": "Jaarlijkse lozing per controleinrichting met het jaardebiet en de gerapporteerde verontreinigende stoffen.",
+            "inScheme": "conceptscheme:operationeel_water",
+            "note": "Jaarlijkse lozing per controleinrichting met het jaardebiet en de gerapporteerde verontreinigende stoffen.",
             "prefLabel": "Lozing",
-            "topConceptOf": "conceptscheme:operationeel_water_lozing",
+            "topConceptOf": "conceptscheme:operationeel_water",
             "relevantClass": "riepr:ObservatieVerzameling",
             "isMeervoudig": "true",
             "isVerplicht": "true",
@@ -5115,10 +5385,10 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:lozing-bepalingsmethode",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "dcterms:type",
             "broaderPartitive": "water:lozing-procedure",
-            "inScheme": "conceptscheme:operationeel_water_lozing",
+            "inScheme": "conceptscheme:operationeel_water",
             "prefLabel": "Bepalingsmethode",
             "relevantCodeList": [
                 "conceptscheme:operationeel_bepalingsmethode"
@@ -5131,10 +5401,10 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:lozing-bepalingsmethodeclassificatie",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "water:lozing-procedure",
-            "inScheme": "conceptscheme:operationeel_water_lozing",
+            "inScheme": "conceptscheme:operationeel_water",
             "prefLabel": "Bepalingsmethodeclassificatie",
             "relevantClass": "schema:PropertyValue",
             "relevantCodeList": [
@@ -5148,18 +5418,21 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:lozing-concentratie",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
-            "broaderPartitive": "water:lozing",
+            "broaderPartitive": "water:lozing-parameter",
             "relevantUnit": [
                 "csor_eenheid:E_1"
             ],
-            "inScheme": "conceptscheme:operationeel_water_lozing",
+            "inScheme": "conceptscheme:operationeel_water",
             "prefLabel": "Gemiddelde concentratie",
             "relevantClass": "riepr:Observatie",
             "drager": "csor_drager:DR_1",
             "kwantiteitsAspect": "csor_kwantificeerbaaraspect:KWA_1",
             "relevantDataType": "xsd:decimal",
+            "relevantObservation": [
+                "water:lozing-parameter"
+            ],
             "soortWaartbepaling": "csor_soortwaardebepaling:SWB_1",
             "_ui_after": "water:lozing-meetfrequentie",
             "variabele": "water:lozing-stof"
@@ -5170,17 +5443,20 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:lozing-dagen",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "water:lozing",
             "relevantUnit": [
                 "csor_eenheid:E_83"
             ],
-            "inScheme": "conceptscheme:operationeel_water_lozing",
+            "inScheme": "conceptscheme:operationeel_water",
             "prefLabel": "Aantal dagen per jaar",
             "relevantClass": "riepr:Observatie",
             "isVerplicht": "true",
             "relevantDataType": "xsd:integer",
+            "relevantObservation": [
+                "water:lozing"
+            ],
             "_ui_after": "water:lozing-debiet"
         },
         {
@@ -5189,18 +5465,21 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:lozing-debiet",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "water:lozing",
             "relevantUnit": [
                 "csor_eenheid:E_50"
             ],
-            "inScheme": "conceptscheme:operationeel_water_lozing",
+            "inScheme": "conceptscheme:operationeel_water",
             "prefLabel": "Debiet per jaar",
             "relevantClass": "riepr:Observatie",
             "isVerplicht": "true",
             "relevantDataType": "xsd:decimal",
-            "_ui_first": "true"
+            "relevantObservation": [
+                "water:lozing"
+            ],
+            "_ui_after": "water:feature"
         },
         {
             "id": "water:lozing-jaarvracht",
@@ -5208,18 +5487,21 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:lozing-jaarvracht",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
-            "broaderPartitive": "water:lozing",
+            "broaderPartitive": "water:lozing-parameter",
             "relevantUnit": [
                 "csor_eenheid:E_12"
             ],
-            "inScheme": "conceptscheme:operationeel_water_lozing",
+            "inScheme": "conceptscheme:operationeel_water",
             "prefLabel": "Totale jaarvracht",
             "relevantClass": "riepr:Observatie",
             "drager": "csor_drager:DR_1",
             "kwantiteitsAspect": "csor_kwantificeerbaaraspect:KWA_2",
             "relevantDataType": "xsd:decimal",
+            "relevantObservation": [
+                "water:lozing-parameter"
+            ],
             "soortWaartbepaling": "csor_soortwaardebepaling:SWB_1",
             "_ui_after": "water:lozing-concentratie",
             "variabele": "water:lozing-stof"
@@ -5229,34 +5511,71 @@
             "_type": [
                 "skos:Concept"
             ],
-            "relation": "dcterms:accrualPeriodicity",
-            "broaderPartitive": "water:lozing",
-            "inScheme": "conceptscheme:operationeel_water_lozing",
+            "isVersionOf": "water:lozing-meetfrequentie",
+            "modified": "2026-11-06T10:44:53.594Z",
+            "relation": "schema:additionalProperty",
+            "broaderPartitive": "water:lozing-parameter",
+            "definition": "Aantal metingen van deze stof tijdens het rapporteringsjaar.",
+            "inScheme": "conceptscheme:operationeel_water",
+            "note": "Aantal metingen van deze stof tijdens het rapporteringsjaar.",
             "prefLabel": "Meetfrequentie",
-            "relevantCodeList": [
-                "conceptscheme:operationeel_zelfcontrole_meetfrequentie"
+            "relevantClass": "schema:PropertyValue",
+            "relevantDataType": "xsd:integer",
+            "relevantObservation": [
+                "water:lozing-parameter"
             ],
-            "relevantDataType": "xsd:decimal",
-            "_ui_after": "water:lozing-stof"
+            "_ui_after": "water:lozing-stof",
+            "minValue": "0"
+        },
+        {
+            "id": "water:lozing-parameter",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-06T10:44:53.594Z",
+            "relation": "sosa:hasMember",
+            "broaderPartitive": "water:lozing",
+            "narrowerPartitive": [
+                "water:lozing-procedure",
+                "water:lozing-concentratie",
+                "water:lozing-meetfrequentie",
+                "water:lozing-stof",
+                "water:lozing-jaarvracht"
+            ],
+            "definition": "De concentratie en de jaarvracht van een verontreinigende stof in de jaarlijkse lozing.",
+            "inScheme": "conceptscheme:operationeel_water",
+            "note": "De concentratie en de jaarvracht van een verontreinigende stof in de jaarlijkse lozing.",
+            "prefLabel": "Stoffen in waterstromen",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "relevantClass": "riepr:ObservatieVerzameling",
+            "isMeervoudig": "true",
+            "isVerplicht": "true",
+            "relevantObservation": [
+                "water:lozing"
+            ],
+            "_ui_after": "water:lozing-dagen"
         },
         {
             "id": "water:lozing-procedure",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:usedProcedure",
-            "broaderPartitive": "water:lozing",
+            "broaderPartitive": "water:lozing-parameter",
             "narrowerPartitive": [
                 "water:lozing-bepalingsmethode",
                 "water:lozing-bepalingsmethodeclassificatie"
             ],
             "definition": "De gedeelde bepalingsprocedure met de bepalingsmethode en de bijbehorende classificatie.",
-            "inScheme": "conceptscheme:operationeel_water_lozing",
+            "inScheme": "conceptscheme:operationeel_water",
             "note": "De gedeelde bepalingsprocedure met de bepalingsmethode en de bijbehorende classificatie.",
             "prefLabel": "Bepalingsprocedure",
             "status": "https://purl.archive.org/adms/status/Active",
             "relevantClass": "sosa:Procedure",
+            "relevantObservation": [
+                "water:lozing-parameter"
+            ],
             "_ui_after": "water:lozing-jaarvracht"
         },
         {
@@ -5265,17 +5584,20 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:lozing-stof",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "schema:additionalProperty",
-            "broaderPartitive": "water:lozing",
-            "inScheme": "conceptscheme:operationeel_water_lozing",
+            "broaderPartitive": "water:lozing-parameter",
+            "inScheme": "conceptscheme:operationeel_water",
             "prefLabel": "Verontreinigende stof",
             "relevantClass": "schema:PropertyValue",
             "isVerplicht": "true",
             "relevantCodeList": [
                 "collectie:operationeel_stoffen_water"
             ],
-            "_ui_after": "water:lozing-dagen"
+            "relevantObservation": [
+                "water:lozing-parameter"
+            ],
+            "_ui_first": "true"
         },
         {
             "id": "zelfcontrole-lucht:datum",
@@ -5381,7 +5703,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-lucht:parameter",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "zelfcontrole-lucht:meting",
             "narrowerPartitive": [
@@ -5400,7 +5722,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-lucht:parameter-concentratie",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "qudt:numericValue",
             "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
             "relevantUnit": [
@@ -5421,7 +5743,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-lucht:parameter-meetfrequentie",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "dcterms:accrualPeriodicity",
             "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht_meting",
@@ -5437,7 +5759,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-lucht:parameter-meetonzekerheid",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
             "relevantUnit": [
@@ -5459,7 +5781,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-lucht:parameter-parameter",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:observedProperty",
             "broaderPartitive": "zelfcontrole-lucht:parameter",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht_meting",
@@ -5475,7 +5797,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasResult",
             "broaderPartitive": "zelfcontrole-lucht:parameter",
             "narrowerPartitive": [
@@ -5499,7 +5821,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-lucht:parameter-soort",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht_meting",
@@ -5549,7 +5871,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:labo",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:madeBySensor",
             "broaderPartitive": "zelfcontrole-water:meting",
             "narrowerPartitive": [
@@ -5594,7 +5916,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:meting",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "narrowerPartitive": [
                 "zelfcontrole-water:datum",
                 "zelfcontrole-water:labo",
@@ -5613,7 +5935,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:parameter",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "zelfcontrole-water:meting",
             "narrowerPartitive": [
@@ -5632,7 +5954,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:parameter-concentratie",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "qudt:numericValue",
             "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
             "relevantUnit": [
@@ -5653,7 +5975,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:parameter-meetfrequentie",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "dcterms:accrualPeriodicity",
             "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_water_meting",
@@ -5669,7 +5991,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:parameter-meetonzekerheid",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
             "relevantUnit": [
@@ -5691,7 +6013,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:parameter-parameter",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:observedProperty",
             "broaderPartitive": "zelfcontrole-water:parameter",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_water_meting",
@@ -5707,7 +6029,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "relation": "sosa:hasResult",
             "broaderPartitive": "zelfcontrole-water:parameter",
             "narrowerPartitive": [
@@ -5731,7 +6053,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:parameter-soort",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_water_meting",
@@ -6325,7 +6647,7 @@
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "definition": "Een aanduiding of de meetwaarde boven of onder de detectielimiet ligt.",
             "hasTopConcept": [
                 "grondwater:detectiegrens-boven",
@@ -6362,8 +6684,14 @@
             "_type": [
                 "skos:ConceptScheme"
             ],
+            "isVersionOf": "conceptscheme:operationeel_lucht",
+            "modified": "2026-11-06T10:44:53.594Z",
             "hasTopConcept": [
-                "lucht:feature_ep"
+                "lucht:afvalproduct",
+                "lucht:geproduceerde_stof",
+                "lucht:brandstof",
+                "lucht:emissie",
+                "lucht:verbruikte_stof"
             ],
             "prefLabel": "Operationele gegevens"
         },
@@ -6372,37 +6700,31 @@
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "hasTopConcept": [
-                "lucht:feature_bron"
-            ]
+            "isVersionOf": "conceptscheme:operationeel_lucht_bron",
+            "modified": "2026-11-06T10:44:53.594Z"
         },
         {
             "id": "conceptscheme:operationeel_lucht_emissie",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "hasTopConcept": [
-                "lucht:emissie"
-            ]
+            "isVersionOf": "conceptscheme:operationeel_lucht_emissie",
+            "modified": "2026-11-06T10:44:53.594Z"
         },
         {
             "id": "conceptscheme:operationeel_lucht_rapportering",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "hasTopConcept": [
-                "lucht:afvalproduct",
-                "lucht:geproduceerde_stof",
-                "lucht:brandstof",
-                "lucht:verbruikte_stof"
-            ]
+            "isVersionOf": "conceptscheme:operationeel_lucht_rapportering",
+            "modified": "2026-11-06T10:44:53.594Z"
         },
         {
             "id": "conceptscheme:operationeel_materiaalcodes",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "definition": "Tijdelijke keuzelijst voor materiaalcodes waarvan de definitieve opties nog moeten worden toegevoegd.",
             "note": "Tijdelijke keuzelijst voor materiaalcodes waarvan de definitieve opties nog moeten worden toegevoegd.",
             "prefLabel": "Materiaalcodes (tijdelijk)",
@@ -6468,22 +6790,23 @@
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "definition": "Selecteer de controleinrichting waarop je de lozing wil rapporteren.",
+            "isVersionOf": "conceptscheme:operationeel_water",
+            "modified": "2026-11-06T10:44:53.594Z",
+            "definition": "Rapporteer de jaarlijkse waterstromen met hun verontreinigende stoffen en de abnormale lozingen.",
             "hasTopConcept": [
-                "water:feature"
+                "water:abnormale-lozing",
+                "water:lozing"
             ],
-            "note": "Selecteer de controleinrichting waarop je de lozing wil rapporteren.",
-            "prefLabel": "Operationele gegevens"
+            "note": "Rapporteer de jaarlijkse waterstromen met hun verontreinigende stoffen en de abnormale lozingen.",
+            "prefLabel": "Operationele gegevens water"
         },
         {
             "id": "conceptscheme:operationeel_water_lozing",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "hasTopConcept": [
-                "water:abnormale-lozing",
-                "water:lozing"
-            ]
+            "isVersionOf": "conceptscheme:operationeel_water_lozing",
+            "modified": "2026-11-06T10:44:53.594Z"
         },
         {
             "id": "conceptscheme:operationeel_zelfcontrole_lucht",
@@ -6530,7 +6853,7 @@
                 "skos:ConceptScheme"
             ],
             "isVersionOf": "conceptscheme:operationeel_zelfcontrole_water_meting",
-            "modified": "2026-11-05T13:48:39.224Z",
+            "modified": "2026-11-06T10:44:53.594Z",
             "hasTopConcept": [
                 "zelfcontrole-water:meting"
             ]
@@ -6718,7 +7041,7 @@
             "_type": [
                 "rdfs:Resource"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "status": "https://purl.archive.org/adms/status/Active"
         },
         {
@@ -6732,7 +7055,7 @@
             "_type": [
                 "rdfs:Resource"
             ],
-            "created": "2026-11-05T13:48:39.224Z",
+            "created": "2026-11-06T10:44:53.594Z",
             "status": "https://purl.archive.org/adms/status/Active"
         }
     ]

@@ -133,13 +133,20 @@ describe('relevantCodeList', () => {
 })
 
 describe('relevantUnit', () => {
-  it('elke eenheid is een CSOR-eenheid of de TODO-plaatshouder', () => {
+  it('elke eenheid is een CSOR-eenheid, een gevulde eenhedencollectie of de TODO-plaatshouder', () => {
     const onbekend: string[] = []
     for (const row of rows) {
       for (const ref of (row.relevantUnit ?? '').split(',').map((value) => value.trim()).filter(Boolean)) {
         if (ref === 'http://TODO') continue
         if (ref.startsWith('csor_eenheid:')) {
           if (!CSOR[ref]) onbekend.push(`${row._id} → ${ref}`)
+          continue
+        }
+        if (ref.startsWith('collectie:')) {
+          const leden = result.collections.get(ref) ?? []
+          if (!leden.length || leden.some(lid => !lid.startsWith('csor_eenheid:') || !CSOR[lid])) {
+            onbekend.push(`${row._id} → ${ref}`)
+          }
           continue
         }
         onbekend.push(`${row._id} → ${ref}`)

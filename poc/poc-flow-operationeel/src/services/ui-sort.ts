@@ -40,36 +40,30 @@ export function sortByUiOrder(fields: Concept[]): Concept[] {
 
 /**
  * Sorts a group of sibling fields by their relative UI ordering annotations
- * (_uiFirst, _uiAfter), with conditionPath-dependent fields placed last so a
- * field renders after the trigger that controls its visibility.
+ * (_uiFirst, _uiAfter), ensuring each conditional field follows its trigger
+ * without moving unrelated fields ahead of the declared ordering chain.
  * @param fields - Array of sibling fields at the same hierarchy level.
- * @returns Sorted array with condition-dependent fields appended last.
+ * @returns Sorted array respecting UI and same-level condition dependencies.
  */
 export function applyUiOrdering(fields: Concept[]): Concept[] {
-  // First resolve condition dependencies so conditional fields render after triggers
-  const conditionMap = new Map<string, string>()
-  for (const f of fields) {
-    if (f.conditionPath && f.conditionValue) {
-      conditionMap.set(f.conditionPath, f.id)
+  const byId = new Map(fields.map(field => [field.id, field]))
+  const visiting = new Set<string>()
+  const done = new Set<string>()
+  const ordered: Concept[] = []
+  const append = (field: Concept): void => {
+    if (done.has(field.id)) return
+    if (visiting.has(field.id)) throw new Error(`Cyclic UI/condition ordering at ${field.id}.`)
+    visiting.add(field.id)
+    for (const id of [field.uiAfter, field.conditionPath]) {
+      const previous = id ? byId.get(id) : undefined
+      if (previous) append(previous)
     }
+    visiting.delete(field.id)
+    done.add(field.id)
+    ordered.push(field)
   }
-
-  const independent: Concept[] = []
-  const dependent: Concept[] = []
-
-  for (const f of fields) {
-    if (!f.conditionPath || !conditionMap.has(f.conditionPath)) {
-      independent.push(f)
-    } else {
-      dependent.push(f)
-    }
-  }
-
-  // Apply relative UI ordering within each group
-  const sortedIndependent = sortByUiOrder(independent)
-  const sortedDependent = sortByUiOrder(dependent)
-
-  return [...sortedIndependent, ...sortedDependent]
+  sortByUiOrder(fields).forEach(append)
+  return ordered
 }
 
 /**

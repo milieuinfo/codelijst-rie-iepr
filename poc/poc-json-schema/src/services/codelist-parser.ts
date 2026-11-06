@@ -60,8 +60,23 @@ export class CodelistParser {
     }
 
     const expander = this.curieExpander
+    const entries = data['x-reporting-entries']
+    let reportingEntries: CodelistResult['reportingEntries']
+    if (entries !== undefined) {
+      if (!Array.isArray(entries) || !entries.length) throw new Error('Invalid reporting entries: expected a nonempty array.')
+      reportingEntries = entries.map((value: unknown) => {
+        if (!value || typeof value !== 'object') throw new Error('Invalid reporting entries: expected an object.')
+        const { schemeId, slug, label } = value as Record<string, unknown>
+        if (typeof schemeId !== 'string' || !schemeId || typeof label !== 'string' || !label ||
+            typeof slug !== 'string' || !/^[a-z0-9][a-z0-9_-]*$/.test(slug)) {
+          throw new Error('Invalid reporting entries: schemeId, slug and label are required.')
+        }
+        return { schemeId, slug, label }
+      })
+    }
     const result: CodelistResult = {
       reportingProfile: typeof data['x-source-profile'] === 'string' ? data['x-source-profile'] : undefined,
+      reportingEntries,
       nodesById,
       schemes,
       concepts,
@@ -189,6 +204,9 @@ export class CodelistParser {
     concept.relevantFeatureClass = this.idsOf(this.getValue(node, ['relevantFeatureClass']))
     concept.tableWorkbook = node._table_workbook as string | undefined
     concept.tableSheet = node._table_sheet as string | undefined
+    concept.tableKey = this.idsOf(node._table_key)
+    concept.referenceParent = this.idOf(this.getValue(node, ['referenceParent']))
+    concept.referenceRelation = this.idOf(this.getValue(node, ['referenceRelation']))
     concept.tableOrder = typeof node._table_order === 'number' ? node._table_order : undefined
 
     const rawRelation = this.getValue(node, ['relation'])

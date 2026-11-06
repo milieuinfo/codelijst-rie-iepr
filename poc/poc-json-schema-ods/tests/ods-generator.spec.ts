@@ -5,12 +5,243 @@ import { ODSImporter } from '../src/services/ods-importer.js';
 import { readOdf, odfCell, columnLetter } from '../src/services/odf.js';
 import { WorkbookError } from '../src/models/tabular-plan.js';
 import { workbookMetadata } from '../src/services/workbook-metadata.js';
+import { layoutColumns, parentKeyComponents } from '../src/services/workbook-layout.js';
 import { array, cells, identifier, instance, modifyTable, object, plan, reportingSchema, row, text } from './fixtures.js';
 
 const generator = new ODSGenerator();
 const importer = new ODSImporter();
+const codeConcept = 'urn:source:code';
+const tagsConcept = 'urn:source:tags';
+
+function keyedPlan(business = true, withSourceDependency = false) {
+  const parent = object({
+    code: { ...text, title: 'Code', enum: ['urn:code:a', 'urn:code:b'], 'x-source-concept': codeConcept },
+    ...(withSourceDependency ? {
+      source: {
+        ...text, title: 'Source', 'x-source-concept': 'urn:source:selector',
+        'x-reference-types': ['urn:type:source'],
+        'x-reference-dependency': { sourceConcept: codeConcept, relation: 'urn:relation:point' },
+      },
+    } : {}),
+    tags: {
+      ...array({ ...text, enum: ['urn:tag:x', 'urn:tag:y'] }),
+      title: 'Tags', 'x-source-concept': tagsConcept,
+    },
+    children: array(object({
+      enabled: { type: 'boolean', title: 'Enabled' },
+      value: { type: 'number', title: 'Value' },
+    }, { required: ['enabled', 'value'] }), 'Children'),
+  }, { 'x-table-key': [codeConcept, tagsConcept] });
+  return plan(object({
+    parents: array(parent, 'Parents'),
+  }, { ...(business ? { 'x-table-workbook': 'synthetic' } : {}), required: ['parents'] }));
+}
 
 describe('Versioned, reversible ODS workbooks', () => {
+  it('validates source-to-point dependencies when importing composite-key records', async () => {
+    const compiled = keyedPlan(true, true);
+    const references = [
+      { id: 'urn:code:a', label: 'Point A', types: ['urn:type:point'] },
+      { id: 'urn:code:b', label: 'Point B', types: ['urn:type:point'] },
+      { id: 'urn:selection:connected', label: 'Connected source', types: ['urn:type:source'],
+        relations: { 'urn:relation:point': ['urn:code:a'] } },
+      { id: 'urn:selection:disconnected', label: 'Disconnected source', types: ['urn:type:source'],
+        relations: { 'urn:relation:point': ['urn:code:b'] } },
+    ];
+    const data = { parents: [{
+      code: 'urn:code:a', source: 'urn:selection:connected', tags: ['urn:tag:x'],
+      children: [{ enabled: false, value: 0 }],
+    }] };
+    const workbook = await generator.generate({ plan: compiled, data, references });
+    expect(await importer.import(workbook, compiled)).toEqual(data);
+    const parent = compiled.records.find(record => record.sheetName === 'Parents')!;
+    const source = parent.columns.find(column => column.path[0] === 'source')!;
+    const disconnected = await modifyTable(workbook, parent.sheetName, rows => {
+      const values = cells(rows[3]);
+      values[layoutColumns(compiled, parent).indexOf(source.id)] = odfCell('Disconnected source');
+      return [...rows.slice(0, 3), row(values), ...rows.slice(4)];
+    });
+    await expect(importer.import(disconnected, compiled)).rejects.toThrow(
+      /urn:selection:disconnected is not connected to the selected urn:source:code through urn:relation:point/,
+    );
+  });
+
+  it('links children through typed source-declared composite keys without copying them into JSON', async () => {
+    const compiled = keyedPlan();
+    const data = { parents: [{ code: 'urn:code:a', tags: ['urn:tag:x', 'urn:tag:y'], children: [
+      { enabled: false, value: 0 },
+    ] }] };
+    const workbook = await generator.generate({
+      plan: compiled, data,
+      label: value => value === 'urn:code:a' ? 'Code A' : value === 'urn:tag:x' ? 'Tag X' :
+        value === 'urn:tag:y' ? 'Tag Y' : value,
+    });
+    const tables = await readOdf(workbook);
+    const metadata = workbookMetadata(JSON.parse(tables.find(table => table.name === '_riepr')!.rows.slice(1)
+      .map(row => row.cells[0].text).join('')));
+    const child = compiled.records.find(record => record.sheetName === 'Children')!;
+    const keys = parentKeyComponents(compiled, child);
+    expect(tables.find(table => table.name === 'Children')!.rows[2].cells.slice(0, 2).map(cell => cell.text))
+      .toEqual(['Code', 'Tags']);
+    expect(tables.find(table => table.name === 'Children')!.rows[3].cells.slice(0, 2).map(cell => cell.text))
+      .toEqual(['Code A', '["Tag X","Tag Y"]']);
+    expect(metadata.jsonMapping[child.id].parentKeyPaths).toEqual({
+      [codeConcept]: '/code', [tagsConcept]: '/tags',
+    });
+    expect(keys.map(key => key.column.title)).toEqual(['Code', 'Tags']);
+    expect(await importer.import(workbook, compiled)).toEqual(data);
+    expect(JSON.stringify(await importer.import(workbook, compiled))).not.toContain('x-table-key');
+  });
+
+  it('supports blank templates, new rows, zero/false, fixed choices and unordered array key identity', async () => {
+    const compiled = keyedPlan();
+    let workbook = await generator.generate({ plan: compiled });
+    const parent = compiled.records.find(record => record.sheetName === 'Parents')!;
+    const child = compiled.records.find(record => record.sheetName === 'Children')!;
+    const childKeys = parentKeyComponents(compiled, child);
+    expect(await importer.import(workbook, compiled)).toEqual({ parents: [] });
+    workbook = await modifyTable(workbook, 'Parents', rows => {
+      const values = cells(rows[3]);
+      values[layoutColumns(compiled, parent).indexOf(parent.columns.find(column => column.schema['x-source-concept'] === codeConcept)!.id)] = odfCell('urn:code:a');
+      values[layoutColumns(compiled, parent).indexOf(parent.columns.find(column => column.schema['x-source-concept'] === tagsConcept)!.id)] = odfCell('["urn:tag:x","urn:tag:y"]');
+      return [...rows.slice(0, 3), row(values), ...rows.slice(4)];
+    });
+    workbook = await modifyTable(workbook, 'Children', rows => {
+      const values = cells(rows[3]);
+      values[layoutColumns(compiled, child).indexOf(childKeys[0].id)] = odfCell('urn:code:a');
+      values[layoutColumns(compiled, child).indexOf(childKeys[1].id)] = odfCell('["urn:tag:y","urn:tag:x"]');
+      values[layoutColumns(compiled, child).indexOf(child.columns.find(column => column.path[0] === 'enabled')!.id)] = odfCell(false);
+      values[layoutColumns(compiled, child).indexOf(child.columns.find(column => column.path[0] === 'value')!.id)] = odfCell(0);
+      return [...rows.slice(0, 3), row(values), ...rows.slice(4)];
+    });
+    expect(await importer.import(workbook, compiled)).toEqual({
+      parents: [{ code: 'urn:code:a', tags: ['urn:tag:x', 'urn:tag:y'], children: [{ enabled: false, value: 0 }] }],
+    });
+    const xml = await (await JSZip.loadAsync(workbook)).file('content.xml')!.async('string');
+    expect(xml).toContain('table:name="Parents"');
+    expect(xml).toContain('table:content-validation-name="_key_');
+  });
+
+  it('uses the same key links in generic sheets after sorting and inserting rows', async () => {
+    const compiled = keyedPlan(false);
+    const data = { parents: [
+      { code: 'urn:code:a', tags: ['urn:tag:x'], children: [{ enabled: false, value: 1 }] },
+      { code: 'urn:code:b', tags: ['urn:tag:y'], children: [{ enabled: true, value: 2 }] },
+    ] };
+    let workbook = await generator.generate({ plan: compiled, data });
+    const child = compiled.records.find(record => record.sheetName === 'Children')!;
+    const components = parentKeyComponents(compiled, child);
+    workbook = await modifyTable(workbook, 'Parents', rows => [
+      ...rows.slice(0, 3), rows[4], rows[3], ...rows.slice(5),
+    ]);
+    workbook = await modifyTable(workbook, 'Children', rows => {
+      const newRow = cells(rows[5]);
+      for (const component of components) {
+        const index = layoutColumns(compiled, child).indexOf(component.id);
+        newRow[index] = cells(rows[3])[index];
+      }
+      newRow[layoutColumns(compiled, child).indexOf(child.columns.find(column => column.path[0] === 'enabled')!.id)] = odfCell(false);
+      newRow[layoutColumns(compiled, child).indexOf(child.columns.find(column => column.path[0] === 'value')!.id)] = odfCell(3);
+      return [...rows.slice(0, 3), rows[3], row(newRow), rows[4], ...rows.slice(6)];
+    });
+    const result = await importer.import(workbook, compiled) as typeof data;
+    expect(result.parents.map(item => item.code)).toEqual(['urn:code:b', 'urn:code:a']);
+    expect(result.parents[0].children).toEqual([{ enabled: true, value: 2 }]);
+    expect(result.parents[1].children).toEqual([{ enabled: false, value: 1 }, { enabled: false, value: 3 }]);
+  });
+
+  it('rejects duplicate parent keys, missing components and orphan or ambiguous child keys', async () => {
+    const compiled = keyedPlan();
+    const duplicateData = { parents: [
+      { code: 'urn:code:a', tags: ['urn:tag:x'], children: [] },
+      { code: 'urn:code:a', tags: ['urn:tag:x'], children: [] },
+    ] };
+    await expect(generator.generate({ plan: compiled, data: duplicateData })).rejects.toThrow(/components must be unique/);
+    await expect(generator.generate({ plan: compiled, data: { parents: [{ tags: ['urn:tag:x'] }] } }))
+      .rejects.toThrow(/invalid x-table-key/);
+    await expect(generator.generate({ plan: compiled, data: {
+      parents: [{ code: 'urn:code:a', tags: ['urn:tag:x', 'urn:tag:x'] }],
+    } })).rejects.toThrow(/duplicate elements/);
+    await expect(generator.generate({ plan: compiled, data: { parents: [{ code: 'urn:code:a', tags: [] }] } }))
+      .rejects.toThrow(/invalid x-table-key/);
+    const original = await generator.generate({ plan: compiled, data: {
+      parents: [{ code: 'urn:code:a', tags: ['urn:tag:x'], children: [{ enabled: true, value: 1 }] }],
+    } });
+    const child = compiled.records.find(record => record.sheetName === 'Children')!;
+    const childKey = parentKeyComponents(compiled, child)[0];
+    const orphan = await modifyTable(original, 'Children', rows => {
+      const values = cells(rows[3]);
+      values[layoutColumns(compiled, child).indexOf(childKey.id)] = odfCell('urn:code:b');
+      return [...rows.slice(0, 3), row(values), ...rows.slice(4)];
+    });
+    await expect(importer.import(orphan, compiled)).rejects.toThrow(/orphan parent x-table-key/);
+    const missingChildKey = await modifyTable(original, 'Children', rows => {
+      const values = cells(rows[3]);
+      values[layoutColumns(compiled, child).indexOf(parentKeyComponents(compiled, child)[1].id)] = odfCell('[]');
+      return [...rows.slice(0, 3), row(values), ...rows.slice(4)];
+    });
+    await expect(importer.import(missingChildKey, compiled)).rejects.toThrow(/Missing or invalid child x-table-key/);
+    const duplicate = await modifyTable(original, 'Parents', rows => {
+      const parent = compiled.records.find(record => record.sheetName === 'Parents')!;
+      const values = cells(rows[3]);
+      const second = cells(rows[4]);
+      for (const component of parentKeyComponents(compiled, child)) {
+        const index = layoutColumns(compiled, parent).indexOf(component.column.id);
+        second[index] = values[index];
+      }
+      return [...rows.slice(0, 4), row(second), ...rows.slice(4)];
+    });
+    await expect(importer.import(duplicate, compiled)).rejects.toThrow(/Duplicate parent x-table-key/);
+  });
+
+  it('rejects composite key declarations that resolve to quantities or non-visible objects', async () => {
+    const quantity = 'urn:source:quantity';
+    const quantityPlan = plan(object({
+      parents: array(object({
+        quantity: object({
+          numericValue: { type: 'number', 'x-source-concept': quantity },
+          hasUnit: text,
+        }),
+        children: array(object({ value: text }), 'Children'),
+      }, { 'x-table-key': [quantity] }), 'Parents'),
+    }, { 'x-table-workbook': 'synthetic' }));
+    await expect(generator.generate({ plan: quantityPlan })).rejects.toThrow(/scalar or scalar inline array/);
+    const complex = 'urn:source:complex';
+    const complexPlan = plan(object({
+      parents: array(object({
+        detail: { ...object({ value: text }), 'x-source-concept': complex },
+        children: array(object({ value: text }), 'Children'),
+      }, { 'x-table-key': [complex] }), 'Parents'),
+    }, { 'x-table-workbook': 'synthetic' }));
+    await expect(generator.generate({ plan: complexPlan })).rejects.toThrow(/exactly one visible input column/);
+  });
+
+  it('preserves reference relations in transport metadata for dependency validation', async () => {
+    const dependency = { sourceConcept: 'urn:source:owner', relation: 'urn:relation:owner' };
+    const compiled = plan(object({
+      owner: { ...text, 'x-source-concept': dependency.sourceConcept },
+      selection: { ...text, 'x-reference-types': ['urn:type:selection'], 'x-reference-dependency': dependency },
+    }, { required: ['owner', 'selection'] }));
+    const references = [
+      { id: 'urn:owner:1', label: 'Owner', types: ['urn:type:owner'] },
+      { id: 'urn:selection:1', label: 'Selection', types: ['urn:type:selection'],
+        relations: { [dependency.relation]: ['urn:owner:1'] } },
+    ];
+    const workbook = await generator.generate({
+      plan: compiled, data: { owner: 'urn:owner:1', selection: 'urn:selection:1' }, references,
+    });
+    const tables = await readOdf(workbook);
+    const metadata = workbookMetadata(JSON.parse(tables.find(table => table.name === '_riepr')!.rows.slice(1)
+      .map(row => row.cells[0].text).join('')));
+    expect(metadata.references[1].relations).toEqual({ [dependency.relation]: ['urn:owner:1'] });
+    expect(await importer.import(workbook, compiled)).toEqual({ owner: 'urn:owner:1', selection: 'urn:selection:1' });
+    const disconnected = structuredClone(metadata);
+    disconnected.references[1].relations = { [dependency.relation]: ['urn:other'] };
+    const changed = await modifyTable(workbook, '_riepr', rows =>
+      [rows[0], row([odfCell(JSON.stringify(disconnected))])]);
+    await expect(importer.import(changed, compiled)).rejects.toThrow(/not connected to the selected/);
+  });
+
   it('uses escaped JSON pointers and detects altered column, row and parent mappings', async () => {
     const compiled = plan(object({ 'a/b': array(object({ identifier, 'x~y': text }), 'Escaped') }));
     const data = { 'a/b': [{ identifier: '0001', 'x~y': 'text' }] };

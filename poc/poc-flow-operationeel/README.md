@@ -12,20 +12,45 @@ From the repository root, prepare the generator and its snapshot:
 npm --prefix poc/poc-json-schema ci
 npm --prefix poc/poc-json-schema run predev
 npm --prefix poc/poc-json-schema run build
-npm --prefix poc/poc-json-schema run generate -- --theme Grondwater
+npm --prefix poc/poc-json-schema run generate
 npm --prefix poc/poc-json-schema-ods ci
 cd poc/poc-flow-operationeel
 pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-The active generator reads only the groundwater reporting CSV and its supporting
-choice lists, with a direct concept-scheme entry point (no `thematypes.csv`).
+The active generator reads the groundwater, air and water reporting CSVs and supporting
+choice lists, with direct concept-scheme entry points (no `thematypes.csv`).
 Strict generation remains the default; the current source generates all three
-groundwater sections. `--allow-incomplete` reports blocked sections, but cannot
+groundwater sections, five air sections and two water sections. Select a production year, then
+`Lucht` and `Emissie` to test point/source selections, emission context and nested
+pollutant results, including the matching `lucht-emissies.ods` download/import.
+Choose `Verbruikte brandstof`, `Verbruikte stof`, `Geproduceerde stof` or
+`Afvalproduct` for annual material reporting per installation, each with a separate
+downloadable/importable ODS template. Composition is optional; fuel uses GJ and
+optional 0–100% sulfur/ash. Other material quantities offer the shared seven units.
+Select `Water` -> `Lozing` for annual flow/days per control point with expandable
+pollutant rows, numeric measurement frequency and concentration/load results.
+Its `water-lozingen.ods` template has `Waterstromen` and `Stoffen in waterstromen`
+linked by the control-point selection. `Abnormale lozing` has a separate
+`water-abnormale-lozingen.ods` download/import. Existing units and choice lists
+are retained; water use, standalone method declarations, totals and balances
+remain deferred.
+Keep `--theme` omitted during generation so all themes remain indexed.
+Air is not yet Teepak-complete: emission-context material references, self-control, missing pollutant
+quantities/methods and improvements remain deferred. Sources are not yet
+filtered to the selected point because that relationship is not declared.
+`--allow-incomplete` reports blocked sections, but cannot
 publish an entirely blocked snapshot. See the [generator contract](../poc-json-schema/README.md).
 The Dutch [end-to-end mapping guide](../../README.md#van-csv-naar-json-schema-ui-en-ods)
 explains how to interpret the CSV columns and derive the schema, form and workbook.
+
+The active UI and downloadable ODS templates share demonstration references from
+`../poc-json-schema/examples/refs.json`, including identities, labels and types.
+The UI adapts these fictional instances to the selected reporting year; it does
+not generate additional choices from the legacy mock-data service. After changing
+the shared examples, regenerate the personalized schemas and run `npm run sync:schemas`
+to refresh the downloadable ODS lookup lists.
 
 Dev/build hooks rebuild the linked schema runtime, verify and synchronize the
 existing generated snapshot, generate matching downloadable ODS templates,
@@ -48,6 +73,13 @@ explicitly. `pnpm sync:schemas` performs just the schema runtime build and sync.
   rather than building a second type-based choice list. Structural validation
   uses the same personal schema; semantic validation still checks actual selected
   parents, shared observation context and other cross-field rules.
+  Source-authored `referenceParent`/`referenceRelation` dependencies additionally
+  filter structural dropdowns against the actual parent selection in that row.
+  Connection data comes from the supplied reference snapshot's predicate-keyed
+  `relations`, not from `vervolgstap`. Changing the parent preserves an invalid
+  child draft for correction; validation never silently substitutes a choice.
+  Conditional source fields respect the complete `_ui_after` chain and follow
+  their trigger, rather than being moved to the end of the form.
 - Select a production year, theme and indexed reporting section. Download
   buttons provide its blank ODS template, exact **generic JSON Schema**, and
   a **personal JSON Schema** for the selected year/current reference snapshot.
@@ -58,7 +90,7 @@ explicitly. `pnpm sync:schemas` performs just the schema runtime build and sync.
   Templates contain the published choice lists and fictional structural
   references from the shared examples, not the current in-memory UI draft.
   ODS workbooks use Teepak-style green headers, readable column widths and
-  date formats. Dropdowns use fixed cross-sheet ranges; the `Monster` dropdown
+  date formats. Dropdowns use fixed cross-sheet ranges; the `Monsternummer` dropdown
   reads new monsternummers directly from `Monsters`. Single-cell multiselects
   allow a JSON array after confirming the spreadsheet warning.
 - Singleton details are columns. A left-hand expand button opens repeated
