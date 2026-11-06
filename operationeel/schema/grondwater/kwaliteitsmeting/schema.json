@@ -241,7 +241,7 @@
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-parameter",
                       "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
                       "x-table-sheet": "Meetresultaten",
-                      "x-table-order": 30,
+                      "x-table-order": 31,
                       "x-relevant-observations": [
                         "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten"
                       ],
@@ -438,7 +438,7 @@
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten",
                   "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
-                  "x-table-order": 31,
+                  "x-table-order": 30,
                   "x-relevant-observations": [
                     "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting"
                   ],
@@ -490,7 +490,7 @@
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-parameter",
                       "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
                       "x-table-sheet": "Meetresultaten",
-                      "x-table-order": 30,
+                      "x-table-order": 31,
                       "x-relevant-observations": [
                         "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten"
                       ],
@@ -597,7 +597,10 @@
         "x-table-sheet": "Monsters",
         "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#ObservatieVerzameling",
         "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting",
-        "x-table-order": 3,
+        "x-table-key": [
+          "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-monsternummer"
+        ],
+        "x-table-order": 20,
         "title": "Kwaliteitsmeting",
         "description": "Een kwaliteitsmeting van een pomp- of peilput.",
         "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
@@ -620,7 +623,7 @@
               "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
               "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
               "x-table-sheet": "Meetresultaten",
-              "x-table-order": 31
+              "x-table-order": 30
             }
           }
         ],
@@ -649,7 +652,7 @@
       "x-array-kind": "records",
       "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
       "x-table-sheet": "Monsters",
-      "x-table-order": 3
+      "x-table-order": 20
     }
   },
   "additionalProperties": false,

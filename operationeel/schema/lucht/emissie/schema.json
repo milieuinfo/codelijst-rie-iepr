@@ -1,0 +1,1374 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.riepr.omgeving.vlaanderen.be/schema/2026/observatie/lucht/emissie/schema.json",
+  "title": "Emissie",
+  "type": "object",
+  "properties": {
+    "emissie": {
+      "type": "array",
+      "title": "Emissie",
+      "items": {
+        "type": "object",
+        "properties": {
+          "featureEp": {
+            "type": "string",
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/feature_ep",
+            "x-table-workbook": "lucht-emissies.ods",
+            "x-table-sheet": "Emissiegehelen",
+            "x-table-order": 37,
+            "x-relevant-observations": [
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie"
+            ],
+            "x-relevant-feature-classes": [
+              "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
+            ],
+            "x-reference-types": [
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/emissiepunt_lucht"
+            ],
+            "x-jsonld-type": "@id",
+            "x-feature-mapping": {
+              "relation": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
+              "classes": [
+                "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
+              ],
+              "referenceTypes": [
+                "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/emissiepunt_lucht"
+              ]
+            },
+            "title": "Emissiepunt",
+            "description": "Selecteer het emissiepunt waarop je wil rapporteren.",
+            "x-ui-first": true
+          },
+          "featureBron": {
+            "type": "array",
+            "title": "Bron(nen)",
+            "items": {
+              "type": "string",
+              "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/feature_bron",
+              "x-table-workbook": "lucht-emissies.ods",
+              "x-table-sheet": "Emissiegehelen",
+              "x-table-order": 38,
+              "x-relevant-observations": [
+                "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie"
+              ],
+              "x-relevant-feature-classes": [
+                "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
+              ],
+              "x-reference-types": [
+                "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Installatie"
+              ],
+              "x-jsonld-type": "@id",
+              "x-feature-mapping": {
+                "relation": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
+                "classes": [
+                  "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
+                ],
+                "referenceTypes": [
+                  "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Installatie"
+                ]
+              },
+              "title": "Bron(nen)",
+              "description": "Selecteer de bron(nen) waarop je wil rapporteren.",
+              "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/feature_ep"
+            },
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/feature_bron",
+            "x-array-kind": "multiselect",
+            "minItems": 1,
+            "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/feature_ep",
+            "x-table-workbook": "lucht-emissies.ods",
+            "x-table-sheet": "Emissiegehelen",
+            "x-table-order": 38,
+            "x-ui-after": "featureEp"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissietype/abnormale",
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissietype/geleide",
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissietype/niet-geleide-fakkel",
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissietype/niet-geleide",
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissietype/niet-geleide-lekverlies",
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissietype/niet-geleide-opslagverlies",
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissietype/niet-geleide-overslagverlies"
+            ],
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissietype",
+            "x-table-workbook": "lucht-emissies.ods",
+            "x-table-sheet": "Emissiegehelen",
+            "x-table-order": 39,
+            "x-relevant-observations": [
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie"
+            ],
+            "x-code-lists": [
+              "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/emissietypes"
+            ],
+            "x-jsonld-id": "http://purl.org/dc/terms/type",
+            "x-jsonld-type": "@id",
+            "title": "Emissietype",
+            "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/feature_bron",
+            "x-ui-after": "featureBron"
+          },
+          "hasMember": {
+            "type": "array",
+            "title": "Observaties",
+            "minItems": 1,
+            "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "hasResult": {
+                      "type": "object",
+                      "properties": {
+                        "numericValue": {
+                          "type": "number",
+                          "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
+                          "x-table-order": 42,
+                          "title": "Vochtgehalte",
+                          "x-ui-first": true
+                        },
+                        "hasUnit": {
+                          "type": "string",
+                          "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43",
+                          "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43",
+                          "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
+                          "x-jsonld-type": "@id",
+                          "title": "Eenheid",
+                          "x-ui-after": "numericValue"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "dependentRequired": {
+                        "numericValue": [
+                          "hasUnit"
+                        ]
+                      },
+                      "required": [
+                        "numericValue",
+                        "hasUnit"
+                      ],
+                      "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
+                      "x-implicit-result": true,
+                      "x-ui-hidden-container": true,
+                      "title": "Vochtgehalte"
+                    },
+                    "observedProperty": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_vochtgehalte",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "hasResult",
+                    "observedProperty"
+                  ],
+                  "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_vochtgehalte",
+                  "x-table-workbook": "lucht-emissies.ods",
+                  "x-table-sheet": "Emissiegehelen",
+                  "x-table-order": 42,
+                  "x-relevant-observations": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie"
+                  ],
+                  "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                  "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
+                  "x-value-path": [
+                    "hasResult",
+                    "numericValue"
+                  ],
+                  "x-scalar-observation": true,
+                  "title": "Vochtgehalte",
+                  "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissietoestand",
+                  "x-ui-after": "emissietoestand"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "hasResult": {
+                      "type": "object",
+                      "properties": {
+                        "numericValue": {
+                          "type": "number",
+                          "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
+                          "x-table-order": 43,
+                          "title": "Zuurstofgehalte",
+                          "x-ui-first": true
+                        },
+                        "hasUnit": {
+                          "type": "string",
+                          "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43",
+                          "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43",
+                          "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
+                          "x-jsonld-type": "@id",
+                          "title": "Eenheid",
+                          "x-ui-after": "numericValue"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "dependentRequired": {
+                        "numericValue": [
+                          "hasUnit"
+                        ]
+                      },
+                      "required": [
+                        "numericValue",
+                        "hasUnit"
+                      ],
+                      "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
+                      "x-implicit-result": true,
+                      "x-ui-hidden-container": true,
+                      "title": "Zuurstofgehalte"
+                    },
+                    "observedProperty": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_zuurstofgehalte",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "hasResult",
+                    "observedProperty"
+                  ],
+                  "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_zuurstofgehalte",
+                  "x-table-workbook": "lucht-emissies.ods",
+                  "x-table-sheet": "Emissiegehelen",
+                  "x-table-order": 43,
+                  "x-relevant-observations": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie"
+                  ],
+                  "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                  "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
+                  "x-value-path": [
+                    "hasResult",
+                    "numericValue"
+                  ],
+                  "x-scalar-observation": true,
+                  "title": "Zuurstofgehalte",
+                  "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_vochtgehalte",
+                  "x-ui-after": "emissieVochtgehalte"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "hasResult": {
+                      "type": "object",
+                      "properties": {
+                        "numericValue": {
+                          "type": "number",
+                          "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
+                          "x-table-order": 44,
+                          "title": "Luchtoverschot",
+                          "x-ui-first": true
+                        },
+                        "hasUnit": {
+                          "type": "string",
+                          "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43",
+                          "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43",
+                          "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
+                          "x-jsonld-type": "@id",
+                          "title": "Eenheid",
+                          "x-ui-after": "numericValue"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "dependentRequired": {
+                        "numericValue": [
+                          "hasUnit"
+                        ]
+                      },
+                      "required": [
+                        "numericValue",
+                        "hasUnit"
+                      ],
+                      "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
+                      "x-implicit-result": true,
+                      "x-ui-hidden-container": true,
+                      "title": "Luchtoverschot"
+                    },
+                    "observedProperty": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_luchtoverschot",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "hasResult",
+                    "observedProperty"
+                  ],
+                  "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_luchtoverschot",
+                  "x-table-workbook": "lucht-emissies.ods",
+                  "x-table-sheet": "Emissiegehelen",
+                  "x-table-order": 44,
+                  "x-relevant-observations": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie"
+                  ],
+                  "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                  "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
+                  "x-value-path": [
+                    "hasResult",
+                    "numericValue"
+                  ],
+                  "x-scalar-observation": true,
+                  "title": "Luchtoverschot",
+                  "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_zuurstofgehalte",
+                  "x-ui-after": "emissieZuurstofgehalte"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "hasResult": {
+                      "type": "object",
+                      "properties": {
+                        "numericValue": {
+                          "type": "number",
+                          "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
+                          "x-table-order": 48,
+                          "title": "Temperatuur",
+                          "x-ui-first": true
+                        },
+                        "hasUnit": {
+                          "type": "string",
+                          "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_62",
+                          "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_62",
+                          "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
+                          "x-jsonld-type": "@id",
+                          "title": "Eenheid",
+                          "x-ui-after": "numericValue"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "dependentRequired": {
+                        "numericValue": [
+                          "hasUnit"
+                        ]
+                      },
+                      "required": [
+                        "numericValue",
+                        "hasUnit"
+                      ],
+                      "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
+                      "x-implicit-result": true,
+                      "x-ui-hidden-container": true,
+                      "title": "Temperatuur"
+                    },
+                    "observedProperty": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_temperatuur",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "hasResult",
+                    "observedProperty"
+                  ],
+                  "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_temperatuur",
+                  "x-table-workbook": "lucht-emissies.ods",
+                  "x-table-sheet": "Emissiegehelen",
+                  "x-table-order": 48,
+                  "x-relevant-observations": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie"
+                  ],
+                  "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                  "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
+                  "x-value-path": [
+                    "hasResult",
+                    "numericValue"
+                  ],
+                  "x-scalar-observation": true,
+                  "title": "Temperatuur",
+                  "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieduur",
+                  "x-ui-after": "emissieduur"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "observedProperty": {
+                      "type": "string",
+                      "enum": [
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1057",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1919",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1685",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1901",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1686",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1060",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_255",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1751",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_256"
+                      ],
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_parameter",
+                      "x-table-order": 51,
+                      "x-code-lists": [
+                        "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_lucht"
+                      ],
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "title": "Stof",
+                      "x-ui-first": true
+                    },
+                    "hasResult": {
+                      "type": "object",
+                      "properties": {
+                        "accrualPeriodicity": {
+                          "type": "string",
+                          "enum": [
+                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-meetfrequentie/test"
+                          ],
+                          "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_meetfrequentie",
+                          "x-table-order": 53,
+                          "x-code-lists": [
+                            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_meetfrequentie"
+                          ],
+                          "x-jsonld-id": "http://purl.org/dc/terms/accrualPeriodicity",
+                          "x-jsonld-type": "@id",
+                          "title": "Meetfrequentie",
+                          "x-ui-first": true
+                        },
+                        "numericValue": {
+                          "type": "number",
+                          "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_massastroom",
+                          "x-table-order": 55,
+                          "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                          "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
+                          "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#decimal",
+                          "x-kwantiteitsaspect": "https://data.omgeving.vlaanderen.be/id/concept/csor/kwantificeerbaaraspect/KWA_2",
+                          "x-drager": "https://data.omgeving.vlaanderen.be/id/concept/csor/drager/DR_8",
+                          "x-soortwaardebepaling": "https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/SWB_1",
+                          "title": "Massastroom",
+                          "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_standaardafwijking",
+                          "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_parameter",
+                          "x-ui-after": "additionalProperty",
+                          "x-variabele": "observedProperty",
+                          "x-variable-location": {
+                            "ancestorDepth": 1,
+                            "path": [
+                              "observedProperty"
+                            ]
+                          }
+                        },
+                        "hasUnit": {
+                          "type": "string",
+                          "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_13",
+                          "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_13",
+                          "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
+                          "x-jsonld-type": "@id",
+                          "title": "Eenheid",
+                          "x-ui-after": "numericValue"
+                        },
+                        "additionalProperty": {
+                          "type": "array",
+                          "title": "Aanvullende eigenschappen",
+                          "minItems": 1,
+                          "x-jsonld-id": "https://schema.org/additionalProperty",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": [
+                                  "propertyID",
+                                  "value",
+                                  "unitCode"
+                                ],
+                                "properties": {
+                                  "propertyID": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_standaardafwijking",
+                                    "x-jsonld-id": "https://schema.org/propertyID",
+                                    "x-jsonld-type": "@id",
+                                    "x-ui-hidden": true
+                                  },
+                                  "value": {
+                                    "type": "number",
+                                    "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_standaardafwijking",
+                                    "x-table-order": 54,
+                                    "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                                    "x-jsonld-id": "https://schema.org/value",
+                                    "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#decimal",
+                                    "x-kwantiteitsaspect": "https://data.omgeving.vlaanderen.be/id/concept/csor/kwantificeerbaaraspect/KWA_7",
+                                    "x-drager": "https://data.omgeving.vlaanderen.be/id/concept/csor/drager/DR_8",
+                                    "x-soortwaardebepaling": "https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/SWB_40",
+                                    "title": "Standaardafwijking"
+                                  },
+                                  "unitCode": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43",
+                                    "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43",
+                                    "x-jsonld-id": "https://schema.org/unitCode",
+                                    "x-jsonld-type": "@id",
+                                    "title": "Eenheid"
+                                  }
+                                },
+                                "x-jsonld-type": "https://schema.org/PropertyValue",
+                                "x-value-path": [
+                                  "value"
+                                ],
+                                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_standaardafwijking",
+                                "x-table-order": 54,
+                                "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                                "x-jsonld-id": "https://schema.org/additionalProperty",
+                                "x-kwantiteitsaspect": "https://data.omgeving.vlaanderen.be/id/concept/csor/kwantificeerbaaraspect/KWA_7",
+                                "x-drager": "https://data.omgeving.vlaanderen.be/id/concept/csor/drager/DR_8",
+                                "x-soortwaardebepaling": "https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/SWB_40",
+                                "title": "Standaardafwijking",
+                                "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_meetfrequentie",
+                                "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_parameter",
+                                "x-ui-after": "accrualPeriodicity",
+                                "x-variabele": "observedProperty",
+                                "x-variable-location": {
+                                  "ancestorDepth": 1,
+                                  "path": [
+                                    "observedProperty"
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          "allOf": [
+                            {
+                              "contains": {
+                                "type": "object",
+                                "required": [
+                                  "propertyID"
+                                ],
+                                "properties": {
+                                  "propertyID": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_standaardafwijking",
+                                    "x-jsonld-id": "https://schema.org/propertyID",
+                                    "x-jsonld-type": "@id",
+                                    "x-ui-hidden": true
+                                  }
+                                }
+                              },
+                              "minContains": 0,
+                              "maxContains": 1
+                            }
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "dependentRequired": {
+                        "numericValue": [
+                          "hasUnit"
+                        ]
+                      },
+                      "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_resultaat",
+                      "x-table-order": 52,
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
+                      "title": "Resultaat luchtparameter",
+                      "description": "Het resultaatrecord van de gerapporteerde verontreinigende stof of het broeikasgas.",
+                      "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_parameter",
+                      "x-ui-after": "observedProperty",
+                      "x-property-input-constraints": {
+                        "dependentRequired": {
+                          "numericValue": [
+                            "hasUnit"
+                          ]
+                        }
+                      },
+                      "required": [],
+                      "x-property-layout": [
+                        {
+                          "key": "additionalProperty",
+                          "repeatable": false,
+                          "required": false,
+                          "annotations": {}
+                        }
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "hasResult",
+                    "observedProperty"
+                  ],
+                  "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter",
+                  "x-table-order": 50,
+                  "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
+                  "title": "Verontreinigende stof of BKG",
+                  "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_debiet"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "hasResult": {
+                      "type": "object",
+                      "properties": {
+                        "numericValue": {
+                          "type": "number",
+                          "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
+                          "x-table-order": 49,
+                          "title": "Debiet",
+                          "description": "Volumedebiet van het rookgas in normaal kubieke meter per uur.",
+                          "x-ui-first": true
+                        },
+                        "hasUnit": {
+                          "type": "string",
+                          "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_175",
+                          "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_175",
+                          "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
+                          "x-jsonld-type": "@id",
+                          "title": "Eenheid",
+                          "x-ui-after": "numericValue"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "dependentRequired": {
+                        "numericValue": [
+                          "hasUnit"
+                        ]
+                      },
+                      "required": [
+                        "numericValue",
+                        "hasUnit"
+                      ],
+                      "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
+                      "x-implicit-result": true,
+                      "x-ui-hidden-container": true,
+                      "title": "Debiet"
+                    },
+                    "observedProperty": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_debiet",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "hasResult",
+                    "observedProperty"
+                  ],
+                  "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_debiet",
+                  "x-table-workbook": "lucht-emissies.ods",
+                  "x-table-sheet": "Emissiegehelen",
+                  "x-table-order": 49,
+                  "x-relevant-observations": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie"
+                  ],
+                  "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                  "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
+                  "x-value-path": [
+                    "hasResult",
+                    "numericValue"
+                  ],
+                  "x-scalar-observation": true,
+                  "title": "Debiet",
+                  "description": "Volumedebiet van het rookgas in normaal kubieke meter per uur.",
+                  "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_temperatuur",
+                  "x-ui-after": "emissieTemperatuur"
+                }
+              ]
+            },
+            "allOf": [
+              {
+                "contains": {
+                  "type": "object",
+                  "required": [
+                    "observedProperty"
+                  ],
+                  "properties": {
+                    "observedProperty": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_vochtgehalte",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    }
+                  }
+                },
+                "minContains": 0,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "type": "object",
+                  "required": [
+                    "observedProperty"
+                  ],
+                  "properties": {
+                    "observedProperty": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_zuurstofgehalte",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    }
+                  }
+                },
+                "minContains": 0,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "type": "object",
+                  "required": [
+                    "observedProperty"
+                  ],
+                  "properties": {
+                    "observedProperty": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_luchtoverschot",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    }
+                  }
+                },
+                "minContains": 0,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "type": "object",
+                  "required": [
+                    "observedProperty"
+                  ],
+                  "properties": {
+                    "observedProperty": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_temperatuur",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    }
+                  }
+                },
+                "minContains": 0,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "type": "object",
+                  "required": [
+                    "observedProperty"
+                  ],
+                  "properties": {
+                    "observedProperty": {
+                      "type": "string",
+                      "enum": [
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1057",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1919",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1685",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1901",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1686",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1060",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_255",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1751",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_256"
+                      ],
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_parameter",
+                      "x-table-order": 51,
+                      "x-code-lists": [
+                        "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_lucht"
+                      ],
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "title": "Stof",
+                      "x-ui-first": true
+                    }
+                  }
+                },
+                "minContains": 0
+              },
+              {
+                "contains": {
+                  "type": "object",
+                  "required": [
+                    "observedProperty"
+                  ],
+                  "properties": {
+                    "observedProperty": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_debiet",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    }
+                  }
+                },
+                "minContains": 0,
+                "maxContains": 1
+              }
+            ]
+          },
+          "additionalProperty": {
+            "type": "array",
+            "title": "Aanvullende eigenschappen",
+            "minItems": 1,
+            "x-jsonld-id": "https://schema.org/additionalProperty",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "propertyID",
+                    "value"
+                  ],
+                  "properties": {
+                    "propertyID": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieritme",
+                      "x-jsonld-id": "https://schema.org/propertyID",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    },
+                    "value": {
+                      "type": "string",
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieritme",
+                      "x-table-workbook": "lucht-emissies.ods",
+                      "x-table-sheet": "Emissiegehelen",
+                      "x-table-order": 45,
+                      "x-relevant-observations": [
+                        "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie"
+                      ],
+                      "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                      "x-jsonld-id": "https://schema.org/value",
+                      "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                      "title": "Emissieritme"
+                    }
+                  },
+                  "x-jsonld-type": "https://schema.org/PropertyValue",
+                  "x-value-path": [
+                    "value"
+                  ],
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieritme",
+                  "x-table-workbook": "lucht-emissies.ods",
+                  "x-table-sheet": "Emissiegehelen",
+                  "x-table-order": 45,
+                  "x-relevant-observations": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie"
+                  ],
+                  "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                  "x-jsonld-id": "https://schema.org/additionalProperty",
+                  "title": "Emissieritme",
+                  "description": "Beschrijving van hoeveel tijd er per tijdseenheid wordt geemitteerd, bijvoorbeeld 8 uur per dag.",
+                  "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_luchtoverschot",
+                  "x-ui-after": "emissieLuchtoverschot"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "propertyID",
+                    "value"
+                  ],
+                  "properties": {
+                    "propertyID": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieperiode",
+                      "x-jsonld-id": "https://schema.org/propertyID",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    },
+                    "value": {
+                      "type": "string",
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieperiode",
+                      "x-table-workbook": "lucht-emissies.ods",
+                      "x-table-sheet": "Emissiegehelen",
+                      "x-table-order": 46,
+                      "x-relevant-observations": [
+                        "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie"
+                      ],
+                      "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                      "x-jsonld-id": "https://schema.org/value",
+                      "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                      "title": "Emissieperiode"
+                    }
+                  },
+                  "x-jsonld-type": "https://schema.org/PropertyValue",
+                  "x-value-path": [
+                    "value"
+                  ],
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieperiode",
+                  "x-table-workbook": "lucht-emissies.ods",
+                  "x-table-sheet": "Emissiegehelen",
+                  "x-table-order": 46,
+                  "x-relevant-observations": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie"
+                  ],
+                  "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                  "x-jsonld-id": "https://schema.org/additionalProperty",
+                  "title": "Emissieperiode",
+                  "description": "Beschrijving van wanneer er wordt geemitteerd, bijvoorbeeld elke dag van maandag tot vrijdag gedurende 220 dagen per jaar.",
+                  "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieritme",
+                  "x-ui-after": "emissieritme"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "propertyID",
+                    "value",
+                    "unitCode"
+                  ],
+                  "properties": {
+                    "propertyID": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieduur",
+                      "x-jsonld-id": "https://schema.org/propertyID",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    },
+                    "value": {
+                      "type": "integer",
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieduur",
+                      "x-table-workbook": "lucht-emissies.ods",
+                      "x-table-sheet": "Emissiegehelen",
+                      "x-table-order": 47,
+                      "x-relevant-observations": [
+                        "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie"
+                      ],
+                      "x-source-datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                      "x-jsonld-id": "https://schema.org/value",
+                      "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#integer",
+                      "title": "Emissieduur"
+                    },
+                    "unitCode": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_94",
+                      "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_94",
+                      "x-jsonld-id": "https://schema.org/unitCode",
+                      "x-jsonld-type": "@id",
+                      "title": "Eenheid"
+                    }
+                  },
+                  "x-jsonld-type": "https://schema.org/PropertyValue",
+                  "x-value-path": [
+                    "value"
+                  ],
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieduur",
+                  "x-table-workbook": "lucht-emissies.ods",
+                  "x-table-sheet": "Emissiegehelen",
+                  "x-table-order": 47,
+                  "x-relevant-observations": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie"
+                  ],
+                  "x-source-datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                  "x-jsonld-id": "https://schema.org/additionalProperty",
+                  "title": "Emissieduur",
+                  "description": "Totaal aantal uren dat er tijdens het rapporteringsjaar werd geemitteerd.",
+                  "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieperiode",
+                  "x-ui-after": "emissieperiode"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "propertyID",
+                    "value"
+                  ],
+                  "properties": {
+                    "propertyID": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissietoestand",
+                      "x-jsonld-id": "https://schema.org/propertyID",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    },
+                    "value": {
+                      "type": "string",
+                      "enum": [
+                        "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toestand-indicator/nat",
+                        "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toestand-indicator/droog"
+                      ],
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissietoestand",
+                      "x-table-workbook": "lucht-emissies.ods",
+                      "x-table-sheet": "Emissiegehelen",
+                      "x-table-order": 41,
+                      "x-relevant-observations": [
+                        "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie"
+                      ],
+                      "x-code-lists": [
+                        "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_toestand_indicator"
+                      ],
+                      "x-jsonld-id": "https://schema.org/value",
+                      "x-jsonld-type": "@id",
+                      "title": "Toestand indicator"
+                    }
+                  },
+                  "x-jsonld-type": "https://schema.org/PropertyValue",
+                  "x-value-path": [
+                    "value"
+                  ],
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissietoestand",
+                  "x-table-workbook": "lucht-emissies.ods",
+                  "x-table-sheet": "Emissiegehelen",
+                  "x-table-order": 41,
+                  "x-relevant-observations": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie"
+                  ],
+                  "x-code-lists": [
+                    "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_toestand_indicator"
+                  ],
+                  "x-jsonld-id": "https://schema.org/additionalProperty",
+                  "title": "Toestand indicator",
+                  "description": "Geeft aan of de gerapporteerde rookgaswaarden betrekking hebben op nat of droog rookgas.",
+                  "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_oorzaak",
+                  "x-ui-after": "emissieOorzaak"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "propertyID",
+                    "value"
+                  ],
+                  "properties": {
+                    "propertyID": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_oorzaak",
+                      "x-jsonld-id": "https://schema.org/propertyID",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    },
+                    "value": {
+                      "type": "string",
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_oorzaak",
+                      "x-table-workbook": "lucht-emissies.ods",
+                      "x-table-sheet": "Emissiegehelen",
+                      "x-table-order": 40,
+                      "x-relevant-observations": [
+                        "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie"
+                      ],
+                      "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                      "x-jsonld-id": "https://schema.org/value",
+                      "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                      "title": "Oorzaak abnormale emissie"
+                    }
+                  },
+                  "x-jsonld-type": "https://schema.org/PropertyValue",
+                  "x-value-path": [
+                    "value"
+                  ],
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_oorzaak",
+                  "x-table-workbook": "lucht-emissies.ods",
+                  "x-table-sheet": "Emissiegehelen",
+                  "x-table-order": 40,
+                  "x-relevant-observations": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie"
+                  ],
+                  "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                  "x-jsonld-id": "https://schema.org/additionalProperty",
+                  "title": "Oorzaak abnormale emissie",
+                  "description": "Beschrijving van de oorzaak van de abnormale emissie.",
+                  "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissietype",
+                  "x-ui-after": "type",
+                  "x-visible-when": {
+                    "sourceConcept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissietype",
+                    "values": [
+                      "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissietype/abnormale"
+                    ]
+                  }
+                }
+              ]
+            },
+            "allOf": [
+              {
+                "contains": {
+                  "type": "object",
+                  "required": [
+                    "propertyID"
+                  ],
+                  "properties": {
+                    "propertyID": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieritme",
+                      "x-jsonld-id": "https://schema.org/propertyID",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    }
+                  }
+                },
+                "minContains": 0,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "type": "object",
+                  "required": [
+                    "propertyID"
+                  ],
+                  "properties": {
+                    "propertyID": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieperiode",
+                      "x-jsonld-id": "https://schema.org/propertyID",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    }
+                  }
+                },
+                "minContains": 0,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "type": "object",
+                  "required": [
+                    "propertyID"
+                  ],
+                  "properties": {
+                    "propertyID": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieduur",
+                      "x-jsonld-id": "https://schema.org/propertyID",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    }
+                  }
+                },
+                "minContains": 0,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "type": "object",
+                  "required": [
+                    "propertyID"
+                  ],
+                  "properties": {
+                    "propertyID": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissietoestand",
+                      "x-jsonld-id": "https://schema.org/propertyID",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    }
+                  }
+                },
+                "minContains": 0,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "type": "object",
+                  "required": [
+                    "propertyID"
+                  ],
+                  "properties": {
+                    "propertyID": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_oorzaak",
+                      "x-jsonld-id": "https://schema.org/propertyID",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
+                    }
+                  }
+                },
+                "minContains": 0,
+                "maxContains": 1
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "featureEp",
+          "featureBron",
+          "hasMember"
+        ],
+        "x-table-sheet": "Emissiegehelen",
+        "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#ObservatieVerzameling",
+        "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie",
+        "x-table-workbook": "lucht-emissies.ods",
+        "x-table-key": [
+          "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/feature_ep",
+          "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/feature_bron"
+        ],
+        "x-table-order": 36,
+        "x-relevant-feature-classes": [
+          "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
+        ],
+        "title": "Emissie",
+        "x-ui-first": true,
+        "allOf": [
+          {
+            "if": {
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissietype/abnormale"
+                }
+              }
+            },
+            "else": {
+              "properties": {},
+              "allOf": [
+                {
+                  "properties": {
+                    "additionalProperty": {
+                      "items": {
+                        "if": {
+                          "type": "object",
+                          "required": [
+                            "propertyID"
+                          ],
+                          "properties": {
+                            "propertyID": {
+                              "type": "string",
+                              "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_oorzaak",
+                              "x-jsonld-id": "https://schema.org/propertyID",
+                              "x-jsonld-type": "@id",
+                              "x-ui-hidden": true
+                            }
+                          }
+                        },
+                        "then": {
+                          "not": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "x-member-layout": [
+          {
+            "key": "emissieVochtgehalte",
+            "repeatable": false,
+            "required": false,
+            "annotations": {}
+          },
+          {
+            "key": "emissieZuurstofgehalte",
+            "repeatable": false,
+            "required": false,
+            "annotations": {}
+          },
+          {
+            "key": "emissieLuchtoverschot",
+            "repeatable": false,
+            "required": false,
+            "annotations": {}
+          },
+          {
+            "key": "emissieTemperatuur",
+            "repeatable": false,
+            "required": false,
+            "annotations": {}
+          },
+          {
+            "key": "emissieParameter",
+            "repeatable": true,
+            "required": false,
+            "annotations": {
+              "type": "array",
+              "title": "Verontreinigende stof of BKG",
+              "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter",
+              "x-array-kind": "records",
+              "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_debiet",
+              "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
+              "x-table-order": 50,
+              "x-ui-after": "emissieDebiet"
+            }
+          },
+          {
+            "key": "emissieDebiet",
+            "repeatable": false,
+            "required": false,
+            "annotations": {}
+          }
+        ],
+        "x-property-input-constraints": {
+          "allOf": [
+            {
+              "if": {
+                "required": [
+                  "type"
+                ],
+                "properties": {
+                  "type": {
+                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissietype/abnormale"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "emissieOorzaak": {
+                    "not": {}
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "x-property-layout": [
+          {
+            "key": "emissieritme",
+            "repeatable": false,
+            "required": false,
+            "annotations": {}
+          },
+          {
+            "key": "emissieperiode",
+            "repeatable": false,
+            "required": false,
+            "annotations": {}
+          },
+          {
+            "key": "emissieduur",
+            "repeatable": false,
+            "required": false,
+            "annotations": {}
+          },
+          {
+            "key": "emissietoestand",
+            "repeatable": false,
+            "required": false,
+            "annotations": {}
+          },
+          {
+            "key": "emissieOorzaak",
+            "repeatable": false,
+            "required": false,
+            "annotations": {}
+          }
+        ]
+      },
+      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie",
+      "x-array-kind": "records",
+      "x-ui-first": true,
+      "x-table-workbook": "lucht-emissies.ods",
+      "x-table-sheet": "Emissiegehelen",
+      "x-table-order": 36
+    }
+  },
+  "additionalProperties": false,
+  "x-theme-concept": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
+  "x-theme-slug": "lucht",
+  "x-theme-label": "Lucht",
+  "x-semantic-profile": "https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/",
+  "x-flow-transitions": [],
+  "x-section-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie",
+  "x-table-workbook": "lucht-emissies.ods"
+}
