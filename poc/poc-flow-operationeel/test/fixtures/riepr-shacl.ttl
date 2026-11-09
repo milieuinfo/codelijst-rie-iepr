@@ -1,0 +1,1170 @@
+@prefix :           <https://data.riepr.omgeving.vlaanderen.be/ns/riepr#> .
+@prefix adms:       <http://www.w3.org/ns/adms#> .
+@prefix concept:    <https://data.riepr.omgeving.vlaanderen.be/id/concept/> .
+@prefix csor:       <https://data.omgeving.vlaanderen.be/ns/csor#> .
+@prefix dbo:        <http://dbpedia.org/ontology/> .
+@prefix dct:        <http://purl.org/dc/terms/> .
+@prefix dossier:    <https://data.vlaanderen.be/ns/dossier#> .
+@prefix foaf:       <http://xmlns.com/foaf/0.1/> .
+@prefix hydra:      <http://www.w3.org/ns/hydra/core#> .
+@prefix locn:       <http://www.w3.org/ns/locn#> .
+@prefix nace:       <http://data.europa.eu/ux2/nace2.1/> .
+@prefix oa:         <http://www.w3.org/ns/oa#> .
+@prefix ogc:        <http://www.opengis.net/ont/geosparql#> .
+@prefix org:        <http://www.w3.org/ns/org#> .
+@prefix owl:        <http://www.w3.org/2002/07/owl#> .
+@prefix pplan:      <http://purl.org/net/p-plan#> .
+@prefix prov:       <http://www.w3.org/ns/prov#> .
+@prefix qb:         <http://purl.org/linked-data/cube#> .
+@prefix qudt:       <http://qudt.org/schema/qudt/> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:         <http://www.w3.org/ns/shacl#> .
+@prefix skos:       <http://www.w3.org/2004/02/skos/core#> .
+@prefix sosa:       <http://www.w3.org/ns/sosa/> .
+@prefix sosa-2023:  <http://www.w3.org/ns/sosa/> .
+@prefix ssn:        <http://www.w3.org/ns/ssn/> .
+@prefix ssn-system: <http://www.w3.org/ns/ssn/systems/> .
+@prefix st:         <https://data.riepr.omgeving.vlaanderen.be/id/concept/status/> .
+@prefix vann:       <http://purl.org/vocab/vann/> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+
+:ExploitatieShape  rdf:type  sh:NodeShape;
+        sh:property     [ sh:description  "Een exploitatie kan een hoofdactiviteit hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         org:classification
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een exploitatie moet een modificatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:modified
+                        ];
+        sh:property     [ sh:description  "Een exploitatie moet een benaming hebben"@nl;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         rdfs:label
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een exploitatie kan een geldigheid einde hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:valid
+                        ];
+        sh:property     [ sh:class        :Proces;
+                          sh:description  "Een exploitatie implementeert een proces"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         ssn:implements
+                        ];
+        sh:property     [ sh:class        :Aangifte;
+                          sh:description  "Een exploitatie kan verbonden zijn aan een enkele aangifte"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :aangifte
+                        ];
+        sh:property     [ sh:class        adms:Status;
+                          sh:description  "Een exploitatie heeft een status"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         adms:status
+                        ];
+        sh:property     [ sh:class        adms:Identifier;
+                          sh:description  "Een exploitatie kan externe identificaties hebben (optioneel)"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         adms:identifier
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een exploitatie moet een geldigheid start hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:issued
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een exploitatie moet een creatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:created
+                        ];
+        sh:property     [ sh:class        ssn:System;
+                          sh:description  "Een exploitatie zet systemen in"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         ssn:deployedSystem
+                        ];
+        sh:property     [ sh:class        :Exploitatielocatie;
+                          sh:description  "Een exploitatie wordt op een bepaalde exploitatielocatie uitgevoerd"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         ssn:deployedOnPlatform
+                        ];
+        sh:targetClass  :Exploitatie .
+
+:RubriekShape  rdf:type  sh:NodeShape;
+        sh:property     [ sh:description  "Een rubriek kan een primaire bron hebben (VITO, ...)"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         prov:hadPrimarySource
+                        ];
+        sh:property     [ sh:description  "Een rubriek moet een code hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         skos:notation
+                        ];
+        sh:property     [ sh:description  "Een rubriek kan een beschrijving hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         skos:definition
+                        ];
+        sh:property     [ sh:description  "Een rubriek kan een typering hebben via dct:type"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:type
+                        ];
+        sh:targetClass  :Rubriek .
+
+:EmissieShape  rdf:type  sh:NodeShape;
+        sh:property     [ sh:minCount  "0"^^xsd:integer;
+                          sh:or        ( [ sh:class  sosa-2023:Observation ]
+                                         [ sh:class  sosa-2023:ObservationCollection ]
+                                       );
+                          sh:path      sosa-2023:isFeatureOfInterestOf
+                        ];
+        sh:property     [ sh:class        :Proces;
+                          sh:description  "Een emissie moet gekoppeld zijn aan een proces"@nl;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         prov:wasDerivedFrom
+                        ];
+        sh:targetClass  :Emissie .
+
+:ProcesvariabeleShape
+        rdf:type        sh:NodeShape;
+        sh:property     [ sh:description  "Een proces variabele kan een benaming hebben"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         rdfs:label
+                        ];
+        sh:property     [ sh:description  "Een proces variabele kan een waarde hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         qudt:numericValue
+                        ];
+        sh:property     [ sh:description  "Een proces variabele kan een eenheid hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         qudt:hasUnit
+                        ];
+        sh:property     [ sh:class     :Proces;
+                          sh:minCount  "0"^^xsd:integer;
+                          sh:path      [ sh:inversePath  pplan:hasOutputVar ]
+                        ];
+        sh:property     [ sh:class     :Proces;
+                          sh:minCount  "0"^^xsd:integer;
+                          sh:path      pplan:isInputVarOf
+                        ];
+        sh:property     [ sh:description  "Een proces variabele kan een typering hebben via dct:type"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:type
+                        ];
+        sh:targetClass  :Procesvariabele .
+
+ogc:GeometryShape  rdf:type  sh:NodeShape;
+        sh:property     [ sh:datatype     ogc:wktLiteral;
+                          sh:description  "Een geometrie heeft exact 1 WKT-serialisatie"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         ogc:asWKT
+                        ];
+        sh:targetClass  ogc:Geometry .
+
+:ContactpersoonShape  rdf:type  sh:NodeShape;
+        sh:property     [ sh:description  "Contactpersonen moeten een naam hebben"@nl;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         foaf:name
+                        ];
+        sh:property     [ sh:description  "Contactpersonen kunnen een telefoonnummer hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         foaf:phone
+                        ];
+        sh:property     [ sh:description  "Contactpersonen moeten een functie hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:type
+                        ];
+        sh:property     [ sh:description  "Contactpersonen kunnen een e-mail adres hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         foaf:mbox
+                        ];
+        sh:property     [ sh:class        :Exploitatie;
+                          sh:description  "Contactpersonen moeten gekoppeld zijn aan exact één exploitant"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         oa:hasTarget
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Contactpersonen kunnen een modificatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:modified
+                        ];
+        sh:property     [ sh:description  "Contactpersonen kunnen een opmerking hebben"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         rdfs:comment
+                        ];
+        sh:property     [ sh:datatype  xsd:dateTime;
+                          sh:maxCount  "1"^^xsd:integer;
+                          sh:minCount  "1"^^xsd:integer;
+                          sh:path      dct:created
+                        ];
+        sh:targetClass  :Contactpersoon .
+
+:AangifteShape  rdf:type  sh:NodeShape;
+        sh:property     [ sh:description  "Een aangifte heeft een informatie classificatie."@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dossier:informatieclassificatie
+                        ];
+        sh:property     [ sh:description  "Een aangifte heeft betrekking tot een enkele exploitatie."@nl;
+                          sh:path         dct:subject
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een aangifte kan een datum van goedkeuring hebben."@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:modified
+                        ];
+        sh:property     [ sh:class        :Aangiftebundel;
+                          sh:description  "Een aangifte kan deel zijn van een andere bundel."@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:isPartOf
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een aangifte heeft een datum van indiening."@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:created
+                        ];
+        sh:targetClass  :Aangifte .
+
+:FilterShape  rdf:type  sh:NodeShape;
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een systeem moet een modificatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:modified
+                        ];
+        sh:property     [ sh:class        adms:Identifier;
+                          sh:description  "Een systeem heeft externe identificaties (optioneel)"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         adms:identifier
+                        ];
+        sh:property     [ sh:class        ogc:Geometry;
+                          sh:description  "Een systeem mag max 1 geometrie hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         ogc:hasGeometry
+                        ];
+        sh:property     [ sh:description  "Een systeem moet een benaming hebben"@nl;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         rdfs:label
+                        ];
+        sh:property     [ sh:class     :Exploitatie;
+                          sh:minCount  "0"^^xsd:integer;
+                          sh:path      ssn:hasDeployment
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een systeem kan een geldigheid einde hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:valid
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een systeem moet een geldigheid start hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:issued
+                        ];
+        sh:property     [ sh:class        :Aangifte;
+                          sh:description  "Een filter kan verbonden zijn aan een enkele aangifte"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :aangifte
+                        ];
+        sh:property     [ sh:description  "Een filter kan een typering hebben via dct:type"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:type
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een filter kan een datum in gebruik tot hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :inGebruikTot
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een systeem moet een creatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:created
+                        ];
+        sh:property     [ sh:class        :Systeemeigenschap;
+                          sh:description  "Een filter kan meerdere eigenschappen hebben"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         ssn:hasProperty
+                        ];
+        sh:property     [ sh:class        adms:Status;
+                          sh:description  "Een systeem moet een enkele status hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         adms:status
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een filter moet een datum in gebruik vanaf hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         :inGebruikVanaf
+                        ];
+        sh:targetClass  :Filter .
+
+:VerbruikShape  rdf:type  sh:NodeShape;
+        sh:property     [ sh:minCount  "0"^^xsd:integer;
+                          sh:or        ( [ sh:class  sosa-2023:Observation ]
+                                         [ sh:class  sosa-2023:ObservationCollection ]
+                                       );
+                          sh:path      sosa-2023:isFeatureOfInterestOf
+                        ];
+        sh:property     [ sh:class        :Proces;
+                          sh:description  "Een verbruik moet gekoppeld zijn aan een proces"@nl;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         prov:wasDerivedFrom
+                        ];
+        sh:targetClass  :Verbruik .
+
+:OnttrekkingspuntShape
+        rdf:type        sh:NodeShape;
+        sh:property     [ sh:class        adms:Identifier;
+                          sh:description  "Een onttrekkingspunt heeft externe identificaties (optioneel)"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         adms:identifier
+                        ];
+        sh:property     [ sh:class        adms:Status;
+                          sh:description  "Een onttrekkingspunt moet een enkele status hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         adms:status
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een onttrekkingspunt moet een modificatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:modified
+                        ];
+        sh:property     [ sh:class        :Filter;
+                          sh:description  "Een onttrekkingspunt kan filters hebben"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         ssn:hasSubSystem
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een onttrekkingspunt kan een geldigheid einde hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:valid
+                        ];
+        sh:property     [ sh:class     :Exploitatie;
+                          sh:minCount  "0"^^xsd:integer;
+                          sh:path      ssn:hasDeployment
+                        ];
+        sh:property     [ sh:description  "Een onttrekkingspunt moet een benaming hebben"@nl;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         rdfs:label
+                        ];
+        sh:property     [ sh:class        :Aangifte;
+                          sh:description  "Een onttrekkingspunt kan verbonden zijn aan een enkele aangifte"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :aangifte
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een onttrekkingspunt kan een datum in gebruik tot hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :inGebruikTot
+                        ];
+        sh:property     [ sh:description  "Een systeem kan een typering hebben via dct:type"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:type
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een onttrekkingspunt moet een datum in gebruik vanaf hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         :inGebruikVanaf
+                        ];
+        sh:property     [ sh:class        ogc:Geometry;
+                          sh:description  "Een systeem mag max 1 geometrie hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         ogc:hasGeometry
+                        ];
+        sh:property     [ sh:class        :Systeemeigenschap;
+                          sh:description  "Een onttrekkingspunt kan meerdere eigenschappen hebben"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         ssn:hasProperty
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een onttrekkingspunt moet een creatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:created
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een onttrekkingspunt moet een geldigheid start hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:issued
+                        ];
+        sh:targetClass  :Onttrekkingspunt .
+
+:EmissiepuntShape  rdf:type  sh:NodeShape;
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een emissiepunt moet een geldigheid start hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:issued
+                        ];
+        sh:property     [ sh:description  "Een emissiepunt kan een typering hebben via dct:type"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:type
+                        ];
+        sh:property     [ sh:description  "Een emissiepunt moet een benaming hebben"@nl;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         rdfs:label
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een emissiepunt moet een datum in gebruik vanaf hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         :inGebruikVanaf
+                        ];
+        sh:property     [ sh:class        adms:Status;
+                          sh:description  "Een emissiepunt moet een enkele status hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         adms:status
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een emissiepunt kan een geldigheid einde hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:valid
+                        ];
+        sh:property     [ sh:class        ogc:Geometry;
+                          sh:description  "Een emissiepunt mag max 1 geometrie hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         ogc:hasGeometry
+                        ];
+        sh:property     [ sh:class        ssn:System;
+                          sh:description  "Een emissiepunt kan meerdere objecten bevatten."@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         ssn:hasSubSystem
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een emissiepunt moet een creatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:created
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een emissiepunt moet een modificatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:modified
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een emissiepunt kan een datum in gebruik tot hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :inGebruikTot
+                        ];
+        sh:property     [ sh:class        adms:Identifier;
+                          sh:description  "Een emissiepunt heeft externe identificaties (optioneel)"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         adms:identifier
+                        ];
+        sh:property     [ sh:class     :Exploitatie;
+                          sh:minCount  "0"^^xsd:integer;
+                          sh:path      ssn:hasDeployment
+                        ];
+        sh:property     [ sh:class        :Aangifte;
+                          sh:description  "Een emissiepunt kan verbonden zijn aan een enkele aangifte"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :aangifte
+                        ];
+        sh:property     [ sh:class        :Systeemeigenschap;
+                          sh:description  "Een emissiepunt kan meerdere eigenschappen hebben"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         ssn:hasProperty
+                        ];
+        sh:targetClass  :Emissiepunt .
+
+:AangiftebundelShape  rdf:type  sh:NodeShape;
+        sh:property     [ sh:class        adms:Status;
+                          sh:description  "Een aangifte heeft een status."@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         adms:status
+                        ];
+        sh:property     [ sh:description  "Een aangifte bundel heeft een typering."@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:type
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een aangifte kan een datum van goedkeuring hebben."@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:modified
+                        ];
+        sh:property     [ sh:class        :Exploitant;
+                          sh:description  "Een aangiftebundel is gelinkt aan de exploitant"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:creator
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een aangifte bundel heeft een datum van indiening."@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:created
+                        ];
+        sh:targetClass  :Aangiftebundel .
+
+:MeetpuntShape  rdf:type  sh:NodeShape;
+        sh:property     [ sh:description  "Een meetpunt moet een benaming hebben"@nl;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         rdfs:label
+                        ];
+        sh:property     [ sh:class        :Systeemeigenschap;
+                          sh:description  "Een meetpunt kan meerdere eigenschappen hebben"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         ssn:hasProperty
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een meetpunt kan een datum in gebruik tot hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :inGebruikTot
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een meetpunt moet een creatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:created
+                        ];
+        sh:property     [ sh:class     :Exploitatie;
+                          sh:minCount  "0"^^xsd:integer;
+                          sh:path      ssn:hasDeployment
+                        ];
+        sh:property     [ sh:class        :Aangifte;
+                          sh:description  "Een meetpunt kan verbonden zijn aan een enkele aangifte"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :aangifte
+                        ];
+        sh:property     [ sh:class        :Filter;
+                          sh:description  "Een meetpunt kan filters hebben"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         ssn:hasSubSystem
+                        ];
+        sh:property     [ sh:class        ogc:Geometry;
+                          sh:description  "Een meetpunt mag max 1 geometrie hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         ogc:hasGeometry
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een meetpunt moet een datum in gebruik vanaf hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         :inGebruikVanaf
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een meetpunt moet een geldigheid start hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:issued
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een meetpunt kan een geldigheid einde hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:valid
+                        ];
+        sh:property     [ sh:class        adms:Identifier;
+                          sh:description  "Een meetpunt heeft externe identificaties (optioneel)"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         adms:identifier
+                        ];
+        sh:property     [ sh:description  "Een meetpunt kan een typering hebben via dct:type"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:type
+                        ];
+        sh:property     [ sh:class        adms:Status;
+                          sh:description  "Een meetpunt moet een enkele status hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         adms:status
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een meetpunt kan een modificatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:modified
+                        ];
+        sh:targetClass  :Meetpunt .
+
+:OnttrekkingShape  rdf:type  sh:NodeShape;
+        sh:property     [ sh:minCount  "0"^^xsd:integer;
+                          sh:or        ( [ sh:class  sosa-2023:Observation ]
+                                         [ sh:class  sosa-2023:ObservationCollection ]
+                                       );
+                          sh:path      sosa-2023:isFeatureOfInterestOf
+                        ];
+        sh:property     [ sh:class        :Proces;
+                          sh:description  "Een onttrekking moet gekoppeld zijn aan een proces"@nl;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         prov:wasDerivedFrom
+                        ];
+        sh:targetClass  :Onttrekking .
+
+:ExploitatielocatieShape
+        rdf:type        sh:NodeShape;
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een exploitatielocatie moet een datum hebben waarop het is ingegeven"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:created
+                        ];
+        sh:property     [ sh:description  "Een exploitatielocatie moet een benaming hebben"@nl;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         rdfs:label
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een exploitatielocatie kan een geldigheid einde hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:valid
+                        ];
+        sh:property     [ sh:class        org:Site;
+                          sh:description  "Een exploitatielocatie kan overeenkomen met één vestiging (VKBO)"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         prov:hadPrimarySource
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een exploitatielocatie moet een geldigheid start hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:issued
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een exploitatielocatie kan een modificatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:modified
+                        ];
+        sh:property     [ sh:class        adms:Identifier;
+                          sh:description  "Een exploitatielocatie heeft externe identificaties (optioneel)"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         adms:identifier
+                        ];
+        sh:property     [ sh:class        :Aangifte;
+                          sh:description  "Een exploitatielocatie kan verbonden zijn aan een enkele aangifte"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :aangifte
+                        ];
+        sh:property     [ sh:class        locn:Address;
+                          sh:description  "Een exploitatielocatie kan een adres hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         locn:address
+                        ];
+        sh:property     [ sh:class        :Exploitant;
+                          sh:description  "Een exploitatielocatie moet gekoppeld zijn aan exact één exploitant"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         prov:wasAttributedTo
+                        ];
+        sh:property     [ sh:description  "Een exploitatielocatie kan een beschrijving hebben"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         rdfs:comment
+                        ];
+        sh:property     [ sh:class     :Exploitatie;
+                          sh:minCount  "0"^^xsd:integer;
+                          sh:path      ssn:inDeployment
+                        ];
+        sh:property     [ sh:class        ogc:Geometry;
+                          sh:description  "Een exploitatielocatie moet exact 1 geometrie hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         ogc:hasGeometry
+                        ];
+        sh:targetClass  :Exploitatielocatie .
+
+:SysteemeigenschapShape
+        rdf:type        sh:NodeShape;
+        sh:property     [ sh:class        skos:Concept;
+                          sh:description  "Een systeem eigenschap kan een referentie naar een parameter hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :parameter
+                        ];
+        sh:property     [ sh:class        rdfs:Datatype;
+                          sh:description  "Een systeem eigenschap kan een datatype hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :datatype
+                        ];
+        sh:property     [ sh:datatype     xsd:string;
+                          sh:description  "Een systeem eigenschap kan een waarde hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         rdfs:value
+                        ];
+        sh:property     [ sh:description  "Een systeem eigenschap kan een benaming hebben"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         rdfs:label
+                        ];
+        sh:property     [ sh:description  "Een systeem eigenschap kan een eenheid hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         qudt:hasUnit
+                        ];
+        sh:property     [ sh:description  "Een systeem eigenschap moet een typering hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:type
+                        ];
+        sh:targetClass  :Systeemeigenschap .
+
+:ObservatieVerzamelingShape
+        rdf:type        sh:NodeShape;
+        sh:property     [ sh:class        :Aangifte;
+                          sh:description  "Een observatieverzameling is optioneel gekoppeld aan een aangifte"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :aangifte
+                        ];
+        sh:property     [ sh:description  "Een observatieverzameling bestaat uit ten minste één observatie (of geneste observatieverzameling)"@nl;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:or           ( [ sh:class  sosa-2023:Observation ]
+                                            [ sh:class  sosa-2023:ObservationCollection ]
+                                          );
+                          sh:path         sosa-2023:hasMember
+                        ];
+        sh:property     [ sh:class        sosa-2023:FeatureOfInterest;
+                          sh:description  "Een observatieverzameling is gekoppeld aan een Emissie of Onttrekking"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         sosa-2023:hasFeatureOfInterest
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een observatieverzameling moet een creatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:created
+                        ];
+        sh:targetClass  :ObservatieVerzameling .
+
+:ResultaatShape  rdf:type  sh:NodeShape;
+        sh:property     [ sh:datatype     xsd:string;
+                          sh:description  "Een resultaat kan een tekstuele waarde hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         rdfs:comment
+                        ];
+        sh:property     [ sh:description  "Een resultaat kan een numerieke waarde hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:or           ( [ sh:datatype  xsd:decimal ]
+                                            [ sh:datatype  xsd:integer ]
+                                          );
+                          sh:path         qudt:numericValue
+                        ];
+        sh:property     [ sh:description  "Een resultaat kan een eenheid hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         qudt:hasUnit
+                        ];
+        sh:targetClass  :Resultaat .
+
+:InstallatieShape  rdf:type  sh:NodeShape;
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een installatie moet een geldigheid start hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:issued
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een installatie kan een geldigheid einde hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:valid
+                        ];
+        sh:property     [ sh:class     :Exploitatie;
+                          sh:minCount  "0"^^xsd:integer;
+                          sh:path      ssn:hasDeployment
+                        ];
+        sh:property     [ sh:class        ssn:System;
+                          sh:description  "Een installatie kan meerdere objecten bevatten."@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         ssn:hasSubSystem
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een installatie moet een datum in gebruik vanaf hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         :inGebruikVanaf
+                        ];
+        sh:property     [ sh:description  "Een installatie kan een typering hebben via dct:type"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:type
+                        ];
+        sh:property     [ sh:class        adms:Identifier;
+                          sh:description  "Een installatie heeft externe identificaties (optioneel)"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         adms:identifier
+                        ];
+        sh:property     [ sh:class        :Aangifte;
+                          sh:description  "Een installatie kan verbonden zijn aan een enkele aangifte"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :aangifte
+                        ];
+        sh:property     [ sh:class        :Systeemeigenschap;
+                          sh:description  "Een installatie kan meerdere eigenschappen hebben"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         ssn:hasProperty
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een installatie moet een modificatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:modified
+                        ];
+        sh:property     [ sh:class        ogc:Geometry;
+                          sh:description  "Een installatie mag max 1 geometrie hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         ogc:hasGeometry
+                        ];
+        sh:property     [ sh:description  "Een installatie moet een benaming hebben"@nl;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         rdfs:label
+                        ];
+        sh:property     [ sh:description  "Een installatie kan een referentie hebben naar een aangifte."@nl;
+                          sh:path         :ingediend
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een installatie moet een creatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:created
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een installatie kan een datum in gebruik tot hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :inGebruikTot
+                        ];
+        sh:property     [ sh:description  "Een installatie kan een beschrijving hebben"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         rdfs:comment
+                        ];
+        sh:property     [ sh:class        adms:Status;
+                          sh:description  "Een installatie moet een enkele status hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         adms:status
+                        ];
+        sh:targetClass  :Installatie .
+
+:ProcesShape  rdf:type  sh:NodeShape;
+        sh:property     [ sh:class        pplan:Variable;
+                          sh:description  "Een proces mag minstens één outputvariabele hebben (stof)"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         pplan:hasOutputVar
+                        ];
+        sh:property     [ sh:class        sosa-2023:Procedure;
+                          sh:description  "Een proces kan zijn afgeleid van een (generieke) procedure (optioneel). Max 1 omdat een proces slechts van 1 procedure afgeleid kan zijn en deze procedure een verzameling van andere procedures zou moeten zijn."@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:type
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een proces kan een geldigheid start hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:issued
+                        ];
+        sh:property     [ sh:class        :Proces;
+                          sh:description  "Een proces kan deel uitmaken van een ander proces"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         pplan:isStepOfPlan
+                        ];
+        sh:property     [ sh:class        pplan:Variable;
+                          sh:description  "Een proces mag minstens één inputvariabele hebben (stof)"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         pplan:hasInputVar
+                        ];
+        sh:property     [ sh:class        :Aangifte;
+                          sh:description  "Een proces kan verbonden zijn aan een enkele aangifte"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :aangifte
+                        ];
+        sh:property     [ sh:class        :Proces;
+                          sh:description  "Een proces mag een of meer andere processen als voorgaande stap hebben."@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         pplan:isPrecededBy
+                        ];
+        sh:property     [ sh:description  "Een proces moet een benaming hebben"@nl;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         rdfs:label
+                        ];
+        sh:property     [ sh:description  "Een proces kan het gebruik van een systeem of van een uitrol (exploitatie) representeren"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:or           ( [ sh:class  ssn:Deployment ]
+                                            [ sh:class  ssn:System ]
+                                          );
+                          sh:path         ssn:implementedBy
+                        ];
+        sh:property     [ sh:class     :Proces;
+                          sh:minCount  "0"^^xsd:integer;
+                          sh:path      pplan:hasStep
+                        ];
+        sh:property     [ sh:class        :Rubriek;
+                          sh:description  "Een proces kan meerdere rubrieken hebben"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :rubriek
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een proces moet een datum hebben waarop het is ingegeven"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:created
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een proces kan een geldigheid einde hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:valid
+                        ];
+        sh:property     [ sh:description  "Een proces kan een beschrijving hebben"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         rdfs:comment
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een proces moet een modificatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:modified
+                        ];
+        sh:property     [ sh:class        adms:Identifier;
+                          sh:description  "Een proces kan externe identificaties hebben (optioneel)"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         adms:identifier
+                        ];
+        sh:targetClass  :Proces .
+
+:ExploitantShape  rdf:type  sh:NodeShape;
+        sh:property     [ sh:class        org:Organization;
+                          sh:description  "Een exploitant moet overeenkomen met één organisatie (VKBO)"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         prov:hadPrimarySource
+                        ];
+        sh:property     [ sh:class        locn:Address;
+                          sh:description  "Een exploitant kan een adres hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         locn:address
+                        ];
+        sh:property     [ sh:description  "Een exploitant moet een benaming hebben"@nl;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         rdfs:label
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een exploitant kan een modificatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:modified
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een exploitant kan een creatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:created
+                        ];
+        sh:targetClass  :Exploitant .
+
+:UitwisselpuntShape  rdf:type  sh:NodeShape;
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een uitwisselpunt moet een datum in gebruik vanaf hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         :inGebruikVanaf
+                        ];
+        sh:property     [ sh:class        :Systeemeigenschap;
+                          sh:description  "Een uitwisselpunt kan meerdere eigenschappen hebben"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         ssn:hasProperty
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een uitwisselpunt moet een creatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:created
+                        ];
+        sh:property     [ sh:class        :Filter;
+                          sh:description  "Een uitwisselpunt kan filters hebben"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         ssn:hasSubSystem
+                        ];
+        sh:property     [ sh:class     :Exploitatie;
+                          sh:minCount  "0"^^xsd:integer;
+                          sh:path      ssn:hasDeployment
+                        ];
+        sh:property     [ sh:description  "Een uitwisselpunt moet een benaming hebben"@nl;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         rdfs:label
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een uitwisselpunt kan een datum in gebruik tot hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :inGebruikTot
+                        ];
+        sh:property     [ sh:class        adms:Status;
+                          sh:description  "Een uitwisselpunt moet een enkele status hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         adms:status
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een uitwisselpunt kan een geldigheid einde hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:valid
+                        ];
+        sh:property     [ sh:class        adms:Identifier;
+                          sh:description  "Een uitwisselpunt heeft externe identificaties (optioneel)"@nl;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         adms:identifier
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een uitwisselpunt moet een modificatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:modified
+                        ];
+        sh:property     [ sh:class        ogc:Geometry;
+                          sh:description  "Een uitwisselpunt mag max 1 geometrie hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         ogc:hasGeometry
+                        ];
+        sh:property     [ sh:class        :Aangifte;
+                          sh:description  "Een uitwisselpunt kan verbonden zijn aan een enkele aangifte"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :aangifte
+                        ];
+        sh:property     [ sh:description  "Een uitwisselpunt kan een typering hebben via dct:type"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         dct:type
+                        ];
+        sh:property     [ sh:datatype     xsd:date;
+                          sh:description  "Een uitwisselpunt moet een geldigheid start hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:issued
+                        ];
+        sh:targetClass  :Uitwisselpunt .
+
+:ObservatieShape  rdf:type  sh:NodeShape;
+        sh:property     [ sh:description  "Een observatie kan een verschijnsel tijdsinterval hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         sosa-2023:phenomenonTime
+                        ];
+        sh:property     [ sh:class        ssn:System;
+                          sh:description  "Een observatie kan zijn gemaakt door een meetpunt of ander systeem (sosa:madeBySensor)"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         sosa-2023:madeBySensor
+                        ];
+        sh:property     [ sh:description  "Een observatie kan een gebruikte bepalingsmethode hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         sosa-2023:usedProcedure
+                        ];
+        sh:property     [ sh:description  "Een observatie kan een geobserveerde eigenschap hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         sosa-2023:observedProperty
+                        ];
+        sh:property     [ sh:description  "Een observatie kan een resultaat tijdstip hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:or           ( [ sh:datatype  xsd:date ]
+                                            [ sh:datatype  xsd:dateTime ]
+                                          );
+                          sh:path         sosa-2023:resultTime
+                        ];
+        sh:property     [ sh:class        sosa-2023:FeatureOfInterest;
+                          sh:description  "Een observatie is gekoppeld aan een Emissie of Onttrekking"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         sosa-2023:hasFeatureOfInterest
+                        ];
+        sh:property     [ sh:class        :Aangifte;
+                          sh:description  "Een observatie is optioneel gekoppeld aan een aangifte tenzij het in concept staat."@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         :aangifte
+                        ];
+        sh:property     [ sh:datatype     xsd:dateTime;
+                          sh:description  "Een observatie moet een creatie datum hebben"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         dct:created
+                        ];
+        sh:property     [ sh:class        sosa-2023:ObservationCollection;
+                          sh:description  "Een observatie kan deel uitmaken van een observatieverzameling"@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "0"^^xsd:integer;
+                          sh:path         sosa-2023:isMemberOf
+                        ];
+        sh:property     [ sh:class        :Resultaat;
+                          sh:description  "Een observatie heeft één resultaat."@nl;
+                          sh:maxCount     "1"^^xsd:integer;
+                          sh:minCount     "1"^^xsd:integer;
+                          sh:path         sosa-2023:hasResult
+                        ];
+        sh:targetClass  :Observatie .
+
+:MonsterShape  rdf:type  sh:NodeShape;
+        sh:targetClass  :Monster .

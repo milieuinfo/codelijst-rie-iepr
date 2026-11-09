@@ -1,6 +1,6 @@
 # Code lists -> operational JSON Schema
 
-Compile the groundwater, air and water CSVs into JSON Schema Draft 2020-12, shared by the UI and
+Compile the groundwater, air, water and self-control CSVs into JSON Schema Draft 2020-12, shared by the UI and
 ODS consumers.
 The Dutch [CSV-to-schema/UI/ODS guide](../../README.md#van-csv-naar-json-schema-ui-en-ods)
 is the conceptual specification, including ownership, predicates, required kinds
@@ -10,7 +10,8 @@ and reversible spreadsheet mappings.
 
 `npm run predev` creates a deterministic input snapshot from
 `src/source/operationeel_grondwater.csv`, `operationeel_lucht.csv`,
-`operationeel_water.csv`, `operationeel_misc.csv` (choice lists), and the published JSON-LD supporting
+`operationeel_water.csv`, `operationeel_zelfcontrole_lucht.csv`,
+`operationeel_zelfcontrole_water.csv`, `operationeel_misc.csv` (choice lists), and the published JSON-LD supporting
 lists/prefixes. The snapshot declares direct reporting entry schemes through
 `x-reporting-entries` under `operational-csv-v1`; labels/slugs follow the selected
 CSV filenames. The resolver, ownership mapper, UI and ODS consumers do not
@@ -27,7 +28,10 @@ npm run generate
 The current source generates three groundwater sections and five air sections
 without incomplete mode: `Emissie`, `Verbruikte brandstof`, `Verbruikte stof`,
 `Geproduceerde stof` and `Afvalproduct`, plus water sections `Lozing` and
-`Abnormale lozing`. Use `--theme Grondwater`, `--theme Lucht` or `--theme Water`
+`Abnormale lozing`, and one `Metingen` section for each of `Zelfcontrole lucht`
+and `Zelfcontrole water`: five themes and twelve sections in total.
+Use `--theme Grondwater`, `--theme Lucht`, `--theme Water`,
+`--theme "Zelfcontrole lucht"` or `--theme "Zelfcontrole water"`
 only when deliberately generating a filtered snapshot; omit `--theme` to keep
 all available in the UI.
 `poc/reporting-entries.json` (relative to the repository root) declares the active
@@ -36,8 +40,9 @@ distinguish reporting availability from `vervolgstap` navigation reachability.
 The snapshot requires explicit valid entries; source filenames do not implicitly
 enable other themes. This is consumer profile configuration, not published RDF.
 Ordering, conditions, variable references, shared end-date ownership and the
-`Debieten` sheet name are source-authored. Quality reporting does not introduce a separate
-Sample entity: the `Monsters` row is the collection context, and parameter
+`Debieten` sheet name are source-authored. Each quality collection uses one
+`riepr:Monster`, with a required nonempty Monsternummer and an optional linked
+`sosa:Sampling` for sampling time and procedure. Parameter
 characteristics are stored inside each implicit `riepr:Resultaat`.
 Result characteristics use the local names of their declared relations:
 `measurementMethod` (`schema:measurementMethod`), `type` (`dcterms:type`) and
@@ -55,7 +60,7 @@ publishing an index if all selected sections are blocked.
 | `prefLabel` | Exact field titles, including inside structural containers |
 | `isOnzichtbaar` | Preserve typed objects and their children; suppress structural input/group labels |
 | `relevantObservation` | Observation ownership independent of table/`broaderPartitive` layout; multiple targets allowed |
-| `relevantFeatureClass` | `x-feature-mapping` / `x-relevant-feature-classes`; picker inputs map to one constructed feature (e.g. annual Onttrekking or grouped Emissie), not several shared features; actual construction/storage is outside this POC |
+| `relevantFeatureClass` | `x-feature-mapping` / `x-relevant-feature-classes`; picker inputs map to one constructed feature (e.g. annual Onttrekking or grouped Emissie), not several shared features; the UI's Turtle exporter constructs it from explicit process references |
 | Numeric `riepr:Observatie` | Observation with an implicit typed `hasResult` / `riepr:Resultaat` and `qudt:numericValue` |
 | Non-SOSA characteristics of an Observation | Inside its implicit Resultaat, retaining declared predicates; missing relations block generation |
 | `relevantUnit` | Fixed unit or expanded unit-collection choices, never a collection URI used as a unit |
@@ -99,8 +104,26 @@ retain ordinary observed-property discriminators.
 Water use, standalone method declarations, annual aggregates, balances and
 combining independent sections into one workbook remain outside this slice.
 
+Self-control reports repeated measurements with a required point, exact
+`resultTime` and nonempty parameter `hasMember` array. The optional lab is a
+`prov:Agent` under `wasAssociatedWith`; its name is required when supplied.
+Point URI plus exact timestamp form the approved ODS key; lab does not.
+Each parameter owns a required `riepr:Resultaat` with optional numeric fields.
+Concentration is non-negative; selectable air units are mg/Nm³, g/Nm³, µg/Nm³
+and ng/Nm³, water units mg/L and g/L. Optional mass flow uses kg/h or g/h;
+water limit values use mg/L or g/L without an invented range.
+Uncertainty is an optional integer 0–100 percent, not fixed 30% for air.
+Water sample type offers the three approved grab/time-composite/flow-composite
+options. Frequency and its source remain optional text pending definitive lists.
+The [source guide](../../README.md#zelfcontrole-lucht-en-water) records the
+Confluence references and approved date/range deviations from those review-stage
+models. Existing pollutant lists are retained; full Teepak coverage, below-limit
+qualifiers and attachments remain outside this slice.
+Structural type-scheme references expand to all member types, including subtypes;
+reference choices may match any permitted type.
+
 Air is a testable **partial Teepak mapping**, not full Teepak coverage. Material
-references in emission context, self-control, concentration, annual pollutant emission,
+references in emission context, concentration, annual pollutant emission,
 complete frequency/method lists, improvement records and other remaining source
 fixes still need approval. The source picker currently permits all matching
 installations; no source-to-point dependency is asserted without an agreed
@@ -143,8 +166,10 @@ The UI projection and ODS import/export use that helper.
 
 Synthetic end-to-end contracts live in `tests/groundwater-csv*.ts` and the
 corresponding UI/ODS tests. They do not rewrite or silently correct the real CSV.
-`tests/groundwater-contract.spec.ts`, `tests/air-csv.spec.ts` and `tests/water-csv.spec.ts` compile the actual CSVs and validate the
-persistent input examples in `examples/grondwater/*.json`, `examples/lucht/*.json` and `examples/water/*.json`, using `refs.json` and
+`tests/groundwater-contract.spec.ts`, `tests/air-csv.spec.ts`, `tests/water-csv.spec.ts`
+and `tests/selfcontrol-csv.spec.ts` compile the actual CSVs and validate the
+persistent input examples in `examples/grondwater/*.json`, `examples/lucht/*.json`,
+`examples/water/*.json` and `examples/zelfcontrole-{lucht,water}/meting.json`, using `refs.json` and
 `reference-context.json`. The examples cover zero values, optional readings,
 shared end dates, pump-state conditions and multiple selected filters.
 They are reporting inputs: `x-feature-mapping` still describes a later feature
@@ -259,7 +284,7 @@ excluding them; ODS import continues to reject inactive supplied cells.
 | `vervolgstap` (`qb:codeList`) | Navigation metadata; not the active groundwater entry mechanism |
 | `broaderPartitive` / `relevantObservation` | Source grouping / explicit semantic ownership; table placement cannot change the owner |
 | `isMeervoudig` / `isMultiselect` | Distinct record arrays / value-reference arrays, at every depth |
-| `relevantClass` / `relation` | `x-jsonld-type` / `x-jsonld-id`; preserve source-declared objects and agents, never invent a Sample/Sampling layer |
+| `relevantClass` / `relation` | `x-jsonld-type` / `x-jsonld-id`; preserve source-declared objects, agents and Sample/Sampling layers |
 | Integer, decimal, boolean | Real JSON integer, number, boolean values |
 | Date, datetime, duration | Strings with enforced `date`, `date-time`, `duration` formats |
 | `dcterms:temporal` | `{start,end}`, either both dates or both datetimes |
@@ -358,8 +383,9 @@ new incomplete snapshots are explicitly marked and warn during ODS sync/use.
 
 The [14-workbook Teepak inventory](../poc-json-schema-ods/docs/TEEPAK_MAPPING.md)
 is a historical review of the wider model, not the current groundwater contract.
-Other operational CSVs, full Teepak coverage, feature construction and production
-storage are outside the active scope. Future domain/source changes require MCP
+Other operational CSVs, full Teepak coverage and production storage are outside
+the active scope. Feature construction is demonstrated by the UI Turtle exporter;
+its process graph is fictional, not a production lookup. Future domain/source changes require MCP
 dry runs, user approval and successful SKOS regeneration.
 
 The UI already consumes these schemas and supports ODS downloads/imports.

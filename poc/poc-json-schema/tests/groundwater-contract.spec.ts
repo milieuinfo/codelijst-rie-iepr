@@ -35,7 +35,18 @@ describe('Current groundwater CSV source contract (no cached schemas)', () => {
     expect(record('kwaliteitsmeting')['x-table-key']).toEqual([
       result.expandCurie!('grondwater:kwaliteitsmeting-monsternummer'),
     ])
-    expect(property(record('kwaliteitsmeting'), 'identifier')['x-jsonld-id']).toBe('http://purl.org/dc/terms/identifier')
+    expect(property(property(record('kwaliteitsmeting'), 'used'), 'identifier')['x-jsonld-id'])
+      .toBe('http://purl.org/dc/terms/identifier')
+  })
+
+  it('requires a sample with a nonempty number for each quality measurement', () => {
+    const data = example('kwaliteitsmeting')
+    delete data.kwaliteitsmeting[0].used
+    expect(validator.validateInstance(schema('kwaliteitsmeting'), data).valid).toBe(false)
+    data.kwaliteitsmeting[0].used = {}
+    expect(validator.validateInstance(schema('kwaliteitsmeting'), data).valid).toBe(false)
+    data.kwaliteitsmeting[0].used.identifier = ''
+    expect(validator.validateInstance(schema('kwaliteitsmeting'), data).valid).toBe(false)
   })
 
   it('maps every data property to an explicit predicate or declared feature-construction input', () => {
@@ -90,6 +101,12 @@ describe('Current groundwater CSV source contract (no cached schemas)', () => {
       references, referenceContext: { year: 2024 },
     })).toEqual([])
   })
+
+  it.each(['onttrekking', 'peilmeting', 'kwaliteitsmeting'])('requires the selected system in %s', name => {
+    const data = example(name)
+    delete data[name][0].hasFeatureOfInterest
+    expect(validator.validateInstance(schema(name), data).valid).toBe(false)
+  })
 })
 
 describe('Quality collections, implicit results and grouped feature input', () => {
@@ -97,9 +114,29 @@ describe('Quality collections, implicit results and grouped feature input', () =
   const member = memberVariants(quality).find(variant => property(variant, 'observedProperty').enum)!
   const cube = property(member, 'hasResult')
 
-  it('keeps monster context on the collection, the lab name in an Agent, and depth as a separate observation', () => {
-    expect(JSON.stringify(quality)).not.toContain('http://www.w3.org/ns/sosa/Sample')
-    expect(property(quality, 'identifier').type).toBe('string')
+  it('requires a result characteristic for every parameter without requiring a numeric value', () => {
+    const data = example('kwaliteitsmeting')
+    const result = data.kwaliteitsmeting[0].hasMember[1].hasResult
+    delete data.kwaliteitsmeting[0].hasMember[1].hasResult
+    expect(validator.validateInstance(schema('kwaliteitsmeting'), data).valid).toBe(false)
+    data.kwaliteitsmeting[0].hasMember[1].hasResult = {}
+    expect(validator.validateInstance(schema('kwaliteitsmeting'), data).valid).toBe(false)
+    data.kwaliteitsmeting[0].hasMember[1].hasResult = { hasUnit: result.hasUnit }
+    expect(validator.validateInstance(schema('kwaliteitsmeting'), data).valid).toBe(false)
+    data.kwaliteitsmeting[0].hasMember[1].hasResult = { additionalProperty: result.additionalProperty }
+    expect(validator.validateInstance(schema('kwaliteitsmeting'), data).valid).toBe(true)
+  })
+
+  it('keeps sampling context on the sample, the lab in an Agent, and depth as an observation', () => {
+    const sample = property(quality, 'used')
+    const sampling = property(sample, 'isResultOf')
+    expect(sample['x-jsonld-type']).toBe(result.expandCurie!('riepr:Monster'))
+    expect(sample['x-jsonld-id']).toBe('http://www.w3.org/ns/prov#used')
+    expect(property(sample, 'identifier').type).toBe('string')
+    expect(sampling['x-jsonld-type']).toBe('http://www.w3.org/ns/sosa/Sampling')
+    expect(property(sampling, 'usedProcedure')['x-jsonld-id']).toBe('http://www.w3.org/ns/sosa/usedProcedure')
+    expect(property(sampling, 'resultTime')['x-jsonld-id']).toBe('http://www.w3.org/ns/sosa/resultTime')
+    expect(quality.properties).not.toHaveProperty('usedProcedure')
     expect(property(quality, 'wasAssociatedWith')['x-jsonld-type']).toBe('http://www.w3.org/ns/prov#Agent')
     expect(property(quality, 'wasAssociatedWith')['x-jsonld-id']).toBe('http://www.w3.org/ns/prov#wasAssociatedWith')
     expect(property(property(quality, 'wasAssociatedWith'), 'label')['x-jsonld-id'])

@@ -70,8 +70,10 @@ describe('Actual water CSV -> schema -> reversible ODS', () => {
     const columns = layoutColumns(plan, record);
     const edited = await modifyTable(blank, record.sheetName, rows => {
       const values = cells(rows[3]);
+      const feature = record.columns.find(column => column.path.at(-1) === 'hasFeatureOfInterest')!;
       const pollutant = record.columns.find(column => column.path.at(-1) === 'observedProperty')!;
       const duration = record.columns.find(column => column.title === 'Lozingsduur')!;
+      values[columns.indexOf(feature.id)] = odfCell('Controleinrichting 1');
       values[columns.indexOf(pollutant.id)] = odfCell('https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333');
       values[columns.indexOf(duration.id)] = odfCell(0);
       return [...rows.slice(0, 3), row(values), ...rows.slice(4)];
@@ -79,6 +81,7 @@ describe('Actual water CSV -> schema -> reversible ODS', () => {
     const imported = await new ODSImporter().import(edited, plan);
     expect(imported).toEqual({
       abnormaleLozing: [{
+        hasFeatureOfInterest: 'urn:test:controleinrichting:1',
         observedProperty: 'https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333',
         hasResult: { additionalProperty: [{
           propertyID: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-lozingsduur',

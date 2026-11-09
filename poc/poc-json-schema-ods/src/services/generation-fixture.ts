@@ -8,6 +8,8 @@ export async function generationFixture(plan: TabularPlan) {
     { theme: 'grondwater', sections: ['onttrekking', 'peilmeting', 'kwaliteitsmeting'] },
     { theme: 'lucht', sections: ['emissie', 'brandstof', 'verbruikte_stof', 'geproduceerde_stof', 'afvalproduct'] },
     { theme: 'water', sections: ['lozing', 'abnormale-lozing'] },
+    { theme: 'zelfcontrole-lucht', sections: ['meting'] },
+    { theme: 'zelfcontrole-water', sections: ['meting'] },
   ];
   const profile = profiles.find(profile => typeof section === 'string' &&
     section.startsWith(`https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-${profile.theme}/`));

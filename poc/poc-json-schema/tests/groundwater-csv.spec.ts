@@ -11,7 +11,9 @@ import { memberVariants, presentationSchema, transformMemberData } from '../src/
 describe('Groundwater CSV reporting profile', () => {
   it('parses active reports with supporting choices, without thematypes', () => {
     const result = new CodelistParser().parseData(JSON.parse(sourceSnapshot()))
-    expect([...new ThemeResolver().resolveAllThemes(result).keys()]).toEqual(['Grondwater', 'Lucht', 'Water'])
+    expect([...new ThemeResolver().resolveAllThemes(result).keys()]).toEqual([
+      'Grondwater', 'Lucht', 'Water', 'Zelfcontrole lucht', 'Zelfcontrole water',
+    ])
     expect(result.schemes.has('conceptscheme:operationeel_lucht')).toBe(true)
     expect(result.concepts.has('lucht:emissie')).toBe(true)
     expect(result.schemes.has('conceptscheme:thematypes')).toBe(false)

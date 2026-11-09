@@ -211,6 +211,9 @@ export class SchemaAssembler {
     let node: JsonSchemaObject
     if (field.children?.length) {
       node = this.object(field.children, [...parents, field], locations, objects, result)
+      if (field.extensions?.['x-require-result-content'] === true) {
+        node.anyOf = field.children.map(child => ({ required: [child.propertyName] }))
+      }
       const sheets = new Set<string>()
       const visit = (child: SchemaField): void => {
         if (child.isRepeatable && child.children?.length) return
@@ -249,6 +252,7 @@ export class SchemaAssembler {
       }
     } else {
       const value: JsonSchemaObject = { type: field.type }
+      if (field.isRequired && field.type === 'string') value.minLength = 1
       if (field.enumValues?.length) value.enum = field.enumValues
       if (field.format) value.format = field.format
       if (field.minimum !== undefined) value.minimum = field.minimum

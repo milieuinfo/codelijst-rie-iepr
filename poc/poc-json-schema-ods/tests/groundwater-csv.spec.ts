@@ -123,6 +123,19 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
       ? ['Voorblad', 'Monsters', 'Meetresultaten'] : ['Voorblad', name === 'onttrekking' ? 'Debieten' : 'Peilmetingen']);
   });
 
+  it('round-trips a quality parameter with only a detection-limit indicator', async () => {
+    const section = compileGroundwater(JSON.parse(sourceSnapshot())).subSchemas.find(item => item.name === 'kwaliteitsmeting')!;
+    const plan = compileTabularPlan(section.schema, { sourceSha256: hash(sourceSnapshot()) });
+    const fixture = (await generationFixture(plan))!;
+    const data = structuredClone(fixture.data) as {
+      kwaliteitsmeting: { hasMember: { hasResult: { additionalProperty?: unknown[] } }[] }[]
+    };
+    const result = data.kwaliteitsmeting[0].hasMember[1].hasResult;
+    data.kwaliteitsmeting[0].hasMember[1].hasResult = { additionalProperty: result.additionalProperty };
+    const workbook = await new ODSGenerator().generate({ plan, ...fixture, data });
+    expect(await new ODSImporter().import(workbook, plan)).toEqual(data);
+  });
+
   it('uses the declared files and sheets, keeping scalar collections in their declared sheet', () => {
     expect(sections.map(section => section.schema['x-table-workbook'])).toEqual([
       'grondwater-debieten.ods', 'grondwater-peilmetingen.ods', 'grondwater-kwaliteitsanalyses.ods',
@@ -214,7 +227,7 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
     const mapping = metadata.jsonMapping[plan.records.find(record => record.sheetName === 'Meetresultaten')!.id];
     expect(mapping.parentIdentifierPath).toBeUndefined();
     expect(mapping.parentKeyPaths).toEqual({
-      'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-monsternummer': '/identifier',
+      'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-monsternummer': '/used/identifier',
     });
     expect(results.rows.find(row => row.number === 2)!.cells[0].text).toBe(
       '@parent-key:https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-monsternummer',

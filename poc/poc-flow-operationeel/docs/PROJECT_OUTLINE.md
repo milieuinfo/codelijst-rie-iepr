@@ -39,7 +39,9 @@ is the conceptual specification; the [POC README](../README.md) covers operation
 
 The active scope is the three groundwater sections (quality, flow and levels)
 plus **Lucht -> Emissie, Verbruikte brandstof, Verbruikte stof, Geproduceerde stof
-and Afvalproduct**, plus **Water -> Lozing and Abnormale lozing**.
+and Afvalproduct**, plus **Water -> Lozing and Abnormale lozing** and
+**Zelfcontrole lucht / Zelfcontrole water -> Metingen**: twelve sections across
+five themes.
 The source snapshot declares direct scheme entries,
 not navigation through the removed theme list; the UI discovers all themes
 from the generated index. Source `_table_workbook` / `_table_sheet` annotations
@@ -57,7 +59,14 @@ non-negative integer. The two-sheet discharge template links by control-point
 URI; abnormal discharges have a separate workbook. Existing units and lists
 remain unchanged. Water use, standalone methods, totals, balances and a combined
 seven-sheet workbook remain outside this slice.
-Source connectivity, emission-context material references, self-control, missing pollutant
+Self-control retains point and exact timestamp as its composite ODS key, with
+optional lab metadata and repeated parameter results. The two paired-sheet
+workbooks use the same schema-driven editor and importer. Numeric units are
+selectable; optional uncertainty is an integer 0–100 percent. Frequency/source
+remain text pending definitive lists. Existing pollutant lists remain limited;
+see the [source guide](../../../README.md#zelfcontrole-lucht-en-water) for the
+approved Confluence deviations and outstanding business coverage.
+Source connectivity, emission-context material references, missing annual pollutant
 quantities/methods and improvements are not yet covered. Other operational CSVs
 and full Teepak acceptance remain outside this scope.
 

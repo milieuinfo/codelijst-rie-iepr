@@ -36,7 +36,7 @@ describe('Shared reporting entry declaration', () => {
   })
 
   it('does not silently invent entries for unconfigured operational files', () => {
-    expect(() => sourceSnapshot(canonicalSource, join(root, 'src/source/operationeel_zelfcontrole_water.csv')))
+    expect(() => sourceSnapshot(canonicalSource, join(root, 'src/source/operationeel_grondstoffen.csv')))
       .toThrow('No reporting entry declared')
     expect(readFileSync(join(root, reportingEntriesPath), 'utf8')).toContain('operationeel_lucht.csv')
   })

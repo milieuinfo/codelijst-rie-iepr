@@ -32,4 +32,18 @@ describe('Shared demonstration references', () => {
       type: 'string', 'x-reference-types': ['urn:missing:structural-type'],
     }, [], 2024)).toThrow('Geen gedeelde demonstratiegegevens')
   })
+
+  it('accepts available alternatives without requiring examples for every permitted type', () => {
+    const lookups = new SchemaLookups(result())
+    const references = lookups.references({
+      type: 'string', 'x-reference-types': [installation, 'urn:missing:alternative'],
+    }, [], 2024)
+    expect(references).toEqual(demonstrationReferences.filter(reference => reference.types.includes(installation)))
+    expect(() => lookups.references({
+      type: 'object', properties: {
+        installation: schema.properties!.installation,
+        other: { type: 'string', 'x-reference-types': ['urn:missing:independent-field'] },
+      },
+    }, [], 2024)).toThrow('Geen gedeelde demonstratiegegevens')
+  })
 })

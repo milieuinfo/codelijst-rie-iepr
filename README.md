@@ -57,9 +57,10 @@ De volgende conceptschema's zijn opgenomen (id onder `https://data.omgeving.vlaa
 De [JSON Schema-POC](poc/poc-json-schema/README.md),
 [operationele UI](poc/poc-flow-operationeel/README.md) en
 [ODS-POC](poc/poc-json-schema-ods/docs/PROJECT_OUTLINE.md) delen één gegenereerd
-rapportagecontract. De **actieve scope is grondwater, lucht en water**:
+rapportagecontract. De **actieve scope omvat vijf thema's en twaalf onderdelen**:
 drie grondwateronderdelen, emissies en vier materiaalonderdelen voor lucht,
-en lozingen/abnormale lozingen voor water. `poc/reporting-entries.json`
+lozingen/abnormale lozingen voor water en zelfcontrole voor lucht en water.
+`poc/reporting-entries.json`
 declareert hun rechtstreekse conceptschema-ingangen, zonder `thematypes.csv`.
 Andere operationele stromen en volledige Teepak-dekking zijn niet ingeschakeld.
 Zie [Van CSV naar JSON Schema, UI en ODS](#van-csv-naar-json-schema-ui-en-ods)
@@ -238,7 +239,8 @@ Een composite eigenschap bestaat uit een ouder en onderdelen die naar de ouder v
 ### Operationele gegevens
 Operationele gegevens beschrijven rapportagegroepen, velden en hun betekenis.
 De voorbeelden van andere stromen hieronder beschrijven het bredere model;
-de huidige POCs verwerken grondwater, lucht en de jaarlijkse lozingen voor water.
+de huidige POCs verwerken grondwater, lucht, de jaarlijkse lozingen voor water
+en zelfcontrole voor lucht en water.
 De dekking is nog niet volledig gelijk aan Teepak. De algemene bouwstenen zijn:
 - `skos:ConceptScheme` voor elk scherm/stap dat we aan de gebruiker willen tonen
 - `vervolgstap` (`qb:codeList`) is een link tussen een concept en concept scheme en bepaalt welke stap volgt
@@ -264,7 +266,7 @@ De dekking is nog niet volledig gelijk aan Teepak. De algemene bouwstenen zijn:
 
 #### Thematische stroom
 1. De gebruiker kiest een productiejaar. Dit begrenst de structurele referenties en hun validatiecontext; de POC maakt hiervan niet automatisch een `sosa:phenomenonTime`.
-2. De huidige UI leest thema's en rapporteringsonderdelen uit `schema/index.json`, niet uit `thematypes.csv`. `poc/reporting-entries.json` declareert het grondwater-, lucht- en water-conceptschema als expliciete startpunten; MCP en bronsnapshot gebruiken dezelfde declaratie. Een geldige ingang bewijst nog niet dat alle onderdelen genereerbaar zijn: daarvoor gebruikt `get_reporting_preview` de echte schema-/ODS-compilers, met werkblad- en kolompreview.
+2. De huidige UI leest thema's en rapporteringsonderdelen uit `schema/index.json`, niet uit `thematypes.csv`. `poc/reporting-entries.json` declareert de conceptschema's voor grondwater, lucht, water en beide zelfcontrolethema's als expliciete startpunten; MCP en bronsnapshot gebruiken dezelfde declaratie. Een geldige ingang bewijst nog niet dat alle onderdelen genereerbaar zijn: daarvoor gebruikt `get_reporting_preview` de echte schema-/ODS-compilers, met werkblad- en kolompreview.
 3. In het eerdere multi-thema-model verbonden `vervolgstap`-relaties (`qb:codeList`) thema's en stappen. Die navigatie blijft modelinformatie, maar is niet het startmechanisme van het actieve CSV-profiel.
 
 > De bedoeling is dat de applicatie zo weinig mogelijk logica omvat voor zowel UI als data ophalen/bewaren voor de thematische stromen. Zo kunnen a.h.v. deze codelijsten alle business regels worden bijgesteld waar nodig zonder al te grote wijzigingen te vereisen.
@@ -290,7 +292,7 @@ De dekking is nog niet volledig gelijk aan Teepak. De algemene bouwstenen zijn:
 5.  Punt en bronnenverzameling vormen samen de expliciete `_table_key`; detailbladen herhalen deze waarden zonder nieuw Emissie-ID. De JSON blijft genest.
 6.  Alleen aangesloten bronnen mogen uiteindelijk selecteerbaar zijn. Dit volgt niet uit `sosa:FeatureOfInterest` of navigatie: daarvoor moeten `referenceParent`/`referenceRelation` en echte relaties in de referentiesnapshot worden vastgelegd. De huidige test-UI filtert deze verbinding nog niet.
 7.  Verbruikte brandstof, verbruikte stof, geproduceerde stof en afvalproduct zijn afzonderlijke herhaalbare secties per installatie, elk met een eigen ODS-bestand. Installatie komt eerst, gevolgd door naam, optionele aard/samenstelling en hoeveelheid. Brandstofverbruik heeft de vaste eenheid GJ; de andere hoeveelheden laten de gedeelde zeven-eenhedenlijst kiezen. S- en AS-gehalte zijn optionele percentages van 0 tot 100.
-8.  Materiaalverwijzingen vanuit emissiecontext, zelfcontrole, ontbrekende stofhoeveelheden/methoden en maatregelen behoren nog niet tot de ingeschakelde luchtdekking.
+8.  Materiaalverwijzingen vanuit emissiecontext, ontbrekende stofhoeveelheden/methoden en maatregelen behoren nog niet tot de ingeschakelde luchtdekking. Zelfcontrole heeft een afzonderlijke ingang.
 
 #### Water
 Elke jaarlijkse Lozing bevat één controleinrichting, het jaardebiet en het aantal
@@ -302,6 +304,31 @@ een optioneel geheel aantal metingen vanaf nul en de bepalingsprocedure.
 een afzonderlijk ODS-bestand. Bestaande eenheden en stof-/methodenlijsten blijven
 behouden; watergebruik, afzonderlijke methodedeclaraties, totalen en balansen
 behoren nog niet tot deze dekking.
+
+#### Zelfcontrole lucht en water
+Beide thema's hebben één herhaalbaar onderdeel `Metingen`, met per meting
+een verplicht punt, exact meetmoment en minstens één parameterresultaat.
+Het optionele labo is metadata (`prov:wasAssociatedWith`); bij een ingevuld labo
+is de naam verplicht. `_table_key` bestaat uit punt-URI en exact tijdstip, niet
+uit het labo. De bestanden `zelfcontrole-lucht.ods` en `zelfcontrole-water.ods`
+hebben elk `Metingen` en `Meetresultaten`; de detailrijen herhalen die sleutel.
+
+Concentratie is optioneel en niet-negatief, met een selecteerbare eenheid:
+lucht mg/Nm³, g/Nm³, µg/Nm³ of ng/Nm³; water mg/L of g/L.
+Lucht voegt optionele massastroom in kg/h of g/h toe; water een optionele
+grenswaarde in mg/L of g/L en de monsterkeuze schepmonster, tijdsgebonden
+mengmonster of debietgebonden mengmonster. Meetonzekerheid is voor beide een
+optioneel geheel percentage van 0 tot 100, zonder vaste waarde voor lucht.
+Gehanteerde meetfrequentie en bron blijven voorlopig optionele vrije tekst:
+de definitieve lijsten ontbreken. De bestaande stoffenlijsten zijn behouden;
+volledige Teepak-parameterdekking, ondergrensindicatoren en bijlagen vallen
+buiten deze doorsnede.
+
+De Confluence-modellen voor [lucht](https://confluence.omgeving.vlaanderen.be/confluence/spaces/MJV/pages/538805017/Informatiemodel+zelfcontrole+luchtemissiemetingen)
+en [oppervlaktewater](https://confluence.omgeving.vlaanderen.be/confluence/spaces/MJV/pages/538805025/Informatiemodel+zelfcontrole+oppervlaktewater)
+staan ter review. De goedgekeurde POC-keuzes wijken bewust af van hun datumveld
+(exact tijdstip in plaats van alleen datum) en onzekerheidsbereik (0–100 in
+plaats van 1–100; geen vaste 30% voor lucht).
 
 ## Van CSV naar JSON Schema, UI en ODS
 
@@ -348,7 +375,8 @@ Lees de kolommen in deze volgorde:
 
 ### 1. Rapportagegroepen en onderdelen herkennen
 
-De huidige ingangen staan in `poc/reporting-entries.json`: grondwater, lucht en water.
+De huidige ingangen staan in `poc/reporting-entries.json`: grondwater, lucht, water,
+zelfcontrole lucht en zelfcontrole water.
 De ondersteunende lijsten leveren keuzes zoals detectiegrensindicatoren,
 geen extra rapportagegroepen. Niet-gedeclareerde operationele stromen worden niet verwerkt.
 
@@ -487,8 +515,10 @@ tussen onafhankelijke herhaalbare records veroorzaken.
   is de vaste concept-URI; datatype, keuzelijst en voorwaarden gelden voor
   `value`. De gebruiker vult alleen de waarde in.
 
-**Voorbeeld: kwaliteitsmeting.** Eén monster is één observatieverzameling;
-er wordt geen extra `sosa:Sample` aangemaakt. Het verborgen labo blijft een
+**Voorbeeld: kwaliteitsmeting.** Eén kwaliteitsmeting is één observatieverzameling
+met één `riepr:Monster` via `prov:used`. Het monsternummer staat op het monster;
+datum en techniek staan op de verbonden `sosa:Sampling` via `sosa:isResultOf`.
+Het verborgen labo blijft een
 `prov:Agent` met `rdfs:label`, verbonden via `prov:wasAssociatedWith`;
 alleen **Labo naam** is een invoerveld.
 Diepte is een eigen lid-observatie. De herhaalbare parameterobservaties staan

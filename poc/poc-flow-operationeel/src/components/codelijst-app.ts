@@ -1,4 +1,4 @@
-import { LitElement, html, css, nothing } from 'lit'
+import { LitElement, html, css, nothing, type TemplateResult } from 'lit'
 import layoutStyle from '@domg/govflanders-style/common/layout.css.js'
 import { schemaObject, type SchemaIndexEntry, type JsonSchemaObject } from 'codelijst-rie-iepr-poc-json-schema/browser'
 import { CodelistService } from '../services/codelist-service.js'
@@ -6,7 +6,32 @@ import { loadSchemaSnapshot, type SchemaSnapshot } from '../services/schema-snap
 import { SchemaEditor } from '../services/schema-editor.js'
 import { SchemaLookups } from '../services/schema-lookups.js'
 import { uploadOds } from '../services/ods-upload.js'
+import { demonstrationProcessGraph } from '../services/demo-process-graph.js'
+import { exportTurtle } from '../services/turtle-export.js'
 import './schema-rich-table.js'
+
+/**
+ * Highlight JSON without changing its text or interpreting it as HTML.
+ * @param json - Formatted JSON.
+ * @returns Escaped text and highlighted tokens.
+ */
+function highlightJson(json: string): Array<string | TemplateResult> {
+  const parts: Array<string | TemplateResult> = []
+  const tokens = /"(?:\\.|[^"\\])*"|-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?|\b(?:true|false|null)\b/g
+  let end = 0
+  for (const match of json.matchAll(tokens)) {
+    const start = match.index
+    const value = match[0]
+    parts.push(json.slice(end, start))
+    const kind = value.startsWith('"')
+      ? (/^\s*:/.test(json.slice(start + value.length)) ? 'key' : 'string')
+      : /^(true|false|null)$/.test(value) ? 'literal' : 'number'
+    parts.push(html`<span class=${`json-${kind}`}>${value}</span>`)
+    end = start + value.length
+  }
+  parts.push(json.slice(end))
+  return parts
+}
 
 export class CodelijstApp extends LitElement {
   static override styles = [layoutStyle, css`
@@ -17,7 +42,22 @@ export class CodelijstApp extends LitElement {
     vl-form-label { display: block; margin-block: 1.2rem 0.4rem; }
     vl-alert { display: block; margin-block: 1.6rem; }
     p { margin-block: 1.2rem; }
-    pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+    .output-tabs { display: flex; gap: 0.25rem; border-bottom: 1px solid #cbd2d5; }
+    .output-tab {
+      padding: 0.8rem 1.4rem; border: 0; border-bottom: 3px solid transparent;
+      background: none; color: #333; font: inherit; font-weight: 600; cursor: pointer;
+    }
+    .output-tab[aria-selected="true"] { border-bottom-color: #0055cc; color: #0055cc; }
+    .output-tab:focus-visible { outline: 2px solid #0055cc; outline-offset: -2px; }
+    .output-panel { padding-block: 1rem; }
+    .output-panel pre {
+      max-height: 36rem; overflow: auto; margin-block: 1rem 0; padding: 1.2rem;
+      border: 1px solid #d7dce0; background: #f7f9fa; white-space: pre;
+    }
+    .json-key { color: #174b8a; }
+    .json-string { color: #23734c; }
+    .json-number { color: #8a4511; }
+    .json-literal { color: #743b9b; }
     .downloads { display: flex; flex-wrap: wrap; gap: 1.2rem; margin-block: 1.6rem; }
     .ods-import { margin-block: 1.6rem; }
     .ods-import label { display: block; margin-block-end: 0.8rem; font-weight: bold; }
@@ -31,6 +71,10 @@ export class CodelijstApp extends LitElement {
   private section = ''
   private editors = new Map<string, SchemaEditor>()
   private validatedJson?: string
+  private validatedTurtle?: string
+  private outputTab: 'json' | 'turtle' = 'json'
+  private turtleUrl?: string
+  private turtleError?: string
   private validated = false
   private revision = 0
   private uploading = false
@@ -44,7 +88,9 @@ export class CodelijstApp extends LitElement {
   override disconnectedCallback() {
     super.disconnectedCallback()
     if (this.personalizedDownload) URL.revokeObjectURL(this.personalizedDownload.url)
+    if (this.turtleUrl) URL.revokeObjectURL(this.turtleUrl)
     this.personalizedDownload = undefined
+    this.turtleUrl = undefined
   }
 
   private async load() {
@@ -82,11 +128,20 @@ export class CodelijstApp extends LitElement {
   private selectionChanged() {
     this.uploadError = undefined
     this.uploadMessage = undefined
-    this.validatedJson = undefined
+    this.clearOutput()
     this.validated = false
     try { this.prepareEditor() }
     catch (error) { this.error = error instanceof Error ? error.message : String(error) }
     this.requestUpdate()
+  }
+
+  private clearOutput() {
+    this.validatedJson = undefined
+    this.validatedTurtle = undefined
+    this.turtleError = undefined
+    this.outputTab = 'json'
+    if (this.turtleUrl) URL.revokeObjectURL(this.turtleUrl)
+    this.turtleUrl = undefined
   }
 
   private edited(event: Event) {
@@ -96,15 +151,45 @@ export class CodelijstApp extends LitElement {
   }
 
   private validate() {
+    this.clearOutput()
     try {
       const result = this.editor?.validate()
       this.validated = true
       this.validatedJson = result && !result.diagnostics.length ? JSON.stringify(result.data, null, 2) : undefined
+      if (this.validatedJson && result && this.editor && this.snapshot && this.year) {
+        try {
+          const now = new Date(Date.now()).toISOString()
+          this.validatedTurtle = exportTurtle(this.editor.schema, result.data, {
+            year: this.year, created: now, issued: now,
+            processes: demonstrationProcessGraph(), dependencies: [...this.snapshot.schemas.values()],
+          })
+          this.turtleUrl = URL.createObjectURL(new Blob([this.validatedTurtle], { type: 'text/turtle' }))
+        } catch (error) {
+          this.turtleError = error instanceof Error ? error.message : String(error)
+        }
+      }
     } catch (error) {
       this.error = error instanceof Error ? error.message : String(error)
     }
     this.revision++
     this.requestUpdate()
+  }
+
+  private selectOutputTab(tab: 'json' | 'turtle') {
+    this.outputTab = tab
+    this.requestUpdate()
+  }
+
+  private async outputTabKeydown(event: KeyboardEvent) {
+    let tab: 'json' | 'turtle'
+    if (event.key === 'Home') tab = 'json'
+    else if (event.key === 'End') tab = 'turtle'
+    else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') tab = this.outputTab === 'json' ? 'turtle' : 'json'
+    else return
+    event.preventDefault()
+    this.selectOutputTab(tab)
+    await this.updateComplete
+    this.renderRoot.querySelector<HTMLButtonElement>(`#output-tab-${tab}`)?.focus()
   }
 
   private async uploadOds(event: Event) {
@@ -137,7 +222,7 @@ export class CodelijstApp extends LitElement {
       if (Object.keys(editor.draft).length &&
           !window.confirm('De ODS vervangt alle huidige invoer voor dit rapporteringsonderdeel en dit productiejaar. Doorgaan?')) return
       this.editors.set(key, imported)
-      this.validatedJson = undefined
+      this.clearOutput()
       this.validated = false
       this.revision++
       this.uploadMessage = `${file.name} is ingelezen. De gegevens staan in het formulier.`
@@ -212,7 +297,7 @@ export class CodelijstApp extends LitElement {
           message=${this.uploadError}></vl-alert>` : nothing}
       </div>
       <vl-alert type="info" title="Fictieve structurele referenties"
-        message="De keuzelijsten van installaties en meetpunten bevatten demonstratiegegevens. Er is geen backend of permanente opslag."></vl-alert>
+        message="De keuzelijsten, procesverbindingen en indieningstijd bevatten fictieve demonstratiegegevens. Er is geen backend of permanente opslag."></vl-alert>
       ${context.length ? html`<section aria-label="Rapporteringscontext">
         <h2>Rapporteringscontext</h2>
         <schema-rich-table .editor=${editor}
@@ -229,7 +314,26 @@ export class CodelijstApp extends LitElement {
       <vl-button @click=${this.validate}>Valideren en JSON tonen</vl-button>
       ${this.validated && editor.diagnostics.length ? html`<vl-alert type="error" title="Gegevens zijn niet geldig"></vl-alert>
         <ul aria-label="Validatiefouten">${editor.diagnostics.map(error => html`<li>${error.instancePath || '/'}: ${error.message}</li>`)}</ul>` : nothing}
-      ${this.validatedJson !== undefined ? html`<section><h2>Gevalideerde JSON</h2><pre id="validated-json">${this.validatedJson}</pre></section>` : nothing}
+      ${this.turtleError ? html`<vl-alert type="error" title="Turtle kon niet worden gemaakt" message=${this.turtleError}></vl-alert>` : nothing}
+      ${this.validatedJson !== undefined ? html`<section>
+        <h2>Gevalideerde uitvoer</h2>
+        <div class="output-tabs" role="tablist" aria-label="Uitvoerformaat" @keydown=${this.outputTabKeydown}>
+          <button type="button" class="output-tab" id="output-tab-json" role="tab"
+            aria-selected=${this.outputTab === 'json'} aria-controls="output-panel-json"
+            tabindex=${this.outputTab === 'json' ? 0 : -1} @click=${() => this.selectOutputTab('json')}>JSON</button>
+          <button type="button" class="output-tab" id="output-tab-turtle" role="tab"
+            aria-selected=${this.outputTab === 'turtle'} aria-controls="output-panel-turtle"
+            tabindex=${this.outputTab === 'turtle' ? 0 : -1} @click=${() => this.selectOutputTab('turtle')}>Turtle</button>
+        </div>
+        <div class="output-panel" id="output-panel-json" role="tabpanel" aria-labelledby="output-tab-json"
+          tabindex="0" ?hidden=${this.outputTab !== 'json'}><pre id="validated-json">${highlightJson(this.validatedJson)}</pre></div>
+        <div class="output-panel" id="output-panel-turtle" role="tabpanel" aria-labelledby="output-tab-turtle"
+          tabindex="0" ?hidden=${this.outputTab !== 'turtle'}>
+          ${this.validatedTurtle !== undefined ? html`
+            <vl-button secondary icon="file-download" cta-link=${this.turtleUrl} download="rapport.ttl">Turtle downloaden</vl-button>
+            <pre id="validated-turtle">${this.validatedTurtle}</pre>` : html`<p>Turtle is niet beschikbaar.</p>`}
+        </div>
+      </section>` : nothing}
     `
   }
 

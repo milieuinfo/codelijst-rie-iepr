@@ -12,8 +12,10 @@ for (const [theme, section] of [
   ['Lucht', 'Geproduceerde stof'],
   ['Lucht', 'Afvalproduct'],
   ['Water', 'Lozing'],
+  ['Zelfcontrole lucht', 'Metingen'],
+  ['Zelfcontrole water', 'Metingen'],
 ]) {
-  test(`shares reference identities and labels between UI and downloaded ODS: ${section}`, async ({ page }) => {
+  test(`shares reference identities and labels between UI and downloaded ODS: ${theme} / ${section}`, async ({ page }) => {
     await page.goto('/')
     await page.locator('select#productie-jaar').selectOption('2026')
     await page.locator('select#thema').selectOption({ label: theme })

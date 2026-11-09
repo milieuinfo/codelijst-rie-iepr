@@ -42,7 +42,8 @@ test('reports direct entries independently of thema navigation without claiming 
     assert.equal(unreachable.find(step => step.id === air.reportingEntry!.schemeId)?.reachableFromReportingEntry, true);
     const issues = validateFlows().issues;
     assert.ok(!issues.some(issue => /step conceptscheme:operationeel_(lucht|grondwater|water) is not reachable/.test(issue.message)));
-    assert.ok(issues.some(issue => /step conceptscheme:operationeel_zelfcontrole_water is not reachable/.test(issue.message)));
+    assert.ok(!issues.some(issue => /step conceptscheme:operationeel_zelfcontrole_(lucht|water) is not reachable/.test(issue.message)));
+    assert.ok(issues.some(issue => /step conceptscheme:operationeel_grondstoffen is not reachable/.test(issue.message)));
 });
 
 test('an entry covers its navigation descendants but not unrelated steps', () => {
@@ -56,11 +57,11 @@ test('an entry covers its navigation descendants but not unrelated steps', () =>
 
 test('invalid scheme/file mappings are errors, never silently active entries', () => {
     const entries = loadReportingEntries(root);
-    entries[1].schemeId = 'conceptscheme:operationeel_zelfcontrole_water';
+    entries[1].schemeId = 'conceptscheme:operationeel_grondstoffen';
     fs.writeFileSync(manifest(), JSON.stringify(entries));
     assert.equal(listFlows().reportingEntries[1].valid, false);
     assert.ok(validateFlows().issues.some(issue => issue.level === 'error' &&
-        issue.location === reportingEntriesPath && issue.message.includes('operationeel_zelfcontrole_water')));
+        issue.location === reportingEntriesPath && issue.message.includes('operationeel_grondstoffen')));
     assert.throws(() => getFlow({ flow: 'lucht' }), /Invalid reporting entry/);
 });
 

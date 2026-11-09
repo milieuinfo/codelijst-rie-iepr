@@ -23,6 +23,7 @@ export class SchemaLookups {
     const input = presentationSchema(schema)
     const registry = new SchemaRegistry(input, dependencies.filter(dependency => dependency.$id !== schema.$id))
     const types = new Set<string>()
+    const typeGroups: string[][] = []
     const visited = new Set<JsonSchemaObject>()
     const walk = (node: JsonSchemaObject) => {
       if (visited.has(node)) return
@@ -31,6 +32,7 @@ export class SchemaLookups {
       const requiredTypes = resolved['x-reference-types']
       if (requiredTypes !== undefined) {
         if (!Array.isArray(requiredTypes) || !requiredTypes.every(type => typeof type === 'string')) throw new Error('Ongeldige structurele referentietypes.')
+        typeGroups.push(requiredTypes)
         for (const type of requiredTypes) types.add(type)
       }
       for (const child of Object.values(resolved.properties ?? {})) walk(schemaObject(child))
@@ -40,9 +42,9 @@ export class SchemaLookups {
     const references = parseReferenceData(demonstrationReferences)
       .filter(reference => reference.types.some(type => types.has(type)))
       .map(reference => ({ ...reference, year }))
-    for (const type of types) {
-      if (!references.some(reference => reference.types.includes(type))) {
-        throw new Error(`Geen gedeelde demonstratiegegevens voor ${this.label(type)}.`)
+    for (const group of typeGroups) {
+      if (!references.some(reference => reference.types.some(type => group.includes(type)))) {
+        throw new Error(`Geen gedeelde demonstratiegegevens voor ${group.map(this.label).join(' / ')}.`)
       }
     }
     for (const reference of references) this.labels.set(reference.id, reference.label)

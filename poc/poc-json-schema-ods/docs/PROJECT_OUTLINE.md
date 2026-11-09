@@ -6,8 +6,8 @@ details. This document describes the workbook contract and CLI operation.
 
 ## Current operational CSV profile
 
-The active generator scope includes groundwater, air emissions and four separate
-annual material sections per installation. It passes source-authored
+The active generator scope covers five themes and twelve sections: groundwater,
+annual air/water reporting and self-control for air/water. It passes source-authored
 `_table_workbook` and `_table_sheet` through the indexed JSON Schemas.
 The ODS CLI uses those filenames; record tabs use those sheet names. Expected
 workbooks are `grondwater-debieten.ods` (`Debieten`),
@@ -23,7 +23,7 @@ business sheet and no parent identifier. Installation is the first column;
 singleton result fields stay inline in source-defined sibling order.
 Composition and fuel sulfur/ash are optional. Fuel consumption is fixed GJ;
 other quantities offer the shared seven-unit collection.
-Emission-context material references, remaining pollutant fields and self-control
+Emission-context material references and remaining annual pollutant fields
 are not enabled.
 
 Water adds `water-lozingen.ods`: `Waterstromen` holds annual flow/days per
@@ -37,6 +37,20 @@ reported. Nested collection class constants are hidden schema-derived values, no
 editable columns or invented observed properties.
 Water use, standalone method declarations, totals, balances and bundling
 independent sections into one workbook are not covered.
+
+Self-control adds `zelfcontrole-lucht.ods` and `zelfcontrole-water.ods`, each
+with `Metingen` and `Meetresultaten`. Detail rows repeat the approved composite
+key: point URI plus exact timestamp. Two measurements at the same point on the
+same day remain distinct; changing the optional lab does not distinguish an
+otherwise duplicate key. Point, timestamp and at least one parameter are required
+within a supplied measurement; an entirely blank template imports as `{}`.
+Lab names and registration numbers are metadata.
+Optional concentration and mass flow are non-negative with selectable units;
+water limit values also offer selectable units. Uncertainty is an optional
+integer 0–100 percent. Frequency and its source are temporarily free text.
+Water sample type offers three approved options. See the
+[source guide](../../../README.md#zelfcontrole-lucht-en-water) for exact units,
+Confluence deviations and remaining parameter/list gaps.
 
 Each numeric quantity has `Eenheid` immediately to its right. Optional quantities
 do not prefill a fixed unit until a value is supplied. A unit collection
@@ -97,7 +111,7 @@ materialized input JSON after regrouping canonical predicate arrays by source
 variant; any other difference blocks output. Order within repeated records of
 the same variant is preserved. CLI template generation and UI download
 generation additionally perform this check with the synthetic groundwater,
-air and water examples and their reference context. These dummy values
+air, water and self-control examples and their reference context. These dummy values
 are used only in the verification workbook, never in the downloaded blank
 template.
 
@@ -144,6 +158,13 @@ The groundwater command generates three templates under `output/grondwater/`.
 Use `--theme lucht` in the ODS command to generate the air workbook under
 `output/lucht/`.
 Use `--theme water` for the two water workbooks under `output/water/`.
+Use `--theme zelfcontrole-lucht` or `--theme zelfcontrole-water` for the
+corresponding self-control workbook.
+For populated synthetic examples, use `export --theme zelfcontrole-lucht --section meting
+--data ../poc-json-schema/examples/zelfcontrole-lucht/meting.json
+--references ../poc-json-schema/examples/refs.json
+--reference-context ../poc-json-schema/examples/reference-context.json
+--out output/examples --fetch-labels` (substitute `zelfcontrole-water` for water).
 Blank discharge templates can be downloaded, but importing an entirely blank
 `water-lozingen.ods` correctly fails the source's required-discharge constraint;
 the optional abnormal-discharge workbook imports empty as `{}`.
@@ -213,8 +234,8 @@ semantic validators. Its build/test commands build that dependency first.
 For debits, use ODS section `onttrekking`; for level measurements, `peilmeting`.
 Their singleton observation/result details remain inline in `Debieten` and
 `Peilmetingen`. Quality depth stays on `Monsters`; only repeated parameter
-observations use `Meetresultaten`. No quantity calculation or extra
-Sample/Sampling entity is introduced. Source-declared resultTime ownership,
+observations use `Meetresultaten`. A singleton Monster and Sampling remain inline
+on the `Monsters` sheet; no quantity is calculated. Source-declared resultTime ownership,
 including the shared end date for quantity/end reading, remains intact.
 Hidden constants do not create optional components in otherwise empty rows.
 Inactive-component errors identify the entered value cell, not an identifier.

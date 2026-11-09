@@ -81,9 +81,18 @@ export class ConceptMapper {
       schemaField.format = formats[datatype]
     }
     if (concept.relevantRiepr?.length) {
-      schemaField.extensions!['x-reference-types'] = concept.relevantRiepr.map(value =>
-        this.result.expandCurie?.(value) ?? value,
-      )
+      schemaField.extensions!['x-reference-types'] = [...new Set(concept.relevantRiepr.flatMap(value => {
+        const expanded = this.result.expandCurie?.(value) ?? value
+        const scheme = [...this.result.schemes.values()].find(scheme =>
+          (this.result.expandCurie?.(scheme.id) ?? scheme.id) === expanded)
+        if (!scheme) return [expanded]
+        const members = [...this.result.concepts.values()].filter(member => member.inScheme === scheme.id)
+        if (!members.length) throw new SourceMetadataError([{
+          code: 'invalid-source-reference', conceptId: concept.id,
+          message: `Structural type scheme ${value} on ${concept.id} has no concepts.`,
+        }])
+        return members.map(member => this.result.expandCurie?.(member.id) ?? member.id)
+      }))]
     }
     if (concept.relevantCodeList?.length) {
       schemaField.extensions!['x-code-lists'] = concept.relevantCodeList.map(value =>

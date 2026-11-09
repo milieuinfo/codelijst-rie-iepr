@@ -110,10 +110,13 @@ export function observationOwnership(input: SchemaField[], result: CodelistResul
     }
     fields.push({
       conceptId: resultId, propertyName: 'hasResult', label: observation.label,
-      type: 'object', isRequired: components.some(component => component.isRequired), isRepeatable: false,
+      type: 'object', isRequired: true, isRepeatable: false,
       broaderPartitive: [observation.conceptId], relevantClass: vocabularyIri('riepr:Resultaat'),
       relationUri: sosa + 'hasResult',
-      extensions: { 'x-jsonld-id': sosa + 'hasResult', 'x-implicit-result': true, 'x-ui-hidden-container': true },
+      extensions: {
+        'x-jsonld-id': sosa + 'hasResult', 'x-implicit-result': true, 'x-ui-hidden-container': true,
+        ...(!components.some(component => component.isRequired) ? { 'x-require-result-content': true } : {}),
+      },
     })
   }
   return fields

@@ -19,10 +19,11 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-The active generator reads the groundwater, air and water reporting CSVs and supporting
+The active generator reads the groundwater, air, water and self-control reporting CSVs and supporting
 choice lists, with direct concept-scheme entry points (no `thematypes.csv`).
 Strict generation remains the default; the current source generates all three
-groundwater sections, five air sections and two water sections. Select a production year, then
+groundwater sections, five air sections, two water sections and two self-control
+sections: twelve sections across five themes. Select a production year, then
 `Lucht` and `Emissie` to test point/source selections, emission context and nested
 pollutant results, including the matching `lucht-emissies.ods` download/import.
 Choose `Verbruikte brandstof`, `Verbruikte stof`, `Geproduceerde stof` or
@@ -36,8 +37,16 @@ linked by the control-point selection. `Abnormale lozing` has a separate
 `water-abnormale-lozingen.ods` download/import. Existing units and choice lists
 are retained; water use, standalone method declarations, totals and balances
 remain deferred.
+Select `Zelfcontrole lucht` or `Zelfcontrole water` -> `Metingen` for point and
+exact timestamp, optional lab metadata and expandable parameter results.
+The paired-sheet ODS templates use point URI plus timestamp as their parent key.
+Concentration, uncertainty and mass flow/water limit values are optional;
+units are selectable and uncertainty is an integer 0–100 percent.
+Frequency and its source are temporarily free text. Water offers three sample
+types. See the [source guide](../../README.md#zelfcontrole-lucht-en-water)
+for approved units, Confluence deviations and remaining pollutant/list gaps.
 Keep `--theme` omitted during generation so all themes remain indexed.
-Air is not yet Teepak-complete: emission-context material references, self-control, missing pollutant
+Air is not yet Teepak-complete: emission-context material references, missing pollutant
 quantities/methods and improvements remain deferred. Sources are not yet
 filtered to the selected point because that relationship is not declared.
 `--allow-incomplete` reports blocked sections, but cannot
@@ -134,7 +143,17 @@ explicitly. `pnpm sync:schemas` performs just the schema runtime build and sync.
   The JSON structure and ODS unit columns remain unchanged.
 - “Valideren en JSON tonen” runs the shared structural and semantic validators.
   Errors show data paths and matching cell messages; JSON appears only on success.
-  Any edit clears the previous success output.
+  JSON and Turtle are shown in tabs, with syntax highlighting for JSON. Turtle
+  can also be downloaded; RDF mapping errors are reported separately while
+  retaining valid JSON. Any edit clears both outputs.
+- Turtle reporting resources use the ontology's Hydra URI templates, including
+  creation and submission timestamps; constructed features also include their
+  production year. The POC simulates submission at validation time: its
+  `dct:issued` and `dct:created` values are the current time, and every
+  validation mints new UUIDs. These URIs and timestamps do not represent real
+  submissions or persistent backend records. Directly selected systems retain
+  their existing reference URIs. Run `npm run sync:uri-templates` after changing
+  the sibling RIE-IEPR ontology's templates.
 - The static ODS download retains the indexed generic schema/transport contract.
   Upload checks that contract first, then rebuilds the personal form schema with
   the imported reference labels. Separately generated personal-schema ODS files
@@ -142,6 +161,21 @@ explicitly. `pnpm sync:schemas` performs just the schema runtime build and sync.
   CLI/API plan, not silently treated as generic UI templates.
 - Structural choices are explicitly fictional demonstration instances, scoped
   to the reporting year, not real reported installations or measuring points.
+
+The Turtle exporter uses the schema predicates and class annotations, constructs
+annual features from the explicitly linked system processes (or connecting
+transport processes), and carries CSOR qualifiers as PropertyValues on results
+or their individual result characteristics. The UI's process graph and all its
+connections are **fictional**; production integration must provide a real graph.
+Missing or ambiguous processes and observations without required features or
+results produce errors rather than invented data. The browser does not run SHACL:
+the example-based tests validate offline against the regenerated ontology shapes.
+
+For SHACL tests install `python3 -m pip install -r test/requirements-shacl.txt`.
+To refresh the snapshot after changing the sibling RIE-IEPR ontology, run
+`mvn exec:java@oddtoolkit-shacl` there and `npm run sync:shacl` here. The sync
+normalizes ODDToolkit's `xsd:int` cardinalities to SHACL's required `xsd:integer`;
+it does not weaken the constraints.
 
 Blocked sections remain visible with source diagnostics instead of an invented
 partial form. The browser checks source/schema SHA-256 fingerprints and compiles
