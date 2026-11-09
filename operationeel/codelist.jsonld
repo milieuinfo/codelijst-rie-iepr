@@ -15,6 +15,16 @@
       "schemeId": "conceptscheme:operationeel_water",
       "slug": "water",
       "label": "Water"
+    },
+    {
+      "schemeId": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "slug": "zelfcontrole-lucht",
+      "label": "Zelfcontrole lucht"
+    },
+    {
+      "schemeId": "conceptscheme:operationeel_zelfcontrole_water",
+      "slug": "zelfcontrole-water",
+      "label": "Zelfcontrole water"
     }
   ],
   "@context": {
@@ -936,11 +946,19 @@
       ]
     },
     {
+      "id": "prov:used",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-09T16:34:20.599Z",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
       "id": "prov:wasAssociatedWith",
       "_type": [
         "rdfs:Resource"
       ],
-      "created": "2026-11-06T11:23:25.218Z",
+      "created": "2026-11-09T16:34:20.599Z",
       "status": "https://purl.archive.org/adms/status/Active"
     },
     {
@@ -960,7 +978,7 @@
       "_type": [
         "rdfs:Resource"
       ],
-      "created": "2026-11-06T11:23:25.218Z",
+      "created": "2026-11-09T16:34:20.599Z",
       "status": "https://purl.archive.org/adms/status/Active"
     },
     {
@@ -970,19 +988,15 @@
       ]
     },
     {
-      "id": "sosa:madeBySensor",
+      "id": "sosa:isResultOf",
       "_type": [
         "rdfs:Resource"
-      ]
+      ],
+      "created": "2026-11-09T16:34:20.599Z",
+      "status": "https://purl.archive.org/adms/status/Active"
     },
     {
       "id": "sosa:observedProperty",
-      "_type": [
-        "rdfs:Resource"
-      ]
-    },
-    {
-      "id": "sosa:phenomenonTime",
       "_type": [
         "rdfs:Resource"
       ]
@@ -1013,6 +1027,41 @@
         "csor_eenheid:E_95",
         "csor_eenheid:E_32",
         "csor_eenheid:E_83"
+      ]
+    },
+    {
+      "id": "collectie:operationeel_eenheden_zelfcontrole_lucht_concentratie",
+      "_type": "skos:Collection",
+      "_table_order": 96,
+      "prefLabel": "Eenheden concentratie zelfcontrole lucht",
+      "definition": "Toegelaten concentratie-eenheden bij standaardomstandigheden voor de zelfcontrole van luchtemissies.",
+      "member": [
+        "csor_eenheid:E_172",
+        "csor_eenheid:E_327",
+        "csor_eenheid:E_326",
+        "csor_eenheid:E_325"
+      ]
+    },
+    {
+      "id": "collectie:operationeel_eenheden_zelfcontrole_lucht_massastroom",
+      "_type": "skos:Collection",
+      "_table_order": 102,
+      "prefLabel": "Eenheden massastroom zelfcontrole lucht",
+      "definition": "Toegelaten massastroomeenheden voor de zelfcontrole van luchtemissies.",
+      "member": [
+        "csor_eenheid:E_13",
+        "csor_eenheid:E_18"
+      ]
+    },
+    {
+      "id": "collectie:operationeel_eenheden_zelfcontrole_water_concentratie",
+      "_type": "skos:Collection",
+      "_table_order": 106,
+      "prefLabel": "Eenheden concentratie zelfcontrole water",
+      "definition": "Toegelaten eenheden voor de concentratie en de grenswaarde bij de zelfcontrole van oppervlaktewater.",
+      "member": [
+        "csor_eenheid:E_1",
+        "csor_eenheid:E_3"
       ]
     },
     {
@@ -3794,7 +3843,7 @@
       "_type": [
         "rdfs:Resource"
       ],
-      "created": "2026-11-06T11:23:25.218Z",
+      "created": "2026-11-09T16:34:20.599Z",
       "status": "https://purl.archive.org/adms/status/Active"
     },
     {
@@ -3808,7 +3857,7 @@
       "_type": [
         "rdfs:Resource"
       ],
-      "created": "2026-11-06T11:23:25.218Z",
+      "created": "2026-11-09T16:34:20.599Z",
       "status": "https://purl.archive.org/adms/status/Active"
     },
     {
@@ -4371,6 +4420,94 @@
       "_table_order": 89
     },
     {
+      "id": "conceptscheme:operationeel_zelfcontrole_soort_monstername",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 91,
+      "prefLabel": "Soort monstername zelfcontrole water",
+      "definition": "De wijze van monstername bij een zelfcontrolemeting van oppervlaktewater.",
+      "hasTopConcept": [
+        {
+          "id": "zelfcontrole-water:schepmonster"
+        },
+        {
+          "id": "zelfcontrole-water:tijdsgebonden_mengmonster"
+        },
+        {
+          "id": "zelfcontrole-water:debietgebonden_mengmonster"
+        }
+      ]
+    },
+    {
+      "id": "zelfcontrole-water:schepmonster",
+      "_type": "skos:Concept",
+      "_table_order": 92,
+      "topConceptOf": "conceptscheme:operationeel_zelfcontrole_soort_monstername",
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_soort_monstername",
+      "prefLabel": "Schepmonster",
+      "definition": "Een schepmonster bij de zelfcontrole van oppervlaktewater.",
+      "_ui_first": true
+    },
+    {
+      "id": "zelfcontrole-water:tijdsgebonden_mengmonster",
+      "_type": "skos:Concept",
+      "_table_order": 93,
+      "topConceptOf": "conceptscheme:operationeel_zelfcontrole_soort_monstername",
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_soort_monstername",
+      "prefLabel": "Tijdsgebonden mengmonster",
+      "definition": "Een tijdsgebonden mengmonster bij de zelfcontrole van oppervlaktewater.",
+      "_ui_after": "zelfcontrole-water:schepmonster"
+    },
+    {
+      "id": "zelfcontrole-water:debietgebonden_mengmonster",
+      "_type": "skos:Concept",
+      "_table_order": 94,
+      "topConceptOf": "conceptscheme:operationeel_zelfcontrole_soort_monstername",
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_soort_monstername",
+      "prefLabel": "Debietgebonden mengmonster",
+      "definition": "Een debietgebonden mengmonster bij de zelfcontrole van oppervlaktewater.",
+      "_ui_after": "zelfcontrole-water:tijdsgebonden_mengmonster"
+    },
+    {
+      "id": "csor_eenheid:E_172",
+      "_type": "",
+      "_table_order": 97
+    },
+    {
+      "id": "csor_eenheid:E_327",
+      "_type": "",
+      "_table_order": 98
+    },
+    {
+      "id": "csor_eenheid:E_326",
+      "_type": "",
+      "_table_order": 99
+    },
+    {
+      "id": "csor_eenheid:E_325",
+      "_type": "",
+      "_table_order": 100
+    },
+    {
+      "id": "csor_eenheid:E_13",
+      "_type": "",
+      "_table_order": 103
+    },
+    {
+      "id": "csor_eenheid:E_18",
+      "_type": "",
+      "_table_order": 104
+    },
+    {
+      "id": "csor_eenheid:E_1",
+      "_type": "",
+      "_table_order": 107
+    },
+    {
+      "id": "csor_eenheid:E_3",
+      "_type": "",
+      "_table_order": 108
+    },
+    {
       "id": "conceptscheme:operationeel_grondwater",
       "_type": "skos:ConceptScheme",
       "_table_order": 9,
@@ -4436,6 +4573,7 @@
       "relevantFeatureClass": "riepr:Onttrekking",
       "relation": "sosa:hasFeatureOfInterest",
       "relevantRiepr": "meetpunt:debietmeter",
+      "isVerplicht": true,
       "_table_workbook": "grondwater-debieten.ods",
       "_table_sheet": "Debieten",
       "_ui_first": true
@@ -4569,6 +4707,7 @@
         "filter:peil",
         "filter:pomp"
       ],
+      "isVerplicht": true,
       "_table_workbook": "grondwater-peilmetingen.ods",
       "_table_sheet": "Peilmetingen",
       "_ui_first": true
@@ -4717,6 +4856,7 @@
         "filter:peil",
         "filter:pomp"
       ],
+      "isVerplicht": true,
       "isMultiselect": true,
       "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
       "_table_sheet": "Monsters",
@@ -4725,35 +4865,34 @@
     {
       "id": "grondwater:kwaliteitsmeting-monsternummer",
       "_type": "skos:Concept",
-      "_table_order": 22,
+      "_table_order": 23,
       "inScheme": "conceptscheme:operationeel_grondwater",
       "prefLabel": "Monsternummer",
-      "broaderPartitive": "grondwater:kwaliteitsmeting",
-      "relevantObservation": "grondwater:kwaliteitsmeting",
+      "broaderPartitive": "grondwater:kwaliteitsmeting-monster",
       "relevantDataType": "xsd:string",
       "relation": "dcterms:identifier",
+      "isVerplicht": true,
       "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
       "_table_sheet": "Monsters",
-      "_ui_after": "grondwater:kwaliteitsmeting-feature"
+      "_ui_first": true
     },
     {
       "id": "grondwater:kwaliteitsmeting-datum",
       "_type": "skos:Concept",
-      "_table_order": 23,
+      "_table_order": 25,
       "inScheme": "conceptscheme:operationeel_grondwater",
       "prefLabel": "Datum en tijdstip",
-      "broaderPartitive": "grondwater:kwaliteitsmeting",
-      "relevantObservation": "grondwater:kwaliteitsmeting",
+      "broaderPartitive": "grondwater:kwaliteitsmeting-monstername",
       "relevantDataType": "xsd:dateTime",
-      "relation": "sosa:phenomenonTime",
+      "relation": "sosa:resultTime",
       "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
       "_table_sheet": "Monsters",
-      "_ui_after": "grondwater:kwaliteitsmeting-monsternummer"
+      "_ui_first": true
     },
     {
       "id": "grondwater:kwaliteitsmeting-labo-datum",
       "_type": "skos:Concept",
-      "_table_order": 24,
+      "_table_order": 27,
       "inScheme": "conceptscheme:operationeel_grondwater",
       "prefLabel": "Datum en tijdstip laboanalyse",
       "broaderPartitive": "grondwater:kwaliteitsmeting",
@@ -4761,12 +4900,13 @@
       "relevantDataType": "xsd:dateTime",
       "relation": "sosa:resultTime",
       "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
-      "_table_sheet": "Monsters"
+      "_table_sheet": "Monsters",
+      "_ui_after": "grondwater:kwaliteitsmeting-monster"
     },
     {
       "id": "grondwater:kwaliteitsmeting-labo",
       "_type": "skos:Concept",
-      "_table_order": 25,
+      "_table_order": 28,
       "inScheme": "conceptscheme:operationeel_grondwater",
       "prefLabel": "Labo",
       "definition": "Labo dat de meting uitvoerde.",
@@ -4776,12 +4916,13 @@
       "relation": "prov:wasAssociatedWith",
       "isVerplicht": true,
       "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
-      "_table_sheet": "Monsters"
+      "_table_sheet": "Monsters",
+      "_ui_after": "grondwater:kwaliteitsmeting-labo-datum"
     },
     {
       "id": "grondwater:kwaliteitsmeting-labo-naam",
       "_type": "skos:Concept",
-      "_table_order": 26,
+      "_table_order": 29,
       "inScheme": "conceptscheme:operationeel_grondwater",
       "prefLabel": "Labo naam",
       "broaderPartitive": "grondwater:kwaliteitsmeting-labo",
@@ -4794,7 +4935,7 @@
     {
       "id": "grondwater:kwaliteitsmeting-referentiepunt",
       "_type": "skos:Concept",
-      "_table_order": 27,
+      "_table_order": 30,
       "inScheme": "conceptscheme:operationeel_grondwater",
       "prefLabel": "Referentiepunt",
       "broaderPartitive": "grondwater:kwaliteitsmeting",
@@ -4805,12 +4946,13 @@
       "isVerplicht": true,
       "isMeervoudig": true,
       "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
-      "_table_sheet": "Monsters"
+      "_table_sheet": "Monsters",
+      "_ui_after": "grondwater:kwaliteitsmeting-labo"
     },
     {
       "id": "grondwater:kwaliteitsmeting-diepte",
       "_type": "skos:Concept",
-      "_table_order": 28,
+      "_table_order": 31,
       "inScheme": "conceptscheme:operationeel_grondwater",
       "prefLabel": "Diepte/hoogte (TAW) t.o.v. referentiepunt",
       "broaderPartitive": "grondwater:kwaliteitsmeting",
@@ -4820,16 +4962,16 @@
       "relation": "sosa:hasMember",
       "relevantUnit": "csor_eenheid:E_59",
       "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
-      "_table_sheet": "Monsters"
+      "_table_sheet": "Monsters",
+      "_ui_after": "grondwater:kwaliteitsmeting-referentiepunt"
     },
     {
       "id": "grondwater:kwaliteitsmeting-techniek",
       "_type": "skos:Concept",
-      "_table_order": 29,
+      "_table_order": 26,
       "inScheme": "conceptscheme:operationeel_grondwater",
       "prefLabel": "Techniek monstername",
-      "broaderPartitive": "grondwater:kwaliteitsmeting",
-      "relevantObservation": "grondwater:kwaliteitsmeting",
+      "broaderPartitive": "grondwater:kwaliteitsmeting-monstername",
       "relation": "sosa:usedProcedure",
       "relevantCodeList": "conceptscheme:operationeel_techniekmonstername",
       "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
@@ -4838,7 +4980,7 @@
     {
       "id": "grondwater:kwaliteitsmeting-resultaten",
       "_type": "skos:Concept",
-      "_table_order": 30,
+      "_table_order": 32,
       "inScheme": "conceptscheme:operationeel_grondwater",
       "prefLabel": "Meetresultaten",
       "broaderPartitive": "grondwater:kwaliteitsmeting",
@@ -4847,12 +4989,13 @@
       "relation": "sosa:hasMember",
       "isMeervoudig": true,
       "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
-      "_table_sheet": "Meetresultaten"
+      "_table_sheet": "Meetresultaten",
+      "_ui_after": "grondwater:kwaliteitsmeting-diepte"
     },
     {
       "id": "grondwater:kwaliteitsmeting-resultaten-parameter",
       "_type": "skos:Concept",
-      "_table_order": 31,
+      "_table_order": 33,
       "inScheme": "conceptscheme:operationeel_grondwater",
       "prefLabel": "Parameter",
       "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
@@ -4866,7 +5009,7 @@
     {
       "id": "grondwater:kwaliteitsmeting-resultaten-meetwaarde",
       "_type": "skos:Concept",
-      "_table_order": 32,
+      "_table_order": 34,
       "inScheme": "conceptscheme:operationeel_grondwater",
       "prefLabel": "Meetwaarde",
       "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
@@ -4883,7 +5026,7 @@
     {
       "id": "grondwater:kwaliteitsmeting-resultaten-limiet",
       "_type": "skos:Concept",
-      "_table_order": 33,
+      "_table_order": 35,
       "inScheme": "conceptscheme:operationeel_grondwater",
       "prefLabel": "Detectielimiet",
       "definition": "Een aanduiding of de meetwaarde boven of onder de detectielimiet ligt.",
@@ -4898,7 +5041,7 @@
     {
       "id": "grondwater:kwaliteitsmeting-resultaten-methode",
       "_type": "skos:Concept",
-      "_table_order": 34,
+      "_table_order": 36,
       "inScheme": "conceptscheme:operationeel_grondwater",
       "prefLabel": "Analysemethode",
       "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
@@ -4911,7 +5054,7 @@
     {
       "id": "grondwater:kwaliteitsmeting-bemonsteringsinstrument",
       "_type": "skos:Concept",
-      "_table_order": 35,
+      "_table_order": 37,
       "inScheme": "conceptscheme:operationeel_grondwater",
       "prefLabel": "Veld- of laboanalyse",
       "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
@@ -4922,9 +5065,36 @@
       "_table_sheet": "Meetresultaten"
     },
     {
+      "id": "grondwater:kwaliteitsmeting-monster",
+      "_type": "skos:Concept",
+      "_table_order": 22,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Monster",
+      "definition": "Het monster dat bij de kwaliteitsmeting wordt onderzocht.",
+      "broaderPartitive": "grondwater:kwaliteitsmeting",
+      "relevantClass": "riepr:Monster",
+      "relation": "prov:used",
+      "isVerplicht": true,
+      "isOnzichtbaar": true,
+      "_ui_after": "grondwater:kwaliteitsmeting-feature"
+    },
+    {
+      "id": "grondwater:kwaliteitsmeting-monstername",
+      "_type": "skos:Concept",
+      "_table_order": 24,
+      "inScheme": "conceptscheme:operationeel_grondwater",
+      "prefLabel": "Monstername",
+      "definition": "De monstername waarbij het monster is genomen.",
+      "broaderPartitive": "grondwater:kwaliteitsmeting-monster",
+      "relevantClass": "sosa:Sampling",
+      "relation": "sosa:isResultOf",
+      "isOnzichtbaar": true,
+      "_ui_after": "grondwater:kwaliteitsmeting-monsternummer"
+    },
+    {
       "id": "conceptscheme:operationeel_lucht",
       "_type": "skos:ConceptScheme",
-      "_table_order": 56,
+      "_table_order": 58,
       "prefLabel": "Operationele gegevens",
       "hasTopConcept": [
         {
@@ -4947,7 +5117,7 @@
     {
       "id": "lucht:feature_ep",
       "_type": "skos:Concept",
-      "_table_order": 37,
+      "_table_order": 39,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Emissiepunt",
       "definition": "Selecteer het emissiepunt waarop je wil rapporteren.",
@@ -4965,12 +5135,12 @@
     {
       "id": "conceptscheme:operationeel_lucht_bron",
       "_type": "skos:ConceptScheme",
-      "_table_order": 82
+      "_table_order": 84
     },
     {
       "id": "lucht:feature_bron",
       "_type": "skos:Concept",
-      "_table_order": 38,
+      "_table_order": 40,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Bron(nen)",
       "definition": "Selecteer de bron(nen) waarop je wil rapporteren.",
@@ -4989,12 +5159,12 @@
     {
       "id": "conceptscheme:operationeel_lucht_rapportering",
       "_type": "skos:ConceptScheme",
-      "_table_order": 83
+      "_table_order": 85
     },
     {
       "id": "lucht:brandstof",
       "_type": "skos:Concept",
-      "_table_order": 57,
+      "_table_order": 59,
       "topConceptOf": "conceptscheme:operationeel_lucht",
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Verbruikte brandstof",
@@ -5008,7 +5178,7 @@
     {
       "id": "lucht:brandstof_naam",
       "_type": "skos:Concept",
-      "_table_order": 59,
+      "_table_order": 61,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Naam",
       "definition": "Naam van de brandstof.",
@@ -5021,7 +5191,7 @@
     {
       "id": "lucht:brandstof_s",
       "_type": "skos:Concept",
-      "_table_order": 61,
+      "_table_order": 63,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "S-gehalte",
       "broaderPartitive": "lucht:brandstof",
@@ -5036,7 +5206,7 @@
     {
       "id": "lucht:brandstof_as",
       "_type": "skos:Concept",
-      "_table_order": 62,
+      "_table_order": 64,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "AS-gehalte",
       "broaderPartitive": "lucht:brandstof",
@@ -5051,7 +5221,7 @@
     {
       "id": "lucht:brandstof_verbruik",
       "_type": "skos:Concept",
-      "_table_order": 63,
+      "_table_order": 65,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Verbruik",
       "definition": "Verbruik van de brandstof in GJ",
@@ -5066,7 +5236,7 @@
     {
       "id": "lucht:brandstof_installatie",
       "_type": "skos:Concept",
-      "_table_order": 58,
+      "_table_order": 60,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Installatie",
       "definition": "Installatie waarvoor het jaarlijkse brandstofverbruik wordt gerapporteerd.",
@@ -5080,7 +5250,7 @@
     {
       "id": "lucht:brandstof_aard",
       "_type": "skos:Concept",
-      "_table_order": 60,
+      "_table_order": 62,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Aard en/of samenstelling",
       "definition": "Beschrijving van de aard of samenstelling van de brandstof.",
@@ -5093,7 +5263,7 @@
     {
       "id": "lucht:verbruikte_stof",
       "_type": "skos:Concept",
-      "_table_order": 64,
+      "_table_order": 66,
       "topConceptOf": "conceptscheme:operationeel_lucht",
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Verbruikte stof",
@@ -5107,7 +5277,7 @@
     {
       "id": "lucht:verbruikte_stof_naam",
       "_type": "skos:Concept",
-      "_table_order": 66,
+      "_table_order": 68,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Naam",
       "definition": "Naam van de verbruikte stof.",
@@ -5120,7 +5290,7 @@
     {
       "id": "lucht:verbruikte_stof_aard",
       "_type": "skos:Concept",
-      "_table_order": 68,
+      "_table_order": 70,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Aard en/of samenstelling",
       "definition": "Beschrijving van de aard of samenstelling van de verbruikte stof.",
@@ -5132,7 +5302,7 @@
     {
       "id": "lucht:verbruikte_stof_hoeveelheid",
       "_type": "skos:Concept",
-      "_table_order": 69,
+      "_table_order": 71,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Verbruik",
       "definition": "Jaarlijks verbruik van de stof, uitgedrukt in de geselecteerde eenheid.",
@@ -5146,7 +5316,7 @@
     {
       "id": "lucht:verbruikte_stof_resultaat",
       "_type": "skos:Concept",
-      "_table_order": 67,
+      "_table_order": 69,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Resultaat verbruikte stof",
       "definition": "Het resultaatrecord van de gerapporteerde verbruikte stof.",
@@ -5159,7 +5329,7 @@
     {
       "id": "lucht:verbruikte_stof_installatie",
       "_type": "skos:Concept",
-      "_table_order": 65,
+      "_table_order": 67,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Installatie",
       "definition": "Installatie waarvoor het jaarlijkse stofverbruik wordt gerapporteerd.",
@@ -5173,7 +5343,7 @@
     {
       "id": "lucht:geproduceerde_stof",
       "_type": "skos:Concept",
-      "_table_order": 70,
+      "_table_order": 72,
       "topConceptOf": "conceptscheme:operationeel_lucht",
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Geproduceerde stof",
@@ -5187,7 +5357,7 @@
     {
       "id": "lucht:geproduceerde_stof_naam",
       "_type": "skos:Concept",
-      "_table_order": 73,
+      "_table_order": 75,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Naam",
       "definition": "Naam van de geproduceerde stof.",
@@ -5200,7 +5370,7 @@
     {
       "id": "lucht:geproduceerde_stof_aard",
       "_type": "skos:Concept",
-      "_table_order": 74,
+      "_table_order": 76,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Aard en/of samenstelling",
       "definition": "Beschrijving van de aard of samenstelling van de geproduceerde stof.",
@@ -5212,7 +5382,7 @@
     {
       "id": "lucht:geproduceerde_stof_hoeveelheid",
       "_type": "skos:Concept",
-      "_table_order": 75,
+      "_table_order": 77,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Productie",
       "definition": "Jaarlijks geproduceerde hoeveelheid van de stof, uitgedrukt in de geselecteerde eenheid.",
@@ -5225,7 +5395,7 @@
     {
       "id": "lucht:geproduceerde_stof_resultaat",
       "_type": "skos:Concept",
-      "_table_order": 72,
+      "_table_order": 74,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Resultaat geproduceerde stof",
       "definition": "Het resultaatrecord van de gerapporteerde geproduceerde stof.",
@@ -5238,7 +5408,7 @@
     {
       "id": "lucht:geproduceerde_stof_installatie",
       "_type": "skos:Concept",
-      "_table_order": 71,
+      "_table_order": 73,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Installatie",
       "definition": "Installatie waarvoor de jaarlijkse stofproductie wordt gerapporteerd.",
@@ -5252,7 +5422,7 @@
     {
       "id": "lucht:afvalproduct",
       "_type": "skos:Concept",
-      "_table_order": 76,
+      "_table_order": 78,
       "topConceptOf": "conceptscheme:operationeel_lucht",
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Afvalproduct",
@@ -5266,7 +5436,7 @@
     {
       "id": "lucht:afvalproduct_naam",
       "_type": "skos:Concept",
-      "_table_order": 79,
+      "_table_order": 81,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Naam",
       "definition": "Naam van het afvalproduct.",
@@ -5279,7 +5449,7 @@
     {
       "id": "lucht:afvalproduct_aard",
       "_type": "skos:Concept",
-      "_table_order": 80,
+      "_table_order": 82,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Aard en/of samenstelling",
       "definition": "Beschrijving van de aard of samenstelling van het afvalproduct.",
@@ -5291,7 +5461,7 @@
     {
       "id": "lucht:afvalproduct_hoeveelheid",
       "_type": "skos:Concept",
-      "_table_order": 81,
+      "_table_order": 83,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Hoeveelheid afvalproduct",
       "definition": "Jaarlijks geproduceerde hoeveelheid afvalproduct, uitgedrukt in de geselecteerde eenheid.",
@@ -5304,7 +5474,7 @@
     {
       "id": "lucht:afvalproduct_resultaat",
       "_type": "skos:Concept",
-      "_table_order": 78,
+      "_table_order": 80,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Resultaat afvalproduct",
       "definition": "Het resultaatrecord van het gerapporteerde afvalproduct.",
@@ -5317,7 +5487,7 @@
     {
       "id": "lucht:afvalproduct_installatie",
       "_type": "skos:Concept",
-      "_table_order": 77,
+      "_table_order": 79,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Installatie",
       "definition": "Installatie waarvoor de jaarlijkse productie van afvalproducten wordt gerapporteerd.",
@@ -5331,12 +5501,12 @@
     {
       "id": "conceptscheme:operationeel_lucht_emissie",
       "_type": "skos:ConceptScheme",
-      "_table_order": 84
+      "_table_order": 86
     },
     {
       "id": "lucht:emissie",
       "_type": "skos:Concept",
-      "_table_order": 36,
+      "_table_order": 38,
       "topConceptOf": "conceptscheme:operationeel_lucht",
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Emissie",
@@ -5354,7 +5524,7 @@
     {
       "id": "lucht:emissieritme",
       "_type": "skos:Concept",
-      "_table_order": 45,
+      "_table_order": 47,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Emissieritme",
       "definition": "Beschrijving van hoeveel tijd er per tijdseenheid wordt geemitteerd, bijvoorbeeld 8 uur per dag.",
@@ -5370,7 +5540,7 @@
     {
       "id": "lucht:emissieperiode",
       "_type": "skos:Concept",
-      "_table_order": 46,
+      "_table_order": 48,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Emissieperiode",
       "definition": "Beschrijving van wanneer er wordt geemitteerd, bijvoorbeeld elke dag van maandag tot vrijdag gedurende 220 dagen per jaar.",
@@ -5386,7 +5556,7 @@
     {
       "id": "lucht:emissieduur",
       "_type": "skos:Concept",
-      "_table_order": 47,
+      "_table_order": 49,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Emissieduur",
       "definition": "Totaal aantal uren dat er tijdens het rapporteringsjaar werd geemitteerd.",
@@ -5403,7 +5573,7 @@
     {
       "id": "lucht:emissietype",
       "_type": "skos:Concept",
-      "_table_order": 39,
+      "_table_order": 41,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Emissietype",
       "broaderPartitive": "lucht:emissie",
@@ -5417,7 +5587,7 @@
     {
       "id": "lucht:emissietoestand",
       "_type": "skos:Concept",
-      "_table_order": 41,
+      "_table_order": 43,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Toestand indicator",
       "definition": "Geeft aan of de gerapporteerde rookgaswaarden betrekking hebben op nat of droog rookgas.",
@@ -5433,7 +5603,7 @@
     {
       "id": "lucht:emissie_vochtgehalte",
       "_type": "skos:Concept",
-      "_table_order": 42,
+      "_table_order": 44,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Vochtgehalte",
       "broaderPartitive": "lucht:emissie",
@@ -5449,7 +5619,7 @@
     {
       "id": "lucht:emissie_zuurstofgehalte",
       "_type": "skos:Concept",
-      "_table_order": 43,
+      "_table_order": 45,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Zuurstofgehalte",
       "broaderPartitive": "lucht:emissie",
@@ -5465,7 +5635,7 @@
     {
       "id": "lucht:emissie_luchtoverschot",
       "_type": "skos:Concept",
-      "_table_order": 44,
+      "_table_order": 46,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Luchtoverschot",
       "broaderPartitive": "lucht:emissie",
@@ -5481,7 +5651,7 @@
     {
       "id": "lucht:emissie_temperatuur",
       "_type": "skos:Concept",
-      "_table_order": 48,
+      "_table_order": 50,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Temperatuur",
       "broaderPartitive": "lucht:emissie",
@@ -5497,7 +5667,7 @@
     {
       "id": "lucht:emissie_parameter",
       "_type": "skos:Concept",
-      "_table_order": 50,
+      "_table_order": 52,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Verontreinigende stof of BKG",
       "broaderPartitive": "lucht:emissie",
@@ -5509,7 +5679,7 @@
     {
       "id": "lucht:emissie_parameter_parameter",
       "_type": "skos:Concept",
-      "_table_order": 51,
+      "_table_order": 53,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Stof",
       "broaderPartitive": "lucht:emissie_parameter",
@@ -5520,7 +5690,7 @@
     {
       "id": "lucht:emissie_parameter_meetfrequentie",
       "_type": "skos:Concept",
-      "_table_order": 53,
+      "_table_order": 55,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Meetfrequentie",
       "broaderPartitive": "lucht:emissie_parameter_resultaat",
@@ -5531,7 +5701,7 @@
     {
       "id": "lucht:emissie_parameter_standaardafwijking",
       "_type": "skos:Concept",
-      "_table_order": 54,
+      "_table_order": 56,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Standaardafwijking",
       "broaderPartitive": "lucht:emissie_parameter_resultaat",
@@ -5548,7 +5718,7 @@
     {
       "id": "lucht:emissie_parameter_massastroom",
       "_type": "skos:Concept",
-      "_table_order": 55,
+      "_table_order": 57,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Massastroom",
       "broaderPartitive": "lucht:emissie_parameter_resultaat",
@@ -5564,7 +5734,7 @@
     {
       "id": "lucht:emissie_parameter_resultaat",
       "_type": "skos:Concept",
-      "_table_order": 52,
+      "_table_order": 54,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Resultaat luchtparameter",
       "definition": "Het resultaatrecord van de gerapporteerde verontreinigende stof of het broeikasgas.",
@@ -5577,7 +5747,7 @@
     {
       "id": "lucht:emissie_oorzaak",
       "_type": "skos:Concept",
-      "_table_order": 40,
+      "_table_order": 42,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Oorzaak abnormale emissie",
       "definition": "Beschrijving van de oorzaak van de abnormale emissie.",
@@ -5595,7 +5765,7 @@
     {
       "id": "lucht:emissie_debiet",
       "_type": "skos:Concept",
-      "_table_order": 49,
+      "_table_order": 51,
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Debiet",
       "definition": "Volumedebiet van het rookgas in normaal kubieke meter per uur.",
@@ -5612,7 +5782,7 @@
     {
       "id": "conceptscheme:operationeel_water",
       "_type": "skos:ConceptScheme",
-      "_table_order": 97,
+      "_table_order": 99,
       "prefLabel": "Operationele gegevens water",
       "definition": "Rapporteer de jaarlijkse waterstromen met hun verontreinigende stoffen en de abnormale lozingen.",
       "hasTopConcept": [
@@ -5627,7 +5797,7 @@
     {
       "id": "water:feature",
       "_type": "skos:Concept",
-      "_table_order": 86,
+      "_table_order": 88,
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Controleinrichting",
       "definition": "De controleinrichting waarvoor de jaarlijkse lozing wordt gerapporteerd.",
@@ -5643,12 +5813,12 @@
     {
       "id": "conceptscheme:operationeel_water_lozing",
       "_type": "skos:ConceptScheme",
-      "_table_order": 104
+      "_table_order": 107
     },
     {
       "id": "water:lozing",
       "_type": "skos:Concept",
-      "_table_order": 85,
+      "_table_order": 87,
       "topConceptOf": "conceptscheme:operationeel_water",
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Lozing",
@@ -5665,7 +5835,7 @@
     {
       "id": "water:lozing-debiet",
       "_type": "skos:Concept",
-      "_table_order": 87,
+      "_table_order": 89,
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Debiet per jaar",
       "broaderPartitive": "water:lozing",
@@ -5680,7 +5850,7 @@
     {
       "id": "water:lozing-dagen",
       "_type": "skos:Concept",
-      "_table_order": 88,
+      "_table_order": 90,
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Aantal dagen per jaar",
       "broaderPartitive": "water:lozing",
@@ -5695,7 +5865,7 @@
     {
       "id": "water:lozing-stof",
       "_type": "skos:Concept",
-      "_table_order": 90,
+      "_table_order": 92,
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Verontreinigende stof",
       "broaderPartitive": "water:lozing-parameter",
@@ -5709,7 +5879,7 @@
     {
       "id": "water:lozing-meetfrequentie",
       "_type": "skos:Concept",
-      "_table_order": 91,
+      "_table_order": 93,
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Meetfrequentie",
       "definition": "Aantal metingen van deze stof tijdens het rapporteringsjaar.",
@@ -5724,7 +5894,7 @@
     {
       "id": "water:lozing-concentratie",
       "_type": "skos:Concept",
-      "_table_order": 92,
+      "_table_order": 94,
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Gemiddelde concentratie",
       "broaderPartitive": "water:lozing-parameter",
@@ -5742,7 +5912,7 @@
     {
       "id": "water:lozing-jaarvracht",
       "_type": "skos:Concept",
-      "_table_order": 93,
+      "_table_order": 95,
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Totale jaarvracht",
       "broaderPartitive": "water:lozing-parameter",
@@ -5760,7 +5930,7 @@
     {
       "id": "water:lozing-bepalingsmethode",
       "_type": "skos:Concept",
-      "_table_order": 95,
+      "_table_order": 97,
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Bepalingsmethode",
       "broaderPartitive": "water:lozing-procedure",
@@ -5771,7 +5941,7 @@
     {
       "id": "water:lozing-bepalingsmethodeclassificatie",
       "_type": "skos:Concept",
-      "_table_order": 96,
+      "_table_order": 98,
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Bepalingsmethodeclassificatie",
       "broaderPartitive": "water:lozing-procedure",
@@ -5783,7 +5953,7 @@
     {
       "id": "water:lozing-procedure",
       "_type": "skos:Concept",
-      "_table_order": 94,
+      "_table_order": 96,
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Bepalingsprocedure",
       "definition": "De gedeelde bepalingsprocedure met de bepalingsmethode en de bijbehorende classificatie.",
@@ -5796,7 +5966,7 @@
     {
       "id": "water:lozing-parameter",
       "_type": "skos:Concept",
-      "_table_order": 89,
+      "_table_order": 91,
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Stoffen in waterstromen",
       "definition": "De concentratie en de jaarvracht van een verontreinigende stof in de jaarlijkse lozing.",
@@ -5813,7 +5983,7 @@
     {
       "id": "water:abnormale-lozing",
       "_type": "skos:Concept",
-      "_table_order": 98,
+      "_table_order": 100,
       "topConceptOf": "conceptscheme:operationeel_water",
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Abnormale lozing",
@@ -5827,19 +5997,19 @@
     {
       "id": "water:abnormale-lozing-stof",
       "_type": "skos:Concept",
-      "_table_order": 99,
+      "_table_order": 102,
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Verontreinigende stof",
       "broaderPartitive": "water:abnormale-lozing",
       "relation": "sosa:observedProperty",
       "relevantCodeList": "collectie:operationeel_stoffen_water",
       "isVerplicht": true,
-      "_ui_first": true
+      "_ui_after": "water:abnormale-lozing-feature"
     },
     {
       "id": "water:abnormale-lozing-lozingsduur",
       "_type": "skos:Concept",
-      "_table_order": 101,
+      "_table_order": 104,
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Lozingsduur",
       "broaderPartitive": "water:abnormale-lozing-resultaat",
@@ -5853,7 +6023,7 @@
     {
       "id": "water:abnormale-lozing-jaarvracht",
       "_type": "skos:Concept",
-      "_table_order": 102,
+      "_table_order": 105,
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Jaarvracht",
       "broaderPartitive": "water:abnormale-lozing-resultaat",
@@ -5869,7 +6039,7 @@
     {
       "id": "water:abnormale-lozing-verklaring",
       "_type": "skos:Concept",
-      "_table_order": 103,
+      "_table_order": 106,
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Verklaring",
       "broaderPartitive": "water:abnormale-lozing-resultaat",
@@ -5880,7 +6050,7 @@
     {
       "id": "water:abnormale-lozing-resultaat",
       "_type": "skos:Concept",
-      "_table_order": 100,
+      "_table_order": 103,
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Resultaat abnormale lozing",
       "definition": "Het resultaatrecord van de gerapporteerde abnormale lozing.",
@@ -5889,6 +6059,486 @@
       "relation": "sosa:hasResult",
       "isVerplicht": true,
       "_ui_after": "water:abnormale-lozing-stof"
+    },
+    {
+      "id": "water:abnormale-lozing-feature",
+      "_type": "skos:Concept",
+      "_table_order": 101,
+      "inScheme": "conceptscheme:operationeel_water",
+      "prefLabel": "Controleinrichting",
+      "definition": "De controleinrichting waarvoor de abnormale lozing wordt gerapporteerd.",
+      "broaderPartitive": "water:abnormale-lozing",
+      "relevantObservation": "water:abnormale-lozing",
+      "relevantClass": "sosa:FeatureOfInterest",
+      "relevantFeatureClass": "riepr:Emissie",
+      "relation": "sosa:hasFeatureOfInterest",
+      "relevantRiepr": "meetpunt:controleinrichting",
+      "isVerplicht": true,
+      "_ui_first": true
+    },
+    {
+      "id": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 123,
+      "prefLabel": "Zelfcontrole luchtemissiemetingen",
+      "definition": "Rapporteer zelfcontrolemetingen per emissiepunt en exact meettijdstip met de bijbehorende parameterresultaten.",
+      "hasTopConcept": [
+        {
+          "id": "zelfcontrole-lucht:meting"
+        }
+      ]
+    },
+    {
+      "id": "zelfcontrole-lucht:feature",
+      "_type": "skos:Concept",
+      "_table_order": 109,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "prefLabel": "Emissiepunt",
+      "definition": "Het emissiepunt waarop de zelfcontrolemeting wordt gerapporteerd.",
+      "broaderPartitive": "zelfcontrole-lucht:meting",
+      "relevantObservation": "zelfcontrole-lucht:meting",
+      "relevantClass": "sosa:FeatureOfInterest",
+      "relevantFeatureClass": "riepr:Emissie",
+      "relation": "sosa:hasFeatureOfInterest",
+      "relevantRiepr": "conceptscheme:emissiepunttypes",
+      "isVerplicht": true,
+      "_ui_first": true
+    },
+    {
+      "id": "conceptscheme:operationeel_zelfcontrole_lucht_meting",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 124
+    },
+    {
+      "id": "zelfcontrole-lucht:meting",
+      "_type": "skos:Concept",
+      "_table_order": 108,
+      "topConceptOf": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "prefLabel": "Metingen",
+      "definition": "Een zelfcontrolemeting op een emissiepunt en een exact meettijdstip met laboratoriummetadata en herhaalbare parameterresultaten.",
+      "relevantClass": "riepr:ObservatieVerzameling",
+      "relevantFeatureClass": "riepr:Emissie",
+      "isMeervoudig": true,
+      "_table_workbook": "zelfcontrole-lucht.ods",
+      "_table_sheet": "Metingen",
+      "_table_key": [
+        "zelfcontrole-lucht:feature",
+        "zelfcontrole-lucht:datum"
+      ],
+      "_ui_first": true
+    },
+    {
+      "id": "zelfcontrole-lucht:datum",
+      "_type": "skos:Concept",
+      "_table_order": 110,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "prefLabel": "Meetmoment",
+      "definition": "Het exacte tijdstip van de meting of het starttijdstip als de meting over meerdere dagen plaatsvindt.",
+      "broaderPartitive": "zelfcontrole-lucht:meting",
+      "relevantObservation": "zelfcontrole-lucht:meting",
+      "relevantDataType": "xsd:dateTime",
+      "relation": "sosa:resultTime",
+      "isVerplicht": true,
+      "_ui_after": "zelfcontrole-lucht:feature"
+    },
+    {
+      "id": "zelfcontrole-lucht:labo",
+      "_type": "skos:Concept",
+      "_table_order": 111,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "prefLabel": "Labo/uitvoerder",
+      "broaderPartitive": "zelfcontrole-lucht:meting",
+      "relevantObservation": "zelfcontrole-lucht:meting",
+      "relevantClass": "prov:Agent",
+      "relation": "prov:wasAssociatedWith",
+      "_ui_after": "zelfcontrole-lucht:datum"
+    },
+    {
+      "id": "zelfcontrole-lucht:labo-naam",
+      "_type": "skos:Concept",
+      "_table_order": 112,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "prefLabel": "Naam",
+      "definition": "De naam van het labo.",
+      "broaderPartitive": "zelfcontrole-lucht:labo",
+      "relevantDataType": "xsd:string",
+      "relation": "rdfs:label",
+      "isVerplicht": true,
+      "_ui_first": true
+    },
+    {
+      "id": "zelfcontrole-lucht:labo-id",
+      "_type": "skos:Concept",
+      "_table_order": 113,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "prefLabel": "KBO nummer of BTW nummer",
+      "broaderPartitive": "zelfcontrole-lucht:labo",
+      "relevantDataType": "xsd:string",
+      "relation": "rov:registration",
+      "_ui_after": "zelfcontrole-lucht:labo-naam"
+    },
+    {
+      "id": "zelfcontrole-lucht:parameter",
+      "_type": "skos:Concept",
+      "_table_order": 114,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "prefLabel": "Meetresultaten",
+      "broaderPartitive": "zelfcontrole-lucht:meting",
+      "relevantObservation": "zelfcontrole-lucht:meting",
+      "relevantClass": "riepr:Observatie",
+      "relation": "sosa:hasMember",
+      "isVerplicht": true,
+      "isMeervoudig": true,
+      "_table_workbook": "zelfcontrole-lucht.ods",
+      "_table_sheet": "Meetresultaten",
+      "_ui_after": "zelfcontrole-lucht:labo"
+    },
+    {
+      "id": "zelfcontrole-lucht:parameter-soort",
+      "_type": "skos:Concept",
+      "_table_order": 117,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "prefLabel": "Soort monster",
+      "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
+      "relevantClass": "schema:PropertyValue",
+      "relevantDataType": "xsd:string",
+      "relation": "schema:additionalProperty",
+      "_ui_first": true
+    },
+    {
+      "id": "zelfcontrole-lucht:parameter-parameter",
+      "_type": "skos:Concept",
+      "_table_order": 115,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "prefLabel": "Parameter",
+      "broaderPartitive": "zelfcontrole-lucht:parameter",
+      "relation": "sosa:observedProperty",
+      "relevantCodeList": "collectie:operationeel_stoffen_lucht",
+      "isVerplicht": true,
+      "_ui_first": true
+    },
+    {
+      "id": "zelfcontrole-lucht:parameter-concentratie",
+      "_type": "skos:Concept",
+      "_table_order": 118,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "prefLabel": "Concentratie bij standaardomstandigheden",
+      "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
+      "relevantDataType": "xsd:decimal",
+      "relation": "qudt:numericValue",
+      "relevantUnit": "collectie:operationeel_eenheden_zelfcontrole_lucht_concentratie",
+      "kwantiteitsAspect": "csor_kwantificeerbaaraspect:KWA_73",
+      "drager": "csor_drager:DR_8",
+      "soortWaartbepaling": "csor_soortwaardebepaling:SWB_1",
+      "variabele": "zelfcontrole-lucht:parameter-parameter",
+      "minValue": "0",
+      "_ui_after": "zelfcontrole-lucht:parameter-soort"
+    },
+    {
+      "id": "zelfcontrole-lucht:parameter-meetonzekerheid",
+      "_type": "skos:Concept",
+      "_table_order": 119,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "prefLabel": "Meetonzekerheid",
+      "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
+      "relevantClass": "schema:PropertyValue",
+      "relevantDataType": "xsd:integer",
+      "relation": "schema:additionalProperty",
+      "relevantUnit": "csor_eenheid:E_43",
+      "kwantiteitsAspect": "csor_kwantificeerbaaraspect:KWA_7",
+      "drager": "csor_drager:DR_8",
+      "soortWaartbepaling": "csor_soortwaardebepaling:SWB_40",
+      "variabele": "zelfcontrole-lucht:parameter-parameter",
+      "minValue": "0",
+      "maxValue": "100",
+      "_ui_after": "zelfcontrole-lucht:parameter-concentratie"
+    },
+    {
+      "id": "zelfcontrole-lucht:parameter-meetfrequentie",
+      "_type": "skos:Concept",
+      "_table_order": 121,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "prefLabel": "Gehanteerde meetfrequentie",
+      "definition": "De voor dit meetresultaat gehanteerde meetfrequentie. Tijdelijk vrije tekst zolang de definitieve limitatieve lijst niet is vastgesteld.",
+      "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
+      "relevantClass": "schema:PropertyValue",
+      "relevantDataType": "xsd:string",
+      "relation": "schema:additionalProperty",
+      "_ui_after": "zelfcontrole-lucht:parameter-massastroom"
+    },
+    {
+      "id": "zelfcontrole-lucht:parameter-resultaat",
+      "_type": "skos:Concept",
+      "_table_order": 116,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "prefLabel": "Resultaat parameter",
+      "definition": "Het resultaatrecord van de parameter bij de zelfcontrole van lucht.",
+      "broaderPartitive": "zelfcontrole-lucht:parameter",
+      "relevantClass": "riepr:Resultaat",
+      "relation": "sosa:hasResult",
+      "isVerplicht": true,
+      "_ui_after": "zelfcontrole-lucht:parameter-parameter"
+    },
+    {
+      "id": "zelfcontrole-lucht:parameter-massastroom",
+      "_type": "skos:Concept",
+      "_table_order": 120,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "prefLabel": "Massastroom",
+      "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
+      "relevantClass": "schema:PropertyValue",
+      "relevantDataType": "xsd:decimal",
+      "relation": "schema:additionalProperty",
+      "relevantUnit": "collectie:operationeel_eenheden_zelfcontrole_lucht_massastroom",
+      "kwantiteitsAspect": "csor_kwantificeerbaaraspect:KWA_2",
+      "drager": "csor_drager:DR_8",
+      "soortWaartbepaling": "csor_soortwaardebepaling:SWB_1",
+      "variabele": "zelfcontrole-lucht:parameter-parameter",
+      "minValue": "0",
+      "_ui_after": "zelfcontrole-lucht:parameter-meetonzekerheid"
+    },
+    {
+      "id": "zelfcontrole-lucht:parameter-bron-meetfrequentie",
+      "_type": "skos:Concept",
+      "_table_order": 122,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "prefLabel": "Bron meetfrequentie",
+      "definition": "De herkomst van de gehanteerde meetfrequentie. Tijdelijk vrije tekst zolang de definitieve limitatieve lijst niet is vastgesteld.",
+      "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
+      "relevantClass": "schema:PropertyValue",
+      "relevantDataType": "xsd:string",
+      "relation": "schema:additionalProperty",
+      "_ui_after": "zelfcontrole-lucht:parameter-meetfrequentie"
+    },
+    {
+      "id": "conceptscheme:operationeel_zelfcontrole_water",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 140,
+      "prefLabel": "Zelfcontrole oppervlaktewater",
+      "definition": "Rapporteer zelfcontrolemetingen per controleinrichting en exact meettijdstip met de bijbehorende parameterresultaten.",
+      "hasTopConcept": [
+        {
+          "id": "zelfcontrole-water:meting"
+        }
+      ]
+    },
+    {
+      "id": "zelfcontrole-water:feature",
+      "_type": "skos:Concept",
+      "_table_order": 126,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
+      "prefLabel": "Controleinrichting",
+      "definition": "De controleinrichting waarop de zelfcontrolemeting wordt gerapporteerd.",
+      "broaderPartitive": "zelfcontrole-water:meting",
+      "relevantObservation": "zelfcontrole-water:meting",
+      "relevantClass": "sosa:FeatureOfInterest",
+      "relation": "sosa:hasFeatureOfInterest",
+      "relevantRiepr": "meetpunt:controleinrichting",
+      "isVerplicht": true,
+      "_ui_first": true
+    },
+    {
+      "id": "conceptscheme:operationeel_zelfcontrole_water_meting",
+      "_type": "skos:ConceptScheme",
+      "_table_order": 141
+    },
+    {
+      "id": "zelfcontrole-water:meting",
+      "_type": "skos:Concept",
+      "_table_order": 125,
+      "topConceptOf": "conceptscheme:operationeel_zelfcontrole_water",
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
+      "prefLabel": "Metingen",
+      "definition": "Een zelfcontrolemeting op een controleinrichting en een exact meettijdstip met laboratoriummetadata en herhaalbare parameterresultaten.",
+      "relevantClass": "riepr:ObservatieVerzameling",
+      "isMeervoudig": true,
+      "_table_workbook": "zelfcontrole-water.ods",
+      "_table_sheet": "Metingen",
+      "_table_key": [
+        "zelfcontrole-water:feature",
+        "zelfcontrole-water:datum"
+      ],
+      "_ui_first": true
+    },
+    {
+      "id": "zelfcontrole-water:datum",
+      "_type": "skos:Concept",
+      "_table_order": 127,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
+      "prefLabel": "Meetmoment",
+      "definition": "Het exacte tijdstip van de meting of het starttijdstip als de meting over meerdere dagen plaatsvindt.",
+      "broaderPartitive": "zelfcontrole-water:meting",
+      "relevantObservation": "zelfcontrole-water:meting",
+      "relevantDataType": "xsd:dateTime",
+      "relation": "sosa:resultTime",
+      "isVerplicht": true,
+      "_ui_after": "zelfcontrole-water:feature"
+    },
+    {
+      "id": "zelfcontrole-water:labo",
+      "_type": "skos:Concept",
+      "_table_order": 128,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
+      "prefLabel": "Labo/uitvoerder",
+      "broaderPartitive": "zelfcontrole-water:meting",
+      "relevantObservation": "zelfcontrole-water:meting",
+      "relevantClass": "prov:Agent",
+      "relation": "prov:wasAssociatedWith",
+      "_ui_after": "zelfcontrole-water:datum"
+    },
+    {
+      "id": "zelfcontrole-water:labo-naam",
+      "_type": "skos:Concept",
+      "_table_order": 129,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
+      "prefLabel": "Naam",
+      "definition": "De naam van het labo.",
+      "broaderPartitive": "zelfcontrole-water:labo",
+      "relevantDataType": "xsd:string",
+      "relation": "rdfs:label",
+      "isVerplicht": true,
+      "_ui_first": true
+    },
+    {
+      "id": "zelfcontrole-water:labo-id",
+      "_type": "skos:Concept",
+      "_table_order": 130,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
+      "prefLabel": "KBO nummer of BTW nummer",
+      "broaderPartitive": "zelfcontrole-water:labo",
+      "relevantDataType": "xsd:string",
+      "relation": "rov:registration",
+      "_ui_after": "zelfcontrole-water:labo-naam"
+    },
+    {
+      "id": "zelfcontrole-water:parameter",
+      "_type": "skos:Concept",
+      "_table_order": 131,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
+      "prefLabel": "Meetresultaten",
+      "broaderPartitive": "zelfcontrole-water:meting",
+      "relevantObservation": "zelfcontrole-water:meting",
+      "relevantClass": "riepr:Observatie",
+      "relation": "sosa:hasMember",
+      "isVerplicht": true,
+      "isMeervoudig": true,
+      "_table_workbook": "zelfcontrole-water.ods",
+      "_table_sheet": "Meetresultaten",
+      "_ui_after": "zelfcontrole-water:labo"
+    },
+    {
+      "id": "zelfcontrole-water:parameter-soort",
+      "_type": "skos:Concept",
+      "_table_order": 134,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
+      "prefLabel": "Soort monstername",
+      "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
+      "relevantClass": "schema:PropertyValue",
+      "relation": "schema:additionalProperty",
+      "relevantCodeList": "conceptscheme:operationeel_zelfcontrole_soort_monstername",
+      "_ui_first": true
+    },
+    {
+      "id": "zelfcontrole-water:parameter-parameter",
+      "_type": "skos:Concept",
+      "_table_order": 132,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
+      "prefLabel": "Parameter",
+      "broaderPartitive": "zelfcontrole-water:parameter",
+      "relation": "sosa:observedProperty",
+      "relevantCodeList": "collectie:operationeel_stoffen_water",
+      "isVerplicht": true,
+      "_ui_first": true
+    },
+    {
+      "id": "zelfcontrole-water:parameter-concentratie",
+      "_type": "skos:Concept",
+      "_table_order": 135,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
+      "prefLabel": "Concentratie onder meetomstandigheden",
+      "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
+      "relevantDataType": "xsd:decimal",
+      "relation": "qudt:numericValue",
+      "relevantUnit": "collectie:operationeel_eenheden_zelfcontrole_water_concentratie",
+      "kwantiteitsAspect": "csor_kwantificeerbaaraspect:KWA_1",
+      "drager": "csor_drager:DR_1",
+      "soortWaartbepaling": "csor_soortwaardebepaling:SWB_1",
+      "variabele": "zelfcontrole-water:parameter-parameter",
+      "minValue": "0",
+      "_ui_after": "zelfcontrole-water:parameter-soort"
+    },
+    {
+      "id": "zelfcontrole-water:parameter-meetonzekerheid",
+      "_type": "skos:Concept",
+      "_table_order": 136,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
+      "prefLabel": "Meetonzekerheid",
+      "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
+      "relevantClass": "schema:PropertyValue",
+      "relevantDataType": "xsd:integer",
+      "relation": "schema:additionalProperty",
+      "relevantUnit": "csor_eenheid:E_43",
+      "kwantiteitsAspect": "csor_kwantificeerbaaraspect:KWA_7",
+      "drager": "csor_drager:DR_1",
+      "soortWaartbepaling": "csor_soortwaardebepaling:SWB_40",
+      "variabele": "zelfcontrole-water:parameter-parameter",
+      "minValue": "0",
+      "maxValue": "100",
+      "_ui_after": "zelfcontrole-water:parameter-concentratie"
+    },
+    {
+      "id": "zelfcontrole-water:parameter-meetfrequentie",
+      "_type": "skos:Concept",
+      "_table_order": 138,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
+      "prefLabel": "Gehanteerde meetfrequentie",
+      "definition": "De voor dit meetresultaat gehanteerde meetfrequentie. Tijdelijk vrije tekst zolang de definitieve limitatieve lijst niet is vastgesteld.",
+      "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
+      "relevantClass": "schema:PropertyValue",
+      "relevantDataType": "xsd:string",
+      "relation": "schema:additionalProperty",
+      "_ui_after": "zelfcontrole-water:parameter-grenswaarde"
+    },
+    {
+      "id": "zelfcontrole-water:parameter-resultaat",
+      "_type": "skos:Concept",
+      "_table_order": 133,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
+      "prefLabel": "Resultaat parameter",
+      "definition": "Het resultaatrecord van de parameter bij de zelfcontrole van water.",
+      "broaderPartitive": "zelfcontrole-water:parameter",
+      "relevantClass": "riepr:Resultaat",
+      "relation": "sosa:hasResult",
+      "isVerplicht": true,
+      "_ui_after": "zelfcontrole-water:parameter-parameter"
+    },
+    {
+      "id": "zelfcontrole-water:parameter-grenswaarde",
+      "_type": "skos:Concept",
+      "_table_order": 137,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
+      "prefLabel": "Grenswaarde",
+      "definition": "De grenswaarde die van toepassing is onder de gemeten omstandigheden.",
+      "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
+      "relevantClass": "schema:PropertyValue",
+      "relevantDataType": "xsd:decimal",
+      "relation": "schema:additionalProperty",
+      "relevantUnit": "collectie:operationeel_eenheden_zelfcontrole_water_concentratie",
+      "_ui_after": "zelfcontrole-water:parameter-meetonzekerheid"
+    },
+    {
+      "id": "zelfcontrole-water:parameter-bron-meetfrequentie",
+      "_type": "skos:Concept",
+      "_table_order": 139,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
+      "prefLabel": "Bron meetfrequentie",
+      "definition": "De herkomst van de gehanteerde meetfrequentie. Tijdelijk vrije tekst zolang de definitieve limitatieve lijst niet is vastgesteld.",
+      "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
+      "relevantClass": "schema:PropertyValue",
+      "relevantDataType": "xsd:string",
+      "relation": "schema:additionalProperty",
+      "_ui_after": "zelfcontrole-water:parameter-meetfrequentie"
     }
   ]
 }

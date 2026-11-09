@@ -1,0 +1,704 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.riepr.omgeving.vlaanderen.be/schema/2026/observatie/zelfcontrole-lucht/meting/schema.json",
+  "title": "Metingen",
+  "type": "object",
+  "properties": {
+    "meting": {
+      "type": "array",
+      "title": "Metingen",
+      "items": {
+        "type": "object",
+        "properties": {
+          "hasFeatureOfInterest": {
+            "type": "string",
+            "minLength": 1,
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/feature",
+            "x-table-order": 109,
+            "x-relevant-observations": [
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/meting"
+            ],
+            "x-relevant-feature-classes": [
+              "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
+            ],
+            "x-reference-types": [
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/emissiepunt_lucht",
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/fakkel",
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/gebouw",
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/installatie",
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/lozingspunt",
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/schoorsteen",
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/schoorsteen_horizontale_uitstroom",
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/schoorsteen_verticale_uitstroom"
+            ],
+            "x-jsonld-type": "@id",
+            "x-feature-mapping": {
+              "relation": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
+              "classes": [
+                "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
+              ],
+              "referenceTypes": [
+                "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/emissiepunt_lucht",
+                "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/fakkel",
+                "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/gebouw",
+                "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/installatie",
+                "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/lozingspunt",
+                "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/schoorsteen",
+                "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/schoorsteen_horizontale_uitstroom",
+                "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/schoorsteen_verticale_uitstroom"
+              ]
+            },
+            "title": "Emissiepunt",
+            "description": "Het emissiepunt waarop de zelfcontrolemeting wordt gerapporteerd.",
+            "x-ui-first": true
+          },
+          "resultTime": {
+            "type": "string",
+            "minLength": 1,
+            "format": "date-time",
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/datum",
+            "x-table-order": 110,
+            "x-relevant-observations": [
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/meting"
+            ],
+            "x-source-datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "x-jsonld-id": "http://www.w3.org/ns/sosa/resultTime",
+            "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#dateTime",
+            "title": "Meetmoment",
+            "description": "Het exacte tijdstip van de meting of het starttijdstip als de meting over meerdere dagen plaatsvindt.",
+            "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/feature",
+            "x-ui-after": "hasFeatureOfInterest"
+          },
+          "wasAssociatedWith": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string",
+                "minLength": 1,
+                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo-naam",
+                "x-table-order": 112,
+                "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#label",
+                "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                "title": "Naam",
+                "description": "De naam van het labo.",
+                "x-ui-first": true
+              },
+              "registration": {
+                "type": "string",
+                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo-id",
+                "x-table-order": 113,
+                "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                "x-jsonld-id": "http://www.w3.org/ns/regorg#registration",
+                "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                "title": "KBO nummer of BTW nummer",
+                "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo-naam",
+                "x-ui-after": "label"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "label"
+            ],
+            "x-jsonld-type": "http://www.w3.org/ns/prov#Agent",
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo",
+            "x-table-order": 111,
+            "x-relevant-observations": [
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/meting"
+            ],
+            "x-jsonld-id": "http://www.w3.org/ns/prov#wasAssociatedWith",
+            "title": "Labo/uitvoerder",
+            "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/datum",
+            "x-ui-after": "resultTime"
+          },
+          "hasMember": {
+            "type": "array",
+            "title": "Observaties",
+            "minItems": 1,
+            "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "observedProperty": {
+                      "type": "string",
+                      "minLength": 1,
+                      "enum": [
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1057",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1919",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1685",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1901",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1686",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1060",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_255",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1751",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_256"
+                      ],
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-parameter",
+                      "x-table-order": 115,
+                      "x-code-lists": [
+                        "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_lucht"
+                      ],
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "title": "Parameter",
+                      "x-ui-first": true
+                    },
+                    "hasResult": {
+                      "type": "object",
+                      "properties": {
+                        "numericValue": {
+                          "type": "number",
+                          "minimum": 0,
+                          "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-concentratie",
+                          "x-table-order": 118,
+                          "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                          "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
+                          "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#decimal",
+                          "x-kwantiteitsaspect": "https://data.omgeving.vlaanderen.be/id/concept/csor/kwantificeerbaaraspect/KWA_73",
+                          "x-drager": "https://data.omgeving.vlaanderen.be/id/concept/csor/drager/DR_8",
+                          "x-soortwaardebepaling": "https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/SWB_1",
+                          "title": "Concentratie bij standaardomstandigheden",
+                          "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-soort",
+                          "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-parameter",
+                          "x-ui-after": "parameterSoort",
+                          "x-variabele": "observedProperty",
+                          "x-variable-location": {
+                            "ancestorDepth": 1,
+                            "path": [
+                              "observedProperty"
+                            ]
+                          }
+                        },
+                        "hasUnit": {
+                          "type": "string",
+                          "enum": [
+                            "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_172",
+                            "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_327",
+                            "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_326",
+                            "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_325"
+                          ],
+                          "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
+                          "x-jsonld-type": "@id",
+                          "title": "Eenheid",
+                          "x-ui-after": "numericValue"
+                        },
+                        "additionalProperty": {
+                          "type": "array",
+                          "title": "Aanvullende eigenschappen",
+                          "minItems": 1,
+                          "x-jsonld-id": "https://schema.org/additionalProperty",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": [
+                                  "propertyID",
+                                  "value"
+                                ],
+                                "properties": {
+                                  "propertyID": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-soort",
+                                    "x-jsonld-id": "https://schema.org/propertyID",
+                                    "x-jsonld-type": "@id",
+                                    "x-ui-hidden": true
+                                  },
+                                  "value": {
+                                    "type": "string",
+                                    "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-soort",
+                                    "x-table-order": 117,
+                                    "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                                    "x-jsonld-id": "https://schema.org/value",
+                                    "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                                    "title": "Soort monster"
+                                  }
+                                },
+                                "x-jsonld-type": "https://schema.org/PropertyValue",
+                                "x-value-path": [
+                                  "value"
+                                ],
+                                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-soort",
+                                "x-table-order": 117,
+                                "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                                "x-jsonld-id": "https://schema.org/additionalProperty",
+                                "title": "Soort monster",
+                                "x-ui-first": true
+                              },
+                              {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": [
+                                  "propertyID",
+                                  "value",
+                                  "unitCode"
+                                ],
+                                "properties": {
+                                  "propertyID": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-meetonzekerheid",
+                                    "x-jsonld-id": "https://schema.org/propertyID",
+                                    "x-jsonld-type": "@id",
+                                    "x-ui-hidden": true
+                                  },
+                                  "value": {
+                                    "type": "integer",
+                                    "minimum": 0,
+                                    "maximum": 100,
+                                    "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-meetonzekerheid",
+                                    "x-table-order": 119,
+                                    "x-source-datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                                    "x-jsonld-id": "https://schema.org/value",
+                                    "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#integer",
+                                    "x-kwantiteitsaspect": "https://data.omgeving.vlaanderen.be/id/concept/csor/kwantificeerbaaraspect/KWA_7",
+                                    "x-drager": "https://data.omgeving.vlaanderen.be/id/concept/csor/drager/DR_8",
+                                    "x-soortwaardebepaling": "https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/SWB_40",
+                                    "title": "Meetonzekerheid"
+                                  },
+                                  "unitCode": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43",
+                                    "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43",
+                                    "x-jsonld-id": "https://schema.org/unitCode",
+                                    "x-jsonld-type": "@id",
+                                    "title": "Eenheid"
+                                  }
+                                },
+                                "x-jsonld-type": "https://schema.org/PropertyValue",
+                                "x-value-path": [
+                                  "value"
+                                ],
+                                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-meetonzekerheid",
+                                "x-table-order": 119,
+                                "x-source-datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                                "x-jsonld-id": "https://schema.org/additionalProperty",
+                                "x-kwantiteitsaspect": "https://data.omgeving.vlaanderen.be/id/concept/csor/kwantificeerbaaraspect/KWA_7",
+                                "x-drager": "https://data.omgeving.vlaanderen.be/id/concept/csor/drager/DR_8",
+                                "x-soortwaardebepaling": "https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/SWB_40",
+                                "title": "Meetonzekerheid",
+                                "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-concentratie",
+                                "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-parameter",
+                                "x-ui-after": "numericValue",
+                                "x-variabele": "observedProperty",
+                                "x-variable-location": {
+                                  "ancestorDepth": 1,
+                                  "path": [
+                                    "observedProperty"
+                                  ]
+                                }
+                              },
+                              {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": [
+                                  "propertyID",
+                                  "value"
+                                ],
+                                "properties": {
+                                  "propertyID": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-meetfrequentie",
+                                    "x-jsonld-id": "https://schema.org/propertyID",
+                                    "x-jsonld-type": "@id",
+                                    "x-ui-hidden": true
+                                  },
+                                  "value": {
+                                    "type": "string",
+                                    "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-meetfrequentie",
+                                    "x-table-order": 121,
+                                    "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                                    "x-jsonld-id": "https://schema.org/value",
+                                    "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                                    "title": "Gehanteerde meetfrequentie"
+                                  }
+                                },
+                                "x-jsonld-type": "https://schema.org/PropertyValue",
+                                "x-value-path": [
+                                  "value"
+                                ],
+                                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-meetfrequentie",
+                                "x-table-order": 121,
+                                "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                                "x-jsonld-id": "https://schema.org/additionalProperty",
+                                "title": "Gehanteerde meetfrequentie",
+                                "description": "De voor dit meetresultaat gehanteerde meetfrequentie. Tijdelijk vrije tekst zolang de definitieve limitatieve lijst niet is vastgesteld.",
+                                "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-massastroom",
+                                "x-ui-after": "parameterMassastroom"
+                              },
+                              {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": [
+                                  "propertyID",
+                                  "value",
+                                  "unitCode"
+                                ],
+                                "properties": {
+                                  "propertyID": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-massastroom",
+                                    "x-jsonld-id": "https://schema.org/propertyID",
+                                    "x-jsonld-type": "@id",
+                                    "x-ui-hidden": true
+                                  },
+                                  "value": {
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-massastroom",
+                                    "x-table-order": 120,
+                                    "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                                    "x-jsonld-id": "https://schema.org/value",
+                                    "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#decimal",
+                                    "x-kwantiteitsaspect": "https://data.omgeving.vlaanderen.be/id/concept/csor/kwantificeerbaaraspect/KWA_2",
+                                    "x-drager": "https://data.omgeving.vlaanderen.be/id/concept/csor/drager/DR_8",
+                                    "x-soortwaardebepaling": "https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/SWB_1",
+                                    "title": "Massastroom"
+                                  },
+                                  "unitCode": {
+                                    "type": "string",
+                                    "enum": [
+                                      "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_13",
+                                      "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_18"
+                                    ],
+                                    "x-jsonld-id": "https://schema.org/unitCode",
+                                    "x-jsonld-type": "@id",
+                                    "title": "Eenheid"
+                                  }
+                                },
+                                "x-jsonld-type": "https://schema.org/PropertyValue",
+                                "x-value-path": [
+                                  "value"
+                                ],
+                                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-massastroom",
+                                "x-table-order": 120,
+                                "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                                "x-jsonld-id": "https://schema.org/additionalProperty",
+                                "x-kwantiteitsaspect": "https://data.omgeving.vlaanderen.be/id/concept/csor/kwantificeerbaaraspect/KWA_2",
+                                "x-drager": "https://data.omgeving.vlaanderen.be/id/concept/csor/drager/DR_8",
+                                "x-soortwaardebepaling": "https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/SWB_1",
+                                "title": "Massastroom",
+                                "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-meetonzekerheid",
+                                "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-parameter",
+                                "x-ui-after": "parameterMeetonzekerheid",
+                                "x-variabele": "observedProperty",
+                                "x-variable-location": {
+                                  "ancestorDepth": 1,
+                                  "path": [
+                                    "observedProperty"
+                                  ]
+                                }
+                              },
+                              {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": [
+                                  "propertyID",
+                                  "value"
+                                ],
+                                "properties": {
+                                  "propertyID": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-bron-meetfrequentie",
+                                    "x-jsonld-id": "https://schema.org/propertyID",
+                                    "x-jsonld-type": "@id",
+                                    "x-ui-hidden": true
+                                  },
+                                  "value": {
+                                    "type": "string",
+                                    "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-bron-meetfrequentie",
+                                    "x-table-order": 122,
+                                    "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                                    "x-jsonld-id": "https://schema.org/value",
+                                    "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                                    "title": "Bron meetfrequentie"
+                                  }
+                                },
+                                "x-jsonld-type": "https://schema.org/PropertyValue",
+                                "x-value-path": [
+                                  "value"
+                                ],
+                                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-bron-meetfrequentie",
+                                "x-table-order": 122,
+                                "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                                "x-jsonld-id": "https://schema.org/additionalProperty",
+                                "title": "Bron meetfrequentie",
+                                "description": "De herkomst van de gehanteerde meetfrequentie. Tijdelijk vrije tekst zolang de definitieve limitatieve lijst niet is vastgesteld.",
+                                "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-meetfrequentie",
+                                "x-ui-after": "parameterMeetfrequentie"
+                              }
+                            ]
+                          },
+                          "allOf": [
+                            {
+                              "contains": {
+                                "type": "object",
+                                "required": [
+                                  "propertyID"
+                                ],
+                                "properties": {
+                                  "propertyID": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-soort",
+                                    "x-jsonld-id": "https://schema.org/propertyID",
+                                    "x-jsonld-type": "@id",
+                                    "x-ui-hidden": true
+                                  }
+                                }
+                              },
+                              "minContains": 0,
+                              "maxContains": 1
+                            },
+                            {
+                              "contains": {
+                                "type": "object",
+                                "required": [
+                                  "propertyID"
+                                ],
+                                "properties": {
+                                  "propertyID": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-meetonzekerheid",
+                                    "x-jsonld-id": "https://schema.org/propertyID",
+                                    "x-jsonld-type": "@id",
+                                    "x-ui-hidden": true
+                                  }
+                                }
+                              },
+                              "minContains": 0,
+                              "maxContains": 1
+                            },
+                            {
+                              "contains": {
+                                "type": "object",
+                                "required": [
+                                  "propertyID"
+                                ],
+                                "properties": {
+                                  "propertyID": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-meetfrequentie",
+                                    "x-jsonld-id": "https://schema.org/propertyID",
+                                    "x-jsonld-type": "@id",
+                                    "x-ui-hidden": true
+                                  }
+                                }
+                              },
+                              "minContains": 0,
+                              "maxContains": 1
+                            },
+                            {
+                              "contains": {
+                                "type": "object",
+                                "required": [
+                                  "propertyID"
+                                ],
+                                "properties": {
+                                  "propertyID": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-massastroom",
+                                    "x-jsonld-id": "https://schema.org/propertyID",
+                                    "x-jsonld-type": "@id",
+                                    "x-ui-hidden": true
+                                  }
+                                }
+                              },
+                              "minContains": 0,
+                              "maxContains": 1
+                            },
+                            {
+                              "contains": {
+                                "type": "object",
+                                "required": [
+                                  "propertyID"
+                                ],
+                                "properties": {
+                                  "propertyID": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-bron-meetfrequentie",
+                                    "x-jsonld-id": "https://schema.org/propertyID",
+                                    "x-jsonld-type": "@id",
+                                    "x-ui-hidden": true
+                                  }
+                                }
+                              },
+                              "minContains": 0,
+                              "maxContains": 1
+                            }
+                          ]
+                        }
+                      },
+                      "additionalProperties": false,
+                      "dependentRequired": {
+                        "numericValue": [
+                          "hasUnit"
+                        ]
+                      },
+                      "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-resultaat",
+                      "x-table-order": 116,
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
+                      "title": "Resultaat parameter",
+                      "description": "Het resultaatrecord van de parameter bij de zelfcontrole van lucht.",
+                      "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-parameter",
+                      "x-ui-after": "observedProperty",
+                      "x-property-input-constraints": {
+                        "dependentRequired": {
+                          "numericValue": [
+                            "hasUnit"
+                          ]
+                        }
+                      },
+                      "required": [],
+                      "x-property-layout": [
+                        {
+                          "key": "parameterSoort",
+                          "repeatable": false,
+                          "required": false,
+                          "annotations": {}
+                        },
+                        {
+                          "key": "parameterMeetonzekerheid",
+                          "repeatable": false,
+                          "required": false,
+                          "annotations": {}
+                        },
+                        {
+                          "key": "parameterMeetfrequentie",
+                          "repeatable": false,
+                          "required": false,
+                          "annotations": {}
+                        },
+                        {
+                          "key": "parameterMassastroom",
+                          "repeatable": false,
+                          "required": false,
+                          "annotations": {}
+                        },
+                        {
+                          "key": "parameterBronMeetfrequentie",
+                          "repeatable": false,
+                          "required": false,
+                          "annotations": {}
+                        }
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "observedProperty",
+                    "hasResult"
+                  ],
+                  "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter",
+                  "x-table-workbook": "zelfcontrole-lucht.ods",
+                  "x-table-sheet": "Meetresultaten",
+                  "x-table-order": 114,
+                  "x-relevant-observations": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/meting"
+                  ],
+                  "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
+                  "title": "Meetresultaten",
+                  "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo"
+                }
+              ]
+            },
+            "allOf": [
+              {
+                "contains": {
+                  "type": "object",
+                  "required": [
+                    "observedProperty"
+                  ],
+                  "properties": {
+                    "observedProperty": {
+                      "type": "string",
+                      "minLength": 1,
+                      "enum": [
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1057",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1919",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1685",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1901",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1686",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1060",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_255",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1751",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_256"
+                      ],
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-parameter",
+                      "x-table-order": 115,
+                      "x-code-lists": [
+                        "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_lucht"
+                      ],
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "title": "Parameter",
+                      "x-ui-first": true
+                    }
+                  }
+                },
+                "minContains": 1
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "hasFeatureOfInterest",
+          "resultTime",
+          "hasMember"
+        ],
+        "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#ObservatieVerzameling",
+        "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/meting",
+        "x-table-workbook": "zelfcontrole-lucht.ods",
+        "x-table-sheet": "Metingen",
+        "x-table-key": [
+          "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/feature",
+          "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/datum"
+        ],
+        "x-table-order": 108,
+        "x-relevant-feature-classes": [
+          "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
+        ],
+        "title": "Metingen",
+        "description": "Een zelfcontrolemeting op een emissiepunt en een exact meettijdstip met laboratoriummetadata en herhaalbare parameterresultaten.",
+        "x-ui-first": true,
+        "x-member-layout": [
+          {
+            "key": "hasMember",
+            "repeatable": true,
+            "required": true,
+            "annotations": {
+              "type": "array",
+              "title": "Meetresultaten",
+              "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter",
+              "x-array-kind": "records",
+              "minItems": 1,
+              "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/labo",
+              "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
+              "x-table-workbook": "zelfcontrole-lucht.ods",
+              "x-table-sheet": "Meetresultaten",
+              "x-table-order": 114,
+              "x-ui-after": "wasAssociatedWith"
+            }
+          }
+        ]
+      },
+      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/meting",
+      "x-array-kind": "records",
+      "x-ui-first": true,
+      "x-table-workbook": "zelfcontrole-lucht.ods",
+      "x-table-sheet": "Metingen",
+      "x-table-order": 108
+    }
+  },
+  "additionalProperties": false,
+  "x-theme-concept": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht",
+  "x-theme-slug": "zelfcontrole-lucht",
+  "x-theme-label": "Zelfcontrole lucht",
+  "x-semantic-profile": "https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/",
+  "x-flow-transitions": [],
+  "x-section-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/meting",
+  "x-table-workbook": "zelfcontrole-lucht.ods"
+}

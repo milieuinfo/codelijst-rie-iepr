@@ -12,8 +12,9 @@
         "properties": {
           "hasFeatureOfInterest": {
             "type": "string",
+            "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/feature",
-            "x-table-order": 86,
+            "x-table-order": 88,
             "x-relevant-observations": [
               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing"
             ],
@@ -53,7 +54,7 @@
                         "numericValue": {
                           "type": "number",
                           "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
-                          "x-table-order": 87,
+                          "x-table-order": 89,
                           "title": "Debiet per jaar",
                           "x-ui-first": true
                         },
@@ -98,7 +99,7 @@
                   ],
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-debiet",
-                  "x-table-order": 87,
+                  "x-table-order": 89,
                   "x-relevant-observations": [
                     "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing"
                   ],
@@ -122,7 +123,7 @@
                         "numericValue": {
                           "type": "integer",
                           "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
-                          "x-table-order": 88,
+                          "x-table-order": 90,
                           "title": "Aantal dagen per jaar",
                           "x-ui-first": true
                         },
@@ -167,7 +168,7 @@
                   ],
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-dagen",
-                  "x-table-order": 88,
+                  "x-table-order": 90,
                   "x-relevant-observations": [
                     "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing"
                   ],
@@ -197,7 +198,7 @@
                             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bepalingsmethode/voorgesteld"
                           ],
                           "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-bepalingsmethode",
-                          "x-table-order": 95,
+                          "x-table-order": 97,
                           "x-code-lists": [
                             "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_bepalingsmethode"
                           ],
@@ -234,7 +235,7 @@
                                       "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bepalingsmethodeclassificatie/vrachten"
                                     ],
                                     "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-bepalingsmethodeclassificatie",
-                                    "x-table-order": 96,
+                                    "x-table-order": 98,
                                     "x-code-lists": [
                                       "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_bepalingsmethodeclassificatie"
                                     ],
@@ -248,7 +249,7 @@
                                   "value"
                                 ],
                                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-bepalingsmethodeclassificatie",
-                                "x-table-order": 96,
+                                "x-table-order": 98,
                                 "x-code-lists": [
                                   "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_bepalingsmethodeclassificatie"
                                 ],
@@ -285,7 +286,7 @@
                       "additionalProperties": false,
                       "x-jsonld-type": "http://www.w3.org/ns/sosa/Procedure",
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-procedure",
-                      "x-table-order": 94,
+                      "x-table-order": 96,
                       "x-relevant-observations": [
                         "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter"
                       ],
@@ -321,7 +322,7 @@
                                   "numericValue": {
                                     "type": "number",
                                     "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
-                                    "x-table-order": 92,
+                                    "x-table-order": 94,
                                     "title": "Gemiddelde concentratie",
                                     "x-ui-first": true,
                                     "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
@@ -375,7 +376,7 @@
                             ],
                             "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-concentratie",
-                            "x-table-order": 92,
+                            "x-table-order": 94,
                             "x-relevant-observations": [
                               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter"
                             ],
@@ -411,7 +412,7 @@
                                   "numericValue": {
                                     "type": "number",
                                     "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
-                                    "x-table-order": 93,
+                                    "x-table-order": 95,
                                     "title": "Totale jaarvracht",
                                     "x-ui-first": true,
                                     "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
@@ -465,7 +466,7 @@
                             ],
                             "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-jaarvracht",
-                            "x-table-order": 93,
+                            "x-table-order": 95,
                             "x-relevant-observations": [
                               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter"
                             ],
@@ -559,6 +560,7 @@
                               },
                               "value": {
                                 "type": "string",
+                                "minLength": 1,
                                 "enum": [
                                   "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_424",
                                   "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_231",
@@ -568,7 +570,7 @@
                                   "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333"
                                 ],
                                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
-                                "x-table-order": 90,
+                                "x-table-order": 92,
                                 "x-relevant-observations": [
                                   "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter"
                                 ],
@@ -585,7 +587,7 @@
                               "value"
                             ],
                             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
-                            "x-table-order": 90,
+                            "x-table-order": 92,
                             "x-relevant-observations": [
                               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter"
                             ],
@@ -615,7 +617,7 @@
                                 "type": "integer",
                                 "minimum": 0,
                                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-meetfrequentie",
-                                "x-table-order": 91,
+                                "x-table-order": 93,
                                 "x-relevant-observations": [
                                   "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter"
                                 ],
@@ -630,7 +632,7 @@
                               "value"
                             ],
                             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-meetfrequentie",
-                            "x-table-order": 91,
+                            "x-table-order": 93,
                             "x-relevant-observations": [
                               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter"
                             ],
@@ -701,7 +703,7 @@
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter",
                   "x-table-workbook": "water-lozingen.ods",
                   "x-table-sheet": "Stoffen in waterstromen",
-                  "x-table-order": 89,
+                  "x-table-order": 91,
                   "x-relevant-observations": [
                     "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing"
                   ],
@@ -812,7 +814,7 @@
         "x-table-key": [
           "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/feature"
         ],
-        "x-table-order": 85,
+        "x-table-order": 87,
         "x-relevant-feature-classes": [
           "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
         ],
@@ -846,7 +848,7 @@
               "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
               "x-table-workbook": "water-lozingen.ods",
               "x-table-sheet": "Stoffen in waterstromen",
-              "x-table-order": 89,
+              "x-table-order": 91,
               "x-ui-after": "lozingDagen"
             }
           }
@@ -858,7 +860,7 @@
       "x-ui-first": true,
       "x-table-workbook": "water-lozingen.ods",
       "x-table-sheet": "Waterstromen",
-      "x-table-order": 85
+      "x-table-order": 87
     }
   },
   "additionalProperties": false,

@@ -12,6 +12,7 @@
         "properties": {
           "hasFeatureOfInterest": {
             "type": "string",
+            "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-feature",
             "x-table-workbook": "grondwater-peilmetingen.ods",
             "x-table-sheet": "Peilmetingen",
@@ -120,6 +121,7 @@
                         },
                         "value": {
                           "type": "string",
+                          "minLength": 1,
                           "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-referentiepunt",
                           "x-table-workbook": "grondwater-peilmetingen.ods",
                           "x-table-sheet": "Peilmetingen",
@@ -920,6 +922,7 @@
         },
         "additionalProperties": false,
         "required": [
+          "hasFeatureOfInterest",
           "hasResult"
         ],
         "x-table-sheet": "Peilmetingen",

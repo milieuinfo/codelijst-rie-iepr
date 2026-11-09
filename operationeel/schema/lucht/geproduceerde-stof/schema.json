@@ -15,8 +15,9 @@
             "properties": {
               "label": {
                 "type": "string",
+                "minLength": 1,
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof_naam",
-                "x-table-order": 73,
+                "x-table-order": 75,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                 "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#label",
                 "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
@@ -27,7 +28,7 @@
               "comment": {
                 "type": "string",
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof_aard",
-                "x-table-order": 74,
+                "x-table-order": 76,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                 "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#comment",
                 "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
@@ -39,7 +40,7 @@
               "numericValue": {
                 "type": "number",
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof_hoeveelheid",
-                "x-table-order": 75,
+                "x-table-order": 77,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
                 "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
                 "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#decimal",
@@ -76,7 +77,7 @@
             ],
             "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof_resultaat",
-            "x-table-order": 72,
+            "x-table-order": 74,
             "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
             "title": "Resultaat geproduceerde stof",
             "description": "Het resultaatrecord van de gerapporteerde geproduceerde stof.",
@@ -85,8 +86,9 @@
           },
           "hasFeatureOfInterest": {
             "type": "string",
+            "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof_installatie",
-            "x-table-order": 71,
+            "x-table-order": 73,
             "x-reference-types": [
               "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Installatie"
             ],
@@ -106,7 +108,7 @@
         "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof",
         "x-table-workbook": "lucht-geproduceerde-stoffen.ods",
         "x-table-sheet": "Geproduceerde stoffen",
-        "x-table-order": 70,
+        "x-table-order": 72,
         "title": "Geproduceerde stof",
         "description": "Jaarlijkse productie van een stof door een installatie.",
         "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof"
@@ -116,7 +118,7 @@
       "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof",
       "x-table-workbook": "lucht-geproduceerde-stoffen.ods",
       "x-table-sheet": "Geproduceerde stoffen",
-      "x-table-order": 70
+      "x-table-order": 72
     }
   },
   "additionalProperties": false,
