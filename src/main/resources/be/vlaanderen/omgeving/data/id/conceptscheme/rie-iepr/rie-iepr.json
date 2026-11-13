@@ -1,43 +1,25 @@
 [
     {
-        "id": "http://www.w3.org/ns/prov#used",
+        "id": "http://www.w3.org/ns/prov#agent",
         "_type": [
             "http://www.w3.org/2000/01/rdf-schema#Resource"
         ],
-        "isVersionOf": "http://www.w3.org/ns/prov#used",
-        "modified": "2026-11-13T09:27:36.946Z"
+        "isVersionOf": "http://www.w3.org/ns/prov#agent",
+        "modified": "2026-11-13T10:47:39.561Z"
     },
     {
-        "id": "http://www.w3.org/ns/prov#wasAssociatedWith",
+        "id": "http://www.w3.org/ns/prov#qualifiedAssociation",
         "_type": [
             "http://www.w3.org/2000/01/rdf-schema#Resource"
         ],
-        "isVersionOf": "http://www.w3.org/ns/prov#wasAssociatedWith",
-        "modified": "2026-11-13T09:27:36.946Z"
-    },
-    {
-        "id": "http://www.w3.org/ns/sosa/hasMember",
-        "_type": [
-            "http://www.w3.org/2000/01/rdf-schema#Resource"
-        ],
-        "isVersionOf": "http://www.w3.org/ns/sosa/hasMember",
-        "modified": "2026-11-13T09:27:36.946Z"
-    },
-    {
-        "id": "http://www.w3.org/ns/sosa/isResultOf",
-        "_type": [
-            "http://www.w3.org/2000/01/rdf-schema#Resource"
-        ],
-        "isVersionOf": "http://www.w3.org/ns/sosa/isResultOf",
-        "modified": "2026-11-13T09:27:36.946Z"
+        "isVersionOf": "http://www.w3.org/ns/prov#qualifiedAssociation",
+        "modified": "2026-11-13T10:47:39.561Z"
     },
     {
         "id": "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_eenheden_stofhoeveelheid",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Collection"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_eenheden_stofhoeveelheid",
-        "modified": "2026-11-13T09:27:36.946Z",
         "definition": "Toegelaten eenheden voor het jaarlijkse verbruik, de productie of de doorzet van stoffen en afvalproducten.",
         "member": [
             "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32",
@@ -56,8 +38,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Collection"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_eenheden_zelfcontrole_lucht_concentratie",
-        "modified": "2026-11-13T09:27:36.946Z",
         "definition": "Toegelaten concentratie-eenheden bij standaardomstandigheden voor de zelfcontrole van luchtemissies.",
         "member": [
             "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_172",
@@ -73,8 +53,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Collection"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_eenheden_zelfcontrole_lucht_massastroom",
-        "modified": "2026-11-13T09:27:36.946Z",
         "definition": "Toegelaten massastroomeenheden voor de zelfcontrole van luchtemissies.",
         "member": [
             "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_13",
@@ -88,8 +66,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Collection"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_eenheden_zelfcontrole_water_concentratie",
-        "modified": "2026-11-13T09:27:36.946Z",
         "definition": "Toegelaten eenheden voor de concentratie en de grenswaarde bij de zelfcontrole van oppervlaktewater.",
         "member": [
             "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_1",
@@ -2086,7 +2062,8 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemming",
+        "modified": "2026-11-13T10:47:39.561Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be",
@@ -2099,7 +2076,6 @@
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
         "note": "Een of meer bestemmingen van de geproduceerde grondstof, gekoppeld via de materiaalcode.",
         "prefLabel": "Bestemmingen",
-        "status": "https://purl.archive.org/adms/status/Active",
         "relevantClass": "http://www.w3.org/ns/prov#Association",
         "isMeervoudig": "true",
         "isVerplicht": "true",
@@ -2110,8 +2086,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemming",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be-naam",
@@ -2146,8 +2120,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be-naam",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
         "prefLabel": "Firmanaam",
@@ -2172,8 +2144,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be-ve",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
         "prefLabel": "Vestigingseenheidsnummer",
@@ -2186,8 +2156,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-buitenland",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemming",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-buitenland-btw",
@@ -2233,8 +2201,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-buitenland-naam",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-buitenland",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
         "prefLabel": "Firmanaam",
@@ -2247,8 +2213,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-none",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemming",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-none-adres",
@@ -2282,8 +2246,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-none-adres",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-none",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
         "prefLabel": "Adres",
@@ -2296,8 +2258,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-none-naam",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-none",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
         "prefLabel": "Firmanaam",
@@ -2310,8 +2270,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-werf",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemming",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-werf-naam"
@@ -2344,8 +2302,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-werf-naam",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-werf",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
         "prefLabel": "Firmanaam",
@@ -2369,8 +2325,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
-        "modified": "2026-11-13T09:27:36.946Z",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemming",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_resultaat"
@@ -2396,8 +2350,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_bestemming_type",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemming",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
         "prefLabel": "Type bestemming",
@@ -2412,8 +2364,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_hoeveelheid",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_resultaat",
         "relevantUnit": [
             "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_41"
@@ -2432,8 +2382,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_materiaalcode",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_resultaat",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
         "prefLabel": "Materiaalcode",
@@ -2460,8 +2408,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_opmerking",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_resultaat",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
         "prefLabel": "Opmerking",
@@ -2474,8 +2420,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_resultaat",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_hoeveelheid",
@@ -2513,7 +2457,8 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend",
+        "modified": "2026-11-13T10:47:39.561Z",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_activiteit",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_installatie",
@@ -2524,7 +2469,6 @@
         "note": "Jaarlijks binnengekomen gebruikte materialen per aard, activiteit en IEPR-installatie.",
         "prefLabel": "Inkomende grondstoffen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
-        "status": "https://purl.archive.org/adms/status/Active",
         "relevantClass": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
         "isMeervoudig": "true",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof"
@@ -2534,11 +2478,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_aard",
+        "modified": "2026-11-13T10:47:39.561Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_resultaat",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
         "prefLabel": "Aard",
-        "status": "https://purl.archive.org/adms/status/Active",
         "isVerplicht": "true",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#string",
         "_ui_first": "true"
@@ -2548,13 +2492,13 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_activiteit",
+        "modified": "2026-11-13T10:47:39.561Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend",
         "definition": "De activiteit waarvoor het jaarlijks binnengekomen gebruikte materiaal wordt gerapporteerd. De POC legt nog geen afhankelijk filter op de gekozen IEPR-installatie op.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
         "note": "De activiteit waarvoor het jaarlijks binnengekomen gebruikte materiaal wordt gerapporteerd. De POC legt nog geen afhankelijk filter op de gekozen IEPR-installatie op.",
         "prefLabel": "Activiteit",
-        "status": "https://purl.archive.org/adms/status/Active",
         "isVerplicht": "true",
         "relevantRiepr": [
             "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Rubriek"
@@ -2566,7 +2510,8 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_hoeveelheid",
+        "modified": "2026-11-13T10:47:39.561Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_resultaat",
         "relevantUnit": [
             "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_41"
@@ -2575,7 +2520,6 @@
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
         "note": "Jaarlijkse hoeveelheid binnengekomen gebruikt materiaal, uitgedrukt in ton.",
         "prefLabel": "Hoeveelheid",
-        "status": "https://purl.archive.org/adms/status/Active",
         "isVerplicht": "true",
         "relevantDataType": "http://www.w3.org/2001/XMLSchema#decimal",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_aard",
@@ -2586,13 +2530,13 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_installatie",
+        "modified": "2026-11-13T10:47:39.561Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend",
         "definition": "De IEPR-installatie waarvoor het jaarlijks binnengekomen gebruikte materiaal wordt gerapporteerd.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
         "note": "De IEPR-installatie waarvoor het jaarlijks binnengekomen gebruikte materiaal wordt gerapporteerd.",
         "prefLabel": "IEPR installatie",
-        "status": "https://purl.archive.org/adms/status/Active",
         "relevantClass": "http://www.w3.org/ns/sosa/FeatureOfInterest",
         "isVerplicht": "true",
         "relevantRiepr": [
@@ -2605,7 +2549,8 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_resultaat",
+        "modified": "2026-11-13T10:47:39.561Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_aard",
@@ -2613,7 +2558,6 @@
         ],
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
         "prefLabel": "Resultaat inkomende grondstof",
-        "status": "https://purl.archive.org/adms/status/Active",
         "relevantClass": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
         "isOnzichtbaar": "true",
         "isVerplicht": "true",
@@ -2624,11 +2568,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_00",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M00.00 — andere niet gespecificeerde materialen waarvoor de OVAM een grondstofverklaring heeft afgeleverd",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_first": "true"
     },
     {
@@ -2636,11 +2580,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_01",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M00.01 — grondstoffen afkomstig van verpulping van papier en karton",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_00"
     },
     {
@@ -2648,11 +2592,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_02",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M00.02 — grondstoffen die vooral bestaan uit kunststoffen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_01"
     },
     {
@@ -2660,11 +2604,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_03",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M00.03 — grondstoffen die vooral bestaan uit glas en die niet onder M07 vallen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_02"
     },
     {
@@ -2672,11 +2616,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_04",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M00.04 — grondstoffen die vooral bestaan uit metalen en die niet onder M07 vallen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_03"
     },
     {
@@ -2684,11 +2628,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_05",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M00.05 — grondstoffen die vooral bestaan uit niet metaalhoudende mineralen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_04"
     },
     {
@@ -2696,11 +2640,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_06",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M00.06 — grondstoffen die vooral bestaan uit metaalhoudende mineralen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_05"
     },
     {
@@ -2708,11 +2652,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_07",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M00.07 — grondstoffen die vooral bestaan uit textiel of textielvezels",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_06"
     },
     {
@@ -2720,11 +2664,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_08",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M00.08 — grondstoffen die vooral bestaan uit residuen van chemische processen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_07"
     },
     {
@@ -2732,11 +2676,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_09",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M00.09 — grondstoffen die vooral bestaan uit materialen van biologische oorsprong",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_08"
     },
     {
@@ -2744,11 +2688,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_10",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M00.10 — grondstoffen afkomstig van chemische recyclage",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_09"
     },
     {
@@ -2756,11 +2700,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_11",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M00.11 — materialen die als brandstof worden ingezet en die niet onder M09.01 of M09.02 vallen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_10"
     },
     {
@@ -2768,11 +2712,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_01",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.01 — schuimaarde van suikerfabrieken",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_11"
     },
     {
@@ -2780,11 +2724,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_02",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.02 — kalkas",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_01"
     },
     {
@@ -2792,11 +2736,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_03",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.03 — calciumsulfaat",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_02"
     },
     {
@@ -2804,11 +2748,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_04",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.04 — afgeoogste champignoncompost",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_03"
     },
     {
@@ -2816,11 +2760,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_05",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.05 — compost van boomschors",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_04"
     },
     {
@@ -2828,11 +2772,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_06",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.06 — vinasse, vinasse-extract, vinassekali en chicoreivinasse",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_05"
     },
     {
@@ -2840,11 +2784,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_07",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.07 — toegelaten materialen van dierlijke oorsprong conform de wetgeving inzake dierlijke bijproducten",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_06"
     },
     {
@@ -2852,11 +2796,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_08",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.08 — gedroogd cacao-, tabak- en koffieafval",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_07"
     },
     {
@@ -2864,11 +2808,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_09",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.09 — neergeslagen dubbelzout van kaliumsulfaat en calciumsulfaat (in geval van toevoeging van een magnesiumzout aangevuld met met magnesiumzout)",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_08"
     },
     {
@@ -2876,11 +2820,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_10",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.10 — meel van oliekoeken",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_09"
     },
     {
@@ -2888,11 +2832,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_11",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.11 — moutscheuten",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_10"
     },
     {
@@ -2900,11 +2844,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_12",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.12 — behandeld zuiveringsslib",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_11"
     },
     {
@@ -2912,11 +2856,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_13",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.13 — kalkhoudend slib",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_12"
     },
     {
@@ -2924,11 +2868,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_14",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.14 — GFT- en groencompost",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_13"
     },
     {
@@ -2936,11 +2880,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_15",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.15 — eindmateriaal van de biologische behandeling van organisch-biologische bedrijfsafvalstoffen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_14"
     },
     {
@@ -2948,11 +2892,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_16",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.16 — filterkoek",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_15"
     },
     {
@@ -2960,11 +2904,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_17",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.17 — gehydrolyseerd eiwit voor meststof",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_16"
     },
     {
@@ -2972,11 +2916,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_18",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.18 — slib van natuursteenbewerking",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_17"
     },
     {
@@ -2984,11 +2928,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_19",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.19 — filterkoek van de fermentatie",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_18"
     },
     {
@@ -2996,11 +2940,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_20",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.20 — kalimoederloog",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_19"
     },
     {
@@ -3008,11 +2952,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_21",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.21 — oplossing bevattende ammoniumchloride",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_20"
     },
     {
@@ -3020,11 +2964,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_22",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.22 — gemalen staalslakken",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_21"
     },
     {
@@ -3032,11 +2976,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_23",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.23 — gedroogde en gemalen anorganische kalkrijke voedingsresten",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_22"
     },
     {
@@ -3044,11 +2988,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_24",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.24 — vlasstof, graanstof",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_23"
     },
     {
@@ -3056,11 +3000,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_25",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.25 — mest",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_24"
     },
     {
@@ -3068,11 +3012,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_26",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.26 — ammoniumsulfaat-oplossing",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_25"
     },
     {
@@ -3080,11 +3024,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_27",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.27 — spuistroom",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_26"
     },
     {
@@ -3092,11 +3036,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_28",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.28 — boerderijcompost",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_27"
     },
     {
@@ -3104,11 +3048,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_29",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.29 — boerderijcompost, geproduceerd in een samenwerkingsverband als vermeld in artikel 3, §5, 3°, van het Mestdecreet",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_28"
     },
     {
@@ -3116,11 +3060,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_30",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M01.30 — houtsnippers",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_29"
     },
     {
@@ -3128,11 +3072,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_01",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M02.01 — gebroken of gekalibreerde of uitgesorteerde of voorbehandelde slakken, assen of andere steenachtige afvalstoffen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_30"
     },
     {
@@ -3140,11 +3084,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_02",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M02.02 — gebroken of gekalibreerde of uitgesorteerde of voorbehandelde slakken of assen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_01"
     },
     {
@@ -3152,11 +3096,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_03",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M02.03 — vliegas en bodemas",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_02"
     },
     {
@@ -3164,11 +3108,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_04",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M02.04 — betongranulaat",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_03"
     },
     {
@@ -3176,11 +3120,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_05",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M02.05 — gerecycleerde brokken",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_04"
     },
     {
@@ -3188,11 +3132,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_06",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M02.06 — betongranulaat, metselwerkgranulaat, menggranulaat en asfaltgranulaat",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_05"
     },
     {
@@ -3200,11 +3144,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_07",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M02.07 — brekerzand van asfalt, brekerzeefzand en sorteerzeefzand",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_06"
     },
     {
@@ -3212,11 +3156,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_08",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M02.08 — sorteerzeefgranulaat",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_07"
     },
     {
@@ -3224,11 +3168,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_09",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M02.09 — gewassen uitgesorteerd beton- of gewassen metselwerkgranulaat",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_08"
     },
     {
@@ -3236,11 +3180,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_10",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M02.10 — ruimingsspecie",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_09"
     },
     {
@@ -3248,11 +3192,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_11",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M02.11 — baggerspecie",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_10"
     },
     {
@@ -3260,11 +3204,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_12",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M02.12 — behandeld zand van rioolkolken, zandvangers en veegvuil",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_11"
     },
     {
@@ -3272,11 +3216,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_13",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M02.13 — gerecycleerde bitumineuze granulaten",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_12"
     },
     {
@@ -3284,11 +3228,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_14",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M02.14 — slib van natuursteenbewerking",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_13"
     },
     {
@@ -3296,11 +3240,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m03_01",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M03.01 — grondbrij",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_14"
     },
     {
@@ -3308,11 +3252,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m03_02",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M03.02 — ruimingsspecie",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m03_01"
     },
     {
@@ -3320,11 +3264,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m03_03",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M03.03 — baggerspecie",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m03_02"
     },
     {
@@ -3332,11 +3276,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m03_04",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M03.04 — brekerzeefzand en sorteerzeefzand",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m03_03"
     },
     {
@@ -3344,11 +3288,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m03_05",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M03.05 — afvalstoffen die bestaan uit niet-verontreinigd bentonietslib of mengsels van bentonietslib met niet-verontreinigde bodemmaterialen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m03_04"
     },
     {
@@ -3356,11 +3300,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_01",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.01 — koperhoudende slakken",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m03_05"
     },
     {
@@ -3368,11 +3312,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_02",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.02 — koperhoudende slakken",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_01"
     },
     {
@@ -3380,11 +3324,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_03",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.03 — anodeslib",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_02"
     },
     {
@@ -3392,11 +3336,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_04",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.04 — bodemslib elektrowinning (loodschilfers)",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_03"
     },
     {
@@ -3404,11 +3348,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_05",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.05 — koperassen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_04"
     },
     {
@@ -3416,11 +3360,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_06",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.06 — koperdross",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_05"
     },
     {
@@ -3428,11 +3372,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_07",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.07 — slakken koperoxiden draadwalserij",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_06"
     },
     {
@@ -3440,11 +3384,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_08",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.08 — elektrolyt",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_07"
     },
     {
@@ -3452,11 +3396,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_09",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.09 — koperspeiss",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_08"
     },
     {
@@ -3464,11 +3408,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_10",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.10 — koperanodes",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_09"
     },
     {
@@ -3476,11 +3420,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_11",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.11 — zwart koper",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_10"
     },
     {
@@ -3488,11 +3432,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_12",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.12 — cupro",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_11"
     },
     {
@@ -3500,11 +3444,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_13",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.13 — koperlegering",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_12"
     },
     {
@@ -3512,11 +3456,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_14",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.14 — koper-looddross",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_13"
     },
     {
@@ -3524,11 +3468,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_15",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.15 — loodkopersteen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_14"
     },
     {
@@ -3536,11 +3480,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_16",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.16 — residu met platinagroepmetalen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_15"
     },
     {
@@ -3548,11 +3492,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_17",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.17 — edelmetaalhoudende slakken",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_16"
     },
     {
@@ -3560,11 +3504,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_18",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.18 — ruw zilver",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_17"
     },
     {
@@ -3572,11 +3516,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_19",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.19 — edelmetaalhoudend residu",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_18"
     },
     {
@@ -3584,11 +3528,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_20",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.20 — edelmetaalhoudende slakken met borax",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_19"
     },
     {
@@ -3596,11 +3540,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_21",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.21 — slakken met platinagroepmetalen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_20"
     },
     {
@@ -3608,11 +3552,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_22",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.22 — edelmetaalhoudend vliegstof",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_21"
     },
     {
@@ -3620,11 +3564,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_23",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.23 — edelmetaalhoudende steen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_22"
     },
     {
@@ -3632,11 +3576,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_24",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.24 — slib met platinagroepmetalen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_23"
     },
     {
@@ -3644,11 +3588,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_25",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.25 — nikkelspeiss",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_24"
     },
     {
@@ -3656,11 +3600,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_26",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.26 — edelmetaalhoudend residu",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_25"
     },
     {
@@ -3668,11 +3612,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_27",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.27 — edelmetaalhoudend slib",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_26"
     },
     {
@@ -3680,11 +3624,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_28",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.28 — antimoonrijke looddross",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_27"
     },
     {
@@ -3692,11 +3636,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_29",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.29 — lood-bismutdross",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_28"
     },
     {
@@ -3704,11 +3648,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_30",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.30 — lood-antimoondross",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_29"
     },
     {
@@ -3716,11 +3660,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_31",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.31 — looddross",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_30"
     },
     {
@@ -3728,11 +3672,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_32",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.32 — loodhoudende vliegstoffen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_31"
     },
     {
@@ -3740,11 +3684,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_33",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.33 — loodslakken",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_32"
     },
     {
@@ -3752,11 +3696,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_34",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.34 — lood-koperdross",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_33"
     },
     {
@@ -3764,11 +3708,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_35",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.35 — lood-ijzersteen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_34"
     },
     {
@@ -3776,11 +3720,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_36",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.36 — lood(koper)-speiss",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_35"
     },
     {
@@ -3788,11 +3732,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_37",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.37 — loodhoudende vliegstoffen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_36"
     },
     {
@@ -3800,11 +3744,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_38",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.38 — ruw lood",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_37"
     },
     {
@@ -3812,11 +3756,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_39",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.39 — loodhoudend slib",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_38"
     },
     {
@@ -3824,11 +3768,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_40",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.40 — loodhoudende slakken",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_39"
     },
     {
@@ -3836,11 +3780,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_41",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.41 — zilverschuim",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_40"
     },
     {
@@ -3848,11 +3792,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_42",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.42 — seleen-telluurhoudende producten",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_41"
     },
     {
@@ -3860,11 +3804,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_43",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.43 — tinassen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_42"
     },
     {
@@ -3872,11 +3816,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_44",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.44 — residu tinsmelting",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_43"
     },
     {
@@ -3884,11 +3828,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_45",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.45 — tin-ijzerlegering",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_44"
     },
     {
@@ -3896,11 +3840,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_46",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.46 — lood-tindross",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_45"
     },
     {
@@ -3908,11 +3852,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_47",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.47 — ruwe telluuroxide",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_46"
     },
     {
@@ -3920,11 +3864,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_48",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.48 — sodaslakken",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_47"
     },
     {
@@ -3932,11 +3876,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_49",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.49 — zinkchloride",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_48"
     },
     {
@@ -3944,11 +3888,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_50",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.50 — kopercement",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_49"
     },
     {
@@ -3956,11 +3900,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_51",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.51 — zink dross",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_50"
     },
     {
@@ -3968,11 +3912,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_52",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.52 — mangaanhoudend anodeslib",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_51"
     },
     {
@@ -3980,11 +3924,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_53",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.53 — zinkoxidehoudende vliegstof",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_52"
     },
     {
@@ -3992,11 +3936,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_54",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.54 — lood- en zilverhoudend residu",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_53"
     },
     {
@@ -4004,11 +3948,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_55",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.55 — loodhoudend residu",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_54"
     },
     {
@@ -4016,11 +3960,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_56",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.56 — nikkel- en kobalthoudende cement",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_55"
     },
     {
@@ -4028,11 +3972,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_57",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.57 — zinkoxidehoudend roostgoed",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_56"
     },
     {
@@ -4040,11 +3984,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_58",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.58 — indiumhoudend slib",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_57"
     },
     {
@@ -4052,11 +3996,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_59",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.59 — zinkhoudende dross en vliegstof",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_58"
     },
     {
@@ -4064,11 +4008,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_60",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.60 — lood- en zilverhoudende dross en vliegstof",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_59"
     },
     {
@@ -4076,11 +4020,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_61",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.61 — koperhoudende vliegstoffen",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_60"
     },
     {
@@ -4088,11 +4032,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_62",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.62 — tornadozuur",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_61"
     },
     {
@@ -4100,11 +4044,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_63",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M05.63 — tin slimes en sludges",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_62"
     },
     {
@@ -4112,11 +4056,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m06_01",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M06.01 — hoogovenslakken",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_63"
     },
     {
@@ -4124,11 +4068,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m06_05",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M06.05 — convertorslakken ArcelorMittal Belgium (Gent)",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m06_01"
     },
     {
@@ -4136,11 +4080,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m06_06",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M06.06 — panslakken ArcelorMittal Belgium (Gent)",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m06_05"
     },
     {
@@ -4148,11 +4092,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m07_01",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M07.01 — ijzer- en staalschroot",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m06_06"
     },
     {
@@ -4160,11 +4104,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m07_02",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M07.02 — aluminiumschroot",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m07_01"
     },
     {
@@ -4172,11 +4116,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m07_03",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M07.03 — koperschroot",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m07_02"
     },
     {
@@ -4184,11 +4128,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m07_04",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M07.04 — kringloopglas",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m07_03"
     },
     {
@@ -4196,11 +4140,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m07_06",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M07.06 — bemestingsproducten zoals gedefinieerd in EU-verordening 2019/1009",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m07_04"
     },
     {
@@ -4208,11 +4152,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m08_01",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M08.01 — grondstoffen voor gebruik als diervoeding",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m09_02"
     },
     {
@@ -4220,11 +4164,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m08_02",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M08.02 — grondstoffen voor de biochemie",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m08_01"
     },
     {
@@ -4232,11 +4176,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m08_03",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M08.03 — voedingsmiddelen die geschonken worden voor humane consumptie",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m08_02"
     },
     {
@@ -4244,11 +4188,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m09_01",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M09.01 — opgewerkte afvalolie",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m07_06"
     },
     {
@@ -4256,11 +4200,11 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "created": "2026-11-13T09:27:36.946Z",
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m09_02",
+        "modified": "2026-11-13T10:47:39.561Z",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
         "prefLabel": "M09.02 — opgewerkte brandstofresten",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "status": "https://purl.archive.org/adms/status/Active",
         "_ui_after": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m09_01"
     },
     {
@@ -4268,8 +4212,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-boven",
-        "modified": "2026-11-13T09:27:36.946Z",
         "definition": "De meetwaarde ligt boven de detectielimiet.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_detectiegrensindicator",
         "note": "De meetwaarde ligt boven de detectielimiet.",
@@ -4282,8 +4224,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-onder",
-        "modified": "2026-11-13T09:27:36.946Z",
         "definition": "De meetwaarde ligt onder de detectielimiet.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_detectiegrensindicator",
         "note": "De meetwaarde ligt onder de detectielimiet.",
@@ -4361,8 +4301,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-feature",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting",
         "definition": "Actieve peil- en pompfilters in het productiejaar.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
@@ -4408,8 +4346,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-labo-datum",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Datum en tijdstip laboanalyse",
@@ -4437,8 +4373,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-monster",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-monstername",
@@ -4458,8 +4392,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-monstername",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-monster",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-datum",
@@ -4509,8 +4441,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-bemonsteringsinstrument",
@@ -4533,8 +4463,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-limiet",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten",
         "definition": "Een aanduiding of de meetwaarde boven of onder de detectielimiet ligt.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
@@ -4553,8 +4481,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-meetwaarde",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten",
         "relevantUnit": [
             "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_1"
@@ -4575,8 +4501,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-methode",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Analysemethode",
@@ -4590,8 +4514,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-parameter",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Parameter",
@@ -4644,8 +4566,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-einddatum",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Einddatum",
@@ -4662,8 +4582,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-eindmeterstand",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
         "relevantUnit": [
             "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32"
@@ -4683,8 +4601,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-feature",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
         "definition": "Actieve debietmeters in het productiejaar.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
@@ -4708,8 +4624,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-hoeveelheid",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
         "relevantUnit": [
             "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32"
@@ -4729,8 +4643,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-spui",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Spui meegeteld in rondgepompt debiet",
@@ -4747,8 +4659,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-startdatum",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Startdatum",
@@ -4763,8 +4673,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-startmeterstand",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
         "relevantUnit": [
             "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32"
@@ -4784,8 +4692,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-type-debiet",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Type debiet",
@@ -4828,8 +4734,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-datum",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Datum en tijdstip",
@@ -4844,8 +4748,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-diepte",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
         "relevantUnit": [
             "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_59"
@@ -4864,8 +4766,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-duur-stil",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Duur pompen stil",
@@ -4887,8 +4787,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-feature",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
         "definition": "Actieve peil- en pompfilters in het productiejaar.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
@@ -4910,8 +4808,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-peilmethode",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Peilmethode",
@@ -4928,8 +4824,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-pomptoestand",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Pomptoestand",
@@ -4947,8 +4841,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-referentiepunt",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondwater",
         "prefLabel": "Referentiepunt",
@@ -4967,8 +4859,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-volume-rust",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
         "relevantUnit": [
             "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32"
@@ -4993,8 +4883,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-volume-werking",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
         "relevantUnit": [
             "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32"
@@ -5066,8 +4954,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct_installatie",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct",
         "definition": "Installatie waarvoor de jaarlijkse productie van afvalproducten wordt gerapporteerd.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
@@ -5099,8 +4985,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct_resultaat",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct_aard",
@@ -5142,8 +5026,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_aard",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof",
         "definition": "Beschrijving van de aard of samenstelling van de brandstof.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
@@ -5175,8 +5057,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_installatie",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof",
         "definition": "Installatie waarvoor het jaarlijkse brandstofverbruik wordt gerapporteerd.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
@@ -5274,8 +5154,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_debiet",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie",
         "relevantUnit": [
             "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_175"
@@ -5314,8 +5192,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_oorzaak",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie",
         "definition": "Beschrijving van de oorzaak van de abnormale emissie.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
@@ -5399,8 +5275,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_resultaat",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_massastroom",
@@ -5682,8 +5556,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof_installatie",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof",
         "definition": "Installatie waarvoor de jaarlijkse stofproductie wordt gerapporteerd.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
@@ -5715,8 +5587,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof_resultaat",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/geproduceerde_stof_aard",
@@ -5785,8 +5655,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_installatie",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof",
         "definition": "Installatie waarvoor het jaarlijkse stofverbruik wordt gerapporteerd.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_lucht",
@@ -5818,8 +5686,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_resultaat",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_aard",
@@ -5964,8 +5830,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-feature",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing",
         "definition": "De controleinrichting waarvoor de abnormale lozing wordt gerapporteerd.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
@@ -6023,8 +5887,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-resultaat",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-jaarvracht",
@@ -6243,8 +6105,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-procedure",
@@ -6270,8 +6130,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-procedure",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-bepalingsmethode",
@@ -6436,8 +6294,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-bron-meetfrequentie",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-resultaat",
         "definition": "De herkomst van de gehanteerde meetfrequentie. Tijdelijk vrije tekst zolang de definitieve limitatieve lijst niet is vastgesteld.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_lucht",
@@ -6471,8 +6327,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-massastroom",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-resultaat",
         "relevantUnit": [
             "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_eenheden_zelfcontrole_lucht_massastroom"
@@ -6542,8 +6396,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-resultaat",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-bron-meetfrequentie",
@@ -6595,8 +6447,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/debietgebonden_mengmonster",
-        "modified": "2026-11-13T09:27:36.946Z",
         "definition": "Een debietgebonden mengmonster bij de zelfcontrole van oppervlaktewater.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_soort_monstername",
         "note": "Een debietgebonden mengmonster bij de zelfcontrole van oppervlaktewater.",
@@ -6712,8 +6562,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-bron-meetfrequentie",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-resultaat",
         "definition": "De herkomst van de gehanteerde meetfrequentie. Tijdelijk vrije tekst zolang de definitieve limitatieve lijst niet is vastgesteld.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_water",
@@ -6747,8 +6595,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-grenswaarde",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-resultaat",
         "relevantUnit": [
             "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_eenheden_zelfcontrole_water_concentratie"
@@ -6815,8 +6661,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-resultaat",
-        "modified": "2026-11-13T09:27:36.946Z",
         "broaderPartitive": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter",
         "narrowerPartitive": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-bron-meetfrequentie",
@@ -6853,8 +6697,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/schepmonster",
-        "modified": "2026-11-13T09:27:36.946Z",
         "definition": "Een schepmonster bij de zelfcontrole van oppervlaktewater.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_soort_monstername",
         "note": "Een schepmonster bij de zelfcontrole van oppervlaktewater.",
@@ -6867,8 +6709,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/tijdsgebonden_mengmonster",
-        "modified": "2026-11-13T09:27:36.946Z",
         "definition": "Een tijdsgebonden mengmonster bij de zelfcontrole van oppervlaktewater.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_soort_monstername",
         "note": "Een tijdsgebonden mengmonster bij de zelfcontrole van oppervlaktewater.",
@@ -6979,10 +6819,11 @@
         "isMeetbaar": "true"
     },
     {
-        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/definitief_uit_dienst",
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status/definitief_uit_dienst",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "created": "2026-11-13T10:47:39.561Z",
         "seeAlso": "http://purl.org/adms/status/Withdrawn",
         "definition": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/statustypes",
@@ -6990,13 +6831,15 @@
         "note": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
         "prefLabel": "Definitief uit dienst",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/statustypes",
+        "status": "https://purl.archive.org/adms/status/Active",
         "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
-        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/in_dienst",
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status/in_dienst",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "created": "2026-11-13T10:47:39.561Z",
         "seeAlso": "http://purl.org/adms/status/Completed",
         "definition": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/statustypes",
@@ -7004,13 +6847,15 @@
         "note": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
         "prefLabel": "In dienst",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/statustypes",
+        "status": "https://purl.archive.org/adms/status/Active",
         "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
-        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/ontmanteld",
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status/ontmanteld",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "created": "2026-11-13T10:47:39.561Z",
         "seeAlso": "http://purl.org/adms/status/Withdrawn",
         "definition": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/statustypes",
@@ -7018,13 +6863,15 @@
         "note": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
         "prefLabel": "Ontmanteld",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/statustypes",
+        "status": "https://purl.archive.org/adms/status/Active",
         "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
-        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/tijdelijk_uit_dienst",
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status/tijdelijk_uit_dienst",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "created": "2026-11-13T10:47:39.561Z",
         "seeAlso": "http://purl.org/adms/status/Deprecated",
         "definition": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/statustypes",
@@ -7032,13 +6879,15 @@
         "note": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
         "prefLabel": "Tijdelijk uit dienst",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/statustypes",
+        "status": "https://purl.archive.org/adms/status/Active",
         "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
-        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/verkeerde_registratie",
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status/verkeerde_registratie",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "created": "2026-11-13T10:47:39.561Z",
         "seeAlso": "http://purl.org/adms/status/Withdrawn",
         "definition": "De status verkeerde registratie  geeft aan deze entiteit verkeerd werd geregistreerd en dus niet van toepassing is",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/statustypes",
@@ -7046,13 +6895,15 @@
         "note": "De status verkeerde registratie  geeft aan deze entiteit verkeerd werd geregistreerd en dus niet van toepassing is",
         "prefLabel": "Verkeerde Registratie",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/statustypes",
+        "status": "https://purl.archive.org/adms/status/Active",
         "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
-        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/voorgesteld",
+        "id": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status/voorgesteld",
         "_type": [
             "http://www.w3.org/2004/02/skos/core#Concept"
         ],
+        "created": "2026-11-13T10:47:39.561Z",
         "seeAlso": "http://purl.org/adms/status/UnderDevelopment",
         "definition": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
         "inScheme": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/statustypes",
@@ -7060,6 +6911,7 @@
         "note": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
         "prefLabel": "Voorgesteld Ontwerp",
         "topConceptOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/statustypes",
+        "status": "https://purl.archive.org/adms/status/Active",
         "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
@@ -7452,8 +7304,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#ConceptScheme"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_detectiegrensindicator",
-        "modified": "2026-11-13T09:27:36.946Z",
         "definition": "Een aanduiding of de meetwaarde boven of onder de detectielimiet ligt.",
         "hasTopConcept": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-boven",
@@ -7467,8 +7317,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#ConceptScheme"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
-        "modified": "2026-11-13T09:27:36.946Z",
         "hasTopConcept": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/geproduceerd",
@@ -7506,8 +7354,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#ConceptScheme"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes",
-        "modified": "2026-11-13T09:27:36.946Z",
         "definition": "Materiaalcodes voor geproduceerde grondstoffen, overgenomen uit het Teepak-referentiebestand voor productiejaar 2024.",
         "hasTopConcept": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_00",
@@ -7746,8 +7592,6 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#ConceptScheme"
         ],
-        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_soort_monstername",
-        "modified": "2026-11-13T09:27:36.946Z",
         "definition": "De wijze van monstername bij een zelfcontrolemeting van oppervlaktewater.",
         "hasTopConcept": [
             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/debietgebonden_mengmonster",
@@ -7802,14 +7646,16 @@
         "_type": [
             "http://www.w3.org/2004/02/skos/core#ConceptScheme"
         ],
+        "isVersionOf": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/statustypes",
+        "modified": "2026-11-13T10:47:39.561Z",
         "definition": "Een typering van verschillende statussen (actief, inactief, ...).",
         "hasTopConcept": [
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/definitief_uit_dienst",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/in_dienst",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/ontmanteld",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/tijdelijk_uit_dienst",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/verkeerde_registratie",
-            "https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/voorgesteld"
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/status/definitief_uit_dienst",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/status/in_dienst",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/status/ontmanteld",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/status/tijdelijk_uit_dienst",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/status/verkeerde_registratie",
+            "https://data.omgeving.vlaanderen.be/id/concept/riepr/status/voorgesteld"
         ],
         "note": "Een typering van verschillende statussen (actief, inactief, ...).",
         "prefLabel": "Status types"
@@ -7936,19 +7782,19 @@
         "prefLabel": "Uitwisselpunt types"
     },
     {
-        "id": "https://schema.org/additionalProperty",
+        "id": "https://schema.org/address",
         "_type": [
             "http://www.w3.org/2000/01/rdf-schema#Resource"
         ],
-        "isVersionOf": "https://schema.org/additionalProperty",
-        "modified": "2026-11-13T09:27:36.946Z"
+        "isVersionOf": "https://schema.org/address",
+        "modified": "2026-11-13T10:47:39.561Z"
     },
     {
-        "id": "https://schema.org/measurementMethod",
+        "id": "https://schema.org/identifier",
         "_type": [
             "http://www.w3.org/2000/01/rdf-schema#Resource"
         ],
-        "isVersionOf": "https://schema.org/measurementMethod",
-        "modified": "2026-11-13T09:27:36.946Z"
+        "isVersionOf": "https://schema.org/identifier",
+        "modified": "2026-11-13T10:47:39.561Z"
     }
 ]
