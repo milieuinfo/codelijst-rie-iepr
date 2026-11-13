@@ -1,0 +1,753 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.riepr.omgeving.vlaanderen.be/schema/2026/observatie/grondstoffen/grondstof/schema.json",
+  "title": "Geproduceerde grondstoffen",
+  "type": "object",
+  "properties": {
+    "geproduceerd": {
+      "type": "boolean",
+      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/geproduceerd",
+      "x-table-order": 142,
+      "x-source-datatype": "http://www.w3.org/2001/XMLSchema#boolean",
+      "title": "Heeft u grondstoffen geproduceerd?",
+      "x-ui-first": true
+    },
+    "grondstof": {
+      "type": "array",
+      "title": "Geproduceerde grondstoffen",
+      "items": {
+        "type": "object",
+        "properties": {
+          "hasResult": {
+            "type": "object",
+            "properties": {
+              "material": {
+                "type": "string",
+                "minLength": 1,
+                "enum": [
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_00",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_01",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_02",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_03",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_04",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_05",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_06",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_07",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_08",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_09",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_10",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m00_11",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_01",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_02",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_03",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_04",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_05",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_06",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_07",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_08",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_09",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_10",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_11",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_12",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_13",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_14",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_15",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_16",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_17",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_18",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_19",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_20",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_21",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_22",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_23",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_24",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_25",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_26",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_27",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_28",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_29",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m01_30",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_01",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_02",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_03",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_04",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_05",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_06",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_07",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_08",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_09",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_10",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_11",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_12",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_13",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m02_14",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m03_01",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m03_02",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m03_03",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m03_04",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m03_05",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_01",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_02",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_03",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_04",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_05",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_06",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_07",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_08",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_09",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_10",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_11",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_12",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_13",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_14",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_15",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_16",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_17",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_18",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_19",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_20",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_21",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_22",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_23",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_24",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_25",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_26",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_27",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_28",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_29",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_30",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_31",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_32",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_33",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_34",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_35",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_36",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_37",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_38",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_39",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_40",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_41",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_42",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_43",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_44",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_45",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_46",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_47",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_48",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_49",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_50",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_51",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_52",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_53",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_54",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_55",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_56",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_57",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_58",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_59",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_60",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_61",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_62",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m05_63",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m06_01",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m06_05",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m06_06",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m07_01",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m07_02",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m07_03",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m07_04",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m07_06",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m09_01",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m09_02",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m08_01",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m08_02",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m08_03"
+                ],
+                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_materiaalcode",
+                "x-table-order": 146,
+                "x-code-lists": [
+                  "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes"
+                ],
+                "x-jsonld-id": "https://schema.org/material",
+                "x-jsonld-type": "@id",
+                "title": "Materiaalcode",
+                "x-ui-first": true
+              },
+              "grondstofOmschrijving": {
+                "type": "string",
+                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_omschrijving",
+                "x-table-order": 147,
+                "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#comment",
+                "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                "title": "Omschrijving",
+                "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_materiaalcode",
+                "x-ui-after": "material"
+              },
+              "numericValue": {
+                "type": "number",
+                "minimum": 0,
+                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_hoeveelheid",
+                "x-table-order": 148,
+                "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
+                "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#decimal",
+                "title": "Hoeveelheid",
+                "description": "Jaarlijks geproduceerde hoeveelheid in ton, gerapporteerd met niet meer detail dan 0,001 ton.",
+                "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_omschrijving",
+                "x-ui-after": "grondstofOmschrijving"
+              },
+              "grondstofOpmerking": {
+                "type": "string",
+                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_opmerking",
+                "x-table-order": 150,
+                "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#comment",
+                "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                "title": "Opmerking",
+                "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_toepassingswijze",
+                "x-ui-after": "additionalProperty"
+              },
+              "hasUnit": {
+                "type": "string",
+                "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_41",
+                "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_41",
+                "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
+                "x-jsonld-type": "@id",
+                "title": "Eenheid",
+                "x-ui-after": "numericValue"
+              },
+              "additionalProperty": {
+                "type": "array",
+                "title": "Aanvullende eigenschappen",
+                "minItems": 1,
+                "x-jsonld-id": "https://schema.org/additionalProperty",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "propertyID",
+                        "value"
+                      ],
+                      "properties": {
+                        "propertyID": {
+                          "type": "string",
+                          "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_toepassingswijze",
+                          "x-jsonld-id": "https://schema.org/propertyID",
+                          "x-jsonld-type": "@id",
+                          "x-ui-hidden": true
+                        },
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "enum": [
+                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toepassingswijze/dispers",
+                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toepassingswijze/brandstof",
+                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toepassingswijze/overige"
+                          ],
+                          "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_toepassingswijze",
+                          "x-table-order": 149,
+                          "x-code-lists": [
+                            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_toepassingwijze"
+                          ],
+                          "x-jsonld-id": "https://schema.org/value",
+                          "x-jsonld-type": "@id",
+                          "title": "Toepassingswijze"
+                        }
+                      },
+                      "x-jsonld-type": "https://schema.org/PropertyValue",
+                      "x-value-path": [
+                        "value"
+                      ],
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_toepassingswijze",
+                      "x-table-order": 149,
+                      "x-code-lists": [
+                        "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_toepassingwijze"
+                      ],
+                      "x-jsonld-id": "https://schema.org/additionalProperty",
+                      "title": "Toepassingswijze",
+                      "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_hoeveelheid",
+                      "x-ui-after": "numericValue"
+                    }
+                  ]
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "type": "object",
+                      "required": [
+                        "propertyID"
+                      ],
+                      "properties": {
+                        "propertyID": {
+                          "type": "string",
+                          "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_toepassingswijze",
+                          "x-jsonld-id": "https://schema.org/propertyID",
+                          "x-jsonld-type": "@id",
+                          "x-ui-hidden": true
+                        }
+                      }
+                    },
+                    "minContains": 1,
+                    "maxContains": 1
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false,
+            "dependentRequired": {
+              "numericValue": [
+                "hasUnit"
+              ]
+            },
+            "required": [
+              "material",
+              "numericValue",
+              "hasUnit",
+              "additionalProperty"
+            ],
+            "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_resultaat",
+            "x-ui-hidden-container": true,
+            "x-table-order": 145,
+            "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
+            "title": "Resultaat grondstof",
+            "description": "Het resultaatrecord van de gerapporteerde geproduceerde grondstof.",
+            "x-ui-first": true,
+            "x-property-input-constraints": {
+              "dependentRequired": {
+                "numericValue": [
+                  "hasUnit"
+                ]
+              }
+            },
+            "x-property-layout": [
+              {
+                "key": "additionalProperty",
+                "repeatable": false,
+                "required": true,
+                "annotations": {}
+              }
+            ]
+          },
+          "qualifiedAssociation": {
+            "type": "array",
+            "title": "Bestemmingen",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "minLength": 1,
+                  "enum": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/belgisch",
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/buitenlands",
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/werf",
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/dispers",
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/geen_onderneming",
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/particulier"
+                  ],
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_bestemming_type",
+                  "x-table-order": 152,
+                  "x-code-lists": [
+                    "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_bestemmingstype"
+                  ],
+                  "x-jsonld-id": "http://purl.org/dc/terms/type",
+                  "x-jsonld-type": "@id",
+                  "title": "Type bestemming",
+                  "x-ui-first": true
+                },
+                "bestemmingsidentificatieBe": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "string",
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be-naam",
+                      "x-table-order": 154,
+                      "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                      "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#label",
+                      "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                      "title": "Firmanaam",
+                      "x-ui-first": true
+                    },
+                    "registration": {
+                      "type": "string",
+                      "minLength": 1,
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be-on",
+                      "x-table-order": 155,
+                      "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                      "x-jsonld-id": "http://www.w3.org/ns/regorg#registration",
+                      "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                      "title": "Ondernemingsnummer",
+                      "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be-naam",
+                      "x-ui-after": "label"
+                    },
+                    "identifier": {
+                      "type": "string",
+                      "minLength": 1,
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be-ve",
+                      "x-table-order": 156,
+                      "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                      "x-jsonld-id": "https://schema.org/identifier",
+                      "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                      "title": "Vestigingseenheidsnummer",
+                      "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be-on",
+                      "x-ui-after": "registration"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "registration",
+                    "identifier"
+                  ],
+                  "x-jsonld-type": "http://www.w3.org/ns/prov#Agent",
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be",
+                  "x-ui-hidden-container": true,
+                  "x-table-order": 153,
+                  "x-related-concepts": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-buitenland",
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-none",
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-werf"
+                  ],
+                  "x-jsonld-id": "http://www.w3.org/ns/prov#agent",
+                  "title": "Bestemmingsidentificatie",
+                  "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_bestemming_type",
+                  "x-ui-after": "type",
+                  "x-visible-when": {
+                    "sourceConcept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_bestemming_type",
+                    "values": [
+                      "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/belgisch"
+                    ]
+                  }
+                },
+                "bestemmingsidentificatieBuitenland": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "string",
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-buitenland-naam",
+                      "x-table-order": 158,
+                      "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                      "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#label",
+                      "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                      "title": "Firmanaam",
+                      "x-ui-first": true
+                    },
+                    "registration": {
+                      "type": "string",
+                      "minLength": 1,
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-buitenland-btw",
+                      "x-table-order": 159,
+                      "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                      "x-jsonld-id": "http://www.w3.org/ns/regorg#registration",
+                      "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                      "title": "BTW-nummer",
+                      "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-buitenland-naam",
+                      "x-ui-after": "label"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "registration"
+                  ],
+                  "x-jsonld-type": "http://www.w3.org/ns/prov#Agent",
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-buitenland",
+                  "x-ui-hidden-container": true,
+                  "x-table-order": 157,
+                  "x-related-concepts": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be",
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-none",
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-werf"
+                  ],
+                  "x-jsonld-id": "http://www.w3.org/ns/prov#agent",
+                  "title": "Bestemmingsidentificatie",
+                  "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be",
+                  "x-ui-after": "bestemmingsidentificatieBe",
+                  "x-visible-when": {
+                    "sourceConcept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_bestemming_type",
+                    "values": [
+                      "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/buitenlands"
+                    ]
+                  }
+                },
+                "bestemmingsidentificatieWerf": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "string",
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-werf-naam",
+                      "x-table-order": 161,
+                      "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                      "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#label",
+                      "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                      "title": "Firmanaam",
+                      "x-ui-first": true
+                    }
+                  },
+                  "additionalProperties": false,
+                  "x-jsonld-type": "http://www.w3.org/ns/prov#Agent",
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-werf",
+                  "x-ui-hidden-container": true,
+                  "x-table-order": 160,
+                  "x-related-concepts": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be",
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-buitenland",
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-none"
+                  ],
+                  "x-jsonld-id": "http://www.w3.org/ns/prov#agent",
+                  "title": "Bestemmingsidentificatie",
+                  "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-buitenland",
+                  "x-ui-after": "bestemmingsidentificatieBuitenland",
+                  "x-visible-when": {
+                    "sourceConcept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_bestemming_type",
+                    "values": [
+                      "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/werf"
+                    ]
+                  }
+                },
+                "bestemmingsidentificatieNone": {
+                  "type": "object",
+                  "properties": {
+                    "label": {
+                      "type": "string",
+                      "minLength": 1,
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-none-naam",
+                      "x-table-order": 163,
+                      "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                      "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#label",
+                      "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                      "title": "Firmanaam",
+                      "x-ui-first": true
+                    },
+                    "address": {
+                      "type": "string",
+                      "minLength": 1,
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-none-adres",
+                      "x-table-order": 164,
+                      "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                      "x-jsonld-id": "https://schema.org/address",
+                      "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                      "title": "Adres",
+                      "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-none-naam",
+                      "x-ui-after": "label"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "label",
+                    "address"
+                  ],
+                  "x-jsonld-type": "http://www.w3.org/ns/prov#Agent",
+                  "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-none",
+                  "x-ui-hidden-container": true,
+                  "x-table-order": 162,
+                  "x-related-concepts": [
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be",
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-buitenland",
+                    "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-werf"
+                  ],
+                  "x-jsonld-id": "http://www.w3.org/ns/prov#agent",
+                  "title": "Bestemmingsidentificatie",
+                  "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-werf",
+                  "x-ui-after": "bestemmingsidentificatieWerf",
+                  "x-visible-when": {
+                    "sourceConcept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_bestemming_type",
+                    "values": [
+                      "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/geen_onderneming"
+                    ]
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "type"
+              ],
+              "x-jsonld-type": "http://www.w3.org/ns/prov#Association",
+              "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemming",
+              "x-table-workbook": "grondstoffen-geproduceerd.ods",
+              "x-table-sheet": "Bestemmingen",
+              "x-table-order": 151,
+              "x-jsonld-id": "http://www.w3.org/ns/prov#qualifiedAssociation",
+              "title": "Bestemmingen",
+              "description": "Een of meer bestemmingen van de geproduceerde grondstof, gekoppeld via de materiaalcode.",
+              "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_resultaat",
+              "allOf": [
+                {
+                  "if": {
+                    "required": [
+                      "type"
+                    ],
+                    "properties": {
+                      "type": {
+                        "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/belgisch"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "bestemmingsidentificatieBe"
+                    ]
+                  },
+                  "else": {
+                    "properties": {
+                      "bestemmingsidentificatieBe": {
+                        "not": {}
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "required": [
+                      "type"
+                    ],
+                    "properties": {
+                      "type": {
+                        "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/buitenlands"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "bestemmingsidentificatieBuitenland"
+                    ]
+                  },
+                  "else": {
+                    "properties": {
+                      "bestemmingsidentificatieBuitenland": {
+                        "not": {}
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "required": [
+                      "type"
+                    ],
+                    "properties": {
+                      "type": {
+                        "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/werf"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "bestemmingsidentificatieWerf"
+                    ]
+                  },
+                  "else": {
+                    "properties": {
+                      "bestemmingsidentificatieWerf": {
+                        "not": {}
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "required": [
+                      "type"
+                    ],
+                    "properties": {
+                      "type": {
+                        "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/geen_onderneming"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "bestemmingsidentificatieNone"
+                    ]
+                  },
+                  "else": {
+                    "properties": {
+                      "bestemmingsidentificatieNone": {
+                        "not": {}
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemming",
+            "x-array-kind": "records",
+            "minItems": 1,
+            "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_resultaat",
+            "x-jsonld-id": "http://www.w3.org/ns/prov#qualifiedAssociation",
+            "x-table-workbook": "grondstoffen-geproduceerd.ods",
+            "x-table-sheet": "Bestemmingen",
+            "x-table-order": 151,
+            "x-ui-after": "hasResult"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "hasResult",
+          "qualifiedAssociation"
+        ],
+        "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
+        "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
+        "x-table-workbook": "grondstoffen-geproduceerd.ods",
+        "x-table-sheet": "Geproduceerde grondstoffen",
+        "x-table-key": [
+          "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_materiaalcode"
+        ],
+        "x-table-order": 144,
+        "title": "Geproduceerde grondstoffen",
+        "description": "Jaarlijks geproduceerde grondstoffen per exploitatie, met een of meer bestemmingen. De materiaalcode is uniek binnen de exploitatie en het rapporteringsjaar.",
+        "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/geproduceerd"
+      },
+      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
+      "x-array-kind": "records",
+      "minItems": 1,
+      "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/geproduceerd",
+      "x-table-workbook": "grondstoffen-geproduceerd.ods",
+      "x-table-sheet": "Geproduceerde grondstoffen",
+      "x-table-order": 144,
+      "x-ui-after": "geproduceerd",
+      "x-visible-when": {
+        "sourceConcept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/geproduceerd",
+        "values": [
+          true
+        ]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "required": [
+          "geproduceerd"
+        ],
+        "properties": {
+          "geproduceerd": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "grondstof"
+        ]
+      },
+      "else": {
+        "properties": {
+          "grondstof": {
+            "not": {}
+          }
+        }
+      }
+    }
+  ],
+  "x-theme-concept": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
+  "x-theme-slug": "grondstoffen",
+  "x-theme-label": "Grondstoffen",
+  "x-semantic-profile": "https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/",
+  "x-flow-transitions": [],
+  "x-section-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
+  "x-table-workbook": "grondstoffen-geproduceerd.ods"
+}

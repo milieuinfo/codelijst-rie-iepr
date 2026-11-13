@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.riepr.omgeving.vlaanderen.be/schema/2026/observatie/grondstoffen/inkomend/schema.json",
+  "title": "Inkomende grondstoffen",
+  "type": "object",
+  "properties": {
+    "inkomend": {
+      "type": "array",
+      "title": "Inkomende grondstoffen",
+      "items": {
+        "type": "object",
+        "properties": {
+          "hasFeatureOfInterest": {
+            "type": "string",
+            "minLength": 1,
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_installatie",
+            "x-table-order": 166,
+            "x-reference-types": [
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatietype/gpbv"
+            ],
+            "x-jsonld-id": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
+            "x-jsonld-type": "@id",
+            "title": "IEPR installatie",
+            "description": "De IEPR-installatie waarvoor het jaarlijks binnengekomen gebruikte materiaal wordt gerapporteerd.",
+            "x-ui-first": true
+          },
+          "subject": {
+            "type": "string",
+            "minLength": 1,
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_activiteit",
+            "x-table-order": 167,
+            "x-reference-types": [
+              "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Rubriek"
+            ],
+            "x-jsonld-id": "http://purl.org/dc/terms/subject",
+            "x-jsonld-type": "@id",
+            "title": "Activiteit",
+            "description": "De activiteit waarvoor het jaarlijks binnengekomen gebruikte materiaal wordt gerapporteerd. De POC legt nog geen afhankelijk filter op de gekozen IEPR-installatie op.",
+            "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_installatie",
+            "x-ui-after": "hasFeatureOfInterest"
+          },
+          "hasResult": {
+            "type": "object",
+            "properties": {
+              "comment": {
+                "type": "string",
+                "minLength": 1,
+                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_aard",
+                "x-table-order": 169,
+                "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
+                "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#comment",
+                "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
+                "title": "Aard",
+                "x-ui-first": true
+              },
+              "numericValue": {
+                "type": "number",
+                "minimum": 0,
+                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_hoeveelheid",
+                "x-table-order": 170,
+                "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
+                "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#decimal",
+                "title": "Hoeveelheid",
+                "description": "Jaarlijkse hoeveelheid binnengekomen gebruikt materiaal, uitgedrukt in ton.",
+                "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_aard",
+                "x-ui-after": "comment"
+              },
+              "hasUnit": {
+                "type": "string",
+                "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_41",
+                "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_41",
+                "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
+                "x-jsonld-type": "@id",
+                "title": "Eenheid",
+                "x-ui-after": "numericValue"
+              }
+            },
+            "additionalProperties": false,
+            "dependentRequired": {
+              "numericValue": [
+                "hasUnit"
+              ]
+            },
+            "required": [
+              "comment",
+              "numericValue",
+              "hasUnit"
+            ],
+            "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_resultaat",
+            "x-ui-hidden-container": true,
+            "x-table-order": 168,
+            "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
+            "title": "Resultaat inkomende grondstof",
+            "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_activiteit",
+            "x-ui-after": "subject"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "hasFeatureOfInterest",
+          "subject",
+          "hasResult"
+        ],
+        "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
+        "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend",
+        "x-table-workbook": "grondstoffen-inkomend.ods",
+        "x-table-sheet": "Inkomende grondstoffen",
+        "x-table-order": 165,
+        "title": "Inkomende grondstoffen",
+        "description": "Jaarlijks binnengekomen gebruikte materialen per aard, activiteit en IEPR-installatie.",
+        "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof"
+      },
+      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend",
+      "x-array-kind": "records",
+      "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
+      "x-table-workbook": "grondstoffen-inkomend.ods",
+      "x-table-sheet": "Inkomende grondstoffen",
+      "x-table-order": 165
+    }
+  },
+  "additionalProperties": false,
+  "x-theme-concept": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_grondstoffen",
+  "x-theme-slug": "grondstoffen",
+  "x-theme-label": "Grondstoffen",
+  "x-semantic-profile": "https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/",
+  "x-flow-transitions": [],
+  "x-section-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend",
+  "x-table-workbook": "grondstoffen-inkomend.ods"
+}
