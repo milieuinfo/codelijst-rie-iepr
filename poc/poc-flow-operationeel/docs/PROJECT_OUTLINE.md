@@ -40,8 +40,9 @@ is the conceptual specification; the [POC README](../README.md) covers operation
 The active scope is the three groundwater sections (quality, flow and levels)
 plus **Lucht -> Emissie, Verbruikte brandstof, Verbruikte stof, Geproduceerde stof
 and Afvalproduct**, plus **Water -> Lozing and Abnormale lozing** and
-**Zelfcontrole lucht / Zelfcontrole water -> Metingen**: twelve sections across
-five themes.
+**Zelfcontrole lucht / Zelfcontrole water -> Metingen**, and
+**Grondstoffen -> Geproduceerde grondstoffen / Inkomende grondstoffen**:
+fourteen sections across six themes.
 The source snapshot declares direct scheme entries,
 not navigation through the removed theme list; the UI discovers all themes
 from the generated index. Source `_table_workbook` / `_table_sheet` annotations
@@ -66,6 +67,13 @@ selectable; optional uncertainty is an integer 0–100 percent. Frequency/source
 remain text pending definitive lists. Existing pollutant lists remain limited;
 see the [source guide](../../../README.md#zelfcontrole-lucht-en-water) for the
 approved Confluence deviations and outstanding business coverage.
+Raw materials use the same generic controls: 137 material codes, fixed ton,
+non-negative quantities and repeated conditional destination identities.
+Produced destinations link by the approved unique material-code URI in ODS.
+Incoming rows select a GPBV installation and Rubriek activity; no dependent
+activity filter is asserted without an explicit relation. Text addresses and
+documented-but-unenforced 0.001-ton precision remain POC limitations; see
+the [source guide](../../../README.md#grondstoffen).
 Source connectivity, emission-context material references, missing annual pollutant
 quantities/methods and improvements are not yet covered. Other operational CSVs
 and full Teepak acceptance remain outside this scope.

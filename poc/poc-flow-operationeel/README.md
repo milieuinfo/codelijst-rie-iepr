@@ -19,11 +19,11 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-The active generator reads the groundwater, air, water and self-control reporting CSVs and supporting
+The active generator reads the groundwater, air, water, self-control and raw-material reporting CSVs and supporting
 choice lists, with direct concept-scheme entry points (no `thematypes.csv`).
 Strict generation remains the default; the current source generates all three
 groundwater sections, five air sections, two water sections and two self-control
-sections: twelve sections across five themes. Select a production year, then
+sections, plus two raw-material sections: fourteen sections across six themes. Select a production year, then
 `Lucht` and `Emissie` to test point/source selections, emission context and nested
 pollutant results, including the matching `lucht-emissies.ods` download/import.
 Choose `Verbruikte brandstof`, `Verbruikte stof`, `Geproduceerde stof` or
@@ -45,6 +45,16 @@ units are selectable and uncertainty is an integer 0–100 percent.
 Frequency and its source are temporarily free text. Water offers three sample
 types. See the [source guide](../../README.md#zelfcontrole-lucht-en-water)
 for approved units, Confluence deviations and remaining pollutant/list gaps.
+Select `Grondstoffen` -> `Geproduceerde grondstoffen` for the production
+checkbox, material-code selection (137 choices), quantity in ton, application and
+expandable destinations. Destination type activates its conditional identity
+fields; switching type retains inactive drafts but excludes them from JSON.
+The paired-sheet template links destinations by material-code URI.
+`Inkomende grondstoffen` reports required GPBV installation, Rubriek activity,
+nature and quantity in ton. Three fictional choices of each structural type
+come from the shared reference snapshot, without an invented installation/activity
+dependency. See the [source guide](../../README.md#grondstoffen) for remaining
+precision/address/register-validation limits.
 Keep `--theme` omitted during generation so all themes remain indexed.
 Air is not yet Teepak-complete: emission-context material references, missing pollutant
 quantities/methods and improvements remain deferred. Sources are not yet

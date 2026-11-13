@@ -31,12 +31,31 @@ export class SchemaAssembler {
   ): { baseSchema: JsonSchemaObject; domainSchema: JsonSchemaObject; subSchemas: SubSchema[] } {
     const slug = chain.slug ?? this.slug(chain.themeConcept.id)
     const domainId = `${config.baseSchemaUrl}/${slug}/schema.json`
-    const domainSchema = this.document(fields, domainId, themeName, chain, result)
     const sections = fields.filter(field => (field.children?.length || isObservationClass(field.relevantClass)) && !field.extensions?.['x-reference-types'])
     const context = fields.filter(field => !sections.includes(field))
+    const conditionSources = new Set([...result.concepts.values()].flatMap(concept =>
+      concept.conditionPath ? [concept.conditionPath] : []))
+    const contextById = new Map(context.map(field => [field.conceptId, field]))
+    const contextFor = (selected: SchemaField[]): SchemaField[] => {
+      const needed = new Set(context.filter(field => !conditionSources.has(field.conceptId)))
+      const visit = (field: SchemaField): void => {
+        for (const id of [field.condition?.path, field.variabeleConceptId, field.referenceParentConceptId]) {
+          const dependency = id && contextById.get(id)
+          if (dependency && !needed.has(dependency)) {
+            needed.add(dependency)
+            visit(dependency)
+          }
+        }
+        field.children?.forEach(visit)
+      }
+      for (const field of [...needed, ...selected]) visit(field)
+      return context.filter(field => needed.has(field))
+    }
+    const domainFields = new Set([...sections, ...contextFor(sections)])
+    const domainSchema = this.document(fields.filter(field => domainFields.has(field)), domainId, themeName, chain, result)
     const subSchemas = sections.map(field => {
       const name = this.slug(field.conceptId)
-      const schema = this.document([...context, field], `${config.baseSchemaUrl}/${slug}/${name}/schema.json`, field.label, chain, result)
+      const schema = this.document([...contextFor([field]), field], `${config.baseSchemaUrl}/${slug}/${name}/schema.json`, field.label, chain, result)
       schema['x-section-concept'] = result.expandCurie?.(field.conceptId) ?? field.conceptId
       const workbooks = new Set<string>()
       const collect = (field: SchemaField) => {

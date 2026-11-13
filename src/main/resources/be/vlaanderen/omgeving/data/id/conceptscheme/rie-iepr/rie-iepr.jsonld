@@ -918,11 +918,27 @@
             ]
         },
         {
+            "id": "prov:agent",
+            "_type": [
+                "rdfs:Resource"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "status": "https://purl.archive.org/adms/status/Active"
+        },
+        {
+            "id": "prov:qualifiedAssociation",
+            "_type": [
+                "rdfs:Resource"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "status": "https://purl.archive.org/adms/status/Active"
+        },
+        {
             "id": "prov:used",
             "_type": [
                 "rdfs:Resource"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "status": "https://purl.archive.org/adms/status/Active"
         },
         {
@@ -930,7 +946,7 @@
             "_type": [
                 "rdfs:Resource"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "status": "https://purl.archive.org/adms/status/Active"
         },
         {
@@ -950,7 +966,7 @@
             "_type": [
                 "rdfs:Resource"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "status": "https://purl.archive.org/adms/status/Active"
         },
         {
@@ -964,7 +980,7 @@
             "_type": [
                 "rdfs:Resource"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "status": "https://purl.archive.org/adms/status/Active"
         },
         {
@@ -990,7 +1006,7 @@
             "_type": [
                 "skos:Collection"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "definition": "Toegelaten eenheden voor het jaarlijkse verbruik, de productie of de doorzet van stoffen en afvalproducten.",
             "member": [
                 "csor_eenheid:E_32",
@@ -1010,7 +1026,7 @@
             "_type": [
                 "skos:Collection"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "definition": "Toegelaten concentratie-eenheden bij standaardomstandigheden voor de zelfcontrole van luchtemissies.",
             "member": [
                 "csor_eenheid:E_172",
@@ -1027,7 +1043,7 @@
             "_type": [
                 "skos:Collection"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "definition": "Toegelaten massastroomeenheden voor de zelfcontrole van luchtemissies.",
             "member": [
                 "csor_eenheid:E_13",
@@ -1042,7 +1058,7 @@
             "_type": [
                 "skos:Collection"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "definition": "Toegelaten eenheden voor de concentratie en de grenswaarde bij de zelfcontrole van oppervlaktewater.",
             "member": [
                 "csor_eenheid:E_1",
@@ -1073,7 +1089,7 @@
                 "skos:Collection"
             ],
             "isVersionOf": "collectie:operationeel_stoffen_lucht",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "member": [
                 "csor_variabele:V_1057",
                 "csor_variabele:V_1060",
@@ -3021,7 +3037,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "contextueel:productievolume",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "definition": "Totale productie (geheel getal)",
             "inScheme": "conceptscheme:operationeel_contextueel_iepr_activiteit",
             "note": "Totale productie (geheel getal)",
@@ -3076,13 +3092,39 @@
             "topConceptOf": "conceptscheme:operationeel_debiettypes"
         },
         {
+            "id": "grondstoffen:bestemming",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "relation": "prov:qualifiedAssociation",
+            "broaderPartitive": "grondstoffen:grondstof",
+            "narrowerPartitive": [
+                "grondstoffen:bestemmingsidentificatie-be",
+                "grondstoffen:bestemmingsidentificatie-buitenland",
+                "grondstoffen:bestemmingsidentificatie-none",
+                "grondstoffen:bestemmingsidentificatie-werf",
+                "grondstoffen:grondstof_bestemming_type"
+            ],
+            "definition": "Een of meer bestemmingen van de geproduceerde grondstof, gekoppeld via de materiaalcode.",
+            "inScheme": "conceptscheme:operationeel_grondstoffen",
+            "note": "Een of meer bestemmingen van de geproduceerde grondstof, gekoppeld via de materiaalcode.",
+            "prefLabel": "Bestemmingen",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "relevantClass": "prov:Association",
+            "isMeervoudig": "true",
+            "isVerplicht": "true",
+            "_ui_after": "grondstoffen:grondstof_resultaat"
+        },
+        {
             "id": "grondstoffen:bestemmingsidentificatie-be",
             "_type": [
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:bestemmingsidentificatie-be",
-            "modified": "2026-11-09T16:34:27.972Z",
-            "broaderPartitive": "grondstoffen:grondstof",
+            "modified": "2026-11-13T07:46:59.128Z",
+            "relation": "prov:agent",
+            "broaderPartitive": "grondstoffen:bestemming",
             "narrowerPartitive": [
                 "grondstoffen:bestemmingsidentificatie-be-naam",
                 "grondstoffen:bestemmingsidentificatie-be-on",
@@ -3107,17 +3149,21 @@
             "conditionPath": [
                 "grondstoffen:grondstof_bestemming_type"
             ],
-            "_ui_after": "grondstoffen:grondstof_resultaat"
+            "isOnzichtbaar": "true",
+            "isVerplicht": "true",
+            "_ui_after": "grondstoffen:grondstof_bestemming_type"
         },
         {
             "id": "grondstoffen:bestemmingsidentificatie-be-naam",
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "grondstoffen:bestemmingsidentificatie-be-naam",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rdfs:label",
             "broaderPartitive": "grondstoffen:bestemmingsidentificatie-be",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
-            "prefLabel": "Naam",
+            "prefLabel": "Firmanaam",
             "isVerplicht": "false",
             "relevantDataType": "xsd:string",
             "_ui_first": "true"
@@ -3140,9 +3186,12 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "grondstoffen:bestemmingsidentificatie-be-ve",
+            "modified": "2026-11-13T07:46:59.128Z",
+            "relation": "schema:identifier",
             "broaderPartitive": "grondstoffen:bestemmingsidentificatie-be",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
-            "prefLabel": "Vestigingsnummer",
+            "prefLabel": "Vestigingseenheidsnummer",
             "isVerplicht": "true",
             "relevantDataType": "xsd:string",
             "_ui_after": "grondstoffen:bestemmingsidentificatie-be-on"
@@ -3152,7 +3201,10 @@
             "_type": [
                 "skos:Concept"
             ],
-            "broaderPartitive": "grondstoffen:grondstof",
+            "isVersionOf": "grondstoffen:bestemmingsidentificatie-buitenland",
+            "modified": "2026-11-13T07:46:59.128Z",
+            "relation": "prov:agent",
+            "broaderPartitive": "grondstoffen:bestemming",
             "narrowerPartitive": [
                 "grondstoffen:bestemmingsidentificatie-buitenland-btw",
                 "grondstoffen:bestemmingsidentificatie-buitenland-naam"
@@ -3176,6 +3228,8 @@
             "conditionPath": [
                 "grondstoffen:grondstof_bestemming_type"
             ],
+            "isOnzichtbaar": "true",
+            "isVerplicht": "true",
             "_ui_after": "grondstoffen:bestemmingsidentificatie-be"
         },
         {
@@ -3196,10 +3250,12 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "grondstoffen:bestemmingsidentificatie-buitenland-naam",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rdfs:label",
             "broaderPartitive": "grondstoffen:bestemmingsidentificatie-buitenland",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
-            "prefLabel": "Naam",
+            "prefLabel": "Firmanaam",
             "isVerplicht": "false",
             "relevantDataType": "xsd:string",
             "_ui_first": "true"
@@ -3209,7 +3265,10 @@
             "_type": [
                 "skos:Concept"
             ],
-            "broaderPartitive": "grondstoffen:grondstof",
+            "isVersionOf": "grondstoffen:bestemmingsidentificatie-none",
+            "modified": "2026-11-13T07:46:59.128Z",
+            "relation": "prov:agent",
+            "broaderPartitive": "grondstoffen:bestemming",
             "narrowerPartitive": [
                 "grondstoffen:bestemmingsidentificatie-none-adres",
                 "grondstoffen:bestemmingsidentificatie-none-naam"
@@ -3233,6 +3292,8 @@
             "conditionPath": [
                 "grondstoffen:grondstof_bestemming_type"
             ],
+            "isOnzichtbaar": "true",
+            "isVerplicht": "true",
             "_ui_after": "grondstoffen:bestemmingsidentificatie-werf"
         },
         {
@@ -3240,7 +3301,9 @@
             "_type": [
                 "skos:Concept"
             ],
-            "relation": "rdfs:label",
+            "isVersionOf": "grondstoffen:bestemmingsidentificatie-none-adres",
+            "modified": "2026-11-13T07:46:59.128Z",
+            "relation": "schema:address",
             "broaderPartitive": "grondstoffen:bestemmingsidentificatie-none",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
             "prefLabel": "Adres",
@@ -3253,10 +3316,12 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "grondstoffen:bestemmingsidentificatie-none-naam",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rdfs:label",
             "broaderPartitive": "grondstoffen:bestemmingsidentificatie-none",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
-            "prefLabel": "Naam",
+            "prefLabel": "Firmanaam",
             "isVerplicht": "true",
             "relevantDataType": "xsd:string",
             "_ui_first": "true"
@@ -3266,7 +3331,10 @@
             "_type": [
                 "skos:Concept"
             ],
-            "broaderPartitive": "grondstoffen:grondstof",
+            "isVersionOf": "grondstoffen:bestemmingsidentificatie-werf",
+            "modified": "2026-11-13T07:46:59.128Z",
+            "relation": "prov:agent",
+            "broaderPartitive": "grondstoffen:bestemming",
             "narrowerPartitive": [
                 "grondstoffen:bestemmingsidentificatie-werf-naam"
             ],
@@ -3289,6 +3357,8 @@
             "conditionPath": [
                 "grondstoffen:grondstof_bestemming_type"
             ],
+            "isOnzichtbaar": "true",
+            "isVerplicht": "true",
             "_ui_after": "grondstoffen:bestemmingsidentificatie-buitenland"
         },
         {
@@ -3296,10 +3366,12 @@
             "_type": [
                 "skos:Concept"
             ],
+            "isVersionOf": "grondstoffen:bestemmingsidentificatie-werf-naam",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rdfs:label",
             "broaderPartitive": "grondstoffen:bestemmingsidentificatie-werf",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
-            "prefLabel": "Naam",
+            "prefLabel": "Firmanaam",
             "isVerplicht": "false",
             "relevantDataType": "xsd:string",
             "_ui_first": "true"
@@ -3321,16 +3393,15 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:grondstof",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "narrowerPartitive": [
-                "grondstoffen:bestemmingsidentificatie-be",
-                "grondstoffen:bestemmingsidentificatie-buitenland",
-                "grondstoffen:bestemmingsidentificatie-none",
-                "grondstoffen:bestemmingsidentificatie-werf",
+                "grondstoffen:bestemming",
                 "grondstoffen:grondstof_resultaat"
             ],
+            "definition": "Jaarlijks geproduceerde grondstoffen per exploitatie, met een of meer bestemmingen. De materiaalcode is uniek binnen de exploitatie en het rapporteringsjaar.",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
-            "prefLabel": "Grondstof",
+            "note": "Jaarlijks geproduceerde grondstoffen per exploitatie, met een of meer bestemmingen. De materiaalcode is uniek binnen de exploitatie en het rapporteringsjaar.",
+            "prefLabel": "Geproduceerde grondstoffen",
             "topConceptOf": "conceptscheme:operationeel_grondstoffen",
             "relevantClass": "riepr:Observatie",
             "conditionValue": [
@@ -3340,6 +3411,7 @@
                 "grondstoffen:geproduceerd"
             ],
             "isMeervoudig": "true",
+            "isVerplicht": "true",
             "_ui_after": "grondstoffen:geproduceerd"
         },
         {
@@ -3348,16 +3420,16 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:grondstof_bestemming_type",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "dcterms:type",
-            "broaderPartitive": "grondstoffen:grondstof_resultaat",
+            "broaderPartitive": "grondstoffen:bestemming",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
-            "prefLabel": "Bestemming type",
+            "prefLabel": "Type bestemming",
             "isVerplicht": "true",
             "relevantCodeList": [
                 "conceptscheme:operationeel_bestemmingstype"
             ],
-            "_ui_after": "grondstoffen:grondstof_toepassingswijze"
+            "_ui_first": "true"
         },
         {
             "id": "grondstoffen:grondstof_hoeveelheid",
@@ -3365,17 +3437,20 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:grondstof_hoeveelheid",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "qudt:numericValue",
             "broaderPartitive": "grondstoffen:grondstof_resultaat",
             "relevantUnit": [
-                "http://TODO"
+                "csor_eenheid:E_41"
             ],
+            "definition": "Jaarlijks geproduceerde hoeveelheid in ton, gerapporteerd met niet meer detail dan 0,001 ton.",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
+            "note": "Jaarlijks geproduceerde hoeveelheid in ton, gerapporteerd met niet meer detail dan 0,001 ton.",
             "prefLabel": "Hoeveelheid",
             "isVerplicht": "true",
             "relevantDataType": "xsd:decimal",
-            "_ui_after": "grondstoffen:grondstof_omschrijving"
+            "_ui_after": "grondstoffen:grondstof_omschrijving",
+            "minValue": "0"
         },
         {
             "id": "grondstoffen:grondstof_materiaalcode",
@@ -3383,11 +3458,12 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:grondstof_materiaalcode",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "schema:material",
             "broaderPartitive": "grondstoffen:grondstof_resultaat",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
             "prefLabel": "Materiaalcode",
+            "isVerplicht": "true",
             "relevantCodeList": [
                 "conceptscheme:operationeel_materiaalcodes"
             ],
@@ -3399,7 +3475,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:grondstof_omschrijving",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rdfs:comment",
             "broaderPartitive": "grondstoffen:grondstof_resultaat",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
@@ -3414,30 +3490,29 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:grondstof_opmerking",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rdfs:comment",
             "broaderPartitive": "grondstoffen:grondstof_resultaat",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
             "prefLabel": "Opmerking",
             "isVerplicht": "false",
             "relevantDataType": "xsd:string",
-            "_ui_after": "grondstoffen:grondstof_bestemming_type"
+            "_ui_after": "grondstoffen:grondstof_toepassingswijze"
         },
         {
             "id": "grondstoffen:grondstof_resultaat",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasResult",
             "broaderPartitive": "grondstoffen:grondstof",
             "narrowerPartitive": [
-                "grondstoffen:grondstof_bestemming_type",
-                "grondstoffen:grondstof_toepassingswijze",
                 "grondstoffen:grondstof_hoeveelheid",
                 "grondstoffen:grondstof_omschrijving",
                 "grondstoffen:grondstof_materiaalcode",
-                "grondstoffen:grondstof_opmerking"
+                "grondstoffen:grondstof_opmerking",
+                "grondstoffen:grondstof_toepassingswijze"
             ],
             "definition": "Het resultaatrecord van de gerapporteerde geproduceerde grondstof.",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
@@ -3445,6 +3520,7 @@
             "prefLabel": "Resultaat grondstof",
             "status": "https://purl.archive.org/adms/status/Active",
             "relevantClass": "riepr:Resultaat",
+            "isOnzichtbaar": "true",
             "isVerplicht": "true",
             "_ui_first": "true"
         },
@@ -3454,7 +3530,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondstoffen:grondstof_toepassingswijze",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "grondstoffen:grondstof_resultaat",
             "inScheme": "conceptscheme:operationeel_grondstoffen",
@@ -3467,11 +3543,1771 @@
             "_ui_after": "grondstoffen:grondstof_hoeveelheid"
         },
         {
+            "id": "grondstoffen:inkomend",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "narrowerPartitive": [
+                "grondstoffen:inkomend_activiteit",
+                "grondstoffen:inkomend_installatie",
+                "grondstoffen:inkomend_resultaat"
+            ],
+            "definition": "Jaarlijks binnengekomen gebruikte materialen per aard, activiteit en IEPR-installatie.",
+            "inScheme": "conceptscheme:operationeel_grondstoffen",
+            "note": "Jaarlijks binnengekomen gebruikte materialen per aard, activiteit en IEPR-installatie.",
+            "prefLabel": "Inkomende grondstoffen",
+            "topConceptOf": "conceptscheme:operationeel_grondstoffen",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "relevantClass": "riepr:Observatie",
+            "isMeervoudig": "true",
+            "_ui_after": "grondstoffen:grondstof"
+        },
+        {
+            "id": "grondstoffen:inkomend_aard",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "relation": "rdfs:comment",
+            "broaderPartitive": "grondstoffen:inkomend_resultaat",
+            "inScheme": "conceptscheme:operationeel_grondstoffen",
+            "prefLabel": "Aard",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "isVerplicht": "true",
+            "relevantDataType": "xsd:string",
+            "_ui_first": "true"
+        },
+        {
+            "id": "grondstoffen:inkomend_activiteit",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "relation": "dcterms:subject",
+            "broaderPartitive": "grondstoffen:inkomend",
+            "definition": "De activiteit waarvoor het jaarlijks binnengekomen gebruikte materiaal wordt gerapporteerd. De POC legt nog geen afhankelijk filter op de gekozen IEPR-installatie op.",
+            "inScheme": "conceptscheme:operationeel_grondstoffen",
+            "note": "De activiteit waarvoor het jaarlijks binnengekomen gebruikte materiaal wordt gerapporteerd. De POC legt nog geen afhankelijk filter op de gekozen IEPR-installatie op.",
+            "prefLabel": "Activiteit",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "isVerplicht": "true",
+            "relevantRiepr": [
+                "riepr:Rubriek"
+            ],
+            "_ui_after": "grondstoffen:inkomend_installatie"
+        },
+        {
+            "id": "grondstoffen:inkomend_hoeveelheid",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "relation": "qudt:numericValue",
+            "broaderPartitive": "grondstoffen:inkomend_resultaat",
+            "relevantUnit": [
+                "csor_eenheid:E_41"
+            ],
+            "definition": "Jaarlijkse hoeveelheid binnengekomen gebruikt materiaal, uitgedrukt in ton.",
+            "inScheme": "conceptscheme:operationeel_grondstoffen",
+            "note": "Jaarlijkse hoeveelheid binnengekomen gebruikt materiaal, uitgedrukt in ton.",
+            "prefLabel": "Hoeveelheid",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "isVerplicht": "true",
+            "relevantDataType": "xsd:decimal",
+            "_ui_after": "grondstoffen:inkomend_aard",
+            "minValue": "0"
+        },
+        {
+            "id": "grondstoffen:inkomend_installatie",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "relation": "sosa:hasFeatureOfInterest",
+            "broaderPartitive": "grondstoffen:inkomend",
+            "definition": "De IEPR-installatie waarvoor het jaarlijks binnengekomen gebruikte materiaal wordt gerapporteerd.",
+            "inScheme": "conceptscheme:operationeel_grondstoffen",
+            "note": "De IEPR-installatie waarvoor het jaarlijks binnengekomen gebruikte materiaal wordt gerapporteerd.",
+            "prefLabel": "IEPR installatie",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "relevantClass": "sosa:FeatureOfInterest",
+            "isVerplicht": "true",
+            "relevantRiepr": [
+                "installatie:gpbv"
+            ],
+            "_ui_first": "true"
+        },
+        {
+            "id": "grondstoffen:inkomend_resultaat",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "relation": "sosa:hasResult",
+            "broaderPartitive": "grondstoffen:inkomend",
+            "narrowerPartitive": [
+                "grondstoffen:inkomend_aard",
+                "grondstoffen:inkomend_hoeveelheid"
+            ],
+            "inScheme": "conceptscheme:operationeel_grondstoffen",
+            "prefLabel": "Resultaat inkomende grondstof",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "relevantClass": "riepr:Resultaat",
+            "isOnzichtbaar": "true",
+            "isVerplicht": "true",
+            "_ui_after": "grondstoffen:inkomend_activiteit"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m00_00",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M00.00 — andere niet gespecificeerde materialen waarvoor de OVAM een grondstofverklaring heeft afgeleverd",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_first": "true"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m00_01",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M00.01 — grondstoffen afkomstig van verpulping van papier en karton",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m00_00"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m00_02",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M00.02 — grondstoffen die vooral bestaan uit kunststoffen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m00_01"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m00_03",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M00.03 — grondstoffen die vooral bestaan uit glas en die niet onder M07 vallen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m00_02"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m00_04",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M00.04 — grondstoffen die vooral bestaan uit metalen en die niet onder M07 vallen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m00_03"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m00_05",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M00.05 — grondstoffen die vooral bestaan uit niet metaalhoudende mineralen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m00_04"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m00_06",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M00.06 — grondstoffen die vooral bestaan uit metaalhoudende mineralen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m00_05"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m00_07",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M00.07 — grondstoffen die vooral bestaan uit textiel of textielvezels",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m00_06"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m00_08",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M00.08 — grondstoffen die vooral bestaan uit residuen van chemische processen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m00_07"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m00_09",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M00.09 — grondstoffen die vooral bestaan uit materialen van biologische oorsprong",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m00_08"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m00_10",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M00.10 — grondstoffen afkomstig van chemische recyclage",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m00_09"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m00_11",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M00.11 — materialen die als brandstof worden ingezet en die niet onder M09.01 of M09.02 vallen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m00_10"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_01",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.01 — schuimaarde van suikerfabrieken",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m00_11"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_02",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.02 — kalkas",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_01"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_03",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.03 — calciumsulfaat",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_02"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_04",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.04 — afgeoogste champignoncompost",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_03"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_05",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.05 — compost van boomschors",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_04"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_06",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.06 — vinasse, vinasse-extract, vinassekali en chicoreivinasse",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_05"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_07",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.07 — toegelaten materialen van dierlijke oorsprong conform de wetgeving inzake dierlijke bijproducten",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_06"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_08",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.08 — gedroogd cacao-, tabak- en koffieafval",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_07"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_09",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.09 — neergeslagen dubbelzout van kaliumsulfaat en calciumsulfaat (in geval van toevoeging van een magnesiumzout aangevuld met met magnesiumzout)",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_08"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_10",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.10 — meel van oliekoeken",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_09"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_11",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.11 — moutscheuten",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_10"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_12",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.12 — behandeld zuiveringsslib",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_11"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_13",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.13 — kalkhoudend slib",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_12"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_14",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.14 — GFT- en groencompost",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_13"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_15",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.15 — eindmateriaal van de biologische behandeling van organisch-biologische bedrijfsafvalstoffen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_14"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_16",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.16 — filterkoek",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_15"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_17",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.17 — gehydrolyseerd eiwit voor meststof",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_16"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_18",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.18 — slib van natuursteenbewerking",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_17"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_19",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.19 — filterkoek van de fermentatie",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_18"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_20",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.20 — kalimoederloog",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_19"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_21",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.21 — oplossing bevattende ammoniumchloride",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_20"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_22",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.22 — gemalen staalslakken",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_21"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_23",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.23 — gedroogde en gemalen anorganische kalkrijke voedingsresten",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_22"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_24",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.24 — vlasstof, graanstof",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_23"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_25",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.25 — mest",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_24"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_26",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.26 — ammoniumsulfaat-oplossing",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_25"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_27",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.27 — spuistroom",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_26"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_28",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.28 — boerderijcompost",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_27"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_29",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.29 — boerderijcompost, geproduceerd in een samenwerkingsverband als vermeld in artikel 3, §5, 3°, van het Mestdecreet",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_28"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m01_30",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M01.30 — houtsnippers",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_29"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m02_01",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M02.01 — gebroken of gekalibreerde of uitgesorteerde of voorbehandelde slakken, assen of andere steenachtige afvalstoffen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m01_30"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m02_02",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M02.02 — gebroken of gekalibreerde of uitgesorteerde of voorbehandelde slakken of assen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m02_01"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m02_03",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M02.03 — vliegas en bodemas",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m02_02"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m02_04",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M02.04 — betongranulaat",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m02_03"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m02_05",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M02.05 — gerecycleerde brokken",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m02_04"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m02_06",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M02.06 — betongranulaat, metselwerkgranulaat, menggranulaat en asfaltgranulaat",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m02_05"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m02_07",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M02.07 — brekerzand van asfalt, brekerzeefzand en sorteerzeefzand",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m02_06"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m02_08",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M02.08 — sorteerzeefgranulaat",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m02_07"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m02_09",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M02.09 — gewassen uitgesorteerd beton- of gewassen metselwerkgranulaat",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m02_08"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m02_10",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M02.10 — ruimingsspecie",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m02_09"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m02_11",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M02.11 — baggerspecie",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m02_10"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m02_12",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M02.12 — behandeld zand van rioolkolken, zandvangers en veegvuil",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m02_11"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m02_13",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M02.13 — gerecycleerde bitumineuze granulaten",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m02_12"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m02_14",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M02.14 — slib van natuursteenbewerking",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m02_13"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m03_01",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M03.01 — grondbrij",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m02_14"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m03_02",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M03.02 — ruimingsspecie",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m03_01"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m03_03",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M03.03 — baggerspecie",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m03_02"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m03_04",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M03.04 — brekerzeefzand en sorteerzeefzand",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m03_03"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m03_05",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M03.05 — afvalstoffen die bestaan uit niet-verontreinigd bentonietslib of mengsels van bentonietslib met niet-verontreinigde bodemmaterialen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m03_04"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_01",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.01 — koperhoudende slakken",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m03_05"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_02",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.02 — koperhoudende slakken",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_01"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_03",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.03 — anodeslib",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_02"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_04",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.04 — bodemslib elektrowinning (loodschilfers)",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_03"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_05",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.05 — koperassen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_04"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_06",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.06 — koperdross",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_05"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_07",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.07 — slakken koperoxiden draadwalserij",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_06"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_08",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.08 — elektrolyt",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_07"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_09",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.09 — koperspeiss",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_08"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_10",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.10 — koperanodes",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_09"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_11",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.11 — zwart koper",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_10"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_12",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.12 — cupro",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_11"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_13",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.13 — koperlegering",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_12"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_14",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.14 — koper-looddross",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_13"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_15",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.15 — loodkopersteen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_14"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_16",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.16 — residu met platinagroepmetalen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_15"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_17",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.17 — edelmetaalhoudende slakken",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_16"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_18",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.18 — ruw zilver",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_17"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_19",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.19 — edelmetaalhoudend residu",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_18"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_20",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.20 — edelmetaalhoudende slakken met borax",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_19"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_21",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.21 — slakken met platinagroepmetalen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_20"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_22",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.22 — edelmetaalhoudend vliegstof",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_21"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_23",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.23 — edelmetaalhoudende steen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_22"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_24",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.24 — slib met platinagroepmetalen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_23"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_25",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.25 — nikkelspeiss",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_24"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_26",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.26 — edelmetaalhoudend residu",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_25"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_27",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.27 — edelmetaalhoudend slib",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_26"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_28",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.28 — antimoonrijke looddross",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_27"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_29",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.29 — lood-bismutdross",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_28"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_30",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.30 — lood-antimoondross",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_29"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_31",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.31 — looddross",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_30"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_32",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.32 — loodhoudende vliegstoffen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_31"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_33",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.33 — loodslakken",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_32"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_34",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.34 — lood-koperdross",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_33"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_35",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.35 — lood-ijzersteen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_34"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_36",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.36 — lood(koper)-speiss",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_35"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_37",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.37 — loodhoudende vliegstoffen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_36"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_38",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.38 — ruw lood",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_37"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_39",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.39 — loodhoudend slib",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_38"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_40",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.40 — loodhoudende slakken",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_39"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_41",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.41 — zilverschuim",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_40"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_42",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.42 — seleen-telluurhoudende producten",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_41"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_43",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.43 — tinassen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_42"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_44",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.44 — residu tinsmelting",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_43"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_45",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.45 — tin-ijzerlegering",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_44"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_46",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.46 — lood-tindross",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_45"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_47",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.47 — ruwe telluuroxide",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_46"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_48",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.48 — sodaslakken",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_47"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_49",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.49 — zinkchloride",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_48"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_50",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.50 — kopercement",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_49"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_51",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.51 — zink dross",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_50"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_52",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.52 — mangaanhoudend anodeslib",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_51"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_53",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.53 — zinkoxidehoudende vliegstof",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_52"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_54",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.54 — lood- en zilverhoudend residu",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_53"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_55",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.55 — loodhoudend residu",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_54"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_56",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.56 — nikkel- en kobalthoudende cement",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_55"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_57",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.57 — zinkoxidehoudend roostgoed",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_56"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_58",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.58 — indiumhoudend slib",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_57"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_59",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.59 — zinkhoudende dross en vliegstof",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_58"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_60",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.60 — lood- en zilverhoudende dross en vliegstof",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_59"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_61",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.61 — koperhoudende vliegstoffen",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_60"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_62",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.62 — tornadozuur",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_61"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m05_63",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M05.63 — tin slimes en sludges",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_62"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m06_01",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M06.01 — hoogovenslakken",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m05_63"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m06_05",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M06.05 — convertorslakken ArcelorMittal Belgium (Gent)",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m06_01"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m06_06",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M06.06 — panslakken ArcelorMittal Belgium (Gent)",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m06_05"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m07_01",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M07.01 — ijzer- en staalschroot",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m06_06"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m07_02",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M07.02 — aluminiumschroot",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m07_01"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m07_03",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M07.03 — koperschroot",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m07_02"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m07_04",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M07.04 — kringloopglas",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m07_03"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m07_06",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M07.06 — bemestingsproducten zoals gedefinieerd in EU-verordening 2019/1009",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m07_04"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m08_01",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M08.01 — grondstoffen voor gebruik als diervoeding",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m09_02"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m08_02",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M08.02 — grondstoffen voor de biochemie",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m08_01"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m08_03",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M08.03 — voedingsmiddelen die geschonken worden voor humane consumptie",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m08_02"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m09_01",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M09.01 — opgewerkte afvalolie",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m07_06"
+        },
+        {
+            "id": "grondstoffen:materiaalcode_m09_02",
+            "_type": [
+                "skos:Concept"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "inScheme": "conceptscheme:operationeel_materiaalcodes",
+            "prefLabel": "M09.02 — opgewerkte brandstofresten",
+            "topConceptOf": "conceptscheme:operationeel_materiaalcodes",
+            "status": "https://purl.archive.org/adms/status/Active",
+            "_ui_after": "grondstoffen:materiaalcode_m09_01"
+        },
+        {
             "id": "grondwater:detectiegrens-boven",
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "definition": "De meetwaarde ligt boven de detectielimiet.",
             "inScheme": "conceptscheme:operationeel_detectiegrensindicator",
             "note": "De meetwaarde ligt boven de detectielimiet.",
@@ -3485,7 +5321,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "definition": "De meetwaarde ligt onder de detectielimiet.",
             "inScheme": "conceptscheme:operationeel_detectiegrensindicator",
             "note": "De meetwaarde ligt onder de detectielimiet.",
@@ -3500,7 +5336,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:kwaliteitsmeting",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "narrowerPartitive": [
                 "grondwater:kwaliteitsmeting-resultaten",
                 "grondwater:kwaliteitsmeting-diepte",
@@ -3525,7 +5361,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:kwaliteitsmeting-bemonsteringsinstrument",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "dcterms:type",
             "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3541,7 +5377,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:kwaliteitsmeting-datum",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:resultTime",
             "broaderPartitive": "grondwater:kwaliteitsmeting-monstername",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3555,7 +5391,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:kwaliteitsmeting-diepte",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "grondwater:kwaliteitsmeting",
             "relevantUnit": [
@@ -3575,7 +5411,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "grondwater:kwaliteitsmeting",
             "definition": "Actieve peil- en pompfilters in het productiejaar.",
@@ -3604,7 +5440,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:kwaliteitsmeting-labo",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "prov:wasAssociatedWith",
             "broaderPartitive": "grondwater:kwaliteitsmeting",
             "narrowerPartitive": [
@@ -3626,7 +5462,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:resultTime",
             "broaderPartitive": "grondwater:kwaliteitsmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3644,7 +5480,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:kwaliteitsmeting-labo-naam",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rdfs:label",
             "broaderPartitive": "grondwater:kwaliteitsmeting-labo",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3659,7 +5495,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "prov:used",
             "broaderPartitive": "grondwater:kwaliteitsmeting",
             "narrowerPartitive": [
@@ -3681,7 +5517,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:isResultOf",
             "broaderPartitive": "grondwater:kwaliteitsmeting-monster",
             "narrowerPartitive": [
@@ -3703,7 +5539,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:kwaliteitsmeting-monsternummer",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "dcterms:identifier",
             "broaderPartitive": "grondwater:kwaliteitsmeting-monster",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3718,7 +5554,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:kwaliteitsmeting-referentiepunt",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "grondwater:kwaliteitsmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3739,7 +5575,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "grondwater:kwaliteitsmeting",
             "narrowerPartitive": [
@@ -3764,7 +5600,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
             "definition": "Een aanduiding of de meetwaarde boven of onder de detectielimiet ligt.",
@@ -3785,7 +5621,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
             "relevantUnit": [
                 "csor_eenheid:E_1"
@@ -3807,7 +5643,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "schema:measurementMethod",
             "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3823,7 +5659,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:observedProperty",
             "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3843,7 +5679,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:kwaliteitsmeting-techniek",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:usedProcedure",
             "broaderPartitive": "grondwater:kwaliteitsmeting-monstername",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3858,7 +5694,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:onttrekking",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "narrowerPartitive": [
                 "grondwater:onttrekking-einddatum",
                 "grondwater:onttrekking-eindmeterstand",
@@ -3883,7 +5719,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:resultTime",
             "broaderPartitive": "grondwater:onttrekking",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3902,7 +5738,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "grondwater:onttrekking",
             "relevantUnit": [
@@ -3924,7 +5760,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "grondwater:onttrekking",
             "definition": "Actieve debietmeters in het productiejaar.",
@@ -3950,7 +5786,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "grondwater:onttrekking",
             "relevantUnit": [
@@ -3972,7 +5808,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "grondwater:onttrekking",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -3991,7 +5827,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:resultTime",
             "broaderPartitive": "grondwater:onttrekking",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -4008,7 +5844,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "grondwater:onttrekking",
             "relevantUnit": [
@@ -4030,7 +5866,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "dcterms:type",
             "broaderPartitive": "grondwater:onttrekking",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -4051,7 +5887,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "grondwater:peilmeting",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "narrowerPartitive": [
                 "grondwater:peilmeting-datum",
                 "grondwater:peilmeting-feature",
@@ -4077,7 +5913,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:resultTime",
             "broaderPartitive": "grondwater:peilmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -4094,7 +5930,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "qudt:numericValue",
             "broaderPartitive": "grondwater:peilmeting",
             "relevantUnit": [
@@ -4115,7 +5951,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "grondwater:peilmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -4139,7 +5975,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "grondwater:peilmeting",
             "definition": "Actieve peil- en pompfilters in het productiejaar.",
@@ -4163,7 +5999,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "schema:measurementMethod",
             "broaderPartitive": "grondwater:peilmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -4182,7 +6018,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "grondwater:peilmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -4202,7 +6038,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "grondwater:peilmeting",
             "inScheme": "conceptscheme:operationeel_grondwater",
@@ -4223,7 +6059,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "grondwater:peilmeting",
             "relevantUnit": [
@@ -4250,7 +6086,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "grondwater:peilmeting",
             "relevantUnit": [
@@ -4278,7 +6114,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:afvalproduct",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "narrowerPartitive": [
                 "lucht:afvalproduct_installatie",
                 "lucht:afvalproduct_resultaat"
@@ -4298,7 +6134,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:afvalproduct_aard",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rdfs:comment",
             "broaderPartitive": "lucht:afvalproduct_resultaat",
             "definition": "Beschrijving van de aard of samenstelling van het afvalproduct.",
@@ -4314,7 +6150,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:afvalproduct_hoeveelheid",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "qudt:numericValue",
             "broaderPartitive": "lucht:afvalproduct_resultaat",
             "relevantUnit": [
@@ -4332,7 +6168,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "lucht:afvalproduct",
             "definition": "Installatie waarvoor de jaarlijkse productie van afvalproducten wordt gerapporteerd.",
@@ -4353,7 +6189,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:afvalproduct_naam",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rdfs:label",
             "broaderPartitive": "lucht:afvalproduct_resultaat",
             "definition": "Naam van het afvalproduct.",
@@ -4369,7 +6205,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasResult",
             "broaderPartitive": "lucht:afvalproduct",
             "narrowerPartitive": [
@@ -4392,7 +6228,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:brandstof",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "narrowerPartitive": [
                 "lucht:brandstof_aard",
                 "lucht:brandstof_as",
@@ -4415,7 +6251,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "lucht:brandstof",
             "definition": "Beschrijving van de aard of samenstelling van de brandstof.",
@@ -4433,7 +6269,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:brandstof_as",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "lucht:brandstof",
             "relevantUnit": [
@@ -4452,7 +6288,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "lucht:brandstof",
             "definition": "Installatie waarvoor het jaarlijkse brandstofverbruik wordt gerapporteerd.",
@@ -4473,7 +6309,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:brandstof_naam",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rdfs:label",
             "broaderPartitive": "lucht:brandstof",
             "definition": "Naam van de brandstof.",
@@ -4490,7 +6326,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:brandstof_s",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "lucht:brandstof",
             "relevantUnit": [
@@ -4510,7 +6346,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:brandstof_verbruik",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "lucht:brandstof",
             "relevantUnit": [
@@ -4531,7 +6367,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "narrowerPartitive": [
                 "lucht:emissie_debiet",
                 "lucht:emissie_luchtoverschot",
@@ -4563,7 +6399,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "lucht:emissie",
             "relevantUnit": [
@@ -4587,7 +6423,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie_luchtoverschot",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "lucht:emissie",
             "relevantUnit": [
@@ -4607,7 +6443,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "lucht:emissie",
             "definition": "Beschrijving van de oorzaak van de abnormale emissie.",
@@ -4634,7 +6470,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie_parameter",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "lucht:emissie",
             "narrowerPartitive": [
@@ -4653,7 +6489,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie_parameter_massastroom",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "qudt:numericValue",
             "broaderPartitive": "lucht:emissie_parameter_resultaat",
             "relevantUnit": [
@@ -4674,7 +6510,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie_parameter_meetfrequentie",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "dcterms:accrualPeriodicity",
             "broaderPartitive": "lucht:emissie_parameter_resultaat",
             "inScheme": "conceptscheme:operationeel_lucht",
@@ -4690,7 +6526,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie_parameter_parameter",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:observedProperty",
             "broaderPartitive": "lucht:emissie_parameter",
             "inScheme": "conceptscheme:operationeel_lucht",
@@ -4705,7 +6541,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasResult",
             "broaderPartitive": "lucht:emissie_parameter",
             "narrowerPartitive": [
@@ -4728,7 +6564,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie_parameter_standaardafwijking",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "lucht:emissie_parameter_resultaat",
             "relevantUnit": [
@@ -4750,7 +6586,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie_temperatuur",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "lucht:emissie",
             "relevantUnit": [
@@ -4771,7 +6607,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie_vochtgehalte",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "lucht:emissie",
             "relevantUnit": [
@@ -4792,7 +6628,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissie_zuurstofgehalte",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "lucht:emissie",
             "relevantUnit": [
@@ -4813,7 +6649,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissieduur",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "lucht:emissie",
             "relevantUnit": [
@@ -4836,7 +6672,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissieperiode",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "lucht:emissie",
             "definition": "Beschrijving van wanneer er wordt geemitteerd, bijvoorbeeld elke dag van maandag tot vrijdag gedurende 220 dagen per jaar.",
@@ -4856,7 +6692,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissieritme",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "lucht:emissie",
             "definition": "Beschrijving van hoeveel tijd er per tijdseenheid wordt geemitteerd, bijvoorbeeld 8 uur per dag.",
@@ -4876,7 +6712,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissietoestand",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "lucht:emissie",
             "definition": "Geeft aan of de gerapporteerde rookgaswaarden betrekking hebben op nat of droog rookgas.",
@@ -4898,7 +6734,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:emissietype",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "dcterms:type",
             "broaderPartitive": "lucht:emissie",
             "inScheme": "conceptscheme:operationeel_lucht",
@@ -4917,7 +6753,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:feature_bron",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "lucht:emissie",
             "definition": "Selecteer de bron(nen) waarop je wil rapporteren.",
@@ -4944,7 +6780,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:feature_ep",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "lucht:emissie",
             "definition": "Selecteer het emissiepunt waarop je wil rapporteren.",
@@ -4976,7 +6812,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:geproduceerde_stof",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "narrowerPartitive": [
                 "lucht:geproduceerde_stof_installatie",
                 "lucht:geproduceerde_stof_resultaat"
@@ -4996,7 +6832,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:geproduceerde_stof_aard",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rdfs:comment",
             "broaderPartitive": "lucht:geproduceerde_stof_resultaat",
             "definition": "Beschrijving van de aard of samenstelling van de geproduceerde stof.",
@@ -5012,7 +6848,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:geproduceerde_stof_hoeveelheid",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "qudt:numericValue",
             "broaderPartitive": "lucht:geproduceerde_stof_resultaat",
             "relevantUnit": [
@@ -5030,7 +6866,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "lucht:geproduceerde_stof",
             "definition": "Installatie waarvoor de jaarlijkse stofproductie wordt gerapporteerd.",
@@ -5051,7 +6887,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:geproduceerde_stof_naam",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rdfs:label",
             "broaderPartitive": "lucht:geproduceerde_stof_resultaat",
             "definition": "Naam van de geproduceerde stof.",
@@ -5067,7 +6903,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasResult",
             "broaderPartitive": "lucht:geproduceerde_stof",
             "narrowerPartitive": [
@@ -5090,7 +6926,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:verbruikte_stof",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "narrowerPartitive": [
                 "lucht:verbruikte_stof_installatie",
                 "lucht:verbruikte_stof_naam",
@@ -5111,7 +6947,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:verbruikte_stof_aard",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rdfs:comment",
             "broaderPartitive": "lucht:verbruikte_stof_resultaat",
             "definition": "Beschrijving van de aard of samenstelling van de verbruikte stof.",
@@ -5127,7 +6963,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:verbruikte_stof_hoeveelheid",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "qudt:numericValue",
             "broaderPartitive": "lucht:verbruikte_stof_resultaat",
             "relevantUnit": [
@@ -5146,7 +6982,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "lucht:verbruikte_stof",
             "definition": "Installatie waarvoor het jaarlijkse stofverbruik wordt gerapporteerd.",
@@ -5167,7 +7003,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "lucht:verbruikte_stof_naam",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rdfs:label",
             "broaderPartitive": "lucht:verbruikte_stof",
             "definition": "Naam van de verbruikte stof.",
@@ -5183,7 +7019,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasResult",
             "broaderPartitive": "lucht:verbruikte_stof",
             "narrowerPartitive": [
@@ -5313,7 +7149,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:abnormale-lozing",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "narrowerPartitive": [
                 "water:abnormale-lozing-feature",
                 "water:abnormale-lozing-resultaat",
@@ -5332,7 +7168,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "water:abnormale-lozing",
             "definition": "De controleinrichting waarvoor de abnormale lozing wordt gerapporteerd.",
@@ -5359,7 +7195,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:abnormale-lozing-jaarvracht",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "qudt:numericValue",
             "broaderPartitive": "water:abnormale-lozing-resultaat",
             "relevantUnit": [
@@ -5380,7 +7216,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:abnormale-lozing-lozingsduur",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "water:abnormale-lozing-resultaat",
             "relevantUnit": [
@@ -5398,7 +7234,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasResult",
             "broaderPartitive": "water:abnormale-lozing",
             "narrowerPartitive": [
@@ -5421,7 +7257,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:abnormale-lozing-stof",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:observedProperty",
             "broaderPartitive": "water:abnormale-lozing",
             "inScheme": "conceptscheme:operationeel_water",
@@ -5438,7 +7274,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:abnormale-lozing-verklaring",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rdfs:comment",
             "broaderPartitive": "water:abnormale-lozing-resultaat",
             "inScheme": "conceptscheme:operationeel_water",
@@ -5452,7 +7288,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:feature",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "water:lozing",
             "definition": "De controleinrichting waarvoor de jaarlijkse lozing wordt gerapporteerd.",
@@ -5478,7 +7314,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:lozing",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "narrowerPartitive": [
                 "water:feature",
                 "water:lozing-parameter",
@@ -5504,7 +7340,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:lozing-bepalingsmethode",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "dcterms:type",
             "broaderPartitive": "water:lozing-procedure",
             "inScheme": "conceptscheme:operationeel_water",
@@ -5520,7 +7356,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:lozing-bepalingsmethodeclassificatie",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "water:lozing-procedure",
             "inScheme": "conceptscheme:operationeel_water",
@@ -5537,7 +7373,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:lozing-concentratie",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "water:lozing-parameter",
             "relevantUnit": [
@@ -5562,7 +7398,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:lozing-dagen",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "water:lozing",
             "relevantUnit": [
@@ -5584,7 +7420,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:lozing-debiet",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "water:lozing",
             "relevantUnit": [
@@ -5606,7 +7442,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:lozing-jaarvracht",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "water:lozing-parameter",
             "relevantUnit": [
@@ -5631,7 +7467,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:lozing-meetfrequentie",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "water:lozing-parameter",
             "definition": "Aantal metingen van deze stof tijdens het rapporteringsjaar.",
@@ -5651,7 +7487,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "water:lozing",
             "narrowerPartitive": [
@@ -5679,7 +7515,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:usedProcedure",
             "broaderPartitive": "water:lozing-parameter",
             "narrowerPartitive": [
@@ -5703,7 +7539,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "water:lozing-stof",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "water:lozing-parameter",
             "inScheme": "conceptscheme:operationeel_water",
@@ -5724,7 +7560,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-lucht:datum",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:resultTime",
             "broaderPartitive": "zelfcontrole-lucht:meting",
             "definition": "Het exacte tijdstip van de meting of het starttijdstip als de meting over meerdere dagen plaatsvindt.",
@@ -5744,7 +7580,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-lucht:feature",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "zelfcontrole-lucht:meting",
             "definition": "Het emissiepunt waarop de zelfcontrolemeting wordt gerapporteerd.",
@@ -5770,7 +7606,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-lucht:labo",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "prov:wasAssociatedWith",
             "broaderPartitive": "zelfcontrole-lucht:meting",
             "narrowerPartitive": [
@@ -5791,7 +7627,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-lucht:labo-id",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rov:registration",
             "broaderPartitive": "zelfcontrole-lucht:labo",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
@@ -5805,7 +7641,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-lucht:labo-naam",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rdfs:label",
             "broaderPartitive": "zelfcontrole-lucht:labo",
             "definition": "De naam van het labo.",
@@ -5822,7 +7658,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-lucht:meting",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "narrowerPartitive": [
                 "zelfcontrole-lucht:datum",
                 "zelfcontrole-lucht:feature",
@@ -5847,7 +7683,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-lucht:parameter",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "zelfcontrole-lucht:meting",
             "narrowerPartitive": [
@@ -5869,7 +7705,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
             "definition": "De herkomst van de gehanteerde meetfrequentie. Tijdelijk vrije tekst zolang de definitieve limitatieve lijst niet is vastgesteld.",
@@ -5887,7 +7723,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-lucht:parameter-concentratie",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "qudt:numericValue",
             "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
             "relevantUnit": [
@@ -5908,7 +7744,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
             "relevantUnit": [
@@ -5932,7 +7768,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-lucht:parameter-meetfrequentie",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
             "definition": "De voor dit meetresultaat gehanteerde meetfrequentie. Tijdelijk vrije tekst zolang de definitieve limitatieve lijst niet is vastgesteld.",
@@ -5949,7 +7785,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-lucht:parameter-meetonzekerheid",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
             "relevantUnit": [
@@ -5973,7 +7809,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-lucht:parameter-parameter",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:observedProperty",
             "broaderPartitive": "zelfcontrole-lucht:parameter",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
@@ -5989,7 +7825,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasResult",
             "broaderPartitive": "zelfcontrole-lucht:parameter",
             "narrowerPartitive": [
@@ -6015,7 +7851,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-lucht:parameter-soort",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
@@ -6030,7 +7866,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:datum",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:resultTime",
             "broaderPartitive": "zelfcontrole-water:meting",
             "definition": "Het exacte tijdstip van de meting of het starttijdstip als de meting over meerdere dagen plaatsvindt.",
@@ -6049,7 +7885,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "definition": "Een debietgebonden mengmonster bij de zelfcontrole van oppervlaktewater.",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_soort_monstername",
             "note": "Een debietgebonden mengmonster bij de zelfcontrole van oppervlaktewater.",
@@ -6064,7 +7900,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:feature",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasFeatureOfInterest",
             "broaderPartitive": "zelfcontrole-water:meting",
             "definition": "De controleinrichting waarop de zelfcontrolemeting wordt gerapporteerd.",
@@ -6087,7 +7923,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:labo",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "prov:wasAssociatedWith",
             "broaderPartitive": "zelfcontrole-water:meting",
             "narrowerPartitive": [
@@ -6108,7 +7944,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:labo-id",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rov:registration",
             "broaderPartitive": "zelfcontrole-water:labo",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
@@ -6122,7 +7958,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:labo-naam",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "rdfs:label",
             "broaderPartitive": "zelfcontrole-water:labo",
             "definition": "De naam van het labo.",
@@ -6139,7 +7975,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:meting",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "narrowerPartitive": [
                 "zelfcontrole-water:datum",
                 "zelfcontrole-water:feature",
@@ -6161,7 +7997,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:parameter",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasMember",
             "broaderPartitive": "zelfcontrole-water:meting",
             "narrowerPartitive": [
@@ -6183,7 +8019,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
             "definition": "De herkomst van de gehanteerde meetfrequentie. Tijdelijk vrije tekst zolang de definitieve limitatieve lijst niet is vastgesteld.",
@@ -6201,7 +8037,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:parameter-concentratie",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "qudt:numericValue",
             "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
             "relevantUnit": [
@@ -6222,7 +8058,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
             "relevantUnit": [
@@ -6243,7 +8079,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:parameter-meetfrequentie",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
             "definition": "De voor dit meetresultaat gehanteerde meetfrequentie. Tijdelijk vrije tekst zolang de definitieve limitatieve lijst niet is vastgesteld.",
@@ -6260,7 +8096,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:parameter-meetonzekerheid",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
             "relevantUnit": [
@@ -6284,7 +8120,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:parameter-parameter",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:observedProperty",
             "broaderPartitive": "zelfcontrole-water:parameter",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
@@ -6300,7 +8136,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "relation": "sosa:hasResult",
             "broaderPartitive": "zelfcontrole-water:parameter",
             "narrowerPartitive": [
@@ -6326,7 +8162,7 @@
                 "skos:Concept"
             ],
             "isVersionOf": "zelfcontrole-water:parameter-soort",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "relation": "schema:additionalProperty",
             "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
@@ -6342,7 +8178,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "definition": "Een schepmonster bij de zelfcontrole van oppervlaktewater.",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_soort_monstername",
             "note": "Een schepmonster bij de zelfcontrole van oppervlaktewater.",
@@ -6356,7 +8192,7 @@
             "_type": [
                 "skos:Concept"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "definition": "Een tijdsgebonden mengmonster bij de zelfcontrole van oppervlaktewater.",
             "inScheme": "conceptscheme:operationeel_zelfcontrole_soort_monstername",
             "note": "Een tijdsgebonden mengmonster bij de zelfcontrole van oppervlaktewater.",
@@ -6950,7 +8786,7 @@
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "definition": "Een aanduiding of de meetwaarde boven of onder de detectielimiet ligt.",
             "hasTopConcept": [
                 "grondwater:detectiegrens-boven",
@@ -6965,9 +8801,12 @@
             "_type": [
                 "skos:ConceptScheme"
             ],
+            "isVersionOf": "conceptscheme:operationeel_grondstoffen",
+            "modified": "2026-11-13T07:46:59.128Z",
             "hasTopConcept": [
                 "grondstoffen:grondstof",
-                "grondstoffen:geproduceerd"
+                "grondstoffen:geproduceerd",
+                "grondstoffen:inkomend"
             ],
             "prefLabel": "Operationeel grondstoffen"
         },
@@ -6988,7 +8827,7 @@
                 "skos:ConceptScheme"
             ],
             "isVersionOf": "conceptscheme:operationeel_lucht",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "hasTopConcept": [
                 "lucht:afvalproduct",
                 "lucht:geproduceerde_stof",
@@ -7004,7 +8843,7 @@
                 "skos:ConceptScheme"
             ],
             "isVersionOf": "conceptscheme:operationeel_lucht_bron",
-            "modified": "2026-11-09T16:34:27.972Z"
+            "modified": "2026-11-13T07:46:59.128Z"
         },
         {
             "id": "conceptscheme:operationeel_lucht_emissie",
@@ -7012,7 +8851,7 @@
                 "skos:ConceptScheme"
             ],
             "isVersionOf": "conceptscheme:operationeel_lucht_emissie",
-            "modified": "2026-11-09T16:34:27.972Z"
+            "modified": "2026-11-13T07:46:59.128Z"
         },
         {
             "id": "conceptscheme:operationeel_lucht_rapportering",
@@ -7020,17 +8859,156 @@
                 "skos:ConceptScheme"
             ],
             "isVersionOf": "conceptscheme:operationeel_lucht_rapportering",
-            "modified": "2026-11-09T16:34:27.972Z"
+            "modified": "2026-11-13T07:46:59.128Z"
         },
         {
             "id": "conceptscheme:operationeel_materiaalcodes",
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
-            "definition": "Tijdelijke keuzelijst voor materiaalcodes waarvan de definitieve opties nog moeten worden toegevoegd.",
-            "note": "Tijdelijke keuzelijst voor materiaalcodes waarvan de definitieve opties nog moeten worden toegevoegd.",
-            "prefLabel": "Materiaalcodes (tijdelijk)",
+            "created": "2026-11-13T07:46:59.128Z",
+            "definition": "Materiaalcodes voor geproduceerde grondstoffen, overgenomen uit het Teepak-referentiebestand voor productiejaar 2024.",
+            "hasTopConcept": [
+                "grondstoffen:materiaalcode_m00_00",
+                "grondstoffen:materiaalcode_m00_01",
+                "grondstoffen:materiaalcode_m00_02",
+                "grondstoffen:materiaalcode_m00_03",
+                "grondstoffen:materiaalcode_m00_04",
+                "grondstoffen:materiaalcode_m00_05",
+                "grondstoffen:materiaalcode_m00_06",
+                "grondstoffen:materiaalcode_m00_07",
+                "grondstoffen:materiaalcode_m00_08",
+                "grondstoffen:materiaalcode_m00_09",
+                "grondstoffen:materiaalcode_m00_10",
+                "grondstoffen:materiaalcode_m00_11",
+                "grondstoffen:materiaalcode_m01_01",
+                "grondstoffen:materiaalcode_m01_02",
+                "grondstoffen:materiaalcode_m01_03",
+                "grondstoffen:materiaalcode_m01_04",
+                "grondstoffen:materiaalcode_m01_05",
+                "grondstoffen:materiaalcode_m01_06",
+                "grondstoffen:materiaalcode_m01_07",
+                "grondstoffen:materiaalcode_m01_08",
+                "grondstoffen:materiaalcode_m01_09",
+                "grondstoffen:materiaalcode_m01_10",
+                "grondstoffen:materiaalcode_m01_11",
+                "grondstoffen:materiaalcode_m01_12",
+                "grondstoffen:materiaalcode_m01_13",
+                "grondstoffen:materiaalcode_m01_14",
+                "grondstoffen:materiaalcode_m01_15",
+                "grondstoffen:materiaalcode_m01_16",
+                "grondstoffen:materiaalcode_m01_17",
+                "grondstoffen:materiaalcode_m01_18",
+                "grondstoffen:materiaalcode_m01_19",
+                "grondstoffen:materiaalcode_m01_20",
+                "grondstoffen:materiaalcode_m01_21",
+                "grondstoffen:materiaalcode_m01_22",
+                "grondstoffen:materiaalcode_m01_23",
+                "grondstoffen:materiaalcode_m01_24",
+                "grondstoffen:materiaalcode_m01_25",
+                "grondstoffen:materiaalcode_m01_26",
+                "grondstoffen:materiaalcode_m01_27",
+                "grondstoffen:materiaalcode_m01_28",
+                "grondstoffen:materiaalcode_m01_29",
+                "grondstoffen:materiaalcode_m01_30",
+                "grondstoffen:materiaalcode_m02_01",
+                "grondstoffen:materiaalcode_m02_02",
+                "grondstoffen:materiaalcode_m02_03",
+                "grondstoffen:materiaalcode_m02_04",
+                "grondstoffen:materiaalcode_m02_05",
+                "grondstoffen:materiaalcode_m02_06",
+                "grondstoffen:materiaalcode_m02_07",
+                "grondstoffen:materiaalcode_m02_08",
+                "grondstoffen:materiaalcode_m02_09",
+                "grondstoffen:materiaalcode_m02_10",
+                "grondstoffen:materiaalcode_m02_11",
+                "grondstoffen:materiaalcode_m02_12",
+                "grondstoffen:materiaalcode_m02_13",
+                "grondstoffen:materiaalcode_m02_14",
+                "grondstoffen:materiaalcode_m03_01",
+                "grondstoffen:materiaalcode_m03_02",
+                "grondstoffen:materiaalcode_m03_03",
+                "grondstoffen:materiaalcode_m03_04",
+                "grondstoffen:materiaalcode_m03_05",
+                "grondstoffen:materiaalcode_m05_01",
+                "grondstoffen:materiaalcode_m05_02",
+                "grondstoffen:materiaalcode_m05_03",
+                "grondstoffen:materiaalcode_m05_04",
+                "grondstoffen:materiaalcode_m05_05",
+                "grondstoffen:materiaalcode_m05_06",
+                "grondstoffen:materiaalcode_m05_07",
+                "grondstoffen:materiaalcode_m05_08",
+                "grondstoffen:materiaalcode_m05_09",
+                "grondstoffen:materiaalcode_m05_10",
+                "grondstoffen:materiaalcode_m05_11",
+                "grondstoffen:materiaalcode_m05_12",
+                "grondstoffen:materiaalcode_m05_13",
+                "grondstoffen:materiaalcode_m05_14",
+                "grondstoffen:materiaalcode_m05_15",
+                "grondstoffen:materiaalcode_m05_16",
+                "grondstoffen:materiaalcode_m05_17",
+                "grondstoffen:materiaalcode_m05_18",
+                "grondstoffen:materiaalcode_m05_19",
+                "grondstoffen:materiaalcode_m05_20",
+                "grondstoffen:materiaalcode_m05_21",
+                "grondstoffen:materiaalcode_m05_22",
+                "grondstoffen:materiaalcode_m05_23",
+                "grondstoffen:materiaalcode_m05_24",
+                "grondstoffen:materiaalcode_m05_25",
+                "grondstoffen:materiaalcode_m05_26",
+                "grondstoffen:materiaalcode_m05_27",
+                "grondstoffen:materiaalcode_m05_28",
+                "grondstoffen:materiaalcode_m05_29",
+                "grondstoffen:materiaalcode_m05_30",
+                "grondstoffen:materiaalcode_m05_31",
+                "grondstoffen:materiaalcode_m05_32",
+                "grondstoffen:materiaalcode_m05_33",
+                "grondstoffen:materiaalcode_m05_34",
+                "grondstoffen:materiaalcode_m05_35",
+                "grondstoffen:materiaalcode_m05_36",
+                "grondstoffen:materiaalcode_m05_37",
+                "grondstoffen:materiaalcode_m05_38",
+                "grondstoffen:materiaalcode_m05_39",
+                "grondstoffen:materiaalcode_m05_40",
+                "grondstoffen:materiaalcode_m05_41",
+                "grondstoffen:materiaalcode_m05_42",
+                "grondstoffen:materiaalcode_m05_43",
+                "grondstoffen:materiaalcode_m05_44",
+                "grondstoffen:materiaalcode_m05_45",
+                "grondstoffen:materiaalcode_m05_46",
+                "grondstoffen:materiaalcode_m05_47",
+                "grondstoffen:materiaalcode_m05_48",
+                "grondstoffen:materiaalcode_m05_49",
+                "grondstoffen:materiaalcode_m05_50",
+                "grondstoffen:materiaalcode_m05_51",
+                "grondstoffen:materiaalcode_m05_52",
+                "grondstoffen:materiaalcode_m05_53",
+                "grondstoffen:materiaalcode_m05_54",
+                "grondstoffen:materiaalcode_m05_55",
+                "grondstoffen:materiaalcode_m05_56",
+                "grondstoffen:materiaalcode_m05_57",
+                "grondstoffen:materiaalcode_m05_58",
+                "grondstoffen:materiaalcode_m05_59",
+                "grondstoffen:materiaalcode_m05_60",
+                "grondstoffen:materiaalcode_m05_61",
+                "grondstoffen:materiaalcode_m05_62",
+                "grondstoffen:materiaalcode_m05_63",
+                "grondstoffen:materiaalcode_m06_01",
+                "grondstoffen:materiaalcode_m06_05",
+                "grondstoffen:materiaalcode_m06_06",
+                "grondstoffen:materiaalcode_m07_01",
+                "grondstoffen:materiaalcode_m07_02",
+                "grondstoffen:materiaalcode_m07_03",
+                "grondstoffen:materiaalcode_m07_04",
+                "grondstoffen:materiaalcode_m07_06",
+                "grondstoffen:materiaalcode_m08_01",
+                "grondstoffen:materiaalcode_m09_02",
+                "grondstoffen:materiaalcode_m08_02",
+                "grondstoffen:materiaalcode_m08_03",
+                "grondstoffen:materiaalcode_m09_01"
+            ],
+            "note": "Materiaalcodes voor geproduceerde grondstoffen, overgenomen uit het Teepak-referentiebestand voor productiejaar 2024.",
+            "prefLabel": "Materiaalcodes",
             "status": "https://purl.archive.org/adms/status/Active"
         },
         {
@@ -7094,7 +9072,7 @@
                 "skos:ConceptScheme"
             ],
             "isVersionOf": "conceptscheme:operationeel_water",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "definition": "Rapporteer de jaarlijkse waterstromen met hun verontreinigende stoffen en de abnormale lozingen.",
             "hasTopConcept": [
                 "water:abnormale-lozing",
@@ -7109,7 +9087,7 @@
                 "skos:ConceptScheme"
             ],
             "isVersionOf": "conceptscheme:operationeel_water_lozing",
-            "modified": "2026-11-09T16:34:27.972Z"
+            "modified": "2026-11-13T07:46:59.128Z"
         },
         {
             "id": "conceptscheme:operationeel_zelfcontrole_lucht",
@@ -7117,7 +9095,7 @@
                 "skos:ConceptScheme"
             ],
             "isVersionOf": "conceptscheme:operationeel_zelfcontrole_lucht",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "definition": "Rapporteer zelfcontrolemetingen per emissiepunt en exact meettijdstip met de bijbehorende parameterresultaten.",
             "hasTopConcept": [
                 "zelfcontrole-lucht:meting"
@@ -7131,7 +9109,7 @@
                 "skos:ConceptScheme"
             ],
             "isVersionOf": "conceptscheme:operationeel_zelfcontrole_lucht_meting",
-            "modified": "2026-11-09T16:34:27.972Z"
+            "modified": "2026-11-13T07:46:59.128Z"
         },
         {
             "id": "conceptscheme:operationeel_zelfcontrole_meetfrequentie",
@@ -7148,7 +9126,7 @@
             "_type": [
                 "skos:ConceptScheme"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "definition": "De wijze van monstername bij een zelfcontrolemeting van oppervlaktewater.",
             "hasTopConcept": [
                 "zelfcontrole-water:debietgebonden_mengmonster",
@@ -7165,7 +9143,7 @@
                 "skos:ConceptScheme"
             ],
             "isVersionOf": "conceptscheme:operationeel_zelfcontrole_water",
-            "modified": "2026-11-09T16:34:27.972Z",
+            "modified": "2026-11-13T07:46:59.128Z",
             "definition": "Rapporteer zelfcontrolemetingen per controleinrichting en exact meettijdstip met de bijbehorende parameterresultaten.",
             "hasTopConcept": [
                 "zelfcontrole-water:meting"
@@ -7179,7 +9157,7 @@
                 "skos:ConceptScheme"
             ],
             "isVersionOf": "conceptscheme:operationeel_zelfcontrole_water_meting",
-            "modified": "2026-11-09T16:34:27.972Z"
+            "modified": "2026-11-13T07:46:59.128Z"
         },
         {
             "id": "conceptscheme:proceduretypes",
@@ -7364,7 +9342,23 @@
             "_type": [
                 "rdfs:Resource"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
+            "status": "https://purl.archive.org/adms/status/Active"
+        },
+        {
+            "id": "schema:address",
+            "_type": [
+                "rdfs:Resource"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
+            "status": "https://purl.archive.org/adms/status/Active"
+        },
+        {
+            "id": "schema:identifier",
+            "_type": [
+                "rdfs:Resource"
+            ],
+            "created": "2026-11-13T07:46:59.128Z",
             "status": "https://purl.archive.org/adms/status/Active"
         },
         {
@@ -7378,7 +9372,7 @@
             "_type": [
                 "rdfs:Resource"
             ],
-            "created": "2026-11-09T16:34:27.972Z",
+            "created": "2026-11-13T07:46:59.128Z",
             "status": "https://purl.archive.org/adms/status/Active"
         }
     ]

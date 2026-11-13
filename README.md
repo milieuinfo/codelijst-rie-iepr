@@ -57,9 +57,10 @@ De volgende conceptschema's zijn opgenomen (id onder `https://data.omgeving.vlaa
 De [JSON Schema-POC](poc/poc-json-schema/README.md),
 [operationele UI](poc/poc-flow-operationeel/README.md) en
 [ODS-POC](poc/poc-json-schema-ods/docs/PROJECT_OUTLINE.md) delen één gegenereerd
-rapportagecontract. De **actieve scope omvat vijf thema's en twaalf onderdelen**:
+rapportagecontract. De **actieve scope omvat zes thema's en veertien onderdelen**:
 drie grondwateronderdelen, emissies en vier materiaalonderdelen voor lucht,
-lozingen/abnormale lozingen voor water en zelfcontrole voor lucht en water.
+lozingen/abnormale lozingen voor water, zelfcontrole voor lucht en water,
+en geproduceerde/inkomende grondstoffen.
 `poc/reporting-entries.json`
 declareert hun rechtstreekse conceptschema-ingangen, zonder `thematypes.csv`.
 Andere operationele stromen en volledige Teepak-dekking zijn niet ingeschakeld.
@@ -240,7 +241,7 @@ Een composite eigenschap bestaat uit een ouder en onderdelen die naar de ouder v
 Operationele gegevens beschrijven rapportagegroepen, velden en hun betekenis.
 De voorbeelden van andere stromen hieronder beschrijven het bredere model;
 de huidige POCs verwerken grondwater, lucht, de jaarlijkse lozingen voor water
-en zelfcontrole voor lucht en water.
+zelfcontrole voor lucht en water, en geproduceerde/inkomende grondstoffen.
 De dekking is nog niet volledig gelijk aan Teepak. De algemene bouwstenen zijn:
 - `skos:ConceptScheme` voor elk scherm/stap dat we aan de gebruiker willen tonen
 - `vervolgstap` (`qb:codeList`) is een link tussen een concept en concept scheme en bepaalt welke stap volgt
@@ -266,7 +267,7 @@ De dekking is nog niet volledig gelijk aan Teepak. De algemene bouwstenen zijn:
 
 #### Thematische stroom
 1. De gebruiker kiest een productiejaar. Dit begrenst de structurele referenties en hun validatiecontext; de POC maakt hiervan niet automatisch een `sosa:phenomenonTime`.
-2. De huidige UI leest thema's en rapporteringsonderdelen uit `schema/index.json`, niet uit `thematypes.csv`. `poc/reporting-entries.json` declareert de conceptschema's voor grondwater, lucht, water en beide zelfcontrolethema's als expliciete startpunten; MCP en bronsnapshot gebruiken dezelfde declaratie. Een geldige ingang bewijst nog niet dat alle onderdelen genereerbaar zijn: daarvoor gebruikt `get_reporting_preview` de echte schema-/ODS-compilers, met werkblad- en kolompreview.
+2. De huidige UI leest thema's en rapporteringsonderdelen uit `schema/index.json`, niet uit `thematypes.csv`. `poc/reporting-entries.json` declareert de conceptschema's voor grondwater, lucht, water, beide zelfcontrolethema's en grondstoffen als expliciete startpunten; MCP en bronsnapshot gebruiken dezelfde declaratie. Een geldige ingang bewijst nog niet dat alle onderdelen genereerbaar zijn: daarvoor gebruikt `get_reporting_preview` de echte schema-/ODS-compilers, met werkblad- en kolompreview.
 3. In het eerdere multi-thema-model verbonden `vervolgstap`-relaties (`qb:codeList`) thema's en stappen. Die navigatie blijft modelinformatie, maar is niet het startmechanisme van het actieve CSV-profiel.
 
 > De bedoeling is dat de applicatie zo weinig mogelijk logica omvat voor zowel UI als data ophalen/bewaren voor de thematische stromen. Zo kunnen a.h.v. deze codelijsten alle business regels worden bijgesteld waar nodig zonder al te grote wijzigingen te vereisen.
@@ -278,10 +279,42 @@ De dekking is nog niet volledig gelijk aan Teepak. De algemene bouwstenen zijn:
 7.  Rapportering op activiteit bevat bijvoorbeeld het productievolume
 
 #### Grondstoffen
-4.  De grondstoffen stroom `conceptscheme:operationeel_grondstoffen` vereist eerst dat je eenvinkt of je grondstoffen hebt geproduceerd (`grondstoffen:geproduceerd`)
-5.  Het toevoegen/rapporteren van grondstoffen (`grondstoffen:grondstof`) is een meervoudige composite concept (via `hasPart`) dat enkel toont als `grondstoffen:geproduceerd` = `true` (a.h.v. `conditionPath`/`conditionValue`)
-6.  Elementen die selecties uit een codelijst vereisen zoals toepassingswijze refereren naar een andere `skos:ConceptScheme`
-7.  De bestemmingsidentificatie van een grondstof is één logische groep die bestaat uit vier gerelateerde varianten (`related`): Belgische vestiging, buitenlandse vestiging, geen onderneming en werf. Afhankelijk van de gekozen `grondstof_bestemming_type` toont de applicatie één "Bestemmingsidentificatie"-groep met de juiste velden (naam, ondernemings-/vestigingsnummer, BTW-nummer of adres)
+`Grondstoffen` heeft twee zelfstandige rapporteringsonderdelen.
+`Geproduceerde grondstoffen` verschijnt na de bevestiging
+`grondstoffen:geproduceerd=true`; een bevestigde productie vereist minstens
+één grondstof. Per grondstof zijn materiaalcode, niet-negatieve hoeveelheid in
+ton en toepassingswijze verplicht. Omschrijving en opmerking zijn optioneel.
+De bestaande materiaalcodelijst bevat de 137 codes en omschrijvingen uit het
+Teepak-referentiebestand voor 2024.
+
+Elke geproduceerde grondstof heeft één of meer bestemmingen, gemodelleerd als
+`prov:qualifiedAssociation` met een `prov:Association`. Het bestemmingstype
+bepaalt welke `prov:agent`-variant actief is: Belgische vestiging met verplicht
+ondernemings- en vestigingseenheidsnummer, buitenlandse vestiging met verplicht
+BTW-nummer, werf met optionele firmanaam, of geen onderneming met verplichte
+naam en adres. Dispers gebruik en particulier vereisen geen agentidentificatie.
+De vier gerelateerde varianten behouden hun gepubliceerde identifiers en
+afzonderlijke conditionele properties; gelijknamige velden worden niet samengevoegd.
+`grondstoffen-geproduceerd.ods` heeft `Geproduceerde grondstoffen` en
+`Bestemmingen`. De goedgekeurde unieke sleutel per exploitatie en jaar is de
+materiaalcode; detailrijen herhalen die bestaande selectie, zonder technisch rij-ID.
+
+`Inkomende grondstoffen` vereist per rij een IEPR-installatie
+(`installatie:gpbv`), activiteit (`riepr:Rubriek`), aard als vrije tekst en
+niet-negatieve hoeveelheid in ton. Installatie is de
+`sosa:hasFeatureOfInterest`; activiteit is `dcterms:subject`.
+`grondstoffen-inkomend.ods` heeft één gelijknamig invulblad.
+De gedeelde demonstratiereferenties zijn fictief; er is bewust nog geen
+installatie-afhankelijk activiteitenfilter zonder afgesproken relatiepredicaat.
+
+De Confluence-modellen voor [geproduceerde](https://confluence.omgeving.vlaanderen.be/confluence/spaces/MJV/pages/538805037/Informatiemodel+jaargegevens+geproduceerde+grondstoffen)
+en [inkomende grondstoffen](https://confluence.omgeving.vlaanderen.be/confluence/spaces/MJV/pages/538805039/Informatiemodel+jaargegevens+inkomende+grondstoffen)
+staan ter review. Het [overkoepelende model](https://confluence.omgeving.vlaanderen.be/confluence/spaces/MJV/pages/528417099/Informatiemodel+operationele+gegevens)
+bevestigt meerdere bestemmingen per grondstof. Ton voor inkomend is een
+expliciete POC-keuze: die eenheid ontbreekt op de Confluence-pagina.
+De geproduceerde precisie van 0,001 ton staat in de velddefinitie, maar wordt nog
+niet numeriek afgedwongen. Adres blijft tekst zolang het samenstel TBC is;
+KBO-/BTW-registercontroles en de relatie onderneming-vestiging zijn niet geïmplementeerd.
 
 #### Grondwater
 4.  De stroom grondwater `conceptscheme:operationeel_grondwater` vereist eerst dat je specifieert welke meting je wil uitvoeren; kwaliteitsmeting, peilmeting of onttrekking/infiltratie. Dit zijn `skos:Concept`en die meervoudig zijn en via de `hasPart` relatie opgedeeld in de gevraagde gegevens

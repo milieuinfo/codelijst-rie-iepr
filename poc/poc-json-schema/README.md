@@ -1,6 +1,6 @@
 # Code lists -> operational JSON Schema
 
-Compile the groundwater, air, water and self-control CSVs into JSON Schema Draft 2020-12, shared by the UI and
+Compile the groundwater, air, water, self-control and raw-material CSVs into JSON Schema Draft 2020-12, shared by the UI and
 ODS consumers.
 The Dutch [CSV-to-schema/UI/ODS guide](../../README.md#van-csv-naar-json-schema-ui-en-ods)
 is the conceptual specification, including ownership, predicates, required kinds
@@ -11,7 +11,8 @@ and reversible spreadsheet mappings.
 `npm run predev` creates a deterministic input snapshot from
 `src/source/operationeel_grondwater.csv`, `operationeel_lucht.csv`,
 `operationeel_water.csv`, `operationeel_zelfcontrole_lucht.csv`,
-`operationeel_zelfcontrole_water.csv`, `operationeel_misc.csv` (choice lists), and the published JSON-LD supporting
+`operationeel_zelfcontrole_water.csv`, `operationeel_grondstoffen.csv`,
+`operationeel_misc.csv` (choice lists), and the published JSON-LD supporting
 lists/prefixes. The snapshot declares direct reporting entry schemes through
 `x-reporting-entries` under `operational-csv-v1`; labels/slugs follow the selected
 CSV filenames. The resolver, ownership mapper, UI and ODS consumers do not
@@ -29,9 +30,10 @@ The current source generates three groundwater sections and five air sections
 without incomplete mode: `Emissie`, `Verbruikte brandstof`, `Verbruikte stof`,
 `Geproduceerde stof` and `Afvalproduct`, plus water sections `Lozing` and
 `Abnormale lozing`, and one `Metingen` section for each of `Zelfcontrole lucht`
-and `Zelfcontrole water`: five themes and twelve sections in total.
+and `Zelfcontrole water`, plus `Geproduceerde grondstoffen` and
+`Inkomende grondstoffen`: six themes and fourteen sections in total.
 Use `--theme Grondwater`, `--theme Lucht`, `--theme Water`,
-`--theme "Zelfcontrole lucht"` or `--theme "Zelfcontrole water"`
+`--theme "Zelfcontrole lucht"`, `--theme "Zelfcontrole water"` or `--theme Grondstoffen`
 only when deliberately generating a filtered snapshot; omit `--theme` to keep
 all available in the UI.
 `poc/reporting-entries.json` (relative to the repository root) declares the active
@@ -121,6 +123,19 @@ models. Existing pollutant lists are retained; full Teepak coverage, below-limit
 qualifiers and attachments remain outside this slice.
 Structural type-scheme references expand to all member types, including subtypes;
 reference choices may match any permitted type.
+
+Raw materials add two independent sections. Produced materials require a code
+from the 137-code Teepak list, non-negative quantity in ton, application and one
+or more destinations. Material code is the approved unique ODS parent key per
+exploitation/year. Destination associations retain four distinct conditional
+Agent variants with their original identifiers and identification requirements;
+dispersive/private destinations have no identification branch.
+Incoming materials require a GPBV installation, Rubriek activity, free-text nature
+and non-negative quantity in ton. No installation/activity dependency is invented.
+Persistent examples live in `examples/grondstoffen/{grondstof,inkomend}.json`.
+See the [source guide](../../README.md#grondstoffen) for Confluence provenance,
+the approved incoming-unit choice, text-address limitation and the documented
+but not yet enforced 0.001-ton precision.
 
 Air is a testable **partial Teepak mapping**, not full Teepak coverage. Material
 references in emission context, concentration, annual pollutant emission,

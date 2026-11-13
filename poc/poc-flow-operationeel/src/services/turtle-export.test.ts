@@ -2,7 +2,7 @@
 import { readFileSync } from 'node:fs'
 import { spawnSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { DataFactory, Parser, Store } from 'n3'
 import { compileGroundwater, compileTheme } from '../../../poc-json-schema/tests/groundwater-csv-fixture.js'
 import { sourceSnapshot } from '../../../poc-json-schema/scripts/source-snapshot.mjs'
@@ -21,6 +21,34 @@ const options = () => ({ year: 2024, created: '2024-01-04T00:00:00Z', issued: '2
 const shapes = fileURLToPath(new URL('../../test/fixtures/riepr-shacl.ttl', import.meta.url))
 
 describe('Turtle export', () => {
+  afterEach(() => vi.unstubAllGlobals())
+
+  it('writes grouped Turtle with prefixed terms and only used namespace declarations', () => {
+    const turtle = exportTurtle(section('peilmeting'), example('peilmeting'), options())
+    expect(turtle).toContain(`@prefix riepr: <${riepr}>.`)
+    expect(turtle).toContain(`@prefix sosa: <${sosa}>.`)
+    expect(turtle).toContain('a riepr:Observatie, sosa:Observation')
+    expect(turtle).toMatch(/;\n\s+sosa:hasResult /)
+    expect(turtle).toContain('^^xsd:dateTime')
+    expect(turtle).not.toContain('@prefix skos:')
+    expect(turtle).not.toContain(`<${sosa}hasResult>`)
+  })
+
+  it('mints distinct UUIDv4 identifiers when LAN HTTP exposes only getRandomValues', () => {
+    vi.stubGlobal('crypto', { getRandomValues: globalThis.crypto.getRandomValues.bind(globalThis.crypto) })
+    const graph = new Store(new Parser().parse(exportTurtle(section('kwaliteitsmeting'), example('kwaliteitsmeting'), options())))
+    const ids = graph.getObjects(null, namedNode(riepr + 'localId'), null).map(term => term.value)
+    expect(ids.length).toBeGreaterThan(1)
+    expect(new Set(ids).size).toBe(ids.length)
+    for (const id of ids) expect(id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/)
+  })
+
+  it('fails explicitly when no cryptographic random source is available', () => {
+    vi.stubGlobal('crypto', undefined)
+    expect(() => exportTurtle(section('peilmeting'), example('peilmeting'), options()))
+      .toThrow('UUID-generatie is niet beschikbaar.')
+  })
+
   it.each(['onttrekking', 'peilmeting', 'kwaliteitsmeting'])('serializes the %s example as RDF', name => {
     const graph = new Store(new Parser().parse(exportTurtle(section(name), example(name), options())))
     const observations = graph.getSubjects(rdfType, namedNode(riepr + 'Observatie'), null)

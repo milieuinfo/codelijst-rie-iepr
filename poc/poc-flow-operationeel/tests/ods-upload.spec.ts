@@ -109,6 +109,10 @@ for (const [name, label, valuePath, value] of [
     await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
     await expect(page.locator('#validated-json')).toBeVisible()
     expect(JSON.parse(await page.locator('#validated-json').innerText())).toEqual(source.data)
+    await page.getByRole('tab', { name: 'Turtle', exact: true }).click()
+    await expect(page.locator('#validated-turtle')).toBeVisible()
+    await expect(page.getByRole('link', { name: 'Turtle downloaden', exact: true })).toBeVisible()
+    await page.getByRole('tab', { name: 'JSON', exact: true }).click()
     const download = page.waitForEvent('download')
     await page.getByRole('link', { name: 'Persoonlijk JSON-schema downloaden', exact: true }).click()
     const personal = await download

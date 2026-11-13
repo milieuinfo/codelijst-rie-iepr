@@ -48,14 +48,14 @@ export function parentKeyComponents(plan: TabularPlan, record: RecordPlan): Pare
     const type = column.schema['x-inline-array'] ? column.schema.items && (column.schema.items as { type?: string }).type : column.schema.type;
     let node = parent.schema;
     let quantity = false;
-    for (const token of column.path.slice(0, -1)) {
+    for (const token of column.path) {
       const properties = node.properties;
-      if (properties?.numericValue !== undefined && properties.hasUnit !== undefined) quantity = true;
+      if (properties?.numericValue !== undefined && properties.hasUnit !== undefined &&
+          ['numericValue', 'hasUnit'].includes(token)) quantity = true;
       const next = properties?.[token];
       if (!next || typeof next !== 'object' || Array.isArray(next)) break;
       node = next as typeof node;
     }
-    if (node.properties?.numericValue !== undefined && node.properties.hasUnit !== undefined) quantity = true;
     if (!['string', 'number', 'integer', 'boolean'].includes(String(type)) ||
         column.schema['x-value-path'] !== undefined ||
         quantity || (column.schema['x-inline-array'] &&

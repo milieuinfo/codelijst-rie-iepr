@@ -10,6 +10,7 @@ export async function generationFixture(plan: TabularPlan) {
     { theme: 'water', sections: ['lozing', 'abnormale-lozing'] },
     { theme: 'zelfcontrole-lucht', sections: ['meting'] },
     { theme: 'zelfcontrole-water', sections: ['meting'] },
+    { theme: 'grondstoffen', sections: ['grondstof', 'inkomend'] },
   ];
   const profile = profiles.find(profile => typeof section === 'string' &&
     section.startsWith(`https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-${profile.theme}/`));

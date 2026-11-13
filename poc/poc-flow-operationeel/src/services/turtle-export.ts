@@ -3,6 +3,7 @@ import {
   SchemaRegistry, schemaObject, selectMemberVariant, type JsonSchemaObject,
 } from 'codelijst-rie-iepr-poc-json-schema/browser'
 import { resolveProcesses } from './process-graph.js'
+import { PREFIXES } from './vocab.js'
 import uriTemplates from '../generated/uri-templates.json'
 
 const { namedNode, blankNode, literal, quad } = DataFactory
@@ -14,6 +15,18 @@ const dct = 'http://purl.org/dc/terms/'
 const xsd = 'http://www.w3.org/2001/XMLSchema#'
 const time = 'http://www.w3.org/2006/time#'
 const schemaOrg = 'https://schema.org/'
+const turtlePrefixes = {
+  ...PREFIXES,
+  prov,
+  dcterms: dct,
+  time,
+  schema: schemaOrg,
+  qudt: 'http://qudt.org/schema/qudt/',
+  ssn: 'http://www.w3.org/ns/ssn/',
+  pplan: 'http://purl.org/net/p-plan#',
+  qb: 'http://purl.org/linked-data/cube#',
+  vocab: 'https://data.riepr.omgeving.vlaanderen.be/ns/vocab#',
+}
 const qualifiers = {
   'x-kwantiteitsaspect': 'kwantiteitsAspect',
   'x-drager': 'drager',
@@ -27,6 +40,17 @@ const iri = (value: unknown) => {
   if (typeof value !== 'string') throw new Error('Een RDF-IRI moet een tekstwaarde zijn.')
   try { new URL(value) } catch { throw new Error(`Ongeldige RDF-IRI: ${value}`) }
   return namedNode(value)
+}
+
+const randomUuid = (): string => {
+  const crypto = globalThis.crypto
+  if (crypto?.randomUUID) return crypto.randomUUID()
+  if (!crypto?.getRandomValues) throw new Error('UUID-generatie is niet beschikbaar.')
+  const bytes = crypto.getRandomValues(new Uint8Array(16))
+  bytes[6] = (bytes[6] & 0x0f) | 0x40
+  bytes[8] = (bytes[8] & 0x3f) | 0x80
+  const hex = Array.from(bytes, byte => byte.toString(16).padStart(2, '0')).join('')
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`
 }
 
 const decimal = (value: number): string => {
@@ -86,9 +110,8 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
   const mint = (className: string): Quad['subject'] => {
     const definition = (uriTemplates as Record<string, { template: string; mappings: Record<string, string> }>)[className]
     if (!definition) throw new Error(`Geen URI-template voor ${className}.`)
-    if (!globalThis.crypto?.randomUUID) throw new Error('UUID-generatie is niet beschikbaar.')
     const values: Record<string, Quad['object']> = {
-      [riepr + 'localId']: literal(globalThis.crypto.randomUUID()),
+      [riepr + 'localId']: literal(randomUuid()),
       [riepr + 'productiejaar']: literal(String(options.year).padStart(4, '0'), namedNode(xsd + 'gYear')),
       [dct + 'created']: literal(created, namedNode(xsd + 'dateTime')),
       [dct + 'issued']: literal(issued, namedNode(xsd + 'dateTime')),
@@ -285,5 +308,18 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
     const item = schemaObject(resolve(schemaObject(child)).items)
     for (const entry of value) visit(item, entry)
   }
-  return new Writer().quadsToString(graph.getQuads(null, null, null, null))
+  const quads = graph.getQuads(null, null, null, null)
+  const terms = quads.flatMap(({ subject, predicate, object }) =>
+    [subject, predicate, object, ...(object.termType === 'Literal' ? [object.datatype] : [])])
+  const prefixes = Object.fromEntries(Object.entries(turtlePrefixes).filter(([, namespace]) =>
+    terms.some(term => term.termType === 'NamedNode' && term.value.startsWith(namespace))))
+  const writer = new Writer({ format: 'text/turtle', prefixes })
+  writer.addQuads(quads)
+  let turtle: string | undefined
+  writer.end((error, result) => {
+    if (error) throw error
+    turtle = result
+  })
+  if (turtle === undefined) throw new Error('Turtle kon niet worden gemaakt.')
+  return turtle
 }

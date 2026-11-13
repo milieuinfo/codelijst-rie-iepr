@@ -43,7 +43,8 @@ test('reports direct entries independently of thema navigation without claiming 
     const issues = validateFlows().issues;
     assert.ok(!issues.some(issue => /step conceptscheme:operationeel_(lucht|grondwater|water) is not reachable/.test(issue.message)));
     assert.ok(!issues.some(issue => /step conceptscheme:operationeel_zelfcontrole_(lucht|water) is not reachable/.test(issue.message)));
-    assert.ok(issues.some(issue => /step conceptscheme:operationeel_grondstoffen is not reachable/.test(issue.message)));
+    assert.ok(!issues.some(issue => /step conceptscheme:operationeel_grondstoffen is not reachable/.test(issue.message)));
+    assert.equal(getFlow({ flow: 'Grondstoffen' }).reportingEntry?.slug, 'grondstoffen');
 });
 
 test('an entry covers its navigation descendants but not unrelated steps', () => {
@@ -57,11 +58,11 @@ test('an entry covers its navigation descendants but not unrelated steps', () =>
 
 test('invalid scheme/file mappings are errors, never silently active entries', () => {
     const entries = loadReportingEntries(root);
-    entries[1].schemeId = 'conceptscheme:operationeel_grondstoffen';
+    entries[1].schemeId = 'conceptscheme:operationeel_contextueel';
     fs.writeFileSync(manifest(), JSON.stringify(entries));
     assert.equal(listFlows().reportingEntries[1].valid, false);
     assert.ok(validateFlows().issues.some(issue => issue.level === 'error' &&
-        issue.location === reportingEntriesPath && issue.message.includes('operationeel_grondstoffen')));
+        issue.location === reportingEntriesPath && issue.message.includes('operationeel_contextueel')));
     assert.throws(() => getFlow({ flow: 'lucht' }), /Invalid reporting entry/);
 });
 

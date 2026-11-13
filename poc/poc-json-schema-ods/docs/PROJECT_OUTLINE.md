@@ -6,8 +6,8 @@ details. This document describes the workbook contract and CLI operation.
 
 ## Current operational CSV profile
 
-The active generator scope covers five themes and twelve sections: groundwater,
-annual air/water reporting and self-control for air/water. It passes source-authored
+The active generator scope covers six themes and fourteen sections: groundwater,
+annual air/water reporting, self-control for air/water and raw materials. It passes source-authored
 `_table_workbook` and `_table_sheet` through the indexed JSON Schemas.
 The ODS CLI uses those filenames; record tabs use those sheet names. Expected
 workbooks are `grondwater-debieten.ods` (`Debieten`),
@@ -51,6 +51,19 @@ integer 0–100 percent. Frequency and its source are temporarily free text.
 Water sample type offers three approved options. See the
 [source guide](../../../README.md#zelfcontrole-lucht-en-water) for exact units,
 Confluence deviations and remaining parameter/list gaps.
+
+Raw materials add `grondstoffen-geproduceerd.ods` with
+`Geproduceerde grondstoffen` and `Bestemmingen`. The latter repeats the material
+code as its approved unique parent key per exploitation/year, compared by URI,
+not the displayed label. Produced quantities use fixed ton and a non-negative
+decimal. Destination types activate the original distinct Agent variants; their
+identification columns remain separate, even where labels coincide.
+`grondstoffen-inkomend.ods` has one `Inkomende grondstoffen` sheet with required
+GPBV installation, Rubriek activity, nature and non-negative quantity in ton.
+There is no installation-dependent activity filter. The 137 material-code choices
+come from the 2024 Teepak reference; structural references are fictional shared
+examples. Address remains text and produced precision 0.001 ton is documented,
+not numerically enforced. See the [source guide](../../../README.md#grondstoffen).
 
 Each numeric quantity has `Eenheid` immediately to its right. Optional quantities
 do not prefill a fixed unit until a value is supplied. A unit collection
@@ -111,7 +124,7 @@ materialized input JSON after regrouping canonical predicate arrays by source
 variant; any other difference blocks output. Order within repeated records of
 the same variant is preserved. CLI template generation and UI download
 generation additionally perform this check with the synthetic groundwater,
-air, water and self-control examples and their reference context. These dummy values
+air, water, self-control and raw-material examples and their reference context. These dummy values
 are used only in the verification workbook, never in the downloaded blank
 template.
 
