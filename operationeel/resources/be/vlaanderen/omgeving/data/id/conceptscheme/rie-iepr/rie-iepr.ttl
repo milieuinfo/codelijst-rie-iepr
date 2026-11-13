@@ -138,73 +138,61 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 @prefix vmm: <http://vmm.be#>.
 
-qudt:numericResult dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
 qudt:numericValue a rdfs:Resource.
-qudt:standardUncertainty dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
 rdfs:comment a rdfs:Resource.
 rdfs:label a rdfs:Resource.
 rdfs:value a rdfs:Resource.
-time:hasDuration dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
 adms:identifier a rdfs:Resource.
-prov:used dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    a rdfs:Resource;
-    adms:status <https://purl.archive.org/adms/status/Active>.
-prov:wasAssociatedWith dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    a rdfs:Resource;
-    adms:status <https://purl.archive.org/adms/status/Active>.
+prov:used dcterms:isVersionOf prov:used;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
+    a rdfs:Resource.
+prov:wasAssociatedWith dcterms:isVersionOf prov:wasAssociatedWith;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
+    a rdfs:Resource.
 rov:registration a rdfs:Resource.
 sosa:hasFeatureOfInterest a rdfs:Resource.
-sosa:hasMember dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    a rdfs:Resource;
-    adms:status <https://purl.archive.org/adms/status/Active>.
+sosa:hasMember dcterms:isVersionOf sosa:hasMember;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
+    a rdfs:Resource.
 sosa:hasResult a rdfs:Resource.
-sosa:isResultOf dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    a rdfs:Resource;
-    adms:status <https://purl.archive.org/adms/status/Active>.
-sosa:madeBySensor dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
+sosa:isResultOf dcterms:isVersionOf sosa:isResultOf;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
+    a rdfs:Resource.
 sosa:observedProperty a rdfs:Resource.
-sosa:phenomenonTime dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
 sosa:resultTime a rdfs:Resource.
 sosa:usedProcedure a rdfs:Resource.
-collectie:operationeel_eenheden_stofhoeveelheid dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+collectie:operationeel_eenheden_stofhoeveelheid dcterms:isVersionOf collectie:operationeel_eenheden_stofhoeveelheid;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     a skos:Collection;
     skos:definition "Toegelaten eenheden voor het jaarlijkse verbruik, de productie of de doorzet van stoffen en afvalproducten."@nl;
     skos:member csor_eenheid:E_32, csor_eenheid:E_33, csor_eenheid:E_41, csor_eenheid:E_59, csor_eenheid:E_83, csor_eenheid:E_89, csor_eenheid:E_95;
     skos:note "Toegelaten eenheden voor het jaarlijkse verbruik, de productie of de doorzet van stoffen en afvalproducten."@nl;
-    skos:prefLabel "Eenheden stofhoeveelheid"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>.
-collectie:operationeel_eenheden_zelfcontrole_lucht_concentratie dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+    skos:prefLabel "Eenheden stofhoeveelheid"@nl.
+collectie:operationeel_eenheden_zelfcontrole_lucht_concentratie dcterms:isVersionOf collectie:operationeel_eenheden_zelfcontrole_lucht_concentratie;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     a skos:Collection;
     skos:definition "Toegelaten concentratie-eenheden bij standaardomstandigheden voor de zelfcontrole van luchtemissies."@nl;
     skos:member csor_eenheid:E_172, csor_eenheid:E_325, csor_eenheid:E_326, csor_eenheid:E_327;
     skos:note "Toegelaten concentratie-eenheden bij standaardomstandigheden voor de zelfcontrole van luchtemissies."@nl;
-    skos:prefLabel "Eenheden concentratie zelfcontrole lucht"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>.
-collectie:operationeel_eenheden_zelfcontrole_lucht_massastroom dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+    skos:prefLabel "Eenheden concentratie zelfcontrole lucht"@nl.
+collectie:operationeel_eenheden_zelfcontrole_lucht_massastroom dcterms:isVersionOf collectie:operationeel_eenheden_zelfcontrole_lucht_massastroom;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     a skos:Collection;
     skos:definition "Toegelaten massastroomeenheden voor de zelfcontrole van luchtemissies."@nl;
     skos:member csor_eenheid:E_13, csor_eenheid:E_18;
     skos:note "Toegelaten massastroomeenheden voor de zelfcontrole van luchtemissies."@nl;
-    skos:prefLabel "Eenheden massastroom zelfcontrole lucht"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>.
-collectie:operationeel_eenheden_zelfcontrole_water_concentratie dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+    skos:prefLabel "Eenheden massastroom zelfcontrole lucht"@nl.
+collectie:operationeel_eenheden_zelfcontrole_water_concentratie dcterms:isVersionOf collectie:operationeel_eenheden_zelfcontrole_water_concentratie;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     a skos:Collection;
     skos:definition "Toegelaten eenheden voor de concentratie en de grenswaarde bij de zelfcontrole van oppervlaktewater."@nl;
     skos:member csor_eenheid:E_1, csor_eenheid:E_3;
     skos:note "Toegelaten eenheden voor de concentratie en de grenswaarde bij de zelfcontrole van oppervlaktewater."@nl;
-    skos:prefLabel "Eenheden concentratie zelfcontrole water"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>.
+    skos:prefLabel "Eenheden concentratie zelfcontrole water"@nl.
 collectie:operationeel_parameters_grondwater a skos:Collection;
     skos:member csor_variabele:V_246, csor_variabele:V_247, csor_variabele:V_251, csor_variabele:V_321, csor_variabele:V_329, csor_variabele:V_337;
     skos:prefLabel "Parameters grondwaterkwaliteit"@nl.
-collectie:operationeel_stoffen_lucht dcterms:isVersionOf collectie:operationeel_stoffen_lucht;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    a skos:Collection;
+collectie:operationeel_stoffen_lucht a skos:Collection;
     skos:member csor_variabele:V_1057, csor_variabele:V_1060, csor_variabele:V_1685, csor_variabele:V_1686, csor_variabele:V_1751, csor_variabele:V_1901, csor_variabele:V_1919, csor_variabele:V_255, csor_variabele:V_256;
     skos:prefLabel "Verontreinigende stoffen en broeikasgassen (lucht)"@nl.
 collectie:operationeel_stoffen_water a skos:Collection;
@@ -1233,9 +1221,7 @@ contextueel:grondstoffenverbruik a skos:Concept;
     skos:inScheme conceptscheme:operationeel_contextueel_iepr;
     skos:prefLabel "Grondstoffenverbruik"@nl;
     skos:topConceptOf conceptscheme:operationeel_contextueel_iepr.
-contextueel:productievolume dcterms:isVersionOf contextueel:productievolume;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    a skos:Concept;
+contextueel:productievolume a skos:Concept;
     skos:definition "Totale productie (geheel getal)"@nl;
     skos:inScheme conceptscheme:operationeel_contextueel_iepr_activiteit;
     skos:note "Totale productie (geheel getal)"@nl;
@@ -1286,9 +1272,7 @@ grondstoffen:bestemmingsidentificatie-be-ve <http://purl.org/iso25964/skos-thes#
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter grondstoffen:bestemmingsidentificatie-be-on.
-grondstoffen:bestemmingsidentificatie-be dcterms:isVersionOf grondstoffen:bestemmingsidentificatie-be;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
+grondstoffen:bestemmingsidentificatie-be <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:bestemmingsidentificatie-be-naam, grondstoffen:bestemmingsidentificatie-be-on, grondstoffen:bestemmingsidentificatie-be-ve;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondstoffen;
@@ -1378,9 +1362,7 @@ grondstoffen:geproduceerd a skos:Concept;
     skos:topConceptOf conceptscheme:operationeel_grondstoffen;
     riepr-vocab:relevantDataType xsd:boolean;
     riepr-vocab:uiFirst true.
-grondstoffen:grondstof dcterms:isVersionOf grondstoffen:grondstof;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:bestemmingsidentificatie-be, grondstoffen:bestemmingsidentificatie-buitenland, grondstoffen:bestemmingsidentificatie-none, grondstoffen:bestemmingsidentificatie-werf, grondstoffen:grondstof_resultaat;
+grondstoffen:grondstof <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:bestemmingsidentificatie-be, grondstoffen:bestemmingsidentificatie-buitenland, grondstoffen:bestemmingsidentificatie-none, grondstoffen:bestemmingsidentificatie-werf, grondstoffen:grondstof_resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondstoffen;
     skos:prefLabel "Grondstof"@nl;
@@ -1390,9 +1372,7 @@ grondstoffen:grondstof dcterms:isVersionOf grondstoffen:grondstof;
     sh:path grondstoffen:geproduceerd;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:uiAfter grondstoffen:geproduceerd.
-grondstoffen:grondstof_bestemming_type dcterms:isVersionOf grondstoffen:grondstof_bestemming_type;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation dcterms:type;
+grondstoffen:grondstof_bestemming_type dcterms:relation dcterms:type;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof_resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondstoffen;
@@ -1400,9 +1380,7 @@ grondstoffen:grondstof_bestemming_type dcterms:isVersionOf grondstoffen:grondsto
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_bestemmingstype;
     riepr-vocab:uiAfter grondstoffen:grondstof_toepassingswijze.
-grondstoffen:grondstof_hoeveelheid dcterms:isVersionOf grondstoffen:grondstof_hoeveelheid;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation qudt:numericValue;
+grondstoffen:grondstof_hoeveelheid dcterms:relation qudt:numericValue;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof_resultaat;
     qudt:relevantUnit <http://TODO>;
     a skos:Concept;
@@ -1411,18 +1389,14 @@ grondstoffen:grondstof_hoeveelheid dcterms:isVersionOf grondstoffen:grondstof_ho
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:uiAfter grondstoffen:grondstof_omschrijving.
-grondstoffen:grondstof_materiaalcode dcterms:isVersionOf grondstoffen:grondstof_materiaalcode;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation schema:material;
+grondstoffen:grondstof_materiaalcode dcterms:relation schema:material;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof_resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondstoffen;
     skos:prefLabel "Materiaalcode"@nl;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiFirst true.
-grondstoffen:grondstof_omschrijving dcterms:isVersionOf grondstoffen:grondstof_omschrijving;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation rdfs:comment;
+grondstoffen:grondstof_omschrijving dcterms:relation rdfs:comment;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof_resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondstoffen;
@@ -1430,9 +1404,7 @@ grondstoffen:grondstof_omschrijving dcterms:isVersionOf grondstoffen:grondstof_o
     riepr-vocab:isVerplicht false;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter grondstoffen:grondstof_materiaalcode.
-grondstoffen:grondstof_opmerking dcterms:isVersionOf grondstoffen:grondstof_opmerking;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation rdfs:comment;
+grondstoffen:grondstof_opmerking dcterms:relation rdfs:comment;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof_resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondstoffen;
@@ -1440,7 +1412,8 @@ grondstoffen:grondstof_opmerking dcterms:isVersionOf grondstoffen:grondstof_opme
     riepr-vocab:isVerplicht false;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter grondstoffen:grondstof_bestemming_type.
-grondstoffen:grondstof_resultaat dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondstoffen:grondstof_resultaat dcterms:isVersionOf grondstoffen:grondstof_resultaat;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasResult;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:grondstof_bestemming_type, grondstoffen:grondstof_hoeveelheid, grondstoffen:grondstof_materiaalcode, grondstoffen:grondstof_omschrijving, grondstoffen:grondstof_opmerking, grondstoffen:grondstof_toepassingswijze;
@@ -1449,13 +1422,10 @@ grondstoffen:grondstof_resultaat dcterms:created "2026-11-13T08:29:46.479Z"^^xsd
     skos:inScheme conceptscheme:operationeel_grondstoffen;
     skos:note "Het resultaatrecord van de gerapporteerde geproduceerde grondstof."@nl;
     skos:prefLabel "Resultaat grondstof"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class riepr:Resultaat;
     riepr-vocab:isVerplicht true;
     riepr-vocab:uiFirst true.
-grondstoffen:grondstof_toepassingswijze dcterms:isVersionOf grondstoffen:grondstof_toepassingswijze;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation schema:additionalProperty;
+grondstoffen:grondstof_toepassingswijze dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof_resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondstoffen;
@@ -1464,55 +1434,39 @@ grondstoffen:grondstof_toepassingswijze dcterms:isVersionOf grondstoffen:grondst
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_toepassingwijze;
     riepr-vocab:uiAfter grondstoffen:grondstof_hoeveelheid.
-grondwater:begintoestand dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:datum dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:detectiegrens-boven dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:detectiegrens-boven dcterms:isVersionOf grondwater:detectiegrens-boven;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "De meetwaarde ligt boven de detectielimiet."@nl;
     skos:inScheme conceptscheme:operationeel_detectiegrensindicator;
     skos:note "De meetwaarde ligt boven de detectielimiet."@nl;
     skos:prefLabel "Boven"@nl;
     skos:topConceptOf conceptscheme:operationeel_detectiegrensindicator;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:uiFirst true.
-grondwater:detectiegrens-onder dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:detectiegrens-onder dcterms:isVersionOf grondwater:detectiegrens-onder;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "De meetwaarde ligt onder de detectielimiet."@nl;
     skos:inScheme conceptscheme:operationeel_detectiegrensindicator;
     skos:note "De meetwaarde ligt onder de detectielimiet."@nl;
     skos:prefLabel "Onder"@nl;
     skos:topConceptOf conceptscheme:operationeel_detectiegrensindicator;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:uiAfter grondwater:detectiegrens-boven.
-grondwater:diepte dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:duur-stil dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:eindtoestand dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:kwaliteitsmeting-bemonsteringsinstrument dcterms:isVersionOf grondwater:kwaliteitsmeting-bemonsteringsinstrument;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation dcterms:type;
+grondwater:kwaliteitsmeting-bemonsteringsinstrument dcterms:relation dcterms:type;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting-resultaten;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Veld- of laboanalyse"@nl;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:relevantObservation grondwater:kwaliteitsmeting-resultaten.
-grondwater:kwaliteitsmeting-datum dcterms:isVersionOf grondwater:kwaliteitsmeting-datum;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:resultTime;
+grondwater:kwaliteitsmeting-datum dcterms:relation sosa:resultTime;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting-monstername;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Datum en tijdstip"@nl;
     riepr-vocab:relevantDataType xsd:dateTime;
     riepr-vocab:uiFirst true.
-grondwater:kwaliteitsmeting-diepte dcterms:isVersionOf grondwater:kwaliteitsmeting-diepte;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasMember;
+grondwater:kwaliteitsmeting-diepte dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting;
     qudt:relevantUnit csor_eenheid:E_59;
     a skos:Concept;
@@ -1522,7 +1476,8 @@ grondwater:kwaliteitsmeting-diepte dcterms:isVersionOf grondwater:kwaliteitsmeti
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantObservation grondwater:kwaliteitsmeting;
     riepr-vocab:uiAfter grondwater:kwaliteitsmeting-referentiepunt.
-grondwater:kwaliteitsmeting-feature dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:kwaliteitsmeting-feature dcterms:isVersionOf grondwater:kwaliteitsmeting-feature;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting;
     a skos:Concept;
@@ -1530,7 +1485,6 @@ grondwater:kwaliteitsmeting-feature dcterms:created "2026-11-13T08:29:46.479Z"^^
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:note "Actieve peil- en pompfilters in het productiejaar."@nl;
     skos:prefLabel "Filter(s)"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class sosa:FeatureOfInterest;
     riepr-vocab:isMultiselect true;
     riepr-vocab:isVerplicht true;
@@ -1538,28 +1492,24 @@ grondwater:kwaliteitsmeting-feature dcterms:created "2026-11-13T08:29:46.479Z"^^
     riepr-vocab:relevantObservation grondwater:kwaliteitsmeting;
     riepr-vocab:relevantRiepr filter:peil, filter:pomp;
     riepr-vocab:uiFirst true.
-grondwater:kwaliteitsmeting-labo-datum dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:kwaliteitsmeting-labo-datum dcterms:isVersionOf grondwater:kwaliteitsmeting-labo-datum;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:resultTime;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Datum en tijdstip laboanalyse"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType xsd:dateTime;
     riepr-vocab:relevantObservation grondwater:kwaliteitsmeting;
     riepr-vocab:uiAfter grondwater:kwaliteitsmeting-monster.
-grondwater:kwaliteitsmeting-labo-naam dcterms:isVersionOf grondwater:kwaliteitsmeting-labo-naam;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation rdfs:label;
+grondwater:kwaliteitsmeting-labo-naam dcterms:relation rdfs:label;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting-labo;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Labo naam"@nl;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:relevantObservation grondwater:kwaliteitsmeting.
-grondwater:kwaliteitsmeting-labo dcterms:isVersionOf grondwater:kwaliteitsmeting-labo;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation prov:wasAssociatedWith;
+grondwater:kwaliteitsmeting-labo dcterms:relation prov:wasAssociatedWith;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondwater:kwaliteitsmeting-labo-naam;
     a skos:Concept;
@@ -1571,7 +1521,8 @@ grondwater:kwaliteitsmeting-labo dcterms:isVersionOf grondwater:kwaliteitsmeting
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantObservation grondwater:kwaliteitsmeting;
     riepr-vocab:uiAfter grondwater:kwaliteitsmeting-labo-datum.
-grondwater:kwaliteitsmeting-monster dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:kwaliteitsmeting-monster dcterms:isVersionOf grondwater:kwaliteitsmeting-monster;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation prov:used;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondwater:kwaliteitsmeting-monstername, grondwater:kwaliteitsmeting-monsternummer;
@@ -1580,12 +1531,12 @@ grondwater:kwaliteitsmeting-monster dcterms:created "2026-11-13T08:29:46.479Z"^^
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:note "Het monster dat bij de kwaliteitsmeting wordt onderzocht."@nl;
     skos:prefLabel "Monster"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class riepr:Monster;
     riepr-vocab:isOnzichtbaar true;
     riepr-vocab:isVerplicht true;
     riepr-vocab:uiAfter grondwater:kwaliteitsmeting-feature.
-grondwater:kwaliteitsmeting-monstername dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:kwaliteitsmeting-monstername dcterms:isVersionOf grondwater:kwaliteitsmeting-monstername;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:isResultOf;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting-monster;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondwater:kwaliteitsmeting-datum, grondwater:kwaliteitsmeting-techniek;
@@ -1594,13 +1545,10 @@ grondwater:kwaliteitsmeting-monstername dcterms:created "2026-11-13T08:29:46.479
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:note "De monstername waarbij het monster is genomen."@nl;
     skos:prefLabel "Monstername"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class sosa:Sampling;
     riepr-vocab:isOnzichtbaar true;
     riepr-vocab:uiAfter grondwater:kwaliteitsmeting-monsternummer.
-grondwater:kwaliteitsmeting-monsternummer dcterms:isVersionOf grondwater:kwaliteitsmeting-monsternummer;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation dcterms:identifier;
+grondwater:kwaliteitsmeting-monsternummer dcterms:relation dcterms:identifier;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting-monster;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
@@ -1608,21 +1556,7 @@ grondwater:kwaliteitsmeting-monsternummer dcterms:isVersionOf grondwater:kwalite
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiFirst true.
-grondwater:kwaliteitsmeting-parameter-datum dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:kwaliteitsmeting-parameter-limiet dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:kwaliteitsmeting-parameter-meetwaarde dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:kwaliteitsmeting-parameter-methode dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:kwaliteitsmeting-parameter-parameter dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:kwaliteitsmeting-parameter dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:kwaliteitsmeting-referentiepunt dcterms:isVersionOf grondwater:kwaliteitsmeting-referentiepunt;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation schema:additionalProperty;
+grondwater:kwaliteitsmeting-referentiepunt dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
@@ -1633,7 +1567,8 @@ grondwater:kwaliteitsmeting-referentiepunt dcterms:isVersionOf grondwater:kwalit
     riepr-vocab:relevantObservation grondwater:kwaliteitsmeting;
     riepr-vocab:relevantRiepr meetpunteigenschappen:referentiepunt;
     riepr-vocab:uiAfter grondwater:kwaliteitsmeting-labo.
-grondwater:kwaliteitsmeting-resultaten-limiet dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:kwaliteitsmeting-resultaten-limiet dcterms:isVersionOf grondwater:kwaliteitsmeting-resultaten-limiet;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting-resultaten;
     a skos:Concept;
@@ -1641,65 +1576,60 @@ grondwater:kwaliteitsmeting-resultaten-limiet dcterms:created "2026-11-13T08:29:
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:note "Een aanduiding of de meetwaarde boven of onder de detectielimiet ligt."@nl;
     skos:prefLabel "Detectielimiet"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class schema:PropertyValue;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_detectiegrensindicator;
     riepr-vocab:relevantObservation grondwater:kwaliteitsmeting-resultaten.
-grondwater:kwaliteitsmeting-resultaten-meetwaarde dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:kwaliteitsmeting-resultaten-meetwaarde dcterms:isVersionOf grondwater:kwaliteitsmeting-resultaten-meetwaarde;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting-resultaten;
     qudt:relevantUnit csor_eenheid:E_1;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Meetwaarde"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:drager csor_drager:DR_1;
     riepr-vocab:kwantiteitsAspect csor_kwantificeerbaaraspect:KWA_1;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantObservation grondwater:kwaliteitsmeting-resultaten;
     riepr-vocab:soortWaartbepaling csor_soortwaardebepaling:SWB_1;
     riepr-vocab:variabele grondwater:kwaliteitsmeting-resultaten-parameter.
-grondwater:kwaliteitsmeting-resultaten-methode dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:kwaliteitsmeting-resultaten-methode dcterms:isVersionOf grondwater:kwaliteitsmeting-resultaten-methode;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation schema:measurementMethod;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting-resultaten;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Analysemethode"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:relevantObservation grondwater:kwaliteitsmeting-resultaten.
-grondwater:kwaliteitsmeting-resultaten-parameter dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:kwaliteitsmeting-resultaten-parameter dcterms:isVersionOf grondwater:kwaliteitsmeting-resultaten-parameter;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:observedProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting-resultaten;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Parameter"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantCodeList collectie:operationeel_parameters_grondwater;
     riepr-vocab:relevantObservation grondwater:kwaliteitsmeting-resultaten;
     riepr-vocab:uiFirst true.
-grondwater:kwaliteitsmeting-resultaten dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:kwaliteitsmeting-resultaten dcterms:isVersionOf grondwater:kwaliteitsmeting-resultaten;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondwater:kwaliteitsmeting-bemonsteringsinstrument, grondwater:kwaliteitsmeting-resultaten-limiet, grondwater:kwaliteitsmeting-resultaten-meetwaarde, grondwater:kwaliteitsmeting-resultaten-methode, grondwater:kwaliteitsmeting-resultaten-parameter;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Meetresultaten"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class riepr:Observatie;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:relevantObservation grondwater:kwaliteitsmeting;
     riepr-vocab:uiAfter grondwater:kwaliteitsmeting-diepte.
-grondwater:kwaliteitsmeting-techniek dcterms:isVersionOf grondwater:kwaliteitsmeting-techniek;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:usedProcedure;
+grondwater:kwaliteitsmeting-techniek dcterms:relation sosa:usedProcedure;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting-monstername;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Techniek monstername"@nl;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_techniekmonstername.
-grondwater:kwaliteitsmeting dcterms:isVersionOf grondwater:kwaliteitsmeting;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondwater:kwaliteitsmeting-diepte, grondwater:kwaliteitsmeting-feature, grondwater:kwaliteitsmeting-labo-datum, grondwater:kwaliteitsmeting-labo, grondwater:kwaliteitsmeting-monster, grondwater:kwaliteitsmeting-referentiepunt, grondwater:kwaliteitsmeting-resultaten;
+grondwater:kwaliteitsmeting <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondwater:kwaliteitsmeting-diepte, grondwater:kwaliteitsmeting-feature, grondwater:kwaliteitsmeting-labo-datum, grondwater:kwaliteitsmeting-labo, grondwater:kwaliteitsmeting-monster, grondwater:kwaliteitsmeting-referentiepunt, grondwater:kwaliteitsmeting-resultaten;
     a skos:Concept;
     skos:definition "Een kwaliteitsmeting van een pomp- of peilput."@nl;
     skos:inScheme conceptscheme:operationeel_grondwater;
@@ -1709,33 +1639,32 @@ grondwater:kwaliteitsmeting dcterms:isVersionOf grondwater:kwaliteitsmeting;
     sh:class riepr:ObservatieVerzameling;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:uiAfter grondwater:peilmeting.
-grondwater:kwaliteitsmeting_feature dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:onttrekking-einddatum dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:onttrekking-einddatum dcterms:isVersionOf grondwater:onttrekking-einddatum;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:resultTime;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:onttrekking;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Einddatum"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:date;
     riepr-vocab:relevantObservation grondwater:onttrekking-eindmeterstand, grondwater:onttrekking-hoeveelheid;
     riepr-vocab:uiAfter grondwater:onttrekking-startmeterstand.
-grondwater:onttrekking-eindmeterstand dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:onttrekking-eindmeterstand dcterms:isVersionOf grondwater:onttrekking-eindmeterstand;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:onttrekking;
     qudt:relevantUnit csor_eenheid:E_32;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Eindmeterstand"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class riepr:Observatie;
     riepr-vocab:isVerplicht false;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantObservation grondwater:onttrekking;
     riepr-vocab:uiAfter grondwater:onttrekking-einddatum.
-grondwater:onttrekking-feature dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:onttrekking-feature dcterms:isVersionOf grondwater:onttrekking-feature;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:onttrekking;
     a skos:Concept;
@@ -1743,75 +1672,72 @@ grondwater:onttrekking-feature dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:d
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:note "Actieve debietmeters in het productiejaar."@nl;
     skos:prefLabel "Debietmeter"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class sosa:FeatureOfInterest;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantFeatureClass riepr:Onttrekking;
     riepr-vocab:relevantObservation grondwater:onttrekking;
     riepr-vocab:relevantRiepr meetpunt:debietmeter;
     riepr-vocab:uiFirst true.
-grondwater:onttrekking-hoeveelheid dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:onttrekking-hoeveelheid dcterms:isVersionOf grondwater:onttrekking-hoeveelheid;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:onttrekking;
     qudt:relevantUnit csor_eenheid:E_32;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Hoeveelheid"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class riepr:Observatie;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantObservation grondwater:onttrekking;
     riepr-vocab:uiAfter grondwater:onttrekking-type-debiet.
-grondwater:onttrekking-spui dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:onttrekking-spui dcterms:isVersionOf grondwater:onttrekking-spui;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:onttrekking;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Spui meegeteld in rondgepompt debiet"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class schema:PropertyValue;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:boolean;
     riepr-vocab:relevantObservation grondwater:onttrekking;
     riepr-vocab:uiAfter grondwater:onttrekking-hoeveelheid.
-grondwater:onttrekking-startdatum dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:onttrekking-startdatum dcterms:isVersionOf grondwater:onttrekking-startdatum;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:resultTime;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:onttrekking;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Startdatum"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType xsd:date;
     riepr-vocab:relevantObservation grondwater:onttrekking-startmeterstand;
     riepr-vocab:uiAfter grondwater:onttrekking-feature.
-grondwater:onttrekking-startmeterstand dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:onttrekking-startmeterstand dcterms:isVersionOf grondwater:onttrekking-startmeterstand;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:onttrekking;
     qudt:relevantUnit csor_eenheid:E_32;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Startmeterstand"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class riepr:Observatie;
     riepr-vocab:isVerplicht false;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantObservation grondwater:onttrekking;
     riepr-vocab:uiAfter grondwater:onttrekking-startdatum.
-grondwater:onttrekking-type-debiet dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:onttrekking-type-debiet dcterms:isVersionOf grondwater:onttrekking-type-debiet;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation dcterms:type;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:onttrekking;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Type debiet"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_debiettypes;
     riepr-vocab:relevantObservation grondwater:onttrekking;
     riepr-vocab:uiAfter grondwater:onttrekking-eindmeterstand.
-grondwater:onttrekking dcterms:isVersionOf grondwater:onttrekking;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondwater:onttrekking-einddatum, grondwater:onttrekking-eindmeterstand, grondwater:onttrekking-feature, grondwater:onttrekking-hoeveelheid, grondwater:onttrekking-spui, grondwater:onttrekking-startdatum, grondwater:onttrekking-startmeterstand, grondwater:onttrekking-type-debiet;
+grondwater:onttrekking <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondwater:onttrekking-einddatum, grondwater:onttrekking-eindmeterstand, grondwater:onttrekking-feature, grondwater:onttrekking-hoeveelheid, grondwater:onttrekking-spui, grondwater:onttrekking-startdatum, grondwater:onttrekking-startmeterstand, grondwater:onttrekking-type-debiet;
     a skos:Concept;
     skos:definition "Een meting van de onttrekking van een pompput."@nl;
     skos:inScheme conceptscheme:operationeel_grondwater;
@@ -1821,46 +1747,43 @@ grondwater:onttrekking dcterms:isVersionOf grondwater:onttrekking;
     sh:class riepr:ObservatieVerzameling;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:uiFirst true.
-grondwater:onttrekking_feature dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:peilmethode dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:peilmeting-datum dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:peilmeting-datum dcterms:isVersionOf grondwater:peilmeting-datum;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:resultTime;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:peilmeting;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Datum en tijdstip"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType xsd:dateTime;
     riepr-vocab:relevantObservation grondwater:peilmeting;
     riepr-vocab:uiAfter grondwater:peilmeting-feature.
-grondwater:peilmeting-diepte dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:peilmeting-diepte dcterms:isVersionOf grondwater:peilmeting-diepte;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation qudt:numericValue;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:peilmeting;
     qudt:relevantUnit csor_eenheid:E_59;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Diepte/hoogte (TAW) t.o.v. referentiepunt"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantObservation grondwater:peilmeting;
     riepr-vocab:uiFirst true.
-grondwater:peilmeting-duur-stil dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:peilmeting-duur-stil dcterms:isVersionOf grondwater:peilmeting-duur-stil;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:peilmeting;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Duur pompen stil"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class schema:PropertyValue;
     sh:hasValue pomptoestand:rust;
     sh:path grondwater:peilmeting-pomptoestand;
     riepr-vocab:relevantDataType xsd:duration;
     riepr-vocab:relevantObservation grondwater:peilmeting;
     riepr-vocab:uiAfter grondwater:peilmeting-pomptoestand.
-grondwater:peilmeting-feature dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:peilmeting-feature dcterms:isVersionOf grondwater:peilmeting-feature;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:peilmeting;
     a skos:Concept;
@@ -1868,76 +1791,73 @@ grondwater:peilmeting-feature dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:da
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:note "Actieve peil- en pompfilters in het productiejaar."@nl;
     skos:prefLabel "Filter"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class sosa:FeatureOfInterest;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantObservation grondwater:peilmeting;
     riepr-vocab:relevantRiepr filter:peil, filter:pomp;
     riepr-vocab:uiFirst true.
-grondwater:peilmeting-peilmethode dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:peilmeting-peilmethode dcterms:isVersionOf grondwater:peilmeting-peilmethode;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation schema:measurementMethod;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:peilmeting;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Peilmethode"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_peilmethode;
     riepr-vocab:relevantObservation grondwater:peilmeting;
     riepr-vocab:uiAfter grondwater:peilmeting-diepte.
-grondwater:peilmeting-pomptoestand dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:peilmeting-pomptoestand dcterms:isVersionOf grondwater:peilmeting-pomptoestand;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:peilmeting;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Pomptoestand"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class schema:PropertyValue;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_pomptoestand;
     riepr-vocab:relevantObservation grondwater:peilmeting;
     riepr-vocab:uiAfter grondwater:peilmeting-peilmethode.
-grondwater:peilmeting-referentiepunt dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:peilmeting-referentiepunt dcterms:isVersionOf grondwater:peilmeting-referentiepunt;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:peilmeting;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Referentiepunt"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class schema:PropertyValue;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantObservation grondwater:peilmeting;
     riepr-vocab:relevantRiepr meetpunteigenschappen:referentiepunt;
     riepr-vocab:uiAfter grondwater:peilmeting-feature.
-grondwater:peilmeting-volume-rust dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:peilmeting-volume-rust dcterms:isVersionOf grondwater:peilmeting-volume-rust;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:peilmeting;
     qudt:relevantUnit csor_eenheid:E_32;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Volume (8u voor stilstand)"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class schema:PropertyValue;
     sh:hasValue pomptoestand:rust;
     sh:path grondwater:peilmeting-pomptoestand;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantObservation grondwater:peilmeting;
     riepr-vocab:uiAfter grondwater:peilmeting-duur-stil.
-grondwater:peilmeting-volume-werking dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+grondwater:peilmeting-volume-werking dcterms:isVersionOf grondwater:peilmeting-volume-werking;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:peilmeting;
     qudt:relevantUnit csor_eenheid:E_32;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Volume (1 uur voor meting)"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class schema:PropertyValue;
     sh:hasValue pomptoestand:werking;
     sh:path grondwater:peilmeting-pomptoestand;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantObservation grondwater:peilmeting;
     riepr-vocab:uiAfter grondwater:peilmeting-volume-rust.
-grondwater:peilmeting dcterms:isVersionOf grondwater:peilmeting;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondwater:peilmeting-datum, grondwater:peilmeting-diepte, grondwater:peilmeting-duur-stil, grondwater:peilmeting-feature, grondwater:peilmeting-peilmethode, grondwater:peilmeting-pomptoestand, grondwater:peilmeting-referentiepunt, grondwater:peilmeting-volume-rust, grondwater:peilmeting-volume-werking;
+grondwater:peilmeting <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondwater:peilmeting-datum, grondwater:peilmeting-diepte, grondwater:peilmeting-duur-stil, grondwater:peilmeting-feature, grondwater:peilmeting-peilmethode, grondwater:peilmeting-pomptoestand, grondwater:peilmeting-referentiepunt, grondwater:peilmeting-volume-rust, grondwater:peilmeting-volume-werking;
     a skos:Concept;
     skos:definition "Een peilmeting van een pomp- of peilput."@nl;
     skos:inScheme conceptscheme:operationeel_grondwater;
@@ -1947,25 +1867,7 @@ grondwater:peilmeting dcterms:isVersionOf grondwater:peilmeting;
     sh:class riepr:Observatie;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:uiAfter grondwater:onttrekking.
-grondwater:peilmeting_feature dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:periode dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:pomptoestand dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:referentiepunt dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:type-debiet dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:volume-rust dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:volume-werking dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-grondwater:volume dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-lucht:afvalproduct dcterms:isVersionOf lucht:afvalproduct;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:afvalproduct_installatie, lucht:afvalproduct_resultaat;
+lucht:afvalproduct <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:afvalproduct_installatie, lucht:afvalproduct_resultaat;
     a skos:Concept;
     skos:definition "Jaarlijkse productie van een afvalproduct door een installatie."@nl;
     skos:inScheme conceptscheme:operationeel_lucht;
@@ -1975,9 +1877,7 @@ lucht:afvalproduct dcterms:isVersionOf lucht:afvalproduct;
     sh:class riepr:Observatie;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:uiAfter lucht:geproduceerde_stof.
-lucht:afvalproduct_aard dcterms:isVersionOf lucht:afvalproduct_aard;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation rdfs:comment;
+lucht:afvalproduct_aard dcterms:relation rdfs:comment;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:afvalproduct_resultaat;
     a skos:Concept;
     skos:definition "Beschrijving van de aard of samenstelling van het afvalproduct."@nl;
@@ -1986,9 +1886,7 @@ lucht:afvalproduct_aard dcterms:isVersionOf lucht:afvalproduct_aard;
     skos:prefLabel "Aard en/of samenstelling"@nl;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter lucht:afvalproduct_naam.
-lucht:afvalproduct_hoeveelheid dcterms:isVersionOf lucht:afvalproduct_hoeveelheid;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation qudt:numericValue;
+lucht:afvalproduct_hoeveelheid dcterms:relation qudt:numericValue;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:afvalproduct_resultaat;
     qudt:relevantUnit collectie:operationeel_eenheden_stofhoeveelheid;
     a skos:Concept;
@@ -1998,7 +1896,8 @@ lucht:afvalproduct_hoeveelheid dcterms:isVersionOf lucht:afvalproduct_hoeveelhei
     skos:prefLabel "Hoeveelheid afvalproduct"@nl;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:uiAfter lucht:afvalproduct_aard.
-lucht:afvalproduct_installatie dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+lucht:afvalproduct_installatie dcterms:isVersionOf lucht:afvalproduct_installatie;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:afvalproduct;
     a skos:Concept;
@@ -2006,14 +1905,11 @@ lucht:afvalproduct_installatie dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:d
     skos:inScheme conceptscheme:operationeel_lucht;
     skos:note "Installatie waarvoor de jaarlijkse productie van afvalproducten wordt gerapporteerd."@nl;
     skos:prefLabel "Installatie"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class sosa:FeatureOfInterest;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantRiepr riepr:Installatie;
     riepr-vocab:uiFirst true.
-lucht:afvalproduct_naam dcterms:isVersionOf lucht:afvalproduct_naam;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation rdfs:label;
+lucht:afvalproduct_naam dcterms:relation rdfs:label;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:afvalproduct_resultaat;
     a skos:Concept;
     skos:definition "Naam van het afvalproduct."@nl;
@@ -2023,7 +1919,8 @@ lucht:afvalproduct_naam dcterms:isVersionOf lucht:afvalproduct_naam;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiFirst true.
-lucht:afvalproduct_resultaat dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+lucht:afvalproduct_resultaat dcterms:isVersionOf lucht:afvalproduct_resultaat;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasResult;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:afvalproduct;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:afvalproduct_aard, lucht:afvalproduct_hoeveelheid, lucht:afvalproduct_naam;
@@ -2032,13 +1929,10 @@ lucht:afvalproduct_resultaat dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dat
     skos:inScheme conceptscheme:operationeel_lucht;
     skos:note "Het resultaatrecord van het gerapporteerde afvalproduct."@nl;
     skos:prefLabel "Resultaat afvalproduct"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class riepr:Resultaat;
     riepr-vocab:isVerplicht true;
     riepr-vocab:uiAfter lucht:afvalproduct_installatie.
-lucht:brandstof dcterms:isVersionOf lucht:brandstof;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:brandstof_aard, lucht:brandstof_as, lucht:brandstof_installatie, lucht:brandstof_naam, lucht:brandstof_s, lucht:brandstof_verbruik;
+lucht:brandstof <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:brandstof_aard, lucht:brandstof_as, lucht:brandstof_installatie, lucht:brandstof_naam, lucht:brandstof_s, lucht:brandstof_verbruik;
     a skos:Concept;
     skos:definition "Jaarlijks verbruik van een brandstof door een installatie."@nl;
     skos:inScheme conceptscheme:operationeel_lucht;
@@ -2048,7 +1942,8 @@ lucht:brandstof dcterms:isVersionOf lucht:brandstof;
     sh:class riepr:ObservatieVerzameling;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:uiAfter lucht:emissie.
-lucht:brandstof_aard dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+lucht:brandstof_aard dcterms:isVersionOf lucht:brandstof_aard;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:brandstof;
     a skos:Concept;
@@ -2056,13 +1951,10 @@ lucht:brandstof_aard dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
     skos:inScheme conceptscheme:operationeel_lucht;
     skos:note "Beschrijving van de aard of samenstelling van de brandstof."@nl;
     skos:prefLabel "Aard en/of samenstelling"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class schema:PropertyValue;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter lucht:brandstof_naam.
-lucht:brandstof_as dcterms:isVersionOf lucht:brandstof_as;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasMember;
+lucht:brandstof_as dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:brandstof;
     qudt:relevantUnit csor_eenheid:E_43;
     a skos:Concept;
@@ -2073,7 +1965,8 @@ lucht:brandstof_as dcterms:isVersionOf lucht:brandstof_as;
     riepr-vocab:uiAfter lucht:brandstof_s;
     schema:maxValue "100"^^xsd:decimal;
     schema:minValue "0"^^xsd:decimal.
-lucht:brandstof_installatie dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+lucht:brandstof_installatie dcterms:isVersionOf lucht:brandstof_installatie;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:brandstof;
     a skos:Concept;
@@ -2081,14 +1974,11 @@ lucht:brandstof_installatie dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:date
     skos:inScheme conceptscheme:operationeel_lucht;
     skos:note "Installatie waarvoor het jaarlijkse brandstofverbruik wordt gerapporteerd."@nl;
     skos:prefLabel "Installatie"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class sosa:FeatureOfInterest;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantRiepr riepr:Installatie;
     riepr-vocab:uiFirst true.
-lucht:brandstof_naam dcterms:isVersionOf lucht:brandstof_naam;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation rdfs:label;
+lucht:brandstof_naam dcterms:relation rdfs:label;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:brandstof;
     a skos:Concept;
     skos:definition "Naam van de brandstof."@nl;
@@ -2098,9 +1988,7 @@ lucht:brandstof_naam dcterms:isVersionOf lucht:brandstof_naam;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter lucht:brandstof_installatie.
-lucht:brandstof_s dcterms:isVersionOf lucht:brandstof_s;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasMember;
+lucht:brandstof_s dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:brandstof;
     qudt:relevantUnit csor_eenheid:E_43;
     a skos:Concept;
@@ -2111,9 +1999,7 @@ lucht:brandstof_s dcterms:isVersionOf lucht:brandstof_s;
     riepr-vocab:uiAfter lucht:brandstof_aard;
     schema:maxValue "100"^^xsd:decimal;
     schema:minValue "0"^^xsd:decimal.
-lucht:brandstof_verbruik dcterms:isVersionOf lucht:brandstof_verbruik;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasMember;
+lucht:brandstof_verbruik dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:brandstof;
     qudt:relevantUnit csor_eenheid:E_89;
     a skos:Concept;
@@ -2125,9 +2011,7 @@ lucht:brandstof_verbruik dcterms:isVersionOf lucht:brandstof_verbruik;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:uiAfter lucht:brandstof_as.
-lucht:emissie dcterms:isVersionOf lucht:emissie;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:emissie_debiet, lucht:emissie_luchtoverschot, lucht:emissie_oorzaak, lucht:emissie_parameter, lucht:emissie_temperatuur, lucht:emissie_vochtgehalte, lucht:emissie_zuurstofgehalte, lucht:emissieduur, lucht:emissieperiode, lucht:emissieritme, lucht:emissietoestand, lucht:emissietype, lucht:feature_bron, lucht:feature_ep;
+lucht:emissie <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:emissie_debiet, lucht:emissie_luchtoverschot, lucht:emissie_oorzaak, lucht:emissie_parameter, lucht:emissie_temperatuur, lucht:emissie_vochtgehalte, lucht:emissie_zuurstofgehalte, lucht:emissieduur, lucht:emissieperiode, lucht:emissieritme, lucht:emissietoestand, lucht:emissietype, lucht:feature_bron, lucht:feature_ep;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_lucht;
     skos:prefLabel "Emissie"@nl;
@@ -2136,7 +2020,8 @@ lucht:emissie dcterms:isVersionOf lucht:emissie;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:relevantFeatureClass riepr:Emissie;
     riepr-vocab:uiFirst true.
-lucht:emissie_debiet dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+lucht:emissie_debiet dcterms:isVersionOf lucht:emissie_debiet;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie;
     qudt:relevantUnit csor_eenheid:E_175;
@@ -2145,14 +2030,11 @@ lucht:emissie_debiet dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
     skos:inScheme conceptscheme:operationeel_lucht;
     skos:note "Volumedebiet van het rookgas in normaal kubieke meter per uur."@nl;
     skos:prefLabel "Debiet"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class riepr:Observatie;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantObservation lucht:emissie;
     riepr-vocab:uiAfter lucht:emissie_temperatuur.
-lucht:emissie_luchtoverschot dcterms:isVersionOf lucht:emissie_luchtoverschot;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasMember;
+lucht:emissie_luchtoverschot dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie;
     qudt:relevantUnit csor_eenheid:E_43;
     a skos:Concept;
@@ -2162,7 +2044,8 @@ lucht:emissie_luchtoverschot dcterms:isVersionOf lucht:emissie_luchtoverschot;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantObservation lucht:emissie;
     riepr-vocab:uiAfter lucht:emissie_zuurstofgehalte.
-lucht:emissie_oorzaak dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+lucht:emissie_oorzaak dcterms:isVersionOf lucht:emissie_oorzaak;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie;
     a skos:Concept;
@@ -2170,16 +2053,13 @@ lucht:emissie_oorzaak dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
     skos:inScheme conceptscheme:operationeel_lucht;
     skos:note "Beschrijving van de oorzaak van de abnormale emissie."@nl;
     skos:prefLabel "Oorzaak abnormale emissie"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class schema:PropertyValue;
     sh:hasValue emissie:abnormale;
     sh:path lucht:emissietype;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:relevantObservation lucht:emissie;
     riepr-vocab:uiAfter lucht:emissietype.
-lucht:emissie_parameter dcterms:isVersionOf lucht:emissie_parameter;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasMember;
+lucht:emissie_parameter dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:emissie_parameter_parameter, lucht:emissie_parameter_resultaat;
     a skos:Concept;
@@ -2188,9 +2068,7 @@ lucht:emissie_parameter dcterms:isVersionOf lucht:emissie_parameter;
     sh:class riepr:Observatie;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:uiAfter lucht:emissie_debiet.
-lucht:emissie_parameter_massastroom dcterms:isVersionOf lucht:emissie_parameter_massastroom;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation qudt:numericValue;
+lucht:emissie_parameter_massastroom dcterms:relation qudt:numericValue;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie_parameter_resultaat;
     qudt:relevantUnit csor_eenheid:E_13;
     a skos:Concept;
@@ -2202,25 +2080,22 @@ lucht:emissie_parameter_massastroom dcterms:isVersionOf lucht:emissie_parameter_
     riepr-vocab:soortWaartbepaling csor_soortwaardebepaling:SWB_1;
     riepr-vocab:uiAfter lucht:emissie_parameter_standaardafwijking;
     riepr-vocab:variabele lucht:emissie_parameter_parameter.
-lucht:emissie_parameter_meetfrequentie dcterms:isVersionOf lucht:emissie_parameter_meetfrequentie;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation dcterms:accrualPeriodicity;
+lucht:emissie_parameter_meetfrequentie dcterms:relation dcterms:accrualPeriodicity;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie_parameter_resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_lucht;
     skos:prefLabel "Meetfrequentie"@nl;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_zelfcontrole_meetfrequentie;
     riepr-vocab:uiFirst true.
-lucht:emissie_parameter_parameter dcterms:isVersionOf lucht:emissie_parameter_parameter;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:observedProperty;
+lucht:emissie_parameter_parameter dcterms:relation sosa:observedProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie_parameter;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_lucht;
     skos:prefLabel "Stof"@nl;
     riepr-vocab:relevantCodeList collectie:operationeel_stoffen_lucht;
     riepr-vocab:uiFirst true.
-lucht:emissie_parameter_resultaat dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+lucht:emissie_parameter_resultaat dcterms:isVersionOf lucht:emissie_parameter_resultaat;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasResult;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie_parameter;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:emissie_parameter_massastroom, lucht:emissie_parameter_meetfrequentie, lucht:emissie_parameter_standaardafwijking;
@@ -2229,13 +2104,10 @@ lucht:emissie_parameter_resultaat dcterms:created "2026-11-13T08:29:46.479Z"^^xs
     skos:inScheme conceptscheme:operationeel_lucht;
     skos:note "Het resultaatrecord van de gerapporteerde verontreinigende stof of het broeikasgas."@nl;
     skos:prefLabel "Resultaat luchtparameter"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class riepr:Resultaat;
     riepr-vocab:isVerplicht true;
     riepr-vocab:uiAfter lucht:emissie_parameter_parameter.
-lucht:emissie_parameter_standaardafwijking dcterms:isVersionOf lucht:emissie_parameter_standaardafwijking;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation schema:additionalProperty;
+lucht:emissie_parameter_standaardafwijking dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie_parameter_resultaat;
     qudt:relevantUnit csor_eenheid:E_43;
     a skos:Concept;
@@ -2248,9 +2120,7 @@ lucht:emissie_parameter_standaardafwijking dcterms:isVersionOf lucht:emissie_par
     riepr-vocab:soortWaartbepaling csor_soortwaardebepaling:SWB_40;
     riepr-vocab:uiAfter lucht:emissie_parameter_meetfrequentie;
     riepr-vocab:variabele lucht:emissie_parameter_parameter.
-lucht:emissie_temperatuur dcterms:isVersionOf lucht:emissie_temperatuur;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasMember;
+lucht:emissie_temperatuur dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie;
     qudt:relevantUnit csor_eenheid:E_62;
     a skos:Concept;
@@ -2260,9 +2130,7 @@ lucht:emissie_temperatuur dcterms:isVersionOf lucht:emissie_temperatuur;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantObservation lucht:emissie;
     riepr-vocab:uiAfter lucht:emissieduur.
-lucht:emissie_vochtgehalte dcterms:isVersionOf lucht:emissie_vochtgehalte;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasMember;
+lucht:emissie_vochtgehalte dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie;
     qudt:relevantUnit csor_eenheid:E_43;
     a skos:Concept;
@@ -2272,9 +2140,7 @@ lucht:emissie_vochtgehalte dcterms:isVersionOf lucht:emissie_vochtgehalte;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantObservation lucht:emissie;
     riepr-vocab:uiAfter lucht:emissietoestand.
-lucht:emissie_zuurstofgehalte dcterms:isVersionOf lucht:emissie_zuurstofgehalte;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasMember;
+lucht:emissie_zuurstofgehalte dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie;
     qudt:relevantUnit csor_eenheid:E_43;
     a skos:Concept;
@@ -2284,9 +2150,7 @@ lucht:emissie_zuurstofgehalte dcterms:isVersionOf lucht:emissie_zuurstofgehalte;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantObservation lucht:emissie;
     riepr-vocab:uiAfter lucht:emissie_vochtgehalte.
-lucht:emissieduur dcterms:isVersionOf lucht:emissieduur;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation schema:additionalProperty;
+lucht:emissieduur dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie;
     qudt:relevantUnit csor_eenheid:E_94;
     a skos:Concept;
@@ -2298,9 +2162,7 @@ lucht:emissieduur dcterms:isVersionOf lucht:emissieduur;
     riepr-vocab:relevantDataType xsd:integer;
     riepr-vocab:relevantObservation lucht:emissie;
     riepr-vocab:uiAfter lucht:emissieperiode.
-lucht:emissieperiode dcterms:isVersionOf lucht:emissieperiode;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation schema:additionalProperty;
+lucht:emissieperiode dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie;
     a skos:Concept;
     skos:definition "Beschrijving van wanneer er wordt geemitteerd, bijvoorbeeld elke dag van maandag tot vrijdag gedurende 220 dagen per jaar."@nl;
@@ -2311,9 +2173,7 @@ lucht:emissieperiode dcterms:isVersionOf lucht:emissieperiode;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:relevantObservation lucht:emissie;
     riepr-vocab:uiAfter lucht:emissieritme.
-lucht:emissieritme dcterms:isVersionOf lucht:emissieritme;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation schema:additionalProperty;
+lucht:emissieritme dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie;
     a skos:Concept;
     skos:definition "Beschrijving van hoeveel tijd er per tijdseenheid wordt geemitteerd, bijvoorbeeld 8 uur per dag."@nl;
@@ -2324,9 +2184,7 @@ lucht:emissieritme dcterms:isVersionOf lucht:emissieritme;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:relevantObservation lucht:emissie;
     riepr-vocab:uiAfter lucht:emissie_luchtoverschot.
-lucht:emissietoestand dcterms:isVersionOf lucht:emissietoestand;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation schema:additionalProperty;
+lucht:emissietoestand dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie;
     a skos:Concept;
     skos:definition "Geeft aan of de gerapporteerde rookgaswaarden betrekking hebben op nat of droog rookgas."@nl;
@@ -2337,9 +2195,7 @@ lucht:emissietoestand dcterms:isVersionOf lucht:emissietoestand;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_toestand_indicator;
     riepr-vocab:relevantObservation lucht:emissie;
     riepr-vocab:uiAfter lucht:emissie_oorzaak.
-lucht:emissietype dcterms:isVersionOf lucht:emissietype;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation dcterms:type;
+lucht:emissietype dcterms:relation dcterms:type;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_lucht;
@@ -2347,9 +2203,7 @@ lucht:emissietype dcterms:isVersionOf lucht:emissietype;
     riepr-vocab:relevantCodeList conceptscheme:emissietypes;
     riepr-vocab:relevantObservation lucht:emissie;
     riepr-vocab:uiAfter lucht:feature_bron.
-lucht:feature_bron dcterms:isVersionOf lucht:feature_bron;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasFeatureOfInterest;
+lucht:feature_bron dcterms:relation sosa:hasFeatureOfInterest;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie;
     a skos:Concept;
     skos:definition "Selecteer de bron(nen) waarop je wil rapporteren."@nl;
@@ -2363,9 +2217,7 @@ lucht:feature_bron dcterms:isVersionOf lucht:feature_bron;
     riepr-vocab:relevantObservation lucht:emissie;
     riepr-vocab:relevantRiepr riepr:Installatie;
     riepr-vocab:uiAfter lucht:feature_ep.
-lucht:feature_ep dcterms:isVersionOf lucht:feature_ep;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasFeatureOfInterest;
+lucht:feature_ep dcterms:relation sosa:hasFeatureOfInterest;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie;
     a skos:Concept;
     skos:definition "Selecteer het emissiepunt waarop je wil rapporteren."@nl;
@@ -2378,9 +2230,7 @@ lucht:feature_ep dcterms:isVersionOf lucht:feature_ep;
     riepr-vocab:relevantObservation lucht:emissie;
     riepr-vocab:relevantRiepr emissiepunt:emissiepunt_lucht, emissiepunt:fakkel, emissiepunt:gebouw, emissiepunt:installatie, emissiepunt:schoorsteen, emissiepunt:schoorsteen_horizontale_uitstroom, emissiepunt:schoorsteen_verticale_uitstroom;
     riepr-vocab:uiFirst true.
-lucht:geproduceerde_stof dcterms:isVersionOf lucht:geproduceerde_stof;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:geproduceerde_stof_installatie, lucht:geproduceerde_stof_resultaat;
+lucht:geproduceerde_stof <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:geproduceerde_stof_installatie, lucht:geproduceerde_stof_resultaat;
     a skos:Concept;
     skos:definition "Jaarlijkse productie van een stof door een installatie."@nl;
     skos:inScheme conceptscheme:operationeel_lucht;
@@ -2390,9 +2240,7 @@ lucht:geproduceerde_stof dcterms:isVersionOf lucht:geproduceerde_stof;
     sh:class riepr:Observatie;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:uiAfter lucht:verbruikte_stof.
-lucht:geproduceerde_stof_aard dcterms:isVersionOf lucht:geproduceerde_stof_aard;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation rdfs:comment;
+lucht:geproduceerde_stof_aard dcterms:relation rdfs:comment;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:geproduceerde_stof_resultaat;
     a skos:Concept;
     skos:definition "Beschrijving van de aard of samenstelling van de geproduceerde stof."@nl;
@@ -2401,9 +2249,7 @@ lucht:geproduceerde_stof_aard dcterms:isVersionOf lucht:geproduceerde_stof_aard;
     skos:prefLabel "Aard en/of samenstelling"@nl;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter lucht:geproduceerde_stof_naam.
-lucht:geproduceerde_stof_hoeveelheid dcterms:isVersionOf lucht:geproduceerde_stof_hoeveelheid;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation qudt:numericValue;
+lucht:geproduceerde_stof_hoeveelheid dcterms:relation qudt:numericValue;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:geproduceerde_stof_resultaat;
     qudt:relevantUnit collectie:operationeel_eenheden_stofhoeveelheid;
     a skos:Concept;
@@ -2413,7 +2259,8 @@ lucht:geproduceerde_stof_hoeveelheid dcterms:isVersionOf lucht:geproduceerde_sto
     skos:prefLabel "Productie"@nl;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:uiAfter lucht:geproduceerde_stof_aard.
-lucht:geproduceerde_stof_installatie dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+lucht:geproduceerde_stof_installatie dcterms:isVersionOf lucht:geproduceerde_stof_installatie;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:geproduceerde_stof;
     a skos:Concept;
@@ -2421,14 +2268,11 @@ lucht:geproduceerde_stof_installatie dcterms:created "2026-11-13T08:29:46.479Z"^
     skos:inScheme conceptscheme:operationeel_lucht;
     skos:note "Installatie waarvoor de jaarlijkse stofproductie wordt gerapporteerd."@nl;
     skos:prefLabel "Installatie"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class sosa:FeatureOfInterest;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantRiepr riepr:Installatie;
     riepr-vocab:uiFirst true.
-lucht:geproduceerde_stof_naam dcterms:isVersionOf lucht:geproduceerde_stof_naam;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation rdfs:label;
+lucht:geproduceerde_stof_naam dcterms:relation rdfs:label;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:geproduceerde_stof_resultaat;
     a skos:Concept;
     skos:definition "Naam van de geproduceerde stof."@nl;
@@ -2438,7 +2282,8 @@ lucht:geproduceerde_stof_naam dcterms:isVersionOf lucht:geproduceerde_stof_naam;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiFirst true.
-lucht:geproduceerde_stof_resultaat dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+lucht:geproduceerde_stof_resultaat dcterms:isVersionOf lucht:geproduceerde_stof_resultaat;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasResult;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:geproduceerde_stof;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:geproduceerde_stof_aard, lucht:geproduceerde_stof_hoeveelheid, lucht:geproduceerde_stof_naam;
@@ -2447,13 +2292,10 @@ lucht:geproduceerde_stof_resultaat dcterms:created "2026-11-13T08:29:46.479Z"^^x
     skos:inScheme conceptscheme:operationeel_lucht;
     skos:note "Het resultaatrecord van de gerapporteerde geproduceerde stof."@nl;
     skos:prefLabel "Resultaat geproduceerde stof"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class riepr:Resultaat;
     riepr-vocab:isVerplicht true;
     riepr-vocab:uiAfter lucht:geproduceerde_stof_installatie.
-lucht:verbruikte_stof dcterms:isVersionOf lucht:verbruikte_stof;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:verbruikte_stof_installatie, lucht:verbruikte_stof_naam, lucht:verbruikte_stof_resultaat;
+lucht:verbruikte_stof <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:verbruikte_stof_installatie, lucht:verbruikte_stof_naam, lucht:verbruikte_stof_resultaat;
     a skos:Concept;
     skos:definition "Jaarlijks verbruik van een stof door een installatie."@nl;
     skos:inScheme conceptscheme:operationeel_lucht;
@@ -2463,9 +2305,7 @@ lucht:verbruikte_stof dcterms:isVersionOf lucht:verbruikte_stof;
     sh:class riepr:Observatie;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:uiAfter lucht:brandstof.
-lucht:verbruikte_stof_aard dcterms:isVersionOf lucht:verbruikte_stof_aard;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation rdfs:comment;
+lucht:verbruikte_stof_aard dcterms:relation rdfs:comment;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:verbruikte_stof_resultaat;
     a skos:Concept;
     skos:definition "Beschrijving van de aard of samenstelling van de verbruikte stof."@nl;
@@ -2474,9 +2314,7 @@ lucht:verbruikte_stof_aard dcterms:isVersionOf lucht:verbruikte_stof_aard;
     skos:prefLabel "Aard en/of samenstelling"@nl;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiFirst true.
-lucht:verbruikte_stof_hoeveelheid dcterms:isVersionOf lucht:verbruikte_stof_hoeveelheid;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation qudt:numericValue;
+lucht:verbruikte_stof_hoeveelheid dcterms:relation qudt:numericValue;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:verbruikte_stof_resultaat;
     qudt:relevantUnit collectie:operationeel_eenheden_stofhoeveelheid;
     a skos:Concept;
@@ -2487,7 +2325,8 @@ lucht:verbruikte_stof_hoeveelheid dcterms:isVersionOf lucht:verbruikte_stof_hoev
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:uiAfter lucht:verbruikte_stof_aard.
-lucht:verbruikte_stof_installatie dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+lucht:verbruikte_stof_installatie dcterms:isVersionOf lucht:verbruikte_stof_installatie;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:verbruikte_stof;
     a skos:Concept;
@@ -2495,14 +2334,11 @@ lucht:verbruikte_stof_installatie dcterms:created "2026-11-13T08:29:46.479Z"^^xs
     skos:inScheme conceptscheme:operationeel_lucht;
     skos:note "Installatie waarvoor het jaarlijkse stofverbruik wordt gerapporteerd."@nl;
     skos:prefLabel "Installatie"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class sosa:FeatureOfInterest;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantRiepr riepr:Installatie;
     riepr-vocab:uiFirst true.
-lucht:verbruikte_stof_naam dcterms:isVersionOf lucht:verbruikte_stof_naam;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation rdfs:label;
+lucht:verbruikte_stof_naam dcterms:relation rdfs:label;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:verbruikte_stof;
     a skos:Concept;
     skos:definition "Naam van de verbruikte stof."@nl;
@@ -2512,7 +2348,8 @@ lucht:verbruikte_stof_naam dcterms:isVersionOf lucht:verbruikte_stof_naam;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter lucht:verbruikte_stof_installatie.
-lucht:verbruikte_stof_resultaat dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+lucht:verbruikte_stof_resultaat dcterms:isVersionOf lucht:verbruikte_stof_resultaat;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasResult;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:verbruikte_stof;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:verbruikte_stof_aard, lucht:verbruikte_stof_hoeveelheid;
@@ -2521,7 +2358,6 @@ lucht:verbruikte_stof_resultaat dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:
     skos:inScheme conceptscheme:operationeel_lucht;
     skos:note "Het resultaatrecord van de gerapporteerde verbruikte stof."@nl;
     skos:prefLabel "Resultaat verbruikte stof"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class riepr:Resultaat;
     riepr-vocab:isVerplicht true;
     riepr-vocab:uiAfter lucht:verbruikte_stof_naam.
@@ -2573,7 +2409,8 @@ toestand-indicator:nat a skos:Concept;
     skos:inScheme conceptscheme:operationeel_toestand_indicator;
     skos:prefLabel "Nat"@nl;
     skos:topConceptOf conceptscheme:operationeel_toestand_indicator.
-water:abnormale-lozing-feature dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+water:abnormale-lozing-feature dcterms:isVersionOf water:abnormale-lozing-feature;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasFeatureOfInterest;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:abnormale-lozing;
     a skos:Concept;
@@ -2581,16 +2418,13 @@ water:abnormale-lozing-feature dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:d
     skos:inScheme conceptscheme:operationeel_water;
     skos:note "De controleinrichting waarvoor de abnormale lozing wordt gerapporteerd."@nl;
     skos:prefLabel "Controleinrichting"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class sosa:FeatureOfInterest;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantFeatureClass riepr:Emissie;
     riepr-vocab:relevantObservation water:abnormale-lozing;
     riepr-vocab:relevantRiepr meetpunt:controleinrichting;
     riepr-vocab:uiFirst true.
-water:abnormale-lozing-jaarvracht dcterms:isVersionOf water:abnormale-lozing-jaarvracht;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation qudt:numericValue;
+water:abnormale-lozing-jaarvracht dcterms:relation qudt:numericValue;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:abnormale-lozing-resultaat;
     qudt:relevantUnit csor_eenheid:E_12;
     a skos:Concept;
@@ -2602,9 +2436,7 @@ water:abnormale-lozing-jaarvracht dcterms:isVersionOf water:abnormale-lozing-jaa
     riepr-vocab:soortWaartbepaling csor_soortwaardebepaling:SWB_1;
     riepr-vocab:uiAfter water:abnormale-lozing-lozingsduur;
     riepr-vocab:variabele water:abnormale-lozing-stof.
-water:abnormale-lozing-lozingsduur dcterms:isVersionOf water:abnormale-lozing-lozingsduur;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation schema:additionalProperty;
+water:abnormale-lozing-lozingsduur dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:abnormale-lozing-resultaat;
     qudt:relevantUnit csor_eenheid:E_94;
     a skos:Concept;
@@ -2614,7 +2446,8 @@ water:abnormale-lozing-lozingsduur dcterms:isVersionOf water:abnormale-lozing-lo
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:integer;
     riepr-vocab:uiFirst true.
-water:abnormale-lozing-resultaat dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+water:abnormale-lozing-resultaat dcterms:isVersionOf water:abnormale-lozing-resultaat;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasResult;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:abnormale-lozing;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> water:abnormale-lozing-jaarvracht, water:abnormale-lozing-lozingsduur, water:abnormale-lozing-verklaring;
@@ -2623,13 +2456,10 @@ water:abnormale-lozing-resultaat dcterms:created "2026-11-13T08:29:46.479Z"^^xsd
     skos:inScheme conceptscheme:operationeel_water;
     skos:note "Het resultaatrecord van de gerapporteerde abnormale lozing."@nl;
     skos:prefLabel "Resultaat abnormale lozing"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class riepr:Resultaat;
     riepr-vocab:isVerplicht true;
     riepr-vocab:uiAfter water:abnormale-lozing-stof.
-water:abnormale-lozing-stof dcterms:isVersionOf water:abnormale-lozing-stof;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:observedProperty;
+water:abnormale-lozing-stof dcterms:relation sosa:observedProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:abnormale-lozing;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_water;
@@ -2637,18 +2467,14 @@ water:abnormale-lozing-stof dcterms:isVersionOf water:abnormale-lozing-stof;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList collectie:operationeel_stoffen_water;
     riepr-vocab:uiAfter water:abnormale-lozing-feature.
-water:abnormale-lozing-verklaring dcterms:isVersionOf water:abnormale-lozing-verklaring;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation rdfs:comment;
+water:abnormale-lozing-verklaring dcterms:relation rdfs:comment;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:abnormale-lozing-resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_water;
     skos:prefLabel "Verklaring"@nl;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter water:abnormale-lozing-jaarvracht.
-water:abnormale-lozing dcterms:isVersionOf water:abnormale-lozing;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> water:abnormale-lozing-feature, water:abnormale-lozing-resultaat, water:abnormale-lozing-stof;
+water:abnormale-lozing <http://purl.org/iso25964/skos-thes#narrowerPartitive> water:abnormale-lozing-feature, water:abnormale-lozing-resultaat, water:abnormale-lozing-stof;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_water;
     skos:prefLabel "Abnormale lozing"@nl;
@@ -2657,9 +2483,7 @@ water:abnormale-lozing dcterms:isVersionOf water:abnormale-lozing;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:isVerplicht false;
     riepr-vocab:uiAfter water:lozing.
-water:feature dcterms:isVersionOf water:feature;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasFeatureOfInterest;
+water:feature dcterms:relation sosa:hasFeatureOfInterest;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:lozing;
     a skos:Concept;
     skos:definition "De controleinrichting waarvoor de jaarlijkse lozing wordt gerapporteerd."@nl;
@@ -2672,18 +2496,14 @@ water:feature dcterms:isVersionOf water:feature;
     riepr-vocab:relevantObservation water:lozing;
     riepr-vocab:relevantRiepr meetpunt:controleinrichting;
     riepr-vocab:uiFirst true.
-water:lozing-bepalingsmethode dcterms:isVersionOf water:lozing-bepalingsmethode;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation dcterms:type;
+water:lozing-bepalingsmethode dcterms:relation dcterms:type;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:lozing-procedure;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_water;
     skos:prefLabel "Bepalingsmethode"@nl;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_bepalingsmethode;
     riepr-vocab:uiFirst true.
-water:lozing-bepalingsmethodeclassificatie dcterms:isVersionOf water:lozing-bepalingsmethodeclassificatie;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation schema:additionalProperty;
+water:lozing-bepalingsmethodeclassificatie dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:lozing-procedure;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_water;
@@ -2691,9 +2511,7 @@ water:lozing-bepalingsmethodeclassificatie dcterms:isVersionOf water:lozing-bepa
     sh:class schema:PropertyValue;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_bepalingsmethodeclassificatie;
     riepr-vocab:uiAfter water:lozing-bepalingsmethode.
-water:lozing-concentratie dcterms:isVersionOf water:lozing-concentratie;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasMember;
+water:lozing-concentratie dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:lozing-parameter;
     qudt:relevantUnit csor_eenheid:E_1;
     a skos:Concept;
@@ -2707,9 +2525,7 @@ water:lozing-concentratie dcterms:isVersionOf water:lozing-concentratie;
     riepr-vocab:soortWaartbepaling csor_soortwaardebepaling:SWB_1;
     riepr-vocab:uiAfter water:lozing-meetfrequentie;
     riepr-vocab:variabele water:lozing-stof.
-water:lozing-dagen dcterms:isVersionOf water:lozing-dagen;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasMember;
+water:lozing-dagen dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:lozing;
     qudt:relevantUnit csor_eenheid:E_83;
     a skos:Concept;
@@ -2720,9 +2536,7 @@ water:lozing-dagen dcterms:isVersionOf water:lozing-dagen;
     riepr-vocab:relevantDataType xsd:integer;
     riepr-vocab:relevantObservation water:lozing;
     riepr-vocab:uiAfter water:lozing-debiet.
-water:lozing-debiet dcterms:isVersionOf water:lozing-debiet;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasMember;
+water:lozing-debiet dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:lozing;
     qudt:relevantUnit csor_eenheid:E_50;
     a skos:Concept;
@@ -2733,9 +2547,7 @@ water:lozing-debiet dcterms:isVersionOf water:lozing-debiet;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:relevantObservation water:lozing;
     riepr-vocab:uiAfter water:feature.
-water:lozing-jaarvracht dcterms:isVersionOf water:lozing-jaarvracht;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasMember;
+water:lozing-jaarvracht dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:lozing-parameter;
     qudt:relevantUnit csor_eenheid:E_12;
     a skos:Concept;
@@ -2749,9 +2561,7 @@ water:lozing-jaarvracht dcterms:isVersionOf water:lozing-jaarvracht;
     riepr-vocab:soortWaartbepaling csor_soortwaardebepaling:SWB_1;
     riepr-vocab:uiAfter water:lozing-concentratie;
     riepr-vocab:variabele water:lozing-stof.
-water:lozing-meetfrequentie dcterms:isVersionOf water:lozing-meetfrequentie;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation schema:additionalProperty;
+water:lozing-meetfrequentie dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:lozing-parameter;
     a skos:Concept;
     skos:definition "Aantal metingen van deze stof tijdens het rapporteringsjaar."@nl;
@@ -2763,7 +2573,8 @@ water:lozing-meetfrequentie dcterms:isVersionOf water:lozing-meetfrequentie;
     riepr-vocab:relevantObservation water:lozing-parameter;
     riepr-vocab:uiAfter water:lozing-stof;
     schema:minValue "0"^^xsd:decimal.
-water:lozing-parameter dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+water:lozing-parameter dcterms:isVersionOf water:lozing-parameter;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:lozing;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> water:lozing-concentratie, water:lozing-jaarvracht, water:lozing-meetfrequentie, water:lozing-procedure, water:lozing-stof;
@@ -2772,13 +2583,13 @@ water:lozing-parameter dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
     skos:inScheme conceptscheme:operationeel_water;
     skos:note "De concentratie en de jaarvracht van een verontreinigende stof in de jaarlijkse lozing."@nl;
     skos:prefLabel "Stoffen in waterstromen"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class riepr:ObservatieVerzameling;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantObservation water:lozing;
     riepr-vocab:uiAfter water:lozing-dagen.
-water:lozing-procedure dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+water:lozing-procedure dcterms:isVersionOf water:lozing-procedure;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:usedProcedure;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:lozing-parameter;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> water:lozing-bepalingsmethode, water:lozing-bepalingsmethodeclassificatie;
@@ -2787,13 +2598,10 @@ water:lozing-procedure dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
     skos:inScheme conceptscheme:operationeel_water;
     skos:note "De gedeelde bepalingsprocedure met de bepalingsmethode en de bijbehorende classificatie."@nl;
     skos:prefLabel "Bepalingsprocedure"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class sosa:Procedure;
     riepr-vocab:relevantObservation water:lozing-parameter;
     riepr-vocab:uiAfter water:lozing-jaarvracht.
-water:lozing-stof dcterms:isVersionOf water:lozing-stof;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation schema:additionalProperty;
+water:lozing-stof dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:lozing-parameter;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_water;
@@ -2803,9 +2611,7 @@ water:lozing-stof dcterms:isVersionOf water:lozing-stof;
     riepr-vocab:relevantCodeList collectie:operationeel_stoffen_water;
     riepr-vocab:relevantObservation water:lozing-parameter;
     riepr-vocab:uiFirst true.
-water:lozing dcterms:isVersionOf water:lozing;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> water:feature, water:lozing-dagen, water:lozing-debiet, water:lozing-parameter;
+water:lozing <http://purl.org/iso25964/skos-thes#narrowerPartitive> water:feature, water:lozing-dagen, water:lozing-debiet, water:lozing-parameter;
     a skos:Concept;
     skos:definition "Jaarlijkse lozing per controleinrichting met het jaardebiet en de gerapporteerde verontreinigende stoffen."@nl;
     skos:inScheme conceptscheme:operationeel_water;
@@ -2817,9 +2623,7 @@ water:lozing dcterms:isVersionOf water:lozing;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantFeatureClass riepr:Emissie;
     riepr-vocab:uiFirst true.
-zelfcontrole-lucht:datum dcterms:isVersionOf zelfcontrole-lucht:datum;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:resultTime;
+zelfcontrole-lucht:datum dcterms:relation sosa:resultTime;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:meting;
     a skos:Concept;
     skos:definition "Het exacte tijdstip van de meting of het starttijdstip als de meting over meerdere dagen plaatsvindt."@nl;
@@ -2830,9 +2634,7 @@ zelfcontrole-lucht:datum dcterms:isVersionOf zelfcontrole-lucht:datum;
     riepr-vocab:relevantDataType xsd:dateTime;
     riepr-vocab:relevantObservation zelfcontrole-lucht:meting;
     riepr-vocab:uiAfter zelfcontrole-lucht:feature.
-zelfcontrole-lucht:feature dcterms:isVersionOf zelfcontrole-lucht:feature;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasFeatureOfInterest;
+zelfcontrole-lucht:feature dcterms:relation sosa:hasFeatureOfInterest;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:meting;
     a skos:Concept;
     skos:definition "Het emissiepunt waarop de zelfcontrolemeting wordt gerapporteerd."@nl;
@@ -2845,18 +2647,14 @@ zelfcontrole-lucht:feature dcterms:isVersionOf zelfcontrole-lucht:feature;
     riepr-vocab:relevantObservation zelfcontrole-lucht:meting;
     riepr-vocab:relevantRiepr conceptscheme:emissiepunttypes;
     riepr-vocab:uiFirst true.
-zelfcontrole-lucht:labo-id dcterms:isVersionOf zelfcontrole-lucht:labo-id;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation rov:registration;
+zelfcontrole-lucht:labo-id dcterms:relation rov:registration;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:labo;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_lucht;
     skos:prefLabel "KBO nummer of BTW nummer"@nl;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter zelfcontrole-lucht:labo-naam.
-zelfcontrole-lucht:labo-naam dcterms:isVersionOf zelfcontrole-lucht:labo-naam;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation rdfs:label;
+zelfcontrole-lucht:labo-naam dcterms:relation rdfs:label;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:labo;
     a skos:Concept;
     skos:definition "De naam van het labo."@nl;
@@ -2866,9 +2664,7 @@ zelfcontrole-lucht:labo-naam dcterms:isVersionOf zelfcontrole-lucht:labo-naam;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiFirst true.
-zelfcontrole-lucht:labo dcterms:isVersionOf zelfcontrole-lucht:labo;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation prov:wasAssociatedWith;
+zelfcontrole-lucht:labo dcterms:relation prov:wasAssociatedWith;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:meting;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> zelfcontrole-lucht:labo-id, zelfcontrole-lucht:labo-naam;
     a skos:Concept;
@@ -2877,9 +2673,7 @@ zelfcontrole-lucht:labo dcterms:isVersionOf zelfcontrole-lucht:labo;
     sh:class prov:Agent;
     riepr-vocab:relevantObservation zelfcontrole-lucht:meting;
     riepr-vocab:uiAfter zelfcontrole-lucht:datum.
-zelfcontrole-lucht:meting dcterms:isVersionOf zelfcontrole-lucht:meting;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> zelfcontrole-lucht:datum, zelfcontrole-lucht:feature, zelfcontrole-lucht:labo, zelfcontrole-lucht:parameter;
+zelfcontrole-lucht:meting <http://purl.org/iso25964/skos-thes#narrowerPartitive> zelfcontrole-lucht:datum, zelfcontrole-lucht:feature, zelfcontrole-lucht:labo, zelfcontrole-lucht:parameter;
     a skos:Concept;
     skos:definition "Een zelfcontrolemeting op een emissiepunt en een exact meettijdstip met laboratoriummetadata en herhaalbare parameterresultaten."@nl;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_lucht;
@@ -2890,7 +2684,8 @@ zelfcontrole-lucht:meting dcterms:isVersionOf zelfcontrole-lucht:meting;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:relevantFeatureClass riepr:Emissie;
     riepr-vocab:uiFirst true.
-zelfcontrole-lucht:parameter-bron-meetfrequentie dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+zelfcontrole-lucht:parameter-bron-meetfrequentie dcterms:isVersionOf zelfcontrole-lucht:parameter-bron-meetfrequentie;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:parameter-resultaat;
     a skos:Concept;
@@ -2898,13 +2693,10 @@ zelfcontrole-lucht:parameter-bron-meetfrequentie dcterms:created "2026-11-13T08:
     skos:inScheme conceptscheme:operationeel_zelfcontrole_lucht;
     skos:note "De herkomst van de gehanteerde meetfrequentie. Tijdelijk vrije tekst zolang de definitieve limitatieve lijst niet is vastgesteld."@nl;
     skos:prefLabel "Bron meetfrequentie"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class schema:PropertyValue;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter zelfcontrole-lucht:parameter-meetfrequentie.
-zelfcontrole-lucht:parameter-concentratie dcterms:isVersionOf zelfcontrole-lucht:parameter-concentratie;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation qudt:numericValue;
+zelfcontrole-lucht:parameter-concentratie dcterms:relation qudt:numericValue;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:parameter-resultaat;
     qudt:relevantUnit collectie:operationeel_eenheden_zelfcontrole_lucht_concentratie;
     a skos:Concept;
@@ -2917,14 +2709,14 @@ zelfcontrole-lucht:parameter-concentratie dcterms:isVersionOf zelfcontrole-lucht
     riepr-vocab:uiAfter zelfcontrole-lucht:parameter-soort;
     riepr-vocab:variabele zelfcontrole-lucht:parameter-parameter;
     schema:minValue "0"^^xsd:decimal.
-zelfcontrole-lucht:parameter-massastroom dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+zelfcontrole-lucht:parameter-massastroom dcterms:isVersionOf zelfcontrole-lucht:parameter-massastroom;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:parameter-resultaat;
     qudt:relevantUnit collectie:operationeel_eenheden_zelfcontrole_lucht_massastroom;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_lucht;
     skos:prefLabel "Massastroom"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class schema:PropertyValue;
     riepr-vocab:drager csor_drager:DR_8;
     riepr-vocab:kwantiteitsAspect csor_kwantificeerbaaraspect:KWA_2;
@@ -2933,9 +2725,7 @@ zelfcontrole-lucht:parameter-massastroom dcterms:created "2026-11-13T08:29:46.47
     riepr-vocab:uiAfter zelfcontrole-lucht:parameter-meetonzekerheid;
     riepr-vocab:variabele zelfcontrole-lucht:parameter-parameter;
     schema:minValue "0"^^xsd:decimal.
-zelfcontrole-lucht:parameter-meetfrequentie dcterms:isVersionOf zelfcontrole-lucht:parameter-meetfrequentie;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation schema:additionalProperty;
+zelfcontrole-lucht:parameter-meetfrequentie dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:parameter-resultaat;
     a skos:Concept;
     skos:definition "De voor dit meetresultaat gehanteerde meetfrequentie. Tijdelijk vrije tekst zolang de definitieve limitatieve lijst niet is vastgesteld."@nl;
@@ -2945,9 +2735,7 @@ zelfcontrole-lucht:parameter-meetfrequentie dcterms:isVersionOf zelfcontrole-luc
     sh:class schema:PropertyValue;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter zelfcontrole-lucht:parameter-massastroom.
-zelfcontrole-lucht:parameter-meetonzekerheid dcterms:isVersionOf zelfcontrole-lucht:parameter-meetonzekerheid;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation schema:additionalProperty;
+zelfcontrole-lucht:parameter-meetonzekerheid dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:parameter-resultaat;
     qudt:relevantUnit csor_eenheid:E_43;
     a skos:Concept;
@@ -2962,9 +2750,7 @@ zelfcontrole-lucht:parameter-meetonzekerheid dcterms:isVersionOf zelfcontrole-lu
     riepr-vocab:variabele zelfcontrole-lucht:parameter-parameter;
     schema:maxValue "100"^^xsd:decimal;
     schema:minValue "0"^^xsd:decimal.
-zelfcontrole-lucht:parameter-parameter dcterms:isVersionOf zelfcontrole-lucht:parameter-parameter;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:observedProperty;
+zelfcontrole-lucht:parameter-parameter dcterms:relation sosa:observedProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:parameter;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_lucht;
@@ -2972,7 +2758,8 @@ zelfcontrole-lucht:parameter-parameter dcterms:isVersionOf zelfcontrole-lucht:pa
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList collectie:operationeel_stoffen_lucht;
     riepr-vocab:uiFirst true.
-zelfcontrole-lucht:parameter-resultaat dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+zelfcontrole-lucht:parameter-resultaat dcterms:isVersionOf zelfcontrole-lucht:parameter-resultaat;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasResult;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:parameter;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> zelfcontrole-lucht:parameter-bron-meetfrequentie, zelfcontrole-lucht:parameter-concentratie, zelfcontrole-lucht:parameter-massastroom, zelfcontrole-lucht:parameter-meetfrequentie, zelfcontrole-lucht:parameter-meetonzekerheid, zelfcontrole-lucht:parameter-soort;
@@ -2981,13 +2768,10 @@ zelfcontrole-lucht:parameter-resultaat dcterms:created "2026-11-13T08:29:46.479Z
     skos:inScheme conceptscheme:operationeel_zelfcontrole_lucht;
     skos:note "Het resultaatrecord van de parameter bij de zelfcontrole van lucht."@nl;
     skos:prefLabel "Resultaat parameter"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class riepr:Resultaat;
     riepr-vocab:isVerplicht true;
     riepr-vocab:uiAfter zelfcontrole-lucht:parameter-parameter.
-zelfcontrole-lucht:parameter-soort dcterms:isVersionOf zelfcontrole-lucht:parameter-soort;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation schema:additionalProperty;
+zelfcontrole-lucht:parameter-soort dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:parameter-resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_lucht;
@@ -2995,9 +2779,7 @@ zelfcontrole-lucht:parameter-soort dcterms:isVersionOf zelfcontrole-lucht:parame
     sh:class schema:PropertyValue;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiFirst true.
-zelfcontrole-lucht:parameter dcterms:isVersionOf zelfcontrole-lucht:parameter;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasMember;
+zelfcontrole-lucht:parameter dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:meting;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> zelfcontrole-lucht:parameter-parameter, zelfcontrole-lucht:parameter-resultaat;
     a skos:Concept;
@@ -3008,9 +2790,7 @@ zelfcontrole-lucht:parameter dcterms:isVersionOf zelfcontrole-lucht:parameter;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantObservation zelfcontrole-lucht:meting;
     riepr-vocab:uiAfter zelfcontrole-lucht:labo.
-zelfcontrole-water:datum dcterms:isVersionOf zelfcontrole-water:datum;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:resultTime;
+zelfcontrole-water:datum dcterms:relation sosa:resultTime;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:meting;
     a skos:Concept;
     skos:definition "Het exacte tijdstip van de meting of het starttijdstip als de meting over meerdere dagen plaatsvindt."@nl;
@@ -3021,18 +2801,16 @@ zelfcontrole-water:datum dcterms:isVersionOf zelfcontrole-water:datum;
     riepr-vocab:relevantDataType xsd:dateTime;
     riepr-vocab:relevantObservation zelfcontrole-water:meting;
     riepr-vocab:uiAfter zelfcontrole-water:feature.
-zelfcontrole-water:debietgebonden_mengmonster dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+zelfcontrole-water:debietgebonden_mengmonster dcterms:isVersionOf zelfcontrole-water:debietgebonden_mengmonster;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "Een debietgebonden mengmonster bij de zelfcontrole van oppervlaktewater."@nl;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_soort_monstername;
     skos:note "Een debietgebonden mengmonster bij de zelfcontrole van oppervlaktewater."@nl;
     skos:prefLabel "Debietgebonden mengmonster"@nl;
     skos:topConceptOf conceptscheme:operationeel_zelfcontrole_soort_monstername;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:uiAfter zelfcontrole-water:tijdsgebonden_mengmonster.
-zelfcontrole-water:feature dcterms:isVersionOf zelfcontrole-water:feature;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasFeatureOfInterest;
+zelfcontrole-water:feature dcterms:relation sosa:hasFeatureOfInterest;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:meting;
     a skos:Concept;
     skos:definition "De controleinrichting waarop de zelfcontrolemeting wordt gerapporteerd."@nl;
@@ -3044,18 +2822,14 @@ zelfcontrole-water:feature dcterms:isVersionOf zelfcontrole-water:feature;
     riepr-vocab:relevantObservation zelfcontrole-water:meting;
     riepr-vocab:relevantRiepr meetpunt:controleinrichting;
     riepr-vocab:uiFirst true.
-zelfcontrole-water:labo-id dcterms:isVersionOf zelfcontrole-water:labo-id;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation rov:registration;
+zelfcontrole-water:labo-id dcterms:relation rov:registration;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:labo;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_water;
     skos:prefLabel "KBO nummer of BTW nummer"@nl;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter zelfcontrole-water:labo-naam.
-zelfcontrole-water:labo-naam dcterms:isVersionOf zelfcontrole-water:labo-naam;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation rdfs:label;
+zelfcontrole-water:labo-naam dcterms:relation rdfs:label;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:labo;
     a skos:Concept;
     skos:definition "De naam van het labo."@nl;
@@ -3065,9 +2839,7 @@ zelfcontrole-water:labo-naam dcterms:isVersionOf zelfcontrole-water:labo-naam;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiFirst true.
-zelfcontrole-water:labo dcterms:isVersionOf zelfcontrole-water:labo;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation prov:wasAssociatedWith;
+zelfcontrole-water:labo dcterms:relation prov:wasAssociatedWith;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:meting;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> zelfcontrole-water:labo-id, zelfcontrole-water:labo-naam;
     a skos:Concept;
@@ -3076,9 +2848,7 @@ zelfcontrole-water:labo dcterms:isVersionOf zelfcontrole-water:labo;
     sh:class prov:Agent;
     riepr-vocab:relevantObservation zelfcontrole-water:meting;
     riepr-vocab:uiAfter zelfcontrole-water:datum.
-zelfcontrole-water:meting dcterms:isVersionOf zelfcontrole-water:meting;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> zelfcontrole-water:datum, zelfcontrole-water:feature, zelfcontrole-water:labo, zelfcontrole-water:parameter;
+zelfcontrole-water:meting <http://purl.org/iso25964/skos-thes#narrowerPartitive> zelfcontrole-water:datum, zelfcontrole-water:feature, zelfcontrole-water:labo, zelfcontrole-water:parameter;
     a skos:Concept;
     skos:definition "Een zelfcontrolemeting op een controleinrichting en een exact meettijdstip met laboratoriummetadata en herhaalbare parameterresultaten."@nl;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_water;
@@ -3088,7 +2858,8 @@ zelfcontrole-water:meting dcterms:isVersionOf zelfcontrole-water:meting;
     sh:class riepr:ObservatieVerzameling;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:uiFirst true.
-zelfcontrole-water:parameter-bron-meetfrequentie dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+zelfcontrole-water:parameter-bron-meetfrequentie dcterms:isVersionOf zelfcontrole-water:parameter-bron-meetfrequentie;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:parameter-resultaat;
     a skos:Concept;
@@ -3096,13 +2867,10 @@ zelfcontrole-water:parameter-bron-meetfrequentie dcterms:created "2026-11-13T08:
     skos:inScheme conceptscheme:operationeel_zelfcontrole_water;
     skos:note "De herkomst van de gehanteerde meetfrequentie. Tijdelijk vrije tekst zolang de definitieve limitatieve lijst niet is vastgesteld."@nl;
     skos:prefLabel "Bron meetfrequentie"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class schema:PropertyValue;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter zelfcontrole-water:parameter-meetfrequentie.
-zelfcontrole-water:parameter-concentratie dcterms:isVersionOf zelfcontrole-water:parameter-concentratie;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation qudt:numericValue;
+zelfcontrole-water:parameter-concentratie dcterms:relation qudt:numericValue;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:parameter-resultaat;
     qudt:relevantUnit collectie:operationeel_eenheden_zelfcontrole_water_concentratie;
     a skos:Concept;
@@ -3115,7 +2883,8 @@ zelfcontrole-water:parameter-concentratie dcterms:isVersionOf zelfcontrole-water
     riepr-vocab:uiAfter zelfcontrole-water:parameter-soort;
     riepr-vocab:variabele zelfcontrole-water:parameter-parameter;
     schema:minValue "0"^^xsd:decimal.
-zelfcontrole-water:parameter-grenswaarde dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+zelfcontrole-water:parameter-grenswaarde dcterms:isVersionOf zelfcontrole-water:parameter-grenswaarde;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:parameter-resultaat;
     qudt:relevantUnit collectie:operationeel_eenheden_zelfcontrole_water_concentratie;
@@ -3124,13 +2893,10 @@ zelfcontrole-water:parameter-grenswaarde dcterms:created "2026-11-13T08:29:46.47
     skos:inScheme conceptscheme:operationeel_zelfcontrole_water;
     skos:note "De grenswaarde die van toepassing is onder de gemeten omstandigheden."@nl;
     skos:prefLabel "Grenswaarde"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class schema:PropertyValue;
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:uiAfter zelfcontrole-water:parameter-meetonzekerheid.
-zelfcontrole-water:parameter-meetfrequentie dcterms:isVersionOf zelfcontrole-water:parameter-meetfrequentie;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation schema:additionalProperty;
+zelfcontrole-water:parameter-meetfrequentie dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:parameter-resultaat;
     a skos:Concept;
     skos:definition "De voor dit meetresultaat gehanteerde meetfrequentie. Tijdelijk vrije tekst zolang de definitieve limitatieve lijst niet is vastgesteld."@nl;
@@ -3140,9 +2906,7 @@ zelfcontrole-water:parameter-meetfrequentie dcterms:isVersionOf zelfcontrole-wat
     sh:class schema:PropertyValue;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter zelfcontrole-water:parameter-grenswaarde.
-zelfcontrole-water:parameter-meetonzekerheid dcterms:isVersionOf zelfcontrole-water:parameter-meetonzekerheid;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation schema:additionalProperty;
+zelfcontrole-water:parameter-meetonzekerheid dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:parameter-resultaat;
     qudt:relevantUnit csor_eenheid:E_43;
     a skos:Concept;
@@ -3157,9 +2921,7 @@ zelfcontrole-water:parameter-meetonzekerheid dcterms:isVersionOf zelfcontrole-wa
     riepr-vocab:variabele zelfcontrole-water:parameter-parameter;
     schema:maxValue "100"^^xsd:decimal;
     schema:minValue "0"^^xsd:decimal.
-zelfcontrole-water:parameter-parameter dcterms:isVersionOf zelfcontrole-water:parameter-parameter;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:observedProperty;
+zelfcontrole-water:parameter-parameter dcterms:relation sosa:observedProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:parameter;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_water;
@@ -3167,7 +2929,8 @@ zelfcontrole-water:parameter-parameter dcterms:isVersionOf zelfcontrole-water:pa
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList collectie:operationeel_stoffen_water;
     riepr-vocab:uiFirst true.
-zelfcontrole-water:parameter-resultaat dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+zelfcontrole-water:parameter-resultaat dcterms:isVersionOf zelfcontrole-water:parameter-resultaat;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     dcterms:relation sosa:hasResult;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:parameter;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> zelfcontrole-water:parameter-bron-meetfrequentie, zelfcontrole-water:parameter-concentratie, zelfcontrole-water:parameter-grenswaarde, zelfcontrole-water:parameter-meetfrequentie, zelfcontrole-water:parameter-meetonzekerheid, zelfcontrole-water:parameter-soort;
@@ -3176,13 +2939,10 @@ zelfcontrole-water:parameter-resultaat dcterms:created "2026-11-13T08:29:46.479Z
     skos:inScheme conceptscheme:operationeel_zelfcontrole_water;
     skos:note "Het resultaatrecord van de parameter bij de zelfcontrole van water."@nl;
     skos:prefLabel "Resultaat parameter"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     sh:class riepr:Resultaat;
     riepr-vocab:isVerplicht true;
     riepr-vocab:uiAfter zelfcontrole-water:parameter-parameter.
-zelfcontrole-water:parameter-soort dcterms:isVersionOf zelfcontrole-water:parameter-soort;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation schema:additionalProperty;
+zelfcontrole-water:parameter-soort dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:parameter-resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_water;
@@ -3190,9 +2950,7 @@ zelfcontrole-water:parameter-soort dcterms:isVersionOf zelfcontrole-water:parame
     sh:class schema:PropertyValue;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_zelfcontrole_soort_monstername;
     riepr-vocab:uiFirst true.
-zelfcontrole-water:parameter dcterms:isVersionOf zelfcontrole-water:parameter;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasMember;
+zelfcontrole-water:parameter dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:meting;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> zelfcontrole-water:parameter-parameter, zelfcontrole-water:parameter-resultaat;
     a skos:Concept;
@@ -3203,23 +2961,23 @@ zelfcontrole-water:parameter dcterms:isVersionOf zelfcontrole-water:parameter;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantObservation zelfcontrole-water:meting;
     riepr-vocab:uiAfter zelfcontrole-water:labo.
-zelfcontrole-water:schepmonster dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+zelfcontrole-water:schepmonster dcterms:isVersionOf zelfcontrole-water:schepmonster;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "Een schepmonster bij de zelfcontrole van oppervlaktewater."@nl;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_soort_monstername;
     skos:note "Een schepmonster bij de zelfcontrole van oppervlaktewater."@nl;
     skos:prefLabel "Schepmonster"@nl;
     skos:topConceptOf conceptscheme:operationeel_zelfcontrole_soort_monstername;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:uiFirst true.
-zelfcontrole-water:tijdsgebonden_mengmonster dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+zelfcontrole-water:tijdsgebonden_mengmonster dcterms:isVersionOf zelfcontrole-water:tijdsgebonden_mengmonster;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     a skos:Concept;
     skos:definition "Een tijdsgebonden mengmonster bij de zelfcontrole van oppervlaktewater."@nl;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_soort_monstername;
     skos:note "Een tijdsgebonden mengmonster bij de zelfcontrole van oppervlaktewater."@nl;
     skos:prefLabel "Tijdsgebonden mengmonster"@nl;
     skos:topConceptOf conceptscheme:operationeel_zelfcontrole_soort_monstername;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:uiAfter zelfcontrole-water:schepmonster.
 procedure:emissie a skos:Concept;
     skos:definition "De procedure emissie via een emissiepunt."@nl;
@@ -3337,18 +3095,6 @@ statustype:voorgesteld a skos:Concept;
     skos:prefLabel "Voorgesteld Ontwerp"@nl;
     skos:topConceptOf conceptscheme:statustypes;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/thematype/grondstoffen> dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/thematype/grondwater> dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/thematype/lucht> dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/thematype/water> dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/thematype/zelfcontrole-lucht> dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/thematype/zelfcontrole-water> dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
 uitwisselpunteigenschappen:diepte dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:value;
     qudt:relevantUnit csor_eenheid:E_59;
@@ -3477,38 +3223,30 @@ conceptscheme:operationeel_contextueel_iepr_activiteit a skos:ConceptScheme;
 conceptscheme:operationeel_debiettypes a skos:ConceptScheme;
     skos:hasTopConcept debiet:infiltratie, debiet:onttrekking, debiet:spui, debiet:totaal_rondgepompd;
     skos:prefLabel "Type debiet"@nl.
-conceptscheme:operationeel_detectiegrensindicator dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+conceptscheme:operationeel_detectiegrensindicator dcterms:isVersionOf conceptscheme:operationeel_detectiegrensindicator;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     a skos:ConceptScheme;
     skos:definition "Een aanduiding of de meetwaarde boven of onder de detectielimiet ligt."@nl;
     skos:hasTopConcept grondwater:detectiegrens-boven, grondwater:detectiegrens-onder;
     skos:note "Een aanduiding of de meetwaarde boven of onder de detectielimiet ligt."@nl;
-    skos:prefLabel "Ligging ten opzichte van de detectielimiet"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>.
+    skos:prefLabel "Ligging ten opzichte van de detectielimiet"@nl.
 conceptscheme:operationeel_grondstoffen a skos:ConceptScheme;
     skos:hasTopConcept grondstoffen:geproduceerd, grondstoffen:grondstof;
     skos:prefLabel "Operationeel grondstoffen"@nl.
 conceptscheme:operationeel_grondwater a skos:ConceptScheme;
     skos:hasTopConcept grondwater:kwaliteitsmeting, grondwater:onttrekking, grondwater:peilmeting.
-conceptscheme:operationeel_lucht dcterms:isVersionOf conceptscheme:operationeel_lucht;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    a skos:ConceptScheme;
+conceptscheme:operationeel_lucht a skos:ConceptScheme;
     skos:hasTopConcept lucht:afvalproduct, lucht:brandstof, lucht:emissie, lucht:geproduceerde_stof, lucht:verbruikte_stof;
     skos:prefLabel "Operationele gegevens"@nl.
-conceptscheme:operationeel_lucht_bron dcterms:isVersionOf conceptscheme:operationeel_lucht_bron;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    a skos:ConceptScheme.
-conceptscheme:operationeel_lucht_emissie dcterms:isVersionOf conceptscheme:operationeel_lucht_emissie;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    a skos:ConceptScheme.
-conceptscheme:operationeel_lucht_rapportering dcterms:isVersionOf conceptscheme:operationeel_lucht_rapportering;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    a skos:ConceptScheme.
-conceptscheme:operationeel_materiaalcodes dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+conceptscheme:operationeel_lucht_bron a skos:ConceptScheme.
+conceptscheme:operationeel_lucht_emissie a skos:ConceptScheme.
+conceptscheme:operationeel_lucht_rapportering a skos:ConceptScheme.
+conceptscheme:operationeel_materiaalcodes dcterms:isVersionOf conceptscheme:operationeel_materiaalcodes;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     a skos:ConceptScheme;
     skos:definition "Tijdelijke keuzelijst voor materiaalcodes waarvan de definitieve opties nog moeten worden toegevoegd."@nl;
     skos:note "Tijdelijke keuzelijst voor materiaalcodes waarvan de definitieve opties nog moeten worden toegevoegd."@nl;
-    skos:prefLabel "Materiaalcodes (tijdelijk)"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>.
+    skos:prefLabel "Materiaalcodes (tijdelijk)"@nl.
 conceptscheme:operationeel_peilmethode a skos:ConceptScheme;
     skos:hasTopConcept peilmethode:automatische_sonde, peilmethode:overige, peilmethode:peillint;
     skos:prefLabel "Peilmethode"@nl.
@@ -3523,46 +3261,34 @@ conceptscheme:operationeel_toepassingwijze a skos:ConceptScheme;
     skos:prefLabel "Toepassingswijze"@nl.
 conceptscheme:operationeel_toestand_indicator a skos:ConceptScheme;
     skos:hasTopConcept toestand-indicator:droog, toestand-indicator:nat.
-conceptscheme:operationeel_water dcterms:isVersionOf conceptscheme:operationeel_water;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    a skos:ConceptScheme;
+conceptscheme:operationeel_water a skos:ConceptScheme;
     skos:definition "Rapporteer de jaarlijkse waterstromen met hun verontreinigende stoffen en de abnormale lozingen."@nl;
     skos:hasTopConcept water:abnormale-lozing, water:lozing;
     skos:note "Rapporteer de jaarlijkse waterstromen met hun verontreinigende stoffen en de abnormale lozingen."@nl;
     skos:prefLabel "Operationele gegevens water"@nl.
-conceptscheme:operationeel_water_lozing dcterms:isVersionOf conceptscheme:operationeel_water_lozing;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    a skos:ConceptScheme.
-conceptscheme:operationeel_zelfcontrole_lucht dcterms:isVersionOf conceptscheme:operationeel_zelfcontrole_lucht;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    a skos:ConceptScheme;
+conceptscheme:operationeel_water_lozing a skos:ConceptScheme.
+conceptscheme:operationeel_zelfcontrole_lucht a skos:ConceptScheme;
     skos:definition "Rapporteer zelfcontrolemetingen per emissiepunt en exact meettijdstip met de bijbehorende parameterresultaten."@nl;
     skos:hasTopConcept zelfcontrole-lucht:meting;
     skos:note "Rapporteer zelfcontrolemetingen per emissiepunt en exact meettijdstip met de bijbehorende parameterresultaten."@nl;
     skos:prefLabel "Zelfcontrole luchtemissiemetingen"@nl.
-conceptscheme:operationeel_zelfcontrole_lucht_meting dcterms:isVersionOf conceptscheme:operationeel_zelfcontrole_lucht_meting;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    a skos:ConceptScheme.
+conceptscheme:operationeel_zelfcontrole_lucht_meting a skos:ConceptScheme.
 conceptscheme:operationeel_zelfcontrole_meetfrequentie a skos:ConceptScheme;
     skos:hasTopConcept meetfrequentie:test;
     skos:prefLabel "Meetfrequentie"@nl.
-conceptscheme:operationeel_zelfcontrole_soort_monstername dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
+conceptscheme:operationeel_zelfcontrole_soort_monstername dcterms:isVersionOf conceptscheme:operationeel_zelfcontrole_soort_monstername;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
     a skos:ConceptScheme;
     skos:definition "De wijze van monstername bij een zelfcontrolemeting van oppervlaktewater."@nl;
     skos:hasTopConcept zelfcontrole-water:debietgebonden_mengmonster, zelfcontrole-water:schepmonster, zelfcontrole-water:tijdsgebonden_mengmonster;
     skos:note "De wijze van monstername bij een zelfcontrolemeting van oppervlaktewater."@nl;
-    skos:prefLabel "Soort monstername zelfcontrole water"@nl;
-    adms:status <https://purl.archive.org/adms/status/Active>.
-conceptscheme:operationeel_zelfcontrole_water dcterms:isVersionOf conceptscheme:operationeel_zelfcontrole_water;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    a skos:ConceptScheme;
+    skos:prefLabel "Soort monstername zelfcontrole water"@nl.
+conceptscheme:operationeel_zelfcontrole_water a skos:ConceptScheme;
     skos:definition "Rapporteer zelfcontrolemetingen per controleinrichting en exact meettijdstip met de bijbehorende parameterresultaten."@nl;
     skos:hasTopConcept zelfcontrole-water:meting;
     skos:note "Rapporteer zelfcontrolemetingen per controleinrichting en exact meettijdstip met de bijbehorende parameterresultaten."@nl;
     skos:prefLabel "Zelfcontrole oppervlaktewater"@nl.
-conceptscheme:operationeel_zelfcontrole_water_meting dcterms:isVersionOf conceptscheme:operationeel_zelfcontrole_water_meting;
-    dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    a skos:ConceptScheme.
+conceptscheme:operationeel_zelfcontrole_water_meting a skos:ConceptScheme.
 conceptscheme:proceduretypes a skos:ConceptScheme;
     skos:definition "Een typering van verschillende procedures."@nl;
     skos:hasTopConcept procedure:emissie, procedure:hoofdactiviteit, procedure:meting, procedure:onttrekking, procedure:transport, procedure:uitwissel, procedure:verwerking;
@@ -3583,8 +3309,6 @@ conceptscheme:systeemeigenschappen dcterms:hasPart emissiepunteigenschappen:aant
 conceptscheme:systeemtypes dcterms:hasPart emissiepunt:emissiepunt_lucht, emissiepunt:fakkel, emissiepunt:gebouw, emissiepunt:installatie, emissiepunt:lozingspunt, emissiepunt:schoorsteen, emissiepunt:schoorsteen_horizontale_uitstroom, emissiepunt:schoorsteen_verticale_uitstroom, filter:filter, filter:injectie, filter:omkeerbaar, filter:peil, filter:pomp, installatie:directe_stookinstallatie, installatie:fakkel, installatie:geothermisch, installatie:gpbv, installatie:indirecte_stookinstallatie, installatie:luchtzuivering, installatie:opslag_overslag, installatie:productie_installatie, installatie:stookinstallatie, installatie:waterzuivering, meetpunt:controleinrichting, meetpunt:debietmeter, meetpunt:peilput, onttrekkingspunt:opnamepunt, uitwisselpunt:pompput, conceptscheme:emissiepunttypes, conceptscheme:filtertypes, conceptscheme:installatietypes, conceptscheme:meetpunttypes, conceptscheme:onttrekkingspunttypes, conceptscheme:uitwisselpunttypes;
     a skos:ConceptScheme;
     skos:prefLabel "Systeem types"@nl.
-conceptscheme:thematypes dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
 conceptscheme:uitwisselpunteigenschappen dcterms:isPartOf conceptscheme:systeemeigenschappen;
     a skos:ConceptScheme;
     skos:definition "Een typering van verschillende eigenschappen voor uitwisselpunten."@nl;
@@ -3599,12 +3323,10 @@ conceptscheme:uitwisselpunttypes dcterms:isPartOf conceptscheme:systeemtypes;
     skos:prefLabel "Uitwisselpunt types"@nl.
 riepr:inGebruikVanaf a rdfs:Resource.
 riepr:parameter a rdfs:Resource.
-schema:additionalProperty dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    a rdfs:Resource;
-    adms:status <https://purl.archive.org/adms/status/Active>.
-schema:comment dcterms:modified "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
+schema:additionalProperty dcterms:isVersionOf schema:additionalProperty;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
+    a rdfs:Resource.
 schema:material a rdfs:Resource.
-schema:measurementMethod dcterms:created "2026-11-13T08:29:46.479Z"^^xsd:dateTime;
-    a rdfs:Resource;
-    adms:status <https://purl.archive.org/adms/status/Active>.
+schema:measurementMethod dcterms:isVersionOf schema:measurementMethod;
+    dcterms:modified "2026-11-13T08:35:27.967Z"^^xsd:dateTime;
+    a rdfs:Resource.
