@@ -813,7 +813,7 @@
     "procedure": "https://data.omgeving.vlaanderen.be/id/concept/riepr/proceduretype/",
     "procesvariabele": "https://data.omgeving.vlaanderen.be/id/concept/riepr/procesvariabeletype/",
     "rubriek": "https://data.omgeving.vlaanderen.be/id/concept/riepr/rubriektype/",
-    "statustype": "https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/",
+    "riepr-status": "https://data.omgeving.vlaanderen.be/id/concept/riepr/status/",
     "techniekmonstername": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-techniekmonstername/",
     "toepassingswijze": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toepassingswijze/",
     "toestand-indicator": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toestand-indicator/",
@@ -956,7 +956,7 @@
         "rdfs:Resource"
       ],
       "isVersionOf": "prov:agent",
-      "modified": "2026-11-13T09:36:26.265Z"
+      "modified": "2026-11-13T10:50:38.575Z"
     },
     {
       "id": "prov:qualifiedAssociation",
@@ -964,7 +964,7 @@
         "rdfs:Resource"
       ],
       "isVersionOf": "prov:qualifiedAssociation",
-      "modified": "2026-11-13T09:36:26.265Z"
+      "modified": "2026-11-13T10:50:38.575Z"
     },
     {
       "id": "prov:used",
@@ -2985,10 +2985,11 @@
       "isMeetbaar": "true"
     },
     {
-      "id": "statustype:definitief_uit_dienst",
+      "id": "riepr-status:definitief_uit_dienst",
       "_type": [
         "skos:Concept"
       ],
+      "created": "2026-11-13T10:50:38.575Z",
       "seeAlso": "http://purl.org/adms/status/Withdrawn",
       "definition": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
       "inScheme": "conceptscheme:statustypes",
@@ -2996,13 +2997,15 @@
       "note": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
       "prefLabel": "Definitief uit dienst",
       "topConceptOf": "conceptscheme:statustypes",
+      "status": "https://purl.archive.org/adms/status/Active",
       "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
-      "id": "statustype:in_dienst",
+      "id": "riepr-status:in_dienst",
       "_type": [
         "skos:Concept"
       ],
+      "created": "2026-11-13T10:50:38.575Z",
       "seeAlso": "http://purl.org/adms/status/Completed",
       "definition": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
       "inScheme": "conceptscheme:statustypes",
@@ -3010,13 +3013,15 @@
       "note": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
       "prefLabel": "In dienst",
       "topConceptOf": "conceptscheme:statustypes",
+      "status": "https://purl.archive.org/adms/status/Active",
       "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
-      "id": "statustype:ontmanteld",
+      "id": "riepr-status:ontmanteld",
       "_type": [
         "skos:Concept"
       ],
+      "created": "2026-11-13T10:50:38.575Z",
       "seeAlso": "http://purl.org/adms/status/Withdrawn",
       "definition": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
       "inScheme": "conceptscheme:statustypes",
@@ -3024,13 +3029,15 @@
       "note": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
       "prefLabel": "Ontmanteld",
       "topConceptOf": "conceptscheme:statustypes",
+      "status": "https://purl.archive.org/adms/status/Active",
       "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
-      "id": "statustype:tijdelijk_uit_dienst",
+      "id": "riepr-status:tijdelijk_uit_dienst",
       "_type": [
         "skos:Concept"
       ],
+      "created": "2026-11-13T10:50:38.575Z",
       "seeAlso": "http://purl.org/adms/status/Deprecated",
       "definition": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
       "inScheme": "conceptscheme:statustypes",
@@ -3038,13 +3045,15 @@
       "note": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
       "prefLabel": "Tijdelijk uit dienst",
       "topConceptOf": "conceptscheme:statustypes",
+      "status": "https://purl.archive.org/adms/status/Active",
       "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
-      "id": "statustype:verkeerde_registratie",
+      "id": "riepr-status:verkeerde_registratie",
       "_type": [
         "skos:Concept"
       ],
+      "created": "2026-11-13T10:50:38.575Z",
       "seeAlso": "http://purl.org/adms/status/Withdrawn",
       "definition": "De status verkeerde registratie  geeft aan deze entiteit verkeerd werd geregistreerd en dus niet van toepassing is",
       "inScheme": "conceptscheme:statustypes",
@@ -3052,13 +3061,15 @@
       "note": "De status verkeerde registratie  geeft aan deze entiteit verkeerd werd geregistreerd en dus niet van toepassing is",
       "prefLabel": "Verkeerde Registratie",
       "topConceptOf": "conceptscheme:statustypes",
+      "status": "https://purl.archive.org/adms/status/Active",
       "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
-      "id": "statustype:voorgesteld",
+      "id": "riepr-status:voorgesteld",
       "_type": [
         "skos:Concept"
       ],
+      "created": "2026-11-13T10:50:38.575Z",
       "seeAlso": "http://purl.org/adms/status/UnderDevelopment",
       "definition": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
       "inScheme": "conceptscheme:statustypes",
@@ -3066,6 +3077,7 @@
       "note": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
       "prefLabel": "Voorgesteld Ontwerp",
       "topConceptOf": "conceptscheme:statustypes",
+      "status": "https://purl.archive.org/adms/status/Active",
       "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
@@ -3682,31 +3694,33 @@
       "_type": [
         "skos:ConceptScheme"
       ],
+      "isVersionOf": "conceptscheme:statustypes",
+      "modified": "2026-11-13T10:50:38.575Z",
       "definition": "Een typering van verschillende statussen (actief, inactief, ...).",
       "hasTopConcept": [
-        "statustype:definitief_uit_dienst",
-        "statustype:in_dienst",
-        "statustype:ontmanteld",
-        "statustype:tijdelijk_uit_dienst",
-        "statustype:verkeerde_registratie",
-        "statustype:voorgesteld",
+        "riepr-status:definitief_uit_dienst",
+        "riepr-status:in_dienst",
+        "riepr-status:ontmanteld",
+        "riepr-status:tijdelijk_uit_dienst",
+        "riepr-status:verkeerde_registratie",
+        "riepr-status:voorgesteld",
         {
-          "id": "statustype:definitief_uit_dienst"
+          "id": "riepr-status:definitief_uit_dienst"
         },
         {
-          "id": "statustype:in_dienst"
+          "id": "riepr-status:in_dienst"
         },
         {
-          "id": "statustype:ontmanteld"
+          "id": "riepr-status:ontmanteld"
         },
         {
-          "id": "statustype:tijdelijk_uit_dienst"
+          "id": "riepr-status:tijdelijk_uit_dienst"
         },
         {
-          "id": "statustype:verkeerde_registratie"
+          "id": "riepr-status:verkeerde_registratie"
         },
         {
-          "id": "statustype:voorgesteld"
+          "id": "riepr-status:voorgesteld"
         }
       ],
       "note": "Een typering van verschillende statussen (actief, inactief, ...).",
@@ -3863,7 +3877,7 @@
         "rdfs:Resource"
       ],
       "isVersionOf": "schema:address",
-      "modified": "2026-11-13T09:36:26.265Z"
+      "modified": "2026-11-13T10:50:38.575Z"
     },
     {
       "id": "schema:identifier",
@@ -3871,7 +3885,7 @@
         "rdfs:Resource"
       ],
       "isVersionOf": "schema:identifier",
-      "modified": "2026-11-13T09:36:26.265Z"
+      "modified": "2026-11-13T10:50:38.575Z"
     },
     {
       "id": "schema:material",
