@@ -26,6 +26,7 @@
 @prefix meetpunteigenschappen: <https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunteigenschappen/>.
 @prefix meetpunt-selectiemogelijkheden: <https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunteigenschappen-selectiemogelijkheden/>.
 @prefix meetpunt: <https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunttype/>.
+@prefix notatietype: <https://data.omgeving.vlaanderen.be/id/concept/riepr/notatietype/>.
 @prefix onttrekkingspunteigenschappen: <https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunteigenschappen/>.
 @prefix onttrekkingspunt: <https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunttype/>.
 @prefix peilmethode: <https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-peilmethode/>.
@@ -143,12 +144,8 @@ rdfs:comment a rdfs:Resource.
 rdfs:label a rdfs:Resource.
 rdfs:value a rdfs:Resource.
 adms:identifier a rdfs:Resource.
-prov:agent dcterms:isVersionOf prov:agent;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a rdfs:Resource.
-prov:qualifiedAssociation dcterms:isVersionOf prov:qualifiedAssociation;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a rdfs:Resource.
+prov:agent a rdfs:Resource.
+prov:qualifiedAssociation a rdfs:Resource.
 prov:used a rdfs:Resource.
 prov:wasAssociatedWith a rdfs:Resource.
 rov:registration a rdfs:Resource.
@@ -1116,6 +1113,186 @@ meetpunt:peilput dcterms:isPartOf conceptscheme:systeemtypes;
     skos:topConceptOf conceptscheme:meetpunttypes;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
+notatietype:activiteit_code dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a rdfs:Datatype, skos:Concept;
+    skos:altLabel "activiteitCode"@nl;
+    skos:definition "De code van een activiteit in de IMJV-aangifte water."@nl;
+    skos:inScheme conceptscheme:notatietypes;
+    skos:note "Bron: IMJV water (VMM)."@nl, "De code van een activiteit in de IMJV-aangifte water."@nl;
+    skos:prefLabel "VMM-activiteitcode"@nl;
+    skos:scopeNote "Bron: IMJV water (VMM)."@nl;
+    skos:topConceptOf conceptscheme:notatietypes;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+notatietype:activiteit_id dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a rdfs:Datatype, skos:Concept;
+    skos:altLabel "activiteitId"@nl;
+    skos:definition "Het VMM-identificatienummer van een activiteit in de IMJV-aangifte lucht."@nl;
+    skos:inScheme conceptscheme:notatietypes;
+    skos:note "Bron: IMJV lucht (VMM)."@nl, "Het VMM-identificatienummer van een activiteit in de IMJV-aangifte lucht."@nl;
+    skos:prefLabel "VMM-activiteit-ID"@nl;
+    skos:scopeNote "Bron: IMJV lucht (VMM)."@nl;
+    skos:topConceptOf conceptscheme:notatietypes;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+notatietype:apparaat_id dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a rdfs:Datatype, skos:Concept;
+    skos:altLabel "apparaatId"@nl;
+    skos:definition "Het VMM-identificatienummer van een (zuiverings)apparaat in de IMJV-aangifte water."@nl;
+    skos:inScheme conceptscheme:notatietypes;
+    skos:note "Bron: IMJV water (VMM)."@nl, "Het VMM-identificatienummer van een (zuiverings)apparaat in de IMJV-aangifte water."@nl;
+    skos:prefLabel "VMM-apparaat-ID"@nl;
+    skos:scopeNote "Bron: IMJV water (VMM)."@nl;
+    skos:topConceptOf conceptscheme:notatietypes;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+notatietype:cbb_nummer dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a rdfs:Datatype, skos:Concept;
+    skos:altLabel "cbbNummer"@nl;
+    skos:definition "Het nummer van 14 cijfers waaronder een exploitatie in de CBB gekend is."@nl;
+    skos:inScheme conceptscheme:notatietypes;
+    skos:note "Bron: CBB."@nl, "Het nummer van 14 cijfers waaronder een exploitatie in de CBB gekend is."@nl;
+    skos:prefLabel "CBB-nummer"@nl;
+    skos:scopeNote "Bron: CBB."@nl;
+    skos:topConceptOf conceptscheme:notatietypes;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+notatietype:emissiepunt_id dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a rdfs:Datatype, skos:Concept;
+    skos:altLabel "emissiepuntId"@nl;
+    skos:definition "Het VMM-identificatienummer van een emissiepunt in de IMJV-aangifte lucht."@nl;
+    skos:inScheme conceptscheme:notatietypes;
+    skos:note "Bron: IMJV lucht (VMM)."@nl, "Het VMM-identificatienummer van een emissiepunt in de IMJV-aangifte lucht."@nl;
+    skos:prefLabel "VMM-emissiepunt-ID"@nl;
+    skos:scopeNote "Bron: IMJV lucht (VMM)."@nl;
+    skos:topConceptOf conceptscheme:notatietypes;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+notatietype:exploitant_id dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a rdfs:Datatype, skos:Concept;
+    skos:altLabel "VMM_exploitantID"@nl;
+    skos:definition "Het VMM-identificatienummer van de exploitant in de IMJV-aangifte grondwater."@nl;
+    skos:inScheme conceptscheme:notatietypes;
+    skos:note "Bron: IMJV grondwater (VMM)."@nl, "Het VMM-identificatienummer van de exploitant in de IMJV-aangifte grondwater."@nl;
+    skos:prefLabel "VMM-exploitant-ID"@nl;
+    skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
+    skos:topConceptOf conceptscheme:notatietypes;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+notatietype:filter_id dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a rdfs:Datatype, skos:Concept;
+    skos:altLabel "VMM_filterID"@nl;
+    skos:definition "Het VMM-identificatienummer van een filter in de IMJV-aangifte grondwater."@nl;
+    skos:inScheme conceptscheme:notatietypes;
+    skos:note "Bron: IMJV grondwater (VMM)."@nl, "Het VMM-identificatienummer van een filter in de IMJV-aangifte grondwater."@nl;
+    skos:prefLabel "VMM-filter-ID"@nl;
+    skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
+    skos:topConceptOf conceptscheme:notatietypes;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+notatietype:iioa_id dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a rdfs:Datatype, skos:Concept;
+    skos:altLabel "VMM_iioaID"@nl;
+    skos:definition "Het VMM-identificatienummer van de IIOA in de IMJV-aangifte grondwater."@nl;
+    skos:inScheme conceptscheme:notatietypes;
+    skos:note "Bron: IMJV grondwater (VMM)."@nl, "Het VMM-identificatienummer van de IIOA in de IMJV-aangifte grondwater."@nl;
+    skos:prefLabel "VMM-IIOA-ID"@nl;
+    skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
+    skos:topConceptOf conceptscheme:notatietypes;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+notatietype:installatie_id dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a rdfs:Datatype, skos:Concept;
+    skos:altLabel "VMM_installatieID"@nl;
+    skos:definition "Het VMM-identificatienummer van een installatie in de IMJV-aangifte grondwater."@nl;
+    skos:inScheme conceptscheme:notatietypes;
+    skos:note "Bron: IMJV grondwater (VMM)."@nl, "Het VMM-identificatienummer van een installatie in de IMJV-aangifte grondwater."@nl;
+    skos:prefLabel "VMM-installatie-ID"@nl;
+    skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
+    skos:topConceptOf conceptscheme:notatietypes;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+notatietype:installatie_vergunning_id dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a rdfs:Datatype, skos:Concept;
+    skos:altLabel "VMM_installatieVergunningID"@nl;
+    skos:definition "Het VMM-identificatienummer van een installatievergunning in de IMJV-aangifte grondwater."@nl;
+    skos:inScheme conceptscheme:notatietypes;
+    skos:note "Bron: IMJV grondwater (VMM)."@nl, "Het VMM-identificatienummer van een installatievergunning in de IMJV-aangifte grondwater."@nl;
+    skos:prefLabel "VMM-installatievergunning-ID"@nl;
+    skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
+    skos:topConceptOf conceptscheme:notatietypes;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+notatietype:lozingspunt_code dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a rdfs:Datatype, skos:Concept;
+    skos:altLabel "lozingspuntCode"@nl;
+    skos:definition "De code van een lozingspunt in de IMJV-aangifte water."@nl;
+    skos:inScheme conceptscheme:notatietypes;
+    skos:note "Bron: IMJV water (VMM)."@nl, "De code van een lozingspunt in de IMJV-aangifte water."@nl;
+    skos:prefLabel "VMM-lozingspuntcode"@nl;
+    skos:scopeNote "Bron: IMJV water (VMM)."@nl;
+    skos:topConceptOf conceptscheme:notatietypes;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+notatietype:onttrekkingspunt_code dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a rdfs:Datatype, skos:Concept;
+    skos:altLabel "onttrekkingspuntCode"@nl;
+    skos:definition "De code van een onttrekkingspunt in de IMJV-aangiften water en grondwater."@nl;
+    skos:inScheme conceptscheme:notatietypes;
+    skos:note "Bron: IMJV water en grondwater (VMM)."@nl, "De code van een onttrekkingspunt in de IMJV-aangiften water en grondwater."@nl;
+    skos:prefLabel "VMM-onttrekkingspuntcode"@nl;
+    skos:scopeNote "Bron: IMJV water en grondwater (VMM)."@nl;
+    skos:topConceptOf conceptscheme:notatietypes;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+notatietype:put_id dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a rdfs:Datatype, skos:Concept;
+    skos:altLabel "VMM_putID"@nl;
+    skos:definition "Het VMM-identificatienummer van een put in de IMJV-aangifte grondwater."@nl;
+    skos:inScheme conceptscheme:notatietypes;
+    skos:note "Bron: IMJV grondwater (VMM)."@nl, "Het VMM-identificatienummer van een put in de IMJV-aangifte grondwater."@nl;
+    skos:prefLabel "VMM-put-ID"@nl;
+    skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
+    skos:topConceptOf conceptscheme:notatietypes;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+notatietype:put_key dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a rdfs:Datatype, skos:Concept;
+    skos:altLabel "VMM_putKey"@nl;
+    skos:definition "De VMM-sleutel van een put in de IMJV-aangifte grondwater."@nl;
+    skos:inScheme conceptscheme:notatietypes;
+    skos:note "Bron: IMJV grondwater (VMM)."@nl, "De VMM-sleutel van een put in de IMJV-aangifte grondwater."@nl;
+    skos:prefLabel "VMM-putsleutel"@nl;
+    skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
+    skos:topConceptOf conceptscheme:notatietypes;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+notatietype:vergunde_rubriek_id dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a rdfs:Datatype, skos:Concept;
+    skos:altLabel "VMM_vergundeRubriekID"@nl;
+    skos:definition "Het VMM-identificatienummer van een vergunde rubriek in de IMJV-aangifte grondwater."@nl;
+    skos:inScheme conceptscheme:notatietypes;
+    skos:note "Bron: IMJV grondwater (VMM)."@nl, "Het VMM-identificatienummer van een vergunde rubriek in de IMJV-aangifte grondwater."@nl;
+    skos:prefLabel "VMM-vergunde-rubriek-ID"@nl;
+    skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
+    skos:topConceptOf conceptscheme:notatietypes;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+notatietype:vergunning_id dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a rdfs:Datatype, skos:Concept;
+    skos:altLabel "VMM_vergunningID"@nl;
+    skos:definition "Het VMM-identificatienummer van een vergunning in de IMJV-aangifte grondwater."@nl;
+    skos:inScheme conceptscheme:notatietypes;
+    skos:note "Bron: IMJV grondwater (VMM)."@nl, "Het VMM-identificatienummer van een vergunning in de IMJV-aangifte grondwater."@nl;
+    skos:prefLabel "VMM-vergunning-ID"@nl;
+    skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
+    skos:topConceptOf conceptscheme:notatietypes;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+notatietype:watnr dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a rdfs:Datatype, skos:Concept;
+    skos:altLabel "VMM_watnr"@nl;
+    skos:definition "Het VMM-waternummer (watnr) in de IMJV-aangifte grondwater."@nl;
+    skos:inScheme conceptscheme:notatietypes;
+    skos:note "Bron: IMJV grondwater (VMM)."@nl, "Het VMM-waternummer (watnr) in de IMJV-aangifte grondwater."@nl;
+    skos:prefLabel "VMM-waternummer"@nl;
+    skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
+    skos:topConceptOf conceptscheme:notatietypes;
+    adms:status <https://purl.archive.org/adms/status/Active>.
+notatietype:zuiveringsapparaat_id dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a rdfs:Datatype, skos:Concept;
+    skos:altLabel "zuiveringsapparaatId"@nl;
+    skos:definition "Het VMM-identificatienummer van een zuiveringsapparaat in de IMJV-aangifte lucht."@nl;
+    skos:inScheme conceptscheme:notatietypes;
+    skos:note "Bron: IMJV lucht (VMM)."@nl, "Het VMM-identificatienummer van een zuiveringsapparaat in de IMJV-aangifte lucht."@nl;
+    skos:prefLabel "VMM-zuiveringsapparaat-ID"@nl;
+    skos:scopeNote "Bron: IMJV lucht (VMM)."@nl;
+    skos:topConceptOf conceptscheme:notatietypes;
+    adms:status <https://purl.archive.org/adms/status/Active>.
 onttrekkingspunteigenschappen:omschrijving dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:value;
     a skos:Concept;
@@ -1239,9 +1416,7 @@ debiet:totaal_rondgepompd a skos:Concept;
     skos:inScheme conceptscheme:operationeel_debiettypes;
     skos:prefLabel "Totaal rondgepompd"@nl;
     skos:topConceptOf conceptscheme:operationeel_debiettypes.
-grondstoffen:bestemming dcterms:isVersionOf grondstoffen:bestemming;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    dcterms:relation prov:qualifiedAssociation;
+grondstoffen:bestemming dcterms:relation prov:qualifiedAssociation;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:grondstof;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:bestemmingsidentificatie-be, grondstoffen:bestemmingsidentificatie-buitenland, grondstoffen:bestemmingsidentificatie-none, grondstoffen:bestemmingsidentificatie-werf, grondstoffen:grondstof_bestemming_type;
     a skos:Concept;
@@ -1457,9 +1632,7 @@ grondstoffen:grondstof_toepassingswijze dcterms:relation schema:additionalProper
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_toepassingwijze;
     riepr-vocab:uiAfter grondstoffen:grondstof_hoeveelheid.
-grondstoffen:inkomend dcterms:isVersionOf grondstoffen:inkomend;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:inkomend_activiteit, grondstoffen:inkomend_installatie, grondstoffen:inkomend_resultaat;
+grondstoffen:inkomend <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:inkomend_activiteit, grondstoffen:inkomend_installatie, grondstoffen:inkomend_resultaat;
     a skos:Concept;
     skos:definition "Jaarlijks binnengekomen gebruikte materialen per aard, activiteit en IEPR-installatie."@nl;
     skos:inScheme conceptscheme:operationeel_grondstoffen;
@@ -1469,9 +1642,7 @@ grondstoffen:inkomend dcterms:isVersionOf grondstoffen:inkomend;
     sh:class riepr:Observatie;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:uiAfter grondstoffen:grondstof.
-grondstoffen:inkomend_aard dcterms:isVersionOf grondstoffen:inkomend_aard;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    dcterms:relation rdfs:comment;
+grondstoffen:inkomend_aard dcterms:relation rdfs:comment;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:inkomend_resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondstoffen;
@@ -1479,9 +1650,7 @@ grondstoffen:inkomend_aard dcterms:isVersionOf grondstoffen:inkomend_aard;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiFirst true.
-grondstoffen:inkomend_activiteit dcterms:isVersionOf grondstoffen:inkomend_activiteit;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    dcterms:relation dcterms:subject;
+grondstoffen:inkomend_activiteit dcterms:relation dcterms:subject;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:inkomend;
     a skos:Concept;
     skos:definition "De activiteit waarvoor het jaarlijks binnengekomen gebruikte materiaal wordt gerapporteerd. De POC legt nog geen afhankelijk filter op de gekozen IEPR-installatie op."@nl;
@@ -1491,9 +1660,7 @@ grondstoffen:inkomend_activiteit dcterms:isVersionOf grondstoffen:inkomend_activ
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantRiepr riepr:Rubriek;
     riepr-vocab:uiAfter grondstoffen:inkomend_installatie.
-grondstoffen:inkomend_hoeveelheid dcterms:isVersionOf grondstoffen:inkomend_hoeveelheid;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    dcterms:relation qudt:numericValue;
+grondstoffen:inkomend_hoeveelheid dcterms:relation qudt:numericValue;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:inkomend_resultaat;
     qudt:relevantUnit csor_eenheid:E_41;
     a skos:Concept;
@@ -1505,9 +1672,7 @@ grondstoffen:inkomend_hoeveelheid dcterms:isVersionOf grondstoffen:inkomend_hoev
     riepr-vocab:relevantDataType xsd:decimal;
     riepr-vocab:uiAfter grondstoffen:inkomend_aard;
     schema:minValue "0"^^xsd:decimal.
-grondstoffen:inkomend_installatie dcterms:isVersionOf grondstoffen:inkomend_installatie;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasFeatureOfInterest;
+grondstoffen:inkomend_installatie dcterms:relation sosa:hasFeatureOfInterest;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:inkomend;
     a skos:Concept;
     skos:definition "De IEPR-installatie waarvoor het jaarlijks binnengekomen gebruikte materiaal wordt gerapporteerd."@nl;
@@ -1518,9 +1683,7 @@ grondstoffen:inkomend_installatie dcterms:isVersionOf grondstoffen:inkomend_inst
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantRiepr installatie:gpbv;
     riepr-vocab:uiFirst true.
-grondstoffen:inkomend_resultaat dcterms:isVersionOf grondstoffen:inkomend_resultaat;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    dcterms:relation sosa:hasResult;
+grondstoffen:inkomend_resultaat dcterms:relation sosa:hasResult;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondstoffen:inkomend;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondstoffen:inkomend_aard, grondstoffen:inkomend_hoeveelheid;
     a skos:Concept;
@@ -1530,961 +1693,687 @@ grondstoffen:inkomend_resultaat dcterms:isVersionOf grondstoffen:inkomend_result
     riepr-vocab:isOnzichtbaar true;
     riepr-vocab:isVerplicht true;
     riepr-vocab:uiAfter grondstoffen:inkomend_activiteit.
-grondstoffen:materiaalcode_m00_00 dcterms:isVersionOf grondstoffen:materiaalcode_m00_00;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m00_00 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M00.00 — andere niet gespecificeerde materialen waarvoor de OVAM een grondstofverklaring heeft afgeleverd"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiFirst true.
-grondstoffen:materiaalcode_m00_01 dcterms:isVersionOf grondstoffen:materiaalcode_m00_01;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m00_01 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M00.01 — grondstoffen afkomstig van verpulping van papier en karton"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m00_00.
-grondstoffen:materiaalcode_m00_02 dcterms:isVersionOf grondstoffen:materiaalcode_m00_02;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m00_02 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M00.02 — grondstoffen die vooral bestaan uit kunststoffen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m00_01.
-grondstoffen:materiaalcode_m00_03 dcterms:isVersionOf grondstoffen:materiaalcode_m00_03;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m00_03 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M00.03 — grondstoffen die vooral bestaan uit glas en die niet onder M07 vallen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m00_02.
-grondstoffen:materiaalcode_m00_04 dcterms:isVersionOf grondstoffen:materiaalcode_m00_04;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m00_04 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M00.04 — grondstoffen die vooral bestaan uit metalen en die niet onder M07 vallen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m00_03.
-grondstoffen:materiaalcode_m00_05 dcterms:isVersionOf grondstoffen:materiaalcode_m00_05;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m00_05 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M00.05 — grondstoffen die vooral bestaan uit niet metaalhoudende mineralen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m00_04.
-grondstoffen:materiaalcode_m00_06 dcterms:isVersionOf grondstoffen:materiaalcode_m00_06;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m00_06 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M00.06 — grondstoffen die vooral bestaan uit metaalhoudende mineralen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m00_05.
-grondstoffen:materiaalcode_m00_07 dcterms:isVersionOf grondstoffen:materiaalcode_m00_07;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m00_07 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M00.07 — grondstoffen die vooral bestaan uit textiel of textielvezels"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m00_06.
-grondstoffen:materiaalcode_m00_08 dcterms:isVersionOf grondstoffen:materiaalcode_m00_08;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m00_08 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M00.08 — grondstoffen die vooral bestaan uit residuen van chemische processen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m00_07.
-grondstoffen:materiaalcode_m00_09 dcterms:isVersionOf grondstoffen:materiaalcode_m00_09;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m00_09 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M00.09 — grondstoffen die vooral bestaan uit materialen van biologische oorsprong"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m00_08.
-grondstoffen:materiaalcode_m00_10 dcterms:isVersionOf grondstoffen:materiaalcode_m00_10;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m00_10 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M00.10 — grondstoffen afkomstig van chemische recyclage"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m00_09.
-grondstoffen:materiaalcode_m00_11 dcterms:isVersionOf grondstoffen:materiaalcode_m00_11;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m00_11 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M00.11 — materialen die als brandstof worden ingezet en die niet onder M09.01 of M09.02 vallen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m00_10.
-grondstoffen:materiaalcode_m01_01 dcterms:isVersionOf grondstoffen:materiaalcode_m01_01;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_01 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.01 — schuimaarde van suikerfabrieken"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m00_11.
-grondstoffen:materiaalcode_m01_02 dcterms:isVersionOf grondstoffen:materiaalcode_m01_02;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_02 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.02 — kalkas"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_01.
-grondstoffen:materiaalcode_m01_03 dcterms:isVersionOf grondstoffen:materiaalcode_m01_03;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_03 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.03 — calciumsulfaat"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_02.
-grondstoffen:materiaalcode_m01_04 dcterms:isVersionOf grondstoffen:materiaalcode_m01_04;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_04 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.04 — afgeoogste champignoncompost"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_03.
-grondstoffen:materiaalcode_m01_05 dcterms:isVersionOf grondstoffen:materiaalcode_m01_05;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_05 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.05 — compost van boomschors"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_04.
-grondstoffen:materiaalcode_m01_06 dcterms:isVersionOf grondstoffen:materiaalcode_m01_06;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_06 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.06 — vinasse, vinasse-extract, vinassekali en chicoreivinasse"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_05.
-grondstoffen:materiaalcode_m01_07 dcterms:isVersionOf grondstoffen:materiaalcode_m01_07;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_07 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.07 — toegelaten materialen van dierlijke oorsprong conform de wetgeving inzake dierlijke bijproducten"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_06.
-grondstoffen:materiaalcode_m01_08 dcterms:isVersionOf grondstoffen:materiaalcode_m01_08;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_08 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.08 — gedroogd cacao-, tabak- en koffieafval"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_07.
-grondstoffen:materiaalcode_m01_09 dcterms:isVersionOf grondstoffen:materiaalcode_m01_09;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_09 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.09 — neergeslagen dubbelzout van kaliumsulfaat en calciumsulfaat (in geval van toevoeging van een magnesiumzout aangevuld met met magnesiumzout)"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_08.
-grondstoffen:materiaalcode_m01_10 dcterms:isVersionOf grondstoffen:materiaalcode_m01_10;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_10 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.10 — meel van oliekoeken"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_09.
-grondstoffen:materiaalcode_m01_11 dcterms:isVersionOf grondstoffen:materiaalcode_m01_11;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_11 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.11 — moutscheuten"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_10.
-grondstoffen:materiaalcode_m01_12 dcterms:isVersionOf grondstoffen:materiaalcode_m01_12;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_12 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.12 — behandeld zuiveringsslib"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_11.
-grondstoffen:materiaalcode_m01_13 dcterms:isVersionOf grondstoffen:materiaalcode_m01_13;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_13 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.13 — kalkhoudend slib"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_12.
-grondstoffen:materiaalcode_m01_14 dcterms:isVersionOf grondstoffen:materiaalcode_m01_14;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_14 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.14 — GFT- en groencompost"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_13.
-grondstoffen:materiaalcode_m01_15 dcterms:isVersionOf grondstoffen:materiaalcode_m01_15;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_15 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.15 — eindmateriaal van de biologische behandeling van organisch-biologische bedrijfsafvalstoffen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_14.
-grondstoffen:materiaalcode_m01_16 dcterms:isVersionOf grondstoffen:materiaalcode_m01_16;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_16 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.16 — filterkoek"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_15.
-grondstoffen:materiaalcode_m01_17 dcterms:isVersionOf grondstoffen:materiaalcode_m01_17;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_17 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.17 — gehydrolyseerd eiwit voor meststof"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_16.
-grondstoffen:materiaalcode_m01_18 dcterms:isVersionOf grondstoffen:materiaalcode_m01_18;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_18 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.18 — slib van natuursteenbewerking"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_17.
-grondstoffen:materiaalcode_m01_19 dcterms:isVersionOf grondstoffen:materiaalcode_m01_19;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_19 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.19 — filterkoek van de fermentatie"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_18.
-grondstoffen:materiaalcode_m01_20 dcterms:isVersionOf grondstoffen:materiaalcode_m01_20;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_20 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.20 — kalimoederloog"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_19.
-grondstoffen:materiaalcode_m01_21 dcterms:isVersionOf grondstoffen:materiaalcode_m01_21;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_21 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.21 — oplossing bevattende ammoniumchloride"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_20.
-grondstoffen:materiaalcode_m01_22 dcterms:isVersionOf grondstoffen:materiaalcode_m01_22;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_22 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.22 — gemalen staalslakken"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_21.
-grondstoffen:materiaalcode_m01_23 dcterms:isVersionOf grondstoffen:materiaalcode_m01_23;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_23 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.23 — gedroogde en gemalen anorganische kalkrijke voedingsresten"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_22.
-grondstoffen:materiaalcode_m01_24 dcterms:isVersionOf grondstoffen:materiaalcode_m01_24;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_24 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.24 — vlasstof, graanstof"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_23.
-grondstoffen:materiaalcode_m01_25 dcterms:isVersionOf grondstoffen:materiaalcode_m01_25;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_25 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.25 — mest"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_24.
-grondstoffen:materiaalcode_m01_26 dcterms:isVersionOf grondstoffen:materiaalcode_m01_26;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_26 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.26 — ammoniumsulfaat-oplossing"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_25.
-grondstoffen:materiaalcode_m01_27 dcterms:isVersionOf grondstoffen:materiaalcode_m01_27;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_27 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.27 — spuistroom"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_26.
-grondstoffen:materiaalcode_m01_28 dcterms:isVersionOf grondstoffen:materiaalcode_m01_28;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_28 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.28 — boerderijcompost"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_27.
-grondstoffen:materiaalcode_m01_29 dcterms:isVersionOf grondstoffen:materiaalcode_m01_29;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_29 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.29 — boerderijcompost, geproduceerd in een samenwerkingsverband als vermeld in artikel 3, §5, 3°, van het Mestdecreet"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_28.
-grondstoffen:materiaalcode_m01_30 dcterms:isVersionOf grondstoffen:materiaalcode_m01_30;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m01_30 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M01.30 — houtsnippers"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_29.
-grondstoffen:materiaalcode_m02_01 dcterms:isVersionOf grondstoffen:materiaalcode_m02_01;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m02_01 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M02.01 — gebroken of gekalibreerde of uitgesorteerde of voorbehandelde slakken, assen of andere steenachtige afvalstoffen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m01_30.
-grondstoffen:materiaalcode_m02_02 dcterms:isVersionOf grondstoffen:materiaalcode_m02_02;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m02_02 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M02.02 — gebroken of gekalibreerde of uitgesorteerde of voorbehandelde slakken of assen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m02_01.
-grondstoffen:materiaalcode_m02_03 dcterms:isVersionOf grondstoffen:materiaalcode_m02_03;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m02_03 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M02.03 — vliegas en bodemas"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m02_02.
-grondstoffen:materiaalcode_m02_04 dcterms:isVersionOf grondstoffen:materiaalcode_m02_04;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m02_04 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M02.04 — betongranulaat"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m02_03.
-grondstoffen:materiaalcode_m02_05 dcterms:isVersionOf grondstoffen:materiaalcode_m02_05;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m02_05 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M02.05 — gerecycleerde brokken"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m02_04.
-grondstoffen:materiaalcode_m02_06 dcterms:isVersionOf grondstoffen:materiaalcode_m02_06;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m02_06 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M02.06 — betongranulaat, metselwerkgranulaat, menggranulaat en asfaltgranulaat"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m02_05.
-grondstoffen:materiaalcode_m02_07 dcterms:isVersionOf grondstoffen:materiaalcode_m02_07;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m02_07 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M02.07 — brekerzand van asfalt, brekerzeefzand en sorteerzeefzand"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m02_06.
-grondstoffen:materiaalcode_m02_08 dcterms:isVersionOf grondstoffen:materiaalcode_m02_08;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m02_08 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M02.08 — sorteerzeefgranulaat"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m02_07.
-grondstoffen:materiaalcode_m02_09 dcterms:isVersionOf grondstoffen:materiaalcode_m02_09;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m02_09 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M02.09 — gewassen uitgesorteerd beton- of gewassen metselwerkgranulaat"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m02_08.
-grondstoffen:materiaalcode_m02_10 dcterms:isVersionOf grondstoffen:materiaalcode_m02_10;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m02_10 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M02.10 — ruimingsspecie"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m02_09.
-grondstoffen:materiaalcode_m02_11 dcterms:isVersionOf grondstoffen:materiaalcode_m02_11;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m02_11 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M02.11 — baggerspecie"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m02_10.
-grondstoffen:materiaalcode_m02_12 dcterms:isVersionOf grondstoffen:materiaalcode_m02_12;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m02_12 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M02.12 — behandeld zand van rioolkolken, zandvangers en veegvuil"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m02_11.
-grondstoffen:materiaalcode_m02_13 dcterms:isVersionOf grondstoffen:materiaalcode_m02_13;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m02_13 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M02.13 — gerecycleerde bitumineuze granulaten"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m02_12.
-grondstoffen:materiaalcode_m02_14 dcterms:isVersionOf grondstoffen:materiaalcode_m02_14;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m02_14 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M02.14 — slib van natuursteenbewerking"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m02_13.
-grondstoffen:materiaalcode_m03_01 dcterms:isVersionOf grondstoffen:materiaalcode_m03_01;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m03_01 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M03.01 — grondbrij"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m02_14.
-grondstoffen:materiaalcode_m03_02 dcterms:isVersionOf grondstoffen:materiaalcode_m03_02;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m03_02 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M03.02 — ruimingsspecie"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m03_01.
-grondstoffen:materiaalcode_m03_03 dcterms:isVersionOf grondstoffen:materiaalcode_m03_03;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m03_03 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M03.03 — baggerspecie"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m03_02.
-grondstoffen:materiaalcode_m03_04 dcterms:isVersionOf grondstoffen:materiaalcode_m03_04;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m03_04 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M03.04 — brekerzeefzand en sorteerzeefzand"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m03_03.
-grondstoffen:materiaalcode_m03_05 dcterms:isVersionOf grondstoffen:materiaalcode_m03_05;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m03_05 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M03.05 — afvalstoffen die bestaan uit niet-verontreinigd bentonietslib of mengsels van bentonietslib met niet-verontreinigde bodemmaterialen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m03_04.
-grondstoffen:materiaalcode_m05_01 dcterms:isVersionOf grondstoffen:materiaalcode_m05_01;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_01 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.01 — koperhoudende slakken"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m03_05.
-grondstoffen:materiaalcode_m05_02 dcterms:isVersionOf grondstoffen:materiaalcode_m05_02;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_02 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.02 — koperhoudende slakken"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_01.
-grondstoffen:materiaalcode_m05_03 dcterms:isVersionOf grondstoffen:materiaalcode_m05_03;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_03 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.03 — anodeslib"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_02.
-grondstoffen:materiaalcode_m05_04 dcterms:isVersionOf grondstoffen:materiaalcode_m05_04;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_04 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.04 — bodemslib elektrowinning (loodschilfers)"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_03.
-grondstoffen:materiaalcode_m05_05 dcterms:isVersionOf grondstoffen:materiaalcode_m05_05;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_05 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.05 — koperassen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_04.
-grondstoffen:materiaalcode_m05_06 dcterms:isVersionOf grondstoffen:materiaalcode_m05_06;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_06 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.06 — koperdross"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_05.
-grondstoffen:materiaalcode_m05_07 dcterms:isVersionOf grondstoffen:materiaalcode_m05_07;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_07 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.07 — slakken koperoxiden draadwalserij"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_06.
-grondstoffen:materiaalcode_m05_08 dcterms:isVersionOf grondstoffen:materiaalcode_m05_08;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_08 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.08 — elektrolyt"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_07.
-grondstoffen:materiaalcode_m05_09 dcterms:isVersionOf grondstoffen:materiaalcode_m05_09;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_09 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.09 — koperspeiss"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_08.
-grondstoffen:materiaalcode_m05_10 dcterms:isVersionOf grondstoffen:materiaalcode_m05_10;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_10 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.10 — koperanodes"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_09.
-grondstoffen:materiaalcode_m05_11 dcterms:isVersionOf grondstoffen:materiaalcode_m05_11;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_11 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.11 — zwart koper"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_10.
-grondstoffen:materiaalcode_m05_12 dcterms:isVersionOf grondstoffen:materiaalcode_m05_12;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_12 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.12 — cupro"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_11.
-grondstoffen:materiaalcode_m05_13 dcterms:isVersionOf grondstoffen:materiaalcode_m05_13;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_13 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.13 — koperlegering"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_12.
-grondstoffen:materiaalcode_m05_14 dcterms:isVersionOf grondstoffen:materiaalcode_m05_14;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_14 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.14 — koper-looddross"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_13.
-grondstoffen:materiaalcode_m05_15 dcterms:isVersionOf grondstoffen:materiaalcode_m05_15;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_15 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.15 — loodkopersteen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_14.
-grondstoffen:materiaalcode_m05_16 dcterms:isVersionOf grondstoffen:materiaalcode_m05_16;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_16 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.16 — residu met platinagroepmetalen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_15.
-grondstoffen:materiaalcode_m05_17 dcterms:isVersionOf grondstoffen:materiaalcode_m05_17;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_17 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.17 — edelmetaalhoudende slakken"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_16.
-grondstoffen:materiaalcode_m05_18 dcterms:isVersionOf grondstoffen:materiaalcode_m05_18;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_18 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.18 — ruw zilver"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_17.
-grondstoffen:materiaalcode_m05_19 dcterms:isVersionOf grondstoffen:materiaalcode_m05_19;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_19 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.19 — edelmetaalhoudend residu"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_18.
-grondstoffen:materiaalcode_m05_20 dcterms:isVersionOf grondstoffen:materiaalcode_m05_20;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_20 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.20 — edelmetaalhoudende slakken met borax"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_19.
-grondstoffen:materiaalcode_m05_21 dcterms:isVersionOf grondstoffen:materiaalcode_m05_21;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_21 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.21 — slakken met platinagroepmetalen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_20.
-grondstoffen:materiaalcode_m05_22 dcterms:isVersionOf grondstoffen:materiaalcode_m05_22;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_22 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.22 — edelmetaalhoudend vliegstof"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_21.
-grondstoffen:materiaalcode_m05_23 dcterms:isVersionOf grondstoffen:materiaalcode_m05_23;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_23 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.23 — edelmetaalhoudende steen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_22.
-grondstoffen:materiaalcode_m05_24 dcterms:isVersionOf grondstoffen:materiaalcode_m05_24;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_24 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.24 — slib met platinagroepmetalen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_23.
-grondstoffen:materiaalcode_m05_25 dcterms:isVersionOf grondstoffen:materiaalcode_m05_25;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_25 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.25 — nikkelspeiss"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_24.
-grondstoffen:materiaalcode_m05_26 dcterms:isVersionOf grondstoffen:materiaalcode_m05_26;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_26 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.26 — edelmetaalhoudend residu"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_25.
-grondstoffen:materiaalcode_m05_27 dcterms:isVersionOf grondstoffen:materiaalcode_m05_27;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_27 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.27 — edelmetaalhoudend slib"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_26.
-grondstoffen:materiaalcode_m05_28 dcterms:isVersionOf grondstoffen:materiaalcode_m05_28;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_28 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.28 — antimoonrijke looddross"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_27.
-grondstoffen:materiaalcode_m05_29 dcterms:isVersionOf grondstoffen:materiaalcode_m05_29;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_29 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.29 — lood-bismutdross"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_28.
-grondstoffen:materiaalcode_m05_30 dcterms:isVersionOf grondstoffen:materiaalcode_m05_30;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_30 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.30 — lood-antimoondross"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_29.
-grondstoffen:materiaalcode_m05_31 dcterms:isVersionOf grondstoffen:materiaalcode_m05_31;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_31 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.31 — looddross"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_30.
-grondstoffen:materiaalcode_m05_32 dcterms:isVersionOf grondstoffen:materiaalcode_m05_32;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_32 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.32 — loodhoudende vliegstoffen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_31.
-grondstoffen:materiaalcode_m05_33 dcterms:isVersionOf grondstoffen:materiaalcode_m05_33;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_33 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.33 — loodslakken"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_32.
-grondstoffen:materiaalcode_m05_34 dcterms:isVersionOf grondstoffen:materiaalcode_m05_34;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_34 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.34 — lood-koperdross"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_33.
-grondstoffen:materiaalcode_m05_35 dcterms:isVersionOf grondstoffen:materiaalcode_m05_35;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_35 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.35 — lood-ijzersteen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_34.
-grondstoffen:materiaalcode_m05_36 dcterms:isVersionOf grondstoffen:materiaalcode_m05_36;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_36 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.36 — lood(koper)-speiss"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_35.
-grondstoffen:materiaalcode_m05_37 dcterms:isVersionOf grondstoffen:materiaalcode_m05_37;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_37 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.37 — loodhoudende vliegstoffen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_36.
-grondstoffen:materiaalcode_m05_38 dcterms:isVersionOf grondstoffen:materiaalcode_m05_38;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_38 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.38 — ruw lood"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_37.
-grondstoffen:materiaalcode_m05_39 dcterms:isVersionOf grondstoffen:materiaalcode_m05_39;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_39 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.39 — loodhoudend slib"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_38.
-grondstoffen:materiaalcode_m05_40 dcterms:isVersionOf grondstoffen:materiaalcode_m05_40;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_40 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.40 — loodhoudende slakken"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_39.
-grondstoffen:materiaalcode_m05_41 dcterms:isVersionOf grondstoffen:materiaalcode_m05_41;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_41 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.41 — zilverschuim"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_40.
-grondstoffen:materiaalcode_m05_42 dcterms:isVersionOf grondstoffen:materiaalcode_m05_42;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_42 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.42 — seleen-telluurhoudende producten"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_41.
-grondstoffen:materiaalcode_m05_43 dcterms:isVersionOf grondstoffen:materiaalcode_m05_43;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_43 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.43 — tinassen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_42.
-grondstoffen:materiaalcode_m05_44 dcterms:isVersionOf grondstoffen:materiaalcode_m05_44;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_44 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.44 — residu tinsmelting"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_43.
-grondstoffen:materiaalcode_m05_45 dcterms:isVersionOf grondstoffen:materiaalcode_m05_45;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_45 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.45 — tin-ijzerlegering"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_44.
-grondstoffen:materiaalcode_m05_46 dcterms:isVersionOf grondstoffen:materiaalcode_m05_46;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_46 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.46 — lood-tindross"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_45.
-grondstoffen:materiaalcode_m05_47 dcterms:isVersionOf grondstoffen:materiaalcode_m05_47;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_47 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.47 — ruwe telluuroxide"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_46.
-grondstoffen:materiaalcode_m05_48 dcterms:isVersionOf grondstoffen:materiaalcode_m05_48;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_48 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.48 — sodaslakken"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_47.
-grondstoffen:materiaalcode_m05_49 dcterms:isVersionOf grondstoffen:materiaalcode_m05_49;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_49 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.49 — zinkchloride"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_48.
-grondstoffen:materiaalcode_m05_50 dcterms:isVersionOf grondstoffen:materiaalcode_m05_50;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_50 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.50 — kopercement"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_49.
-grondstoffen:materiaalcode_m05_51 dcterms:isVersionOf grondstoffen:materiaalcode_m05_51;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_51 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.51 — zink dross"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_50.
-grondstoffen:materiaalcode_m05_52 dcterms:isVersionOf grondstoffen:materiaalcode_m05_52;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_52 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.52 — mangaanhoudend anodeslib"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_51.
-grondstoffen:materiaalcode_m05_53 dcterms:isVersionOf grondstoffen:materiaalcode_m05_53;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_53 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.53 — zinkoxidehoudende vliegstof"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_52.
-grondstoffen:materiaalcode_m05_54 dcterms:isVersionOf grondstoffen:materiaalcode_m05_54;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_54 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.54 — lood- en zilverhoudend residu"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_53.
-grondstoffen:materiaalcode_m05_55 dcterms:isVersionOf grondstoffen:materiaalcode_m05_55;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_55 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.55 — loodhoudend residu"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_54.
-grondstoffen:materiaalcode_m05_56 dcterms:isVersionOf grondstoffen:materiaalcode_m05_56;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_56 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.56 — nikkel- en kobalthoudende cement"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_55.
-grondstoffen:materiaalcode_m05_57 dcterms:isVersionOf grondstoffen:materiaalcode_m05_57;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_57 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.57 — zinkoxidehoudend roostgoed"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_56.
-grondstoffen:materiaalcode_m05_58 dcterms:isVersionOf grondstoffen:materiaalcode_m05_58;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_58 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.58 — indiumhoudend slib"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_57.
-grondstoffen:materiaalcode_m05_59 dcterms:isVersionOf grondstoffen:materiaalcode_m05_59;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_59 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.59 — zinkhoudende dross en vliegstof"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_58.
-grondstoffen:materiaalcode_m05_60 dcterms:isVersionOf grondstoffen:materiaalcode_m05_60;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_60 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.60 — lood- en zilverhoudende dross en vliegstof"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_59.
-grondstoffen:materiaalcode_m05_61 dcterms:isVersionOf grondstoffen:materiaalcode_m05_61;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_61 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.61 — koperhoudende vliegstoffen"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_60.
-grondstoffen:materiaalcode_m05_62 dcterms:isVersionOf grondstoffen:materiaalcode_m05_62;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_62 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.62 — tornadozuur"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_61.
-grondstoffen:materiaalcode_m05_63 dcterms:isVersionOf grondstoffen:materiaalcode_m05_63;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m05_63 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M05.63 — tin slimes en sludges"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_62.
-grondstoffen:materiaalcode_m06_01 dcterms:isVersionOf grondstoffen:materiaalcode_m06_01;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m06_01 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M06.01 — hoogovenslakken"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m05_63.
-grondstoffen:materiaalcode_m06_05 dcterms:isVersionOf grondstoffen:materiaalcode_m06_05;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m06_05 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M06.05 — convertorslakken ArcelorMittal Belgium (Gent)"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m06_01.
-grondstoffen:materiaalcode_m06_06 dcterms:isVersionOf grondstoffen:materiaalcode_m06_06;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m06_06 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M06.06 — panslakken ArcelorMittal Belgium (Gent)"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m06_05.
-grondstoffen:materiaalcode_m07_01 dcterms:isVersionOf grondstoffen:materiaalcode_m07_01;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m07_01 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M07.01 — ijzer- en staalschroot"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m06_06.
-grondstoffen:materiaalcode_m07_02 dcterms:isVersionOf grondstoffen:materiaalcode_m07_02;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m07_02 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M07.02 — aluminiumschroot"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m07_01.
-grondstoffen:materiaalcode_m07_03 dcterms:isVersionOf grondstoffen:materiaalcode_m07_03;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m07_03 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M07.03 — koperschroot"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m07_02.
-grondstoffen:materiaalcode_m07_04 dcterms:isVersionOf grondstoffen:materiaalcode_m07_04;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m07_04 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M07.04 — kringloopglas"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m07_03.
-grondstoffen:materiaalcode_m07_06 dcterms:isVersionOf grondstoffen:materiaalcode_m07_06;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m07_06 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M07.06 — bemestingsproducten zoals gedefinieerd in EU-verordening 2019/1009"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m07_04.
-grondstoffen:materiaalcode_m08_01 dcterms:isVersionOf grondstoffen:materiaalcode_m08_01;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m08_01 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M08.01 — grondstoffen voor gebruik als diervoeding"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m09_02.
-grondstoffen:materiaalcode_m08_02 dcterms:isVersionOf grondstoffen:materiaalcode_m08_02;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m08_02 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M08.02 — grondstoffen voor de biochemie"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m08_01.
-grondstoffen:materiaalcode_m08_03 dcterms:isVersionOf grondstoffen:materiaalcode_m08_03;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m08_03 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M08.03 — voedingsmiddelen die geschonken worden voor humane consumptie"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m08_02.
-grondstoffen:materiaalcode_m09_01 dcterms:isVersionOf grondstoffen:materiaalcode_m09_01;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m09_01 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M09.01 — opgewerkte afvalolie"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
     riepr-vocab:uiAfter grondstoffen:materiaalcode_m07_06.
-grondstoffen:materiaalcode_m09_02 dcterms:isVersionOf grondstoffen:materiaalcode_m09_02;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:Concept;
+grondstoffen:materiaalcode_m09_02 a skos:Concept;
     skos:inScheme conceptscheme:operationeel_materiaalcodes;
     skos:prefLabel "M09.02 — opgewerkte brandstofresten"@nl;
     skos:topConceptOf conceptscheme:operationeel_materiaalcodes;
@@ -3992,7 +3881,8 @@ rubriek:vlarem a skos:Concept;
     skos:prefLabel "VLAREM"@nl;
     skos:topConceptOf conceptscheme:rubriektypes;
     riepr-vocab:isMeetbaar true.
-riepr-status:definitief_uit_dienst dcterms:created "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
+riepr-status:definitief_uit_dienst dcterms:isVersionOf riepr-status:definitief_uit_dienst;
+    dcterms:modified "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
     a skos:Concept;
     rdfs:seeAlso <http://purl.org/adms/status/Withdrawn>;
     skos:definition "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is."@nl;
@@ -4001,9 +3891,9 @@ riepr-status:definitief_uit_dienst dcterms:created "2026-11-13T10:57:06.803Z"^^x
     skos:note "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is."@nl;
     skos:prefLabel "Definitief uit dienst"@nl;
     skos:topConceptOf conceptscheme:statustypes;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-riepr-status:in_dienst dcterms:created "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
+riepr-status:in_dienst dcterms:isVersionOf riepr-status:in_dienst;
+    dcterms:modified "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
     a skos:Concept;
     rdfs:seeAlso <http://purl.org/adms/status/Completed>;
     skos:definition "De status in dienst geeft aan dat een entiteit momenteel in gebruik is."@nl;
@@ -4012,9 +3902,9 @@ riepr-status:in_dienst dcterms:created "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
     skos:note "De status in dienst geeft aan dat een entiteit momenteel in gebruik is."@nl;
     skos:prefLabel "In dienst"@nl;
     skos:topConceptOf conceptscheme:statustypes;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-riepr-status:ontmanteld dcterms:created "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
+riepr-status:ontmanteld dcterms:isVersionOf riepr-status:ontmanteld;
+    dcterms:modified "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
     a skos:Concept;
     rdfs:seeAlso <http://purl.org/adms/status/Withdrawn>;
     skos:definition "De status ontmanteld geeft aan dat een entiteit niet meer bestaat."@nl;
@@ -4023,9 +3913,9 @@ riepr-status:ontmanteld dcterms:created "2026-11-13T10:57:06.803Z"^^xsd:dateTime
     skos:note "De status ontmanteld geeft aan dat een entiteit niet meer bestaat."@nl;
     skos:prefLabel "Ontmanteld"@nl;
     skos:topConceptOf conceptscheme:statustypes;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-riepr-status:tijdelijk_uit_dienst dcterms:created "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
+riepr-status:tijdelijk_uit_dienst dcterms:isVersionOf riepr-status:tijdelijk_uit_dienst;
+    dcterms:modified "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
     a skos:Concept;
     rdfs:seeAlso <http://purl.org/adms/status/Deprecated>;
     skos:definition "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is."@nl;
@@ -4034,9 +3924,9 @@ riepr-status:tijdelijk_uit_dienst dcterms:created "2026-11-13T10:57:06.803Z"^^xs
     skos:note "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is."@nl;
     skos:prefLabel "Tijdelijk uit dienst"@nl;
     skos:topConceptOf conceptscheme:statustypes;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-riepr-status:verkeerde_registratie dcterms:created "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
+riepr-status:verkeerde_registratie dcterms:isVersionOf riepr-status:verkeerde_registratie;
+    dcterms:modified "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
     a skos:Concept;
     rdfs:seeAlso <http://purl.org/adms/status/Withdrawn>;
     skos:definition "De status verkeerde registratie  geeft aan deze entiteit verkeerd werd geregistreerd en dus niet van toepassing is"@nl;
@@ -4045,9 +3935,9 @@ riepr-status:verkeerde_registratie dcterms:created "2026-11-13T10:57:06.803Z"^^x
     skos:note "De status verkeerde registratie  geeft aan deze entiteit verkeerd werd geregistreerd en dus niet van toepassing is"@nl;
     skos:prefLabel "Verkeerde Registratie"@nl;
     skos:topConceptOf conceptscheme:statustypes;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-riepr-status:voorgesteld dcterms:created "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
+riepr-status:voorgesteld dcterms:isVersionOf riepr-status:voorgesteld;
+    dcterms:modified "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
     a skos:Concept;
     rdfs:seeAlso <http://purl.org/adms/status/UnderDevelopment>;
     skos:definition "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid."@nl;
@@ -4056,20 +3946,7 @@ riepr-status:voorgesteld dcterms:created "2026-11-13T10:57:06.803Z"^^xsd:dateTim
     skos:note "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid."@nl;
     skos:prefLabel "Voorgesteld Ontwerp"@nl;
     skos:topConceptOf conceptscheme:statustypes;
-    adms:status <https://purl.archive.org/adms/status/Active>;
     riepr-vocab:relevantDataType <http://www.w3.org/ns/adms#>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/definitief_uit_dienst> dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/in_dienst> dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/ontmanteld> dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/tijdelijk_uit_dienst> dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/verkeerde_registratie> dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
-<https://data.omgeving.vlaanderen.be/id/concept/riepr/statustype/voorgesteld> dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
 uitwisselpunteigenschappen:diepte dcterms:isPartOf conceptscheme:systeemeigenschappen;
     dcterms:relation rdfs:value;
     qudt:relevantUnit csor_eenheid:E_59;
@@ -4167,6 +4044,13 @@ conceptscheme:meetpunttypes dcterms:isPartOf conceptscheme:systeemtypes;
     a skos:ConceptScheme;
     skos:hasTopConcept meetpunt:controleinrichting, meetpunt:debietmeter, meetpunt:peilput;
     skos:prefLabel "Meetpunt types"@nl.
+conceptscheme:notatietypes dcterms:created "2026-11-13T11:03:43.228Z"^^xsd:dateTime;
+    a skos:ConceptScheme;
+    skos:definition "Datatypes voor de skos:notation van een externe identificator (adms:Identifier) in MJV: het nummersysteem van de bron waaruit de notatie komt."@nl;
+    skos:hasTopConcept notatietype:activiteit_code, notatietype:activiteit_id, notatietype:apparaat_id, notatietype:cbb_nummer, notatietype:emissiepunt_id, notatietype:exploitant_id, notatietype:filter_id, notatietype:iioa_id, notatietype:installatie_id, notatietype:installatie_vergunning_id, notatietype:lozingspunt_code, notatietype:onttrekkingspunt_code, notatietype:put_id, notatietype:put_key, notatietype:vergunde_rubriek_id, notatietype:vergunning_id, notatietype:watnr, notatietype:zuiveringsapparaat_id;
+    skos:note "Datatypes voor de skos:notation van een externe identificator (adms:Identifier) in MJV: het nummersysteem van de bron waaruit de notatie komt."@nl;
+    skos:prefLabel "Notatie types"@nl;
+    adms:status <https://purl.archive.org/adms/status/Active>.
 conceptscheme:onttrekkingspunteigenschappen dcterms:isPartOf conceptscheme:systeemeigenschappen;
     a skos:ConceptScheme;
     skos:definition "Een typering van verschillende eigenschappen voor onttrekkingspunten."@nl;
@@ -4267,9 +4151,7 @@ conceptscheme:proceduretypes a skos:ConceptScheme;
 conceptscheme:rubriektypes a skos:ConceptScheme;
     skos:hasTopConcept rubriek:vlarem;
     skos:prefLabel "Rubriek types"@nl.
-conceptscheme:statustypes dcterms:isVersionOf conceptscheme:statustypes;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a skos:ConceptScheme;
+conceptscheme:statustypes a skos:ConceptScheme;
     skos:definition "Een typering van verschillende statussen (actief, inactief, ...)."@nl;
     skos:hasTopConcept riepr-status:definitief_uit_dienst, riepr-status:in_dienst, riepr-status:ontmanteld, riepr-status:tijdelijk_uit_dienst, riepr-status:verkeerde_registratie, riepr-status:voorgesteld;
     skos:note "Een typering van verschillende statussen (actief, inactief, ...)."@nl;
@@ -4296,11 +4178,7 @@ conceptscheme:uitwisselpunttypes dcterms:isPartOf conceptscheme:systeemtypes;
 riepr:inGebruikVanaf a rdfs:Resource.
 riepr:parameter a rdfs:Resource.
 schema:additionalProperty a rdfs:Resource.
-schema:address dcterms:isVersionOf schema:address;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a rdfs:Resource.
-schema:identifier dcterms:isVersionOf schema:identifier;
-    dcterms:modified "2026-11-13T10:57:06.803Z"^^xsd:dateTime;
-    a rdfs:Resource.
+schema:address a rdfs:Resource.
+schema:identifier a rdfs:Resource.
 schema:material a rdfs:Resource.
 schema:measurementMethod a rdfs:Resource.

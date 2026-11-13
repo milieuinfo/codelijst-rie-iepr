@@ -806,6 +806,7 @@
     "meetpunteigenschappen": "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunteigenschappen/",
     "meetpunt-selectiemogelijkheden": "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunteigenschappen-selectiemogelijkheden/",
     "meetpunt": "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunttype/",
+    "notatietype": "https://data.omgeving.vlaanderen.be/id/concept/riepr/notatietype/",
     "onttrekkingspunteigenschappen": "https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunteigenschappen/",
     "onttrekkingspunt": "https://data.omgeving.vlaanderen.be/id/concept/riepr/onttrekkingspunttype/",
     "peilmethode": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-peilmethode/",
@@ -954,17 +955,13 @@
       "id": "prov:agent",
       "_type": [
         "rdfs:Resource"
-      ],
-      "isVersionOf": "prov:agent",
-      "modified": "2026-11-13T10:57:06.803Z"
+      ]
     },
     {
       "id": "prov:qualifiedAssociation",
       "_type": [
         "rdfs:Resource"
-      ],
-      "isVersionOf": "prov:qualifiedAssociation",
-      "modified": "2026-11-13T10:57:06.803Z"
+      ]
     },
     {
       "id": "prov:used",
@@ -2850,6 +2847,348 @@
       "isOnzichtbaar": "false"
     },
     {
+      "id": "notatietype:activiteit_code",
+      "_type": [
+        "skos:Concept",
+        "rdfs:Datatype"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "altLabel": "activiteitCode",
+      "definition": "De code van een activiteit in de IMJV-aangifte water.",
+      "inScheme": "conceptscheme:notatietypes",
+      "note": [
+        "De code van een activiteit in de IMJV-aangifte water.",
+        "Bron: IMJV water (VMM)."
+      ],
+      "prefLabel": "VMM-activiteitcode",
+      "scopeNote": "Bron: IMJV water (VMM).",
+      "topConceptOf": "conceptscheme:notatietypes",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "notatietype:activiteit_id",
+      "_type": [
+        "skos:Concept",
+        "rdfs:Datatype"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "altLabel": "activiteitId",
+      "definition": "Het VMM-identificatienummer van een activiteit in de IMJV-aangifte lucht.",
+      "inScheme": "conceptscheme:notatietypes",
+      "note": [
+        "Het VMM-identificatienummer van een activiteit in de IMJV-aangifte lucht.",
+        "Bron: IMJV lucht (VMM)."
+      ],
+      "prefLabel": "VMM-activiteit-ID",
+      "scopeNote": "Bron: IMJV lucht (VMM).",
+      "topConceptOf": "conceptscheme:notatietypes",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "notatietype:apparaat_id",
+      "_type": [
+        "skos:Concept",
+        "rdfs:Datatype"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "altLabel": "apparaatId",
+      "definition": "Het VMM-identificatienummer van een (zuiverings)apparaat in de IMJV-aangifte water.",
+      "inScheme": "conceptscheme:notatietypes",
+      "note": [
+        "Bron: IMJV water (VMM).",
+        "Het VMM-identificatienummer van een (zuiverings)apparaat in de IMJV-aangifte water."
+      ],
+      "prefLabel": "VMM-apparaat-ID",
+      "scopeNote": "Bron: IMJV water (VMM).",
+      "topConceptOf": "conceptscheme:notatietypes",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "notatietype:cbb_nummer",
+      "_type": [
+        "skos:Concept",
+        "rdfs:Datatype"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "altLabel": "cbbNummer",
+      "definition": "Het nummer van 14 cijfers waaronder een exploitatie in de CBB gekend is.",
+      "inScheme": "conceptscheme:notatietypes",
+      "note": [
+        "Het nummer van 14 cijfers waaronder een exploitatie in de CBB gekend is.",
+        "Bron: CBB."
+      ],
+      "prefLabel": "CBB-nummer",
+      "scopeNote": "Bron: CBB.",
+      "topConceptOf": "conceptscheme:notatietypes",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "notatietype:emissiepunt_id",
+      "_type": [
+        "skos:Concept",
+        "rdfs:Datatype"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "altLabel": "emissiepuntId",
+      "definition": "Het VMM-identificatienummer van een emissiepunt in de IMJV-aangifte lucht.",
+      "inScheme": "conceptscheme:notatietypes",
+      "note": [
+        "Bron: IMJV lucht (VMM).",
+        "Het VMM-identificatienummer van een emissiepunt in de IMJV-aangifte lucht."
+      ],
+      "prefLabel": "VMM-emissiepunt-ID",
+      "scopeNote": "Bron: IMJV lucht (VMM).",
+      "topConceptOf": "conceptscheme:notatietypes",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "notatietype:exploitant_id",
+      "_type": [
+        "skos:Concept",
+        "rdfs:Datatype"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "altLabel": "VMM_exploitantID",
+      "definition": "Het VMM-identificatienummer van de exploitant in de IMJV-aangifte grondwater.",
+      "inScheme": "conceptscheme:notatietypes",
+      "note": [
+        "Het VMM-identificatienummer van de exploitant in de IMJV-aangifte grondwater.",
+        "Bron: IMJV grondwater (VMM)."
+      ],
+      "prefLabel": "VMM-exploitant-ID",
+      "scopeNote": "Bron: IMJV grondwater (VMM).",
+      "topConceptOf": "conceptscheme:notatietypes",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "notatietype:filter_id",
+      "_type": [
+        "skos:Concept",
+        "rdfs:Datatype"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "altLabel": "VMM_filterID",
+      "definition": "Het VMM-identificatienummer van een filter in de IMJV-aangifte grondwater.",
+      "inScheme": "conceptscheme:notatietypes",
+      "note": [
+        "Bron: IMJV grondwater (VMM).",
+        "Het VMM-identificatienummer van een filter in de IMJV-aangifte grondwater."
+      ],
+      "prefLabel": "VMM-filter-ID",
+      "scopeNote": "Bron: IMJV grondwater (VMM).",
+      "topConceptOf": "conceptscheme:notatietypes",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "notatietype:iioa_id",
+      "_type": [
+        "skos:Concept",
+        "rdfs:Datatype"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "altLabel": "VMM_iioaID",
+      "definition": "Het VMM-identificatienummer van de IIOA in de IMJV-aangifte grondwater.",
+      "inScheme": "conceptscheme:notatietypes",
+      "note": [
+        "Bron: IMJV grondwater (VMM).",
+        "Het VMM-identificatienummer van de IIOA in de IMJV-aangifte grondwater."
+      ],
+      "prefLabel": "VMM-IIOA-ID",
+      "scopeNote": "Bron: IMJV grondwater (VMM).",
+      "topConceptOf": "conceptscheme:notatietypes",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "notatietype:installatie_id",
+      "_type": [
+        "skos:Concept",
+        "rdfs:Datatype"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "altLabel": "VMM_installatieID",
+      "definition": "Het VMM-identificatienummer van een installatie in de IMJV-aangifte grondwater.",
+      "inScheme": "conceptscheme:notatietypes",
+      "note": [
+        "Bron: IMJV grondwater (VMM).",
+        "Het VMM-identificatienummer van een installatie in de IMJV-aangifte grondwater."
+      ],
+      "prefLabel": "VMM-installatie-ID",
+      "scopeNote": "Bron: IMJV grondwater (VMM).",
+      "topConceptOf": "conceptscheme:notatietypes",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "notatietype:installatie_vergunning_id",
+      "_type": [
+        "skos:Concept",
+        "rdfs:Datatype"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "altLabel": "VMM_installatieVergunningID",
+      "definition": "Het VMM-identificatienummer van een installatievergunning in de IMJV-aangifte grondwater.",
+      "inScheme": "conceptscheme:notatietypes",
+      "note": [
+        "Bron: IMJV grondwater (VMM).",
+        "Het VMM-identificatienummer van een installatievergunning in de IMJV-aangifte grondwater."
+      ],
+      "prefLabel": "VMM-installatievergunning-ID",
+      "scopeNote": "Bron: IMJV grondwater (VMM).",
+      "topConceptOf": "conceptscheme:notatietypes",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "notatietype:lozingspunt_code",
+      "_type": [
+        "skos:Concept",
+        "rdfs:Datatype"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "altLabel": "lozingspuntCode",
+      "definition": "De code van een lozingspunt in de IMJV-aangifte water.",
+      "inScheme": "conceptscheme:notatietypes",
+      "note": [
+        "Bron: IMJV water (VMM).",
+        "De code van een lozingspunt in de IMJV-aangifte water."
+      ],
+      "prefLabel": "VMM-lozingspuntcode",
+      "scopeNote": "Bron: IMJV water (VMM).",
+      "topConceptOf": "conceptscheme:notatietypes",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "notatietype:onttrekkingspunt_code",
+      "_type": [
+        "skos:Concept",
+        "rdfs:Datatype"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "altLabel": "onttrekkingspuntCode",
+      "definition": "De code van een onttrekkingspunt in de IMJV-aangiften water en grondwater.",
+      "inScheme": "conceptscheme:notatietypes",
+      "note": [
+        "De code van een onttrekkingspunt in de IMJV-aangiften water en grondwater.",
+        "Bron: IMJV water en grondwater (VMM)."
+      ],
+      "prefLabel": "VMM-onttrekkingspuntcode",
+      "scopeNote": "Bron: IMJV water en grondwater (VMM).",
+      "topConceptOf": "conceptscheme:notatietypes",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "notatietype:put_id",
+      "_type": [
+        "skos:Concept",
+        "rdfs:Datatype"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "altLabel": "VMM_putID",
+      "definition": "Het VMM-identificatienummer van een put in de IMJV-aangifte grondwater.",
+      "inScheme": "conceptscheme:notatietypes",
+      "note": [
+        "Bron: IMJV grondwater (VMM).",
+        "Het VMM-identificatienummer van een put in de IMJV-aangifte grondwater."
+      ],
+      "prefLabel": "VMM-put-ID",
+      "scopeNote": "Bron: IMJV grondwater (VMM).",
+      "topConceptOf": "conceptscheme:notatietypes",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "notatietype:put_key",
+      "_type": [
+        "skos:Concept",
+        "rdfs:Datatype"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "altLabel": "VMM_putKey",
+      "definition": "De VMM-sleutel van een put in de IMJV-aangifte grondwater.",
+      "inScheme": "conceptscheme:notatietypes",
+      "note": [
+        "Bron: IMJV grondwater (VMM).",
+        "De VMM-sleutel van een put in de IMJV-aangifte grondwater."
+      ],
+      "prefLabel": "VMM-putsleutel",
+      "scopeNote": "Bron: IMJV grondwater (VMM).",
+      "topConceptOf": "conceptscheme:notatietypes",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "notatietype:vergunde_rubriek_id",
+      "_type": [
+        "skos:Concept",
+        "rdfs:Datatype"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "altLabel": "VMM_vergundeRubriekID",
+      "definition": "Het VMM-identificatienummer van een vergunde rubriek in de IMJV-aangifte grondwater.",
+      "inScheme": "conceptscheme:notatietypes",
+      "note": [
+        "Bron: IMJV grondwater (VMM).",
+        "Het VMM-identificatienummer van een vergunde rubriek in de IMJV-aangifte grondwater."
+      ],
+      "prefLabel": "VMM-vergunde-rubriek-ID",
+      "scopeNote": "Bron: IMJV grondwater (VMM).",
+      "topConceptOf": "conceptscheme:notatietypes",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "notatietype:vergunning_id",
+      "_type": [
+        "skos:Concept",
+        "rdfs:Datatype"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "altLabel": "VMM_vergunningID",
+      "definition": "Het VMM-identificatienummer van een vergunning in de IMJV-aangifte grondwater.",
+      "inScheme": "conceptscheme:notatietypes",
+      "note": [
+        "Bron: IMJV grondwater (VMM).",
+        "Het VMM-identificatienummer van een vergunning in de IMJV-aangifte grondwater."
+      ],
+      "prefLabel": "VMM-vergunning-ID",
+      "scopeNote": "Bron: IMJV grondwater (VMM).",
+      "topConceptOf": "conceptscheme:notatietypes",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "notatietype:watnr",
+      "_type": [
+        "skos:Concept",
+        "rdfs:Datatype"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "altLabel": "VMM_watnr",
+      "definition": "Het VMM-waternummer (watnr) in de IMJV-aangifte grondwater.",
+      "inScheme": "conceptscheme:notatietypes",
+      "note": [
+        "Bron: IMJV grondwater (VMM).",
+        "Het VMM-waternummer (watnr) in de IMJV-aangifte grondwater."
+      ],
+      "prefLabel": "VMM-waternummer",
+      "scopeNote": "Bron: IMJV grondwater (VMM).",
+      "topConceptOf": "conceptscheme:notatietypes",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "notatietype:zuiveringsapparaat_id",
+      "_type": [
+        "skos:Concept",
+        "rdfs:Datatype"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "altLabel": "zuiveringsapparaatId",
+      "definition": "Het VMM-identificatienummer van een zuiveringsapparaat in de IMJV-aangifte lucht.",
+      "inScheme": "conceptscheme:notatietypes",
+      "note": [
+        "Bron: IMJV lucht (VMM).",
+        "Het VMM-identificatienummer van een zuiveringsapparaat in de IMJV-aangifte lucht."
+      ],
+      "prefLabel": "VMM-zuiveringsapparaat-ID",
+      "scopeNote": "Bron: IMJV lucht (VMM).",
+      "topConceptOf": "conceptscheme:notatietypes",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
       "id": "onttrekkingspunteigenschappen:omschrijving",
       "_type": [
         "skos:Concept"
@@ -2989,7 +3328,8 @@
       "_type": [
         "skos:Concept"
       ],
-      "created": "2026-11-13T10:57:06.803Z",
+      "isVersionOf": "riepr-status:definitief_uit_dienst",
+      "modified": "2026-11-13T11:03:43.228Z",
       "seeAlso": "http://purl.org/adms/status/Withdrawn",
       "definition": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
       "inScheme": "conceptscheme:statustypes",
@@ -2997,7 +3337,6 @@
       "note": "De status definitief uit dienst geeft aan dat een entiteit definitief buiten gebruik is.",
       "prefLabel": "Definitief uit dienst",
       "topConceptOf": "conceptscheme:statustypes",
-      "status": "https://purl.archive.org/adms/status/Active",
       "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
@@ -3005,7 +3344,8 @@
       "_type": [
         "skos:Concept"
       ],
-      "created": "2026-11-13T10:57:06.803Z",
+      "isVersionOf": "riepr-status:in_dienst",
+      "modified": "2026-11-13T11:03:43.228Z",
       "seeAlso": "http://purl.org/adms/status/Completed",
       "definition": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
       "inScheme": "conceptscheme:statustypes",
@@ -3013,7 +3353,6 @@
       "note": "De status in dienst geeft aan dat een entiteit momenteel in gebruik is.",
       "prefLabel": "In dienst",
       "topConceptOf": "conceptscheme:statustypes",
-      "status": "https://purl.archive.org/adms/status/Active",
       "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
@@ -3021,7 +3360,8 @@
       "_type": [
         "skos:Concept"
       ],
-      "created": "2026-11-13T10:57:06.803Z",
+      "isVersionOf": "riepr-status:ontmanteld",
+      "modified": "2026-11-13T11:03:43.228Z",
       "seeAlso": "http://purl.org/adms/status/Withdrawn",
       "definition": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
       "inScheme": "conceptscheme:statustypes",
@@ -3029,7 +3369,6 @@
       "note": "De status ontmanteld geeft aan dat een entiteit niet meer bestaat.",
       "prefLabel": "Ontmanteld",
       "topConceptOf": "conceptscheme:statustypes",
-      "status": "https://purl.archive.org/adms/status/Active",
       "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
@@ -3037,7 +3376,8 @@
       "_type": [
         "skos:Concept"
       ],
-      "created": "2026-11-13T10:57:06.803Z",
+      "isVersionOf": "riepr-status:tijdelijk_uit_dienst",
+      "modified": "2026-11-13T11:03:43.228Z",
       "seeAlso": "http://purl.org/adms/status/Deprecated",
       "definition": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
       "inScheme": "conceptscheme:statustypes",
@@ -3045,7 +3385,6 @@
       "note": "De status tijdelijk uit dienst geeft aan dat een entiteit tijden buiten gebruik is.",
       "prefLabel": "Tijdelijk uit dienst",
       "topConceptOf": "conceptscheme:statustypes",
-      "status": "https://purl.archive.org/adms/status/Active",
       "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
@@ -3053,7 +3392,8 @@
       "_type": [
         "skos:Concept"
       ],
-      "created": "2026-11-13T10:57:06.803Z",
+      "isVersionOf": "riepr-status:verkeerde_registratie",
+      "modified": "2026-11-13T11:03:43.228Z",
       "seeAlso": "http://purl.org/adms/status/Withdrawn",
       "definition": "De status verkeerde registratie  geeft aan deze entiteit verkeerd werd geregistreerd en dus niet van toepassing is",
       "inScheme": "conceptscheme:statustypes",
@@ -3061,7 +3401,6 @@
       "note": "De status verkeerde registratie  geeft aan deze entiteit verkeerd werd geregistreerd en dus niet van toepassing is",
       "prefLabel": "Verkeerde Registratie",
       "topConceptOf": "conceptscheme:statustypes",
-      "status": "https://purl.archive.org/adms/status/Active",
       "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
@@ -3069,7 +3408,8 @@
       "_type": [
         "skos:Concept"
       ],
-      "created": "2026-11-13T10:57:06.803Z",
+      "isVersionOf": "riepr-status:voorgesteld",
+      "modified": "2026-11-13T11:03:43.228Z",
       "seeAlso": "http://purl.org/adms/status/UnderDevelopment",
       "definition": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
       "inScheme": "conceptscheme:statustypes",
@@ -3077,7 +3417,6 @@
       "note": "De status voorgesteld geeft aan dat een entiteit voorsgesteld is door de Vlaamse Overheid.",
       "prefLabel": "Voorgesteld Ontwerp",
       "topConceptOf": "conceptscheme:statustypes",
-      "status": "https://purl.archive.org/adms/status/Active",
       "relevantDataType": "http://www.w3.org/ns/adms#"
     },
     {
@@ -3606,6 +3945,91 @@
       "prefLabel": "Meetpunt types"
     },
     {
+      "id": "conceptscheme:notatietypes",
+      "_type": [
+        "skos:ConceptScheme"
+      ],
+      "created": "2026-11-13T11:03:43.228Z",
+      "definition": "Datatypes voor de skos:notation van een externe identificator (adms:Identifier) in MJV: het nummersysteem van de bron waaruit de notatie komt.",
+      "hasTopConcept": [
+        "notatietype:activiteit_code",
+        "notatietype:activiteit_id",
+        "notatietype:apparaat_id",
+        "notatietype:cbb_nummer",
+        "notatietype:emissiepunt_id",
+        "notatietype:exploitant_id",
+        "notatietype:filter_id",
+        "notatietype:iioa_id",
+        "notatietype:installatie_id",
+        "notatietype:installatie_vergunning_id",
+        "notatietype:lozingspunt_code",
+        "notatietype:onttrekkingspunt_code",
+        "notatietype:put_id",
+        "notatietype:put_key",
+        "notatietype:vergunde_rubriek_id",
+        "notatietype:vergunning_id",
+        "notatietype:watnr",
+        "notatietype:zuiveringsapparaat_id",
+        {
+          "id": "notatietype:activiteit_code"
+        },
+        {
+          "id": "notatietype:activiteit_id"
+        },
+        {
+          "id": "notatietype:apparaat_id"
+        },
+        {
+          "id": "notatietype:cbb_nummer"
+        },
+        {
+          "id": "notatietype:emissiepunt_id"
+        },
+        {
+          "id": "notatietype:exploitant_id"
+        },
+        {
+          "id": "notatietype:filter_id"
+        },
+        {
+          "id": "notatietype:iioa_id"
+        },
+        {
+          "id": "notatietype:installatie_id"
+        },
+        {
+          "id": "notatietype:installatie_vergunning_id"
+        },
+        {
+          "id": "notatietype:lozingspunt_code"
+        },
+        {
+          "id": "notatietype:onttrekkingspunt_code"
+        },
+        {
+          "id": "notatietype:put_id"
+        },
+        {
+          "id": "notatietype:put_key"
+        },
+        {
+          "id": "notatietype:vergunde_rubriek_id"
+        },
+        {
+          "id": "notatietype:vergunning_id"
+        },
+        {
+          "id": "notatietype:watnr"
+        },
+        {
+          "id": "notatietype:zuiveringsapparaat_id"
+        }
+      ],
+      "note": "Datatypes voor de skos:notation van een externe identificator (adms:Identifier) in MJV: het nummersysteem van de bron waaruit de notatie komt.",
+      "prefLabel": "Notatie types",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
       "id": "conceptscheme:onttrekkingspunteigenschappen",
       "_type": [
         "skos:ConceptScheme"
@@ -3694,8 +4118,6 @@
       "_type": [
         "skos:ConceptScheme"
       ],
-      "isVersionOf": "conceptscheme:statustypes",
-      "modified": "2026-11-13T10:57:06.803Z",
       "definition": "Een typering van verschillende statussen (actief, inactief, ...).",
       "hasTopConcept": [
         "riepr-status:definitief_uit_dienst",
@@ -3875,17 +4297,13 @@
       "id": "schema:address",
       "_type": [
         "rdfs:Resource"
-      ],
-      "isVersionOf": "schema:address",
-      "modified": "2026-11-13T10:57:06.803Z"
+      ]
     },
     {
       "id": "schema:identifier",
       "_type": [
         "rdfs:Resource"
-      ],
-      "isVersionOf": "schema:identifier",
-      "modified": "2026-11-13T10:57:06.803Z"
+      ]
     },
     {
       "id": "schema:material",
