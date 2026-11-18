@@ -24,7 +24,7 @@ test('a fresh launcher exposes composite metadata and safe movement over MCP', a
         const batch = tools.find(tool => tool.name === 'apply_operational_batch')!;
         assert.ok(batch, 'atomic operational batches must be discoverable');
         const set = update.inputSchema.properties!.set as { properties: Record<string, unknown> };
-        for (const key of ['tableKey', 'referenceParent', 'referenceRelation']) {
+        for (const key of ['tableKey', 'referenceParent', 'referenceRelation', 'ultimateFeatureOfInterestSource', 'observedProperty']) {
             assert.ok(set.properties[key], `update_flow_item must expose ${key}`);
             assert.ok(add.inputSchema.properties![key], `add_field must expose ${key}`);
         }
@@ -34,6 +34,14 @@ test('a fresh launcher exposes composite metadata and safe movement over MCP', a
                 referenceParent: 'grondwater:kwaliteitsmeting-referentiepunt',
                 referenceRelation: 'prov:wasDerivedFrom',
             } },
+            { id: 'grondwater:kwaliteitsmeting-monstername', set: {
+                ultimateFeatureOfInterestSource: 'grondwater:kwaliteitsmeting-feature',
+                prefLabel: 'Monstername testpreview',
+            } },
+            { id: 'grondwater:kwaliteitsmeting-resultaten', set: {
+                observedProperty: 'grondwater:kwaliteitsmeting-resultaten-meetwaarde',
+                prefLabel: 'Meetresultaten testpreview',
+            } },
         ]) {
             const result = await client.callTool({ name: 'update_flow_item', arguments: { ...args, dryRun: true } });
             assert.notEqual(result.isError, true);
@@ -42,6 +50,20 @@ test('a fresh launcher exposes composite metadata and safe movement over MCP', a
             assert.match(preview.status, /dry-run/);
             assert.ok(preview.changes.length);
         }
+        const batchMetadata = await client.callTool({ name: 'apply_operational_batch', arguments: {
+            operations: [{
+                tool: 'update_flow_item', args: {
+                    id: 'grondwater:kwaliteitsmeting-monstername',
+                    set: { ultimateFeatureOfInterestSource: 'grondwater:kwaliteitsmeting-feature', prefLabel: 'Monstername testpreview' },
+                },
+            }],
+            dryRun: true,
+        } });
+        assert.notEqual(batchMetadata.isError, true);
+        const batchMetadataPreview = JSON.parse((batchMetadata.content as { text: string }[])[0].text);
+        assert.match(batchMetadataPreview.status, /dry-run/);
+        assert.ok(batchMetadataPreview.files[0].resultingLines.some((line: { text: string }) =>
+            line.text.includes('grondwater:kwaliteitsmeting-feature')));
         const result = await client.callTool({ name: 'move_field', arguments: {
             field: 'lucht:brandstof', step: 'operationeel_lucht_rapportering', dryRun: true,
         } });

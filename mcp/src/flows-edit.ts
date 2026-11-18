@@ -21,7 +21,7 @@ const OPERATIONAL_HEADER = [
     'relevantFeatureClass', 'relevantDataType', 'relation', 'vervolgstap', 'relevantRiepr', 'conditionPath', 'conditionValue',
     'relevantCodeList', 'relevantUnit', 'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'variabele', 'minValue', 'maxValue',
     'isVerplicht', 'isMeervoudig', 'isMultiselect', 'isOnzichtbaar', '_table_workbook', '_table_sheet', '_table_key',
-    'referenceParent', 'referenceRelation', '_ui_after', '_ui_first', 'related',
+    'referenceParent', 'referenceRelation', 'ultimateFeatureOfInterestSource', 'observedProperty', '_ui_after', '_ui_first', 'related',
 ];
 
 export interface FieldProperties {
@@ -36,6 +36,10 @@ export interface FieldProperties {
     relevantClass?: string;
     relevantFeatureClass?: string[];
     relevantObservation?: string[];
+    /** Published measurement concept observed by this observation, not a selected variable. */
+    observedProperty?: string;
+    /** Feature-selector field used as the ultimate feature of interest of this Sampling. */
+    ultimateFeatureOfInterestSource?: string;
     tableWorkbook?: string;
     tableSheet?: string;
     tableKey?: string[];
@@ -77,6 +81,8 @@ const COLUMNS: Record<keyof FieldProperties, string> = {
     relevantClass: 'relevantClass',
     relevantFeatureClass: 'relevantFeatureClass',
     relevantObservation: 'relevantObservation',
+    observedProperty: 'observedProperty',
+    ultimateFeatureOfInterestSource: 'ultimateFeatureOfInterestSource',
     tableWorkbook: '_table_workbook',
     tableSheet: '_table_sheet',
     tableKey: '_table_key',
@@ -185,6 +191,10 @@ function siblingsOf(repo: Repo, scheme: string, parent: string | undefined, excl
     return repo.conceptsOf(scheme).map(c => c.record).filter(r => (r.broaderPartitive || undefined) === parent && r._id !== exclude);
 }
 
+function sosaClass(value: string | undefined, name: string): boolean {
+    return [ `sosa:${name}`, `sosa-2023:${name}`, `http://www.w3.org/ns/sosa/${name}` ].includes(value ?? '');
+}
+
 /** Checks the properties of a field in `scheme`; `id` is the field's own id. */
 function checkField(repo: Repo, scheme: string, id: string, p: FieldProperties): Problems {
     const errors: string[] = [];
@@ -258,6 +268,24 @@ function checkField(repo: Repo, scheme: string, id: string, p: FieldProperties):
         if (target !== id && !inStep.has(target)) errors.push(`relevantObservation ${target} is not a field of ${scheme}.`);
         else if (!['riepr:Observatie', 'riepr:ObservatieVerzameling', 'sosa:Observation', 'sosa:ObservationCollection'].includes(type ?? '')) {
             errors.push(`relevantObservation ${target} is not an observation or observation collection.`);
+        }
+    }
+    if (p.observedProperty) {
+        const target = repo.byId.get(p.observedProperty)?.record;
+        if (!['riepr:Observatie', 'sosa:Observation', 'sosa-2023:Observation', 'http://www.w3.org/ns/sosa/Observation'].includes(p.relevantClass ?? '')) {
+            errors.push('observedProperty only applies to an Observation field.');
+        } else if (!inStep.has(p.observedProperty) || target?.relevantCodeList || target?.relevantRiepr || !target?.relevantDataType) {
+            errors.push('observedProperty must identify a measurement field of the same step, not a variable selector.');
+        }
+    }
+    if (p.ultimateFeatureOfInterestSource) {
+        const source = repo.byId.get(p.ultimateFeatureOfInterestSource)?.record;
+        if (p.ultimateFeatureOfInterestSource === id || !inStep.has(p.ultimateFeatureOfInterestSource)) {
+            errors.push(`ultimateFeatureOfInterestSource ${p.ultimateFeatureOfInterestSource} is not another field of ${scheme}.`);
+        } else if (!sosaClass(p.relevantClass, 'Sampling')) {
+            errors.push('ultimateFeatureOfInterestSource only applies to a sosa:Sampling field.');
+        } else if (!sosaClass(source?.relevantClass, 'FeatureOfInterest') || !source?.relevantFeatureClass?.trim()) {
+            errors.push(`ultimateFeatureOfInterestSource ${p.ultimateFeatureOfInterestSource} must select a feature of interest.`);
         }
     }
     if (Boolean(p.tableWorkbook) !== Boolean(p.tableSheet)) errors.push('tableWorkbook and tableSheet go together.');

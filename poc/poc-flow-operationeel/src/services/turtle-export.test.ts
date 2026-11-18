@@ -30,8 +30,19 @@ describe('Turtle export', () => {
     expect(turtle).toContain('a riepr:Observatie, sosa:Observation')
     expect(turtle).toMatch(/;\n\s+sosa:hasResult /)
     expect(turtle).toContain('^^xsd:dateTime')
+    expect(turtle).not.toContain('_:report')
     expect(turtle).not.toContain('@prefix skos:')
     expect(turtle).not.toContain(`<${sosa}hasResult>`)
+    expect(turtle).toMatch(/\.\n\n(?:<|[A-Za-z_:])/)
+  })
+
+  it('indents blank-node triples and leaves prefix declarations together', () => {
+    const turtle = exportTurtle(section('kwaliteitsmeting'), example('kwaliteitsmeting'), options())
+    expect(turtle).toMatch(/@prefix [^\n]+\.\n@prefix /)
+    expect(turtle).not.toMatch(/@prefix [^\n]+\.\n\n@prefix /)
+    expect(turtle).toContain(
+      'prov:wasAssociatedWith [\n      a prov:Agent, riepr:Uitvoerder;\n      rdfs:label "Synthetisch laboratorium"\n    ];',
+    )
   })
 
   it('mints distinct UUIDv4 identifiers when LAN HTTP exposes only getRandomValues', () => {
@@ -50,7 +61,8 @@ describe('Turtle export', () => {
   })
 
   it.each(['onttrekking', 'peilmeting', 'kwaliteitsmeting'])('serializes the %s example as RDF', name => {
-    const graph = new Store(new Parser().parse(exportTurtle(section(name), example(name), options())))
+    const schema = section(name)
+    const graph = new Store(new Parser().parse(exportTurtle(schema, example(name), options())))
     const observations = graph.getSubjects(rdfType, namedNode(riepr + 'Observatie'), null)
     expect(observations.length).toBeGreaterThan(0)
     for (const observation of observations) {
@@ -64,6 +76,8 @@ describe('Turtle export', () => {
       const sampling = graph.getObjects(sample[0], namedNode(sosa + 'isResultOf'), null)
       expect(sampling).toHaveLength(1)
       expect(graph.has(sampling[0], rdfType, namedNode(sosa + 'Sampling'), null)).toBe(true)
+      expect(graph.getObjects(sampling[0], namedNode(sosa + 'ultimateFeatureOfInterest'), null))
+        .toEqual([graph.getSubjects(rdfType, namedNode(riepr + 'Emissie'), null)[0]])
       expect(graph.getSubjects(namedNode(sosa + 'hasMember'), sample[0], null)).toHaveLength(0)
       const features = graph.getSubjects(rdfType, namedNode(riepr + 'Emissie'), null)
       expect(graph.getObjects(features[0], namedNode('http://www.w3.org/ns/prov#wasDerivedFrom'), null)).toHaveLength(2)

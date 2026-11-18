@@ -49,6 +49,8 @@ export interface Concept {
   relevantProperty?: string
   relevantClass?: string
   relevantObservation?: string[]
+  observedProperty?: string
+  ultimateFeatureOfInterestSource?: string
   relevantFeatureClass?: string[]
   tableWorkbook?: string
   tableSheet?: string

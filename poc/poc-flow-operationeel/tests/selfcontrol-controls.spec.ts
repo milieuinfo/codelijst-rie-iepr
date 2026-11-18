@@ -23,7 +23,7 @@ for (const [theme, slug, point, pollutant] of [
     await date.blur()
     await page.locator('td[data-row-expand="/meting/0"]').getByRole('button').click()
     await page.locator('tr[data-row-details="/meting/0"]').getByRole('button', { name: 'Rij toevoegen', exact: true }).click()
-    await field('hasMember/0/observedProperty').locator('select').selectOption({ label: pollutant })
+    await field('hasMember/0/hasResult/parameterParameter/value').locator('select').selectOption({ label: pollutant })
     const concentration = field('hasMember/0/hasResult/numericValue')
     await concentration.getByRole('spinbutton').fill('0')
     await concentration.locator('select').selectOption({ index: 1 })

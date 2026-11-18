@@ -180,7 +180,7 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
         expect(machine).toEqual(machineColumns(plan, record.id));
         if (record.sheetName === 'Meetresultaten') {
           expect(headers[0]).toBe('Monsternummer');
-          expect(headers[1]).toBe('Parameter *');
+          expect(headers[1]).toBe('Variabele *');
         } else expect(machine).not.toContain('_parent_ref');
         const ids = layoutColumns(plan, record);
         for (const [index] of machine.entries()) {

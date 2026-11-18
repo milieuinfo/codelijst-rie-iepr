@@ -3,12 +3,16 @@ import layoutStyle from '@domg/govflanders-style/common/layout.css.js'
 import { schemaObject, type SchemaIndexEntry, type JsonSchemaObject } from 'codelijst-rie-iepr-poc-json-schema/browser'
 import { CodelistService } from '../services/codelist-service.js'
 import { loadSchemaSnapshot, type SchemaSnapshot } from '../services/schema-snapshot.js'
-import { SchemaEditor } from '../services/schema-editor.js'
+import { isObject, SchemaEditor } from '../services/schema-editor.js'
 import { SchemaLookups } from '../services/schema-lookups.js'
 import { uploadOds } from '../services/ods-upload.js'
 import { demonstrationProcessGraph } from '../services/demo-process-graph.js'
 import { exportTurtle } from '../services/turtle-export.js'
 import './schema-rich-table.js'
+
+const demoExamples = import.meta.glob<Record<string, unknown>>(
+  '../../../poc-json-schema/examples/*/*.json', { eager: true, import: 'default' },
+)
 
 /**
  * Highlight JSON without changing its text or interpreting it as HTML.
@@ -30,6 +34,36 @@ function highlightJson(json: string): Array<string | TemplateResult> {
     end = start + value.length
   }
   parts.push(json.slice(end))
+  return parts
+}
+
+/**
+ * Highlight Turtle tokens while preserving the original text and escaping markup.
+ * @param turtle - Serialized Turtle.
+ * @returns Escaped text and highlighted tokens.
+ */
+function highlightTurtle(turtle: string): Array<string | TemplateResult> {
+  const parts: Array<string | TemplateResult> = []
+  const tokens = /#[^\r\n]*|@(?:prefix|base)\b|<[^>\r\n]*>|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\^\^|@[A-Za-z][A-Za-z0-9-]*|_:[A-Za-z0-9_-]+|\b(?:true|false)\b|-?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?|[A-Za-z][A-Za-z0-9_-]*:[A-Za-z0-9_.-]*|\ba\b|[;,.[\]()]/g
+  let end = 0
+  for (const match of turtle.matchAll(tokens)) {
+    const start = match.index
+    const value = match[0]
+    parts.push(turtle.slice(end, start))
+    const kind = value.startsWith('#') ? 'comment'
+      : value === '@prefix' || value === '@base' ? 'directive'
+        : value.startsWith('<') ? 'iri'
+          : value.startsWith('"') || value.startsWith("'") ? 'string'
+            : value.startsWith('@') ? 'language'
+              : value === '^^' ? 'datatype'
+                : value.startsWith('_:') ? 'blank'
+                  : value === 'true' || value === 'false' ? 'boolean'
+                    : /^-?(?:\d|\.)/.test(value) ? 'number'
+                      : value.includes(':') ? 'prefixed' : value === 'a' ? 'keyword' : 'punctuation'
+    parts.push(html`<span class=${`turtle-${kind}`}>${value}</span>`)
+    end = start + value.length
+  }
+  parts.push(turtle.slice(end))
   return parts
 }
 
@@ -58,6 +92,15 @@ export class CodelijstApp extends LitElement {
     .json-string { color: #23734c; }
     .json-number { color: #8a4511; }
     .json-literal { color: #743b9b; }
+    .turtle-comment { color: #617079; }
+    .turtle-directive, .turtle-keyword { color: #743b9b; font-weight: 600; }
+    .turtle-iri { color: #23734c; }
+    .turtle-prefixed { color: #174b8a; }
+    .turtle-string { color: #8a4511; }
+    .turtle-language, .turtle-datatype { color: #743b9b; }
+    .turtle-blank { color: #8a4511; }
+    .turtle-number, .turtle-boolean { color: #8a4511; }
+    .turtle-punctuation { color: #52616b; }
     .downloads { display: flex; flex-wrap: wrap; gap: 1.2rem; margin-block: 1.6rem; }
     .ods-import { margin-block: 1.6rem; }
     .ods-import label { display: block; margin-block-end: 0.8rem; font-weight: bold; }
@@ -81,6 +124,7 @@ export class CodelijstApp extends LitElement {
   private uploadError?: string
   private uploadMessage?: string
   private uploadOpen = false
+  private demoError?: string
   private personalizedDownload?: { editor: SchemaEditor; url: string }
 
   override firstUpdated() { void this.load() }
@@ -128,6 +172,7 @@ export class CodelijstApp extends LitElement {
   private selectionChanged() {
     this.uploadError = undefined
     this.uploadMessage = undefined
+    this.demoError = undefined
     this.clearOutput()
     this.validated = false
     try { this.prepareEditor() }
@@ -234,6 +279,33 @@ export class CodelijstApp extends LitElement {
     }
   }
 
+  private fillDemo() {
+    const editor = this.editor
+    const entry = this.entries.find(entry => entry.id === this.section)
+    if (!editor || !entry) return
+    const [theme, section] = entry.path.split('/')
+    const paths = [section, section.replaceAll('-', '_')].map(name =>
+      `../../../poc-json-schema/examples/${theme}/${name}.json`)
+    const data = paths.map(path => demoExamples[path]).find(isObject)
+    if (!data) {
+      this.demoError = 'Fictieve voorbeeldgegevens ontbreken voor dit rapporteringsonderdeel.'
+      this.requestUpdate()
+      return
+    }
+    if (Object.keys(editor.draft).length &&
+        !window.confirm('De fictieve voorbeeldgegevens vervangen alle huidige invoer voor dit rapporteringsonderdeel. Doorgaan?')) return
+    try {
+      editor.load(data)
+      this.demoError = undefined
+      this.clearOutput()
+      this.validated = false
+      this.revision++
+    } catch (error) {
+      this.demoError = error instanceof Error ? error.message : String(error)
+    }
+    this.requestUpdate()
+  }
+
   private fieldLabel = (value: unknown): string =>
     this.editor?.references.find(reference => reference.id === value)?.label ?? this.lookups?.label(value) ?? String(value)
 
@@ -279,6 +351,12 @@ export class CodelijstApp extends LitElement {
     const context = properties.filter(([, node]) => !this.isTable(schemaObject(node)))
     return html`
       ${this.renderDownloads()}
+      <div class="demo-data">
+        <vl-button secondary type="button" @click=${this.fillDemo}>Fictieve voorbeeldgegevens invullen</vl-button>
+        <p>Vult dit formulier met representatieve, fictieve gegevens.</p>
+        ${this.demoError ? html`<vl-alert type="error" title="Voorbeeldgegevens niet beschikbaar"
+          message=${this.demoError}></vl-alert>` : nothing}
+      </div>
       <vl-button secondary type="button" aria-expanded=${this.uploadOpen}
         aria-controls="ods-import-form" ?disabled=${this.uploading}
         @click=${() => {
@@ -331,7 +409,7 @@ export class CodelijstApp extends LitElement {
           tabindex="0" ?hidden=${this.outputTab !== 'turtle'}>
           ${this.validatedTurtle !== undefined ? html`
             <vl-button secondary icon="file-download" cta-link=${this.turtleUrl} download="rapport.ttl">Turtle downloaden</vl-button>
-            <pre id="validated-turtle">${this.validatedTurtle}</pre>` : html`<p>Turtle is niet beschikbaar.</p>`}
+            <pre id="validated-turtle">${highlightTurtle(this.validatedTurtle)}</pre>` : html`<p>Turtle is niet beschikbaar.</p>`}
         </div>
       </section>` : nothing}
     `

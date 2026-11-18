@@ -108,6 +108,7 @@ export function observationOwnership(input: SchemaField[], result: CodelistResul
         }])
       }
     }
+    const selectors = new Set(components.map(component => component.variabeleConceptId).filter(Boolean))
     fields.push({
       conceptId: resultId, propertyName: 'hasResult', label: observation.label,
       type: 'object', isRequired: true, isRepeatable: false,
@@ -115,7 +116,8 @@ export function observationOwnership(input: SchemaField[], result: CodelistResul
       relationUri: sosa + 'hasResult',
       extensions: {
         'x-jsonld-id': sosa + 'hasResult', 'x-implicit-result': true, 'x-ui-hidden-container': true,
-        ...(!components.some(component => component.isRequired) ? { 'x-require-result-content': true } : {}),
+        ...(!components.some(component => component.isRequired && !selectors.has(component.conceptId))
+          ? { 'x-require-result-content': true } : {}),
       },
     })
   }

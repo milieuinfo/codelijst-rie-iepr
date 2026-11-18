@@ -2,6 +2,7 @@ import type { Concept, CodelistResult, SchemaField } from '../models/index.js'
 import { EnumGenerator } from './enum-generator.js'
 import { localName, vocabularyIri } from './vocabulary.js'
 import { SourceMetadataError } from './generation-report.js'
+import { isCollectionClass, isObservationClass } from '../config.js'
 
 export class ConceptMapper {
   private readonly result: CodelistResult
@@ -66,6 +67,23 @@ export class ConceptMapper {
     if (concept.relevantObservation?.length) {
       schemaField.extensions!['x-relevant-observations'] = concept.relevantObservation.map(value =>
         this.result.expandCurie?.(value) ?? value)
+    }
+    if (concept.observedProperty) {
+      const measurement = this.result.concepts.get(concept.observedProperty)
+      if (!isObservationClass(schemaField.relevantClass) || isCollectionClass(schemaField.relevantClass) ||
+          !measurement || measurement.inScheme !== concept.inScheme ||
+          !measurement.relevantDataType || measurement.relevantCodeList?.length || measurement.relevantRiepr?.length) {
+        throw new SourceMetadataError([{
+          code: 'invalid-source-reference', conceptId: concept.id,
+          message: `${concept.id}: observedProperty must reference a measurement field in the same step, not a variable selector, and only applies to an Observation.`,
+        }])
+      }
+      schemaField.extensions!['x-observed-property'] =
+        this.result.expandCurie?.(concept.observedProperty) ?? concept.observedProperty
+    }
+    if (concept.ultimateFeatureOfInterestSource) {
+      schemaField.extensions!['x-ultimate-feature-of-interest-source'] =
+        this.result.expandCurie?.(concept.ultimateFeatureOfInterestSource) ?? concept.ultimateFeatureOfInterestSource
     }
     if (concept.relevantFeatureClass?.length) {
       schemaField.extensions!['x-relevant-feature-classes'] = concept.relevantFeatureClass.map(value =>

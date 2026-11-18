@@ -22,7 +22,7 @@ import { addType, deleteType, listTypes, updateType } from './systeemtypes.js';
 import { validate } from './validate.js';
 
 const server = new McpServer(
-    { name: 'codelijst-rie-iepr', version: '0.2.0' },
+    { name: 'codelijst-rie-iepr', version: '0.2.1' },
     {
         instructions:
             'Answers questions about and manages the systeemtypes (<systeem>types.csv) and eigenschappen (<systeem>eigenschappen.csv) ' +
@@ -506,6 +506,8 @@ const fieldSchema = {
     relevantClass: z.string().describe('Class the field maps to: sosa:FeatureOfInterest (select the system to report on), riepr:ObservatieVerzameling (top-level report), riepr:Observatie, riepr:Resultaat, prov:Agent, ...'),
     relevantFeatureClass: z.array(z.string()).describe('relevantFeatureClass, e.g. riepr:Verbruik, riepr:Emissie, riepr:Onttrekking.'),
     relevantObservation: z.array(z.string()).describe('Observation(s) or observation collection(s) this field belongs to, independent of presentation ownership. Multiple targets share one entered value.'),
+    observedProperty: z.string().describe('Published concept of the measurement (e.g. the Meetwaarde field) used as the fixed sosa:observedProperty of this Observation, never a selected CSOR variable.'),
+    ultimateFeatureOfInterestSource: z.string().describe('Field selecting the feature of interest to assign to this Sampling via sosa:ultimateFeatureOfInterest.'),
     tableWorkbook: z.string().describe('_table_workbook: ODS filename, without a directory; give together with tableSheet.'),
     tableSheet: z.string().describe('_table_sheet: worksheet name, at most 31 characters; give together with tableWorkbook.'),
     tableKey: z.array(z.string()).min(1).describe('_table_key: child field concept IDs forming the business key for detail worksheets; selections are compared by URI, multiselects as sets. No new input ID.'),

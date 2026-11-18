@@ -246,7 +246,8 @@ export function describeField(repo: Repo, field: Located, all: Located[]): UiFie
     else if (codeList.length > 0) control = r.isMultiselect === 'true' ? 'multiselect' : 'select';
     else if (riepr.length > 0 && !r.relevantDataType) {
         const eigenschap = riepr.some(id => PROPERTY_PREFIXES.has(prefixOf(id) ?? ''));
-        control = eigenschap ? 'structural-property' : r.relevantClass === 'sosa:FeatureOfInterest' ? 'feature-picker' : 'structural-picker';
+        control = eigenschap ? 'structural-property' : ['sosa:FeatureOfInterest', 'sosa-2023:FeatureOfInterest']
+            .includes(r.relevantClass) ? 'feature-picker' : 'structural-picker';
     } else if (r.relevantDataType) control = CONTROL_BY_DATATYPE[r.relevantDataType] ?? 'text';
     else {
         control = 'label-only';
@@ -300,7 +301,7 @@ export function describeField(repo: Repo, field: Located, all: Located[]): UiFie
     if (next.length) ui.nextStep = refs(repo, next);
     const semantics: Record<string, string | string[]> = {};
     for (const key of ['relevantClass', 'relevantFeatureClass', 'relevantObservation', '_table_workbook', '_table_sheet', '_table_key',
-        'referenceParent', 'referenceRelation', 'relation', 'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'variabele']) {
+        'referenceParent', 'referenceRelation', 'ultimateFeatureOfInterestSource', 'observedProperty', 'relation', 'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'variabele']) {
         if (r[key]) semantics[key] = splitValues(r[key]).length > 1 ? splitValues(r[key]) : r[key];
     }
     if (Object.keys(semantics).length) ui.semantics = semantics;

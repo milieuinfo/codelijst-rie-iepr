@@ -2,7 +2,7 @@ const skos = 'http://www.w3.org/2004/02/skos/core#'
 const vocab = 'https://data.riepr.omgeving.vlaanderen.be/ns/vocab#'
 
 const namespaces: Readonly<Record<string, string>> = {
-  skos, sosa: 'http://www.w3.org/ns/sosa/', xsd: 'http://www.w3.org/2001/XMLSchema#',
+  skos, sosa: 'http://www.w3.org/ns/sosa/', 'sosa-2023': 'http://www.w3.org/ns/sosa/', xsd: 'http://www.w3.org/2001/XMLSchema#',
   riepr: 'https://data.riepr.omgeving.vlaanderen.be/ns/riepr#',
   dcterms: 'http://purl.org/dc/terms/', rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
   qudt: 'http://qudt.org/schema/qudt/',
@@ -52,6 +52,7 @@ export const predicateIris: Readonly<Record<string, string>> = {
   conditionValue: 'http://www.w3.org/ns/shacl#hasValue',
   condition_value: 'http://www.w3.org/ns/shacl#hasValue',
   relation: 'http://purl.org/dc/terms/relation',
+  observedProperty: 'http://www.w3.org/ns/sosa/observedProperty',
   relevantUnit: 'http://qudt.org/schema/qudt/relevantUnit',
   relevant_unit: 'http://qudt.org/schema/qudt/relevantUnit',
   minValue: 'https://schema.org/minValue',
@@ -66,7 +67,7 @@ export const semanticPredicateIris: Readonly<Record<string, string>> = Object.fr
   ...Object.entries(predicateIris),
   ...[
     'relevantRiepr', 'relevantDataType', 'relevantCodeList', 'relevantProperty',
-    'relevantFeatureClass', 'relevantObservation', 'referenceParent', 'referenceRelation', 'isVerplicht',
+    'relevantFeatureClass', 'relevantObservation', 'ultimateFeatureOfInterestSource', 'referenceParent', 'referenceRelation', 'isVerplicht',
     'isMeervoudig', 'isMeetbaar', 'isOnzichtbaar', 'isMultiselect',
     'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'variabele',
   ].flatMap(term => [

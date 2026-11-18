@@ -63,6 +63,14 @@ const frame_skos_prefixes = {
         "@embed": "@never",
         "@omitDefault": true
     },
+    "observedProperty": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "ultimateFeatureOfInterestSource": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
     // No "@type" filter: members may be external concepts (e.g. CSOR) that are not typed in this graph.
     "member": {
         "@embed": "@never",
@@ -259,6 +267,14 @@ const frame_skos_no_prefixes = {
         "@omitDefault": true
     },
     "relevantObservation": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "observedProperty": {
+        "@embed": "@never",
+        "@omitDefault": true
+    },
+    "ultimateFeatureOfInterestSource": {
         "@embed": "@never",
         "@omitDefault": true
     },

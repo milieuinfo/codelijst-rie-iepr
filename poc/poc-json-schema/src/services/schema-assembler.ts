@@ -231,7 +231,9 @@ export class SchemaAssembler {
     if (field.children?.length) {
       node = this.object(field.children, [...parents, field], locations, objects, result)
       if (field.extensions?.['x-require-result-content'] === true) {
-        node.anyOf = field.children.map(child => ({ required: [child.propertyName] }))
+        const selectors = new Set(field.children.map(child => child.variabeleConceptId).filter(Boolean))
+        node.anyOf = field.children.filter(child => !selectors.has(child.conceptId))
+          .map(child => ({ required: [child.propertyName] }))
       }
       const sheets = new Set<string>()
       const visit = (child: SchemaField): void => {
@@ -252,9 +254,14 @@ export class SchemaAssembler {
         }
         node['x-jsonld-type'] = field.relevantClass
       }
-      if (field.extensions?.['x-scalar-observation']) {
+      if (field.extensions?.['x-scalar-observation'] || field.extensions?.['x-observed-property']) {
+        if (node.properties?.observedProperty) throw new SourceMetadataError([{
+          code: 'invalid-source-reference', conceptId: field.conceptId,
+          message: `${field.conceptId}: declare either a fixed observedProperty or an observedProperty selector, not both.`,
+        }])
         node.properties!.observedProperty = {
-          type: 'string', const: result.expandCurie?.(field.conceptId) ?? field.conceptId,
+          type: 'string', const: field.extensions?.['x-observed-property'] ??
+            result.expandCurie?.(field.conceptId) ?? field.conceptId,
           'x-jsonld-id': sosa + 'observedProperty', 'x-jsonld-type': '@id', 'x-ui-hidden': true,
         }
         node.required = [...(node.required ?? []), 'observedProperty']

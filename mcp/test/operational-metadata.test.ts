@@ -101,3 +101,36 @@ test('previews explicit reference dependencies and composite keys without writin
     assert.equal(validateFlows().issues.some(issue => issue.location.includes('kwaliteitsmeting-feature') &&
         issue.message.includes('referenceParent')), false);
 });
+
+test('validates and previews the Sampling ultimate feature source annotation', () => {
+    const preview = updateFlowItem({ id: 'grondwater:kwaliteitsmeting-monstername', set: {
+        ultimateFeatureOfInterestSource: 'grondwater:kwaliteitsmeting-feature',
+        prefLabel: 'Monstername testpreview',
+    }, dryRun: true });
+    assert.ok(preview.changes?.some(change =>
+        change.after?.includes('grondwater:kwaliteitsmeting-feature')));
+    assert.throws(() => updateFlowItem({ id: 'grondwater:kwaliteitsmeting-monstername', set: {
+        ultimateFeatureOfInterestSource: 'grondwater:kwaliteitsmeting-monsternummer',
+    }, dryRun: true }), /must select a feature of interest/);
+    assert.throws(() => updateFlowItem({ id: 'grondwater:kwaliteitsmeting-feature', set: {
+        ultimateFeatureOfInterestSource: 'grondwater:kwaliteitsmeting-monsternummer',
+    }, dryRun: true }), /only applies to a sosa:Sampling field/);
+});
+
+test('previews a fixed measurement-concept observedProperty and rejects variables or non-observations', () => {
+    const before = fs.readFileSync(file(), 'utf8');
+    const preview = updateFlowItem({ id: 'grondwater:kwaliteitsmeting-resultaten', set: {
+        observedProperty: 'grondwater:kwaliteitsmeting-resultaten-meetwaarde',
+        prefLabel: 'Meetresultaten testpreview',
+    }, dryRun: true });
+    assert.ok(preview.changes?.some(change => change.after?.includes('grondwater:kwaliteitsmeting-resultaten-meetwaarde')));
+    assert.equal(fs.readFileSync(file(), 'utf8'), before);
+    for (const observedProperty of ['grondwater:missing', 'grondwater:kwaliteitsmeting-resultaten-parameter', 'lucht:emissie_parameter_massastroom']) {
+        assert.throws(() => updateFlowItem({ id: 'grondwater:kwaliteitsmeting-resultaten', set: {
+            observedProperty,
+        }, dryRun: true }), /measurement field of the same step/);
+    }
+    assert.throws(() => updateFlowItem({ id: 'grondwater:kwaliteitsmeting', set: {
+        observedProperty: 'grondwater:kwaliteitsmeting-resultaten-meetwaarde',
+    }, dryRun: true }), /only applies to an Observation/);
+});

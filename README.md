@@ -440,6 +440,7 @@ dat een property binnen een observatie of haar resultaat moet staan.
 | `relevantDataType` | `type` en waar nodig `format` | Tekst, getal, boolean, datum, datum-tijd of duur |
 | `broaderPartitive` | Geneste `properties` | Singleton details worden kolommen binnen dezelfde rij |
 | `relevantObservation` | Property onder de aangewezen observatie of verzameling | De presentatiegroep hoeft niet de data-eigenaar te zijn |
+| `observedProperty` | Vaste `sosa:observedProperty` van een observatie met onderdelen | Verwijst naar het gepubliceerde meetwaardeconcept, nooit naar de geselecteerde CSOR-variabele |
 | `isMeervoudig` | `type: array` met `items` | Herhaalbare records |
 | `isMultiselect` | Array van selectiewaarden | Meerdere referenties/keuzes, geen herhaalbaar volledig record |
 | `isVerplicht` | `required`; bij verplichte arrays ook `minItems: 1`; bij predicaatlijsten `contains`/`minContains` op `observedProperty` of `propertyID` | Validatie-eis, niet automatisch een ingevuld record |
@@ -541,6 +542,10 @@ tussen onafhankelijke herhaalbare records veroorzaken.
   zo'n scalar-observatie en blijft verborgen in de invoer.
 - Bij een observatie met onderdelen blijven SOSA-relaties zoals
   `observedProperty`, `resultTime` en `usedProcedure` op de observatie.
+  De CSV-kolom `observedProperty` op het observatieconcept verwijst naar het
+  meetwaardeconcept en wordt een verborgen constante. De geselecteerde
+  CSOR-variabele is een `schema:PropertyValue` binnen Resultaat, niet de
+  geobserveerde eigenschap.
   Niet-SOSA-resultaatkenmerken verhuizen naar het impliciete Resultaat en
   behouden hun gedeclareerde relaties. Zonder relatie stopt de generatie met
   een bronfout; een concept-URI wordt niet als vervangend predicaat gebruikt.
@@ -559,11 +564,14 @@ onder `hasMember`; één resultaat ziet er bijvoorbeeld zo uit:
 
 ```json
 {
-  "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_246",
+  "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-meetwaarde",
   "hasResult": {
     "numericValue": 0.12,
     "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_1",
     "additionalProperty": [{
+      "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-parameter",
+      "value": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_246"
+    }, {
       "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-limiet",
       "value": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-onder"
     }],
@@ -608,8 +616,9 @@ opgeslagen, maar als een lid met de concept-URI als `observedProperty`:
 ```
 
 In het schema beschrijft `items.oneOf` de mogelijke soorten observaties.
-Iedere variant heeft haar eigen `observedProperty`: een vaste concept-URI voor
-bijvoorbeeld hoeveelheid of diepte, of een parameterkeuzelijst voor analyses.
+Iedere variant heeft haar eigen vaste concept-URI als `observedProperty`,
+bijvoorbeeld hoeveelheid, diepte of meetwaarde. Herhaalde analyses delen het
+meetwaardeconcept; de geselecteerde variabele staat in hun eigen Resultaat.
 `contains` met `minContains`/`maxContains` bewaakt welke soorten verplicht zijn
 en welke hoogstens één keer mogen voorkomen. Zo blijft hoeveelheid verplicht
 en worden start- en eindmeterstand niet onbedoeld herhaalbaar.

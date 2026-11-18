@@ -67,6 +67,65 @@ const decimal = (value: number): string => {
   return (negative ? '-' : '') + expanded
 }
 
+/**
+ * Format subject spacing and nested blank-node indentation.
+ * @param turtle - Serialized Turtle.
+ * @returns Formatted Turtle.
+ */
+function formatTurtle(turtle: string): string {
+  const lines = turtle.split('\n')
+  const formatted: string[] = []
+  const blankNodes: number[] = []
+  const adjustBlankNodeIndentation = (line: string, indentation: number) => {
+    let quote: string | undefined
+    let iri = false
+    let escaped = false
+    for (const character of line) {
+      if (escaped) {
+        escaped = false
+      } else if (character === '\\' && (quote || iri)) {
+        escaped = true
+      } else if (quote) {
+        if (character === quote) quote = undefined
+      } else if (iri) {
+        if (character === '>') iri = false
+      } else if (character === '"' || character === "'") {
+        quote = character
+      } else if (character === '<') {
+        iri = true
+      } else if (character === '#') {
+        break
+      } else if (character === '[') {
+        blankNodes.push(indentation)
+      } else if (character === ']') {
+        blankNodes.pop()
+      }
+    }
+  }
+
+  for (let index = 0; index < lines.length; index++) {
+    const content = lines[index].trimStart()
+    if (!content) {
+      formatted.push('')
+      continue
+    }
+    const closesBlankNode = content.startsWith(']')
+    const indentation = blankNodes.length
+      ? closesBlankNode ? blankNodes[blankNodes.length - 1] : blankNodes[blankNodes.length - 1] + 2
+      : lines[index].length - content.length
+    const line = `${' '.repeat(indentation)}${content}`
+    formatted.push(line)
+    adjustBlankNodeIndentation(line, indentation)
+
+    const next = lines[index + 1]?.trimStart()
+    if (!/^@(?:prefix|base)\b/.test(content) && blankNodes.length === 0 &&
+        line.trimEnd().endsWith('.') && next && !/^@(?:prefix|base)\b/.test(next)) {
+      formatted.push('')
+    }
+  }
+  return formatted.join('\n')
+}
+
 export interface TurtleOptions {
   year: number
   processes: Store
@@ -206,6 +265,7 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
     const className = node['x-jsonld-type']
     const subject = typeof className === 'string' && Object.hasOwn(uriTemplates, className) ? mint(className) : fresh()
     if (typeof className === 'string' && className !== '@id') typed(subject, className)
+    if (className === prov + 'Agent') typed(subject, riepr + 'Uitvoerder')
     if (className === schemaOrg + 'PropertyValue' && Object.hasOwn(value, 'value')) addQualifiers(subject, node)
     const isObservation = className === riepr + 'Observatie' || className === riepr + 'ObservatieVerzameling'
     if (className === riepr + 'Observatie') typed(subject, sosa + 'Observation')
@@ -214,6 +274,10 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
     if (className === riepr + 'Resultaat') {
       typed(subject, sosa + 'Result')
       typed(subject, 'http://purl.org/linked-data/cube#Observation')
+    }
+    if (className === sosa + 'Sampling' && node['x-ultimate-feature-of-interest-source'] !== undefined) {
+      if (!inherited) throw new Error('Monstername zonder geërfd kenmerk van belang.')
+      add(subject, sosa + 'ultimateFeatureOfInterest', inherited)
     }
     const properties = node.properties ?? {}
     const constructed = Object.entries(properties).flatMap(([key, child]) => {
@@ -293,7 +357,9 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
       const itemSchema = child.type === 'array' ? resolve(schemaObject(child.items)) : child
       if (className === riepr + 'Resultaat' || className === schemaOrg + 'PropertyValue') addQualifiers(subject, child)
       for (const entry of values) {
-        const target = visit(itemSchema, entry, predicate === sosa + 'hasMember' ? feature : undefined)
+        const passesFeature = predicate === sosa + 'hasMember' || predicate === prov + 'used' ||
+          predicate === sosa + 'isResultOf'
+        const target = visit(itemSchema, entry, passesFeature ? feature ?? inherited : undefined)
         if (className === riepr + 'Observatie' && predicate === sosa + 'hasResult' &&
             (target.termType === 'NamedNode' || target.termType === 'BlankNode')) addQualifiers(target, node)
         add(subject, predicate, target)
@@ -314,12 +380,28 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
   const prefixes = Object.fromEntries(Object.entries(turtlePrefixes).filter(([, namespace]) =>
     terms.some(term => term.termType === 'NamedNode' && term.value.startsWith(namespace))))
   const writer = new Writer({ format: 'text/turtle', prefixes })
-  writer.addQuads(quads)
+  const incoming = new Map<string, number>()
+  for (const { object } of quads) {
+    if (object.termType === 'BlankNode') incoming.set(object.value, (incoming.get(object.value) ?? 0) + 1)
+  }
+  const inline = (term: Quad['object'], stack = new Set<string>()): Quad['object'] => {
+    if (term.termType !== 'BlankNode' || stack.has(term.value) || incoming.get(term.value) !== 1) return term
+    const descendants = graph.getQuads(term, null, null, null)
+    const next = new Set(stack).add(term.value)
+    return writer.blank(descendants.map(({ predicate, object }) => ({
+      predicate,
+      object: inline(object, next),
+    })))
+  }
+  for (const { subject, predicate, object, graph: graphName } of quads) {
+    if (subject.termType === 'BlankNode' && incoming.get(subject.value) === 1) continue
+    writer.addQuad(subject, predicate, inline(object), graphName)
+  }
   let turtle: string | undefined
   writer.end((error, result) => {
     if (error) throw error
     turtle = result
   })
   if (turtle === undefined) throw new Error('Turtle kon niet worden gemaakt.')
-  return turtle
+  return formatTurtle(turtle)
 }

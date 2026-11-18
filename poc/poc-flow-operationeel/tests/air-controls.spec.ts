@@ -25,7 +25,7 @@ test('edits indexed air emissions with composite selections, conditions and poll
   await field('emissieOorzaak/value').getByRole('textbox').fill('Tijdelijke storing')
   await page.locator('td[data-row-expand="/emissie/0"]').getByRole('button').click()
   await page.locator('tr[data-row-details="/emissie/0"]').getByRole('button', { name: 'Rij toevoegen', exact: true }).click()
-  await field('emissieParameter/0/observedProperty').locator('select').selectOption({ label: 'Ammoniak' })
+  await field('emissieParameter/0/hasResult/emissieParameterParameter/value').locator('select').selectOption({ label: 'Ammoniak' })
   await field('emissieParameter/0/hasResult/numericValue').getByRole('spinbutton').fill('1.25')
   await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
   await expect(page.locator('#validated-json')).toBeVisible()

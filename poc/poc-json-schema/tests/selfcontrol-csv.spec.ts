@@ -46,7 +46,9 @@ for (const [theme, slug] of [['Zelfcontrole lucht', 'zelfcontrole-lucht'], ['Zel
         if (change === 'timestamp') delete measurement.resultTime
         if (change === 'date-only') measurement.resultTime = '2024-06-03'
         if (change === 'parameters') measurement.hasMember = []
-        if (change === 'pollutant') delete measurement.hasMember[0].observedProperty
+        if (change === 'pollutant') measurement.hasMember[0].hasResult.additionalProperty =
+          measurement.hasMember[0].hasResult.additionalProperty.filter((property: { propertyID: string }) =>
+            !property.propertyID.endsWith('/parameter-parameter'))
         if (change === 'result') delete measurement.hasMember[0].hasResult
         if (change === 'lab-name') delete measurement.wasAssociatedWith.label
         expect(validator.validateInstance(schema, data).valid, change).toBe(false)

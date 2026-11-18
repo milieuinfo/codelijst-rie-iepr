@@ -70,7 +70,7 @@ describe('Actual air CSV -> schema -> reversible ODS', () => {
     });
     const imported = await new ODSImporter().import(edited, plan) as typeof data;
     expect(imported.emissie[0].hasMember.find((member: { observedProperty: string }) =>
-      member.observedProperty.endsWith('/V_255')).hasResult.numericValue).toBe(0);
+      member.observedProperty.endsWith('/emissie_parameter_massastroom')).hasResult.numericValue).toBe(0);
     expect(imported.emissie[0]).not.toHaveProperty('identifier');
     const blank = await new ODSGenerator().generate({ ...options, data: undefined });
     expect(await new ODSImporter().import(blank, plan)).toEqual({});

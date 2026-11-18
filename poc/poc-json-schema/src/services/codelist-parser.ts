@@ -201,6 +201,8 @@ export class CodelistParser {
     concept.vervolgstap = this.idsOf(this.getValue(node, ['vervolgstap']))
     concept.relevantClass = this.idOf(this.getValue(node, ['relevantClass', 'relevant_class']))
     concept.relevantObservation = this.idsOf(this.getValue(node, ['relevantObservation']))
+    concept.observedProperty = this.idOf(this.getValue(node, ['observedProperty']))
+    concept.ultimateFeatureOfInterestSource = this.idOf(this.getValue(node, ['ultimateFeatureOfInterestSource']))
     concept.relevantFeatureClass = this.idsOf(this.getValue(node, ['relevantFeatureClass']))
     concept.tableWorkbook = node._table_workbook as string | undefined
     concept.tableSheet = node._table_sheet as string | undefined

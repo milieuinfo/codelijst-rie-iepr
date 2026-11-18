@@ -46,6 +46,10 @@ Ordering, conditions, variable references, shared end-date ownership and the
 `riepr:Monster`, with a required nonempty Monsternummer and an optional linked
 `sosa:Sampling` for sampling time and procedure. Parameter
 characteristics are stored inside each implicit `riepr:Resultaat`.
+The Observation's source `observedProperty` column declares the published
+measurement concept as a hidden constant (Meetwaarde, Concentratie, ...).
+Selected CSOR variables are result-owned `schema:PropertyValue` entries,
+identified by the existing selector concept; they are never observed properties.
 Result characteristics use the local names of their declared relations:
 `measurementMethod` (`schema:measurementMethod`), `type` (`dcterms:type`) and
 `additionalProperty` (`schema:additionalProperty`). The detection-limit indicator

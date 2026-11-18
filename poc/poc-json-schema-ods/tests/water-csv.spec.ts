@@ -71,7 +71,7 @@ describe('Actual water CSV -> schema -> reversible ODS', () => {
     const edited = await modifyTable(blank, record.sheetName, rows => {
       const values = cells(rows[3]);
       const feature = record.columns.find(column => column.path.at(-1) === 'hasFeatureOfInterest')!;
-      const pollutant = record.columns.find(column => column.path.at(-1) === 'observedProperty')!;
+      const pollutant = record.columns.find(column => column.title === 'Verontreinigende stof')!;
       const duration = record.columns.find(column => column.title === 'Lozingsduur')!;
       values[columns.indexOf(feature.id)] = odfCell('Controleinrichting 1');
       values[columns.indexOf(pollutant.id)] = odfCell('https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333');
@@ -82,8 +82,11 @@ describe('Actual water CSV -> schema -> reversible ODS', () => {
     expect(imported).toEqual({
       abnormaleLozing: [{
         hasFeatureOfInterest: 'urn:test:controleinrichting:1',
-        observedProperty: 'https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333',
+        observedProperty: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-jaarvracht',
         hasResult: { additionalProperty: [{
+          propertyID: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-stof',
+          value: 'https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333',
+        }, {
           propertyID: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-lozingsduur',
           value: 0, unitCode: 'https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_94',
         }] },

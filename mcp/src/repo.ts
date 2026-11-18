@@ -18,7 +18,7 @@ export const WELL_KNOWN_PREFIXES = new Set([
     'rdf', 'rdfs', 'owl', 'skos', 'xkos', 'dc', 'dcterms', 'dcmitype', 'dcat', 'qb',
     'sdmx-attribute', 'sdmx-dimension', 'sdmx-measure', 'xsd', 'qudt', 'qudt-schema',
     'qudt-unit', 'unit', 'sosa', 'ssn', 'ssn-system', 'gml', 'gsp', 'locn', 'prov',
-    'foaf', 'vcard', 'org', 'rov', 'adms', 'sh', 'time', 'dbo', 'schema', 'spdx', 'void', 'ssd',
+    'foaf', 'vcard', 'org', 'rov', 'adms', 'sh', 'time', 'dbo', 'schema', 'spdx', 'void', 'ssd', 'sosa-2023',
 ]);
 
 /** The parts of src/source/config.yml this server uses. */

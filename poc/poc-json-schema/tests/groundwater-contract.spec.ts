@@ -111,8 +111,22 @@ describe('Current groundwater CSV source contract (no cached schemas)', () => {
 
 describe('Quality collections, implicit results and grouped feature input', () => {
   const quality = record('kwaliteitsmeting')
-  const member = memberVariants(quality).find(variant => property(variant, 'observedProperty').enum)!
+  const member = memberVariants(quality).find(variant =>
+    property(variant, 'observedProperty').const === result.expandCurie!('grondwater:kwaliteitsmeting-resultaten-meetwaarde'))!
   const cube = property(member, 'hasResult')
+
+  it('carries the CSV-declared ultimate feature source to Sampling schema metadata', () => {
+    const mapped = structuredClone(source)
+    const samplingConcept = mapped.graph.find((node: { id: string }) =>
+      node.id === 'grondwater:kwaliteitsmeting-monstername')
+    samplingConcept.ultimateFeatureOfInterestSource = 'grondwater:kwaliteitsmeting-feature'
+    const mappedSchema = compileGroundwater(mapped).subSchemas.find(item => item.name === 'kwaliteitsmeting')!.schema
+    const mappedQuality = schemaObject(schemaObject(mappedSchema.properties!.kwaliteitsmeting).items)
+    const mappedSample = schemaObject(mappedQuality.properties!.used)
+    const mappedSampling = schemaObject(mappedSample.properties!.isResultOf)
+    expect(mappedSampling['x-ultimate-feature-of-interest-source'])
+      .toBe(result.expandCurie!('grondwater:kwaliteitsmeting-feature'))
+  })
 
   it('requires a result characteristic for every parameter without requiring a numeric value', () => {
     const data = example('kwaliteitsmeting')
@@ -141,7 +155,8 @@ describe('Quality collections, implicit results and grouped feature input', () =
     expect(property(quality, 'wasAssociatedWith')['x-jsonld-id']).toBe('http://www.w3.org/ns/prov#wasAssociatedWith')
     expect(property(property(quality, 'wasAssociatedWith'), 'label')['x-jsonld-id'])
       .toBe('http://www.w3.org/2000/01/rdf-schema#label')
-    const depth = memberVariants(quality).find(variant => property(variant, 'observedProperty').const)!
+    const depth = memberVariants(quality).find(variant =>
+      property(variant, 'observedProperty').const === result.expandCurie!('grondwater:kwaliteitsmeting-diepte'))!
     expect(quality.properties).not.toHaveProperty('kwaliteitsmetingDiepte')
     expect(depth['x-jsonld-id']).toBe('http://www.w3.org/ns/sosa/hasMember')
     expect(property(depth, 'hasResult')['x-jsonld-type']).toBe(result.expandCurie!('riepr:Resultaat'))
@@ -162,7 +177,9 @@ describe('Quality collections, implicit results and grouped feature input', () =
 
   it('puts all non-SOSA parameter characteristics inside Resultaat and resolves the source variable', () => {
     expect(property(member, 'observedProperty')['x-jsonld-type']).toBe('@id')
-    expect(property(cube, 'numericValue')['x-variabele']).toBe('observedProperty')
+    expect(property(cube, 'numericValue')['x-variable-location']).toEqual({
+      ancestorDepth: 0, path: ['kwaliteitsmetingResultatenParameter', 'value'],
+    })
     expect(cube['x-jsonld-type']).toBe(result.expandCurie!('riepr:Resultaat'))
     for (const name of ['additionalProperty', 'measurementMethod', 'type']) {
       expect(member.properties).not.toHaveProperty(name)

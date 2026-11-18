@@ -37,6 +37,8 @@ test('uses the Flux date-time picker and stores local input as a valid UTC times
   await expect(page.locator('#validated-turtle')).toBeVisible()
   await expect(page.locator('#validated-turtle')).toContainText('@prefix riepr:')
   await expect(page.locator('#validated-turtle')).toContainText('riepr:Observatie')
+  await expect(page.locator('#validated-turtle .turtle-directive').first()).toBeVisible()
+  await expect(page.locator('#validated-turtle .turtle-prefixed').first()).toBeVisible()
   await expect(page.getByRole('link', { name: 'Turtle downloaden' })).toBeVisible()
   await turtleTab.press('ArrowLeft')
   await expect(jsonTab).toBeFocused()
@@ -192,7 +194,8 @@ test('opens collapsed details for validation errors without preventing manual co
   await expand.click()
   const details = page.locator('tr[data-row-details="/kwaliteitsmeting/0"]')
   await details.getByRole('button', { name: 'Rij toevoegen', exact: true }).click()
-  await field(page, '/kwaliteitsmeting/0/kwaliteitsmetingResultaten/0/observedProperty').locator('select').selectOption({ index: 1 })
+  await field(page, '/kwaliteitsmeting/0/kwaliteitsmetingResultaten/0/hasResult/kwaliteitsmetingResultatenParameter/value')
+    .locator('select').selectOption({ index: 1 })
   await field(page, '/kwaliteitsmeting/0/kwaliteitsmetingResultaten/0/hasResult/numericValue')
     .locator('vl-input-field').evaluate(input =>
       input.dispatchEvent(new CustomEvent('vl-input', { detail: { value: 'invalid-number' } })))

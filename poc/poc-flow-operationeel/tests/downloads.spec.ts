@@ -91,8 +91,8 @@ for (const [section, filename, sheets] of [
     }
     if (section === 'Kwaliteitsmeting') {
       const variants = schema.properties.kwaliteitsmeting.items.properties.hasMember.items.oneOf
-      const result = variants.find((variant: { properties: { observedProperty: { enum?: unknown[] } } }) =>
-        variant.properties.observedProperty.enum)?.properties.hasResult
+      const result = variants.find((variant: { properties: { observedProperty: { const: string } } }) =>
+        variant.properties.observedProperty.const.endsWith('/kwaliteitsmeting-resultaten-meetwaarde'))?.properties.hasResult
       expect(result.properties.measurementMethod['x-jsonld-id']).toBe('https://schema.org/measurementMethod')
       expect(result.properties.additionalProperty.items.oneOf[0].properties.value['x-jsonld-id']).toBe('https://schema.org/value')
       expect(result.properties).not.toHaveProperty('kwaliteitsmetingResultatenLimiet')
