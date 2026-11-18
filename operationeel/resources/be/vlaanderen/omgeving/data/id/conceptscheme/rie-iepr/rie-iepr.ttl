@@ -1,3 +1,4 @@
+@prefix sosa-2023: <http://www.w3.org/ns/sosa/>.
 @prefix concept: <https://data.omgeving.vlaanderen.be/id/concept/rie-iepr/>.
 @prefix collectie: <https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/>.
 @prefix aangiftestatus: <https://data.omgeving.vlaanderen.be/id/concept/riepr/aangiftestatus/>.
@@ -153,7 +154,8 @@ sosa:hasFeatureOfInterest a rdfs:Resource.
 sosa:hasMember a rdfs:Resource.
 sosa:hasResult a rdfs:Resource.
 sosa:isResultOf a rdfs:Resource.
-sosa:observedProperty a rdfs:Resource.
+sosa:observedProperty dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    adms:status <https://purl.archive.org/adms/status/Withdrawn>.
 sosa:resultTime a rdfs:Resource.
 sosa:usedProcedure a rdfs:Resource.
 collectie:operationeel_eenheden_stofhoeveelheid a skos:Collection;
@@ -1114,7 +1116,7 @@ meetpunt:peilput dcterms:isPartOf conceptscheme:systeemtypes;
     riepr-vocab:isMeetbaar true;
     riepr-vocab:isOnzichtbaar false.
 notatietype:activiteit_code dcterms:isVersionOf notatietype:activiteit_code;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a rdfs:Datatype, skos:Concept;
     skos:altLabel "activiteitCode"@nl;
     skos:definition "De code van een activiteit in de IMJV-aangifte water."@nl;
@@ -1124,7 +1126,7 @@ notatietype:activiteit_code dcterms:isVersionOf notatietype:activiteit_code;
     skos:scopeNote "Bron: IMJV water (VMM)."@nl;
     skos:topConceptOf conceptscheme:notatietypes.
 notatietype:activiteit_id dcterms:isVersionOf notatietype:activiteit_id;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a rdfs:Datatype, skos:Concept;
     skos:altLabel "activiteitId"@nl;
     skos:definition "Het VMM-identificatienummer van een activiteit in de IMJV-aangifte lucht."@nl;
@@ -1134,7 +1136,7 @@ notatietype:activiteit_id dcterms:isVersionOf notatietype:activiteit_id;
     skos:scopeNote "Bron: IMJV lucht (VMM)."@nl;
     skos:topConceptOf conceptscheme:notatietypes.
 notatietype:apparaat_id dcterms:isVersionOf notatietype:apparaat_id;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a rdfs:Datatype, skos:Concept;
     skos:altLabel "apparaatId"@nl;
     skos:definition "Het VMM-identificatienummer van een (zuiverings)apparaat in de IMJV-aangifte water."@nl;
@@ -1144,7 +1146,7 @@ notatietype:apparaat_id dcterms:isVersionOf notatietype:apparaat_id;
     skos:scopeNote "Bron: IMJV water (VMM)."@nl;
     skos:topConceptOf conceptscheme:notatietypes.
 notatietype:cbb_nummer dcterms:isVersionOf notatietype:cbb_nummer;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a rdfs:Datatype, skos:Concept;
     skos:altLabel "cbbNummer"@nl;
     skos:definition "Het nummer van 14 cijfers waaronder een exploitatie in de CBB gekend is."@nl;
@@ -1154,7 +1156,7 @@ notatietype:cbb_nummer dcterms:isVersionOf notatietype:cbb_nummer;
     skos:scopeNote "Bron: CBB."@nl;
     skos:topConceptOf conceptscheme:notatietypes.
 notatietype:emissiepunt_id dcterms:isVersionOf notatietype:emissiepunt_id;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a rdfs:Datatype, skos:Concept;
     skos:altLabel "emissiepuntId"@nl;
     skos:definition "Het VMM-identificatienummer van een emissiepunt in de IMJV-aangifte lucht."@nl;
@@ -1164,7 +1166,7 @@ notatietype:emissiepunt_id dcterms:isVersionOf notatietype:emissiepunt_id;
     skos:scopeNote "Bron: IMJV lucht (VMM)."@nl;
     skos:topConceptOf conceptscheme:notatietypes.
 notatietype:exploitant_id dcterms:isVersionOf notatietype:exploitant_id;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a rdfs:Datatype, skos:Concept;
     skos:altLabel "VMM_exploitantID"@nl;
     skos:definition "Het VMM-identificatienummer van de exploitant in de IMJV-aangifte grondwater."@nl;
@@ -1174,7 +1176,7 @@ notatietype:exploitant_id dcterms:isVersionOf notatietype:exploitant_id;
     skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
     skos:topConceptOf conceptscheme:notatietypes.
 notatietype:filter_id dcterms:isVersionOf notatietype:filter_id;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a rdfs:Datatype, skos:Concept;
     skos:altLabel "VMM_filterID"@nl;
     skos:definition "Het VMM-identificatienummer van een filter in de IMJV-aangifte grondwater."@nl;
@@ -1184,7 +1186,7 @@ notatietype:filter_id dcterms:isVersionOf notatietype:filter_id;
     skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
     skos:topConceptOf conceptscheme:notatietypes.
 notatietype:iioa_id dcterms:isVersionOf notatietype:iioa_id;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a rdfs:Datatype, skos:Concept;
     skos:altLabel "VMM_iioaID"@nl;
     skos:definition "Het VMM-identificatienummer van de IIOA in de IMJV-aangifte grondwater."@nl;
@@ -1194,7 +1196,7 @@ notatietype:iioa_id dcterms:isVersionOf notatietype:iioa_id;
     skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
     skos:topConceptOf conceptscheme:notatietypes.
 notatietype:installatie_id dcterms:isVersionOf notatietype:installatie_id;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a rdfs:Datatype, skos:Concept;
     skos:altLabel "VMM_installatieID"@nl;
     skos:definition "Het VMM-identificatienummer van een installatie in de IMJV-aangifte grondwater."@nl;
@@ -1204,7 +1206,7 @@ notatietype:installatie_id dcterms:isVersionOf notatietype:installatie_id;
     skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
     skos:topConceptOf conceptscheme:notatietypes.
 notatietype:installatie_vergunning_id dcterms:isVersionOf notatietype:installatie_vergunning_id;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a rdfs:Datatype, skos:Concept;
     skos:altLabel "VMM_installatieVergunningID"@nl;
     skos:definition "Het VMM-identificatienummer van een installatievergunning in de IMJV-aangifte grondwater."@nl;
@@ -1214,7 +1216,7 @@ notatietype:installatie_vergunning_id dcterms:isVersionOf notatietype:installati
     skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
     skos:topConceptOf conceptscheme:notatietypes.
 notatietype:lozingspunt_code dcterms:isVersionOf notatietype:lozingspunt_code;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a rdfs:Datatype, skos:Concept;
     skos:altLabel "lozingspuntCode"@nl;
     skos:definition "De code van een lozingspunt in de IMJV-aangifte water."@nl;
@@ -1224,7 +1226,7 @@ notatietype:lozingspunt_code dcterms:isVersionOf notatietype:lozingspunt_code;
     skos:scopeNote "Bron: IMJV water (VMM)."@nl;
     skos:topConceptOf conceptscheme:notatietypes.
 notatietype:onttrekkingspunt_code dcterms:isVersionOf notatietype:onttrekkingspunt_code;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a rdfs:Datatype, skos:Concept;
     skos:altLabel "onttrekkingspuntCode"@nl;
     skos:definition "De code van een onttrekkingspunt in de IMJV-aangiften water en grondwater."@nl;
@@ -1234,7 +1236,7 @@ notatietype:onttrekkingspunt_code dcterms:isVersionOf notatietype:onttrekkingspu
     skos:scopeNote "Bron: IMJV water en grondwater (VMM)."@nl;
     skos:topConceptOf conceptscheme:notatietypes.
 notatietype:put_id dcterms:isVersionOf notatietype:put_id;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a rdfs:Datatype, skos:Concept;
     skos:altLabel "VMM_putID"@nl;
     skos:definition "Het VMM-identificatienummer van een put in de IMJV-aangifte grondwater."@nl;
@@ -1244,7 +1246,7 @@ notatietype:put_id dcterms:isVersionOf notatietype:put_id;
     skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
     skos:topConceptOf conceptscheme:notatietypes.
 notatietype:put_key dcterms:isVersionOf notatietype:put_key;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a rdfs:Datatype, skos:Concept;
     skos:altLabel "VMM_putKey"@nl;
     skos:definition "De VMM-sleutel van een put in de IMJV-aangifte grondwater."@nl;
@@ -1254,7 +1256,7 @@ notatietype:put_key dcterms:isVersionOf notatietype:put_key;
     skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
     skos:topConceptOf conceptscheme:notatietypes.
 notatietype:vergunde_rubriek_id dcterms:isVersionOf notatietype:vergunde_rubriek_id;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a rdfs:Datatype, skos:Concept;
     skos:altLabel "VMM_vergundeRubriekID"@nl;
     skos:definition "Het VMM-identificatienummer van een vergunde rubriek in de IMJV-aangifte grondwater."@nl;
@@ -1264,7 +1266,7 @@ notatietype:vergunde_rubriek_id dcterms:isVersionOf notatietype:vergunde_rubriek
     skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
     skos:topConceptOf conceptscheme:notatietypes.
 notatietype:vergunning_id dcterms:isVersionOf notatietype:vergunning_id;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a rdfs:Datatype, skos:Concept;
     skos:altLabel "VMM_vergunningID"@nl;
     skos:definition "Het VMM-identificatienummer van een vergunning in de IMJV-aangifte grondwater."@nl;
@@ -1274,7 +1276,7 @@ notatietype:vergunning_id dcterms:isVersionOf notatietype:vergunning_id;
     skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
     skos:topConceptOf conceptscheme:notatietypes.
 notatietype:watnr dcterms:isVersionOf notatietype:watnr;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a rdfs:Datatype, skos:Concept;
     skos:altLabel "VMM_watnr"@nl;
     skos:definition "Het VMM-waternummer (watnr) in de IMJV-aangifte grondwater."@nl;
@@ -1284,7 +1286,7 @@ notatietype:watnr dcterms:isVersionOf notatietype:watnr;
     skos:scopeNote "Bron: IMJV grondwater (VMM)."@nl;
     skos:topConceptOf conceptscheme:notatietypes.
 notatietype:zuiveringsapparaat_id dcterms:isVersionOf notatietype:zuiveringsapparaat_id;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a rdfs:Datatype, skos:Concept;
     skos:altLabel "zuiveringsapparaatId"@nl;
     skos:definition "Het VMM-identificatienummer van een zuiveringsapparaat in de IMJV-aangifte lucht."@nl;
@@ -2469,7 +2471,9 @@ grondwater:kwaliteitsmeting-monster dcterms:relation prov:used;
     riepr-vocab:isOnzichtbaar true;
     riepr-vocab:isVerplicht true;
     riepr-vocab:uiAfter grondwater:kwaliteitsmeting-feature.
-grondwater:kwaliteitsmeting-monstername dcterms:relation sosa:isResultOf;
+grondwater:kwaliteitsmeting-monstername dcterms:isVersionOf grondwater:kwaliteitsmeting-monstername;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    dcterms:relation sosa:isResultOf;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting-monster;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondwater:kwaliteitsmeting-datum, grondwater:kwaliteitsmeting-techniek;
     a skos:Concept;
@@ -2479,7 +2483,8 @@ grondwater:kwaliteitsmeting-monstername dcterms:relation sosa:isResultOf;
     skos:prefLabel "Monstername"@nl;
     sh:class sosa:Sampling;
     riepr-vocab:isOnzichtbaar true;
-    riepr-vocab:uiAfter grondwater:kwaliteitsmeting-monsternummer.
+    riepr-vocab:uiAfter grondwater:kwaliteitsmeting-monsternummer;
+    riepr-vocab:ultimateFeatureOfInterestSource grondwater:kwaliteitsmeting-feature.
 grondwater:kwaliteitsmeting-monsternummer dcterms:relation dcterms:identifier;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting-monster;
     a skos:Concept;
@@ -2527,21 +2532,28 @@ grondwater:kwaliteitsmeting-resultaten-methode dcterms:relation schema:measureme
     skos:prefLabel "Analysemethode"@nl;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:relevantObservation grondwater:kwaliteitsmeting-resultaten.
-grondwater:kwaliteitsmeting-resultaten-parameter dcterms:relation sosa:observedProperty;
+grondwater:kwaliteitsmeting-resultaten-parameter dcterms:isVersionOf grondwater:kwaliteitsmeting-resultaten-parameter;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting-resultaten;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
-    skos:prefLabel "Parameter"@nl;
+    skos:prefLabel "Variabele"@nl;
+    sh:class schema:PropertyValue;
+    riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList collectie:operationeel_parameters_grondwater;
     riepr-vocab:relevantObservation grondwater:kwaliteitsmeting-resultaten;
     riepr-vocab:uiFirst true.
-grondwater:kwaliteitsmeting-resultaten dcterms:relation sosa:hasMember;
+grondwater:kwaliteitsmeting-resultaten dcterms:isVersionOf grondwater:kwaliteitsmeting-resultaten;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> grondwater:kwaliteitsmeting;
     <http://purl.org/iso25964/skos-thes#narrowerPartitive> grondwater:kwaliteitsmeting-bemonsteringsinstrument, grondwater:kwaliteitsmeting-resultaten-limiet, grondwater:kwaliteitsmeting-resultaten-meetwaarde, grondwater:kwaliteitsmeting-resultaten-methode, grondwater:kwaliteitsmeting-resultaten-parameter;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_grondwater;
     skos:prefLabel "Meetresultaten"@nl;
     sh:class riepr:Observatie;
+    sosa:observedProperty grondwater:kwaliteitsmeting-resultaten-meetwaarde;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:relevantObservation grondwater:kwaliteitsmeting;
     riepr-vocab:uiAfter grondwater:kwaliteitsmeting-diepte.
@@ -2935,13 +2947,16 @@ lucht:emissie_oorzaak dcterms:relation schema:additionalProperty;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:relevantObservation lucht:emissie;
     riepr-vocab:uiAfter lucht:emissietype.
-lucht:emissie_parameter dcterms:relation sosa:hasMember;
+lucht:emissie_parameter dcterms:isVersionOf lucht:emissie_parameter;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:emissie_parameter_parameter, lucht:emissie_parameter_resultaat;
+    <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:emissie_parameter_resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_lucht;
     skos:prefLabel "Verontreinigende stof of BKG"@nl;
     sh:class riepr:Observatie;
+    sosa:observedProperty lucht:emissie_parameter_massastroom;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:uiAfter lucht:emissie_debiet.
 lucht:emissie_parameter_massastroom dcterms:relation qudt:numericValue;
@@ -2956,23 +2971,31 @@ lucht:emissie_parameter_massastroom dcterms:relation qudt:numericValue;
     riepr-vocab:soortWaartbepaling csor_soortwaardebepaling:SWB_1;
     riepr-vocab:uiAfter lucht:emissie_parameter_standaardafwijking;
     riepr-vocab:variabele lucht:emissie_parameter_parameter.
-lucht:emissie_parameter_meetfrequentie dcterms:relation dcterms:accrualPeriodicity;
+lucht:emissie_parameter_meetfrequentie dcterms:isVersionOf lucht:emissie_parameter_meetfrequentie;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    dcterms:relation dcterms:accrualPeriodicity;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie_parameter_resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_lucht;
     skos:prefLabel "Meetfrequentie"@nl;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_zelfcontrole_meetfrequentie;
-    riepr-vocab:uiFirst true.
-lucht:emissie_parameter_parameter dcterms:relation sosa:observedProperty;
-    <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie_parameter;
+    riepr-vocab:uiAfter lucht:emissie_parameter_parameter.
+lucht:emissie_parameter_parameter dcterms:isVersionOf lucht:emissie_parameter_parameter;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    dcterms:relation schema:additionalProperty;
+    <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie_parameter_resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_lucht;
     skos:prefLabel "Stof"@nl;
+    sh:class schema:PropertyValue;
+    riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList collectie:operationeel_stoffen_lucht;
     riepr-vocab:uiFirst true.
-lucht:emissie_parameter_resultaat dcterms:relation sosa:hasResult;
+lucht:emissie_parameter_resultaat dcterms:isVersionOf lucht:emissie_parameter_resultaat;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    dcterms:relation sosa:hasResult;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie_parameter;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:emissie_parameter_massastroom, lucht:emissie_parameter_meetfrequentie, lucht:emissie_parameter_standaardafwijking;
+    <http://purl.org/iso25964/skos-thes#narrowerPartitive> lucht:emissie_parameter_massastroom, lucht:emissie_parameter_meetfrequentie, lucht:emissie_parameter_parameter, lucht:emissie_parameter_standaardafwijking;
     a skos:Concept;
     skos:definition "Het resultaatrecord van de gerapporteerde verontreinigende stof of het broeikasgas."@nl;
     skos:inScheme conceptscheme:operationeel_lucht;
@@ -2980,7 +3003,7 @@ lucht:emissie_parameter_resultaat dcterms:relation sosa:hasResult;
     skos:prefLabel "Resultaat luchtparameter"@nl;
     sh:class riepr:Resultaat;
     riepr-vocab:isVerplicht true;
-    riepr-vocab:uiAfter lucht:emissie_parameter_parameter.
+    riepr-vocab:uiFirst true.
 lucht:emissie_parameter_standaardafwijking dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> lucht:emissie_parameter_resultaat;
     qudt:relevantUnit csor_eenheid:E_43;
@@ -3300,7 +3323,9 @@ water:abnormale-lozing-jaarvracht dcterms:relation qudt:numericValue;
     riepr-vocab:soortWaartbepaling csor_soortwaardebepaling:SWB_1;
     riepr-vocab:uiAfter water:abnormale-lozing-lozingsduur;
     riepr-vocab:variabele water:abnormale-lozing-stof.
-water:abnormale-lozing-lozingsduur dcterms:relation schema:additionalProperty;
+water:abnormale-lozing-lozingsduur dcterms:isVersionOf water:abnormale-lozing-lozingsduur;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:abnormale-lozing-resultaat;
     qudt:relevantUnit csor_eenheid:E_94;
     a skos:Concept;
@@ -3309,10 +3334,12 @@ water:abnormale-lozing-lozingsduur dcterms:relation schema:additionalProperty;
     sh:class schema:PropertyValue;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantDataType xsd:integer;
-    riepr-vocab:uiFirst true.
-water:abnormale-lozing-resultaat dcterms:relation sosa:hasResult;
+    riepr-vocab:uiAfter water:abnormale-lozing-stof.
+water:abnormale-lozing-resultaat dcterms:isVersionOf water:abnormale-lozing-resultaat;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    dcterms:relation sosa:hasResult;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:abnormale-lozing;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> water:abnormale-lozing-jaarvracht, water:abnormale-lozing-lozingsduur, water:abnormale-lozing-verklaring;
+    <http://purl.org/iso25964/skos-thes#narrowerPartitive> water:abnormale-lozing-jaarvracht, water:abnormale-lozing-lozingsduur, water:abnormale-lozing-stof, water:abnormale-lozing-verklaring;
     a skos:Concept;
     skos:definition "Het resultaatrecord van de gerapporteerde abnormale lozing."@nl;
     skos:inScheme conceptscheme:operationeel_water;
@@ -3320,15 +3347,18 @@ water:abnormale-lozing-resultaat dcterms:relation sosa:hasResult;
     skos:prefLabel "Resultaat abnormale lozing"@nl;
     sh:class riepr:Resultaat;
     riepr-vocab:isVerplicht true;
-    riepr-vocab:uiAfter water:abnormale-lozing-stof.
-water:abnormale-lozing-stof dcterms:relation sosa:observedProperty;
-    <http://purl.org/iso25964/skos-thes#broaderPartitive> water:abnormale-lozing;
+    riepr-vocab:uiAfter water:abnormale-lozing-feature.
+water:abnormale-lozing-stof dcterms:isVersionOf water:abnormale-lozing-stof;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    dcterms:relation schema:additionalProperty;
+    <http://purl.org/iso25964/skos-thes#broaderPartitive> water:abnormale-lozing-resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_water;
     skos:prefLabel "Verontreinigende stof"@nl;
+    sh:class schema:PropertyValue;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList collectie:operationeel_stoffen_water;
-    riepr-vocab:uiAfter water:abnormale-lozing-feature.
+    riepr-vocab:uiFirst true.
 water:abnormale-lozing-verklaring dcterms:relation rdfs:comment;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> water:abnormale-lozing-resultaat;
     a skos:Concept;
@@ -3336,12 +3366,15 @@ water:abnormale-lozing-verklaring dcterms:relation rdfs:comment;
     skos:prefLabel "Verklaring"@nl;
     riepr-vocab:relevantDataType xsd:string;
     riepr-vocab:uiAfter water:abnormale-lozing-jaarvracht.
-water:abnormale-lozing <http://purl.org/iso25964/skos-thes#narrowerPartitive> water:abnormale-lozing-feature, water:abnormale-lozing-resultaat, water:abnormale-lozing-stof;
+water:abnormale-lozing dcterms:isVersionOf water:abnormale-lozing;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    <http://purl.org/iso25964/skos-thes#narrowerPartitive> water:abnormale-lozing-feature, water:abnormale-lozing-resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_water;
     skos:prefLabel "Abnormale lozing"@nl;
     skos:topConceptOf conceptscheme:operationeel_water;
     sh:class riepr:Observatie;
+    sosa:observedProperty water:abnormale-lozing-jaarvracht;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:isVerplicht false;
     riepr-vocab:uiAfter water:lozing.
@@ -3604,17 +3637,22 @@ zelfcontrole-lucht:parameter-meetonzekerheid dcterms:relation schema:additionalP
     riepr-vocab:variabele zelfcontrole-lucht:parameter-parameter;
     schema:maxValue "100"^^xsd:decimal;
     schema:minValue "0"^^xsd:decimal.
-zelfcontrole-lucht:parameter-parameter dcterms:relation sosa:observedProperty;
-    <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:parameter;
+zelfcontrole-lucht:parameter-parameter dcterms:isVersionOf zelfcontrole-lucht:parameter-parameter;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    dcterms:relation schema:additionalProperty;
+    <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:parameter-resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_lucht;
-    skos:prefLabel "Parameter"@nl;
+    skos:prefLabel "Variabele"@nl;
+    sh:class schema:PropertyValue;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList collectie:operationeel_stoffen_lucht;
     riepr-vocab:uiFirst true.
-zelfcontrole-lucht:parameter-resultaat dcterms:relation sosa:hasResult;
+zelfcontrole-lucht:parameter-resultaat dcterms:isVersionOf zelfcontrole-lucht:parameter-resultaat;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    dcterms:relation sosa:hasResult;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:parameter;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> zelfcontrole-lucht:parameter-bron-meetfrequentie, zelfcontrole-lucht:parameter-concentratie, zelfcontrole-lucht:parameter-massastroom, zelfcontrole-lucht:parameter-meetfrequentie, zelfcontrole-lucht:parameter-meetonzekerheid, zelfcontrole-lucht:parameter-soort;
+    <http://purl.org/iso25964/skos-thes#narrowerPartitive> zelfcontrole-lucht:parameter-bron-meetfrequentie, zelfcontrole-lucht:parameter-concentratie, zelfcontrole-lucht:parameter-massastroom, zelfcontrole-lucht:parameter-meetfrequentie, zelfcontrole-lucht:parameter-meetonzekerheid, zelfcontrole-lucht:parameter-parameter, zelfcontrole-lucht:parameter-soort;
     a skos:Concept;
     skos:definition "Het resultaatrecord van de parameter bij de zelfcontrole van lucht."@nl;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_lucht;
@@ -3622,22 +3660,27 @@ zelfcontrole-lucht:parameter-resultaat dcterms:relation sosa:hasResult;
     skos:prefLabel "Resultaat parameter"@nl;
     sh:class riepr:Resultaat;
     riepr-vocab:isVerplicht true;
-    riepr-vocab:uiAfter zelfcontrole-lucht:parameter-parameter.
-zelfcontrole-lucht:parameter-soort dcterms:relation schema:additionalProperty;
+    riepr-vocab:uiFirst true.
+zelfcontrole-lucht:parameter-soort dcterms:isVersionOf zelfcontrole-lucht:parameter-soort;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:parameter-resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_lucht;
     skos:prefLabel "Soort monster"@nl;
     sh:class schema:PropertyValue;
     riepr-vocab:relevantDataType xsd:string;
-    riepr-vocab:uiFirst true.
-zelfcontrole-lucht:parameter dcterms:relation sosa:hasMember;
+    riepr-vocab:uiAfter zelfcontrole-lucht:parameter-parameter.
+zelfcontrole-lucht:parameter dcterms:isVersionOf zelfcontrole-lucht:parameter;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-lucht:meting;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> zelfcontrole-lucht:parameter-parameter, zelfcontrole-lucht:parameter-resultaat;
+    <http://purl.org/iso25964/skos-thes#narrowerPartitive> zelfcontrole-lucht:parameter-resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_lucht;
     skos:prefLabel "Meetresultaten"@nl;
     sh:class riepr:Observatie;
+    sosa:observedProperty zelfcontrole-lucht:parameter-concentratie;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantObservation zelfcontrole-lucht:meting;
@@ -3767,17 +3810,22 @@ zelfcontrole-water:parameter-meetonzekerheid dcterms:relation schema:additionalP
     riepr-vocab:variabele zelfcontrole-water:parameter-parameter;
     schema:maxValue "100"^^xsd:decimal;
     schema:minValue "0"^^xsd:decimal.
-zelfcontrole-water:parameter-parameter dcterms:relation sosa:observedProperty;
-    <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:parameter;
+zelfcontrole-water:parameter-parameter dcterms:isVersionOf zelfcontrole-water:parameter-parameter;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    dcterms:relation schema:additionalProperty;
+    <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:parameter-resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_water;
-    skos:prefLabel "Parameter"@nl;
+    skos:prefLabel "Variabele"@nl;
+    sh:class schema:PropertyValue;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantCodeList collectie:operationeel_stoffen_water;
     riepr-vocab:uiFirst true.
-zelfcontrole-water:parameter-resultaat dcterms:relation sosa:hasResult;
+zelfcontrole-water:parameter-resultaat dcterms:isVersionOf zelfcontrole-water:parameter-resultaat;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    dcterms:relation sosa:hasResult;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:parameter;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> zelfcontrole-water:parameter-bron-meetfrequentie, zelfcontrole-water:parameter-concentratie, zelfcontrole-water:parameter-grenswaarde, zelfcontrole-water:parameter-meetfrequentie, zelfcontrole-water:parameter-meetonzekerheid, zelfcontrole-water:parameter-soort;
+    <http://purl.org/iso25964/skos-thes#narrowerPartitive> zelfcontrole-water:parameter-bron-meetfrequentie, zelfcontrole-water:parameter-concentratie, zelfcontrole-water:parameter-grenswaarde, zelfcontrole-water:parameter-meetfrequentie, zelfcontrole-water:parameter-meetonzekerheid, zelfcontrole-water:parameter-parameter, zelfcontrole-water:parameter-soort;
     a skos:Concept;
     skos:definition "Het resultaatrecord van de parameter bij de zelfcontrole van water."@nl;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_water;
@@ -3785,22 +3833,27 @@ zelfcontrole-water:parameter-resultaat dcterms:relation sosa:hasResult;
     skos:prefLabel "Resultaat parameter"@nl;
     sh:class riepr:Resultaat;
     riepr-vocab:isVerplicht true;
-    riepr-vocab:uiAfter zelfcontrole-water:parameter-parameter.
-zelfcontrole-water:parameter-soort dcterms:relation schema:additionalProperty;
+    riepr-vocab:uiFirst true.
+zelfcontrole-water:parameter-soort dcterms:isVersionOf zelfcontrole-water:parameter-soort;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    dcterms:relation schema:additionalProperty;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:parameter-resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_water;
     skos:prefLabel "Soort monstername"@nl;
     sh:class schema:PropertyValue;
     riepr-vocab:relevantCodeList conceptscheme:operationeel_zelfcontrole_soort_monstername;
-    riepr-vocab:uiFirst true.
-zelfcontrole-water:parameter dcterms:relation sosa:hasMember;
+    riepr-vocab:uiAfter zelfcontrole-water:parameter-parameter.
+zelfcontrole-water:parameter dcterms:isVersionOf zelfcontrole-water:parameter;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
+    dcterms:relation sosa:hasMember;
     <http://purl.org/iso25964/skos-thes#broaderPartitive> zelfcontrole-water:meting;
-    <http://purl.org/iso25964/skos-thes#narrowerPartitive> zelfcontrole-water:parameter-parameter, zelfcontrole-water:parameter-resultaat;
+    <http://purl.org/iso25964/skos-thes#narrowerPartitive> zelfcontrole-water:parameter-resultaat;
     a skos:Concept;
     skos:inScheme conceptscheme:operationeel_zelfcontrole_water;
     skos:prefLabel "Meetresultaten"@nl;
     sh:class riepr:Observatie;
+    sosa:observedProperty zelfcontrole-water:parameter-concentratie;
     riepr-vocab:isMeervoudig true;
     riepr-vocab:isVerplicht true;
     riepr-vocab:relevantObservation zelfcontrole-water:meting;
@@ -4033,7 +4086,7 @@ conceptscheme:meetpunttypes dcterms:isPartOf conceptscheme:systeemtypes;
     skos:hasTopConcept meetpunt:controleinrichting, meetpunt:debietmeter, meetpunt:peilput;
     skos:prefLabel "Meetpunt types"@nl.
 conceptscheme:notatietypes dcterms:isVersionOf conceptscheme:notatietypes;
-    dcterms:modified "2026-11-13T11:20:48.239Z"^^xsd:dateTime;
+    dcterms:modified "2026-11-18T13:41:53.538Z"^^xsd:dateTime;
     a skos:ConceptScheme;
     skos:definition "Datatypes voor de skos:notation van een externe identificator (adms:Identifier) in MJV: het nummersysteem van de bron waaruit de notatie komt."@nl;
     skos:hasTopConcept notatietype:activiteit_code, notatietype:activiteit_id, notatietype:apparaat_id, notatietype:cbb_nummer, notatietype:emissiepunt_id, notatietype:exploitant_id, notatietype:filter_id, notatietype:iioa_id, notatietype:installatie_id, notatietype:installatie_vergunning_id, notatietype:lozingspunt_code, notatietype:onttrekkingspunt_code, notatietype:put_id, notatietype:put_key, notatietype:vergunde_rubriek_id, notatietype:vergunning_id, notatietype:watnr, notatietype:zuiveringsapparaat_id;

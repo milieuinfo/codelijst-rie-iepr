@@ -96,27 +96,6 @@
                 {
                   "type": "object",
                   "properties": {
-                    "observedProperty": {
-                      "type": "string",
-                      "minLength": 1,
-                      "enum": [
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_424",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_231",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_46",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_316",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_351",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333"
-                      ],
-                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-parameter",
-                      "x-table-order": 132,
-                      "x-code-lists": [
-                        "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_water"
-                      ],
-                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
-                      "x-jsonld-type": "@id",
-                      "title": "Parameter",
-                      "x-ui-first": true
-                    },
                     "hasResult": {
                       "type": "object",
                       "properties": {
@@ -135,11 +114,12 @@
                           "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-soort",
                           "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-parameter",
                           "x-ui-after": "parameterSoort",
-                          "x-variabele": "observedProperty",
+                          "x-variabele": "parameterParameter",
                           "x-variable-location": {
-                            "ancestorDepth": 1,
+                            "ancestorDepth": 0,
                             "path": [
-                              "observedProperty"
+                              "parameterParameter",
+                              "value"
                             ]
                           }
                         },
@@ -204,6 +184,56 @@
                                 ],
                                 "x-jsonld-id": "https://schema.org/additionalProperty",
                                 "title": "Soort monstername",
+                                "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-parameter",
+                                "x-ui-after": "parameterParameter"
+                              },
+                              {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": [
+                                  "propertyID",
+                                  "value"
+                                ],
+                                "properties": {
+                                  "propertyID": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-parameter",
+                                    "x-jsonld-id": "https://schema.org/propertyID",
+                                    "x-jsonld-type": "@id",
+                                    "x-ui-hidden": true
+                                  },
+                                  "value": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "enum": [
+                                      "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_424",
+                                      "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_231",
+                                      "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_46",
+                                      "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_316",
+                                      "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_351",
+                                      "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333"
+                                    ],
+                                    "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-parameter",
+                                    "x-table-order": 133,
+                                    "x-code-lists": [
+                                      "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_water"
+                                    ],
+                                    "x-jsonld-id": "https://schema.org/value",
+                                    "x-jsonld-type": "@id",
+                                    "title": "Variabele"
+                                  }
+                                },
+                                "x-jsonld-type": "https://schema.org/PropertyValue",
+                                "x-value-path": [
+                                  "value"
+                                ],
+                                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-parameter",
+                                "x-table-order": 133,
+                                "x-code-lists": [
+                                  "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_water"
+                                ],
+                                "x-jsonld-id": "https://schema.org/additionalProperty",
+                                "title": "Variabele",
                                 "x-ui-first": true
                               },
                               {
@@ -260,11 +290,12 @@
                                 "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-concentratie",
                                 "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-parameter",
                                 "x-ui-after": "numericValue",
-                                "x-variabele": "observedProperty",
+                                "x-variabele": "parameterParameter",
                                 "x-variable-location": {
-                                  "ancestorDepth": 1,
+                                  "ancestorDepth": 0,
                                   "path": [
-                                    "observedProperty"
+                                    "parameterParameter",
+                                    "value"
                                   ]
                                 }
                               },
@@ -424,6 +455,25 @@
                                 "properties": {
                                   "propertyID": {
                                     "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-parameter",
+                                    "x-jsonld-id": "https://schema.org/propertyID",
+                                    "x-jsonld-type": "@id",
+                                    "x-ui-hidden": true
+                                  }
+                                }
+                              },
+                              "minContains": 1,
+                              "maxContains": 1
+                            },
+                            {
+                              "contains": {
+                                "type": "object",
+                                "required": [
+                                  "propertyID"
+                                ],
+                                "properties": {
+                                  "propertyID": {
+                                    "type": "string",
                                     "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-meetonzekerheid",
                                     "x-jsonld-id": "https://schema.org/propertyID",
                                     "x-jsonld-type": "@id",
@@ -500,14 +550,16 @@
                           "hasUnit"
                         ]
                       },
+                      "required": [
+                        "additionalProperty"
+                      ],
                       "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-resultaat",
-                      "x-table-order": 133,
+                      "x-table-order": 132,
                       "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
                       "title": "Resultaat parameter",
                       "description": "Het resultaatrecord van de parameter bij de zelfcontrole van water.",
-                      "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-parameter",
-                      "x-ui-after": "observedProperty",
+                      "x-ui-first": true,
                       "x-property-input-constraints": {
                         "dependentRequired": {
                           "numericValue": [
@@ -515,12 +567,17 @@
                           ]
                         }
                       },
-                      "required": [],
                       "x-property-layout": [
                         {
                           "key": "parameterSoort",
                           "repeatable": false,
                           "required": false,
+                          "annotations": {}
+                        },
+                        {
+                          "key": "parameterParameter",
+                          "repeatable": false,
+                          "required": true,
                           "annotations": {}
                         },
                         {
@@ -548,12 +605,19 @@
                           "annotations": {}
                         }
                       ]
+                    },
+                    "observedProperty": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-concentratie",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
                     }
                   },
                   "additionalProperties": false,
                   "required": [
-                    "observedProperty",
-                    "hasResult"
+                    "hasResult",
+                    "observedProperty"
                   ],
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter",
@@ -563,6 +627,7 @@
                   "x-relevant-observations": [
                     "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/meting"
                   ],
+                  "x-observed-property": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-concentratie",
                   "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
                   "title": "Meetresultaten",
                   "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo"
@@ -579,24 +644,10 @@
                   "properties": {
                     "observedProperty": {
                       "type": "string",
-                      "minLength": 1,
-                      "enum": [
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_424",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_231",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_46",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_316",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_351",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333"
-                      ],
-                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-parameter",
-                      "x-table-order": 132,
-                      "x-code-lists": [
-                        "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_water"
-                      ],
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-concentratie",
                       "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
                       "x-jsonld-type": "@id",
-                      "title": "Parameter",
-                      "x-ui-first": true
+                      "x-ui-hidden": true
                     }
                   }
                 },

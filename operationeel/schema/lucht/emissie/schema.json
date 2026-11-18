@@ -403,29 +403,6 @@
                 {
                   "type": "object",
                   "properties": {
-                    "observedProperty": {
-                      "type": "string",
-                      "enum": [
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1057",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1919",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1685",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1901",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1686",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1060",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_255",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1751",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_256"
-                      ],
-                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_parameter",
-                      "x-table-order": 53,
-                      "x-code-lists": [
-                        "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_lucht"
-                      ],
-                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
-                      "x-jsonld-type": "@id",
-                      "title": "Stof",
-                      "x-ui-first": true
-                    },
                     "hasResult": {
                       "type": "object",
                       "properties": {
@@ -442,7 +419,8 @@
                           "x-jsonld-id": "http://purl.org/dc/terms/accrualPeriodicity",
                           "x-jsonld-type": "@id",
                           "title": "Meetfrequentie",
-                          "x-ui-first": true
+                          "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_parameter",
+                          "x-ui-after": "emissieParameterParameter"
                         },
                         "numericValue": {
                           "type": "number",
@@ -457,12 +435,13 @@
                           "title": "Massastroom",
                           "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_standaardafwijking",
                           "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_parameter",
-                          "x-ui-after": "additionalProperty",
-                          "x-variabele": "observedProperty",
+                          "x-ui-after": "emissieParameterStandaardafwijking",
+                          "x-variabele": "emissieParameterParameter",
                           "x-variable-location": {
-                            "ancestorDepth": 1,
+                            "ancestorDepth": 0,
                             "path": [
-                              "observedProperty"
+                              "emissieParameterParameter",
+                              "value"
                             ]
                           }
                         },
@@ -482,6 +461,58 @@
                           "x-jsonld-id": "https://schema.org/additionalProperty",
                           "items": {
                             "oneOf": [
+                              {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": [
+                                  "propertyID",
+                                  "value"
+                                ],
+                                "properties": {
+                                  "propertyID": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_parameter",
+                                    "x-jsonld-id": "https://schema.org/propertyID",
+                                    "x-jsonld-type": "@id",
+                                    "x-ui-hidden": true
+                                  },
+                                  "value": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "enum": [
+                                      "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1057",
+                                      "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1919",
+                                      "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1685",
+                                      "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1901",
+                                      "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1686",
+                                      "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1060",
+                                      "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_255",
+                                      "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1751",
+                                      "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_256"
+                                    ],
+                                    "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_parameter",
+                                    "x-table-order": 54,
+                                    "x-code-lists": [
+                                      "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_lucht"
+                                    ],
+                                    "x-jsonld-id": "https://schema.org/value",
+                                    "x-jsonld-type": "@id",
+                                    "title": "Stof"
+                                  }
+                                },
+                                "x-jsonld-type": "https://schema.org/PropertyValue",
+                                "x-value-path": [
+                                  "value"
+                                ],
+                                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_parameter",
+                                "x-table-order": 54,
+                                "x-code-lists": [
+                                  "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_lucht"
+                                ],
+                                "x-jsonld-id": "https://schema.org/additionalProperty",
+                                "title": "Stof",
+                                "x-ui-first": true
+                              },
                               {
                                 "type": "object",
                                 "additionalProperties": false,
@@ -534,17 +565,37 @@
                                 "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_meetfrequentie",
                                 "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_parameter",
                                 "x-ui-after": "accrualPeriodicity",
-                                "x-variabele": "observedProperty",
+                                "x-variabele": "emissieParameterParameter",
                                 "x-variable-location": {
-                                  "ancestorDepth": 1,
+                                  "ancestorDepth": 0,
                                   "path": [
-                                    "observedProperty"
+                                    "emissieParameterParameter",
+                                    "value"
                                   ]
                                 }
                               }
                             ]
                           },
                           "allOf": [
+                            {
+                              "contains": {
+                                "type": "object",
+                                "required": [
+                                  "propertyID"
+                                ],
+                                "properties": {
+                                  "propertyID": {
+                                    "type": "string",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_parameter",
+                                    "x-jsonld-id": "https://schema.org/propertyID",
+                                    "x-jsonld-type": "@id",
+                                    "x-ui-hidden": true
+                                  }
+                                }
+                              },
+                              "minContains": 1,
+                              "maxContains": 1
+                            },
                             {
                               "contains": {
                                 "type": "object",
@@ -573,14 +624,16 @@
                           "hasUnit"
                         ]
                       },
+                      "required": [
+                        "additionalProperty"
+                      ],
                       "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_resultaat",
-                      "x-table-order": 54,
+                      "x-table-order": 53,
                       "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
                       "title": "Resultaat luchtparameter",
                       "description": "Het resultaatrecord van de gerapporteerde verontreinigende stof of het broeikasgas.",
-                      "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_parameter",
-                      "x-ui-after": "observedProperty",
+                      "x-ui-first": true,
                       "x-property-input-constraints": {
                         "dependentRequired": {
                           "numericValue": [
@@ -588,15 +641,27 @@
                           ]
                         }
                       },
-                      "required": [],
                       "x-property-layout": [
                         {
-                          "key": "additionalProperty",
+                          "key": "emissieParameterParameter",
+                          "repeatable": false,
+                          "required": true,
+                          "annotations": {}
+                        },
+                        {
+                          "key": "emissieParameterStandaardafwijking",
                           "repeatable": false,
                           "required": false,
                           "annotations": {}
                         }
                       ]
+                    },
+                    "observedProperty": {
+                      "type": "string",
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_massastroom",
+                      "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+                      "x-jsonld-type": "@id",
+                      "x-ui-hidden": true
                     }
                   },
                   "additionalProperties": false,
@@ -607,6 +672,7 @@
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter",
                   "x-table-order": 52,
+                  "x-observed-property": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_massastroom",
                   "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
                   "title": "Verontreinigende stof of BKG",
                   "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_debiet"
@@ -772,26 +838,10 @@
                   "properties": {
                     "observedProperty": {
                       "type": "string",
-                      "enum": [
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1057",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1919",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1685",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1901",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1686",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1060",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_255",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1751",
-                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_256"
-                      ],
-                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_parameter",
-                      "x-table-order": 53,
-                      "x-code-lists": [
-                        "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_lucht"
-                      ],
+                      "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_massastroom",
                       "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
                       "x-jsonld-type": "@id",
-                      "title": "Stof",
-                      "x-ui-first": true
+                      "x-ui-hidden": true
                     }
                   }
                 },
