@@ -16,8 +16,14 @@
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_installatie",
             "x-table-order": 166,
             "x-reference-types": [
-              "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatietype/gpbv"
+              "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
             ],
+            "x-reference-via": {
+              "relation": "http://www.w3.org/ns/ssn/implementedBy",
+              "types": [
+                "https://data.omgeving.vlaanderen.be/id/concept/riepr/installatietype/gpbv"
+              ]
+            },
             "x-jsonld-id": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
             "x-jsonld-type": "@id",
             "title": "IEPR installatie",

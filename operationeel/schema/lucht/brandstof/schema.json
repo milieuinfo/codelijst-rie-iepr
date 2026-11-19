@@ -29,8 +29,14 @@
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_installatie",
             "x-table-order": 60,
             "x-reference-types": [
-              "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Installatie"
+              "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
             ],
+            "x-reference-via": {
+              "relation": "http://www.w3.org/ns/ssn/implementedBy",
+              "types": [
+                "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Installatie"
+              ]
+            },
             "x-jsonld-id": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
             "x-jsonld-type": "@id",
             "title": "Installatie",

@@ -22,8 +22,14 @@
               "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
             ],
             "x-reference-types": [
-              "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunttype/controleinrichting"
+              "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
             ],
+            "x-reference-via": {
+              "relation": "http://www.w3.org/ns/ssn/implementedBy",
+              "types": [
+                "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunttype/controleinrichting"
+              ]
+            },
             "x-jsonld-type": "@id",
             "x-feature-mapping": {
               "relation": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
@@ -31,7 +37,7 @@
                 "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
               ],
               "referenceTypes": [
-                "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunttype/controleinrichting"
+                "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
               ]
             },
             "title": "Controleinrichting",

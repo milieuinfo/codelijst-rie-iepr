@@ -24,8 +24,14 @@
               "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Onttrekking"
             ],
             "x-reference-types": [
-              "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunttype/debietmeter"
+              "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
             ],
+            "x-reference-via": {
+              "relation": "http://www.w3.org/ns/ssn/implementedBy",
+              "types": [
+                "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunttype/debietmeter"
+              ]
+            },
             "x-jsonld-type": "@id",
             "x-feature-mapping": {
               "relation": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
@@ -33,7 +39,7 @@
                 "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Onttrekking"
               ],
               "referenceTypes": [
-                "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunttype/debietmeter"
+                "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
               ]
             },
             "title": "Debietmeter",

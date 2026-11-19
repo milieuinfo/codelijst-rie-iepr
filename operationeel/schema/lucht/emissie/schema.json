@@ -24,8 +24,14 @@
               "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
             ],
             "x-reference-types": [
-              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/emissiepunt_lucht"
+              "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
             ],
+            "x-reference-via": {
+              "relation": "http://www.w3.org/ns/ssn/implementedBy",
+              "types": [
+                "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/emissiepunt_lucht"
+              ]
+            },
             "x-jsonld-type": "@id",
             "x-feature-mapping": {
               "relation": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
@@ -33,7 +39,7 @@
                 "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
               ],
               "referenceTypes": [
-                "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/emissiepunt_lucht"
+                "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
               ]
             },
             "title": "Emissiepunt",
@@ -57,8 +63,14 @@
                 "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
               ],
               "x-reference-types": [
-                "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Installatie"
+                "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
               ],
+              "x-reference-via": {
+                "relation": "http://www.w3.org/ns/ssn/implementedBy",
+                "types": [
+                  "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Installatie"
+                ]
+              },
               "x-jsonld-type": "@id",
               "x-feature-mapping": {
                 "relation": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
@@ -66,7 +78,7 @@
                   "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
                 ],
                 "referenceTypes": [
-                  "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Installatie"
+                  "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
                 ]
               },
               "title": "Bron(nen)",

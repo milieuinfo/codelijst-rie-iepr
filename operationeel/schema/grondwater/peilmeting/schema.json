@@ -21,9 +21,15 @@
               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting"
             ],
             "x-reference-types": [
-              "https://data.omgeving.vlaanderen.be/id/concept/riepr/filtertype/peil",
-              "https://data.omgeving.vlaanderen.be/id/concept/riepr/filtertype/pomp"
+              "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
             ],
+            "x-reference-via": {
+              "relation": "http://www.w3.org/ns/ssn/implementedBy",
+              "types": [
+                "https://data.omgeving.vlaanderen.be/id/concept/riepr/filtertype/peil",
+                "https://data.omgeving.vlaanderen.be/id/concept/riepr/filtertype/pomp"
+              ]
+            },
             "x-jsonld-id": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
             "x-jsonld-type": "@id",
             "title": "Filter",

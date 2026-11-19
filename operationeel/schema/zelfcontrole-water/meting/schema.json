@@ -19,8 +19,14 @@
               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/meting"
             ],
             "x-reference-types": [
-              "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunttype/controleinrichting"
+              "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
             ],
+            "x-reference-via": {
+              "relation": "http://www.w3.org/ns/ssn/implementedBy",
+              "types": [
+                "https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunttype/controleinrichting"
+              ]
+            },
             "x-jsonld-id": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
             "x-jsonld-type": "@id",
             "title": "Controleinrichting",

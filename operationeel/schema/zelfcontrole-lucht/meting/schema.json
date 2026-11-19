@@ -22,22 +22,11 @@
               "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
             ],
             "x-reference-types": [
-              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/emissiepunt_lucht",
-              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/fakkel",
-              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/gebouw",
-              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/installatie",
-              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/lozingspunt",
-              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/schoorsteen",
-              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/schoorsteen_horizontale_uitstroom",
-              "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/schoorsteen_verticale_uitstroom"
+              "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
             ],
-            "x-jsonld-type": "@id",
-            "x-feature-mapping": {
-              "relation": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
-              "classes": [
-                "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
-              ],
-              "referenceTypes": [
+            "x-reference-via": {
+              "relation": "http://www.w3.org/ns/ssn/implementedBy",
+              "types": [
                 "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/emissiepunt_lucht",
                 "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/fakkel",
                 "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/gebouw",
@@ -46,6 +35,16 @@
                 "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/schoorsteen",
                 "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/schoorsteen_horizontale_uitstroom",
                 "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissiepunttype/schoorsteen_verticale_uitstroom"
+              ]
+            },
+            "x-jsonld-type": "@id",
+            "x-feature-mapping": {
+              "relation": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
+              "classes": [
+                "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
+              ],
+              "referenceTypes": [
+                "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
               ]
             },
             "title": "Emissiepunt",

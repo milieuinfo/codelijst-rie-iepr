@@ -27,9 +27,15 @@
                 "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
               ],
               "x-reference-types": [
-                "https://data.omgeving.vlaanderen.be/id/concept/riepr/filtertype/peil",
-                "https://data.omgeving.vlaanderen.be/id/concept/riepr/filtertype/pomp"
+                "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
               ],
+              "x-reference-via": {
+                "relation": "http://www.w3.org/ns/ssn/implementedBy",
+                "types": [
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/filtertype/peil",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/filtertype/pomp"
+                ]
+              },
               "x-jsonld-type": "@id",
               "x-feature-mapping": {
                 "relation": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
@@ -37,8 +43,7 @@
                   "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
                 ],
                 "referenceTypes": [
-                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/filtertype/peil",
-                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/filtertype/pomp"
+                  "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
                 ]
               },
               "title": "Filter(s)",
