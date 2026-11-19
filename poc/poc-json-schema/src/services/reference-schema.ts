@@ -11,6 +11,26 @@ export interface ReferenceSnapshot {
   referenceContext: ReferenceContext
 }
 
+export function referenceMatchesSchema(
+  reference: ReferenceRecord, schema: JsonSchemaObject, references: ReferenceRecord[],
+): boolean {
+  const types = schema['x-reference-types']
+  if (!Array.isArray(types) || !types.length || !types.every(type => typeof type === 'string')) {
+    throw new Error('Reference selections require declared reference types.')
+  }
+  const via = schema['x-reference-via'] === undefined ? undefined : schemaObject(schema['x-reference-via'])
+  const matchesType = reference.types.some(type => types.includes(type))
+  if (!via) return matchesType
+  const { relation, types: targetTypes } = via
+  if (typeof relation !== 'string' || !relation || !Array.isArray(targetTypes) ||
+      !targetTypes.length || !targetTypes.every(type => typeof type === 'string')) {
+    throw new Error('Invalid reference projection.')
+  }
+  const targets = reference.relations?.[relation] ?? []
+  return matchesType && references.some(target =>
+    targets.includes(target.id) && target.types.some(type => targetTypes.includes(type)))
+}
+
 function parseRelations(value: unknown): Record<string, string[]> {
   const object = schemaObject(value)
   const output: Record<string, string[]> = {}
@@ -128,7 +148,7 @@ export function personalizeReferenceSchema(
     if (node.type !== 'string' || !Array.isArray(types) || !types.length || !types.every(type => typeof type === 'string')) {
       throw new Error('Reference selections must be strings with declared reference types.')
     }
-    return references.filter(reference => reference.types.some(type => types.includes(type)) &&
+    return references.filter(reference => referenceMatchesSchema(reference, node, references) &&
       (reference.year === undefined || reference.year === context.year) &&
       (!node.enum || node.enum.includes(reference.id)) &&
       (node.const === undefined || node.const === reference.id))
@@ -196,10 +216,12 @@ export function personalizeReferenceSchema(
     return node
   }
   const personalized = visit(schema, new Set(context.ids ?? []))
+  const supporting = new Set(references.filter(reference => used.has(reference.id))
+    .flatMap(reference => Object.values(reference.relations ?? {}).flat()))
   personalized['x-reference-snapshot'] = {
     genericSchemaId: schema.$id,
     referenceContext: context,
-    references: references.filter(reference => used.has(reference.id)),
+    references: references.filter(reference => used.has(reference.id) || supporting.has(reference.id)),
   } satisfies ReferenceSnapshot
   const id = new URL(schema.$id)
   id.hash = ''

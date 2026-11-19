@@ -7,6 +7,7 @@ const namespaces: Readonly<Record<string, string>> = {
   dcterms: 'http://purl.org/dc/terms/', rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
   qudt: 'http://qudt.org/schema/qudt/',
   schema: 'https://schema.org/',
+  ssn: 'http://www.w3.org/ns/ssn/',
 }
 
 export function vocabularyIri(value: string): string {

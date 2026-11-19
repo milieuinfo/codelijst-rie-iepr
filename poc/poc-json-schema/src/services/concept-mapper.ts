@@ -111,6 +111,13 @@ export class ConceptMapper {
         }])
         return members.map(member => this.result.expandCurie?.(member.id) ?? member.id)
       }))]
+      if (schemaField.isFeatureOfInterest) {
+        schemaField.extensions!['x-reference-via'] = {
+          relation: vocabularyIri('ssn:implementedBy'),
+          types: schemaField.extensions!['x-reference-types'],
+        }
+        schemaField.extensions!['x-reference-types'] = [vocabularyIri('riepr:Proces')]
+      }
     }
     if (concept.relevantCodeList?.length) {
       schemaField.extensions!['x-code-lists'] = concept.relevantCodeList.map(value =>

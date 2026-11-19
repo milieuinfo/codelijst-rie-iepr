@@ -1,7 +1,7 @@
 // @vitest-environment node
 import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
-import type { JsonSchemaObject } from 'codelijst-rie-iepr-poc-json-schema/browser'
+import { personalizeReferenceSchema, schemaObject, SemanticValidator, type JsonSchemaObject } from 'codelijst-rie-iepr-poc-json-schema/browser'
 import { parseCodelist } from './codelist-parse.js'
 import { SchemaLookups } from './schema-lookups.js'
 import demonstrationReferences from '../../../poc-json-schema/examples/refs.json'
@@ -31,6 +31,31 @@ describe('Shared demonstration references', () => {
     expect(() => lookups.references({
       type: 'string', 'x-reference-types': ['urn:missing:structural-type'],
     }, [], 2024)).toThrow('Geen gedeelde demonstratiegegevens')
+  })
+
+  it('offers process identities with system-identical names, filtered through their implementing systems', () => {
+    const lookups = new SchemaLookups(result())
+    const process = 'https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces'
+    const selection: JsonSchemaObject = {
+      $id: 'https://example.test/installation-processes', type: 'object', properties: {
+        installation: { type: 'string', 'x-reference-types': [process],
+          'x-reference-via': { relation: 'http://www.w3.org/ns/ssn/implementedBy', types: [installation] } },
+      },
+    }
+    const references = lookups.references(selection, [], 2026)
+    const personal = personalizeReferenceSchema(selection, { references, referenceContext: { year: 2026 } })
+    const choices = schemaObject(personal.properties!.installation).enum
+    const systems = demonstrationReferences.filter(reference => reference.types.includes(installation))
+    expect(choices).toHaveLength(systems.length)
+    for (const system of systems) {
+      const selected = references.find(reference => reference.relations?.['http://www.w3.org/ns/ssn/implementedBy']?.includes(system.id))!
+      expect(choices).toContain(selected.id)
+      expect(choices).not.toContain(system.id)
+      expect(selected.types).toEqual([process])
+      expect(selected.label).toBe(system.label)
+      expect(lookups.label(selected.id)).toBe(system.label)
+      expect(new SemanticValidator().validate(personal, { installation: selected.id })).toEqual([])
+    }
   })
 
   it('accepts available alternatives without requiring examples for every permitted type', () => {

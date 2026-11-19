@@ -237,6 +237,12 @@ The generic schema keeps external structural selections as strings annotated
 with `x-reference-types`. Standard JSON Schema validators do not interpret this
 annotation. The shared semantic validator already checks supplied reference
 identities, types, reporting year and actual selected parent context.
+Feature-of-interest selections store `riepr:Proces` URIs. Their
+`x-reference-via: { relation: "http://www.w3.org/ns/ssn/implementedBy", types: [...] }`
+filters candidates through the implementing system's source-declared types.
+Processes keep their own identity and types; systems remain supporting reference
+records, including in personalized snapshots. Other structural selections, such
+as Rubriek and reference-point properties, retain their original types.
 
 Generate both generic and personalized schemas in one run:
 
@@ -314,7 +320,7 @@ excluding them; ODS import continues to reject inactive supplied cells.
 | `isVerplicht` on predicate-array variants | Discriminator-specific `contains` / `minContains`; `maxContains: 1` for singleton kinds |
 | Numeric `riepr:Observatie` | Typed `riepr:Resultaat` with `numericValue`, including when no unit is declared; no unit is guessed |
 | `relevantCodeList` | Full URI enums; partial/unresolved lists are errors |
-| `relevantRiepr` | URI references annotated with `x-reference-types`; runtime instances are supplied separately (synthetic example: `examples/refs.json`) |
+| `relevantRiepr` | URI references annotated with `x-reference-types`; feature inputs select processes filtered through `ssn:implementedBy` using `x-reference-via`; runtime instances are supplied separately (`examples/refs.json`) |
 | `conditionPath` / `conditionValue` | Typed, record/ancestor-scoped `if/then/else`; absent triggers do not activate fields, inactive values are prohibited |
 | CSOR aspect/carrier/determination/variable | Preserved `x-kwantiteitsaspect`, `x-drager`, `x-soortwaardebepaling`, `x-variabele` and source-concept annotations |
 | `related` | `x-related-concepts`; preserve distinct conditional variants, child identities, cardinalities and requiredness rather than merging equal labels |

@@ -1,5 +1,5 @@
 import { randomUUID } from './runtime.js';
-import { SchemaValidator, SemanticValidator, pointerToken, schemaObject, materializeDerivedValues, transformMemberData, canonicalDataPath, referenceSnapshot } from 'codelijst-rie-iepr-poc-json-schema/browser';
+import { SchemaValidator, SemanticValidator, pointerToken, schemaObject, materializeDerivedValues, transformMemberData, canonicalDataPath, referenceSnapshot, referenceMatchesSchema } from 'codelijst-rie-iepr-poc-json-schema/browser';
 import type { ReferenceRecord, ReferenceContext } from 'codelijst-rie-iepr-poc-json-schema';
 import type { CellValue, LookupChoice, RecordPlan, TabularPlan, WorkbookMetadata, WorkbookRow } from '../models/tabular-plan.js';
 import { WorkbookError } from '../models/tabular-plan.js';
@@ -194,7 +194,7 @@ export function workbookRows(
         if (Array.isArray(definition['x-reference-options']) && !definition['x-reference-options'].length) {
           throw new Error(`No permitted references for ${record.title}: ${column.title}.`);
         }
-        values = references.filter(reference => reference.types.some(type => expectedTypes.includes(type))).map(reference => reference.id);
+        values = references.filter(reference => referenceMatchesSchema(reference, definition, references)).map(reference => reference.id);
         if (!values.length) throw new Error(`Reference data is required for ${record.title}: ${column.title}.`);
       }
       if (values) metadata.lookups[column.id] = choices(values, value => {

@@ -1,7 +1,7 @@
 import { LitElement, html, css, render, nothing, type TemplateResult } from 'lit'
 import { VlRichDataTable } from '@domg-wc/components/block/rich-data-table/vl-rich-data-table.component.js'
 import { VlRichDataField } from '@domg-wc/components/block/rich-data-table/vl-rich-data-field.component.js'
-import { schemaObject, type JsonSchemaObject } from 'codelijst-rie-iepr-poc-json-schema/browser'
+import { schemaObject, referenceMatchesSchema, type JsonSchemaObject } from 'codelijst-rie-iepr-poc-json-schema/browser'
 import { SchemaEditor, jsonPointer, type DataPath, type EditorColumn } from '../services/schema-editor.js'
 
 interface Row { path: DataPath; value: unknown }
@@ -272,7 +272,7 @@ export class SchemaRichTable extends LitElement {
       throw new Error('Ongeldige referentietypes in schema.')
     }
     const available: unknown[] | undefined = item.enum ?? (Array.isArray(item['x-reference-options']) ? [] : Array.isArray(references)
-      ? this.editor.references.filter(reference => reference.types.some(type => references.includes(type))).map(reference => reference.id)
+      ? this.editor.references.filter(reference => referenceMatchesSchema(reference, item, this.editor.references)).map(reference => reference.id)
       : item.type === 'boolean' ? [true, false] : undefined)
     const choices = available && this.editor.referenceChoices(path, available)
     const value = this.editor.get(path)

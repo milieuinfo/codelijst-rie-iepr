@@ -80,7 +80,8 @@ describe('Turtle export', () => {
         .toEqual([graph.getSubjects(rdfType, namedNode(riepr + 'Emissie'), null)[0]])
       expect(graph.getSubjects(namedNode(sosa + 'hasMember'), sample[0], null)).toHaveLength(0)
       const features = graph.getSubjects(rdfType, namedNode(riepr + 'Emissie'), null)
-      expect(graph.getObjects(features[0], namedNode('http://www.w3.org/ns/prov#wasDerivedFrom'), null)).toHaveLength(2)
+      expect(graph.getObjects(features[0], namedNode('http://www.w3.org/ns/prov#wasDerivedFrom'), null).map(term => term.value).sort())
+        .toEqual([...example(name)[name][0].hasFeatureOfInterest].sort())
     }
   })
 
@@ -109,12 +110,18 @@ describe('Turtle export', () => {
     expect(second.getSubjects(rdfType, namedNode(riepr + 'Observatie'), null).every(subject => !firstIds.has(subject.value))).toBe(true)
   })
 
-  it('keeps directly selected system URIs instead of minting features for them', () => {
+  it('keeps directly selected process URIs and their implementation context instead of minting features', () => {
     const data = example('peilmeting')
     const graph = new Store(new Parser().parse(exportTurtle(section('peilmeting'), data, options())))
     const observation = graph.getSubjects(rdfType, namedNode(riepr + 'Observatie'), null)[0]
     expect(graph.getObjects(observation, namedNode(sosa + 'hasFeatureOfInterest'), null))
       .toEqual([namedNode(data.peilmeting[0].hasFeatureOfInterest)])
+    const process = namedNode(data.peilmeting[0].hasFeatureOfInterest)
+    expect(graph.has(process, rdfType, namedNode(riepr + 'Proces'), null)).toBe(true)
+    expect(graph.getObjects(process, namedNode('http://www.w3.org/2000/01/rdf-schema#label'), null).map(term => term.value))
+      .toEqual(['Peilfilter 1'])
+    expect(graph.getObjects(process, namedNode('http://www.w3.org/ns/ssn/implementedBy'), null))
+      .toEqual([namedNode('urn:test:filter:peil:1')])
   })
 
   it('rejects invalid submission timestamps', () => {
@@ -124,15 +131,18 @@ describe('Turtle export', () => {
     }
   })
 
-  it('rejects missing and ambiguous system processes instead of inventing them', () => {
+  it('resolves exact selected processes even when one system implements several, and rejects systems or unknown processes', () => {
     const graph = new Store()
-    expect(() => resolveProcesses(graph, [])).toThrow('systeemgroepen')
-    expect(() => resolveProcesses(graph, [[]])).toThrow('systeemgroepen')
-    expect(() => resolveProcesses(graph, [['urn:test:missing']])).toThrow('gevonden: 0')
+    expect(() => resolveProcesses(graph, [])).toThrow('procesgroepen')
+    expect(() => resolveProcesses(graph, [[]])).toThrow('procesgroepen')
+    expect(() => resolveProcesses(graph, [['urn:test:missing']])).toThrow('geen bekend proces')
     const implementedBy = namedNode('http://www.w3.org/ns/ssn/implementedBy')
     graph.addQuad(namedNode('urn:process:1'), implementedBy, namedNode('urn:system:1'))
     graph.addQuad(namedNode('urn:process:2'), implementedBy, namedNode('urn:system:1'))
-    expect(() => resolveProcesses(graph, [['urn:system:1']])).toThrow('gevonden: 2')
+    graph.addQuad(namedNode('urn:process:1'), rdfType, namedNode(riepr + 'Proces'))
+    graph.addQuad(namedNode('urn:process:2'), rdfType, namedNode(riepr + 'Proces'))
+    expect(() => resolveProcesses(graph, [['urn:system:1']])).toThrow('geen bekend proces')
+    expect(resolveProcesses(graph, [['urn:process:2']]).derived).toEqual([namedNode('urn:process:2')])
   })
 
   it('exports the selected transport path and the systems it connects', () => {

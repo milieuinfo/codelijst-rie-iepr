@@ -15,6 +15,7 @@ const dct = 'http://purl.org/dc/terms/'
 const xsd = 'http://www.w3.org/2001/XMLSchema#'
 const time = 'http://www.w3.org/2006/time#'
 const schemaOrg = 'https://schema.org/'
+const implementedBy = 'http://www.w3.org/ns/ssn/implementedBy'
 const turtlePrefixes = {
   ...PREFIXES,
   prov,
@@ -219,9 +220,14 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
         throw new Error(`Proces ${process.value} heeft geen geldige ${predicate}.`)
       }
     }
-    const properties = [rdf + 'type', 'http://www.w3.org/2000/01/rdf-schema#label', dct + 'created', dct + 'modified']
+    const properties = [rdf + 'type', 'http://www.w3.org/2000/01/rdf-schema#label', dct + 'created', dct + 'modified', implementedBy]
     for (const predicate of properties) {
-      for (const statement of options.processes.getQuads(process, namedNode(predicate), null, null)) graph.addQuad(statement)
+      for (const statement of options.processes.getQuads(process, namedNode(predicate), null, null)) {
+        graph.addQuad(statement)
+        if (predicate === implementedBy && (statement.object.termType === 'NamedNode' || statement.object.termType === 'BlankNode')) {
+          typed(statement.object, 'http://www.w3.org/ns/ssn/System')
+        }
+      }
     }
     if (!graph.has(process, namedNode(rdf + 'type'), namedNode(riepr + 'Proces'), null)) {
       throw new Error(`Proces ${process.value} heeft geen expliciet riepr:Proces-type.`)
@@ -285,8 +291,8 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
       const declaration = mapping(schemaObject(child))
       if (!declaration) return []
       const selected = Array.isArray(value[key]) ? value[key] : [value[key]]
-      if (!selected.every(item => typeof item === 'string')) throw new Error(`Ongeldige systeemselectie: ${key}.`)
-      return [{ declaration, systems: selected as string[] }]
+      if (!selected.every(item => typeof item === 'string')) throw new Error(`Ongeldige processelectie: ${key}.`)
+      return [{ declaration, processes: selected as string[] }]
     })
     let feature = inherited
     if (constructed.length) {
@@ -300,18 +306,10 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
       typed(feature, classes[0])
       typed(feature, sosa + 'FeatureOfInterest')
       period(feature)
-      const selectedSystems = new Set(constructed.flatMap(group => group.systems))
-      const resolved = resolveProcesses(options.processes, constructed.map(group => group.systems))
+      const resolved = resolveProcesses(options.processes, constructed.map(group => group.processes))
       const contextIds = new Set(resolved.context.map(process => process.value))
       for (const process of resolved.context) {
         addProcessContext(process)
-        for (const statement of options.processes.getQuads(process, namedNode('http://www.w3.org/ns/ssn/implementedBy'), null, null)) {
-          if (!selectedSystems.has(statement.object.value)) continue
-          graph.addQuad(statement)
-          if (statement.object.termType === 'NamedNode' || statement.object.termType === 'BlankNode') {
-            typed(statement.object, 'http://www.w3.org/ns/ssn/System')
-          }
-        }
         for (const statement of options.processes.getQuads(process, namedNode('http://purl.org/net/p-plan#isPrecededBy'), null, null)) {
           if (contextIds.has(statement.object.value)) graph.addQuad(statement)
         }
@@ -330,6 +328,8 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
         if (definition['x-jsonld-id'] !== sosa + 'hasFeatureOfInterest' || !Object.hasOwn(value, key)) continue
         if (Array.isArray(value[key])) throw new Error(`Meerdere directe features zijn niet toegestaan: ${key}.`)
         feature = iri(value[key])
+        const types = definition['x-reference-types']
+        if (Array.isArray(types) && types.includes(riepr + 'Proces')) addProcessContext(feature)
         typed(feature, sosa + 'FeatureOfInterest')
       }
     }

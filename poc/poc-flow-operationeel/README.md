@@ -70,6 +70,10 @@ The UI adapts these fictional instances to the selected reporting year; it does
 not generate additional choices from the legacy mock-data service. After changing
 the shared examples, regenerate the personalized schemas and run `npm run sync:schemas`
 to refresh the downloadable ODS lookup lists.
+Feature selectors use explicit process records from that same snapshot, filtered
+by their implementing system's permitted types. The process has exactly the
+system's label, but JSON and ODS store the process URI, never the system URI.
+Rubriek and reference-point properties remain ordinary structural selections.
 
 Dev/build hooks rebuild the linked schema runtime, verify and synchronize the
 existing generated snapshot, generate matching downloadable ODS templates,
@@ -161,7 +165,7 @@ explicitly. `pnpm sync:schemas` performs just the schema runtime build and sync.
   production year. The POC simulates submission at validation time: its
   `dct:issued` and `dct:created` values are the current time, and every
   validation mints new UUIDs. These URIs and timestamps do not represent real
-  submissions or persistent backend records. Directly selected systems retain
+  submissions or persistent backend records. Directly selected processes retain
   their existing reference URIs. Run `npm run sync:uri-templates` after changing
   the sibling RIE-IEPR ontology's templates.
 - The static ODS download retains the indexed generic schema/transport contract.
@@ -173,11 +177,11 @@ explicitly. `pnpm sync:schemas` performs just the schema runtime build and sync.
   to the reporting year, not real reported installations or measuring points.
 
 The Turtle exporter uses the schema predicates and class annotations, constructs
-annual features from the explicitly linked system processes (or connecting
+annual features from the selected processes (or connecting
 transport processes), and carries CSOR qualifiers as PropertyValues on results
 or their individual result characteristics. The UI's process graph and all its
 connections are **fictional**; production integration must provide a real graph.
-Missing or ambiguous processes and observations without required features or
+Missing processes, ambiguous transport paths and observations without required features or
 results produce errors rather than invented data. The browser does not run SHACL:
 the example-based tests validate offline against the regenerated ontology shapes.
 

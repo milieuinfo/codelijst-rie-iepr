@@ -81,7 +81,7 @@ describe('Actual water CSV -> schema -> reversible ODS', () => {
     const imported = await new ODSImporter().import(edited, plan);
     expect(imported).toEqual({
       abnormaleLozing: [{
-        hasFeatureOfInterest: 'urn:test:controleinrichting:1',
+        hasFeatureOfInterest: 'urn:demo:process:urn%3Atest%3Acontroleinrichting%3A1',
         observedProperty: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-jaarvracht',
         hasResult: { additionalProperty: [{
           propertyID: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-stof',

@@ -3,7 +3,7 @@ import { isCollectionClass, isObservationClass } from '../config.js'
 import { homogeneousProperties } from './schema-assembler.js'
 import { pointerToken, schemaObject, SchemaRegistry } from './schema-registry.js'
 import { selectMemberVariant } from './member-layout.js'
-import { referenceSnapshot } from './reference-schema.js'
+import { referenceMatchesSchema, referenceSnapshot } from './reference-schema.js'
 import { referenceDependency, dependencySelections, referenceMatchesDependency, type ReferenceScope } from './reference-dependency.js'
 
 export interface ReferenceRecord {
@@ -73,7 +73,8 @@ export class SemanticValidator {
     const registry = new SchemaRegistry(schema, options.dependencies)
     const errors: SemanticDiagnostic[] = []
     const references = new Map<string, ReferenceRecord>()
-    for (const reference of options.references ?? []) {
+    const referenceRecords = options.references ?? []
+    for (const reference of referenceRecords) {
       if (references.has(reference.id)) throw new Error(`Duplicate reference-data identity: ${reference.id}`)
       references.set(reference.id, reference)
     }
@@ -103,8 +104,9 @@ export class SemanticValidator {
         if (!reference && !local) {
           report(location, 'reference', options.references
             ? `Unknown reference: ${value}` : `Reference data is required for ${value}.`)
-        } else if (!expectedTypes.some(type => reference?.types.includes(type) || type === localType)) {
-          report(location, 'reference', `Reference ${value} does not have one of the declared types.`)
+        } else if (!(reference && referenceMatchesSchema(reference, node, referenceRecords)) &&
+          (node['x-reference-via'] !== undefined || !expectedTypes.includes(localType))) {
+          report(location, 'reference', `Reference ${value} does not match the declared reference types and relationships.`)
         }
         if (reference?.year !== undefined && reference.year !== options.referenceContext?.year) {
           report(location, 'reference', `Reference ${value} belongs to reporting year ${reference.year}; supply a matching reference context.`)

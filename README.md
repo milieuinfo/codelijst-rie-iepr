@@ -445,7 +445,7 @@ dat een property binnen een observatie of haar resultaat moet staan.
 | `isMultiselect` | Array van selectiewaarden | Meerdere referenties/keuzes, geen herhaalbaar volledig record |
 | `isVerplicht` | `required`; bij verplichte arrays ook `minItems: 1`; bij predicaatlijsten `contains`/`minContains` op `observedProperty` of `propertyID` | Validatie-eis, niet automatisch een ingevuld record |
 | `relevantCodeList` | `enum` met volledige concept-URI's | Labels tonen, URI's bewaren |
-| `relevantRiepr` | `x-reference-types` | Kiezen uit instanties van de gevraagde structurele types |
+| `relevantRiepr` | `x-reference-types`, bij featureselecties ook `x-reference-via` | Featureselecties kiezen processen waarvan het implementerende systeem aan de gevraagde types voldoet; overige selecties behouden hun structurele types |
 | `relevantUnit` | `const` of `enum` op `hasUnit`/`unitCode` | Vast symbool of selecteerbare eenheid |
 | `minValue`, `maxValue` | `minimum`, `maximum` | Numerieke grenzen |
 | `_table_workbook`, `_table_sheet` | `x-table-workbook`, `x-table-sheet` | Bestands- en werkbladindeling |
@@ -646,10 +646,15 @@ opgeslagen JSON uitsluitend de canonieke predicaatlijsten bevat.
 | Kwaliteitsmeting | Eén verzameling per monster; diepte en herhaalbare parameterobservaties als leden; labo en referentiepunten bij de verzameling | Context en diepte op **Monsters**, parameterleden op **Meetresultaten** of in de uitklapbare UI-detailtabel |
 
 **Featureselectie is niet hetzelfde als featureconstructie.**
-`relevantRiepr` levert de te kiezen instanties; `relevantFeatureClass` beschrijft
+Bij featureselecties filtert `relevantRiepr` op de types van het systeem dat via
+`ssn:implementedBy` bij een `riepr:Proces` hoort. De keuzelijst toont de procesnaam
+(in de fictieve gegevens gelijk aan de systeemnaam); JSON en ODS bewaren de
+proces-URI. Ook Turtle gebruikt diezelfde proces-URI, zonder achteraf een
+systeem naar een proces om te zetten. Andere structurele selecties, zoals
+Rubriek en referentiepunt, veranderen niet. `relevantFeatureClass` beschrijft
 welke feature later uit die invoer moet worden opgebouwd, bijvoorbeeld een
 `riepr:Onttrekking` of `riepr:Emissie`. De generator bewaart dit als
-`x-feature-mapping`. Meerdere geselecteerde filters zijn dus niet automatisch
+`x-feature-mapping`. Meerdere geselecteerde filterprocessen zijn dus niet automatisch
 meerdere rechtstreeks gedeelde SOSA-features.
 
 **Selectieafhankelijkheden staan los van navigatie.**

@@ -1,6 +1,9 @@
 import { readFileSync } from 'node:fs'
 import { test, expect } from '@playwright/test'
 import { DataFactory, Parser, Store } from 'n3'
+import { parseReferenceData, schemaObject } from 'codelijst-rie-iepr-poc-json-schema/browser'
+
+const references = parseReferenceData(JSON.parse(readFileSync(new URL('../../poc-json-schema/examples/refs.json', import.meta.url), 'utf8')))
 
 const sections = (JSON.parse(readFileSync(new URL('../public/schema/index.json', import.meta.url), 'utf8')) as {
   files: Array<{ kind: string; id: string; themeConceptId?: string }>
@@ -29,12 +32,26 @@ test('fills every reporting form with its fictional example data', async ({ page
     await expect(output).toBeVisible()
     const data = JSON.parse(await output.innerText()) as Record<string, unknown>
     expect(Object.values(data).some(value => Array.isArray(value) && value.length > 0), section.id).toBe(true)
-    if (!mappings.some(([path]) => section.id.includes(path))) continue
+    const selections = Object.values(data).flatMap(rows => Array.isArray(rows) ? rows.flatMap(row => {
+      const record = schemaObject(row)
+      return [record.hasFeatureOfInterest, record.featureEp, record.featureBron].flat()
+        .filter((id): id is string => typeof id === 'string')
+    }) : [])
+    if (!selections.length) continue
     await page.getByRole('tab', { name: 'Turtle', exact: true }).click()
     const graph = new Store(new Parser().parse(await page.locator('#validated-turtle').innerText()))
     const { namedNode } = DataFactory
     const sosa = 'http://www.w3.org/ns/sosa/'
     const schema = 'https://schema.org/'
+    const rdfType = namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type')
+    const processClass = namedNode('https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces')
+    for (const id of selections) {
+      expect(graph.has(namedNode(id), rdfType, processClass, null), section.id).toBe(true)
+      const [system] = graph.getObjects(namedNode(id), namedNode('http://www.w3.org/ns/ssn/implementedBy'), null)
+      expect(system).toBeDefined()
+      expect(graph.getObjects(namedNode(id), namedNode('http://www.w3.org/2000/01/rdf-schema#label'), null)
+        .map(term => term.value)).toEqual([references.find(reference => reference.id === system.value)!.label])
+    }
     for (const quad of graph.getQuads(null, namedNode(sosa + 'observedProperty'), null, null)) {
       expect(quad.object.value).not.toContain('/csor/variabele/')
     }
@@ -51,7 +68,6 @@ test('fills every reporting form with its fictional example data', async ({ page
       }
     }
     if (section.id.includes('/grondwater/kwaliteitsmeting/')) {
-      const rdfType = namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type')
       const sampling = graph.getSubjects(rdfType, namedNode('http://www.w3.org/ns/sosa/Sampling'), null)
       const emissions = graph.getSubjects(rdfType, namedNode('https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie'), null)
       expect(sampling).toHaveLength(1)

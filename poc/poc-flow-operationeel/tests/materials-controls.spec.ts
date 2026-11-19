@@ -93,7 +93,7 @@ for (const [section, name] of [['Geproduceerde grondstoffen', 'grondstof'], ['In
       await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
       const updated = JSON.parse(await page.locator('#validated-json').innerText())
       expect(updated.inkomend[0]).toMatchObject({
-        hasFeatureOfInterest: 'urn:demo:iepr-installatie:3', subject: 'urn:demo:rubriek:3',
+        hasFeatureOfInterest: 'urn:demo:process:urn%3Ademo%3Aiepr-installatie%3A3', subject: 'urn:demo:rubriek:3',
         hasResult: { numericValue: 0 },
       })
     }

@@ -20,10 +20,16 @@ import { cells, row, modifyTable } from './fixtures.js';
 
 const sections = compileGroundwater().subSchemas;
 const plans = sections.map(section => compileTabularPlan(section.schema, { sourceSha256: hash('synthetic groundwater CSV') }));
-const references = [
+const systems = [
   { id: 'urn:synthetic:filter:1', label: 'Filter 1', types: ['https://example.test/meetpunten/filter'] },
   { id: 'urn:synthetic:filter:2', label: 'Filter 2', types: ['https://example.test/meetpunten/filter'] },
 ];
+const processes = systems.map((system, index) => ({
+  id: `urn:synthetic:process:${index + 1}`, label: system.label,
+  types: ['https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces'],
+  relations: { 'http://www.w3.org/ns/ssn/implementedBy': [system.id] },
+}));
+const references = [...systems, ...processes];
 
 describe('Groundwater CSV -> JSON Schema -> ODS', () => {
   it.each(['onttrekking', 'peilmeting', 'kwaliteitsmeting'])('uses embedded personal reference enums and labels for %s without a separate lookup input', async name => {
@@ -358,11 +364,11 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
     expect(result.columns[1].schema.enum).toHaveLength(2);
   });
 
-  it('round-trips numeric quality results, selectable units, hidden lab structure and multiple inline filters', async () => {
+  it('round-trips numeric quality results, selectable units, hidden lab structure and multiple inline filter processes', async () => {
     const plan = plans[2];
     const data = {
       kwaliteitsmeting: [{
-        identifier: '0001', hasFeatureOfInterest: references.map(reference => reference.id),
+        identifier: '0001', hasFeatureOfInterest: processes.map(reference => reference.id),
         wasAssociatedWith: { label: 'Synthetisch laboratorium' },
         hasMember: [0, 1.234567890123].map((numericValue, index) => ({
           observedProperty: `https://example.test/parameters/${index ? 'b' : 'a'}`,
@@ -373,6 +379,12 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
     const workbook = await new ODSGenerator().generate({ plan, data, references, label: value => value.split('/').at(-1)! });
     expect(await new ODSImporter().import(workbook, plan)).toEqual(data);
     const tables = await readOdf(workbook);
+    const metadata = workbookMetadata(JSON.parse(tables.find(table => table.name === '_riepr')!.rows
+      .slice(1).map(row => row.cells[0].text).join('')));
+    const structuralChoices = Object.values(metadata.lookups).flat()
+      .filter(choice => references.some(reference => reference.id === choice.value));
+    expect(structuralChoices.map(choice => choice.value).sort()).toEqual(processes.map(process => process.id).sort());
+    expect(structuralChoices.map(choice => choice.display).sort()).toEqual(systems.map(system => system.label).sort());
     expect(tables.map(table => table.name)).toEqual(['Voorblad', 'Monsters', 'Meetresultaten', 'Keuzelijsten', '_riepr']);
     const names = tables.find(table => table.name === 'Monsters')!.rows.find(row => row.number === 3)!;
     expect(names.cells.map(cell => cell.text)).toContain('Labo naam');
@@ -407,7 +419,7 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
   it('keeps reference arrays as a real array after a single dropdown selection', async () => {
     const plan = plans[2];
     const data = { kwaliteitsmeting: [{
-      identifier: '0001', hasFeatureOfInterest: [references[0].id],
+      identifier: '0001', hasFeatureOfInterest: [processes[0].id],
       hasMember: [{
         observedProperty: 'https://example.test/parameters/a',
         hasResult: { numericValue: 0, hasUnit: 'https://example.test/units/mgL' },

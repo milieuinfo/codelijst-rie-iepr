@@ -7,6 +7,7 @@ import { SemanticValidator } from '../src/services/semantic-validator.js'
 import { transformMemberData } from '../src/services/member-layout.js'
 import { CodelistParser } from '../src/services/codelist-parser.js'
 import { ConceptMapper } from '../src/services/concept-mapper.js'
+import { schemaObject } from '../src/services/schema-registry.js'
 
 const load = (name: string) => JSON.parse(readFileSync(new URL(`../examples/${name}.json`, import.meta.url), 'utf8'))
 
@@ -14,7 +15,11 @@ it('expands structural type schemes to all member types, including subtypes, and
   const parsed = new CodelistParser().parseData(JSON.parse(sourceSnapshot()))
   const field = parsed.concepts.get('zelfcontrole-lucht:feature')!
   const mapper = new ConceptMapper(parsed)
-  const types = mapper.mapConcept(field)!.extensions!['x-reference-types']
+  const extensions = mapper.mapConcept(field)!.extensions!
+  expect(extensions['x-reference-types']).toEqual([parsed.expandCurie!('riepr:Proces')])
+  const via = schemaObject(extensions['x-reference-via'])
+  expect(via.relation).toBe('http://www.w3.org/ns/ssn/implementedBy')
+  const types = via.types
   expect(types).toContain(parsed.expandCurie!('emissiepunt:schoorsteen'))
   expect(types).toContain(parsed.expandCurie!('emissiepunt:schoorsteen_verticale_uitstroom'))
   expect(types).not.toContain(parsed.expandCurie!('conceptscheme:emissiepunttypes'))

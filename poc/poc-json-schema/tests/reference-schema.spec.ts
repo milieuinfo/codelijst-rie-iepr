@@ -127,6 +127,38 @@ describe('Personal reference schemas', () => {
     const personal = personalizeReferenceSchema(generic, { references: refs })
     expect(() => personalizeReferenceSchema(personal, { references: refs })).toThrow('already personalized')
   })
+
+  it('selects exact processes through their implementing system type and retains offline implementation context', () => {
+    const processType = 'urn:type:process'
+    const relation = 'http://www.w3.org/ns/ssn/implementedBy'
+    const process = { id: 'urn:process:1', label: refs[0].label, types: [processType],
+      relations: { [relation]: [refs[0].id] }, year: 2024 }
+    const alternative = { ...process, id: 'urn:process:2' }
+    const wrongType = { ...process, id: 'urn:process:wrong', relations: { [relation]: [refs[2].id] } }
+    const missingSystem = { ...process, id: 'urn:process:missing', relations: { [relation]: ['urn:missing'] } }
+    const references = [...refs, process, alternative, wrongType, missingSystem]
+    const schema = { ...generic, properties: {
+      selected: { type: 'string' as const, 'x-reference-types': [processType],
+        'x-reference-via': { relation, types: [type] } },
+    } }
+    const personal = personalizeReferenceSchema(schema, { references, referenceContext: { year: 2024 } })
+    expect(schemaObject(personal.properties!.selected).enum).toEqual([process.id, alternative.id])
+    expect(schemaObject(personal.properties!.selected)['x-reference-options']).toEqual([
+      { id: process.id, label: refs[0].label }, { id: alternative.id, label: refs[0].label },
+    ])
+    expect(referenceSnapshot(personal)?.references.map(reference => reference.id)).toEqual([
+      refs[0].id, process.id, alternative.id,
+    ])
+    for (const id of [process.id, alternative.id]) {
+      expect(validator.validateInstance(personal, { selected: id }).valid).toBe(true)
+      expect(new SemanticValidator().validate(personal, { selected: id })).toEqual([])
+    }
+    for (const id of [refs[0].id, wrongType.id, missingSystem.id]) {
+      expect(validator.validateInstance(personal, { selected: id }).valid).toBe(false)
+      expect(new SemanticValidator().validate(schema, { selected: id }, { references, referenceContext: { year: 2024 } }))
+        .toEqual([expect.objectContaining({ keyword: 'reference' })])
+    }
+  })
 })
 
 describe('Real groundwater reference specialization', () => {

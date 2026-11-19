@@ -1,7 +1,7 @@
 // @vitest-environment node
 import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
-import { schemaObject } from 'codelijst-rie-iepr-poc-json-schema/browser'
+import { schemaObject, parseReferenceData, referenceMatchesSchema } from 'codelijst-rie-iepr-poc-json-schema/browser'
 import { compileGroundwater } from '../../../poc-json-schema/tests/groundwater-csv-fixture.js'
 import { sourceSnapshot } from '../../../poc-json-schema/scripts/source-snapshot.mjs'
 import { SchemaEditor } from './schema-editor.js'
@@ -34,12 +34,12 @@ describe('Groundwater schema-driven table projection', () => {
 
   it('gets reference choices from its personalized schema and rejects unknown references', () => {
     const schema = compileGroundwater(JSON.parse(sourceSnapshot())).subSchemas.find(section => section.name === 'peilmeting')!.schema
-    const references = JSON.parse(readFileSync(new URL('../../../poc-json-schema/examples/refs.json', import.meta.url), 'utf8'))
+    const references = parseReferenceData(JSON.parse(readFileSync(new URL('../../../poc-json-schema/examples/refs.json', import.meta.url), 'utf8')))
     const editor = new SchemaEditor(schema, [], references, { year: 2024 })
-    expect(editor.schemaAt(['peilmeting', 0, 'hasFeatureOfInterest']).enum).toEqual(
-      references.filter((reference: { types: string[] }) => reference.types.some(type =>
-        type.endsWith('/filtertype/peil') || type.endsWith('/filtertype/pomp')))
-        .map((reference: { id: string }) => reference.id).sort(),
+    const selection = editor.schemaAt(['peilmeting', 0, 'hasFeatureOfInterest'])
+    expect(selection.enum).toEqual(
+      references.filter(reference => referenceMatchesSchema(reference, selection, references))
+        .map(reference => reference.id).sort(),
     )
     const data = JSON.parse(readFileSync(new URL('../../../poc-json-schema/examples/grondwater/peilmeting.json', import.meta.url), 'utf8'))
     editor.load(data)

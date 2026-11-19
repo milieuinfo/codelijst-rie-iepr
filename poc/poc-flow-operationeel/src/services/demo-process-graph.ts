@@ -18,9 +18,9 @@ const stamp = literal('2024-01-01T00:00:00Z', namedNode('http://www.w3.org/2001/
  */
 export function demonstrationProcessGraph(): Store {
   const graph = new Store()
-  const structural = parseReferenceData(references).filter(reference =>
-    !reference.types.some(type => type.includes('/meetpunteigenschappen/')))
-  const processes = new Map<string, ReturnType<typeof namedNode>>()
+  const shared = parseReferenceData(references)
+  const structural = shared.filter(reference => !reference.types.includes(processClass.value))
+  const processes = shared.filter(reference => reference.types.includes(processClass.value))
   const describeProcess = (id: string, label: string) => {
     const process = namedNode(id)
     graph.addQuad(process, rdfType, processClass)
@@ -29,24 +29,31 @@ export function demonstrationProcessGraph(): Store {
     graph.addQuad(process, namedNode(dct + 'modified'), stamp)
     return process
   }
-  for (const reference of structural) {
-    const process = describeProcess(`urn:demo:process:${encodeURIComponent(reference.id)}`, `Demonstratieproces ${reference.label}`)
-    const system = namedNode(reference.id)
-    graph.addQuad(system, rdfType, systemClass)
-    graph.addQuad(process, implementedBy, system)
-    processes.set(reference.id, process)
+  for (const reference of processes) {
+    const process = describeProcess(reference.id, reference.label)
+    const systems = reference.relations?.[implementedBy.value]
+    if (!systems?.length) throw new Error(`Demonstratieproces zonder implementerend systeem: ${reference.id}.`)
+    for (const id of systems) {
+      if (!structural.some(system => system.id === id)) throw new Error(`Onbekend demonstratiesysteem: ${id}.`)
+      const system = namedNode(id)
+      graph.addQuad(system, rdfType, systemClass)
+      graph.addQuad(process, implementedBy, system)
+    }
   }
-  const installations = structural.filter(reference => reference.types.includes('https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Installatie'))
-  const points = structural.filter(reference => reference.types.some(type => type.includes('/emissiepunttype/')))
+  const implementedTypes = (reference: typeof processes[number]) =>
+    structural.filter(system => reference.relations?.[implementedBy.value]?.includes(system.id))
+      .flatMap(system => system.types)
+  const installations = processes.filter(reference => implementedTypes(reference).includes('https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Installatie'))
+  const points = processes.filter(reference => implementedTypes(reference).some(type => type.includes('/emissiepunttype/')))
   graph.addQuad(transportType, rdfType, namedNode('http://www.w3.org/ns/sosa/Procedure'))
   for (const point of points) for (const installation of installations) {
     const connection = describeProcess(
       `urn:demo:transport:${encodeURIComponent(installation.id)}:${encodeURIComponent(point.id)}`,
-      `Demonstratietransport ${installation.label} naar ${point.label}`,
+      `Transport ${installation.label} naar ${point.label}`,
     )
     graph.addQuad(connection, namedNode(dct + 'type'), transportType)
-    graph.addQuad(connection, precededBy, processes.get(installation.id)!)
-    graph.addQuad(processes.get(point.id)!, precededBy, connection)
+    graph.addQuad(connection, precededBy, namedNode(installation.id))
+    graph.addQuad(namedNode(point.id), precededBy, connection)
   }
   return graph
 }
