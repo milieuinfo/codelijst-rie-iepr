@@ -191,6 +191,111 @@ To refresh the snapshot after changing the sibling RIE-IEPR ontology, run
 normalizes ODDToolkit's `xsd:int` cardinalities to SHACL's required `xsd:integer`;
 it does not weaken the constraints.
 
+### Offline linked-data relationship gate
+
+The separate integration suite exports the actual reporting examples through
+`exportTurtle` and validates them with **ld-mcp-vocab 0.4.2**, the supplied
+RIE-IEPR ontology, and the **SOSA 2023** rules from `oslo-ld-kit`.
+It does not run in the browser or depend on an MCP client.
+
+From this POC directory, with Java 21 or newer:
+
+```bash
+npm run setup:linked-data
+npm run test:linked-data
+```
+
+Setup downloads the validator, rules (including their MIT licence) and vocabulary
+snapshots into the ignored `.cache/linked-data/` directory. Every download and
+every test run verifies the SHA-256 values in `test/linked-data.lock.json`.
+Setup needs network access only for missing files; the tests run entirely offline.
+Do not delete or bypass a checksum to accept an upstream update: review and pin
+the new content explicitly.
+
+The gate checks vocabulary existence and roles, invalid literals, deprecated
+terms, class disjointness after domain/range/subproperty inference, RIE-IEPR
+cardinalities and SOSA rules. Project shapes additionally check collection member
+types, result ownership and conflicting shared collection context (scalar values
+and resource references, not containment of temporal intervals). SHACL sees
+asserted data plus ontology class hierarchies and types of referenced terms;
+inferred triples cannot fill in missing required data. Negative regressions
+prove that broken result links, a Sample as an observation member, unknown
+predicates and inferred Activity/Entity conflicts are rejected. A positive
+regression checks inherited collection properties for generic SOSA observations
+and RIE-IEPR subclass targets. The RIE-IEPR application profile is stricter:
+every `riepr:Observatie` must have exactly one direct `sosa:observedProperty`.
+A separate negative regression proves that a property on its collection alone
+does not satisfy that restriction.
+
+`test/fixtures/linked-data/` contains the exact RIE-IEPR ontology snapshot and
+shapes generated **only from that ontology's restrictions**. The reused
+vocabularies supply semantic context; their OWL existential restrictions are not
+automatically treated as additional mandatory reporting fields. This deliberately
+avoids requiring redundant inverse triples merely because an imported vocabulary
+describes them. The generated shapes list the four unsupported OWL expressions;
+this is not full OWL consistency checking.
+
+Refresh that snapshot explicitly after an ontology change:
+
+```bash
+npm run sync:linked-data -- /path/to/RIE-IEPR/src/main/resources/be/vlaanderen/omgeving/riepr/data/ns/riepr/riepr.ttl
+npm run test:linked-data
+```
+
+Without an argument, sync uses the sibling `RIE-IEPR` checkout. It updates the
+ontology, generated shapes and their provenance/checksums together; commit all
+three. Ordinary test runs never read a sibling checkout.
+
+The current coverage is fourteen exportable sections across six themes,
+including water use and incoming raw materials. A coverage assertion detects
+new active sections without fixtures. Produced raw materials
+(`Grondstoffen/grondstof`) are explicitly not certified: their observations still
+lack a feature mapping. The root-level production flag is UI-only and is omitted
+from Turtle. The exporter recognizes boolean controls without an RDF predicate
+that are explicitly referenced by schema visibility conditions; it does not
+silently discard arbitrary unmapped fields. This gate concerns operational data,
+not the structural POC.
+
+**Current findings:** all fourteen covered exports pass the blocking checks.
+The previously missing `sosa:observedProperty` values are now declared explicitly
+in the CSVs and included in the canonical examples; the exporter does not invent
+them. Non-blocking diagnostics include
+`sosa:Result`, `ssn:System` and `ssn:implementedBy` deprecations, and missing
+recommended sensor/procedure information. Warnings are printed and retained,
+not treated as proof of full conformance.
+
+The fixed measurement-property mappings are declared in the `observedProperty`
+column on the owning observation concepts, not on their result containers:
+
+| Observation concept | `observedProperty` |
+|---|---|
+| `grondwater:peilmeting` | `grondwater:peilmeting-diepte` |
+| `lucht:verbruikte_stof` | `lucht:verbruikte_stof_hoeveelheid` |
+| `lucht:geproduceerde_stof` | `lucht:geproduceerde_stof_hoeveelheid` |
+| `lucht:afvalproduct` | `lucht:afvalproduct_hoeveelheid` |
+| `grondstoffen:inkomend` | `grondstoffen:inkomend_hoeveelheid` |
+| `grondstoffen:grondstof` (not yet certified) | `grondstoffen:grondstof_hoeveelheid` |
+
+`operationeel_grondwater.csv`, `operationeel_lucht.csv` and
+`operationeel_grondstoffen.csv` contain these mappings. The new grondstoffen
+column is immediately before `_ui_after`, matching the groundwater column order.
+The existing schema compiler already turns this metadata into a required,
+hidden URI constant; the editor materializes it when projecting a report.
+No new input control or POC code is needed for these mappings. Source changes
+still require validation, schema regeneration and consumer synchronization.
+Canonical example JSON must also carry the constants: exporting raw JSON does
+not insert missing schema constants.
+
+The raw export report is `.cache/linked-data/report.json`; its companion `.log`
+contains validator diagnostics, and `exports/` contains the validated Turtle.
+Intentional negative cases have a separate `regression-report.json` and
+`regressions/` directory. The command exits nonzero for data errors, parse/configuration
+errors, missing context or failed integrity checks. It is separate from
+`test:unit` and is **not yet wired into Jenkins**; a CI job needs Java, the POC's
+normal Node dependencies, setup and this command, and should archive those reports
+even on failure. HTTP dereferenceability, persistent production identifiers and
+business correctness beyond the declared shapes remain outside this offline gate.
+
 Blocked sections remain visible with source diagnostics instead of an invented
 partial form. The browser checks source/schema SHA-256 fingerprints and compiles
 the offline schema registry before editing; mismatches are visible load errors.

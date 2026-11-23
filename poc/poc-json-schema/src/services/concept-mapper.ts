@@ -99,6 +99,14 @@ export class ConceptMapper {
       schemaField.format = formats[datatype]
     }
     if (concept.relevantRiepr?.length) {
+      const reported = concept.relevantRiepr.map(id => this.result.concepts.get(id))
+      if (reported.some(target => target?.tableKey?.length)) {
+        if (!reported.every(target => target?.tableKey?.length)) throw new SourceMetadataError([{
+          code: 'invalid-source-reference', conceptId: concept.id,
+          message: 'Reported-record selections must target groups with explicit table keys.',
+        }])
+        schemaField.extensions!['x-reference-records'] = true
+      }
       schemaField.extensions!['x-reference-types'] = [...new Set(concept.relevantRiepr.flatMap(value => {
         const expanded = this.result.expandCurie?.(value) ?? value
         const scheme = [...this.result.schemes.values()].find(scheme =>

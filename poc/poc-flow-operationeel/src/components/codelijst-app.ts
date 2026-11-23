@@ -1,6 +1,7 @@
 import { LitElement, html, css, nothing, type TemplateResult } from 'lit'
 import layoutStyle from '@domg/govflanders-style/common/layout.css.js'
-import { schemaObject, type SchemaIndexEntry, type JsonSchemaObject } from 'codelijst-rie-iepr-poc-json-schema/browser'
+import { canonicalJson, reportingRecords, reportReferenceTypes, schemaObject, type ReportingDocument, type SchemaIndexEntry, type JsonSchemaObject } from 'codelijst-rie-iepr-poc-json-schema/browser'
+import { compileTabularPlan, ODSGenerator } from 'codelijst-rie-iepr-poc-json-schema-ods/browser'
 import { CodelistService } from '../services/codelist-service.js'
 import { loadSchemaSnapshot, type SchemaSnapshot } from '../services/schema-snapshot.js'
 import { isObject, SchemaEditor } from '../services/schema-editor.js'
@@ -126,6 +127,11 @@ export class CodelijstApp extends LitElement {
   private uploadOpen = false
   private demoError?: string
   private personalizedDownload?: { editor: SchemaEditor; url: string }
+  private reportingContext: ReportingDocument[] = []
+  private referenceWarnings: string[] = []
+  private odsUrl?: string
+  private downloading = false
+  private downloadError?: string
 
   override firstUpdated() { void this.load() }
 
@@ -133,6 +139,7 @@ export class CodelijstApp extends LitElement {
     super.disconnectedCallback()
     if (this.personalizedDownload) URL.revokeObjectURL(this.personalizedDownload.url)
     if (this.turtleUrl) URL.revokeObjectURL(this.turtleUrl)
+    if (this.odsUrl) URL.revokeObjectURL(this.odsUrl)
     this.personalizedDownload = undefined
     this.turtleUrl = undefined
   }
@@ -157,25 +164,43 @@ export class CodelijstApp extends LitElement {
     return this.editors.get(`${this.year}:${this.section}`)
   }
 
-  private prepareEditor(): void {
+  private prepareEditor(refreshReferences: boolean): void {
     if (!this.year || !this.section || !this.snapshot || !this.lookups) return
     const key = `${this.year}:${this.section}`
-    if (!this.editors.has(key)) {
-      const schema = this.snapshot.schemas.get(this.section)
-      if (!schema) throw new Error('Geselecteerd schema ontbreekt in de snapshot.')
-      const dependencies = [...this.snapshot.schemas.values()]
-      const editor = new SchemaEditor(schema, dependencies, this.lookups.references(schema, dependencies, this.year), { year: this.year })
-      this.editors.set(key, editor)
+    const previous = this.editors.get(key)
+    if (previous && !refreshReferences) return
+    const schema = this.snapshot.schemas.get(this.section)
+    if (!schema) throw new Error('Geselecteerd schema ontbreekt in de snapshot.')
+    const dependencies = [...this.snapshot.schemas.values()]
+    const targets = reportReferenceTypes(schema, dependencies)
+    this.reportingContext = []
+    this.referenceWarnings = []
+    for (const [id, source] of this.editors) {
+      if (!id.startsWith(`${this.year}:`) || !targets.has(String(source.schema['x-section-concept']))) continue
+      const result = source.validate()
+      if (result.diagnostics.length) {
+        this.referenceWarnings.push(`${source.schema.title}: ${result.diagnostics.map(item => item.message).join('; ')}`)
+      } else {
+        this.reportingContext.push({ schema: source.schema, data: result.data, year: this.year, dependencies })
+      }
     }
+    const structural = this.lookups.references(schema, dependencies, this.year)
+    const reported = reportingRecords(this.reportingContext, structural).map(record => record.reference)
+    const references = this.lookups.references(schema, dependencies, this.year, reported)
+    if (previous && canonicalJson(references) === canonicalJson(previous.references)) return
+    const editor = new SchemaEditor(schema, dependencies, references, { year: this.year })
+    if (previous) for (const [name, value] of Object.entries(previous.draft)) editor.set([name], structuredClone(value))
+    this.editors.set(key, editor)
   }
 
-  private selectionChanged() {
+  private selectionChanged(refreshReferences = true) {
     this.uploadError = undefined
     this.uploadMessage = undefined
     this.demoError = undefined
+    this.downloadError = undefined
     this.clearOutput()
     this.validated = false
-    try { this.prepareEditor() }
+    try { this.prepareEditor(refreshReferences) }
     catch (error) { this.error = error instanceof Error ? error.message : String(error) }
     this.requestUpdate()
   }
@@ -192,7 +217,7 @@ export class CodelijstApp extends LitElement {
   private edited(event: Event) {
     event.stopPropagation()
     this.revision++
-    this.selectionChanged()
+    this.selectionChanged(false)
   }
 
   private validate() {
@@ -207,6 +232,7 @@ export class CodelijstApp extends LitElement {
           this.validatedTurtle = exportTurtle(this.editor.schema, result.data, {
             year: this.year, created: now, issued: now,
             processes: demonstrationProcessGraph(), dependencies: [...this.snapshot.schemas.values()],
+            reports: this.reportingContext,
           })
           this.turtleUrl = URL.createObjectURL(new Blob([this.validatedTurtle], { type: 'text/turtle' }))
         } catch (error) {
@@ -333,6 +359,7 @@ export class CodelijstApp extends LitElement {
     return html`<div class="downloads" role="group" aria-label="Downloads voor dit rapporteringsonderdeel">
       ${typeof workbook === 'string' ? html`<vl-button secondary icon="file-download"
         cta-link=${resourceUrl(['templates', ...directory, workbook])}
+        @click=${this.downloadOds}
         download=${workbook}>ODS-sjabloon downloaden</vl-button>` : nothing}
       <vl-button secondary icon="file-download"
         cta-link=${resourceUrl(['schema', ...entry.path.split('/')])}
@@ -344,6 +371,39 @@ export class CodelijstApp extends LitElement {
     </div>`
   }
 
+  private async downloadOds(event: Event) {
+    const editor = this.editor
+    const entry = this.entries.find(entry => entry.id === this.section)
+    if (!editor || !entry || !this.snapshot || !this.year ||
+        !reportReferenceTypes(editor.schema, [...this.snapshot.schemas.values()]).size) return
+    event.preventDefault()
+    if (this.downloading) return
+    this.downloading = true
+    this.downloadError = undefined
+    try {
+      const filename = editor.schema['x-table-workbook']
+      if (typeof filename !== 'string') throw new Error('De bestandsnaam van het ODS-sjabloon ontbreekt.')
+      const plan = compileTabularPlan(editor.schema, {
+        dependencies: [...this.snapshot.schemas.values()],
+        sourceSha256: this.snapshot.index.sourceSha256, schemaSha256: entry.sha256,
+      })
+      const bytes = await new ODSGenerator().generate({
+        plan, references: editor.references, referenceContext: { year: this.year }, label: this.fieldLabel,
+      })
+      if (this.odsUrl) URL.revokeObjectURL(this.odsUrl)
+      this.odsUrl = URL.createObjectURL(new Blob([bytes], { type: 'application/vnd.oasis.opendocument.spreadsheet' }))
+      const link = document.createElement('a')
+      link.href = this.odsUrl
+      link.download = filename
+      link.click()
+    } catch (error) {
+      this.downloadError = error instanceof Error ? error.message : String(error)
+    } finally {
+      this.downloading = false
+      this.requestUpdate()
+    }
+  }
+
   private renderEditor() {
     const editor = this.editor
     if (!editor || !this.lookups) return nothing
@@ -351,6 +411,13 @@ export class CodelijstApp extends LitElement {
     const context = properties.filter(([, node]) => !this.isTable(schemaObject(node)))
     return html`
       ${this.renderDownloads()}
+      ${this.downloadError ? html`<vl-alert type="error" title="ODS-sjabloon kon niet worden gemaakt"
+        message=${this.downloadError}></vl-alert>` : nothing}
+      ${reportReferenceTypes(editor.schema, [...this.snapshot!.schemas.values()]).size ? html`
+        <p>Verwijzingen naar rapportages komen uit geldig ingevulde onderdelen van dit productiejaar,
+          gekoppeld via de gedeclareerde sleutels en relaties.</p>
+        ${this.referenceWarnings.length ? html`<vl-alert type="warning" title="Onvolledige bronrapportages"
+          message=${this.referenceWarnings.join('\n')}></vl-alert>` : nothing}` : nothing}
       <div class="demo-data">
         <vl-button secondary type="button" @click=${this.fillDemo}>Fictieve voorbeeldgegevens invullen</vl-button>
         <p>Vult dit formulier met representatieve, fictieve gegevens.</p>

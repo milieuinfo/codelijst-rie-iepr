@@ -8,6 +8,7 @@ import { SemanticValidator } from '../src/services/semantic-validator.js'
 import { presentationSchema } from '../src/services/member-layout.js'
 import { schemaObject } from '../src/services/schema-registry.js'
 import { compileTheme } from './groundwater-csv-fixture.js'
+import { reportingRecords } from '../src/services/record-key.js'
 
 const compileAir = () => compileTheme(JSON.parse(sourceSnapshot()), 'Lucht')
 const section = (name: string) => compileAir().subSchemas.find(section => section.name === name)!.schema
@@ -33,7 +34,8 @@ describe('Current air CSV reporting entry', () => {
     expect(input.required).toEqual(['featureEp', 'featureBron'])
     expect(schemaObject(input.properties!.featureEp)['x-ui-first']).toBe(true)
     expect(schemaObject(input.properties!.featureBron)['x-ui-after']).toBe('featureEp')
-    expect(schemaObject(input.properties!.type)['x-ui-after']).toBe('featureBron')
+    expect(schemaObject(input.properties!.type)['x-ui-after']).toBe('used')
+    expect(schemaObject(input.properties!.used)['x-ui-after']).toBe('featureBron')
     expect(input.properties).not.toHaveProperty('brandstof')
   })
 
@@ -78,6 +80,63 @@ describe('Current air CSV reporting entry', () => {
     expect(record['x-relevant-feature-classes']).toBeUndefined()
     expect(schemaObject(record.properties!.hasFeatureOfInterest)['x-jsonld-id'])
       .toBe('http://www.w3.org/ns/sosa/hasFeatureOfInterest')
+  })
+
+  it('resolves material selections by the declared key, installation relationship and reporting year', () => {
+    const schema = section('brandstof')
+    const data = load('lucht/brandstof')
+    const records = reportingRecords([{ schema, data, year: 2024 }], load('refs'))
+    const selected = records[0].reference
+    expect(selected.label).toContain('Aardgas')
+    expect(selected.relations).toEqual({ 'http://www.w3.org/ns/sosa/hasFeatureOfInterest': [data.brandstof[0].hasFeatureOfInterest] })
+    expect(reportingRecords([{ schema, data, year: 2025 }])[0].reference.id).not.toBe(selected.id)
+    const changed = structuredClone(data)
+    changed.brandstof[0].label = 'Andere brandstof'
+    expect(reportingRecords([{ schema, data: changed, year: 2024 }])[0].reference.id).not.toBe(selected.id)
+    const emission = load('lucht/emissie')
+    emission.emissie[0].used = [selected.id]
+    const validate = () => new SemanticValidator().validate(section('emissie'), emission, {
+      references: [...load('refs'), ...records.map(record => record.reference)], referenceContext: { year: 2024 },
+    })
+    expect(validate()).toEqual([])
+    emission.emissie[0].featureBron = ['urn:demo:process:urn%3Ademo%3Ainstallatie%3A1']
+    expect(validate()).toEqual(expect.arrayContaining([expect.objectContaining({ keyword: 'reference' })]))
+  })
+
+  it.each(['brandstof', 'verbruikte_stof', 'geproduceerde_stof', 'afvalproduct'])(
+    'rejects duplicate installation/name keys in %s without introducing an ID input', name => {
+      const schema = section(name.replaceAll('_', '-'))
+      const data = load(`lucht/${name}`)
+      const key = name.replace(/_([a-z])/g, (_, letter: string) => letter.toUpperCase())
+      data[key].push(structuredClone(data[key][0]))
+      expect(new SemanticValidator().validate(schema, data, { references: load('refs') }))
+        .toEqual(expect.arrayContaining([expect.objectContaining({ keyword: 'identity', message: expect.stringContaining('Duplicate') })]))
+      expect(() => reportingRecords([{ schema, data, year: 2024 }])).toThrow('Duplicate reporting key')
+    },
+  )
+
+  it('keeps independently optional pollutant quantities with a shared variable and named laboratory', () => {
+    const schema = section('emissie')
+    const validator = new SchemaValidator()
+    const data = load('lucht/emissie')
+    for (const index of [0, 1, 2]) {
+      const single = structuredClone(data)
+      const pollutant = single.emissie[0].hasMember[1]
+      pollutant.hasMember = [pollutant.hasMember[index]]
+      expect(validator.validateInstance(schema, single).errors).toEqual([])
+      pollutant.hasMember[0].hasResult.numericValue = -0.5
+      expect(validator.validateInstance(schema, single).valid).toBe(false)
+    }
+    for (const change of ['no-variable', 'no-results', 'empty-lab', 'fractional-deviation', 'large-deviation']) {
+      const invalid = structuredClone(data)
+      const pollutant = invalid.emissie[0].hasMember[1]
+      if (change === 'no-variable') pollutant.additionalProperty.shift()
+      if (change === 'no-results') pollutant.hasMember = []
+      if (change === 'empty-lab') pollutant.wasAssociatedWith = {}
+      if (change === 'fractional-deviation') pollutant.additionalProperty[1].value = 0.5
+      if (change === 'large-deviation') pollutant.additionalProperty[1].value = 101
+      expect(validator.validateInstance(schema, invalid).valid, change).toBe(false)
+    }
   })
 
   it('rejects missing and ambiguous reporting entries instead of silently choosing a theme', () => {

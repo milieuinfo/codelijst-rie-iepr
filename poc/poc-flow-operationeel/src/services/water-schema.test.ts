@@ -13,18 +13,31 @@ const editorFor = (name: string) => {
 }
 
 describe('Water schema-driven table projection', () => {
-  it.each(['lozing', 'abnormale-lozing'])('preserves %s values and optional absence in validated JSON', name => {
+  it.each(['lozing', 'abnormale-lozing', 'watergebruik'])('preserves %s values and optional absence in validated JSON', name => {
     const editor = editorFor(name)
     const data = load(`water/${name}`)
     editor.load(data)
     expect(editor.validate()).toEqual({ data, diagnostics: [] })
   })
 
+  it('projects water-use installation, origin and volume as a single record', () => {
+    const editor = editorFor('watergebruik')
+    const record = schemaObject(schemaObject(editor.inputSchema.properties!.watergebruik).items)
+    const columns = editor.columns(record)
+    expect(columns.map(column => column.title)).toEqual(['Installatie', 'Herkomst', 'Onttrokken hoeveelheid', 'Eenheid'])
+    const volume = columns.find(column => column.title === 'Onttrokken hoeveelheid')!
+    expect(volume.schema.type).toBe('number')
+    expect(volume.schema.minimum).toBe(0)
+    editor.load(load('water/watergebruik'))
+    editor.set(['watergebruik', 0, ...volume.path], -0.5)
+    expect(editor.validate().diagnostics).not.toEqual([])
+  })
+
   it('shows numeric frequency and nested pollutant results, hiding class and property discriminators', () => {
     const editor = editorFor('lozing')
     const parent = schemaObject(schemaObject(editor.inputSchema.properties!.lozing).items)
     expect(editor.columns(parent).map(column => column.title)).toEqual([
-      'Controleinrichting', 'Debiet per jaar', 'Eenheid', 'Aantal dagen per jaar', 'Eenheid', 'Stoffen in waterstromen',
+      'Controleinrichting', 'Jaardebiet', 'Eenheid', 'Aantal dagen per jaar', 'Eenheid', 'Stoffen in waterstromen',
     ])
     const child = schemaObject(schemaObject(parent.properties!.lozingParameter).items)
     const columns = editor.columns(child)

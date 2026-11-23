@@ -86,7 +86,7 @@ test('hides the upload form behind a button and imports without navigation or re
 for (const [name, label, valuePath, value] of [
   ['onttrekking', 'Onttrekking/infiltratie', '/onttrekking/0/onttrekkingHoeveelheid/hasResult/numericValue', '0'],
   ['peilmeting', 'Peilmeting', '/peilmeting/0/hasResult/numericValue', '-2.125'],
-  ['kwaliteitsmeting', 'Kwaliteitsmeting', '/kwaliteitsmeting/0/kwaliteitsmetingDiepte/hasResult/numericValue', '-2.125'],
+  ['kwaliteitsmeting', 'Kwaliteitsmeting', '/kwaliteitsmeting/0/hasMember/0/hasResult/numericValue', '0'],
 ] as const) {
   test(`uploads ${name} into editable UI and preserves its complete JSON`, async ({ page }) => {
     // LAN HTTP has getRandomValues, but not secure-context-only crypto APIs.
@@ -98,14 +98,12 @@ for (const [name, label, valuePath, value] of [
     await select(page, label)
     await upload(page, source.bytes)
     await expect(page.getByRole('status')).toContainText('De gegevens staan in het formulier.')
-    await expect(page.locator(`td[data-instance-path="${valuePath}"] input`)).toHaveValue(value)
     if (name === 'kwaliteitsmeting') {
       await expect(page.locator('td[data-instance-path="/kwaliteitsmeting/0/wasAssociatedWith/label"] input'))
         .toHaveValue('Synthetisch laboratorium')
       await page.locator('td[data-row-expand="/kwaliteitsmeting/0"]').getByRole('button').click()
-      await expect(page.locator('td[data-instance-path="/kwaliteitsmeting/0/kwaliteitsmetingResultaten/0/hasResult/numericValue"] input'))
-        .toHaveValue('0')
     }
+    await expect(page.locator(`td[data-instance-path="${valuePath}"] input`)).toHaveValue(value)
     await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
     await expect(page.locator('#validated-json')).toBeVisible()
     expect(JSON.parse(await page.locator('#validated-json').innerText())).toEqual(source.data)
@@ -122,10 +120,11 @@ for (const [name, label, valuePath, value] of [
     expect(new SchemaValidator().validateInstance(personalSchema, source.data).valid).toBe(true)
     expect(personalSchema['x-reference-snapshot'].references.some((reference: { id: string }) =>
       reference.id.startsWith('urn:test:'))).toBe(true)
-    await page.locator(`td[data-instance-path="${valuePath}"] input`).fill('1.5')
+    const editedValue = name === 'onttrekking' ? '2' : '1.5'
+    await page.locator(`td[data-instance-path="${valuePath}"] input`).fill(editedValue)
     await expect(page.locator('#validated-json')).toHaveCount(0)
     await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
-    await expect(page.locator('#validated-json')).toContainText('1.5')
+    await expect(page.locator('#validated-json')).toContainText(editedValue)
   })
 }
 

@@ -19,7 +19,7 @@ export class SchemaLookups {
 
   label = (value: unknown): string => this.labels.get(String(value)) ?? String(value)
 
-  references(schema: JsonSchemaObject, dependencies: JsonSchemaObject[], year: number): ReferenceRecord[] {
+  references(schema: JsonSchemaObject, dependencies: JsonSchemaObject[], year: number, reported: ReferenceRecord[] = []): ReferenceRecord[] {
     const input = presentationSchema(schema)
     const registry = new SchemaRegistry(input, dependencies.filter(dependency => dependency.$id !== schema.$id))
     const selections: JsonSchemaObject[] = []
@@ -37,13 +37,13 @@ export class SchemaLookups {
       if (resolved.items) walk(schemaObject(resolved.items))
     }
     walk(input)
-    const all = parseReferenceData(demonstrationReferences)
+    const all = parseReferenceData([...demonstrationReferences, ...reported])
     const choices = all.filter(reference => selections.some(node => referenceMatchesSchema(reference, node, all)))
     const supporting = new Set(choices.flatMap(reference => Object.values(reference.relations ?? {}).flat()))
     const references = all.filter(reference => choices.includes(reference) || supporting.has(reference.id))
       .map(reference => ({ ...reference, year }))
     for (const node of selections) {
-      if (!choices.some(reference => referenceMatchesSchema(reference, node, all))) {
+      if (!node['x-reference-records'] && !choices.some(reference => referenceMatchesSchema(reference, node, all))) {
         const group = node['x-reference-types']
         if (!Array.isArray(group)) throw new Error('Ongeldige structurele referentietypes.')
         throw new Error(`Geen gedeelde demonstratiegegevens voor ${group.map(this.label).join(' / ')}.`)

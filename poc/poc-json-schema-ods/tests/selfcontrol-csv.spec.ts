@@ -27,6 +27,9 @@ for (const theme of ['Zelfcontrole lucht', 'Zelfcontrole water']) {
       expect(headers).toContain(theme === 'Zelfcontrole lucht' ? 'Massastroom' : 'Grenswaarde');
       expect(headers).toContain('Gehanteerde meetfrequentie');
       expect(headers).toContain('Bron meetfrequentie');
+      const loq = headers.indexOf('Bepalingsgrens (LOQ)');
+      expect(loq).toBeGreaterThanOrEqual(0);
+      expect(loq).toBeLessThan(headers.findIndex(header => header.startsWith('Concentratie')));
       expect(headers.some(header => /Rij-ID|Bovenliggende|Entiteits-ID|propertyID|observedProperty/.test(header))).toBe(false);
     });
 

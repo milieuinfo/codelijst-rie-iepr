@@ -181,9 +181,9 @@ describe('Real groundwater reference specialization', () => {
     if (name === 'kwaliteitsmeting') changed[name][0].hasFeatureOfInterest = ['urn:unknown']
     else changed[name][0].hasFeatureOfInterest = 'urn:unknown'
     expect(validator.validateInstance(personal, changed).valid).toBe(false)
-    if (name !== 'onttrekking') {
+    if (name === 'peilmeting') {
       const propertyData = structuredClone(data)
-      const owner = name === 'peilmeting' ? propertyData[name][0].hasResult : propertyData[name][0]
+      const owner = propertyData[name][0].hasResult
       owner.additionalProperty[0].value = 'urn:unknown:reference-point'
       expect(validator.validateInstance(schema, propertyData).valid).toBe(true)
       expect(validator.validateInstance(personal, propertyData).valid).toBe(false)

@@ -156,14 +156,14 @@ describe('Versioned, reversible ODS workbooks', () => {
       { code: 'urn:code:a', tags: ['urn:tag:x'], children: [] },
       { code: 'urn:code:a', tags: ['urn:tag:x'], children: [] },
     ] };
-    await expect(generator.generate({ plan: compiled, data: duplicateData })).rejects.toThrow(/components must be unique/);
+    await expect(generator.generate({ plan: compiled, data: duplicateData })).rejects.toThrow(/Duplicate source-declared record key/);
     await expect(generator.generate({ plan: compiled, data: { parents: [{ tags: ['urn:tag:x'] }] } }))
-      .rejects.toThrow(/invalid x-table-key/);
+      .rejects.toThrow(/Key values must be scalar/);
     await expect(generator.generate({ plan: compiled, data: {
       parents: [{ code: 'urn:code:a', tags: ['urn:tag:x', 'urn:tag:x'] }],
     } })).rejects.toThrow(/duplicate elements/);
     await expect(generator.generate({ plan: compiled, data: { parents: [{ code: 'urn:code:a', tags: [] }] } }))
-      .rejects.toThrow(/invalid x-table-key/);
+      .rejects.toThrow(/Key arrays cannot be missing or empty/);
     const original = await generator.generate({ plan: compiled, data: {
       parents: [{ code: 'urn:code:a', tags: ['urn:tag:x'], children: [{ enabled: true, value: 1 }] }],
     } });

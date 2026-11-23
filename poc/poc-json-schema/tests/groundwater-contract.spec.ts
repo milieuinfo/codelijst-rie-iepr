@@ -141,7 +141,7 @@ describe('Quality collections, implicit results and grouped feature input', () =
     expect(validator.validateInstance(schema('kwaliteitsmeting'), data).valid).toBe(true)
   })
 
-  it('keeps sampling context on the sample, the lab in an Agent, and depth as an observation', () => {
+  it('keeps sampling context on the sample and the lab in an Agent without obsolete depth or reference points', () => {
     const sample = property(quality, 'used')
     const sampling = property(sample, 'isResultOf')
     expect(sample['x-jsonld-type']).toBe(result.expandCurie!('riepr:Monster'))
@@ -155,12 +155,20 @@ describe('Quality collections, implicit results and grouped feature input', () =
     expect(property(quality, 'wasAssociatedWith')['x-jsonld-id']).toBe('http://www.w3.org/ns/prov#wasAssociatedWith')
     expect(property(property(quality, 'wasAssociatedWith'), 'label')['x-jsonld-id'])
       .toBe('http://www.w3.org/2000/01/rdf-schema#label')
-    const depth = memberVariants(quality).find(variant =>
-      property(variant, 'observedProperty').const === result.expandCurie!('grondwater:kwaliteitsmeting-diepte'))!
-    expect(quality.properties).not.toHaveProperty('kwaliteitsmetingDiepte')
-    expect(depth['x-jsonld-id']).toBe('http://www.w3.org/ns/sosa/hasMember')
-    expect(property(depth, 'hasResult')['x-jsonld-type']).toBe(result.expandCurie!('riepr:Resultaat'))
-    expect(property(property(depth, 'hasResult'), 'numericValue').type).toBe('number')
+    expect(quality.properties).not.toHaveProperty('additionalProperty')
+    expect(memberVariants(quality)).toEqual([member])
+    expect(quality.properties).not.toHaveProperty('resultTime')
+    expect(property(member, 'resultTime')['x-jsonld-id']).toBe('http://www.w3.org/ns/sosa/resultTime')
+  })
+
+  it('allows different analysis timestamps for results of the same sample', () => {
+    const data = example('kwaliteitsmeting')
+    expect(data.kwaliteitsmeting[0].hasMember[0].resultTime)
+      .not.toBe(data.kwaliteitsmeting[0].hasMember[1].resultTime)
+    expect(validator.validateInstance(schema('kwaliteitsmeting'), data).valid).toBe(true)
+    expect(new SemanticValidator().validate(schema('kwaliteitsmeting'), data, {
+      references, referenceContext: { year: 2024 },
+    })).toEqual([])
   })
 
   it('uses the selected filters as input for one constructed feature rather than several direct SOSA features', () => {
@@ -197,12 +205,12 @@ describe('Quality collections, implicit results and grouped feature input', () =
     }
   })
 
-  it('rejects invalid collection dates and wrong result units at their exact paths', () => {
+  it('rejects invalid analysis dates and wrong result units at their exact paths', () => {
     const data = example('kwaliteitsmeting')
-    data.kwaliteitsmeting[0].resultTime = 'not a datetime'
+    data.kwaliteitsmeting[0].hasMember[0].resultTime = 'not a datetime'
     data.kwaliteitsmeting[0].hasMember[0].hasResult.hasUnit = 'urn:wrong:unit'
     expect(validator.validateInstance(schema('kwaliteitsmeting'), data).errors).toEqual(expect.arrayContaining([
-      expect.objectContaining({ instancePath: '/kwaliteitsmeting/0/resultTime', keyword: 'format' }),
+      expect.objectContaining({ instancePath: '/kwaliteitsmeting/0/hasMember/0/resultTime', keyword: 'format' }),
       expect.objectContaining({ instancePath: '/kwaliteitsmeting/0/hasMember/0/hasResult/hasUnit', keyword: 'const' }),
     ]))
   })
@@ -227,7 +235,15 @@ describe('Reported debit quantity and optional singleton readings', () => {
     const data = example('onttrekking')
     expect(data.onttrekking[0]).not.toHaveProperty('onttrekkingEindmeterstand')
     expect(data.onttrekking[0].hasMember[0].hasResult.numericValue).toBe(0)
-    expect(data.onttrekking[1].hasMember[2].hasResult.numericValue).toBe(10.123)
+    expect(data.onttrekking[1].hasMember[2].hasResult.numericValue).toBe(50)
+  })
+
+  it.each([-1, 1.5])('rejects invalid debit volumes and readings (%s) without rounding', value => {
+    for (const index of [0, 1, 2]) {
+      const data = example('onttrekking')
+      data.onttrekking[1].hasMember[index].hasResult.numericValue = value
+      expect(validator.validateInstance(schema('onttrekking'), data).valid).toBe(false)
+    }
   })
 
   it('shares Enddatum only inside its reporting row and does not create optional observations', () => {
@@ -272,21 +288,21 @@ describe('Peilmeting RDF Cube result', () => {
     expect(cube.required).toEqual(expect.arrayContaining(['numericValue', 'hasUnit', 'additionalProperty']))
     expect(property(cube, 'measurementMethod')['x-jsonld-id']).toBe('https://schema.org/measurementMethod')
     expect(property(propertyValue(cube, 'grondwater:peilmeting-referentiepunt'), 'value').type).toBe('string')
-    expect(cube.allOf).toHaveLength(3)
+    expect(cube.allOf).toHaveLength(2)
     for (const name of ['numericValue', 'measurementMethod', 'peilmetingPomptoestand', 'peilmetingDuurStil']) {
       expect(level.properties).not.toHaveProperty(name)
     }
   })
 
   it('encodes the source PropertyValue components with their own identifiers and units', () => {
-    for (const name of ['pomptoestand', 'duur-stil', 'volume-rust', 'volume-werking']) {
+    for (const name of ['pomptoestand', 'duur-stil', 'volume-werking']) {
       const node = propertyValue(cube, `grondwater:peilmeting-${name}`)
       expect(node['x-jsonld-type']).toBe('https://schema.org/PropertyValue')
       expect(node['x-jsonld-id']).toBe('https://schema.org/additionalProperty')
       expect(property(node, 'propertyID')['x-jsonld-id']).toBe('https://schema.org/propertyID')
       expect(property(node, 'propertyID')['x-ui-hidden']).toBe(true)
     }
-    expect(property(propertyValue(cube, 'grondwater:peilmeting-volume-rust'), 'unitCode')['x-jsonld-id']).toBe('https://schema.org/unitCode')
+    expect(property(propertyValue(cube, 'grondwater:peilmeting-volume-werking'), 'unitCode')['x-jsonld-id']).toBe('https://schema.org/unitCode')
     expect(property(propertyValue(cube, 'grondwater:peilmeting-duur-stil'), 'value').format).toBe('duration')
   })
 
@@ -306,8 +322,13 @@ describe('Peilmeting RDF Cube result', () => {
         ...value.additionalProperty, example('peilmeting').peilmeting[1].hasResult.additionalProperty.at(-1),
       ] } },
       changed('duur-stil', { value: '8 hours' }),
-      changed('volume-rust', { propertyID: 'urn:wrong:property' }),
-      changed('volume-rust', { unitCode: 'urn:wrong:unit' }),
+      changed('duur-stil', { propertyID: 'urn:wrong:property' }),
+      { ...measurement, hasResult: { ...value, additionalProperty: [
+        ...value.additionalProperty, {
+          propertyID: result.expandCurie!('grondwater:peilmeting-volume-rust'), value: 0,
+          unitCode: result.expandCurie!('csor_eenheid:E_32'),
+        },
+      ] } },
     ]) expect(validator.validateInstance(schema('peilmeting'), { peilmeting: [invalid] }).valid, JSON.stringify(invalid)).toBe(false)
     for (const name of ['numericValue', 'referentiepunt']) {
       const data = example('peilmeting')

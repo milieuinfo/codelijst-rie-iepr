@@ -57,9 +57,9 @@ De volgende conceptschema's zijn opgenomen (id onder `https://data.omgeving.vlaa
 De [JSON Schema-POC](poc/poc-json-schema/README.md),
 [operationele UI](poc/poc-flow-operationeel/README.md) en
 [ODS-POC](poc/poc-json-schema-ods/docs/PROJECT_OUTLINE.md) delen één gegenereerd
-rapportagecontract. De **actieve scope omvat zes thema's en veertien onderdelen**:
+rapportagecontract. De **actieve scope omvat zes thema's en vijftien onderdelen**:
 drie grondwateronderdelen, emissies en vier materiaalonderdelen voor lucht,
-lozingen/abnormale lozingen voor water, zelfcontrole voor lucht en water,
+lozingen/abnormale lozingen en watergebruik voor water, zelfcontrole voor lucht en water,
 en geproduceerde/inkomende grondstoffen.
 `poc/reporting-entries.json`
 declareert hun rechtstreekse conceptschema-ingangen, zonder `thematypes.csv`.
@@ -320,23 +320,40 @@ KBO-/BTW-registercontroles en de relatie onderneming-vestiging zijn niet geïmpl
 4.  De stroom grondwater `conceptscheme:operationeel_grondwater` vereist eerst dat je specifieert welke meting je wil uitvoeren; kwaliteitsmeting, peilmeting of onttrekking/infiltratie. Dit zijn `skos:Concept`en die meervoudig zijn en via de `hasPart` relatie opgedeeld in de gevraagde gegevens
 5.  Bijvoorbeeld. Peilmeting heeft een `relevantRiepr` met `filter:peil,filter:pomp`. In de JSON(-LD) zal dit als twee relaties komen te staan waardoor we dus zowel alle peil- en pompputten willen weergeven.
 
+Een kwaliteitsmeting bevat een monster met monstername en herhaalbare
+meetresultaten. De datum en het tijdstip van de laboanalyse behoren tot elk
+parameterresultaat afzonderlijk. Referentiepunt en diepte van het monster en het
+volume gedurende acht uur voor pompstilstand worden niet meer opgevraagd.
+Debiethoeveelheden en meterstanden zijn niet-negatieve gehele getallen.
+De afzonderlijke aanduiding voor de bepalingsgrens (LOQ) staat voor de meetwaarde;
+onder de bepalingsgrens bevat de numerieke meetwaarde de door het labo gebruikte LOQ.
+
 #### Lucht
 4.  Elke herhaalbare Emissie bevat eerst een emissiepunt en een multiselect van bronnen (`riepr:Installatie`), gevolgd door de emissiecontext en herhaalbare stofresultaten.
 5.  Punt en bronnenverzameling vormen samen de expliciete `_table_key`; detailbladen herhalen deze waarden zonder nieuw Emissie-ID. De JSON blijft genest.
 6.  Alleen aangesloten bronnen mogen uiteindelijk selecteerbaar zijn. Dit volgt niet uit `sosa:FeatureOfInterest` of navigatie: daarvoor moeten `referenceParent`/`referenceRelation` en echte relaties in de referentiesnapshot worden vastgelegd. De huidige test-UI filtert deze verbinding nog niet.
 7.  Verbruikte brandstof, verbruikte stof, geproduceerde stof en afvalproduct zijn afzonderlijke herhaalbare secties per installatie, elk met een eigen ODS-bestand. Installatie komt eerst, gevolgd door naam, optionele aard/samenstelling en hoeveelheid. Brandstofverbruik heeft de vaste eenheid GJ; de andere hoeveelheden laten de gedeelde zeven-eenhedenlijst kiezen. S- en AS-gehalte zijn optionele percentages van 0 tot 100.
-8.  Materiaalverwijzingen vanuit emissiecontext, ontbrekende stofhoeveelheden/methoden en maatregelen behoren nog niet tot de ingeschakelde luchtdekking. Zelfcontrole heeft een afzonderlijke ingang.
+8.  Elke stof is een observatieverzameling met een gedeelde stofkeuze, optionele controle-instantie en standaardafwijking (geheel 0–100%). Concentratie (mg/Nm³), massastroom (kg/h) en jaaremissie (t/jaar) zijn afzonderlijke niet-negatieve observaties; elk kan afzonderlijk worden gerapporteerd.
+9.  Emissies kunnen via **Verwerkte stoffen en brandstoffen** verwijzen naar werkelijk ingevulde materiaalrapportages van hetzelfde productiejaar en een geselecteerde broninstallatie. De vier materiaalonderdelen declareren installatie en naam als `_table_key`; er komt geen nieuw invulbaar ID bij. De POC gebruikt geldige rapportages uit de huidige sessie als keuzes en maakt bij het downloaden een ODS met diezelfde keuzes. Hernoemde of verwijderde rapportages maken bestaande verwijzingen ongeldig, ook bij ODS-import. Turtle koppelt `prov:used` aan de werkelijke rapportageresource met haar gegevens, niet aan de installatie of een statisch stofconcept.
+10. Methodecatalogi en maatregelen behoren nog niet tot de ingeschakelde luchtdekking. Definitieve frequentie-/methodenlijsten blijven uitgesteld. Zelfcontrole heeft een afzonderlijke ingang.
 
 #### Water
-Elke jaarlijkse Lozing bevat één controleinrichting, het jaardebiet en het aantal
-dagen. Herhaalbare stofverzamelingen bevatten de concentratie-/jaarvrachtobservaties,
+Elke jaarlijkse Waterstroom bevat één controleinrichting, het jaardebiet in m³ en het aantal
+dagen. Volumes, dagen, concentraties en vrachten zijn niet-negatief.
+Herhaalbare stofverzamelingen bevatten de concentratie-/jaarvrachtobservaties,
 een optioneel geheel aantal metingen vanaf nul en de bepalingsprocedure.
 `water-lozingen.ods` verdeelt deze gegevens over `Waterstromen` en
 `Stoffen in waterstromen`; `_table_key=water:feature` koppelt de detailrijen aan
-één lozing per controleinrichting en productiejaar. Abnormale lozingen krijgen
-een afzonderlijk ODS-bestand. Bestaande eenheden en stof-/methodenlijsten blijven
-behouden; watergebruik, afzonderlijke methodedeclaraties, totalen en balansen
-behoren nog niet tot deze dekking.
+één waterstroom per controleinrichting en productiejaar. Jaarvrachten worden in kg
+gerapporteerd. Abnormale lozingen krijgen een afzonderlijk ODS-bestand, met de
+lozingsduur als geheel aantal dagen zonder de vroegere onjuiste uureenheid.
+Bestaande stof-/methodenlijsten blijven behouden.
+Het afzonderlijke onderdeel `Watergebruik` rapporteert de jaarlijkse
+onttrokken hoeveelheid per installatie en soort herkomst als niet-negatief decimaal in m³,
+zonder procentuele verdeling naar gebruik. De bestaande lijst `herkomst_water`
+bevat de zes afgesproken herkomsten. Totalen en balansen behoren nog niet
+tot deze dekking.
+De installatiekeuze bewaart de proces-URI als feature of interest.
 
 #### Zelfcontrole lucht en water
 Beide thema's hebben één herhaalbaar onderdeel `Metingen`, met per meting
@@ -352,10 +369,14 @@ Lucht voegt optionele massastroom in kg/h of g/h toe; water een optionele
 grenswaarde in mg/L of g/L en de monsterkeuze schepmonster, tijdsgebonden
 mengmonster of debietgebonden mengmonster. Meetonzekerheid is voor beide een
 optioneel geheel percentage van 0 tot 100, zonder vaste waarde voor lucht.
-Gehanteerde meetfrequentie en bron blijven voorlopig optionele vrije tekst:
-de definitieve lijsten ontbreken. De bestaande stoffenlijsten zijn behouden;
-volledige Teepak-parameterdekking, ondergrensindicatoren en bijlagen vallen
+Gehanteerde meetfrequentie blijft voorlopig optionele vrije tekst zolang de
+definitieve lijst ontbreekt. Bron meetfrequentie gebruikt de gedeelde keuzelijst
+met vergunningsvoorwaarden, basismeetfrequentie en aangepaste meetfrequentie.
+De bestaande stoffenlijsten zijn behouden;
+volledige Teepak-parameterdekking en bijlagen vallen
 buiten deze doorsnede.
+Een optionele aanduiding voor de bepalingsgrens (LOQ) staat voor de concentratie
+en hergebruikt de bestaande grondwaterlijst met ongewijzigde identifiers.
 
 De Confluence-modellen voor [lucht](https://confluence.omgeving.vlaanderen.be/confluence/spaces/MJV/pages/538805017/Informatiemodel+zelfcontrole+luchtemissiemetingen)
 en [oppervlaktewater](https://confluence.omgeving.vlaanderen.be/confluence/spaces/MJV/pages/538805025/Informatiemodel+zelfcontrole+oppervlaktewater)
@@ -559,7 +580,7 @@ datum en techniek staan op de verbonden `sosa:Sampling` via `sosa:isResultOf`.
 Het verborgen labo blijft een
 `prov:Agent` met `rdfs:label`, verbonden via `prov:wasAssociatedWith`;
 alleen **Labo naam** is een invoerveld.
-Diepte is een eigen lid-observatie. De herhaalbare parameterobservaties staan
+Diepte en referentiepunt van het monster worden niet meer gerapporteerd. De herhaalbare parameterobservaties staan
 onder `hasMember`; één resultaat ziet er bijvoorbeeld zo uit:
 
 ```json
@@ -643,7 +664,7 @@ opgeslagen JSON uitsluitend de canonieke predicaatlijsten bevat.
 |---|---|---|
 | Onttrekking | Verzameling met verplichte hoeveelheid en optionele start-/eindmeterstand als leden; Spui als aanvullende eigenschap | Eén rij op **Debieten**, alle singletonleden als kolommen |
 | Peilmeting | Eén observatie met eigen Resultaat; referentiepunt als aanvullende eigenschap van het resultaat | Eén rij op **Peilmetingen**, resultaatdetails inline |
-| Kwaliteitsmeting | Eén verzameling per monster; diepte en herhaalbare parameterobservaties als leden; labo en referentiepunten bij de verzameling | Context en diepte op **Monsters**, parameterleden op **Meetresultaten** of in de uitklapbare UI-detailtabel |
+| Kwaliteitsmeting | Eén verzameling per monster; herhaalbare parameterobservaties met eigen analysetijdstip als leden; labo bij de verzameling | Monstercontext op **Monsters**, parameterleden op **Meetresultaten** of in de uitklapbare UI-detailtabel |
 
 **Featureselectie is niet hetzelfde als featureconstructie.**
 Bij featureselecties filtert `relevantRiepr` op de types van het systeem dat via

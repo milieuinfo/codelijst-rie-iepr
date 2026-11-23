@@ -1,0 +1,40 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix riepr: <https://data.riepr.omgeving.vlaanderen.be/ns/riepr#> .
+@prefix profile: <urn:riepr:operational-validation:> .
+
+profile:ObservationMembers a sh:NodeShape ;
+    sh:targetClass sosa:ObservationCollection ;
+    sh:property [
+        sh:path sosa:hasMember ;
+        sh:or ( [ sh:class sosa:Observation ] [ sh:class sosa:ObservationCollection ] ) ;
+        sh:message "An ObservationCollection contains Observations or nested ObservationCollections, not physical Samples or results."
+    ] .
+
+profile:ResultOwnership a sh:NodeShape ;
+    sh:targetClass riepr:Resultaat ;
+    sh:property [
+        sh:path [ sh:inversePath sosa:hasResult ] ;
+        sh:minCount 1 ;
+        sh:or ( [ sh:class sosa:Observation ] [ sh:class sosa:ObservationCollection ] ) ;
+        sh:message "A reported Resultaat belongs to an Observation or ObservationCollection through sosa:hasResult."
+    ] .
+
+profile:CollectionContext a sh:NodeShape ;
+    sh:targetClass sosa:ObservationCollection ;
+    sh:sparql [
+        sh:message "A member conflicts with the shared observation context of its collection: {?predicate}." ;
+        sh:select """
+            PREFIX sosa: <http://www.w3.org/ns/sosa/>
+            SELECT $this ?predicate ?value WHERE {
+                VALUES ?predicate {
+                    sosa:hasFeatureOfInterest sosa:hasUltimateFeatureOfInterest
+                    sosa:observedProperty sosa:usedProcedure sosa:madeBySensor
+                    sosa:resultTime sosa:startTime sosa:hasResult sosa:hasSimpleResult
+                }
+                $this ?predicate ?shared ; sosa:hasMember+ ?member .
+                ?member ?predicate ?value .
+                FILTER NOT EXISTS { $this ?predicate ?allowed . FILTER (?allowed = ?value) }
+            }
+        """
+    ] .

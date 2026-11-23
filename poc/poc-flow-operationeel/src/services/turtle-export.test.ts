@@ -8,8 +8,10 @@ import { compileGroundwater, compileTheme } from '../../../poc-json-schema/tests
 import { sourceSnapshot } from '../../../poc-json-schema/scripts/source-snapshot.mjs'
 import { demonstrationProcessGraph } from './demo-process-graph.js'
 import { exportTurtle } from './turtle-export.js'
+import { isObject, SchemaEditor } from './schema-editor.js'
 import { resolveProcesses } from './process-graph.js'
 import uriTemplates from '../generated/uri-templates.json'
+import { reportingRecords, schemaObject } from 'codelijst-rie-iepr-poc-json-schema/browser'
 
 const { namedNode } = DataFactory
 const rdfType = namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type')
@@ -20,8 +22,97 @@ const section = (name: string) => compileGroundwater(JSON.parse(sourceSnapshot()
 const options = () => ({ year: 2024, created: '2024-01-04T00:00:00Z', issued: '2024-02-05T12:30:00Z', processes: demonstrationProcessGraph() })
 const shapes = fileURLToPath(new URL('../../test/fixtures/riepr-shacl.ttl', import.meta.url))
 
+function validateTurtle(turtle: string) {
+  const validator = [
+    'import sys',
+    'from rdflib import Graph',
+    'from pyshacl import validate',
+    'data = Graph().parse(data=sys.stdin.read(), format="turtle")',
+    'shapes = Graph().parse(sys.argv[1], format="turtle")',
+    'conforms, _, report = validate(data, shacl_graph=shapes, do_owl_imports=False)',
+    'print(report)',
+    'sys.exit(0 if conforms else 1)',
+  ].join('\n')
+  const result = spawnSync('python3', ['-c', validator, shapes], { input: turtle, encoding: 'utf8' })
+  expect(result.status, result.stderr + result.stdout).toBe(0)
+  expect(result.stdout).toContain('Conforms: True')
+}
+
 describe('Turtle export', () => {
   afterEach(() => vi.unstubAllGlobals())
+
+  it.each([
+    ['Grondwater', 'peilmeting', 'grondwater/peilmeting'],
+    ['Lucht', 'verbruikte-stof', 'lucht/verbruikte_stof'],
+    ['Lucht', 'geproduceerde-stof', 'lucht/geproduceerde_stof'],
+    ['Lucht', 'afvalproduct', 'lucht/afvalproduct'],
+    ['Grondstoffen', 'inkomend', 'grondstoffen/inkomend'],
+    ['Grondstoffen', 'grondstof', 'grondstoffen/grondstof'],
+  ])('materializes the CSV-declared observed property for %s/%s without user input', (theme, name, path) => {
+    const schema = compileTheme(JSON.parse(sourceSnapshot()), theme).subSchemas.find(item => item.name === name)!.schema
+    const expected = JSON.parse(readFileSync(new URL(`../../../poc-json-schema/examples/${path}.json`, import.meta.url), 'utf8'))
+    const draft: Record<string, unknown> = structuredClone(expected)
+    for (const records of Object.values(draft)) {
+      if (!Array.isArray(records)) continue
+      for (const record of records) {
+        if (!isObject(record)) throw new Error('Expected observation records in the example.')
+        delete record.observedProperty
+      }
+    }
+    const editor = new SchemaEditor(schema)
+    editor.load(draft)
+    expect(editor.project()).toEqual(expected)
+  })
+
+  it('omits the produced-materials UI flag when no materials were produced', () => {
+    const schema = compileTheme(JSON.parse(sourceSnapshot()), 'Grondstoffen').subSchemas.find(item => item.name === 'grondstof')!.schema
+    const turtle = exportTurtle(schema, { geproduceerd: false }, options())
+    expect(new Parser().parse(turtle)).toHaveLength(0)
+    expect(() => exportTurtle(schema, { geproduceerd: 'false' }, options())).toThrow('Ongeldige UI-sturing')
+  })
+
+  it('omits source-declared UI booleans beside reporting rows without using a hardcoded field name', () => {
+    const schema = structuredClone(section('peilmeting'))
+    const concept = 'urn:test:ui:include-readings'
+    schema.properties!.toonMetingen = { type: 'boolean', 'x-source-concept': concept }
+    schemaObject(schema.properties!.peilmeting)['x-visible-when'] = { sourceConcept: concept, values: [true] }
+    const data = { toonMetingen: true, ...example('peilmeting') }
+    const graph = new Store(new Parser().parse(exportTurtle(schema, data, options())))
+    expect(graph.getSubjects(rdfType, namedNode(riepr + 'Observatie'), null)).toHaveLength(data.peilmeting.length)
+    expect(graph.getQuads(null, null, DataFactory.literal('true', namedNode('http://www.w3.org/2001/XMLSchema#boolean')), null))
+      .toHaveLength(0)
+    const withoutCondition = structuredClone(schema)
+    delete schemaObject(withoutCondition.properties!.peilmeting)['x-visible-when']
+    expect(() => exportTurtle(withoutCondition, data, options())).toThrow('Ongeldige rapporteringsgroep: toonMetingen')
+    schemaObject(schema.properties!.toonMetingen)['x-jsonld-id'] = 'urn:test:reported-flag'
+    expect(() => exportTurtle(schema, data, options())).toThrow('Ongeldige rapporteringsgroep: toonMetingen')
+    expect(() => exportTurtle(section('peilmeting'), { onbekend: false }, options()))
+      .toThrow('Ongeldige rapporteringsgroep: onbekend')
+  })
+
+  it('resolves a reported fuel key to the same RDF resource as its own export, not an unattached key IRI', () => {
+    const schemas = compileTheme(JSON.parse(sourceSnapshot()), 'Lucht').subSchemas
+    const fuel = schemas.find(item => item.name === 'brandstof')!.schema
+    const emission = schemas.find(item => item.name === 'emissie')!.schema
+    const load = (name: string) => JSON.parse(readFileSync(new URL(`../../../poc-json-schema/examples/lucht/${name}.json`, import.meta.url), 'utf8'))
+    const reports = [{ schema: fuel, data: load('brandstof'), year: 2024 }]
+    const selected = reportingRecords(reports)[0].reference.id
+    const data = load('emissie')
+    data.emissie[0].used = [selected]
+    const context = { ...options(), dependencies: schemas.map(item => item.schema), reports }
+    const standalone = new Store(new Parser().parse(exportTurtle(fuel, reports[0].data, context)))
+    const label = namedNode('http://www.w3.org/2000/01/rdf-schema#label')
+    const subject = standalone.getSubjects(label, DataFactory.literal('Aardgas'), null)[0]
+    expect(subject).toBeDefined()
+    const turtle = exportTurtle(emission, data, context)
+    const graph = new Store(new Parser().parse(turtle))
+    expect(graph.getSubjects(namedNode('http://www.w3.org/ns/prov#used'), subject, null)).toHaveLength(1)
+    expect(graph.getObjects(subject, namedNode(sosa + 'hasMember'), null).length).toBeGreaterThan(0)
+    expect(graph.getQuads(null, null, namedNode(selected), null)).toHaveLength(0)
+    validateTurtle(turtle)
+    expect(() => exportTurtle(emission, data, options())).toThrow('Gerapporteerd record ontbreekt')
+    expect(() => exportTurtle(emission, data, { ...context, year: 2025 })).toThrow('Gerapporteerd record ontbreekt')
+  })
 
   it('writes grouped Turtle with prefixed terms and only used namespace declarations', () => {
     const turtle = exportTurtle(section('peilmeting'), example('peilmeting'), options())
@@ -45,13 +136,14 @@ describe('Turtle export', () => {
     )
   })
 
-  it('mints distinct UUIDv4 identifiers when LAN HTTP exposes only getRandomValues', () => {
+  it('mints distinct random and key-derived identifiers when LAN HTTP exposes only getRandomValues', () => {
     vi.stubGlobal('crypto', { getRandomValues: globalThis.crypto.getRandomValues.bind(globalThis.crypto) })
     const graph = new Store(new Parser().parse(exportTurtle(section('kwaliteitsmeting'), example('kwaliteitsmeting'), options())))
     const ids = graph.getObjects(null, namedNode(riepr + 'localId'), null).map(term => term.value)
     expect(ids.length).toBeGreaterThan(1)
     expect(new Set(ids).size).toBe(ids.length)
-    for (const id of ids) expect(id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/)
+    expect(ids.some(id => /^[0-9a-f]{8}-[0-9a-f]{4}-4/.test(id))).toBe(true)
+    for (const id of ids) expect(id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-[48][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/)
   })
 
   it('fails explicitly when no cryptographic random source is available', () => {
@@ -76,8 +168,9 @@ describe('Turtle export', () => {
       const sampling = graph.getObjects(sample[0], namedNode(sosa + 'isResultOf'), null)
       expect(sampling).toHaveLength(1)
       expect(graph.has(sampling[0], rdfType, namedNode(sosa + 'Sampling'), null)).toBe(true)
-      expect(graph.getObjects(sampling[0], namedNode(sosa + 'ultimateFeatureOfInterest'), null))
+      expect(graph.getObjects(sampling[0], namedNode(sosa + 'hasUltimateFeatureOfInterest'), null))
         .toEqual([graph.getSubjects(rdfType, namedNode(riepr + 'Emissie'), null)[0]])
+      expect(graph.getQuads(null, namedNode(sosa + 'ultimateFeatureOfInterest'), null, null)).toHaveLength(0)
       expect(graph.getSubjects(namedNode(sosa + 'hasMember'), sample[0], null)).toHaveLength(0)
       const features = graph.getSubjects(rdfType, namedNode(riepr + 'Emissie'), null)
       expect(graph.getObjects(features[0], namedNode('http://www.w3.org/ns/prov#wasDerivedFrom'), null).map(term => term.value).sort())
@@ -180,6 +273,48 @@ describe('Turtle export', () => {
   })
 
   it.each([
+    ['Lucht', 'emissie', 'emissie_parameter_parameter'],
+    ['Water', 'lozing', 'lozing-stof'],
+  ])('copies each %s pollutant collection variable onto its own member results', (theme, name, selector) => {
+    const schema = compileTheme(JSON.parse(sourceSnapshot()), theme).subSchemas.find(item => item.name === name)!.schema
+    const data = JSON.parse(readFileSync(new URL(
+      `../../../poc-json-schema/examples/${theme.toLowerCase()}/${name}.json`, import.meta.url), 'utf8'))
+    if (name === 'emissie') {
+      const second = structuredClone(data.emissie[0].hasMember[1])
+      second.additionalProperty[0].value = 'https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1060'
+      data.emissie[0].hasMember.push(second)
+    }
+    const graph = new Store(new Parser().parse(exportTurtle(schema, data, options())))
+    const additional = namedNode('https://schema.org/additionalProperty')
+    const propertyID = namedNode('https://schema.org/propertyID')
+    const value = namedNode('https://schema.org/value')
+    const source = namedNode(`https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-${theme.toLowerCase()}/${selector}`)
+    const variables = (subject: Parameters<Store['getObjects']>[0]) =>
+      graph.getObjects(subject, additional, null)
+        .filter(property => graph.has(property, propertyID, source, null))
+        .flatMap(property => graph.getObjects(property, value, null))
+    const collections = graph.getSubjects(rdfType, namedNode(riepr + 'ObservatieVerzameling'), null)
+      .filter(collection => variables(collection).length)
+    expect(collections.length).toBeGreaterThanOrEqual(2)
+    for (const collection of collections) {
+      const selected = variables(collection)
+      expect(selected).toHaveLength(1)
+      for (const observation of graph.getObjects(collection, namedNode(sosa + 'hasMember'), null)) {
+        const [result] = graph.getObjects(observation, namedNode(sosa + 'hasResult'), null)
+        expect(result).toBeDefined()
+        expect(variables(result)).toEqual(selected)
+      }
+    }
+  })
+
+  it('rejects a missing ancestor variable instead of exporting unqualified quantity results', () => {
+    const schema = compileTheme(JSON.parse(sourceSnapshot()), 'Lucht').subSchemas.find(item => item.name === 'emissie')!.schema
+    const data = JSON.parse(readFileSync(new URL('../../../poc-json-schema/examples/lucht/emissie.json', import.meta.url), 'utf8'))
+    data.emissie[0].hasMember[1].additionalProperty.shift()
+    expect(() => exportTurtle(schema, data, options())).toThrow('variabele')
+  })
+
+  it.each([
     ['Grondwater', 'onttrekking', 'grondwater/onttrekking'],
     ['Grondwater', 'peilmeting', 'grondwater/peilmeting'],
     ['Grondwater', 'kwaliteitsmeting', 'grondwater/kwaliteitsmeting'],
@@ -190,26 +325,13 @@ describe('Turtle export', () => {
     ['Lucht', 'afvalproduct', 'lucht/afvalproduct'],
     ['Water', 'lozing', 'water/lozing'],
     ['Water', 'abnormale-lozing', 'water/abnormale-lozing'],
+    ['Water', 'watergebruik', 'water/watergebruik'],
     ['Zelfcontrole lucht', 'meting', 'zelfcontrole-lucht/meting'],
     ['Zelfcontrole water', 'meting', 'zelfcontrole-water/meting'],
   ])('validates %s/%s offline against regenerated SHACL', (theme, name, path) => {
     const schema = compileTheme(JSON.parse(sourceSnapshot()), theme).subSchemas.find(item => item.name === name)!.schema
     const data = JSON.parse(readFileSync(new URL(`../../../poc-json-schema/examples/${path}.json`, import.meta.url), 'utf8'))
     const turtle = exportTurtle(schema, data, options())
-    const validator = [
-      'import sys',
-      'from rdflib import Graph',
-      'from pyshacl import validate',
-      'data = Graph().parse(data=sys.stdin.read(), format="turtle")',
-      'shapes = Graph().parse(sys.argv[1], format="turtle")',
-      'conforms, _, report = validate(data, shacl_graph=shapes, do_owl_imports=False)',
-      'print(report)',
-      'sys.exit(0 if conforms else 1)',
-    ].join('\n')
-    const result = spawnSync('python3', ['-c', validator, shapes], {
-      input: turtle, encoding: 'utf8',
-    })
-    expect(result.status, result.stderr + result.stdout).toBe(0)
-    expect(result.stdout).toContain('Conforms: True')
+    validateTurtle(turtle)
   })
 })

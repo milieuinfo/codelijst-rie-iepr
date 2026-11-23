@@ -13,6 +13,8 @@ const sections = (JSON.parse(readFileSync(new URL('../public/schema/index.json',
 const mappings = [
   ['/grondwater/kwaliteitsmeting/', 'operationeel-grondwater/kwaliteitsmeting-resultaten-meetwaarde', 'operationeel-grondwater/kwaliteitsmeting-resultaten-parameter'],
   ['/lucht/emissie/', 'operationeel-lucht/emissie_parameter_massastroom', 'operationeel-lucht/emissie_parameter_parameter'],
+  ['/lucht/emissie/', 'operationeel-lucht/emissie_parameter_concentratie', 'operationeel-lucht/emissie_parameter_parameter'],
+  ['/lucht/emissie/', 'operationeel-lucht/emissie_parameter_jaaremissie', 'operationeel-lucht/emissie_parameter_parameter'],
   ['/water/abnormale-lozing/', 'operationeel-water/abnormale-lozing-jaarvracht', 'operationeel-water/abnormale-lozing-stof'],
   ['/zelfcontrole-lucht/meting/', 'operationeel-zelfcontrole-lucht/parameter-concentratie', 'operationeel-zelfcontrole-lucht/parameter-parameter'],
   ['/zelfcontrole-water/meting/', 'operationeel-zelfcontrole-water/parameter-concentratie', 'operationeel-zelfcontrole-water/parameter-parameter'],
@@ -63,7 +65,7 @@ test('fills every reporting form with its fictional example data', async ({ page
         const [result] = graph.getObjects(observation, namedNode(sosa + 'hasResult'), null)
         const variables = graph.getObjects(result, namedNode(schema + 'additionalProperty'), null)
           .filter(property => graph.countQuads(property, namedNode(schema + 'propertyID'), namedNode(concept + selector), null))
-        expect(variables).toHaveLength(1)
+        expect(variables, `${section.id}: ${measurement}`).toHaveLength(1)
         expect(graph.getObjects(variables[0], namedNode(schema + 'value'), null)[0].value).toContain('/csor/variabele/')
       }
     }

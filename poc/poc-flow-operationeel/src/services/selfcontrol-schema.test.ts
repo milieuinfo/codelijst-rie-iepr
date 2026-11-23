@@ -20,6 +20,14 @@ for (const [theme, slug] of [['Zelfcontrole lucht', 'zelfcontrole-lucht'], ['Zel
       const parameter = schemaObject(schemaObject(measurement.properties!.hasMember).items)
       const columns = editor.columns(parameter)
       expect(columns.some(column => /propertyID|observedProperty/.test(column.title))).toBe(false)
+      const loq = columns.findIndex(column => column.title === 'Bepalingsgrens (LOQ)')
+      const concentration = columns.findIndex(column => column.title.startsWith('Concentratie'))
+      expect(loq).toBeGreaterThanOrEqual(0)
+      expect(loq).toBeLessThan(concentration)
+      expect(data.meting[0].hasMember[1].hasResult.additionalProperty).toContainEqual({
+        propertyID: `https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-${slug}/parameter-loq`,
+        value: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-onder',
+      })
       const uncertainty = columns.find(column => column.title === 'Meetonzekerheid')!
       editor.set(['meting', 0, 'hasMember', 0, ...uncertainty.path], 0.5)
       expect(editor.validate().diagnostics).not.toEqual([])

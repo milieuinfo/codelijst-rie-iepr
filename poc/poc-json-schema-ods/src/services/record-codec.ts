@@ -191,11 +191,11 @@ export function workbookRows(
       } else if (definition.type === 'boolean') {
         values = [true, false];
       } else if (Array.isArray(expectedTypes)) {
-        if (Array.isArray(definition['x-reference-options']) && !definition['x-reference-options'].length) {
+        if (!definition['x-reference-records'] && Array.isArray(definition['x-reference-options']) && !definition['x-reference-options'].length) {
           throw new Error(`No permitted references for ${record.title}: ${column.title}.`);
         }
         values = references.filter(reference => referenceMatchesSchema(reference, definition, references)).map(reference => reference.id);
-        if (!values.length) throw new Error(`Reference data is required for ${record.title}: ${column.title}.`);
+        if (!values.length && !definition['x-reference-records']) throw new Error(`Reference data is required for ${record.title}: ${column.title}.`);
       }
       if (values) metadata.lookups[column.id] = choices(values, value => {
         if (column.schema['x-ui-hidden']) return String(value);

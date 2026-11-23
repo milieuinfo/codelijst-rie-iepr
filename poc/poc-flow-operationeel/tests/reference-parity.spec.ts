@@ -11,7 +11,7 @@ for (const [theme, section] of [
   ['Lucht', 'Verbruikte stof'],
   ['Lucht', 'Geproduceerde stof'],
   ['Lucht', 'Afvalproduct'],
-  ['Water', 'Lozing'],
+  ['Water', 'Waterstroom'],
   ['Zelfcontrole lucht', 'Metingen'],
   ['Zelfcontrole water', 'Metingen'],
 ]) {

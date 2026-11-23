@@ -78,7 +78,7 @@ for (const [section, filename, sheets] of [
       const table = tables.find(table => table.name === sheet)!
       expect(table.rows.find(row => row.number === 1)!.cells[0].text).toMatch(/^\/[^ ]+\/\*$/)
       const headings = table.rows.find(row => row.number === 3)!
-      expect(headings.cells.some(cell => cell.text.startsWith('Eenheid'))).toBe(true)
+      expect(headings.cells.some(cell => cell.text.startsWith('Eenheid'))).toBe(sheet !== 'Monsters')
       const mappings = table.rows.find(row => row.number === 2)!.cells.map(cell => cell.text)
       if (sheet === 'Meetresultaten') {
         expect(schema.properties.kwaliteitsmeting.items['x-table-key']).toEqual([

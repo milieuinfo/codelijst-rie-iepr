@@ -1,6 +1,5 @@
 import JSZip from 'jszip';
-import { isDeepStrictEqual } from 'node:util';
-import { materializeDerivedValues, transformMemberData } from 'codelijst-rie-iepr-poc-json-schema';
+import { canonicalJson, materializeDerivedValues, transformMemberData } from 'codelijst-rie-iepr-poc-json-schema/browser';
 import type { ReferenceRecord, ReferenceContext } from 'codelijst-rie-iepr-poc-json-schema';
 import type { CellValue, TabularPlan, WorkbookRow } from '../models/tabular-plan.js';
 import { cellValue, workbookRows } from './record-codec.js';
@@ -185,7 +184,7 @@ export class ODSGenerator {
       // Predicate arrays regroup by source kind; repeated rows within each kind retain their order.
       const expected = transformMemberData(options.plan.schema,
         transformMemberData(options.plan.schema, derived, 'presentation'), 'canonical');
-      if (!isDeepStrictEqual(imported, expected)) throw new Error('Generated ODS failed JSON round-trip validation.');
+      if (canonicalJson(imported) !== canonicalJson(expected)) throw new Error('Generated ODS failed JSON round-trip validation.');
     } else if (options.validationData) {
       await this.generate({
         ...options, data: options.validationData.data,

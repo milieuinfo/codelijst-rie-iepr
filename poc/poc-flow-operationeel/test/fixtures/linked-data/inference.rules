@@ -1,0 +1,6 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+
+[subproperty: (?s ?p ?o) (?p rdfs:subPropertyOf ?super) -> (?s ?super ?o)]
+[domain: (?s ?p ?o) (?p rdfs:domain ?class) -> (?s rdf:type ?class)]
+[range: (?s ?p ?o) (?p rdfs:range ?class) notLiteral(?o) -> (?o rdf:type ?class)]

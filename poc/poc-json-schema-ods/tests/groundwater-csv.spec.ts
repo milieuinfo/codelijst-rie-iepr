@@ -97,7 +97,7 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
         const monster = spreadsheet['table:table'].find((table: Record<string, string>) => table['@_table:name'] === 'Meetresultaten');
         expect(monster['table:table-row'][3]['table:table-cell'][0]['@_table:content-validation-name']).toBe(parent['@_table:name']);
         const multiple = validations.filter((validation: Record<string, unknown>) => validation['table:help-message']);
-        expect(multiple).toHaveLength(2);
+        expect(multiple).toHaveLength(1);
         for (const validation of multiple) {
           expect(validation['table:error-message']['@_table:message-type']).toBe('warning');
         }
@@ -129,15 +129,15 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
       ? ['Voorblad', 'Monsters', 'Meetresultaten'] : ['Voorblad', name === 'onttrekking' ? 'Debieten' : 'Peilmetingen']);
   });
 
-  it('round-trips a quality parameter with only a detection-limit indicator', async () => {
+  it('round-trips a quality parameter with only a LOQ indicator', async () => {
     const section = compileGroundwater(JSON.parse(sourceSnapshot())).subSchemas.find(item => item.name === 'kwaliteitsmeting')!;
     const plan = compileTabularPlan(section.schema, { sourceSha256: hash(sourceSnapshot()) });
     const fixture = (await generationFixture(plan))!;
     const data = structuredClone(fixture.data) as {
       kwaliteitsmeting: { hasMember: { hasResult: { additionalProperty?: unknown[] } }[] }[]
     };
-    const result = data.kwaliteitsmeting[0].hasMember[1].hasResult;
-    data.kwaliteitsmeting[0].hasMember[1].hasResult = { additionalProperty: result.additionalProperty };
+    const result = data.kwaliteitsmeting[0].hasMember[0].hasResult;
+    data.kwaliteitsmeting[0].hasMember[0].hasResult = { additionalProperty: result.additionalProperty };
     const workbook = await new ODSGenerator().generate({ plan, ...fixture, data });
     expect(await new ODSImporter().import(workbook, plan)).toEqual(data);
   });
@@ -151,22 +151,20 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
     ]);
   });
 
-  it('round-trips multiple reference-point PropertyValues in one Monsters selection cell', async () => {
+  it('round-trips independent analysis times on results without obsolete sample columns', async () => {
     const section = compileGroundwater(JSON.parse(sourceSnapshot())).subSchemas.find(section => section.name === 'kwaliteitsmeting')!;
     const plan = compileTabularPlan(section.schema, { sourceSha256: hash(sourceSnapshot()) });
     const fixture = (await generationFixture(plan))!;
-    const data = JSON.parse(JSON.stringify(fixture.data));
-    const reference = {
-      id: 'urn:test:referentiepunt:buis', label: 'Bovenkant peilbuis', year: 2024,
-      types: ['https://data.omgeving.vlaanderen.be/id/concept/riepr/meetpunteigenschappen/referentiepunt'],
-    };
-    const first = data.kwaliteitsmeting[0].additionalProperty[0];
-    data.kwaliteitsmeting[0].additionalProperty.push({ propertyID: first.propertyID, value: reference.id });
-    const workbook = await new ODSGenerator().generate({
-      plan, ...fixture, data, references: [...fixture.references, reference],
-    });
+    const data = JSON.parse(readFileSync(new URL('../../poc-json-schema/examples/grondwater/kwaliteitsmeting.json', import.meta.url), 'utf8'));
+    const workbook = await new ODSGenerator().generate({ plan, ...fixture, data });
     expect(await new ODSImporter().import(workbook, plan)).toEqual(data);
     expect(plan.records.map(record => record.sheetName)).toEqual(['Voorblad', 'Monsters', 'Meetresultaten']);
+    const monsters = plan.records.find(record => record.sheetName === 'Monsters')!;
+    const results = plan.records.find(record => record.sheetName === 'Meetresultaten')!;
+    expect(monsters.columns.map(column => column.title)).not.toContain('Referentiepunt');
+    expect(monsters.columns.map(column => column.title)).not.toContain('Datum en tijdstip laboanalyse');
+    expect(results.columns.find(column => column.path.join('/') === 'resultTime')?.title)
+      .toBe('Datum en tijdstip laboanalyse');
   });
 
   it('physically omits technical and constant identity columns, not just hiding them', async () => {
@@ -241,10 +239,10 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
     const monster = tables.find(table => table.name === 'Monsters')!;
     const monsterPaths = monster.rows.find(row => row.number === 2)!.cells.map(cell => cell.text);
     expect(monsterPaths).toContain('/wasAssociatedWith/label');
-    expect(monsterPaths).toContain(
+    expect(monsterPaths).not.toContain(
       '$["additionalProperty"][?(@.propertyID == "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-referentiepunt")]["value"]',
     );
-    expect(monsterPaths).toContain(
+    expect(monsterPaths).not.toContain(
       '$["hasMember"][?(@.observedProperty == "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-diepte")]["hasResult"]["numericValue"]',
     );
     expect(await new ODSImporter().import(workbook, plan)).toEqual(data.data);

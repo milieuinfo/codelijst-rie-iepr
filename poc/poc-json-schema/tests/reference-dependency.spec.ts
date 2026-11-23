@@ -58,7 +58,7 @@ describe('Source-declared structural selection dependencies', () => {
     expect(validate([{ point: 'urn:point:a', sources: ['urn:source:a'] }])).toEqual([])
     expect(validate([{ point: 'urn:point:a', sources: ['urn:source:b'] },
       { point: 'urn:point:b', sources: ['urn:source:a'] }])).toHaveLength(2)
-    expect(validate([{ sources: ['urn:source:a'] }])).toHaveLength(1)
+    expect(validate([{ sources: ['urn:source:a'] }]).map(error => error.keyword).sort()).toEqual(['identity', 'reference'])
     expect(new SemanticValidator().validate(schema, { records: [{ point: 'urn:point:a', sources: ['urn:source:a'] }] },
       { references: references.map(reference => ({ ...reference, relations: undefined, parents: ['urn:point:a'] })) }))
       .toHaveLength(1)

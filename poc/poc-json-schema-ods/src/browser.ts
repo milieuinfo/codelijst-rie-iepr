@@ -1,4 +1,5 @@
 export { ODSImporter } from './services/ods-importer.js';
+export { ODSGenerator } from './services/ods-generator.js';
 export { compileTabularPlan } from './services/tabular-plan.js';
 export { readOdf } from './services/odf.js';
 export { workbookMetadata } from './services/workbook-metadata.js';

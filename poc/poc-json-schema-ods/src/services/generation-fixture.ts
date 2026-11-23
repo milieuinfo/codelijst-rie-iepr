@@ -7,7 +7,7 @@ export async function generationFixture(plan: TabularPlan) {
   const profiles = [
     { theme: 'grondwater', sections: ['onttrekking', 'peilmeting', 'kwaliteitsmeting'] },
     { theme: 'lucht', sections: ['emissie', 'brandstof', 'verbruikte_stof', 'geproduceerde_stof', 'afvalproduct'] },
-    { theme: 'water', sections: ['lozing', 'abnormale-lozing'] },
+    { theme: 'water', sections: ['lozing', 'abnormale-lozing', 'watergebruik'] },
     { theme: 'zelfcontrole-lucht', sections: ['meting'] },
     { theme: 'zelfcontrole-water', sections: ['meting'] },
     { theme: 'grondstoffen', sections: ['grondstof', 'inkomend'] },

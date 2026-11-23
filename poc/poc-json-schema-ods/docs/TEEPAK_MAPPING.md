@@ -13,20 +13,23 @@ See the [current workbook contract](./PROJECT_OUTLINE.md) and
 flowchart TD
     collection["Kwaliteitsmeting<br/>One collection per monster; Monsters row"]
     lab["prov:Agent<br/>Visible label: Labo naam"]
-    references["Reference-point PropertyValues<br/>propertyID and selected value"]
-    depth["Depth observation<br/>Fixed observedProperty; inline on Monsters"]
-    parameters["Parameter observations<br/>Selected observedProperty; Meetresultaten rows"]
+    sample["Sample and Sampling<br/>Identifier, sampling time and technique"]
+    parameters["Parameter observations<br/>Fixed measurement concept and per-result analysis time"]
     result["riepr:Resultaat<br/>Numeric value, unit and result characteristics"]
     collection -->|"prov:wasAssociatedWith"| lab
-    collection -->|"schema:additionalProperty"| references
-    collection -->|"sosa:hasMember"| depth
+    collection -->|"prov:used"| sample
     collection -->|"sosa:hasMember"| parameters
     parameters -->|"sosa:hasResult"| result
 ```
 
-The active scope has only groundwater quality, flow and level measurements.
+This groundwater contract covers quality, flow and level measurements.
 Source workbook/sheet annotations determine business layout, while canonical
 `hasMember` and `additionalProperty` arrays determine data ownership.
+Sample depth and reference points, and the eight-hour pre-stop volume, have been
+removed following the November model review. Analysis datetimes belong to the
+individual parameter observations. Debit volumes and readings are non-negative
+integers; level values retain signed decimals. LOQ qualifiers stay separate from
+numeric measurements, and selected variables remain result characteristics.
 
 ## Historical inventory and source review (superseded)
 

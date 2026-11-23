@@ -85,5 +85,16 @@ for (const [theme, slug] of [['Zelfcontrole lucht', 'zelfcontrole-lucht'], ['Zel
       frequency.value = 12
       expect(validator.validateInstance(schema, data).valid).toBe(false)
     })
+
+    it('uses the three agreed frequency sources as optional URI choices, not arbitrary text', () => {
+      for (const source of ['vergunningsvoorwaarden', 'basismeetfrequentie', 'aangepaste_meetfrequentie', 'Other']) {
+        const data = load(`${slug}/meting`)
+        const property = data.meting[0].hasMember[0].hasResult.additionalProperty
+          .find((property: { propertyID: string }) => property.propertyID.endsWith('/parameter-bron-meetfrequentie'))
+        property.value = source === 'Other' ? source :
+          `https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-meetfrequentie/bron_${source}`
+        expect(validator.validateInstance(schema, data).valid, source).toBe(source !== 'Other')
+      }
+    })
   })
 }

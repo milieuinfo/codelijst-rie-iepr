@@ -8,10 +8,30 @@ import { ODSImporter } from '../src/services/ods-importer.js';
 import { readOdf, odfCell } from '../src/services/odf.js';
 import { layoutColumns } from '../src/services/workbook-layout.js';
 import { modifyTable, cells, row } from './fixtures.js';
-import { transformMemberData } from 'codelijst-rie-iepr-poc-json-schema/browser';
+import { reportingRecords, transformMemberData } from 'codelijst-rie-iepr-poc-json-schema/browser';
 import { generationFixture } from '../src/services/generation-fixture.js';
 
 describe('Actual air CSV -> schema -> reversible ODS', () => {
+  it('round-trips an actual reported-material selection with its business key and readable choice', async () => {
+    const source = sourceSnapshot();
+    const schemas = compileTheme(JSON.parse(source), 'Lucht').subSchemas;
+    const schema = schemas.find(section => section.name === 'emissie')!.schema;
+    const fuel = schemas.find(section => section.name === 'brandstof')!.schema;
+    const load = (name: string) => JSON.parse(readFileSync(new URL(`../../poc-json-schema/examples/${name}.json`, import.meta.url), 'utf8'));
+    const reported = reportingRecords([{ schema: fuel, data: load('lucht/brandstof'), year: 2024 }], load('refs'));
+    const data = load('lucht/emissie');
+    data.emissie[0].used = [reported[0].reference.id];
+    const plan = compileTabularPlan(schema, { sourceSha256: hash(source) });
+    const bytes = await new ODSGenerator().generate({
+      plan, data, references: [...load('refs'), ...reported.map(record => record.reference)], referenceContext: { year: 2024 },
+    });
+    const tables = await readOdf(bytes);
+    expect(tables.find(table => table.name === 'Keuzelijsten')!.rows.some(row =>
+      row.cells.some(cell => cell.text.includes('Aardgas')))).toBe(true);
+    const expected = transformMemberData(schema, transformMemberData(schema, data, 'presentation'), 'canonical');
+    expect(await new ODSImporter().import(bytes, plan)).toEqual(expected);
+  });
+
   it.each([
     ['brandstof', 'Brandstoffen'],
     ['verbruikte-stof', 'Verbruikte stoffen'],
@@ -58,9 +78,14 @@ describe('Actual air CSV -> schema -> reversible ODS', () => {
     const bytes = await new ODSGenerator().generate(options);
     const tables = await readOdf(bytes);
     const parent = plan.records.find(record => record.sheetName === 'Emissiegehelen')!;
-    const child = plan.records.find(record => record.parentId === parent.id)!;
+    const child = plan.records.find(record => record.parentId === parent.id &&
+      record.columns.some(column => column.title === 'Naam controle-instantie'))!;
     expect(tables.find(table => table.name === child.sheetName)!.rows[2].cells.slice(0, 2).map(cell => cell.text))
       .toEqual(['Emissiepunt', 'Bron(nen)']);
+    const headings = tables.find(table => table.name === child.sheetName)!.rows[2].cells.map(cell => cell.text);
+    expect(headings).toContain('Naam controle-instantie');
+    expect(headings.indexOf('Concentratie')).toBeLessThan(headings.indexOf('Massastroom'));
+    expect(headings.indexOf('Massastroom')).toBeLessThan(headings.indexOf('Jaaremissie'));
     expect(await new ODSImporter().import(bytes, plan)).toEqual(expected);
     const edited = await modifyTable(bytes, child.sheetName, rows => {
       const values = cells(rows[3]);
@@ -69,8 +94,11 @@ describe('Actual air CSV -> schema -> reversible ODS', () => {
       return [...rows.slice(0, 3), row(values), ...rows.slice(4)];
     });
     const imported = await new ODSImporter().import(edited, plan) as typeof data;
-    expect(imported.emissie[0].hasMember.find((member: { observedProperty: string }) =>
+    const pollutant = imported.emissie[0].hasMember.find((member: { '@type'?: string }) => member['@type']);
+    expect(pollutant.hasMember.find((member: { observedProperty: string }) =>
       member.observedProperty.endsWith('/emissie_parameter_massastroom')).hasResult.numericValue).toBe(0);
+    expect(pollutant.hasMember.find((member: { observedProperty: string }) =>
+      member.observedProperty.endsWith('/emissie_parameter_jaaremissie')).hasResult.numericValue).toBe(12.5);
     expect(imported.emissie[0]).not.toHaveProperty('identifier');
     const blank = await new ODSGenerator().generate({ ...options, data: undefined });
     expect(await new ODSImporter().import(blank, plan)).toEqual({});

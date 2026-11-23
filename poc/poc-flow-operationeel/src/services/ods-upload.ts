@@ -1,7 +1,19 @@
 import { compileTabularPlan, ODSImporter, readOdf, workbookMetadata } from 'codelijst-rie-iepr-poc-json-schema-ods/browser'
-import { type JsonSchemaObject, type ReferenceRecord } from 'codelijst-rie-iepr-poc-json-schema/browser'
+import { reportReferenceTypes, type JsonSchemaObject, type ReferenceRecord } from 'codelijst-rie-iepr-poc-json-schema/browser'
 import { SchemaEditor, isObject } from './schema-editor.js'
 
+/**
+ * Validate an uploaded workbook against the current reporting references.
+ * @param input - Uploaded ODS bytes.
+ * @param options - Current schema, year and available references.
+ * @param options.schema - Reporting schema.
+ * @param options.dependencies - Shared schema definitions.
+ * @param options.sourceSha256 - Source fingerprint.
+ * @param options.schemaSha256 - Schema fingerprint.
+ * @param options.year - Selected reporting year.
+ * @param options.references - Currently available reporting and structural references.
+ * @returns An editor containing the validated reporting data.
+ */
 export async function uploadOds(
   input: Uint8Array,
   options: {
@@ -21,7 +33,10 @@ export async function uploadOds(
   }
   if (!isObject(data)) throw new Error('De ODS bevat geen rapportageobject.')
   const references = new Map(options.references.map(reference => [reference.id, reference]))
-  for (const reference of metadata.references) references.set(reference.id, reference)
+  const reportedTypes = reportReferenceTypes(options.schema, options.dependencies)
+  for (const reference of metadata.references) {
+    if (!reference.types.some(type => reportedTypes.has(type))) references.set(reference.id, reference)
+  }
   const editor = new SchemaEditor(options.schema, options.dependencies, [...references.values()], { year: options.year })
   editor.load(data)
   const result = editor.validate()

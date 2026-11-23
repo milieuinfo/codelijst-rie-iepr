@@ -1,7 +1,10 @@
 import { DataFactory, Store, Writer, type Quad } from 'n3'
 import {
-  SchemaRegistry, schemaObject, selectMemberVariant, type JsonSchemaObject,
+  SchemaRegistry, canonicalJson, dependencySelections, referenceDependency, referenceMatchesDependency,
+  reportingRecordId, reportingRecords, schemaObject, selectMemberVariant, sourceSelections,
+  type JsonSchemaObject, type ReferenceScope, type ReportingDocument,
 } from 'codelijst-rie-iepr-poc-json-schema/browser'
+import { sha256 } from '@noble/hashes/sha256'
 import { resolveProcesses } from './process-graph.js'
 import { PREFIXES } from './vocab.js'
 import uriTemplates from '../generated/uri-templates.json'
@@ -43,16 +46,21 @@ const iri = (value: unknown) => {
   return namedNode(value)
 }
 
-const randomUuid = (): string => {
-  const crypto = globalThis.crypto
-  if (crypto?.randomUUID) return crypto.randomUUID()
-  if (!crypto?.getRandomValues) throw new Error('UUID-generatie is niet beschikbaar.')
-  const bytes = crypto.getRandomValues(new Uint8Array(16))
-  bytes[6] = (bytes[6] & 0x0f) | 0x40
+const formatUuid = (bytes: Uint8Array, version: 4 | 8): string => {
+  bytes[6] = (bytes[6] & 0x0f) | (version << 4)
   bytes[8] = (bytes[8] & 0x3f) | 0x80
   const hex = Array.from(bytes, byte => byte.toString(16).padStart(2, '0')).join('')
   return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`
 }
+
+const randomUuid = (): string => {
+  const crypto = globalThis.crypto
+  if (crypto?.randomUUID) return crypto.randomUUID()
+  if (!crypto?.getRandomValues) throw new Error('UUID-generatie is niet beschikbaar.')
+  return formatUuid(crypto.getRandomValues(new Uint8Array(16)), 4)
+}
+
+const keyedUuid = (key: string): string => formatUuid(sha256(new TextEncoder().encode(key)).slice(0, 16), 8)
 
 const decimal = (value: number): string => {
   const text = String(value)
@@ -133,6 +141,7 @@ export interface TurtleOptions {
   created: string
   issued: string
   dependencies?: JsonSchemaObject[]
+  reports?: ReportingDocument[]
 }
 
 /**
@@ -160,18 +169,30 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
   }
   const created = timestamp(options.created, 'creatiedatum')
   const issued = timestamp(options.issued, 'indieningsdatum')
-  const registry = new SchemaRegistry(schema, (options.dependencies ?? []).filter(item => item.$id !== schema.$id))
+  const dependencies = new Map<string | undefined, JsonSchemaObject>()
+  for (const dependency of [...(options.dependencies ?? []), ...(options.reports ?? []).flatMap(report =>
+    [report.schema, ...(report.dependencies ?? [])])]) {
+    if (dependency.$id === schema.$id) continue
+    const previous = dependencies.get(dependency.$id)
+    if (previous && previous !== dependency && canonicalJson(previous) !== canonicalJson(dependency)) {
+      throw new Error(`Conflicterend afhankelijk schema: ${dependency.$id}.`)
+    }
+    dependencies.set(dependency.$id, dependency)
+  }
+  const registry = new SchemaRegistry(schema, [...dependencies.values()])
+  const reports = new Map(reportingRecords(options.reports ?? []).map(record => [record.reference.id, record]))
+  const reportedSubjects = new Map<string, { subject: Quad['subject']; data: unknown }>()
   const graph = new Store()
   const recordedQualifiers = new Map<string, Map<string, string>>()
   let sequence = 0
   const fresh = () => blankNode(`report${++sequence}`)
   const add = (subject: Quad['subject'], predicate: string, value: Quad['object']) => graph.addQuad(quad(subject, namedNode(predicate), value))
   const typed = (subject: Quad['subject'], type: string) => add(subject, rdf + 'type', iri(type))
-  const mint = (className: string): Quad['subject'] => {
+  const mint = (className: string, key?: string): Quad['subject'] => {
     const definition = (uriTemplates as Record<string, { template: string; mappings: Record<string, string> }>)[className]
     if (!definition) throw new Error(`Geen URI-template voor ${className}.`)
     const values: Record<string, Quad['object']> = {
-      [riepr + 'localId']: literal(randomUuid()),
+      [riepr + 'localId']: literal(key === undefined ? randomUuid() : keyedUuid(`${className}:${key}`)),
       [riepr + 'productiejaar']: literal(String(options.year).padStart(4, '0'), namedNode(xsd + 'gYear')),
       [dct + 'created']: literal(created, namedNode(xsd + 'dateTime')),
       [dct + 'issued']: literal(issued, namedNode(xsd + 'dateTime')),
@@ -264,12 +285,38 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
     if (typeof value !== 'string') throw new Error('Ongeldige scalaire RDF-waarde.')
     return typeof datatype === 'string' && datatype.startsWith(xsd) ? literal(value, namedNode(datatype)) : literal(value)
   }
-  const visit = (node: JsonSchemaObject, value: unknown, inherited?: Quad['subject']): Quad['object'] => {
+  const visit = (
+    node: JsonSchemaObject, value: unknown, inherited?: Quad['subject'], scopes: ReferenceScope[] = [],
+  ): Quad['object'] => {
     node = resolve(node)
     if (Array.isArray(node.oneOf)) node = resolve(selectMemberVariant(node, value))
-    if (!object(value)) return scalar(node, value)
+    if (!object(value)) {
+      if (node['x-reference-records']) {
+        if (typeof value !== 'string') throw new Error('Ongeldige rapporteringssleutel.')
+        const report = reports.get(value)
+        const types = node['x-reference-types']
+        if (!report || report.document.year !== options.year || !Array.isArray(types) ||
+            !report.reference.types.some(type => types.includes(type))) {
+          throw new Error(`Gerapporteerd record ontbreekt in de geselecteerde context: ${value}.`)
+        }
+        const dependency = referenceDependency(node)
+        if (dependency && !referenceMatchesDependency(report.reference, dependency,
+          dependencySelections(dependency, scopes, resolve))) {
+          throw new Error('Het gerapporteerde record hoort niet bij de geselecteerde installatie.')
+        }
+        return reportedSubjects.get(value)?.subject ?? visit(report.schema, report.data)
+      }
+      return scalar(node, value)
+    }
+    const key = node['x-table-key'] === undefined ? undefined : reportingRecordId(node, value, options.year, resolve)
+    const previous = key === undefined ? undefined : reportedSubjects.get(key)
+    if (previous) {
+      if (canonicalJson(previous.data) !== canonicalJson(value)) throw new Error(`Conflicterende rapportering voor sleutel ${key}.`)
+      return previous.subject
+    }
     const className = node['x-jsonld-type']
-    const subject = typeof className === 'string' && Object.hasOwn(uriTemplates, className) ? mint(className) : fresh()
+    const subject = typeof className === 'string' && Object.hasOwn(uriTemplates, className) ? mint(className, key) : fresh()
+    if (key !== undefined) reportedSubjects.set(key, { subject, data: value })
     if (typeof className === 'string' && className !== '@id') typed(subject, className)
     if (className === prov + 'Agent') typed(subject, riepr + 'Uitvoerder')
     if (className === schemaOrg + 'PropertyValue' && Object.hasOwn(value, 'value')) addQualifiers(subject, node)
@@ -283,9 +330,10 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
     }
     if (className === sosa + 'Sampling' && node['x-ultimate-feature-of-interest-source'] !== undefined) {
       if (!inherited) throw new Error('Monstername zonder geërfd kenmerk van belang.')
-      add(subject, sosa + 'ultimateFeatureOfInterest', inherited)
+      add(subject, sosa + 'hasUltimateFeatureOfInterest', inherited)
     }
     const properties = node.properties ?? {}
+    const childScopes = [{ schema: node, value }, ...scopes]
     const constructed = Object.entries(properties).flatMap(([key, child]) => {
       if (!Object.hasOwn(value, key)) return []
       const declaration = mapping(schemaObject(child))
@@ -359,19 +407,59 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
       for (const entry of values) {
         const passesFeature = predicate === sosa + 'hasMember' || predicate === prov + 'used' ||
           predicate === sosa + 'isResultOf'
-        const target = visit(itemSchema, entry, passesFeature ? feature ?? inherited : undefined)
+        const target = visit(itemSchema, entry, passesFeature ? feature ?? inherited : undefined, childScopes)
         if (className === riepr + 'Observatie' && predicate === sosa + 'hasResult' &&
             (target.termType === 'NamedNode' || target.termType === 'BlankNode')) addQualifiers(target, node)
         add(subject, predicate, target)
       }
     }
+    if (className === riepr + 'Resultaat') {
+      const sources = new Set<string>()
+      for (const definition of [node, ...Object.keys(value).map(key => resolve(schemaObject(properties[key])))]) {
+        const source = definition['x-variable-concept']
+        if (source === undefined) continue
+        if (typeof source !== 'string' || !source) throw new Error('Ongeldige variabelebron.')
+        sources.add(source)
+      }
+      for (const source of sources) {
+        const selected = sourceSelections(source, childScopes, resolve)
+        if (selected.length !== 1) throw new Error(`Geen eenduidige variabele voor ${source}.`)
+        const variable = iri(selected[0])
+        const existing = graph.getObjects(subject, namedNode(schemaOrg + 'additionalProperty'), null)
+          .filter(property => graph.has(property, namedNode(schemaOrg + 'propertyID'), iri(source), null))
+        if (existing.length) {
+          const values = graph.getObjects(existing[0], namedNode(schemaOrg + 'value'), null)
+          if (existing.length !== 1 || values.length !== 1 || !values[0].equals(variable)) {
+            throw new Error(`Conflicterende variabele voor ${source}.`)
+          }
+          continue
+        }
+        const property = fresh()
+        typed(property, schemaOrg + 'PropertyValue')
+        add(subject, schemaOrg + 'additionalProperty', property)
+        add(property, schemaOrg + 'propertyID', iri(source))
+        add(property, schemaOrg + 'value', variable)
+      }
+    }
     return subject
   }
   if (!object(data)) throw new Error('Een rapport moet een JSON-object zijn.')
+  const conditionSources = new Set(Object.values(schema.properties ?? {}).flatMap(child => {
+    const condition = resolve(schemaObject(child))['x-visible-when']
+    return object(condition) && typeof condition.sourceConcept === 'string' ? [condition.sourceConcept] : []
+  }))
   for (const [key, value] of Object.entries(data)) {
     const child = schema.properties?.[key]
-    if (!child || !Array.isArray(value)) throw new Error(`Ongeldige rapporteringsgroep: ${key}.`)
-    const item = schemaObject(resolve(schemaObject(child)).items)
+    if (!child) throw new Error(`Ongeldige rapporteringsgroep: ${key}.`)
+    const definition = resolve(schemaObject(child))
+    const source = definition['x-source-concept']
+    if (definition.type === 'boolean' && definition['x-jsonld-id'] === undefined &&
+        typeof source === 'string' && conditionSources.has(source)) {
+      if (typeof value !== 'boolean') throw new Error(`Ongeldige UI-sturing: ${key}.`)
+      continue
+    }
+    if (!Array.isArray(value)) throw new Error(`Ongeldige rapporteringsgroep: ${key}.`)
+    const item = schemaObject(definition.items)
     for (const entry of value) visit(item, entry)
   }
   const quads = graph.getQuads(null, null, null, null)

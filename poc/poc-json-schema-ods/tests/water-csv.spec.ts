@@ -16,7 +16,7 @@ const compile = (name = 'lozing') => {
 };
 
 describe('Actual water CSV -> schema -> reversible ODS', () => {
-  it.each(['lozing', 'abnormale-lozing'])('round-trips populated and blank %s workbooks without losing zero or optional absence', async name => {
+  it.each(['lozing', 'abnormale-lozing', 'watergebruik'])('round-trips populated and blank %s workbooks without losing zero or optional absence', async name => {
     const plan = compile(name);
     const fixture = (await generationFixture(plan))!;
     const bytes = await new ODSGenerator().generate({ plan, ...fixture });
@@ -26,11 +26,16 @@ describe('Actual water CSV -> schema -> reversible ODS', () => {
     else expect(await new ODSImporter().import(blank, plan)).toEqual({});
     const sheets = await readOdf(bytes);
     expect(sheets.map(sheet => sheet.name)).toEqual([
-      'Voorblad', ...(name === 'lozing' ? ['Waterstromen', 'Stoffen in waterstromen'] : ['Abnormale lozingen']),
+      'Voorblad', ...(name === 'lozing' ? ['Waterstromen', 'Stoffen in waterstromen'] :
+        [name === 'watergebruik' ? 'Watergebruik' : 'Abnormale lozingen']),
       'Keuzelijsten', '_riepr',
     ]);
     for (const sheet of sheets.filter(sheet => !['Voorblad', 'Keuzelijsten', '_riepr'].includes(sheet.name))) {
       expect(sheet.rows[2].cells.some(cell => /Rij-ID|Bovenliggende|Entiteits-ID|@type|observedProperty|propertyID/.test(cell.text))).toBe(false);
+    }
+    if (name === 'watergebruik') {
+      expect(sheets.find(sheet => sheet.name === 'Watergebruik')!.rows[2].cells.map(cell => cell.text))
+        .toEqual(['Installatie *', 'Herkomst *', 'Onttrokken hoeveelheid *', 'Eenheid *']);
     }
   });
 
@@ -40,7 +45,7 @@ describe('Actual water CSV -> schema -> reversible ODS', () => {
     const bytes = await new ODSGenerator().generate({ plan, ...fixture });
     const tables = await readOdf(bytes);
     expect(tables.find(table => table.name === 'Waterstromen')!.rows[2].cells.map(cell => cell.text))
-      .toEqual(['Controleinrichting *', 'Debiet per jaar *', 'Eenheid *', 'Aantal dagen per jaar *', 'Eenheid *']);
+      .toEqual(['Controleinrichting *', 'Jaardebiet *', 'Eenheid *', 'Aantal dagen per jaar *', 'Eenheid *']);
     expect(tables.find(table => table.name === 'Stoffen in waterstromen')!.rows[2].cells.map(cell => cell.text))
       .toEqual(['Controleinrichting', 'Verontreinigende stof *', 'Meetfrequentie',
         'Gemiddelde concentratie', 'Eenheid', 'Totale jaarvracht', 'Eenheid',
@@ -72,7 +77,7 @@ describe('Actual water CSV -> schema -> reversible ODS', () => {
       const values = cells(rows[3]);
       const feature = record.columns.find(column => column.path.at(-1) === 'hasFeatureOfInterest')!;
       const pollutant = record.columns.find(column => column.title === 'Verontreinigende stof')!;
-      const duration = record.columns.find(column => column.title === 'Lozingsduur')!;
+      const duration = record.columns.find(column => column.title === 'Lozingsduur (dagen)')!;
       values[columns.indexOf(feature.id)] = odfCell('Controleinrichting 1');
       values[columns.indexOf(pollutant.id)] = odfCell('https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333');
       values[columns.indexOf(duration.id)] = odfCell(0);
@@ -88,7 +93,7 @@ describe('Actual water CSV -> schema -> reversible ODS', () => {
           value: 'https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333',
         }, {
           propertyID: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-lozingsduur',
-          value: 0, unitCode: 'https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_94',
+          value: 0,
         }] },
       }],
     });

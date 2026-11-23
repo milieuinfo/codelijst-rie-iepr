@@ -40,6 +40,12 @@ conceptscheme:operationeel_techniekmonstername,skos:ConceptScheme,,,Techniek mon
 techniekmonstername:aftap,skos:Concept,conceptscheme:operationeel_techniekmonstername,conceptscheme:operationeel_techniekmonstername,Aftap via monsterkraantje,,,,,,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,
 conceptscheme:herkomst_water,skos:ConceptScheme,,,Herkomst water,,,,,,,,,,,,,,,,,,,,,,
+water:herkomst-grondwater,skos:Concept,conceptscheme:herkomst_water,conceptscheme:herkomst_water,Grondwater,Water dat aan het grondwater wordt onttrokken.,,,,,,,,,,,,,,,,,,,,true,
+water:herkomst-hemelwater,skos:Concept,conceptscheme:herkomst_water,conceptscheme:herkomst_water,Hemelwater,Opgevangen hemelwater dat wordt gebruikt.,,,,,,,,,,,,,,,,,,,water:herkomst-grondwater,,
+water:herkomst-oppervlaktewater,skos:Concept,conceptscheme:herkomst_water,conceptscheme:herkomst_water,Oppervlaktewater,Water dat aan oppervlaktewater wordt onttrokken.,,,,,,,,,,,,,,,,,,,water:herkomst-hemelwater,,
+water:herkomst-openbare-distributie-drinkwater,skos:Concept,conceptscheme:herkomst_water,conceptscheme:herkomst_water,Openbare distributie (drinkwater),Drinkwater dat via de openbare distributie wordt geleverd.,,,,,,,,,,,,,,,,,,,water:herkomst-oppervlaktewater,,
+water:herkomst-openbare-distributie-industriewater,skos:Concept,conceptscheme:herkomst_water,conceptscheme:herkomst_water,Openbare distributie (industriewater),Industriewater dat via de openbare distributie wordt geleverd.,,,,,,,,,,,,,,,,,,,water:herkomst-openbare-distributie-drinkwater,,
+water:herkomst-andere,skos:Concept,conceptscheme:herkomst_water,conceptscheme:herkomst_water,"Andere (extern afvalwater, recupwater, ...)","Water uit andere bronnen, zoals extern afvalwater of recupwater.",,,,,,,,,,,,,,,,,,,water:herkomst-openbare-distributie-industriewater,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,
 conceptscheme:operationeel_zelfcontrole_meetfrequentie,skos:ConceptScheme,,,Meetfrequentie,,,,,,,,,,,,,,,,,,,,,,
 meetfrequentie:test,skos:Concept,conceptscheme:operationeel_zelfcontrole_meetfrequentie,conceptscheme:operationeel_zelfcontrole_meetfrequentie,Test,,,,,,,,,,,,,,,,,,,,,,
@@ -75,9 +81,9 @@ csor_variabele:V_321,,,,,,,,,,,,,,,,,,,,,,,,,,collectie:operationeel_parameters_
 csor_variabele:V_337,,,,,,,,,,,,,,,,,,,,,,,,,,collectie:operationeel_parameters_grondwater
 csor_variabele:V_329,,,,,,,,,,,,,,,,,,,,,,,,,,collectie:operationeel_parameters_grondwater
 ,,,,,,,,,,,,,,,,,,,,,,,,,,
-conceptscheme:operationeel_detectiegrensindicator,skos:ConceptScheme,,,Ligging ten opzichte van de detectielimiet,Een aanduiding of de meetwaarde boven of onder de detectielimiet ligt.,,,,,,,,,,,,,,,,,,,,,
-grondwater:detectiegrens-boven,skos:Concept,conceptscheme:operationeel_detectiegrensindicator,conceptscheme:operationeel_detectiegrensindicator,Boven,De meetwaarde ligt boven de detectielimiet.,,,,,,,,,,,,,,,,,,,,true,
-grondwater:detectiegrens-onder,skos:Concept,conceptscheme:operationeel_detectiegrensindicator,conceptscheme:operationeel_detectiegrensindicator,Onder,De meetwaarde ligt onder de detectielimiet.,,,,,,,,,,,,,,,,,,,grondwater:detectiegrens-boven,,
+conceptscheme:operationeel_detectiegrensindicator,skos:ConceptScheme,,,Ligging ten opzichte van de bepalingsgrens (LOQ),Een aanduiding of de gerapporteerde meetwaarde boven of onder de bepalingsgrens (LOQ) ligt.,,,,,,,,,,,,,,,,,,,,,
+grondwater:detectiegrens-boven,skos:Concept,conceptscheme:operationeel_detectiegrensindicator,conceptscheme:operationeel_detectiegrensindicator,Boven,De meetwaarde ligt boven de bepalingsgrens (LOQ).,,,,,,,,,,,,,,,,,,,,true,
+grondwater:detectiegrens-onder,skos:Concept,conceptscheme:operationeel_detectiegrensindicator,conceptscheme:operationeel_detectiegrensindicator,Onder,De gemeten waarde ligt onder de bepalingsgrens (LOQ); de gerapporteerde numerieke meetwaarde is de door het labo gebruikte LOQ.,,,,,,,,,,,,,,,,,,,grondwater:detectiegrens-boven,,
 ,,,,,,,,,,,,,,,,,,,,,,,,,,
 conceptscheme:operationeel_materiaalcodes,skos:ConceptScheme,,,Materiaalcodes,"Materiaalcodes voor geproduceerde grondstoffen, overgenomen uit het Teepak-referentiebestand voor productiejaar 2024.",,,,,,,,,,,,,,,,,,,,,
 grondstoffen:materiaalcode_m00_00,skos:Concept,conceptscheme:operationeel_materiaalcodes,conceptscheme:operationeel_materiaalcodes,M00.00 — andere niet gespecificeerde materialen waarvoor de OVAM een grondstofverklaring heeft afgeleverd,,,,,,,,,,,,,,,,,,,,,true,
@@ -245,3 +251,8 @@ csor_eenheid:E_18,,,,,,,,,,,,,,,,,,,,,,,,,,collectie:operationeel_eenheden_zelfc
 collectie:operationeel_eenheden_zelfcontrole_water_concentratie,skos:Collection,,,Eenheden concentratie zelfcontrole water,Toegelaten eenheden voor de concentratie en de grenswaarde bij de zelfcontrole van oppervlaktewater.,,,,,,,,,,,,,,,,,,,,,
 csor_eenheid:E_1,,,,,,,,,,,,,,,,,,,,,,,,,,collectie:operationeel_eenheden_zelfcontrole_water_concentratie
 csor_eenheid:E_3,,,,,,,,,,,,,,,,,,,,,,,,,,collectie:operationeel_eenheden_zelfcontrole_water_concentratie
+,,,,,,,,,,,,,,,,,,,,,,,,,,
+conceptscheme:operationeel_bron_meetfrequentie,skos:ConceptScheme,,,Bron meetfrequentie,De grondslag voor de gehanteerde meetfrequentie.,,,,,,,,,,,,,,,,,,,,,
+meetfrequentie:bron_vergunningsvoorwaarden,skos:Concept,conceptscheme:operationeel_bron_meetfrequentie,conceptscheme:operationeel_bron_meetfrequentie,Vergunningsvoorwaarden,De gehanteerde meetfrequentie volgt uit de vergunningsvoorwaarden.,,,,,,,,,,,,,,,,,,,,true,
+meetfrequentie:bron_basismeetfrequentie,skos:Concept,conceptscheme:operationeel_bron_meetfrequentie,conceptscheme:operationeel_bron_meetfrequentie,Basismeetfrequentie,De gehanteerde meetfrequentie is de basismeetfrequentie.,,,,,,,,,,,,,,,,,,,meetfrequentie:bron_vergunningsvoorwaarden,,
+meetfrequentie:bron_aangepaste_meetfrequentie,skos:Concept,conceptscheme:operationeel_bron_meetfrequentie,conceptscheme:operationeel_bron_meetfrequentie,Aangepaste meetfrequentie,De gehanteerde meetfrequentie is een aangepaste meetfrequentie.,,,,,,,,,,,,,,,,,,,meetfrequentie:bron_basismeetfrequentie,,

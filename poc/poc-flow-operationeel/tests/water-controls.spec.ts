@@ -8,7 +8,7 @@ test('edits annual water flows and nested pollutant results with numeric frequen
   await page.goto('/')
   await page.locator('select#productie-jaar').selectOption('2024')
   await page.locator('select#thema').selectOption({ label: 'Water' })
-  await page.locator('select#doorsnede').selectOption({ label: 'Lozing' })
+  await page.locator('select#doorsnede').selectOption({ label: 'Waterstroom' })
   await page.getByRole('button', { name: 'Rij toevoegen', exact: true }).click()
   const field = (path: string) => page.locator(`td[data-instance-path="/lozing/0/${path}"]`)
   await field('hasFeatureOfInterest').locator('select').selectOption({ label: 'Controleinrichting LP01 Industrieel glasfabriek' })
@@ -23,6 +23,8 @@ test('edits annual water flows and nested pollutant results with numeric frequen
   await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
   await expect(page.locator('#validated-json')).toBeVisible()
   const data = JSON.parse(await page.locator('#validated-json').innerText()).lozing[0]
+  expect(data.hasMember.find((member: { observedProperty?: string }) => member.observedProperty?.endsWith('/lozing-debiet'))
+    .hasResult.hasUnit).toBe('https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32')
   const parameter = data.hasMember.find((member: Record<string, unknown>) => member['@type'])
   expect(parameter).not.toHaveProperty('observedProperty')
   expect(parameter.additionalProperty).toContainEqual(expect.objectContaining({ value: 0 }))
@@ -32,9 +34,38 @@ test('edits annual water flows and nested pollutant results with numeric frequen
   await expect(page.locator('#validated-json')).not.toBeVisible()
 })
 
+test('reports water use per origin with a non-negative decimal m³ volume', async ({ page }) => {
+  await page.goto('/')
+  await page.locator('select#productie-jaar').selectOption('2024')
+  await page.locator('select#thema').selectOption({ label: 'Water' })
+  await page.locator('select#doorsnede').selectOption({ label: 'Watergebruik' })
+  await page.getByRole('button', { name: 'Rij toevoegen', exact: true }).click()
+  await page.getByRole('combobox', { name: 'Installatie', exact: true }).selectOption({ label: 'GLASOVEN' })
+  await page.getByRole('combobox', { name: 'Herkomst', exact: true }).selectOption({ label: 'Hemelwater' })
+  const volume = page.getByRole('spinbutton', { name: 'Onttrokken hoeveelheid', exact: true })
+  await volume.fill('0')
+  await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
+  const output = page.locator('#validated-json')
+  await expect(output).toBeVisible()
+  expect(JSON.parse(await output.innerText()).watergebruik[0].hasFeatureOfInterest)
+    .toBe('urn:demo:process:urn%3Ademo%3Ainstallatie%3A1')
+  expect(JSON.parse(await output.innerText()).watergebruik[0].hasResult).toEqual({
+    numericValue: 0,
+    hasUnit: 'https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32',
+    additionalProperty: [{
+      propertyID: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-herkomst',
+      value: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-hemelwater',
+    }],
+  })
+  await volume.fill('-0.5')
+  await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
+  await expect(output).not.toBeVisible()
+})
+
 for (const [section, label, filename, businessSheets] of [
-  ['lozing', 'Lozing', 'water-lozingen.ods', ['Waterstromen', 'Stoffen in waterstromen']],
+  ['lozing', 'Waterstroom', 'water-lozingen.ods', ['Waterstromen', 'Stoffen in waterstromen']],
   ['abnormale-lozing', 'Abnormale lozing', 'water-abnormale-lozingen.ods', ['Abnormale lozingen']],
+  ['watergebruik', 'Watergebruik', 'water-watergebruik.ods', ['Watergebruik']],
 ] as const) {
   test(`downloads and imports the indexed ${section} workbook`, async ({ page }) => {
     await page.goto('/')

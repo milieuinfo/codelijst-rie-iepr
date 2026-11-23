@@ -13,7 +13,7 @@ const load = (name: string) => JSON.parse(readFileSync(new URL(`../examples/${na
 const base = 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/'
 
 describe('Current water CSV reporting contract', () => {
-  it.each(['lozing', 'abnormale-lozing'])('validates the persistent %s example and preserves its presentation round trip', name => {
+  it.each(['lozing', 'abnormale-lozing', 'watergebruik'])('validates the persistent %s example and preserves its presentation round trip', name => {
     const schema = section(name)
     const data = load(`water/${name}`)
     expect(new SchemaValidator().validateInstance(schema, data).errors).toEqual([])
@@ -26,7 +26,7 @@ describe('Current water CSV reporting contract', () => {
 
   it('owns flow and days on the control-point record, with pollutant-specific results and procedures', () => {
     const schema = section('lozing')
-    expect(compileWater().subSchemas.map(section => section.name)).toEqual(['lozing', 'abnormale-lozing'])
+    expect(compileWater().subSchemas.map(section => section.name)).toEqual(['lozing', 'abnormale-lozing', 'watergebruik'])
     expect(schema['x-table-workbook']).toBe('water-lozingen.ods')
     const record = schemaObject(schemaObject(presentationSchema(schema).properties!.lozing).items)
     expect(record['x-table-sheet']).toBe('Waterstromen')
@@ -61,6 +61,57 @@ describe('Current water CSV reporting contract', () => {
       const data = load('water/lozing')
       data.lozing[0].hasMember[2].additionalProperty[1].value = value
       expect(new SchemaValidator().validateInstance(schema, data).valid).toBe(false)
+    }
+  })
+
+  it('accepts zero but rejects negative annual volumes, days, concentrations and loads', () => {
+    const schema = section('lozing')
+    const validator = new SchemaValidator()
+    for (const index of [0, 1, 2, 3]) {
+      for (const value of [0, -0.5]) {
+        const data = load('water/lozing')
+        const members = data.lozing[0].hasMember
+        const results = [members[0].hasResult, members[1].hasResult,
+          members[2].hasMember[0].hasResult, members[2].hasMember[1].hasResult]
+        results[index].numericValue = value
+        expect(validator.validateInstance(schema, data).valid, `result ${index}: ${value}`).toBe(value === 0)
+      }
+    }
+  })
+
+  it('validates abnormal discharge as a non-negative integer day count and a non-negative kg load', () => {
+    const schema = section('abnormale-lozing')
+    const validator = new SchemaValidator()
+    for (const value of [-1, 0.5]) {
+      const data = load('water/abnormale-lozing')
+      data.abnormaleLozing[0].hasResult.additionalProperty[1].value = value
+      expect(validator.validateInstance(schema, data).valid).toBe(false)
+    }
+    const data = load('water/abnormale-lozing')
+    data.abnormaleLozing[0].hasResult.numericValue = -0.5
+    expect(validator.validateInstance(schema, data).valid).toBe(false)
+  })
+
+  it('requires an installation process, agreed origin and non-negative decimal volume without allocation', () => {
+    const schema = section('watergebruik')
+    const validator = new SchemaValidator()
+    expect(schema['x-table-workbook']).toBe('water-watergebruik.ods')
+    expect(validator.validateInstance(schema, {}).valid).toBe(true)
+    for (const change of ['negative', 'origin', 'missing-origin', 'missing-volume', 'missing-process']) {
+      const data = load('water/watergebruik')
+      const result = data.watergebruik[0].hasResult
+      if (change === 'negative') result.numericValue = -0.5
+      if (change === 'origin') result.additionalProperty[0].value = base + 'unknown-origin'
+      if (change === 'missing-origin') result.additionalProperty = []
+      if (change === 'missing-volume') delete result.numericValue
+      if (change === 'missing-process') delete data.watergebruik[0].hasFeatureOfInterest
+      expect(validator.validateInstance(schema, data).valid, change).toBe(false)
+    }
+    for (const origin of ['grondwater', 'hemelwater', 'oppervlaktewater',
+      'openbare-distributie-drinkwater', 'openbare-distributie-industriewater', 'andere']) {
+      const data = load('water/watergebruik')
+      data.watergebruik[0].hasResult.additionalProperty[0].value = base + 'herkomst-' + origin
+      expect(validator.validateInstance(schema, data).errors).toEqual([])
     }
   })
 })

@@ -5,6 +5,7 @@ import { pointerToken, schemaObject, SchemaRegistry } from './schema-registry.js
 import { selectMemberVariant } from './member-layout.js'
 import { referenceMatchesSchema, referenceSnapshot } from './reference-schema.js'
 import { referenceDependency, dependencySelections, referenceMatchesDependency, type ReferenceScope } from './reference-dependency.js'
+import { recordKey } from './record-key.js'
 
 export interface ReferenceRecord {
   id: string
@@ -44,6 +45,8 @@ function canonical(value: unknown, identityOnly = true): string {
   if (Array.isArray(value)) return `[${value.map(item => canonical(item, identityOnly)).join(',')}]`
   return JSON.stringify(value)
 }
+
+export function canonicalJson(value: unknown): string { return canonical(value, false) }
 
 function timestamp(value: string): [number, string] | undefined {
   const instant = Date.parse(value)
@@ -120,6 +123,20 @@ export class SemanticValidator {
       }
       if (Array.isArray(value)) {
         if (!node.items) throw new Error(`Missing item schema at ${location.path}`)
+        const itemSchema = registry.resolve(schemaObject(node.items))
+        if (itemSchema['x-table-key'] !== undefined) {
+          const keys = new Set<string>()
+          value.forEach((item, index) => {
+            const entry = { value: item, schema: itemSchema, path: `${location.path}/${index}` }
+            try {
+              const key = recordKey(itemSchema, item, schema => registry.resolve(schema))
+              if (keys.has(key)) report(entry, 'identity', 'Duplicate source-declared record key.')
+              keys.add(key)
+            } catch (error) {
+              report(entry, 'identity', error instanceof Error ? error.message : String(error))
+            }
+          })
+        }
         value.forEach((item, index) => visit({
           value: item, schema: schemaObject(node.items), path: `${location.path}/${index}`,
         }, inherited, referenceScope, scopes))

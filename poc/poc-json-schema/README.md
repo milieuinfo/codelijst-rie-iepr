@@ -28,10 +28,10 @@ npm run generate
 
 The current source generates three groundwater sections and five air sections
 without incomplete mode: `Emissie`, `Verbruikte brandstof`, `Verbruikte stof`,
-`Geproduceerde stof` and `Afvalproduct`, plus water sections `Lozing` and
-`Abnormale lozing`, and one `Metingen` section for each of `Zelfcontrole lucht`
+`Geproduceerde stof` and `Afvalproduct`, plus water sections `Waterstroom` and
+`Abnormale lozing` and `Watergebruik`, and one `Metingen` section for each of `Zelfcontrole lucht`
 and `Zelfcontrole water`, plus `Geproduceerde grondstoffen` and
-`Inkomende grondstoffen`: six themes and fourteen sections in total.
+`Inkomende grondstoffen`: six themes and fifteen sections in total.
 Use `--theme Grondwater`, `--theme Lucht`, `--theme Water`,
 `--theme "Zelfcontrole lucht"`, `--theme "Zelfcontrole water"` or `--theme Grondstoffen`
 only when deliberately generating a filtered snapshot; omit `--theme` to keep
@@ -44,7 +44,11 @@ enable other themes. This is consumer profile configuration, not published RDF.
 Ordering, conditions, variable references, shared end-date ownership and the
 `Debieten` sheet name are source-authored. Each quality collection uses one
 `riepr:Monster`, with a required nonempty Monsternummer and an optional linked
-`sosa:Sampling` for sampling time and procedure. Parameter
+`sosa:Sampling` for sampling time and procedure. Analysis datetime belongs to each
+parameter Observation, not to the shared collection. Sample depth and sample
+reference points, and the eight-hour pre-stop level-measurement volume, are no
+longer reported. Debit volumes and meter readings are non-negative integers.
+Parameter
 characteristics are stored inside each implicit `riepr:Resultaat`.
 The Observation's source `observedProperty` column declares the published
 measurement concept as a hidden constant (Meetwaarde, Concentratie, ...).
@@ -52,9 +56,10 @@ Selected CSOR variables are result-owned `schema:PropertyValue` entries,
 identified by the existing selector concept; they are never observed properties.
 Result characteristics use the local names of their declared relations:
 `measurementMethod` (`schema:measurementMethod`), `type` (`dcterms:type`) and
-`additionalProperty` (`schema:additionalProperty`). The detection-limit indicator
+`additionalProperty` (`schema:additionalProperty`). The LOQ indicator
 is a `schema:PropertyValue` with a constant published `propertyID` and a selectable
-`value` (above/below); it is not a numeric detection threshold. UI/ODS retain the
+`value` (above/below); it is not a separate numeric threshold. Below LOQ, the
+numeric measurement records the laboratory's LOQ. UI/ODS retain the
 source labels and hide that constant identifier.
 The compiler does not repair inconsistent source facts, invent aliases or publish a
 partial section. `--allow-incomplete` reports each blocked section and fails without
@@ -83,13 +88,19 @@ Dependencies inherited across repeated detail boundaries, or whose parent is
 stored in a canonical discriminated PropertyValue array, still require semantic
 validation.
 The UI filters actual choices with the same shared dependency helper.
-Composite keys are source-declared transport layout, not domain identity;
-their presence does not assert uniqueness of a FeatureOfInterest in the ontology.
+Composite keys identify source-declared reporting rows within their section and
+reporting year; they do not assert uniqueness of a FeatureOfInterest in the ontology.
 Groundwater explicitly declares its existing Monsternummer as a one-component
 key. Air's approved key contains the existing point and unordered source set.
 These source declarations use the same schema/ODS contract. Air generates
 `lucht/emissie/schema.json` and `lucht-emissies.ods`; its parameter observations
 are repeated detail rows linked by point and source set.
+Each pollutant is a nested ObservationCollection with one shared variable choice,
+optional control laboratory and integer standard deviation (0–100%). Its
+independently optional concentration (mg/Nm³), mass flow (kg/h) and annual emission
+(t/year) are separate non-negative Observations with their own measurement
+concepts and Results. A pollutant record requires at least one such observation.
+Definitive frequency/method lists and improvement measures are not supplied by this slice.
 
 The four material sections report annual quantities directly per installation,
 separately from emission point/source combinations. Fuel uses fixed GJ; other
@@ -97,6 +108,17 @@ material quantities expand the shared seven-unit collection. Composition and
 fuel sulfur/ash percentages are optional; percentages are bounded to 0–100.
 Depth-first source ordering keeps flattened singleton results beside their owner
 after the installation picker in both the UI and ODS.
+Their existing installation and name fields form each section's `_table_key`.
+Selections targeting these keyed reporting groups carry `x-reference-records`;
+the shared reporting-record helper derives references from the source group,
+reporting year and canonical key, rather than inventing editable IDs.
+Emissions can select those actual reports through `prov:used`, constrained to
+their selected installation sources. The POC derives current-year choices from
+valid cached reports and generates personalized ODS downloads with those choices.
+Imports cannot resurrect renamed or deleted records from workbook metadata.
+RDF export resolves each key to the same reporting resource as a standalone
+export, including its triples; keyed resources derive stable existing localIds
+from their business key, while non-keyed resources retain random UUIDs.
 
 Water reports one annual discharge per control point. Flow and days stay on the
 parent; repeated pollutant collections own concentration/load observations and
@@ -107,7 +129,10 @@ are retained. Each pollutant collection needs at least one result observation.
 Nested member collections carry a hidden constant `@type` from their declared
 class, rather than an invented shared `observedProperty`; their numeric members
 retain ordinary observed-property discriminators.
-Water use, standalone method declarations, annual aggregates, balances and
+The separate `Watergebruik` section reports a required installation process,
+an origin from the six agreed choices and a required non-negative decimal volume in m³ per annual record,
+without allocation percentages. Its filename is `water-watergebruik.ods`.
+Annual aggregates, balances and
 combining independent sections into one workbook remain outside this slice.
 
 Self-control reports repeated measurements with a required point, exact
@@ -120,11 +145,13 @@ and ng/Nm³, water units mg/L and g/L. Optional mass flow uses kg/h or g/h;
 water limit values use mg/L or g/L without an invented range.
 Uncertainty is an optional integer 0–100 percent, not fixed 30% for air.
 Water sample type offers the three approved grab/time-composite/flow-composite
-options. Frequency and its source remain optional text pending definitive lists.
+options. Frequency remains optional text pending its definitive list. Its source
+is an optional selector using the agreed permit/basic/adapted-frequency choices.
 The [source guide](../../README.md#zelfcontrole-lucht-en-water) records the
 Confluence references and approved date/range deviations from those review-stage
-models. Existing pollutant lists are retained; full Teepak coverage, below-limit
-qualifiers and attachments remain outside this slice.
+models. An optional LOQ qualifier precedes concentration and reuses the groundwater
+list with unchanged published identifiers. Existing pollutant lists are retained;
+full Teepak coverage and attachments remain outside this slice.
 Structural type-scheme references expand to all member types, including subtypes;
 reference choices may match any permitted type.
 

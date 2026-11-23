@@ -21,21 +21,40 @@ export function dependencySelections(
   dependency: ReferenceDependency, scopes: ReferenceScope[],
   resolve: (schema: JsonSchemaObject) => JsonSchemaObject = schema => schema,
 ): string[] {
+  return sourceSelections(dependency.sourceConcept, scopes, resolve)
+}
+
+/** Resolve a source-authored selector without crossing independent repeated records. */
+export function sourceSelections(
+  sourceConcept: string, scopes: ReferenceScope[],
+  resolve: (schema: JsonSchemaObject) => JsonSchemaObject = schema => schema,
+): string[] {
+  const { value } = sourceSelection(sourceConcept, scopes, resolve)
+  if (value === undefined) return []
+  const values = Array.isArray(value) ? value : [value]
+  if (!values.every(item => typeof item === 'string')) throw new Error(`Invalid reference parent ${sourceConcept}.`)
+  return values
+}
+
+export function sourceSelection(
+  sourceConcept: string, scopes: ReferenceScope[],
+  resolve: (schema: JsonSchemaObject) => JsonSchemaObject = schema => schema,
+): ReferenceScope {
   for (const scope of scopes) {
-    const matches: unknown[] = []
+    const matches: ReferenceScope[] = []
     const visit = (input: JsonSchemaObject, value: unknown): void => {
       let schema = resolve(input)
       if (schema['x-property-layout'] || schema['x-member-layout']) {
         value = transformMemberData(schema, value, 'presentation')
         schema = presentationSchema(schema)
       }
-      if (schema['x-source-concept'] === dependency.sourceConcept) {
+      if (schema['x-source-concept'] === sourceConcept) {
         const path = schema['x-value-path']
         if (path !== undefined) {
           if (!Array.isArray(path) || !path.every(key => typeof key === 'string')) throw new Error('Invalid x-value-path.')
           for (const key of path) value = value && typeof value === 'object' ? Reflect.get(value, key) : undefined
         }
-        matches.push(value)
+        matches.push({ schema, value })
         return
       }
       if (schema.type !== 'object') return
@@ -44,16 +63,10 @@ export function dependencySelections(
       }
     }
     visit(scope.schema, scope.value)
-    if (matches.length > 1) throw new Error(`Ambiguous reference parent ${dependency.sourceConcept}.`)
-    if (matches.length) {
-      const value = matches[0]
-      if (value === undefined) return []
-      const values = Array.isArray(value) ? value : [value]
-      if (!values.every(item => typeof item === 'string')) throw new Error(`Invalid reference parent ${dependency.sourceConcept}.`)
-      return values
-    }
+    if (matches.length > 1) throw new Error(`Ambiguous reference parent ${sourceConcept}.`)
+    if (matches.length) return matches[0]
   }
-  throw new Error(`Unresolved reference parent ${dependency.sourceConcept}.`)
+  throw new Error(`Unresolved reference parent ${sourceConcept}.`)
 }
 
 export function referenceMatchesDependency(reference: ReferenceRecord, dependency: ReferenceDependency, selected: string[]): boolean {

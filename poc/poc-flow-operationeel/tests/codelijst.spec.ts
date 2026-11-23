@@ -33,7 +33,7 @@ test.describe('Schema-driven rich tables', () => {
   for (const [theme, label] of [
     ['Grondwater', 'Kwaliteitsmeting'], ['Grondwater', 'Onttrekking/infiltratie'], ['Grondwater', 'Peilmeting'],
     ['Lucht', 'Verbruikte brandstof'], ['Lucht', 'Emissie'],
-    ['Water', 'Lozing'], ['Water', 'Abnormale lozing'], ['Zelfcontrole water', 'Meting'],
+    ['Water', 'Waterstroom'], ['Water', 'Abnormale lozing'], ['Zelfcontrole water', 'Meting'],
   ]) {
     test(`renders and adds records for ${theme} / ${label} without runtime errors`, async ({ page }) => {
       await selectTheme(page, theme)
