@@ -14,7 +14,7 @@
             "type": "string",
             "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_naam",
-            "x-table-order": 61,
+            "x-table-order": 64,
             "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
             "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#label",
             "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
@@ -27,7 +27,7 @@
             "type": "string",
             "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_installatie",
-            "x-table-order": 60,
+            "x-table-order": 63,
             "x-reference-types": [
               "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
             ],
@@ -61,7 +61,7 @@
                           "minimum": 0,
                           "maximum": 100,
                           "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
-                          "x-table-order": 63,
+                          "x-table-order": 66,
                           "title": "S-gehalte",
                           "x-ui-first": true
                         },
@@ -106,7 +106,7 @@
                   ],
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_s",
-                  "x-table-order": 63,
+                  "x-table-order": 66,
                   "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
                   "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
                   "x-value-path": [
@@ -129,7 +129,7 @@
                           "minimum": 0,
                           "maximum": 100,
                           "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
-                          "x-table-order": 64,
+                          "x-table-order": 67,
                           "title": "AS-gehalte",
                           "x-ui-first": true
                         },
@@ -174,7 +174,7 @@
                   ],
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_as",
-                  "x-table-order": 64,
+                  "x-table-order": 67,
                   "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
                   "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
                   "x-value-path": [
@@ -195,7 +195,7 @@
                         "numericValue": {
                           "type": "number",
                           "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
-                          "x-table-order": 65,
+                          "x-table-order": 68,
                           "title": "Verbruik",
                           "description": "Verbruik van de brandstof in GJ",
                           "x-ui-first": true
@@ -241,7 +241,7 @@
                   ],
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_verbruik",
-                  "x-table-order": 65,
+                  "x-table-order": 68,
                   "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
                   "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
                   "x-value-path": [
@@ -341,7 +341,7 @@
                     "value": {
                       "type": "string",
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_aard",
-                      "x-table-order": 62,
+                      "x-table-order": 65,
                       "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                       "x-jsonld-id": "https://schema.org/value",
                       "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
@@ -353,7 +353,7 @@
                     "value"
                   ],
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_aard",
-                  "x-table-order": 62,
+                  "x-table-order": 65,
                   "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                   "x-jsonld-id": "https://schema.org/additionalProperty",
                   "title": "Aard en/of samenstelling",
@@ -396,7 +396,11 @@
         "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof",
         "x-table-workbook": "lucht-brandstoffen.ods",
         "x-table-sheet": "Brandstoffen",
-        "x-table-order": 59,
+        "x-table-key": [
+          "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_installatie",
+          "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof_naam"
+        ],
+        "x-table-order": 62,
         "title": "Verbruikte brandstof",
         "description": "Jaarlijks verbruik van een brandstof door een installatie.",
         "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie",
@@ -435,7 +439,7 @@
       "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie",
       "x-table-workbook": "lucht-brandstoffen.ods",
       "x-table-sheet": "Brandstoffen",
-      "x-table-order": 59
+      "x-table-order": 62
     }
   },
   "additionalProperties": false,

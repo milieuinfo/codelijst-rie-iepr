@@ -281,68 +281,6 @@
                       "properties": {
                         "propertyID": {
                           "type": "string",
-                          "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-volume-rust",
-                          "x-jsonld-id": "https://schema.org/propertyID",
-                          "x-jsonld-type": "@id",
-                          "x-ui-hidden": true
-                        },
-                        "value": {
-                          "type": "number",
-                          "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-volume-rust",
-                          "x-table-workbook": "grondwater-peilmetingen.ods",
-                          "x-table-sheet": "Peilmetingen",
-                          "x-table-order": 18,
-                          "x-relevant-observations": [
-                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting"
-                          ],
-                          "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
-                          "x-jsonld-id": "https://schema.org/value",
-                          "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#decimal",
-                          "title": "Volume (8u voor stilstand)"
-                        },
-                        "unitCode": {
-                          "type": "string",
-                          "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32",
-                          "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32",
-                          "x-jsonld-id": "https://schema.org/unitCode",
-                          "x-jsonld-type": "@id",
-                          "title": "Eenheid"
-                        }
-                      },
-                      "x-jsonld-type": "https://schema.org/PropertyValue",
-                      "x-value-path": [
-                        "value"
-                      ],
-                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-volume-rust",
-                      "x-table-workbook": "grondwater-peilmetingen.ods",
-                      "x-table-sheet": "Peilmetingen",
-                      "x-table-order": 18,
-                      "x-relevant-observations": [
-                        "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting"
-                      ],
-                      "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
-                      "x-jsonld-id": "https://schema.org/additionalProperty",
-                      "title": "Volume (8u voor stilstand)",
-                      "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-duur-stil",
-                      "x-ui-after": "peilmetingDuurStil",
-                      "x-visible-when": {
-                        "sourceConcept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-pomptoestand",
-                        "values": [
-                          "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/rust"
-                        ]
-                      }
-                    },
-                    {
-                      "type": "object",
-                      "additionalProperties": false,
-                      "required": [
-                        "propertyID",
-                        "value",
-                        "unitCode"
-                      ],
-                      "properties": {
-                        "propertyID": {
-                          "type": "string",
                           "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-volume-werking",
                           "x-jsonld-id": "https://schema.org/propertyID",
                           "x-jsonld-type": "@id",
@@ -353,7 +291,7 @@
                           "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-volume-werking",
                           "x-table-workbook": "grondwater-peilmetingen.ods",
                           "x-table-sheet": "Peilmetingen",
-                          "x-table-order": 19,
+                          "x-table-order": 18,
                           "x-relevant-observations": [
                             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting"
                           ],
@@ -378,15 +316,15 @@
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-volume-werking",
                       "x-table-workbook": "grondwater-peilmetingen.ods",
                       "x-table-sheet": "Peilmetingen",
-                      "x-table-order": 19,
+                      "x-table-order": 18,
                       "x-relevant-observations": [
                         "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting"
                       ],
                       "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
                       "x-jsonld-id": "https://schema.org/additionalProperty",
                       "title": "Volume (1 uur voor meting)",
-                      "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-volume-rust",
-                      "x-ui-after": "peilmetingVolumeRust",
+                      "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-duur-stil",
+                      "x-ui-after": "peilmetingDuurStil",
                       "x-visible-when": {
                         "sourceConcept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-pomptoestand",
                         "values": [
@@ -445,25 +383,6 @@
                         "propertyID": {
                           "type": "string",
                           "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-duur-stil",
-                          "x-jsonld-id": "https://schema.org/propertyID",
-                          "x-jsonld-type": "@id",
-                          "x-ui-hidden": true
-                        }
-                      }
-                    },
-                    "minContains": 0,
-                    "maxContains": 1
-                  },
-                  {
-                    "contains": {
-                      "type": "object",
-                      "required": [
-                        "propertyID"
-                      ],
-                      "properties": {
-                        "propertyID": {
-                          "type": "string",
-                          "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-volume-rust",
                           "x-jsonld-id": "https://schema.org/propertyID",
                           "x-jsonld-type": "@id",
                           "x-ui-hidden": true
@@ -640,103 +559,6 @@
                               ],
                               "properties": {
                                 "value": {
-                                  "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/rust"
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "required": [
-                        "additionalProperty"
-                      ],
-                      "properties": {
-                        "additionalProperty": {
-                          "contains": {
-                            "type": "object",
-                            "required": [
-                              "propertyID"
-                            ],
-                            "properties": {
-                              "propertyID": {
-                                "type": "string",
-                                "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-pomptoestand",
-                                "x-jsonld-id": "https://schema.org/propertyID",
-                                "x-jsonld-type": "@id",
-                                "x-ui-hidden": true
-                              }
-                            }
-                          },
-                          "minContains": 1
-                        }
-                      }
-                    }
-                  ]
-                },
-                "else": {
-                  "properties": {},
-                  "allOf": [
-                    {
-                      "properties": {
-                        "additionalProperty": {
-                          "items": {
-                            "if": {
-                              "type": "object",
-                              "required": [
-                                "propertyID"
-                              ],
-                              "properties": {
-                                "propertyID": {
-                                  "type": "string",
-                                  "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-volume-rust",
-                                  "x-jsonld-id": "https://schema.org/propertyID",
-                                  "x-jsonld-type": "@id",
-                                  "x-ui-hidden": true
-                                }
-                              }
-                            },
-                            "then": {
-                              "not": {}
-                            }
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "if": {
-                  "required": [],
-                  "properties": {},
-                  "allOf": [
-                    {
-                      "properties": {
-                        "additionalProperty": {
-                          "items": {
-                            "if": {
-                              "type": "object",
-                              "required": [
-                                "propertyID"
-                              ],
-                              "properties": {
-                                "propertyID": {
-                                  "type": "string",
-                                  "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-pomptoestand",
-                                  "x-jsonld-id": "https://schema.org/propertyID",
-                                  "x-jsonld-type": "@id",
-                                  "x-ui-hidden": true
-                                }
-                              }
-                            },
-                            "then": {
-                              "required": [
-                                "value"
-                              ],
-                              "properties": {
-                                "value": {
                                   "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/werking"
                                 }
                               }
@@ -845,32 +667,6 @@
                         ],
                         "properties": {
                           "value": {
-                            "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/rust"
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "else": {
-                    "properties": {
-                      "peilmetingVolumeRust": {
-                        "not": {}
-                      }
-                    }
-                  }
-                },
-                {
-                  "if": {
-                    "required": [
-                      "peilmetingPomptoestand"
-                    ],
-                    "properties": {
-                      "peilmetingPomptoestand": {
-                        "required": [
-                          "value"
-                        ],
-                        "properties": {
-                          "value": {
                             "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/werking"
                           }
                         }
@@ -912,29 +708,32 @@
                 "annotations": {}
               },
               {
-                "key": "peilmetingVolumeRust",
-                "repeatable": false,
-                "required": false,
-                "annotations": {}
-              },
-              {
                 "key": "peilmetingVolumeWerking",
                 "repeatable": false,
                 "required": false,
                 "annotations": {}
               }
             ]
+          },
+          "observedProperty": {
+            "type": "string",
+            "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-diepte",
+            "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+            "x-jsonld-type": "@id",
+            "x-ui-hidden": true
           }
         },
         "additionalProperties": false,
         "required": [
           "hasFeatureOfInterest",
-          "hasResult"
+          "hasResult",
+          "observedProperty"
         ],
         "x-table-sheet": "Peilmetingen",
         "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
         "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
         "x-table-order": 10,
+        "x-observed-property": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-diepte",
         "title": "Peilmeting",
         "description": "Een peilmeting van een pomp- of peilput.",
         "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking"

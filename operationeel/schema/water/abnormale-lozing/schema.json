@@ -15,8 +15,9 @@
             "properties": {
               "numericValue": {
                 "type": "number",
+                "minimum": 0,
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-jaarvracht",
-                "x-table-order": 105,
+                "x-table-order": 108,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
                 "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
                 "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#decimal",
@@ -39,7 +40,7 @@
               "comment": {
                 "type": "string",
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-verklaring",
-                "x-table-order": 106,
+                "x-table-order": 109,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                 "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#comment",
                 "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
@@ -49,8 +50,8 @@
               },
               "hasUnit": {
                 "type": "string",
-                "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_12",
-                "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_12",
+                "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_38",
+                "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_38",
                 "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
                 "x-jsonld-type": "@id",
                 "title": "Eenheid",
@@ -90,7 +91,7 @@
                             "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333"
                           ],
                           "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-stof",
-                          "x-table-order": 103,
+                          "x-table-order": 106,
                           "x-code-lists": [
                             "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_water"
                           ],
@@ -104,7 +105,7 @@
                         "value"
                       ],
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-stof",
-                      "x-table-order": 103,
+                      "x-table-order": 106,
                       "x-code-lists": [
                         "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_water"
                       ],
@@ -117,8 +118,7 @@
                       "additionalProperties": false,
                       "required": [
                         "propertyID",
-                        "value",
-                        "unitCode"
+                        "value"
                       ],
                       "properties": {
                         "propertyID": {
@@ -130,20 +130,13 @@
                         },
                         "value": {
                           "type": "integer",
+                          "minimum": 0,
                           "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-lozingsduur",
-                          "x-table-order": 104,
+                          "x-table-order": 107,
                           "x-source-datatype": "http://www.w3.org/2001/XMLSchema#integer",
                           "x-jsonld-id": "https://schema.org/value",
                           "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#integer",
-                          "title": "Lozingsduur"
-                        },
-                        "unitCode": {
-                          "type": "string",
-                          "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_94",
-                          "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_94",
-                          "x-jsonld-id": "https://schema.org/unitCode",
-                          "x-jsonld-type": "@id",
-                          "title": "Eenheid"
+                          "title": "Lozingsduur (dagen)"
                         }
                       },
                       "x-jsonld-type": "https://schema.org/PropertyValue",
@@ -151,10 +144,11 @@
                         "value"
                       ],
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-lozingsduur",
-                      "x-table-order": 104,
+                      "x-table-order": 107,
                       "x-source-datatype": "http://www.w3.org/2001/XMLSchema#integer",
                       "x-jsonld-id": "https://schema.org/additionalProperty",
-                      "title": "Lozingsduur",
+                      "title": "Lozingsduur (dagen)",
+                      "description": "Het aantal dagen in het rapporteringsjaar waarop de abnormale lozing van deze stof via de controleinrichting plaatsvond.",
                       "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-stof",
                       "x-ui-after": "abnormaleLozingStof"
                     }
@@ -213,7 +207,7 @@
             ],
             "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-resultaat",
-            "x-table-order": 102,
+            "x-table-order": 105,
             "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
             "title": "Resultaat abnormale lozing",
             "description": "Het resultaatrecord van de gerapporteerde abnormale lozing.",
@@ -245,7 +239,7 @@
             "type": "string",
             "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-feature",
-            "x-table-order": 101,
+            "x-table-order": 104,
             "x-relevant-observations": [
               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing"
             ],
@@ -293,7 +287,7 @@
         "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing",
         "x-table-workbook": "water-abnormale-lozingen.ods",
         "x-table-sheet": "Abnormale lozingen",
-        "x-table-order": 100,
+        "x-table-order": 103,
         "x-observed-property": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-jaarvracht",
         "title": "Abnormale lozing",
         "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing"
@@ -303,7 +297,7 @@
       "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing",
       "x-table-workbook": "water-abnormale-lozingen.ods",
       "x-table-sheet": "Abnormale lozingen",
-      "x-table-order": 100
+      "x-table-order": 103
     }
   },
   "additionalProperties": false,

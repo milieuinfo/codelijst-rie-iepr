@@ -101,7 +101,8 @@
                       "type": "object",
                       "properties": {
                         "numericValue": {
-                          "type": "number",
+                          "type": "integer",
+                          "minimum": 0,
                           "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
                           "x-table-order": 3,
                           "title": "Startmeterstand",
@@ -154,7 +155,7 @@
                   "x-relevant-observations": [
                     "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking"
                   ],
-                  "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                  "x-source-datatype": "http://www.w3.org/2001/XMLSchema#integer",
                   "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
                   "x-value-path": [
                     "hasResult",
@@ -190,7 +191,8 @@
                       "type": "object",
                       "properties": {
                         "numericValue": {
-                          "type": "number",
+                          "type": "integer",
+                          "minimum": 0,
                           "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
                           "x-table-order": 5,
                           "title": "Eindmeterstand",
@@ -244,7 +246,7 @@
                   "x-relevant-observations": [
                     "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking"
                   ],
-                  "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                  "x-source-datatype": "http://www.w3.org/2001/XMLSchema#integer",
                   "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
                   "x-value-path": [
                     "hasResult",
@@ -279,7 +281,8 @@
                       "type": "object",
                       "properties": {
                         "numericValue": {
-                          "type": "number",
+                          "type": "integer",
+                          "minimum": 0,
                           "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
                           "x-table-order": 7,
                           "title": "Hoeveelheid",
@@ -333,7 +336,7 @@
                   "x-relevant-observations": [
                     "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking"
                   ],
-                  "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                  "x-source-datatype": "http://www.w3.org/2001/XMLSchema#integer",
                   "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
                   "x-value-path": [
                     "hasResult",

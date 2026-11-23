@@ -14,7 +14,7 @@
             "type": "string",
             "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_naam",
-            "x-table-order": 68,
+            "x-table-order": 71,
             "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
             "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#label",
             "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
@@ -29,7 +29,7 @@
               "comment": {
                 "type": "string",
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_aard",
-                "x-table-order": 70,
+                "x-table-order": 73,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                 "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#comment",
                 "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
@@ -40,7 +40,7 @@
               "numericValue": {
                 "type": "number",
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_hoeveelheid",
-                "x-table-order": 71,
+                "x-table-order": 74,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
                 "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
                 "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#decimal",
@@ -78,7 +78,7 @@
             ],
             "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_resultaat",
-            "x-table-order": 69,
+            "x-table-order": 72,
             "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
             "title": "Resultaat verbruikte stof",
             "description": "Het resultaatrecord van de gerapporteerde verbruikte stof.",
@@ -89,7 +89,7 @@
             "type": "string",
             "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_installatie",
-            "x-table-order": 67,
+            "x-table-order": 70,
             "x-reference-types": [
               "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
             ],
@@ -104,19 +104,32 @@
             "title": "Installatie",
             "description": "Installatie waarvoor het jaarlijkse stofverbruik wordt gerapporteerd.",
             "x-ui-first": true
+          },
+          "observedProperty": {
+            "type": "string",
+            "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_hoeveelheid",
+            "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+            "x-jsonld-type": "@id",
+            "x-ui-hidden": true
           }
         },
         "additionalProperties": false,
         "required": [
           "label",
           "hasResult",
-          "hasFeatureOfInterest"
+          "hasFeatureOfInterest",
+          "observedProperty"
         ],
         "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
         "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof",
         "x-table-workbook": "lucht-verbruikte-stoffen.ods",
         "x-table-sheet": "Verbruikte stoffen",
-        "x-table-order": 66,
+        "x-table-key": [
+          "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_installatie",
+          "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_naam"
+        ],
+        "x-table-order": 69,
+        "x-observed-property": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_hoeveelheid",
         "title": "Verbruikte stof",
         "description": "Jaarlijks verbruik van een stof door een installatie.",
         "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof"
@@ -126,7 +139,7 @@
       "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/brandstof",
       "x-table-workbook": "lucht-verbruikte-stoffen.ods",
       "x-table-sheet": "Verbruikte stoffen",
-      "x-table-order": 66
+      "x-table-order": 69
     }
   },
   "additionalProperties": false,

@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://data.riepr.omgeving.vlaanderen.be/schema/2026/observatie/water/lozing/schema.json",
-  "title": "Lozing",
+  "title": "Waterstroom",
   "type": "object",
   "properties": {
     "lozing": {
       "type": "array",
-      "title": "Lozing",
+      "title": "Waterstroom",
       "items": {
         "type": "object",
         "properties": {
@@ -14,7 +14,7 @@
             "type": "string",
             "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/feature",
-            "x-table-order": 88,
+            "x-table-order": 91,
             "x-relevant-observations": [
               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing"
             ],
@@ -41,7 +41,7 @@
               ]
             },
             "title": "Controleinrichting",
-            "description": "De controleinrichting waarvoor de jaarlijkse lozing wordt gerapporteerd.",
+            "description": "De controleinrichting waarvoor de jaarlijkse wateropname of lozing wordt gerapporteerd.",
             "x-ui-first": true
           },
           "hasMember": {
@@ -59,15 +59,17 @@
                       "properties": {
                         "numericValue": {
                           "type": "number",
+                          "minimum": 0,
                           "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
-                          "x-table-order": 89,
-                          "title": "Debiet per jaar",
+                          "x-table-order": 92,
+                          "title": "Jaardebiet",
+                          "description": "De totale hoeveelheid water in kubieke meter die in het rapporteringsjaar via de controleinrichting werd opgenomen, geloosd of afgevoerd.",
                           "x-ui-first": true
                         },
                         "hasUnit": {
                           "type": "string",
-                          "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_50",
-                          "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_50",
+                          "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32",
+                          "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32",
                           "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
                           "x-jsonld-type": "@id",
                           "title": "Eenheid",
@@ -88,7 +90,7 @@
                       "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
                       "x-implicit-result": true,
                       "x-ui-hidden-container": true,
-                      "title": "Debiet per jaar"
+                      "title": "Jaardebiet"
                     },
                     "observedProperty": {
                       "type": "string",
@@ -105,7 +107,7 @@
                   ],
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-debiet",
-                  "x-table-order": 89,
+                  "x-table-order": 92,
                   "x-relevant-observations": [
                     "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing"
                   ],
@@ -116,7 +118,8 @@
                     "numericValue"
                   ],
                   "x-scalar-observation": true,
-                  "title": "Debiet per jaar",
+                  "title": "Jaardebiet",
+                  "description": "De totale hoeveelheid water in kubieke meter die in het rapporteringsjaar via de controleinrichting werd opgenomen, geloosd of afgevoerd.",
                   "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/feature",
                   "x-ui-after": "hasFeatureOfInterest"
                 },
@@ -128,8 +131,9 @@
                       "properties": {
                         "numericValue": {
                           "type": "integer",
+                          "minimum": 0,
                           "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
-                          "x-table-order": 90,
+                          "x-table-order": 93,
                           "title": "Aantal dagen per jaar",
                           "x-ui-first": true
                         },
@@ -174,7 +178,7 @@
                   ],
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-dagen",
-                  "x-table-order": 90,
+                  "x-table-order": 93,
                   "x-relevant-observations": [
                     "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing"
                   ],
@@ -204,7 +208,7 @@
                             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bepalingsmethode/voorgesteld"
                           ],
                           "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-bepalingsmethode",
-                          "x-table-order": 97,
+                          "x-table-order": 100,
                           "x-code-lists": [
                             "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_bepalingsmethode"
                           ],
@@ -241,7 +245,7 @@
                                       "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bepalingsmethodeclassificatie/vrachten"
                                     ],
                                     "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-bepalingsmethodeclassificatie",
-                                    "x-table-order": 98,
+                                    "x-table-order": 101,
                                     "x-code-lists": [
                                       "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_bepalingsmethodeclassificatie"
                                     ],
@@ -255,7 +259,7 @@
                                   "value"
                                 ],
                                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-bepalingsmethodeclassificatie",
-                                "x-table-order": 98,
+                                "x-table-order": 101,
                                 "x-code-lists": [
                                   "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_bepalingsmethodeclassificatie"
                                 ],
@@ -292,7 +296,7 @@
                       "additionalProperties": false,
                       "x-jsonld-type": "http://www.w3.org/ns/sosa/Procedure",
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-procedure",
-                      "x-table-order": 96,
+                      "x-table-order": 99,
                       "x-relevant-observations": [
                         "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter"
                       ],
@@ -327,8 +331,9 @@
                                 "properties": {
                                   "numericValue": {
                                     "type": "number",
+                                    "minimum": 0,
                                     "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
-                                    "x-table-order": 94,
+                                    "x-table-order": 97,
                                     "title": "Gemiddelde concentratie",
                                     "x-ui-first": true,
                                     "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
@@ -382,7 +387,7 @@
                             ],
                             "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-concentratie",
-                            "x-table-order": 94,
+                            "x-table-order": 97,
                             "x-relevant-observations": [
                               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter"
                             ],
@@ -417,8 +422,9 @@
                                 "properties": {
                                   "numericValue": {
                                     "type": "number",
+                                    "minimum": 0,
                                     "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
-                                    "x-table-order": 95,
+                                    "x-table-order": 98,
                                     "title": "Totale jaarvracht",
                                     "x-ui-first": true,
                                     "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
@@ -433,8 +439,8 @@
                                   },
                                   "hasUnit": {
                                     "type": "string",
-                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_12",
-                                    "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_12",
+                                    "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_38",
+                                    "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_38",
                                     "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
                                     "x-jsonld-type": "@id",
                                     "title": "Eenheid",
@@ -472,7 +478,7 @@
                             ],
                             "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-jaarvracht",
-                            "x-table-order": 95,
+                            "x-table-order": 98,
                             "x-relevant-observations": [
                               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter"
                             ],
@@ -576,7 +582,7 @@
                                   "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333"
                                 ],
                                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
-                                "x-table-order": 92,
+                                "x-table-order": 95,
                                 "x-relevant-observations": [
                                   "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter"
                                 ],
@@ -593,7 +599,7 @@
                               "value"
                             ],
                             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
-                            "x-table-order": 92,
+                            "x-table-order": 95,
                             "x-relevant-observations": [
                               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter"
                             ],
@@ -623,7 +629,7 @@
                                 "type": "integer",
                                 "minimum": 0,
                                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-meetfrequentie",
-                                "x-table-order": 93,
+                                "x-table-order": 96,
                                 "x-relevant-observations": [
                                   "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter"
                                 ],
@@ -638,7 +644,7 @@
                               "value"
                             ],
                             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-meetfrequentie",
-                            "x-table-order": 93,
+                            "x-table-order": 96,
                             "x-relevant-observations": [
                               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter"
                             ],
@@ -709,13 +715,13 @@
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter",
                   "x-table-workbook": "water-lozingen.ods",
                   "x-table-sheet": "Stoffen in waterstromen",
-                  "x-table-order": 91,
+                  "x-table-order": 94,
                   "x-relevant-observations": [
                     "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing"
                   ],
                   "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
                   "title": "Stoffen in waterstromen",
-                  "description": "De concentratie en de jaarvracht van een verontreinigende stof in de jaarlijkse lozing.",
+                  "description": "De concentratie en de jaarvracht van een verontreinigende stof in de jaarlijkse wateropname of lozing.",
                   "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-dagen",
                   "x-member-layout": [
                     {
@@ -820,12 +826,12 @@
         "x-table-key": [
           "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/feature"
         ],
-        "x-table-order": 87,
+        "x-table-order": 90,
         "x-relevant-feature-classes": [
           "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Emissie"
         ],
-        "title": "Lozing",
-        "description": "Jaarlijkse lozing per controleinrichting met het jaardebiet en de gerapporteerde verontreinigende stoffen.",
+        "title": "Waterstroom",
+        "description": "Jaarlijkse wateropname of lozing per controleinrichting met het jaardebiet en de gerapporteerde verontreinigende stoffen.",
         "x-ui-first": true,
         "x-member-layout": [
           {
@@ -854,7 +860,7 @@
               "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
               "x-table-workbook": "water-lozingen.ods",
               "x-table-sheet": "Stoffen in waterstromen",
-              "x-table-order": 91,
+              "x-table-order": 94,
               "x-ui-after": "lozingDagen"
             }
           }
@@ -866,7 +872,7 @@
       "x-ui-first": true,
       "x-table-workbook": "water-lozingen.ods",
       "x-table-sheet": "Waterstromen",
-      "x-table-order": 87
+      "x-table-order": 90
     }
   },
   "additionalProperties": false,

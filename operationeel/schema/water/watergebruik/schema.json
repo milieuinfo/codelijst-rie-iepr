@@ -1,0 +1,218 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.riepr.omgeving.vlaanderen.be/schema/2026/observatie/water/watergebruik/schema.json",
+  "title": "Watergebruik",
+  "type": "object",
+  "properties": {
+    "watergebruik": {
+      "type": "array",
+      "title": "Watergebruik",
+      "items": {
+        "type": "object",
+        "properties": {
+          "hasResult": {
+            "type": "object",
+            "properties": {
+              "numericValue": {
+                "type": "number",
+                "minimum": 0,
+                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-hoeveelheid",
+                "x-table-order": 114,
+                "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+                "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
+                "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#decimal",
+                "title": "Onttrokken hoeveelheid",
+                "description": "De totale hoeveelheid water in kubieke meter die in het voorbije kalenderjaar aan deze soort bron werd onttrokken.",
+                "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-herkomst",
+                "x-ui-after": "additionalProperty"
+              },
+              "hasUnit": {
+                "type": "string",
+                "const": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32",
+                "default": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32",
+                "x-jsonld-id": "http://qudt.org/schema/qudt/hasUnit",
+                "x-jsonld-type": "@id",
+                "title": "Eenheid",
+                "x-ui-after": "numericValue"
+              },
+              "additionalProperty": {
+                "type": "array",
+                "title": "Aanvullende eigenschappen",
+                "minItems": 1,
+                "x-jsonld-id": "https://schema.org/additionalProperty",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "propertyID",
+                        "value"
+                      ],
+                      "properties": {
+                        "propertyID": {
+                          "type": "string",
+                          "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-herkomst",
+                          "x-jsonld-id": "https://schema.org/propertyID",
+                          "x-jsonld-type": "@id",
+                          "x-ui-hidden": true
+                        },
+                        "value": {
+                          "type": "string",
+                          "minLength": 1,
+                          "enum": [
+                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-andere",
+                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-grondwater",
+                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-hemelwater",
+                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-openbare-distributie-drinkwater",
+                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-openbare-distributie-industriewater",
+                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-oppervlaktewater"
+                          ],
+                          "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-herkomst",
+                          "x-table-order": 113,
+                          "x-code-lists": [
+                            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/herkomst_water"
+                          ],
+                          "x-jsonld-id": "https://schema.org/value",
+                          "x-jsonld-type": "@id",
+                          "title": "Herkomst"
+                        }
+                      },
+                      "x-jsonld-type": "https://schema.org/PropertyValue",
+                      "x-value-path": [
+                        "value"
+                      ],
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-herkomst",
+                      "x-table-order": 113,
+                      "x-code-lists": [
+                        "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/herkomst_water"
+                      ],
+                      "x-jsonld-id": "https://schema.org/additionalProperty",
+                      "title": "Herkomst",
+                      "description": "De soort bron waaraan het water in het voorbije kalenderjaar werd onttrokken.",
+                      "x-ui-first": true
+                    }
+                  ]
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "type": "object",
+                      "required": [
+                        "propertyID"
+                      ],
+                      "properties": {
+                        "propertyID": {
+                          "type": "string",
+                          "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-herkomst",
+                          "x-jsonld-id": "https://schema.org/propertyID",
+                          "x-jsonld-type": "@id",
+                          "x-ui-hidden": true
+                        }
+                      }
+                    },
+                    "minContains": 1,
+                    "maxContains": 1
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false,
+            "dependentRequired": {
+              "numericValue": [
+                "hasUnit"
+              ]
+            },
+            "required": [
+              "numericValue",
+              "hasUnit",
+              "additionalProperty"
+            ],
+            "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-resultaat",
+            "x-table-order": 112,
+            "x-jsonld-id": "http://www.w3.org/ns/sosa/hasResult",
+            "title": "Resultaat watergebruik",
+            "description": "Het resultaat van het jaarlijkse watergebruik voor een soort herkomst.",
+            "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-feature",
+            "x-ui-after": "hasFeatureOfInterest",
+            "x-property-input-constraints": {
+              "dependentRequired": {
+                "numericValue": [
+                  "hasUnit"
+                ]
+              }
+            },
+            "x-property-layout": [
+              {
+                "key": "additionalProperty",
+                "repeatable": false,
+                "required": true,
+                "annotations": {}
+              }
+            ]
+          },
+          "hasFeatureOfInterest": {
+            "type": "string",
+            "minLength": 1,
+            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-feature",
+            "x-table-order": 111,
+            "x-relevant-observations": [
+              "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik"
+            ],
+            "x-reference-types": [
+              "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
+            ],
+            "x-reference-via": {
+              "relation": "http://www.w3.org/ns/ssn/implementedBy",
+              "types": [
+                "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Installatie"
+              ]
+            },
+            "x-jsonld-id": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
+            "x-jsonld-type": "@id",
+            "title": "Installatie",
+            "description": "De installatie waarvoor het jaarlijkse watergebruik per soort herkomst wordt gerapporteerd.",
+            "x-ui-first": true
+          },
+          "observedProperty": {
+            "type": "string",
+            "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-hoeveelheid",
+            "x-jsonld-id": "http://www.w3.org/ns/sosa/observedProperty",
+            "x-jsonld-type": "@id",
+            "x-ui-hidden": true
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "hasResult",
+          "hasFeatureOfInterest",
+          "observedProperty"
+        ],
+        "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
+        "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik",
+        "x-table-workbook": "water-watergebruik.ods",
+        "x-table-sheet": "Watergebruik",
+        "x-table-order": 110,
+        "x-observed-property": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-hoeveelheid",
+        "title": "Watergebruik",
+        "description": "De totale hoeveelheid water die per installatie in het voorbije kalenderjaar per soort herkomst werd onttrokken, zonder procentuele verdeling naar gebruik.",
+        "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing"
+      },
+      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik",
+      "x-array-kind": "records",
+      "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing",
+      "x-table-workbook": "water-watergebruik.ods",
+      "x-table-sheet": "Watergebruik",
+      "x-table-order": 110
+    }
+  },
+  "additionalProperties": false,
+  "x-theme-concept": "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_water",
+  "x-theme-slug": "water",
+  "x-theme-label": "Water",
+  "x-semantic-profile": "https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/",
+  "x-flow-transitions": [],
+  "x-section-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik",
+  "x-table-workbook": "water-watergebruik.ods"
+}
