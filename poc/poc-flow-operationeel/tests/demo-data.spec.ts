@@ -44,7 +44,6 @@ test('fills every reporting form with its fictional example data', async ({ page
     const graph = new Store(new Parser().parse(await page.locator('#validated-turtle').innerText()))
     const { namedNode } = DataFactory
     const sosa = 'http://www.w3.org/ns/sosa/'
-    const schema = 'https://schema.org/'
     const rdfType = namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type')
     const processClass = namedNode('https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces')
     for (const id of selections) {
@@ -57,16 +56,15 @@ test('fills every reporting form with its fictional example data', async ({ page
     for (const quad of graph.getQuads(null, namedNode(sosa + 'observedProperty'), null, null)) {
       expect(quad.object.value).not.toContain('/csor/variabele/')
     }
-    for (const [sectionPath, measurement, selector] of mappings.filter(([path]) => section.id.includes(path))) {
+    for (const [sectionPath, measurement] of mappings.filter(([path]) => section.id.includes(path))) {
       const concept = 'https://data.omgeving.vlaanderen.be/id/concept/riepr/'
       const observations = graph.getSubjects(namedNode(sosa + 'observedProperty'), namedNode(concept + measurement), null)
       expect(observations.length, sectionPath).toBeGreaterThan(0)
       for (const observation of observations) {
         const [result] = graph.getObjects(observation, namedNode(sosa + 'hasResult'), null)
-        const variables = graph.getObjects(result, namedNode(schema + 'additionalProperty'), null)
-          .filter(property => graph.countQuads(property, namedNode(schema + 'propertyID'), namedNode(concept + selector), null))
+        const variables = graph.getObjects(result, namedNode('https://data.riepr.omgeving.vlaanderen.be/ns/vocab#variabele'), null)
         expect(variables, `${section.id}: ${measurement}`).toHaveLength(1)
-        expect(graph.getObjects(variables[0], namedNode(schema + 'value'), null)[0].value).toContain('/csor/variabele/')
+        expect(variables[0].value).toContain('/csor/variabele/')
       }
     }
     if (section.id.includes('/grondwater/kwaliteitsmeting/')) {

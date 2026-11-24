@@ -8,17 +8,9 @@
         "numericValue": -2.125,
         "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_59",
         "measurementMethod": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-peilmethode/peillint",
-        "additionalProperty": [{
-          "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-referentiepunt",
-          "value": "urn:test:referentiepunt:maaiveld"
-        }, {
-          "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-pomptoestand",
-          "value": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/rust"
-        },
-        {
-          "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-duur-stil",
-          "value": "PT8H"
-        }]
+        "referentiepunt": "urn:test:referentiepunt:maaiveld",
+        "pomptoestand": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/rust",
+        "duurPompenStil": "PT8H"
       }
     },
     {
@@ -28,18 +20,12 @@
       "hasResult": {
         "numericValue": -3.25,
         "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_59",
-        "additionalProperty": [{
-          "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-referentiepunt",
-          "value": "urn:test:referentiepunt:maaiveld"
-        }, {
-          "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-pomptoestand",
-          "value": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/werking"
-        },
-        {
-          "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-volume-werking",
-          "value": 0.1234567890123,
-          "unitCode": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32"
-        }]
+        "referentiepunt": "urn:test:referentiepunt:maaiveld",
+        "pomptoestand": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/werking",
+        "volumeVoorMeting": {
+          "numericValue": 0.1234567890123,
+          "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32"
+        }
       }
     }
   ]

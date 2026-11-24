@@ -130,11 +130,11 @@ describe('Current air CSV reporting entry', () => {
     for (const change of ['no-variable', 'no-results', 'empty-lab', 'fractional-deviation', 'large-deviation']) {
       const invalid = structuredClone(data)
       const pollutant = invalid.emissie[0].hasMember[1]
-      if (change === 'no-variable') pollutant.additionalProperty.shift()
+      if (change === 'no-variable') delete pollutant.variabele
       if (change === 'no-results') pollutant.hasMember = []
       if (change === 'empty-lab') pollutant.wasAssociatedWith = {}
-      if (change === 'fractional-deviation') pollutant.additionalProperty[1].value = 0.5
-      if (change === 'large-deviation') pollutant.additionalProperty[1].value = 101
+      if (change === 'fractional-deviation') pollutant.additionalProperty[0].value = 0.5
+      if (change === 'large-deviation') pollutant.additionalProperty[0].value = 101
       expect(validator.validateInstance(schema, invalid).valid, change).toBe(false)
     }
   })

@@ -47,7 +47,7 @@ describe('Current water CSV reporting contract', () => {
     for (const change of ['pollutant', 'results', 'detail', 'flow']) {
       const invalid = structuredClone(data)
       const parameter = invalid.lozing[0].hasMember[2]
-      if (change === 'pollutant') parameter.additionalProperty.shift()
+      if (change === 'pollutant') delete parameter.variabele
       if (change === 'results') parameter.hasMember = []
       if (change === 'detail') invalid.lozing[0].hasMember.splice(2)
       if (change === 'flow') invalid.lozing[0].hasMember.shift()
@@ -59,7 +59,7 @@ describe('Current water CSV reporting contract', () => {
     const schema = section('lozing')
     for (const value of [-1, 1.5]) {
       const data = load('water/lozing')
-      data.lozing[0].hasMember[2].additionalProperty[1].value = value
+      data.lozing[0].hasMember[2].additionalProperty[0].value = value
       expect(new SchemaValidator().validateInstance(schema, data).valid).toBe(false)
     }
   })
@@ -84,7 +84,7 @@ describe('Current water CSV reporting contract', () => {
     const validator = new SchemaValidator()
     for (const value of [-1, 0.5]) {
       const data = load('water/abnormale-lozing')
-      data.abnormaleLozing[0].hasResult.additionalProperty[1].value = value
+      data.abnormaleLozing[0].hasResult.lozingsduur = value
       expect(validator.validateInstance(schema, data).valid).toBe(false)
     }
     const data = load('water/abnormale-lozing')
@@ -101,8 +101,8 @@ describe('Current water CSV reporting contract', () => {
       const data = load('water/watergebruik')
       const result = data.watergebruik[0].hasResult
       if (change === 'negative') result.numericValue = -0.5
-      if (change === 'origin') result.additionalProperty[0].value = base + 'unknown-origin'
-      if (change === 'missing-origin') result.additionalProperty = []
+      if (change === 'origin') result.herkomst = base + 'unknown-origin'
+      if (change === 'missing-origin') delete result.herkomst
       if (change === 'missing-volume') delete result.numericValue
       if (change === 'missing-process') delete data.watergebruik[0].hasFeatureOfInterest
       expect(validator.validateInstance(schema, data).valid, change).toBe(false)
@@ -110,7 +110,7 @@ describe('Current water CSV reporting contract', () => {
     for (const origin of ['grondwater', 'hemelwater', 'oppervlaktewater',
       'openbare-distributie-drinkwater', 'openbare-distributie-industriewater', 'andere']) {
       const data = load('water/watergebruik')
-      data.watergebruik[0].hasResult.additionalProperty[0].value = base + 'herkomst-' + origin
+      data.watergebruik[0].hasResult.herkomst = base + 'herkomst-' + origin
       expect(validator.validateInstance(schema, data).errors).toEqual([])
     }
   })

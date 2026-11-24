@@ -32,6 +32,11 @@ it('expands structural type schemes to all member types, including subtypes, and
 for (const [theme, slug] of [['Zelfcontrole lucht', 'zelfcontrole-lucht'], ['Zelfcontrole water', 'zelfcontrole-water']]) {
   const schema = compileTheme(JSON.parse(sourceSnapshot()), theme).subSchemas[0].schema
   const validator = new SchemaValidator()
+  const resultFor = (data: ReturnType<typeof load>, name: string) => {
+    const member = data.meting[0].hasMember[0]
+    return member.hasMember.find((item: { observedProperty: string }) =>
+      item.observedProperty.endsWith(`/parameter-${name}`)).hasResult
+  }
   describe(`${theme} CSV reporting contract`, () => {
     it('validates persistent examples with optional absence, unit selections and zero uncertainty', () => {
       const data = load(`${slug}/meting`)
@@ -51,10 +56,10 @@ for (const [theme, slug] of [['Zelfcontrole lucht', 'zelfcontrole-lucht'], ['Zel
         if (change === 'timestamp') delete measurement.resultTime
         if (change === 'date-only') measurement.resultTime = '2024-06-03'
         if (change === 'parameters') measurement.hasMember = []
-        if (change === 'pollutant') measurement.hasMember[0].hasResult.additionalProperty =
-          measurement.hasMember[0].hasResult.additionalProperty.filter((property: { propertyID: string }) =>
-            !property.propertyID.endsWith('/parameter-parameter'))
-        if (change === 'result') delete measurement.hasMember[0].hasResult
+        if (change === 'pollutant') {
+          delete measurement.hasMember[0].variabele
+        }
+        if (change === 'result') delete measurement.hasMember[0].hasMember[0].hasResult
         if (change === 'lab-name') delete measurement.wasAssociatedWith.label
         expect(validator.validateInstance(schema, data).valid, change).toBe(false)
       }
@@ -63,36 +68,33 @@ for (const [theme, slug] of [['Zelfcontrole lucht', 'zelfcontrole-lucht'], ['Zel
     it('rejects fractional and out-of-range uncertainty and negative concentration', () => {
       for (const value of [-1, 100.1, 101, 0.5]) {
         const data = load(`${slug}/meting`)
-        const uncertainty = data.meting[0].hasMember[0].hasResult.additionalProperty
-          .find((property: { propertyID: string }) => property.propertyID.endsWith('/parameter-meetonzekerheid'))
-        uncertainty.value = value
+        const result = resultFor(data, 'meetonzekerheid')
+        result.numericValue = value
         expect(validator.validateInstance(schema, data).valid).toBe(false)
       }
       const data = load(`${slug}/meting`)
-      data.meting[0].hasMember[0].hasResult.numericValue = -1
+      resultFor(data, 'concentratie').numericValue = -1
       expect(validator.validateInstance(schema, data).valid).toBe(false)
     })
 
     it('rejects units outside the approved collection and retains temporary text frequency', () => {
       const data = load(`${slug}/meting`)
-      const result = data.meting[0].hasMember[0].hasResult
+      const result = resultFor(data, 'concentratie')
       result.hasUnit = 'https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43'
       expect(validator.validateInstance(schema, data).valid).toBe(false)
       delete result.hasUnit
       delete result.numericValue
-      const frequency = result.additionalProperty.find((property: { propertyID: string }) =>
-        property.propertyID.endsWith('/parameter-meetfrequentie'))
-      frequency.value = 12
+      result.meetfrequentie = 12
       expect(validator.validateInstance(schema, data).valid).toBe(false)
     })
 
     it('uses the three agreed frequency sources as optional URI choices, not arbitrary text', () => {
       for (const source of ['vergunningsvoorwaarden', 'basismeetfrequentie', 'aangepaste_meetfrequentie', 'Other']) {
         const data = load(`${slug}/meting`)
-        const property = data.meting[0].hasMember[0].hasResult.additionalProperty
-          .find((property: { propertyID: string }) => property.propertyID.endsWith('/parameter-bron-meetfrequentie'))
-        property.value = source === 'Other' ? source :
+        const result = resultFor(data, 'concentratie')
+        const value = source === 'Other' ? source :
           `https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-meetfrequentie/bron_${source}`
+        result.bronMeetfrequentie = value
         expect(validator.validateInstance(schema, data).valid, source).toBe(source !== 'Other')
       }
     })

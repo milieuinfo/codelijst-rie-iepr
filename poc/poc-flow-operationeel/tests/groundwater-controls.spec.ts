@@ -21,7 +21,7 @@ test('uses the Flux date-time picker and stores local input as a valid UTC times
   await picker.getByRole('textbox').blur()
   await field(page, '/peilmeting/0/hasFeatureOfInterest').locator('select').selectOption({ label: 'Peilfilter PF-01' })
   await field(page, '/peilmeting/0/hasResult/numericValue').locator('input').fill('0')
-  await field(page, '/peilmeting/0/hasResult/peilmetingReferentiepunt/value').locator('select').selectOption({ index: 1 })
+  await field(page, '/peilmeting/0/hasResult/referentiepunt').locator('select').selectOption({ index: 1 })
   await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
   const output = page.locator('#validated-json')
   await expect(output).toBeVisible()
@@ -45,11 +45,7 @@ test('uses the Flux date-time picker and stores local input as a valid UTC times
   await expect(output).toBeVisible()
   const measurement = JSON.parse(await output.innerText()).peilmeting[0]
   expect(measurement.resultTime).toBe('2026-11-05T13:30:00.000Z')
-  expect(measurement.hasResult).not.toHaveProperty('peilmetingReferentiepunt')
-  expect(measurement.hasResult.additionalProperty).toEqual([expect.objectContaining({
-    propertyID: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-referentiepunt',
-    value: expect.any(String),
-  })])
+  expect(measurement.hasResult.referentiepunt).toEqual(expect.any(String))
   await picker.getByRole('button', { name: /datumkiezer/ }).click()
   await expect(picker.locator('.flatpickr-calendar')).toBeVisible()
   await expect(picker.locator('.flatpickr-hour')).toBeVisible()
@@ -201,7 +197,7 @@ test('opens collapsed details for validation errors without preventing manual co
   await expand.click()
   const details = page.locator('tr[data-row-details="/kwaliteitsmeting/0"]')
   await details.getByRole('button', { name: 'Rij toevoegen', exact: true }).click()
-  await field(page, '/kwaliteitsmeting/0/hasMember/0/hasResult/kwaliteitsmetingResultatenParameter/value')
+  await field(page, '/kwaliteitsmeting/0/hasMember/0/hasResult/variabele')
     .locator('select').selectOption({ index: 1 })
   await field(page, '/kwaliteitsmeting/0/hasMember/0/hasResult/numericValue')
     .locator('vl-input-field').evaluate(input =>

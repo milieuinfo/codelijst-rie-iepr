@@ -29,12 +29,14 @@ describe('Raw-material CSV -> reversible ODS', () => {
       : ['Voorblad', 'Inkomende grondstoffen', 'Keuzelijsten', '_riepr']);
     const headers = sheets.find(sheet => sheet.name === (name === 'grondstof' ? 'Bestemmingen' : 'Inkomende grondstoffen'))!
       .rows[2].cells.map(cell => cell.text.replace(/ \*$/, ''));
-    expect(headers).toContain(name === 'grondstof' ? 'Type bestemming' : 'Activiteit');
-    expect(headers).toContain(name === 'grondstof' ? 'Materiaalcode' : 'IEPR installatie');
+    expect(headers).toContain('IEPR installatie');
+    expect(headers).toContain('Activiteit');
+    expect(headers).toContain(name === 'grondstof' ? 'Materiaalcode' : 'Aard');
+    expect(headers).toContain(name === 'grondstof' ? 'Type bestemming' : 'Hoeveelheid');
     expect(headers.some(header => /Rij-ID|Bovenliggende|Entiteits-ID|propertyID/.test(header))).toBe(false);
   });
 
-  it('links multiple destinations by material URI, independently of parent order, and rejects duplicate/unknown keys', async () => {
+  it('links destinations by the installation/activity/material composite key and rejects duplicate/unknown keys', async () => {
     const plan = planFor('grondstof');
     const fixture = (await generationFixture(plan))!;
     const bytes = await new ODSGenerator().generate({ plan, ...fixture });
@@ -44,12 +46,20 @@ describe('Raw-material CSV -> reversible ODS', () => {
     expected.grondstof.reverse();
     expect(await new ODSImporter().import(reordered, plan)).toEqual(expected);
 
-    const duplicate = structuredClone(fixture.data) as { grondstof: { hasResult: { material: string } }[] };
-    duplicate.grondstof[1].hasResult.material = duplicate.grondstof[0].hasResult.material;
-    await expect(new ODSGenerator().generate({ plan, ...fixture, data: duplicate })).rejects.toThrow(/key|unique|duplicate/i);
+    const sameMaterial = structuredClone(fixture.data) as { grondstof: { hasResult: { material: string } }[] };
+    sameMaterial.grondstof[1].hasResult.material = sameMaterial.grondstof[0].hasResult.material;
+    const sameMaterialBytes = await new ODSGenerator().generate({ plan, ...fixture, data: sameMaterial });
+    expect(await new ODSImporter().import(sameMaterialBytes, plan)).toEqual(sameMaterial);
+
+    const duplicateKey = structuredClone(sameMaterial) as {
+      grondstof: { hasFeatureOfInterest: string; subject: string; hasResult: { material: string } }[];
+    };
+    duplicateKey.grondstof[1].hasFeatureOfInterest = duplicateKey.grondstof[0].hasFeatureOfInterest;
+    duplicateKey.grondstof[1].subject = duplicateKey.grondstof[0].subject;
+    await expect(new ODSGenerator().generate({ plan, ...fixture, data: duplicateKey })).rejects.toThrow(/key|unique|duplicate/i);
     const unknown = await modifyTable(bytes, 'Bestemmingen', rows => {
       const values = cells(rows[3]);
-      values[0] = odfCell('urn:unknown:material');
+      values[2] = odfCell('urn:unknown:material');
       return [...rows.slice(0, 3), row(values), ...rows.slice(4)];
     });
     await expect(new ODSImporter().import(unknown, plan)).rejects.toThrow();

@@ -40,7 +40,7 @@ describe('Raw-material CSV reporting contracts', () => {
 
   it('requires produced quantities, application, material and at least one destination only when production is true', () => {
     const schema = section('grondstof')
-    for (const change of ['material', 'numericValue', 'additionalProperty', 'destinations', 'false', 'missing-flag']) {
+    for (const change of ['material', 'numericValue', 'toepassingswijze', 'destinations', 'false', 'missing-flag']) {
       const data = load('grondstoffen/grondstof')
       if (change === 'destinations') data.grondstof[0].qualifiedAssociation = []
       else if (change === 'false') data.geproduceerd = false

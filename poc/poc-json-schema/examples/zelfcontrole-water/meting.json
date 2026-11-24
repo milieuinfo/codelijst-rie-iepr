@@ -6,60 +6,46 @@
       "wasAssociatedWith": { "label": "Fictief labo", "registration": "BE0123456789" },
       "hasMember": [
         {
-          "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-concentratie",
-          "hasResult": {
-            "numericValue": 0,
-            "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_1",
-            "additionalProperty": [
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-soort",
-                "value": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/schepmonster"
-              },
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-parameter",
-                "value": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333"
-              },
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-meetonzekerheid",
-                "value": 0,
-                "unitCode": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43"
-              },
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-meetfrequentie",
-                "value": "Eenmaal per maand"
-              },
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-grenswaarde",
-                "value": 0,
-                "unitCode": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_1"
-              },
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-bron-meetfrequentie",
-                "value": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-meetfrequentie/bron_aangepaste_meetfrequentie"
+          "@type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#ObservatieVerzameling",
+          "variabele": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333",
+          "hasMember": [
+            {
+              "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-meetonzekerheid",
+              "hasResult": {
+                "numericValue": 0,
+                "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43"
               }
-            ]
-          }
+            },
+            {
+              "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-concentratie",
+              "hasResult": {
+                "numericValue": 0,
+                "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_1",
+                "soortMonstername": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/schepmonster",
+                "meetfrequentie": "Eenmaal per maand",
+                "grenswaarde": {
+                  "numericValue": 0,
+                  "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_1"
+                },
+                "bronMeetfrequentie": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-meetfrequentie/bron_aangepaste_meetfrequentie"
+              }
+            }
+          ]
         },
         {
-          "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-concentratie",
-          "hasResult": {
-            "numericValue": 0.12,
-            "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_3",
-            "additionalProperty": [
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-soort",
-                "value": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/tijdsgebonden_mengmonster"
-              },
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-parameter",
-                "value": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_424"
-              },
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-loq",
-                "value": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-onder"
+          "@type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#ObservatieVerzameling",
+          "variabele": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_424",
+          "hasMember": [
+            {
+              "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-concentratie",
+              "hasResult": {
+                "numericValue": 0.12,
+                "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_3",
+                "soortMonstername": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/tijdsgebonden_mengmonster",
+                "bepalingsgrensindicator": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-onder"
               }
-            ]
-          }
+            }
+          ]
         }
       ]
     },
@@ -68,29 +54,27 @@
       "resultTime": "2024-06-03T14:30:00Z",
       "hasMember": [
         {
-          "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-concentratie",
-          "hasResult": {
-            "additionalProperty": [
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-soort",
-                "value": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/debietgebonden_mengmonster"
-              },
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-parameter",
-                "value": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333"
-              },
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-meetonzekerheid",
-                "value": 100,
-                "unitCode": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43"
-              },
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-grenswaarde",
-                "value": 0.05,
-                "unitCode": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_3"
+          "@type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#ObservatieVerzameling",
+          "variabele": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333",
+          "hasMember": [
+            {
+              "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-meetonzekerheid",
+              "hasResult": {
+                "numericValue": 100,
+                "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43"
               }
-            ]
-          }
+            },
+            {
+              "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-concentratie",
+              "hasResult": {
+                "soortMonstername": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/debietgebonden_mengmonster",
+                "grenswaarde": {
+                  "numericValue": 0.05,
+                  "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_3"
+                }
+              }
+            }
+          ]
         }
       ]
     }

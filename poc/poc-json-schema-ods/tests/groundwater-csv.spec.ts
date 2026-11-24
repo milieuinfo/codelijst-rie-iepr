@@ -134,10 +134,12 @@ describe('Groundwater CSV -> JSON Schema -> ODS', () => {
     const plan = compileTabularPlan(section.schema, { sourceSha256: hash(sourceSnapshot()) });
     const fixture = (await generationFixture(plan))!;
     const data = structuredClone(fixture.data) as {
-      kwaliteitsmeting: { hasMember: { hasResult: { additionalProperty?: unknown[] } }[] }[]
+      kwaliteitsmeting: { hasMember: { hasResult: { variabele?: string; bepalingsgrensindicator?: string } }[] }[]
     };
     const result = data.kwaliteitsmeting[0].hasMember[0].hasResult;
-    data.kwaliteitsmeting[0].hasMember[0].hasResult = { additionalProperty: result.additionalProperty };
+    data.kwaliteitsmeting[0].hasMember[0].hasResult = {
+      variabele: result.variabele, bepalingsgrensindicator: result.bepalingsgrensindicator,
+    };
     const workbook = await new ODSGenerator().generate({ plan, ...fixture, data });
     expect(await new ODSImporter().import(workbook, plan)).toEqual(data);
   });

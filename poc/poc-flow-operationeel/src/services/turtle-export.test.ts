@@ -261,38 +261,44 @@ describe('Turtle export', () => {
     const schema = compileTheme(JSON.parse(sourceSnapshot()), 'Water').subSchemas.find(item => item.name === 'lozing')!.schema
     const data = JSON.parse(readFileSync(new URL('../../../poc-json-schema/examples/water/lozing.json', import.meta.url), 'utf8'))
     const graph = new Store(new Parser().parse(exportTurtle(schema, data, options())))
-    const additional = namedNode('https://schema.org/additionalProperty')
-    const propertyID = namedNode('https://schema.org/propertyID')
-    const value = namedNode('https://schema.org/value')
     const aspect = namedNode('https://data.riepr.omgeving.vlaanderen.be/ns/vocab#kwantiteitsAspect')
     const resultAspects = graph.getSubjects(rdfType, namedNode(riepr + 'Resultaat'), null).flatMap(result =>
-      graph.getObjects(result, additional, null).flatMap(property =>
-        graph.has(property, propertyID, aspect, null) ? graph.getObjects(property, value, null).map(item => item.value) : []))
+      graph.getObjects(result, aspect, null).map(item => item.value))
     expect(resultAspects).toContain('https://data.omgeving.vlaanderen.be/id/concept/csor/kwantificeerbaaraspect/KWA_1')
     expect(resultAspects).toContain('https://data.omgeving.vlaanderen.be/id/concept/csor/kwantificeerbaaraspect/KWA_2')
   })
 
+  it('exports the self-control water variable and concentration qualifiers directly on the result', () => {
+    const schema = compileTheme(JSON.parse(sourceSnapshot()), 'Zelfcontrole water').subSchemas[0].schema
+    const data = JSON.parse(readFileSync(new URL('../../../poc-json-schema/examples/zelfcontrole-water/meting.json', import.meta.url), 'utf8'))
+    const graph = new Store(new Parser().parse(exportTurtle(schema, data, options())))
+    const vocab = 'https://data.riepr.omgeving.vlaanderen.be/ns/vocab#'
+    const result = graph.getSubjects(namedNode(vocab + 'variabele'),
+      namedNode('https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_424'), null)
+      .find(subject => graph.has(subject, rdfType, namedNode(riepr + 'Resultaat'), null))!
+    expect(graph.has(result, namedNode(vocab + 'drager'),
+      namedNode('https://data.omgeving.vlaanderen.be/id/concept/csor/drager/DR_1'), null)).toBe(true)
+    expect(graph.has(result, namedNode(vocab + 'kwantiteitsAspect'),
+      namedNode('https://data.omgeving.vlaanderen.be/id/concept/csor/kwantificeerbaaraspect/KWA_1'), null)).toBe(true)
+    expect(graph.has(result, namedNode(vocab + 'soortWaartbepaling'),
+      namedNode('https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/SWB_1'), null)).toBe(true)
+  })
+
   it.each([
-    ['Lucht', 'emissie', 'emissie_parameter_parameter'],
-    ['Water', 'lozing', 'lozing-stof'],
-  ])('copies each %s pollutant collection variable onto its own member results', (theme, name, selector) => {
+    ['Lucht', 'emissie'],
+    ['Water', 'lozing'],
+  ])('copies each %s pollutant collection variable onto its own member results', (theme, name) => {
     const schema = compileTheme(JSON.parse(sourceSnapshot()), theme).subSchemas.find(item => item.name === name)!.schema
     const data = JSON.parse(readFileSync(new URL(
       `../../../poc-json-schema/examples/${theme.toLowerCase()}/${name}.json`, import.meta.url), 'utf8'))
     if (name === 'emissie') {
       const second = structuredClone(data.emissie[0].hasMember[1])
-      second.additionalProperty[0].value = 'https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1060'
+      second.variabele = 'https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1060'
       data.emissie[0].hasMember.push(second)
     }
     const graph = new Store(new Parser().parse(exportTurtle(schema, data, options())))
-    const additional = namedNode('https://schema.org/additionalProperty')
-    const propertyID = namedNode('https://schema.org/propertyID')
-    const value = namedNode('https://schema.org/value')
-    const source = namedNode(`https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-${theme.toLowerCase()}/${selector}`)
-    const variables = (subject: Parameters<Store['getObjects']>[0]) =>
-      graph.getObjects(subject, additional, null)
-        .filter(property => graph.has(property, propertyID, source, null))
-        .flatMap(property => graph.getObjects(property, value, null))
+    const predicate = namedNode('https://data.riepr.omgeving.vlaanderen.be/ns/vocab#variabele')
+    const variables = (subject: Parameters<Store['getObjects']>[0]) => graph.getObjects(subject, predicate, null)
     const collections = graph.getSubjects(rdfType, namedNode(riepr + 'ObservatieVerzameling'), null)
       .filter(collection => variables(collection).length)
     expect(collections.length).toBeGreaterThanOrEqual(2)
@@ -310,7 +316,7 @@ describe('Turtle export', () => {
   it('rejects a missing ancestor variable instead of exporting unqualified quantity results', () => {
     const schema = compileTheme(JSON.parse(sourceSnapshot()), 'Lucht').subSchemas.find(item => item.name === 'emissie')!.schema
     const data = JSON.parse(readFileSync(new URL('../../../poc-json-schema/examples/lucht/emissie.json', import.meta.url), 'utf8'))
-    data.emissie[0].hasMember[1].additionalProperty.shift()
+    delete data.emissie[0].hasMember[1].variabele
     expect(() => exportTurtle(schema, data, options())).toThrow('variabele')
   })
 

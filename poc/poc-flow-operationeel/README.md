@@ -178,8 +178,8 @@ explicitly. `pnpm sync:schemas` performs just the schema runtime build and sync.
 
 The Turtle exporter uses the schema predicates and class annotations, constructs
 annual features from the selected processes (or connecting
-transport processes), and carries CSOR qualifiers as PropertyValues on results
-or their individual result characteristics. The UI's process graph and all its
+transport processes), and carries CSOR qualifiers and selected variables as direct
+vocab predicates on results. The UI's process graph and all its
 connections are **fictional**; production integration must provide a real graph.
 Missing processes, ambiguous transport paths and observations without required features or
 results produce errors rather than invented data. The browser does not run SHACL:

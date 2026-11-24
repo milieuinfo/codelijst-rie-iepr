@@ -222,11 +222,7 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
       if (previous && previous !== value) throw new Error(`Conflicterende CSOR-annotatie: ${annotation}.`)
       if (previous) continue
       recorded.set(name, value)
-      const property = fresh()
-      typed(property, schemaOrg + 'PropertyValue')
-      add(subject, schemaOrg + 'additionalProperty', property)
-      add(property, schemaOrg + 'propertyID', iri(`https://data.riepr.omgeving.vlaanderen.be/ns/vocab#${name}`))
-      add(property, schemaOrg + 'value', iri(value))
+      add(subject, turtlePrefixes.vocab + name, iri(value))
     }
   }
   const addProcessContext = (process: Quad['subject']) => {
@@ -425,20 +421,14 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
         const selected = sourceSelections(source, childScopes, resolve)
         if (selected.length !== 1) throw new Error(`Geen eenduidige variabele voor ${source}.`)
         const variable = iri(selected[0])
-        const existing = graph.getObjects(subject, namedNode(schemaOrg + 'additionalProperty'), null)
-          .filter(property => graph.has(property, namedNode(schemaOrg + 'propertyID'), iri(source), null))
+        const existing = graph.getObjects(subject, namedNode(turtlePrefixes.vocab + 'variabele'), null)
         if (existing.length) {
-          const values = graph.getObjects(existing[0], namedNode(schemaOrg + 'value'), null)
-          if (existing.length !== 1 || values.length !== 1 || !values[0].equals(variable)) {
+          if (existing.length !== 1 || !existing[0].equals(variable)) {
             throw new Error(`Conflicterende variabele voor ${source}.`)
           }
           continue
         }
-        const property = fresh()
-        typed(property, schemaOrg + 'PropertyValue')
-        add(subject, schemaOrg + 'additionalProperty', property)
-        add(property, schemaOrg + 'propertyID', iri(source))
-        add(property, schemaOrg + 'value', variable)
+        add(subject, turtlePrefixes.vocab + 'variabele', variable)
       }
     }
     return subject

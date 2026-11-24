@@ -52,15 +52,13 @@ Parameter
 characteristics are stored inside each implicit `riepr:Resultaat`.
 The Observation's source `observedProperty` column declares the published
 measurement concept as a hidden constant (Meetwaarde, Concentratie, ...).
-Selected CSOR variables are result-owned `schema:PropertyValue` entries,
-identified by the existing selector concept; they are never observed properties.
+Selected CSOR variables use the declared `riepr-vocab:variabele` predicate on a
+result or its enclosing collection; they are never observed properties.
 Result characteristics use the local names of their declared relations:
 `measurementMethod` (`schema:measurementMethod`), `type` (`dcterms:type`) and
-`additionalProperty` (`schema:additionalProperty`). The LOQ indicator
-is a `schema:PropertyValue` with a constant published `propertyID` and a selectable
-`value` (above/below); it is not a separate numeric threshold. Below LOQ, the
-numeric measurement records the laboratory's LOQ. UI/ODS retain the
-source labels and hide that constant identifier.
+direct vocab predicates for result characteristics. The LOQ indicator is a
+selectable value (above/below), not a separate numeric threshold. Below LOQ, the
+numeric measurement records the laboratory's LOQ.
 The compiler does not repair inconsistent source facts, invent aliases or publish a
 partial section. `--allow-incomplete` reports each blocked section and fails without
 publishing an index if all selected sections are blocked.
@@ -193,9 +191,9 @@ Every nested reporting property must declare a predicate, except explicit
 feature-construction inputs. A class alone is not a relation: the laboratory is
 `wasAssociatedWith` (`prov:wasAssociatedWith`) targeting its typed `prov:Agent`
 with `rdfs:label`. This PROV association also classifies its owning observation
-collection as an Activity. Reference points and the spui indicator use
-`schema:additionalProperty` / `schema:PropertyValue`, never concept URIs as
-predicates. All additional properties share one `additionalProperty` array,
+collection as an Activity. Reference points use their direct vocab predicate;
+the spui indicator uses `schema:additionalProperty` / `schema:PropertyValue`.
+Additional properties share one `additionalProperty` array,
 discriminated by constant `propertyID`; `contains` constraints preserve required
 fields and singleton cardinalities. Their source input layout, units and
 conditions are preserved by `x-property-layout`. Source omissions are errors,
@@ -403,10 +401,8 @@ uses `qudt:hasUnit`, including in scalar RIE-IEPR observation results.
 An explicit Resultaat group owns its children; the compiler does not hoist them
 onto the outer observation. Peilmeting uses `qudt:numericValue`/`qudt:hasUnit` for
 depth and `schema:measurementMethod` for method. Other result characteristics use
-`schema:additionalProperty` with `schema:PropertyValue`: `schema:propertyID` is the
-published field-concept URI, `schema:value` retains the typed/selected value, and
-`schema:unitCode` retains the applicable unit URI. This avoids inventing domain
-predicates. Generated `x-value-path` annotations identify wrapped scalar values
+the direct predicates declared in the CSV; quantities with their own units retain
+their value and unit in a quantity object. Generated `x-value-path` annotations identify wrapped scalar values
 for generic conditional validation; they are not authored source columns.
 Source conditions are read by their published SHACL predicates `sh:path` and
 `sh:hasValue`, including singleton JSON-LD `@set` values.

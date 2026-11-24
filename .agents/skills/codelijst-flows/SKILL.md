@@ -49,9 +49,9 @@ observation context. The supplied RIE-IEPR model declares
 `riepr:Resultaat` subclasses `sosa:Result` and `qb:Observation`: its result
 characteristics belong inside the source-owned Resultaat, not on the outer
 Observation. Use `qudt:numericValue`/`qudt:hasUnit` for its numeric value/unit.
-For characteristics without an appropriate specific predicate, the approved
-`schema:additionalProperty`/`schema:PropertyValue` pattern derives `propertyID`
-from the field concept and preserves its datatype/choices in `schema:value`.
+Result characteristics use their declared direct predicates. CSOR qualifiers and
+the selected variable are exported as `riepr-vocab:` predicates on each result;
+distinct quantities with different qualifiers need separate observations.
 Numeric scalar `riepr:Observatie` members also get a typed Resultaat when no unit
 is declared; do not guess a unit from the label. Standard-property selectors stay
 on their Observation, outside Resultaat. Related source variants remain distinct

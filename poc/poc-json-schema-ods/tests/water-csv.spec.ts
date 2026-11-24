@@ -88,13 +88,10 @@ describe('Actual water CSV -> schema -> reversible ODS', () => {
       abnormaleLozing: [{
         hasFeatureOfInterest: 'urn:demo:process:urn%3Atest%3Acontroleinrichting%3A1',
         observedProperty: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-jaarvracht',
-        hasResult: { additionalProperty: [{
-          propertyID: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-stof',
-          value: 'https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333',
-        }, {
-          propertyID: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/abnormale-lozing-lozingsduur',
-          value: 0,
-        }] },
+        hasResult: {
+          variabele: 'https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333',
+          lozingsduur: 0,
+        },
       }],
     });
   });

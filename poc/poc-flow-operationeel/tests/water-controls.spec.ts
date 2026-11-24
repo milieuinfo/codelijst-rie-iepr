@@ -16,9 +16,10 @@ test('edits annual water flows and nested pollutant results with numeric frequen
   await field('lozingDagen/hasResult/numericValue').getByRole('spinbutton').fill('365')
   await page.locator('td[data-row-expand="/lozing/0"]').getByRole('button').click()
   await page.locator('tr[data-row-details="/lozing/0"]').getByRole('button', { name: 'Rij toevoegen', exact: true }).click()
-  await field('lozingParameter/0/lozingStof/value').locator('select')
+  await field('lozingParameter/0/variabele').locator('select')
     .selectOption({ label: 'Cadmium' })
-  await field('lozingParameter/0/lozingMeetfrequentie/value').getByRole('spinbutton').fill('0')
+  const frequency = page.getByRole('spinbutton', { name: 'Meetfrequentie', exact: true })
+  await frequency.fill('0')
   await field('lozingParameter/0/lozingConcentratie/hasResult/numericValue').getByRole('spinbutton').fill('0')
   await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
   await expect(page.locator('#validated-json')).toBeVisible()
@@ -29,7 +30,7 @@ test('edits annual water flows and nested pollutant results with numeric frequen
   expect(parameter).not.toHaveProperty('observedProperty')
   expect(parameter.additionalProperty).toContainEqual(expect.objectContaining({ value: 0 }))
   expect(parameter.hasMember).toEqual([expect.objectContaining({ hasResult: expect.objectContaining({ numericValue: 0 }) })])
-  await field('lozingParameter/0/lozingMeetfrequentie/value').getByRole('spinbutton').fill('-1')
+  await frequency.fill('-1')
   await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
   await expect(page.locator('#validated-json')).not.toBeVisible()
 })
@@ -52,10 +53,7 @@ test('reports water use per origin with a non-negative decimal m³ volume', asyn
   expect(JSON.parse(await output.innerText()).watergebruik[0].hasResult).toEqual({
     numericValue: 0,
     hasUnit: 'https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_32',
-    additionalProperty: [{
-      propertyID: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-herkomst',
-      value: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-hemelwater',
-    }],
+    herkomst: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-hemelwater',
   })
   await volume.fill('-0.5')
   await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()

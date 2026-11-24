@@ -23,18 +23,19 @@ for (const [theme, slug, point, pollutant] of [
     await date.blur()
     await page.locator('td[data-row-expand="/meting/0"]').getByRole('button').click()
     await page.locator('tr[data-row-details="/meting/0"]').getByRole('button', { name: 'Rij toevoegen', exact: true }).click()
-    await field('hasMember/0/hasResult/parameterParameter/value').locator('select').selectOption({ label: pollutant })
-    await field('hasMember/0/hasResult/parameterLoq/value').locator('select').selectOption({ label: 'Onder' })
-    const concentration = field('hasMember/0/hasResult/numericValue')
+    const resultPath = 'hasMember/0/parameterConcentratieObservatie/hasResult'
+    await field('hasMember/0/variabele').locator('select').selectOption({ label: pollutant })
+    await field(`${resultPath}/bepalingsgrensindicator`).locator('select').selectOption({ label: 'Onder' })
+    const concentration = field(`${resultPath}/numericValue`)
     await concentration.getByRole('spinbutton').fill('0')
     await concentration.locator('select').selectOption({ index: 1 })
-    const uncertainty = field('hasMember/0/hasResult/parameterMeetonzekerheid/value')
+    const uncertainty = field('hasMember/0/parameterMeetonzekerheid/hasResult/numericValue')
     await uncertainty.getByRole('spinbutton').fill('0')
-    await field('hasMember/0/hasResult/parameterMeetfrequentie/value').getByRole('textbox').fill('Maandelijks')
-    await field('hasMember/0/hasResult/parameterBronMeetfrequentie/value').locator('select')
+    await field(`${resultPath}/meetfrequentie`).getByRole('textbox').fill('Maandelijks')
+    await field(`${resultPath}/bronMeetfrequentie`).locator('select')
       .selectOption({ label: 'Basismeetfrequentie' })
     if (slug === 'zelfcontrole-water') {
-      await field('hasMember/0/hasResult/parameterSoort/value').locator('select').selectOption({ label: 'Schepmonster' })
+      await field(`${resultPath}/soortMonstername`).locator('select').selectOption({ label: 'Schepmonster' })
     }
     await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
     const output = page.locator('#validated-json')
@@ -42,16 +43,11 @@ for (const [theme, slug, point, pollutant] of [
     const measurement = JSON.parse(await output.innerText()).meting[0]
     expect(measurement.resultTime).toBe('2024-06-03T08:30:00.000Z')
     expect(measurement).not.toHaveProperty('wasAssociatedWith')
-    expect(measurement.hasMember[0].hasResult.numericValue).toBe(0)
-    expect(measurement.hasMember[0].hasResult.additionalProperty).toContainEqual(expect.objectContaining({ value: 0 }))
-    expect(measurement.hasMember[0].hasResult.additionalProperty).toContainEqual({
-      propertyID: `https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-${slug}/parameter-loq`,
-      value: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-onder',
-    })
-    expect(measurement.hasMember[0].hasResult.additionalProperty).toContainEqual({
-      propertyID: `https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-${slug}/parameter-bron-meetfrequentie`,
-      value: 'https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-meetfrequentie/bron_basismeetfrequentie',
-    })
+    const result = measurement.hasMember[0].hasMember.find((item: { observedProperty: string }) =>
+      item.observedProperty.endsWith('/parameter-concentratie')).hasResult
+    expect(result.numericValue).toBe(0)
+    expect(result.bepalingsgrensindicator).toBe('https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-onder')
+    expect(result.bronMeetfrequentie).toBe('https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-meetfrequentie/bron_basismeetfrequentie')
     await uncertainty.getByRole('spinbutton').fill('101')
     await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
     await expect(output).not.toBeVisible()

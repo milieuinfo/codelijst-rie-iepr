@@ -137,7 +137,9 @@ describe('Quality collections, implicit results and grouped feature input', () =
     expect(validator.validateInstance(schema('kwaliteitsmeting'), data).valid).toBe(false)
     data.kwaliteitsmeting[0].hasMember[1].hasResult = { hasUnit: result.hasUnit }
     expect(validator.validateInstance(schema('kwaliteitsmeting'), data).valid).toBe(false)
-    data.kwaliteitsmeting[0].hasMember[1].hasResult = { additionalProperty: result.additionalProperty }
+    data.kwaliteitsmeting[0].hasMember[1].hasResult = {
+      variabele: result.variabele, bepalingsgrensindicator: result.bepalingsgrensindicator,
+    }
     expect(validator.validateInstance(schema('kwaliteitsmeting'), data).valid).toBe(true)
   })
 
@@ -186,20 +188,18 @@ describe('Quality collections, implicit results and grouped feature input', () =
   it('puts all non-SOSA parameter characteristics inside Resultaat and resolves the source variable', () => {
     expect(property(member, 'observedProperty')['x-jsonld-type']).toBe('@id')
     expect(property(cube, 'numericValue')['x-variable-location']).toEqual({
-      ancestorDepth: 0, path: ['kwaliteitsmetingResultatenParameter', 'value'],
+      ancestorDepth: 0, path: ['variabele'],
     })
     expect(cube['x-jsonld-type']).toBe(result.expandCurie!('riepr:Resultaat'))
-    for (const name of ['additionalProperty', 'measurementMethod', 'type']) {
+    for (const name of ['variabele', 'bepalingsgrensindicator', 'measurementMethod', 'type']) {
       expect(member.properties).not.toHaveProperty(name)
       expect(property(cube, name)['x-jsonld-id']).toBeDefined()
     }
     expect(property(cube, 'measurementMethod')['x-jsonld-id']).toBe('https://schema.org/measurementMethod')
     expect(property(cube, 'type')['x-jsonld-id']).toBe('http://purl.org/dc/terms/type')
-    const qualifier = propertyValue(cube, 'grondwater:kwaliteitsmeting-resultaten-limiet')
-    expect(qualifier['x-jsonld-type']).toBe('https://schema.org/PropertyValue')
-    expect(property(qualifier, 'propertyID').const).toBe(result.expandCurie!('grondwater:kwaliteitsmeting-resultaten-limiet'))
-    expect(property(qualifier, 'value')['x-jsonld-id']).toBe('https://schema.org/value')
-    expect(property(qualifier, 'value')['x-jsonld-type']).toBe('@id')
+    const qualifier = property(cube, 'bepalingsgrensindicator')
+    expect(qualifier['x-jsonld-id']).toBe('https://data.riepr.omgeving.vlaanderen.be/ns/vocab#bepalingsgrensindicator')
+    expect(qualifier['x-jsonld-type']).toBe('@id')
     for (const name of ['kwaliteitsmetingResultatenLimiet', 'kwaliteitsmetingResultatenMethode', 'kwaliteitsmetingBemonsteringsinstrument']) {
       expect(cube.properties).not.toHaveProperty(name)
     }
@@ -285,46 +285,36 @@ describe('Peilmeting RDF Cube result', () => {
   it('keeps depth, reference point and contextual characteristics in Resultaat, retaining declared predicates', () => {
     expect(cube['x-jsonld-id']).toBe('http://www.w3.org/ns/sosa/hasResult')
     expect(cube['x-jsonld-type']).toBe(result.expandCurie!('riepr:Resultaat'))
-    expect(cube.required).toEqual(expect.arrayContaining(['numericValue', 'hasUnit', 'additionalProperty']))
+    expect(cube.required).toEqual(expect.arrayContaining(['numericValue', 'hasUnit', 'referentiepunt']))
     expect(property(cube, 'measurementMethod')['x-jsonld-id']).toBe('https://schema.org/measurementMethod')
-    expect(property(propertyValue(cube, 'grondwater:peilmeting-referentiepunt'), 'value').type).toBe('string')
+    expect(property(cube, 'referentiepunt').type).toBe('string')
     expect(cube.allOf).toHaveLength(2)
     for (const name of ['numericValue', 'measurementMethod', 'peilmetingPomptoestand', 'peilmetingDuurStil']) {
       expect(level.properties).not.toHaveProperty(name)
     }
   })
 
-  it('encodes the source PropertyValue components with their own identifiers and units', () => {
-    for (const name of ['pomptoestand', 'duur-stil', 'volume-werking']) {
-      const node = propertyValue(cube, `grondwater:peilmeting-${name}`)
-      expect(node['x-jsonld-type']).toBe('https://schema.org/PropertyValue')
-      expect(node['x-jsonld-id']).toBe('https://schema.org/additionalProperty')
-      expect(property(node, 'propertyID')['x-jsonld-id']).toBe('https://schema.org/propertyID')
-      expect(property(node, 'propertyID')['x-ui-hidden']).toBe(true)
+  it('uses direct predicates for reference and pump state while preserving volume units', () => {
+    for (const name of ['pomptoestand', 'duurPompenStil']) {
+      expect(property(cube, name)['x-jsonld-id']).toBe(`https://data.riepr.omgeving.vlaanderen.be/ns/vocab#${name}`)
     }
-    expect(property(propertyValue(cube, 'grondwater:peilmeting-volume-werking'), 'unitCode')['x-jsonld-id']).toBe('https://schema.org/unitCode')
-    expect(property(propertyValue(cube, 'grondwater:peilmeting-duur-stil'), 'value').format).toBe('duration')
+    expect(property(property(cube, 'volumeVoorMeting'), 'hasUnit')['x-jsonld-id']).toBe('http://qudt.org/schema/qudt/hasUnit')
+    expect(property(cube, 'duurPompenStil').format).toBe('duration')
   })
 
   it('rejects inactive components, wrong identifiers/units/durations and root-owned result data', () => {
     const measurement = example('peilmeting').peilmeting[0]
     const value = measurement.hasResult
-    const changed = (suffix: string, change: Record<string, unknown>) => ({
-      ...measurement, hasResult: { ...value, additionalProperty: value.additionalProperty.map((entry: { propertyID: string }) =>
-        entry.propertyID.endsWith(`/peilmeting-${suffix}`) ? { ...entry, ...change } : entry) },
-    })
     for (const invalid of [
       { ...measurement, numericValue: -2 },
       { ...measurement, hasResult: { ...value, numericValue: { numericValue: -2 } } },
       { ...measurement, hasResult: { ...value, hasUnit: 'urn:wrong:unit' } },
-      { ...measurement, hasResult: { ...value, peilmetingReferentiepunt: ['urn:test:referentiepunt:maaiveld'] } },
+      { ...measurement, hasResult: { ...value, referentiepunt: ['urn:test:referentiepunt:maaiveld'] } },
+      { ...measurement, hasResult: { ...value, volumeVoorMeting:
+        example('peilmeting').peilmeting[1].hasResult.volumeVoorMeting } },
+      { ...measurement, hasResult: { ...value, duurPompenStil: '8 hours' } },
       { ...measurement, hasResult: { ...value, additionalProperty: [
-        ...value.additionalProperty, example('peilmeting').peilmeting[1].hasResult.additionalProperty.at(-1),
-      ] } },
-      changed('duur-stil', { value: '8 hours' }),
-      changed('duur-stil', { propertyID: 'urn:wrong:property' }),
-      { ...measurement, hasResult: { ...value, additionalProperty: [
-        ...value.additionalProperty, {
+        {
           propertyID: result.expandCurie!('grondwater:peilmeting-volume-rust'), value: 0,
           unitCode: result.expandCurie!('csor_eenheid:E_32'),
         },
@@ -332,8 +322,7 @@ describe('Peilmeting RDF Cube result', () => {
     ]) expect(validator.validateInstance(schema('peilmeting'), { peilmeting: [invalid] }).valid, JSON.stringify(invalid)).toBe(false)
     for (const name of ['numericValue', 'referentiepunt']) {
       const data = example('peilmeting')
-      if (name === 'referentiepunt') data.peilmeting[0].hasResult.additionalProperty.shift()
-      else delete data.peilmeting[0].hasResult[name]
+      delete data.peilmeting[0].hasResult[name]
       expect(validator.validateInstance(schema('peilmeting'), data).valid).toBe(false)
     }
     expect(validator.validateInstance(schema('peilmeting'), { peilmeting: [{}] }).valid).toBe(false)

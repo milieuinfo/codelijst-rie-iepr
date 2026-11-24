@@ -6,53 +6,42 @@
       "wasAssociatedWith": { "label": "Fictief labo", "registration": "BE0123456789" },
       "hasMember": [
         {
-          "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-concentratie",
-          "hasResult": {
-            "numericValue": 0,
-            "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_172",
-            "additionalProperty": [
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-soort",
-                "value": "Rookgas"
-              },
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-parameter",
-                "value": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1057"
-              },
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-meetonzekerheid",
-                "value": 0,
-                "unitCode": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43"
-              },
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-meetfrequentie",
-                "value": "Eenmaal per kwartaal"
-              },
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-massastroom",
-                "value": 0,
-                "unitCode": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_13"
-              },
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-bron-meetfrequentie",
-                "value": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-meetfrequentie/bron_vergunningsvoorwaarden"
+          "@type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#ObservatieVerzameling",
+          "variabele": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1057",
+          "hasMember": [
+            {
+              "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-meetonzekerheid",
+              "hasResult": { "numericValue": 0, "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43" }
+            },
+            {
+              "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-massastroom",
+              "hasResult": { "numericValue": 0, "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_13" }
+            },
+            {
+              "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-concentratie",
+              "hasResult": {
+                "numericValue": 0,
+                "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_172",
+                "soortMonster": "Rookgas",
+                "meetfrequentie": "Eenmaal per kwartaal",
+                "bronMeetfrequentie": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-meetfrequentie/bron_vergunningsvoorwaarden"
               }
-            ]
-          }
+            }
+          ]
         },
         {
-          "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-concentratie",
-          "hasResult": {
-            "numericValue": 0.02,
-            "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_327",
-            "additionalProperty": [{
-              "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-parameter",
-              "value": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1685"
-            }, {
-              "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-loq",
-              "value": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-onder"
-            }]
-          }
+          "@type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#ObservatieVerzameling",
+          "variabele": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1685",
+          "hasMember": [
+            {
+              "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-concentratie",
+              "hasResult": {
+                "numericValue": 0.02,
+                "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_327",
+                "bepalingsgrensindicator": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-onder"
+              }
+            }
+          ]
         }
       ]
     },
@@ -61,25 +50,18 @@
       "resultTime": "2024-06-03T14:30:00Z",
       "hasMember": [
         {
-          "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-concentratie",
-          "hasResult": {
-            "additionalProperty": [
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-parameter",
-                "value": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1057"
-              },
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-meetonzekerheid",
-                "value": 100,
-                "unitCode": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43"
-              },
-              {
-                "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-massastroom",
-                "value": 2.5,
-                "unitCode": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_18"
-              }
-            ]
-          }
+          "@type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#ObservatieVerzameling",
+          "variabele": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_1057",
+          "hasMember": [
+            {
+              "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-meetonzekerheid",
+              "hasResult": { "numericValue": 100, "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_43" }
+            },
+            {
+              "observedProperty": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-lucht/parameter-massastroom",
+              "hasResult": { "numericValue": 2.5, "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_18" }
+            }
+          ]
         }
       ]
     }

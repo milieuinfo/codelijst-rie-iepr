@@ -22,26 +22,34 @@ describe('Source-declared measurement concepts instead of variable-valued observ
     const root = schemaObject(schemaObject(Object.values(schema.properties!)[0]).items)
     const owner = root['x-source-concept'] === expand(observation) ? root
       : memberVariants(root).find(item => item['x-source-concept'] === expand(observation))!
+    if (theme.startsWith('Zelfcontrole ') || theme === 'Lucht') {
+      expect(schemaObject(owner.properties!.variabele)).toMatchObject({
+        'x-source-concept': expand(variable),
+        'x-jsonld-id': 'https://data.riepr.omgeving.vlaanderen.be/ns/vocab#variabele',
+        'x-jsonld-type': '@id',
+        enum: expect.arrayContaining([expect.stringContaining('/csor/variabele/')]),
+      })
+      const concentration = memberVariants(owner).find(item =>
+        schemaObject(item.properties!.observedProperty).const === expand(measurement))!
+      expect(schemaObject(concentration.properties!.hasResult).properties).toHaveProperty('numericValue')
+      return
+    }
     expect(schemaObject(owner.properties!.observedProperty).const).toBe(expand(measurement))
     const result = schemaObject(owner.properties!.hasResult)
-    const selector = schemaObject(schemaObject(result.properties!.additionalProperty).items).oneOf!.map(schemaObject)
-      .find(item => schemaObject(item.properties!.propertyID).const === expand(variable))!
-    expect(selector).toBeDefined()
-    expect(schemaObject(selector.properties!.value)).toMatchObject({
-      'x-jsonld-id': 'https://schema.org/value',
+    const selector = schemaObject(result.properties!.variabele)
+    expect(selector).toMatchObject({
+      'x-source-concept': expand(variable),
+      'x-jsonld-id': 'https://data.riepr.omgeving.vlaanderen.be/ns/vocab#variabele',
       'x-jsonld-type': '@id',
       enum: expect.arrayContaining([expect.stringContaining('/csor/variabele/')]),
     })
     expect(result.properties).toHaveProperty('numericValue')
     if (theme === 'Grondwater') {
-      const additionalProperty = [{
-        propertyID: expand(variable),
-        value: schemaObject(selector.properties!.value).enum![0],
-      }]
+      const variabele = selector.enum![0]
       const validator = new SchemaValidator()
-      expect(validator.validateInstance(result, { additionalProperty }).valid).toBe(false)
+      expect(validator.validateInstance(result, { variabele }).valid).toBe(false)
       expect(validator.validateInstance(result, {
-        additionalProperty, numericValue: 0, hasUnit: 'https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_1',
+        variabele, numericValue: 0, hasUnit: 'https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_1',
       }).valid).toBe(true)
     }
   })

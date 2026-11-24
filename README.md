@@ -512,7 +512,7 @@ Volgens PROV modelleert deze relatie de observatie(verzameling) tevens als activ
 `sosa:hasMember` wordt één ledenlijst, onderscheiden via `observedProperty`.
 `schema:additionalProperty` wordt eveneens één lijst, onderscheiden via
 `propertyID`. Dit geldt ook als er maar één soort aanvullende eigenschap is.
-Referentiepunt en Spui gebruiken dit `schema:PropertyValue`-patroon; hun
+Spui gebruikt dit `schema:PropertyValue`-patroon; zijn
 concept-URI identificeert de eigenschap, maar is **geen predicaat**.
 Verplichte aanvullende eigenschappen worden met `contains`/`minContains` op
 `propertyID` afgedwongen, net zoals verplichte observaties op `observedProperty`.
@@ -531,7 +531,7 @@ eigenschap van de onttrekking:
 
 `additionalProperty`, `propertyID`, `value` en eventueel `unitCode` verwijzen
 respectievelijk naar de gelijknamige `schema.org`-predicaten. Een geselecteerd
-referentiepunt gebruikt dezelfde vorm, maar met de referentie-URI als `value`.
+referentiepunt gebruikt het directe predicaat `riepr-vocab:referentiepunt`.
 Een herhaalbare selectie wordt meerdere PropertyValues met dezelfde `propertyID`,
 niet een array binnen één `value`. `maxContains: 1` geldt alleen voor een
 niet-herhaalbare eigenschap; een optionele eigenschap mag ontbreken.
@@ -565,8 +565,8 @@ tussen onafhankelijke herhaalbare records veroorzaken.
   `observedProperty`, `resultTime` en `usedProcedure` op de observatie.
   De CSV-kolom `observedProperty` op het observatieconcept verwijst naar het
   meetwaardeconcept en wordt een verborgen constante. De geselecteerde
-  CSOR-variabele is een `schema:PropertyValue` binnen Resultaat, niet de
-  geobserveerde eigenschap.
+  CSOR-variabele gebruikt `riepr-vocab:variabele` op het resultaat of de
+  omliggende verzameling, niet de geobserveerde eigenschap.
   Niet-SOSA-resultaatkenmerken verhuizen naar het impliciete Resultaat en
   behouden hun gedeclareerde relaties. Zonder relatie stopt de generatie met
   een bronfout; een concept-URI wordt niet als vervangend predicaat gebruikt.
@@ -589,13 +589,8 @@ onder `hasMember`; één resultaat ziet er bijvoorbeeld zo uit:
   "hasResult": {
     "numericValue": 0.12,
     "hasUnit": "https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/E_1",
-    "additionalProperty": [{
-      "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-parameter",
-      "value": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_246"
-    }, {
-      "propertyID": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-limiet",
-      "value": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-onder"
-    }],
+    "variabele": "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_246",
+    "bepalingsgrensindicator": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-onder",
     "measurementMethod": "Voorbeeldmethode",
     "type": "Labo"
   }
@@ -603,8 +598,8 @@ onder `hasMember`; één resultaat ziet er bijvoorbeeld zo uit:
 ```
 
 Dit is een fragment van rapportage-JSON, **geen zelfstandig JSON-LD-document**.
-Het bijbehorende schema geeft `additionalProperty` de relatie
-`schema:additionalProperty`, `measurementMethod` de relatie
+Het bijbehorende schema geeft `variabele` en `bepalingsgrensindicator` hun
+directe vocab-relaties, `measurementMethod` de relatie
 `schema:measurementMethod` en `type` de relatie `dcterms:type`.
 De detectielimietkeuze betekent boven/onder, niet een numerieke grens.
 `x-jsonld-*` beschrijft de mapping; een volledige RDF-serializer en permanente
