@@ -13,6 +13,28 @@
           "hasResult": {
             "type": "object",
             "properties": {
+              "herkomst": {
+                "type": "string",
+                "minLength": 1,
+                "enum": [
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-andere",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-grondwater",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-hemelwater",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-openbare-distributie-drinkwater",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-openbare-distributie-industriewater",
+                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-oppervlaktewater"
+                ],
+                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-herkomst",
+                "x-table-order": 113,
+                "x-code-lists": [
+                  "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/herkomst_water"
+                ],
+                "x-jsonld-id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#herkomst",
+                "x-jsonld-type": "@id",
+                "title": "Herkomst",
+                "description": "De soort bron waaraan het water in het voorbije kalenderjaar werd onttrokken.",
+                "x-ui-first": true
+              },
               "numericValue": {
                 "type": "number",
                 "minimum": 0,
@@ -24,7 +46,7 @@
                 "title": "Onttrokken hoeveelheid",
                 "description": "De totale hoeveelheid water in kubieke meter die in het voorbije kalenderjaar aan deze soort bron werd onttrokken.",
                 "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-herkomst",
-                "x-ui-after": "additionalProperty"
+                "x-ui-after": "herkomst"
               },
               "hasUnit": {
                 "type": "string",
@@ -34,87 +56,6 @@
                 "x-jsonld-type": "@id",
                 "title": "Eenheid",
                 "x-ui-after": "numericValue"
-              },
-              "additionalProperty": {
-                "type": "array",
-                "title": "Aanvullende eigenschappen",
-                "minItems": 1,
-                "x-jsonld-id": "https://schema.org/additionalProperty",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "object",
-                      "additionalProperties": false,
-                      "required": [
-                        "propertyID",
-                        "value"
-                      ],
-                      "properties": {
-                        "propertyID": {
-                          "type": "string",
-                          "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-herkomst",
-                          "x-jsonld-id": "https://schema.org/propertyID",
-                          "x-jsonld-type": "@id",
-                          "x-ui-hidden": true
-                        },
-                        "value": {
-                          "type": "string",
-                          "minLength": 1,
-                          "enum": [
-                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-andere",
-                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-grondwater",
-                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-hemelwater",
-                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-openbare-distributie-drinkwater",
-                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-openbare-distributie-industriewater",
-                            "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-oppervlaktewater"
-                          ],
-                          "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-herkomst",
-                          "x-table-order": 113,
-                          "x-code-lists": [
-                            "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/herkomst_water"
-                          ],
-                          "x-jsonld-id": "https://schema.org/value",
-                          "x-jsonld-type": "@id",
-                          "title": "Herkomst"
-                        }
-                      },
-                      "x-jsonld-type": "https://schema.org/PropertyValue",
-                      "x-value-path": [
-                        "value"
-                      ],
-                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-herkomst",
-                      "x-table-order": 113,
-                      "x-code-lists": [
-                        "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/herkomst_water"
-                      ],
-                      "x-jsonld-id": "https://schema.org/additionalProperty",
-                      "title": "Herkomst",
-                      "description": "De soort bron waaraan het water in het voorbije kalenderjaar werd onttrokken.",
-                      "x-ui-first": true
-                    }
-                  ]
-                },
-                "allOf": [
-                  {
-                    "contains": {
-                      "type": "object",
-                      "required": [
-                        "propertyID"
-                      ],
-                      "properties": {
-                        "propertyID": {
-                          "type": "string",
-                          "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-herkomst",
-                          "x-jsonld-id": "https://schema.org/propertyID",
-                          "x-jsonld-type": "@id",
-                          "x-ui-hidden": true
-                        }
-                      }
-                    },
-                    "minContains": 1,
-                    "maxContains": 1
-                  }
-                ]
               }
             },
             "additionalProperties": false,
@@ -124,9 +65,9 @@
               ]
             },
             "required": [
+              "herkomst",
               "numericValue",
-              "hasUnit",
-              "additionalProperty"
+              "hasUnit"
             ],
             "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Resultaat",
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-resultaat",
@@ -135,22 +76,7 @@
             "title": "Resultaat watergebruik",
             "description": "Het resultaat van het jaarlijkse watergebruik voor een soort herkomst.",
             "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-feature",
-            "x-ui-after": "hasFeatureOfInterest",
-            "x-property-input-constraints": {
-              "dependentRequired": {
-                "numericValue": [
-                  "hasUnit"
-                ]
-              }
-            },
-            "x-property-layout": [
-              {
-                "key": "additionalProperty",
-                "repeatable": false,
-                "required": true,
-                "annotations": {}
-              }
-            ]
+            "x-ui-after": "hasFeatureOfInterest"
           },
           "hasFeatureOfInterest": {
             "type": "string",

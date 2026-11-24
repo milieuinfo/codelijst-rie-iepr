@@ -196,6 +196,30 @@
                 {
                   "type": "object",
                   "properties": {
+                    "variabele": {
+                      "type": "string",
+                      "minLength": 1,
+                      "enum": [
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_424",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_231",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_46",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_316",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_351",
+                        "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333"
+                      ],
+                      "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
+                      "x-table-order": 95,
+                      "x-relevant-observations": [
+                        "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter"
+                      ],
+                      "x-code-lists": [
+                        "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_water"
+                      ],
+                      "x-jsonld-id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#variabele",
+                      "x-jsonld-type": "@id",
+                      "title": "Verontreinigende stof",
+                      "x-ui-first": true
+                    },
                     "usedProcedure": {
                       "type": "object",
                       "properties": {
@@ -337,12 +361,11 @@
                                     "title": "Gemiddelde concentratie",
                                     "x-ui-first": true,
                                     "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
-                                    "x-variabele": "lozingStof",
+                                    "x-variabele": "variabele",
                                     "x-variable-location": {
                                       "ancestorDepth": 2,
                                       "path": [
-                                        "lozingStof",
-                                        "value"
+                                        "variabele"
                                       ]
                                     }
                                   },
@@ -404,13 +427,12 @@
                             "title": "Gemiddelde concentratie",
                             "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-meetfrequentie",
                             "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
-                            "x-ui-after": "lozingMeetfrequentie",
-                            "x-variabele": "lozingStof",
+                            "x-ui-after": "additionalProperty",
+                            "x-variabele": "variabele",
                             "x-variable-location": {
                               "ancestorDepth": 0,
                               "path": [
-                                "lozingStof",
-                                "value"
+                                "variabele"
                               ]
                             }
                           },
@@ -428,12 +450,11 @@
                                     "title": "Totale jaarvracht",
                                     "x-ui-first": true,
                                     "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
-                                    "x-variabele": "lozingStof",
+                                    "x-variabele": "variabele",
                                     "x-variable-location": {
                                       "ancestorDepth": 2,
                                       "path": [
-                                        "lozingStof",
-                                        "value"
+                                        "variabele"
                                       ]
                                     }
                                   },
@@ -496,12 +517,11 @@
                             "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-concentratie",
                             "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
                             "x-ui-after": "lozingConcentratie",
-                            "x-variabele": "lozingStof",
+                            "x-variabele": "variabele",
                             "x-variable-location": {
                               "ancestorDepth": 0,
                               "path": [
-                                "lozingStof",
-                                "value"
+                                "variabele"
                               ]
                             }
                           }
@@ -565,61 +585,6 @@
                             "properties": {
                               "propertyID": {
                                 "type": "string",
-                                "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
-                                "x-jsonld-id": "https://schema.org/propertyID",
-                                "x-jsonld-type": "@id",
-                                "x-ui-hidden": true
-                              },
-                              "value": {
-                                "type": "string",
-                                "minLength": 1,
-                                "enum": [
-                                  "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_424",
-                                  "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_231",
-                                  "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_46",
-                                  "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_316",
-                                  "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_351",
-                                  "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333"
-                                ],
-                                "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
-                                "x-table-order": 95,
-                                "x-relevant-observations": [
-                                  "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter"
-                                ],
-                                "x-code-lists": [
-                                  "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_water"
-                                ],
-                                "x-jsonld-id": "https://schema.org/value",
-                                "x-jsonld-type": "@id",
-                                "title": "Verontreinigende stof"
-                              }
-                            },
-                            "x-jsonld-type": "https://schema.org/PropertyValue",
-                            "x-value-path": [
-                              "value"
-                            ],
-                            "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
-                            "x-table-order": 95,
-                            "x-relevant-observations": [
-                              "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-parameter"
-                            ],
-                            "x-code-lists": [
-                              "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_water"
-                            ],
-                            "x-jsonld-id": "https://schema.org/additionalProperty",
-                            "title": "Verontreinigende stof",
-                            "x-ui-first": true
-                          },
-                          {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "required": [
-                              "propertyID",
-                              "value"
-                            ],
-                            "properties": {
-                              "propertyID": {
-                                "type": "string",
                                 "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-meetfrequentie",
                                 "x-jsonld-id": "https://schema.org/propertyID",
                                 "x-jsonld-type": "@id",
@@ -653,30 +618,11 @@
                             "title": "Meetfrequentie",
                             "description": "Aantal metingen van deze stof tijdens het rapporteringsjaar.",
                             "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
-                            "x-ui-after": "lozingStof"
+                            "x-ui-after": "variabele"
                           }
                         ]
                       },
                       "allOf": [
-                        {
-                          "contains": {
-                            "type": "object",
-                            "required": [
-                              "propertyID"
-                            ],
-                            "properties": {
-                              "propertyID": {
-                                "type": "string",
-                                "const": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/lozing-stof",
-                                "x-jsonld-id": "https://schema.org/propertyID",
-                                "x-jsonld-type": "@id",
-                                "x-ui-hidden": true
-                              }
-                            }
-                          },
-                          "minContains": 1,
-                          "maxContains": 1
-                        },
                         {
                           "contains": {
                             "type": "object",
@@ -707,8 +653,8 @@
                   },
                   "additionalProperties": false,
                   "required": [
+                    "variabele",
                     "hasMember",
-                    "additionalProperty",
                     "@type"
                   ],
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#ObservatieVerzameling",
@@ -740,13 +686,7 @@
                   "x-property-input-constraints": {},
                   "x-property-layout": [
                     {
-                      "key": "lozingStof",
-                      "repeatable": false,
-                      "required": true,
-                      "annotations": {}
-                    },
-                    {
-                      "key": "lozingMeetfrequentie",
+                      "key": "additionalProperty",
                       "repeatable": false,
                       "required": false,
                       "annotations": {}

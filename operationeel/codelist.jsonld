@@ -4148,7 +4148,7 @@
         "skos:ConceptScheme"
       ],
       "isVersionOf": "conceptscheme:status",
-      "modified": "2026-11-23T08:46:19.411Z",
+      "modified": "2026-11-24T13:51:36.420Z",
       "definition": "Een typering van verschillende statussen (actief, inactief, ...).",
       "hasTopConcept": [
         "riepr-status:definitief_uit_dienst",
@@ -4317,6 +4317,118 @@
       "_type": [
         "rdfs:Resource"
       ]
+    },
+    {
+      "id": "riepr-vocab:bepalingsgrensindicator",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-24T13:51:36.420Z",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "riepr-vocab:bronMeetfrequentie",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-24T13:51:36.420Z",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "riepr-vocab:duurPompenStil",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-24T13:51:36.420Z",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "riepr-vocab:grenswaarde",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-24T13:51:36.420Z",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "riepr-vocab:herkomst",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-24T13:51:36.420Z",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "riepr-vocab:lozingsduur",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-24T13:51:36.420Z",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "riepr-vocab:meetfrequentie",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-24T13:51:36.420Z",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "riepr-vocab:pomptoestand",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-24T13:51:36.420Z",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "riepr-vocab:referentiepunt",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-24T13:51:36.420Z",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "riepr-vocab:soortMonster",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-24T13:51:36.420Z",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "riepr-vocab:soortMonstername",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-24T13:51:36.420Z",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "riepr-vocab:toepassingswijze",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-24T13:51:36.420Z",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "riepr-vocab:variabele",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-24T13:51:36.420Z",
+      "status": "https://purl.archive.org/adms/status/Active"
+    },
+    {
+      "id": "riepr-vocab:volumeVoorMeting",
+      "_type": [
+        "rdfs:Resource"
+      ],
+      "created": "2026-11-24T13:51:36.420Z",
+      "status": "https://purl.archive.org/adms/status/Active"
     },
     {
       "id": "schema:additionalProperty",
@@ -6906,8 +7018,7 @@
       "prefLabel": "Referentiepunt",
       "broaderPartitive": "grondwater:peilmeting",
       "relevantObservation": "grondwater:peilmeting",
-      "relevantClass": "schema:PropertyValue",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:referentiepunt",
       "relevantRiepr": "meetpunteigenschappen:referentiepunt",
       "isVerplicht": true,
       "_table_workbook": "grondwater-peilmetingen.ods",
@@ -6936,8 +7047,7 @@
       "prefLabel": "Pomptoestand",
       "broaderPartitive": "grondwater:peilmeting",
       "relevantObservation": "grondwater:peilmeting",
-      "relevantClass": "schema:PropertyValue",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:pomptoestand",
       "relevantCodeList": "conceptscheme:operationeel_pomptoestand",
       "_table_workbook": "grondwater-peilmetingen.ods",
       "_table_sheet": "Peilmetingen",
@@ -6981,9 +7091,8 @@
       "prefLabel": "Duur pompen stil",
       "broaderPartitive": "grondwater:peilmeting",
       "relevantObservation": "grondwater:peilmeting",
-      "relevantClass": "schema:PropertyValue",
       "relevantDataType": "xsd:duration",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:duurPompenStil",
       "conditionPath": "grondwater:peilmeting-pomptoestand",
       "conditionValue": "pomptoestand:rust",
       "_table_workbook": "grondwater-peilmetingen.ods",
@@ -6998,9 +7107,8 @@
       "prefLabel": "Volume (1 uur voor meting)",
       "broaderPartitive": "grondwater:peilmeting",
       "relevantObservation": "grondwater:peilmeting",
-      "relevantClass": "schema:PropertyValue",
       "relevantDataType": "xsd:decimal",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:volumeVoorMeting",
       "conditionPath": "grondwater:peilmeting-pomptoestand",
       "conditionValue": "pomptoestand:werking",
       "relevantUnit": "csor_eenheid:E_32",
@@ -7136,8 +7244,7 @@
       "prefLabel": "Variabele",
       "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
       "relevantObservation": "grondwater:kwaliteitsmeting-resultaten",
-      "relevantClass": "schema:PropertyValue",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:variabele",
       "relevantCodeList": "collectie:operationeel_parameters_grondwater",
       "isVerplicht": true,
       "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
@@ -7171,8 +7278,7 @@
       "definition": "Een aanduiding of de gerapporteerde meetwaarde boven of onder de bepalingsgrens (LOQ) ligt; bij een waarde onder de bepalingsgrens wordt de door het labo gebruikte LOQ als numerieke meetwaarde gerapporteerd.",
       "broaderPartitive": "grondwater:kwaliteitsmeting-resultaten",
       "relevantObservation": "grondwater:kwaliteitsmeting-resultaten",
-      "relevantClass": "schema:PropertyValue",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:bepalingsgrensindicator",
       "relevantCodeList": "conceptscheme:operationeel_detectiegrensindicator",
       "_table_workbook": "grondwater-kwaliteitsanalyses.ods",
       "_table_sheet": "Meetresultaten",
@@ -7845,8 +7951,7 @@
       "inScheme": "conceptscheme:operationeel_lucht",
       "prefLabel": "Stof",
       "broaderPartitive": "lucht:emissie_parameter",
-      "relevantClass": "schema:PropertyValue",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:variabele",
       "relevantCodeList": "collectie:operationeel_stoffen_lucht",
       "isVerplicht": true,
       "_ui_first": true
@@ -8141,8 +8246,7 @@
       "prefLabel": "Verontreinigende stof",
       "broaderPartitive": "water:lozing-parameter",
       "relevantObservation": "water:lozing-parameter",
-      "relevantClass": "schema:PropertyValue",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:variabele",
       "relevantCodeList": "collectie:operationeel_stoffen_water",
       "isVerplicht": true,
       "_ui_first": true
@@ -8275,8 +8379,7 @@
       "inScheme": "conceptscheme:operationeel_water",
       "prefLabel": "Verontreinigende stof",
       "broaderPartitive": "water:abnormale-lozing-resultaat",
-      "relevantClass": "schema:PropertyValue",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:variabele",
       "relevantCodeList": "collectie:operationeel_stoffen_water",
       "isVerplicht": true,
       "_ui_first": true
@@ -8289,9 +8392,8 @@
       "prefLabel": "Lozingsduur (dagen)",
       "definition": "Het aantal dagen in het rapporteringsjaar waarop de abnormale lozing van deze stof via de controleinrichting plaatsvond.",
       "broaderPartitive": "water:abnormale-lozing-resultaat",
-      "relevantClass": "schema:PropertyValue",
       "relevantDataType": "xsd:integer",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:lozingsduur",
       "minValue": "0",
       "isVerplicht": true,
       "_ui_after": "water:abnormale-lozing-stof"
@@ -8389,8 +8491,7 @@
       "prefLabel": "Herkomst",
       "definition": "De soort bron waaraan het water in het voorbije kalenderjaar werd onttrokken.",
       "broaderPartitive": "water:watergebruik-resultaat",
-      "relevantClass": "schema:PropertyValue",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:herkomst",
       "relevantCodeList": "conceptscheme:herkomst_water",
       "isVerplicht": true,
       "_ui_first": true
@@ -8428,7 +8529,7 @@
     {
       "id": "conceptscheme:operationeel_zelfcontrole_lucht",
       "_type": "skos:ConceptScheme",
-      "_table_order": 132,
+      "_table_order": 133,
       "prefLabel": "Zelfcontrole luchtemissiemetingen",
       "definition": "Rapporteer zelfcontrolemetingen per emissiepunt en exact meettijdstip met de bijbehorende parameterresultaten.",
       "hasTopConcept": [
@@ -8456,7 +8557,7 @@
     {
       "id": "conceptscheme:operationeel_zelfcontrole_lucht_meting",
       "_type": "skos:ConceptScheme",
-      "_table_order": 133
+      "_table_order": 134
     },
     {
       "id": "zelfcontrole-lucht:meting",
@@ -8535,36 +8636,33 @@
       "prefLabel": "Meetresultaten",
       "broaderPartitive": "zelfcontrole-lucht:meting",
       "relevantObservation": "zelfcontrole-lucht:meting",
-      "relevantClass": "riepr:Observatie",
+      "relevantClass": "riepr:ObservatieVerzameling",
       "relation": "sosa:hasMember",
       "isVerplicht": true,
       "isMeervoudig": true,
       "_table_workbook": "zelfcontrole-lucht.ods",
       "_table_sheet": "Meetresultaten",
-      "observedProperty": "zelfcontrole-lucht:parameter-concentratie",
       "_ui_after": "zelfcontrole-lucht:labo"
     },
     {
       "id": "zelfcontrole-lucht:parameter-soort",
       "_type": "skos:Concept",
-      "_table_order": 125,
+      "_table_order": 126,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
       "prefLabel": "Soort monster",
       "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
-      "relevantClass": "schema:PropertyValue",
       "relevantDataType": "xsd:string",
-      "relation": "schema:additionalProperty",
-      "_ui_after": "zelfcontrole-lucht:parameter-parameter"
+      "relation": "riepr-vocab:soortMonster",
+      "_ui_first": true
     },
     {
       "id": "zelfcontrole-lucht:parameter-parameter",
       "_type": "skos:Concept",
-      "_table_order": 124,
+      "_table_order": 123,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
       "prefLabel": "Variabele",
-      "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
-      "relevantClass": "schema:PropertyValue",
-      "relation": "schema:additionalProperty",
+      "broaderPartitive": "zelfcontrole-lucht:parameter",
+      "relation": "riepr-vocab:variabele",
       "relevantCodeList": "collectie:operationeel_stoffen_lucht",
       "isVerplicht": true,
       "_ui_first": true
@@ -8572,7 +8670,7 @@
     {
       "id": "zelfcontrole-lucht:parameter-concentratie",
       "_type": "skos:Concept",
-      "_table_order": 127,
+      "_table_order": 128,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
       "prefLabel": "Concentratie bij standaardomstandigheden",
       "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
@@ -8589,13 +8687,13 @@
     {
       "id": "zelfcontrole-lucht:parameter-meetonzekerheid",
       "_type": "skos:Concept",
-      "_table_order": 128,
+      "_table_order": 131,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
       "prefLabel": "Meetonzekerheid",
-      "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
-      "relevantClass": "schema:PropertyValue",
+      "broaderPartitive": "zelfcontrole-lucht:parameter",
+      "relevantClass": "riepr:Observatie",
       "relevantDataType": "xsd:integer",
-      "relation": "schema:additionalProperty",
+      "relation": "sosa:hasMember",
       "relevantUnit": "csor_eenheid:E_43",
       "kwantiteitsAspect": "csor_kwantificeerbaaraspect:KWA_7",
       "drager": "csor_drager:DR_8",
@@ -8603,29 +8701,28 @@
       "variabele": "zelfcontrole-lucht:parameter-parameter",
       "minValue": "0",
       "maxValue": "100",
-      "_ui_after": "zelfcontrole-lucht:parameter-concentratie"
+      "_ui_after": "zelfcontrole-lucht:parameter-concentratie-observatie"
     },
     {
       "id": "zelfcontrole-lucht:parameter-meetfrequentie",
       "_type": "skos:Concept",
-      "_table_order": 130,
+      "_table_order": 129,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
       "prefLabel": "Gehanteerde meetfrequentie",
       "definition": "De voor dit meetresultaat gehanteerde meetfrequentie. Tijdelijk vrije tekst zolang de definitieve limitatieve lijst niet is vastgesteld.",
       "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
-      "relevantClass": "schema:PropertyValue",
       "relevantDataType": "xsd:string",
-      "relation": "schema:additionalProperty",
-      "_ui_after": "zelfcontrole-lucht:parameter-massastroom"
+      "relation": "riepr-vocab:meetfrequentie",
+      "_ui_after": "zelfcontrole-lucht:parameter-concentratie"
     },
     {
       "id": "zelfcontrole-lucht:parameter-resultaat",
       "_type": "skos:Concept",
-      "_table_order": 123,
+      "_table_order": 125,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
       "prefLabel": "Resultaat parameter",
       "definition": "Het resultaatrecord van de parameter bij de zelfcontrole van lucht.",
-      "broaderPartitive": "zelfcontrole-lucht:parameter",
+      "broaderPartitive": "zelfcontrole-lucht:parameter-concentratie-observatie",
       "relevantClass": "riepr:Resultaat",
       "relation": "sosa:hasResult",
       "isVerplicht": true,
@@ -8634,13 +8731,13 @@
     {
       "id": "zelfcontrole-lucht:parameter-massastroom",
       "_type": "skos:Concept",
-      "_table_order": 129,
+      "_table_order": 132,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
       "prefLabel": "Massastroom",
-      "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
-      "relevantClass": "schema:PropertyValue",
+      "broaderPartitive": "zelfcontrole-lucht:parameter",
+      "relevantClass": "riepr:Observatie",
       "relevantDataType": "xsd:decimal",
-      "relation": "schema:additionalProperty",
+      "relation": "sosa:hasMember",
       "relevantUnit": "collectie:operationeel_eenheden_zelfcontrole_lucht_massastroom",
       "kwantiteitsAspect": "csor_kwantificeerbaaraspect:KWA_2",
       "drager": "csor_drager:DR_8",
@@ -8652,33 +8749,43 @@
     {
       "id": "zelfcontrole-lucht:parameter-bron-meetfrequentie",
       "_type": "skos:Concept",
-      "_table_order": 131,
+      "_table_order": 130,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
       "prefLabel": "Bron meetfrequentie",
       "definition": "De grondslag voor de gehanteerde meetfrequentie: vergunningsvoorwaarden, basismeetfrequentie of aangepaste meetfrequentie.",
       "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
-      "relevantClass": "schema:PropertyValue",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:bronMeetfrequentie",
       "relevantCodeList": "conceptscheme:operationeel_bron_meetfrequentie",
       "_ui_after": "zelfcontrole-lucht:parameter-meetfrequentie"
     },
     {
       "id": "zelfcontrole-lucht:parameter-loq",
       "_type": "skos:Concept",
-      "_table_order": 126,
+      "_table_order": 127,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
       "prefLabel": "Bepalingsgrens (LOQ)",
       "definition": "Een aanduiding of de gerapporteerde concentratie boven of onder de bepalingsgrens (LOQ) ligt; bij een waarde onder de bepalingsgrens wordt de door het labo gebruikte LOQ als numerieke concentratie gerapporteerd.",
       "broaderPartitive": "zelfcontrole-lucht:parameter-resultaat",
-      "relevantClass": "schema:PropertyValue",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:bepalingsgrensindicator",
       "relevantCodeList": "conceptscheme:operationeel_detectiegrensindicator",
       "_ui_after": "zelfcontrole-lucht:parameter-soort"
     },
     {
+      "id": "zelfcontrole-lucht:parameter-concentratie-observatie",
+      "_type": "skos:Concept",
+      "_table_order": 124,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_lucht",
+      "prefLabel": "Concentratie",
+      "broaderPartitive": "zelfcontrole-lucht:parameter",
+      "relevantClass": "riepr:Observatie",
+      "relation": "sosa:hasMember",
+      "observedProperty": "zelfcontrole-lucht:parameter-concentratie",
+      "_ui_after": "zelfcontrole-lucht:parameter-parameter"
+    },
+    {
       "id": "conceptscheme:operationeel_zelfcontrole_water",
       "_type": "skos:ConceptScheme",
-      "_table_order": 150,
+      "_table_order": 152,
       "prefLabel": "Zelfcontrole oppervlaktewater",
       "definition": "Rapporteer zelfcontrolemetingen per controleinrichting en exact meettijdstip met de bijbehorende parameterresultaten.",
       "hasTopConcept": [
@@ -8690,7 +8797,7 @@
     {
       "id": "zelfcontrole-water:feature",
       "_type": "skos:Concept",
-      "_table_order": 135,
+      "_table_order": 136,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
       "prefLabel": "Controleinrichting",
       "definition": "De controleinrichting waarop de zelfcontrolemeting wordt gerapporteerd.",
@@ -8705,12 +8812,12 @@
     {
       "id": "conceptscheme:operationeel_zelfcontrole_water_meting",
       "_type": "skos:ConceptScheme",
-      "_table_order": 151
+      "_table_order": 153
     },
     {
       "id": "zelfcontrole-water:meting",
       "_type": "skos:Concept",
-      "_table_order": 134,
+      "_table_order": 135,
       "topConceptOf": "conceptscheme:operationeel_zelfcontrole_water",
       "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
       "prefLabel": "Metingen",
@@ -8728,7 +8835,7 @@
     {
       "id": "zelfcontrole-water:datum",
       "_type": "skos:Concept",
-      "_table_order": 136,
+      "_table_order": 137,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
       "prefLabel": "Meetmoment",
       "definition": "Het exacte tijdstip van de meting of het starttijdstip als de meting over meerdere dagen plaatsvindt.",
@@ -8742,7 +8849,7 @@
     {
       "id": "zelfcontrole-water:labo",
       "_type": "skos:Concept",
-      "_table_order": 137,
+      "_table_order": 138,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
       "prefLabel": "Labo/uitvoerder",
       "broaderPartitive": "zelfcontrole-water:meting",
@@ -8754,7 +8861,7 @@
     {
       "id": "zelfcontrole-water:labo-naam",
       "_type": "skos:Concept",
-      "_table_order": 138,
+      "_table_order": 139,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
       "prefLabel": "Naam",
       "definition": "De naam van het labo.",
@@ -8767,7 +8874,7 @@
     {
       "id": "zelfcontrole-water:labo-id",
       "_type": "skos:Concept",
-      "_table_order": 139,
+      "_table_order": 140,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
       "prefLabel": "KBO nummer of BTW nummer",
       "broaderPartitive": "zelfcontrole-water:labo",
@@ -8778,31 +8885,29 @@
     {
       "id": "zelfcontrole-water:parameter",
       "_type": "skos:Concept",
-      "_table_order": 140,
+      "_table_order": 141,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
       "prefLabel": "Meetresultaten",
       "broaderPartitive": "zelfcontrole-water:meting",
       "relevantObservation": "zelfcontrole-water:meting",
-      "relevantClass": "riepr:Observatie",
+      "relevantClass": "riepr:ObservatieVerzameling",
       "relation": "sosa:hasMember",
       "isVerplicht": true,
       "isMeervoudig": true,
       "_table_workbook": "zelfcontrole-water.ods",
       "_table_sheet": "Meetresultaten",
-      "observedProperty": "zelfcontrole-water:parameter-concentratie",
       "_ui_after": "zelfcontrole-water:labo"
     },
     {
       "id": "zelfcontrole-water:parameter-soort",
       "_type": "skos:Concept",
-      "_table_order": 143,
+      "_table_order": 145,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
       "prefLabel": "Soort monstername",
       "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
-      "relevantClass": "schema:PropertyValue",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:soortMonstername",
       "relevantCodeList": "conceptscheme:operationeel_zelfcontrole_soort_monstername",
-      "_ui_after": "zelfcontrole-water:parameter-parameter"
+      "_ui_first": true
     },
     {
       "id": "zelfcontrole-water:parameter-parameter",
@@ -8810,9 +8915,8 @@
       "_table_order": 142,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
       "prefLabel": "Variabele",
-      "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
-      "relevantClass": "schema:PropertyValue",
-      "relation": "schema:additionalProperty",
+      "broaderPartitive": "zelfcontrole-water:parameter",
+      "relation": "riepr-vocab:variabele",
       "relevantCodeList": "collectie:operationeel_stoffen_water",
       "isVerplicht": true,
       "_ui_first": true
@@ -8820,7 +8924,7 @@
     {
       "id": "zelfcontrole-water:parameter-concentratie",
       "_type": "skos:Concept",
-      "_table_order": 145,
+      "_table_order": 147,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
       "prefLabel": "Concentratie onder meetomstandigheden",
       "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
@@ -8837,13 +8941,13 @@
     {
       "id": "zelfcontrole-water:parameter-meetonzekerheid",
       "_type": "skos:Concept",
-      "_table_order": 146,
+      "_table_order": 151,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
       "prefLabel": "Meetonzekerheid",
-      "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
-      "relevantClass": "schema:PropertyValue",
+      "broaderPartitive": "zelfcontrole-water:parameter",
+      "relevantClass": "riepr:Observatie",
       "relevantDataType": "xsd:integer",
-      "relation": "schema:additionalProperty",
+      "relation": "sosa:hasMember",
       "relevantUnit": "csor_eenheid:E_43",
       "kwantiteitsAspect": "csor_kwantificeerbaaraspect:KWA_7",
       "drager": "csor_drager:DR_1",
@@ -8851,29 +8955,28 @@
       "variabele": "zelfcontrole-water:parameter-parameter",
       "minValue": "0",
       "maxValue": "100",
-      "_ui_after": "zelfcontrole-water:parameter-concentratie"
+      "_ui_after": "zelfcontrole-water:parameter-concentratie-observatie"
     },
     {
       "id": "zelfcontrole-water:parameter-meetfrequentie",
       "_type": "skos:Concept",
-      "_table_order": 148,
+      "_table_order": 149,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
       "prefLabel": "Gehanteerde meetfrequentie",
       "definition": "De voor dit meetresultaat gehanteerde meetfrequentie. Tijdelijk vrije tekst zolang de definitieve limitatieve lijst niet is vastgesteld.",
       "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
-      "relevantClass": "schema:PropertyValue",
       "relevantDataType": "xsd:string",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:meetfrequentie",
       "_ui_after": "zelfcontrole-water:parameter-grenswaarde"
     },
     {
       "id": "zelfcontrole-water:parameter-resultaat",
       "_type": "skos:Concept",
-      "_table_order": 141,
+      "_table_order": 144,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
       "prefLabel": "Resultaat parameter",
       "definition": "Het resultaatrecord van de parameter bij de zelfcontrole van water.",
-      "broaderPartitive": "zelfcontrole-water:parameter",
+      "broaderPartitive": "zelfcontrole-water:parameter-concentratie-observatie",
       "relevantClass": "riepr:Resultaat",
       "relation": "sosa:hasResult",
       "isVerplicht": true,
@@ -8882,47 +8985,56 @@
     {
       "id": "zelfcontrole-water:parameter-grenswaarde",
       "_type": "skos:Concept",
-      "_table_order": 147,
+      "_table_order": 148,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
       "prefLabel": "Grenswaarde",
       "definition": "De grenswaarde die van toepassing is onder de gemeten omstandigheden.",
       "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
-      "relevantClass": "schema:PropertyValue",
       "relevantDataType": "xsd:decimal",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:grenswaarde",
       "relevantUnit": "collectie:operationeel_eenheden_zelfcontrole_water_concentratie",
-      "_ui_after": "zelfcontrole-water:parameter-meetonzekerheid"
+      "_ui_after": "zelfcontrole-water:parameter-concentratie"
     },
     {
       "id": "zelfcontrole-water:parameter-bron-meetfrequentie",
       "_type": "skos:Concept",
-      "_table_order": 149,
+      "_table_order": 150,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
       "prefLabel": "Bron meetfrequentie",
       "definition": "De grondslag voor de gehanteerde meetfrequentie: vergunningsvoorwaarden, basismeetfrequentie of aangepaste meetfrequentie.",
       "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
-      "relevantClass": "schema:PropertyValue",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:bronMeetfrequentie",
       "relevantCodeList": "conceptscheme:operationeel_bron_meetfrequentie",
       "_ui_after": "zelfcontrole-water:parameter-meetfrequentie"
     },
     {
       "id": "zelfcontrole-water:parameter-loq",
       "_type": "skos:Concept",
-      "_table_order": 144,
+      "_table_order": 146,
       "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
       "prefLabel": "Bepalingsgrens (LOQ)",
       "definition": "Een aanduiding of de gerapporteerde concentratie boven of onder de bepalingsgrens (LOQ) ligt; bij een waarde onder de bepalingsgrens wordt de door het labo gebruikte LOQ als numerieke concentratie gerapporteerd.",
       "broaderPartitive": "zelfcontrole-water:parameter-resultaat",
-      "relevantClass": "schema:PropertyValue",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:bepalingsgrensindicator",
       "relevantCodeList": "conceptscheme:operationeel_detectiegrensindicator",
       "_ui_after": "zelfcontrole-water:parameter-soort"
     },
     {
+      "id": "zelfcontrole-water:parameter-concentratie-observatie",
+      "_type": "skos:Concept",
+      "_table_order": 143,
+      "inScheme": "conceptscheme:operationeel_zelfcontrole_water",
+      "prefLabel": "Concentratie",
+      "broaderPartitive": "zelfcontrole-water:parameter",
+      "relevantClass": "riepr:Observatie",
+      "relation": "sosa:hasMember",
+      "observedProperty": "zelfcontrole-water:parameter-concentratie",
+      "_ui_after": "zelfcontrole-water:parameter-parameter"
+    },
+    {
       "id": "conceptscheme:operationeel_grondstoffen",
       "_type": "skos:ConceptScheme",
-      "_table_order": 153,
+      "_table_order": 155,
       "prefLabel": "Operationeel grondstoffen",
       "hasTopConcept": [
         {
@@ -8939,7 +9051,7 @@
     {
       "id": "grondstoffen:geproduceerd",
       "_type": "skos:Concept",
-      "_table_order": 152,
+      "_table_order": 154,
       "topConceptOf": "conceptscheme:operationeel_grondstoffen",
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Heeft u grondstoffen geproduceerd?",
@@ -8949,11 +9061,11 @@
     {
       "id": "grondstoffen:grondstof",
       "_type": "skos:Concept",
-      "_table_order": 154,
+      "_table_order": 156,
       "topConceptOf": "conceptscheme:operationeel_grondstoffen",
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Geproduceerde grondstoffen",
-      "definition": "Jaarlijks geproduceerde grondstoffen per exploitatie, met een of meer bestemmingen. De materiaalcode is uniek binnen de exploitatie en het rapporteringsjaar.",
+      "definition": "Jaarlijks geproduceerde grondstoffen per IEPR-installatie en activiteit, met een of meer bestemmingen. De materiaalcode is uniek binnen de combinatie van IEPR-installatie, activiteit en rapporteringsjaar.",
       "relevantClass": "riepr:Observatie",
       "conditionPath": "grondstoffen:geproduceerd",
       "conditionValue": true,
@@ -8961,14 +9073,18 @@
       "isMeervoudig": true,
       "_table_workbook": "grondstoffen-geproduceerd.ods",
       "_table_sheet": "Geproduceerde grondstoffen",
-      "_table_key": "grondstoffen:grondstof_materiaalcode",
+      "_table_key": [
+        "grondstoffen:grondstof_installatie",
+        "grondstoffen:grondstof_activiteit",
+        "grondstoffen:grondstof_materiaalcode"
+      ],
       "observedProperty": "grondstoffen:grondstof_hoeveelheid",
       "_ui_after": "grondstoffen:geproduceerd"
     },
     {
       "id": "grondstoffen:grondstof_materiaalcode",
       "_type": "skos:Concept",
-      "_table_order": 156,
+      "_table_order": 160,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Materiaalcode",
       "broaderPartitive": "grondstoffen:grondstof_resultaat",
@@ -8980,7 +9096,7 @@
     {
       "id": "grondstoffen:grondstof_omschrijving",
       "_type": "skos:Concept",
-      "_table_order": 157,
+      "_table_order": 161,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Omschrijving",
       "broaderPartitive": "grondstoffen:grondstof_resultaat",
@@ -8992,7 +9108,7 @@
     {
       "id": "grondstoffen:grondstof_hoeveelheid",
       "_type": "skos:Concept",
-      "_table_order": 158,
+      "_table_order": 162,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Hoeveelheid",
       "definition": "Jaarlijks geproduceerde hoeveelheid in ton, gerapporteerd met niet meer detail dan 0,001 ton.",
@@ -9007,12 +9123,11 @@
     {
       "id": "grondstoffen:grondstof_toepassingswijze",
       "_type": "skos:Concept",
-      "_table_order": 159,
+      "_table_order": 163,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Toepassingswijze",
       "broaderPartitive": "grondstoffen:grondstof_resultaat",
-      "relevantClass": "schema:PropertyValue",
-      "relation": "schema:additionalProperty",
+      "relation": "riepr-vocab:toepassingswijze",
       "relevantCodeList": "conceptscheme:operationeel_toepassingwijze",
       "isVerplicht": true,
       "_ui_after": "grondstoffen:grondstof_hoeveelheid"
@@ -9020,7 +9135,7 @@
     {
       "id": "grondstoffen:grondstof_bestemming_type",
       "_type": "skos:Concept",
-      "_table_order": 162,
+      "_table_order": 166,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Type bestemming",
       "broaderPartitive": "grondstoffen:bestemming",
@@ -9032,7 +9147,7 @@
     {
       "id": "grondstoffen:grondstof_opmerking",
       "_type": "skos:Concept",
-      "_table_order": 160,
+      "_table_order": 164,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Opmerking",
       "broaderPartitive": "grondstoffen:grondstof_resultaat",
@@ -9044,7 +9159,7 @@
     {
       "id": "grondstoffen:bestemmingsidentificatie-be",
       "_type": "skos:Concept",
-      "_table_order": 163,
+      "_table_order": 167,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Bestemmingsidentificatie",
       "broaderPartitive": "grondstoffen:bestemming",
@@ -9064,7 +9179,7 @@
     {
       "id": "grondstoffen:bestemmingsidentificatie-be-naam",
       "_type": "skos:Concept",
-      "_table_order": 164,
+      "_table_order": 168,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Firmanaam",
       "broaderPartitive": "grondstoffen:bestemmingsidentificatie-be",
@@ -9076,7 +9191,7 @@
     {
       "id": "grondstoffen:bestemmingsidentificatie-be-on",
       "_type": "skos:Concept",
-      "_table_order": 165,
+      "_table_order": 169,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Ondernemingsnummer",
       "broaderPartitive": "grondstoffen:bestemmingsidentificatie-be",
@@ -9088,7 +9203,7 @@
     {
       "id": "grondstoffen:bestemmingsidentificatie-be-ve",
       "_type": "skos:Concept",
-      "_table_order": 166,
+      "_table_order": 170,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Vestigingseenheidsnummer",
       "broaderPartitive": "grondstoffen:bestemmingsidentificatie-be",
@@ -9100,7 +9215,7 @@
     {
       "id": "grondstoffen:bestemmingsidentificatie-buitenland",
       "_type": "skos:Concept",
-      "_table_order": 167,
+      "_table_order": 171,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Bestemmingsidentificatie",
       "broaderPartitive": "grondstoffen:bestemming",
@@ -9120,7 +9235,7 @@
     {
       "id": "grondstoffen:bestemmingsidentificatie-buitenland-naam",
       "_type": "skos:Concept",
-      "_table_order": 168,
+      "_table_order": 172,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Firmanaam",
       "broaderPartitive": "grondstoffen:bestemmingsidentificatie-buitenland",
@@ -9132,7 +9247,7 @@
     {
       "id": "grondstoffen:bestemmingsidentificatie-buitenland-btw",
       "_type": "skos:Concept",
-      "_table_order": 169,
+      "_table_order": 173,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "BTW-nummer",
       "broaderPartitive": "grondstoffen:bestemmingsidentificatie-buitenland",
@@ -9144,7 +9259,7 @@
     {
       "id": "grondstoffen:bestemmingsidentificatie-werf",
       "_type": "skos:Concept",
-      "_table_order": 170,
+      "_table_order": 174,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Bestemmingsidentificatie",
       "broaderPartitive": "grondstoffen:bestemming",
@@ -9164,7 +9279,7 @@
     {
       "id": "grondstoffen:bestemmingsidentificatie-werf-naam",
       "_type": "skos:Concept",
-      "_table_order": 171,
+      "_table_order": 175,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Firmanaam",
       "broaderPartitive": "grondstoffen:bestemmingsidentificatie-werf",
@@ -9176,7 +9291,7 @@
     {
       "id": "grondstoffen:bestemmingsidentificatie-none",
       "_type": "skos:Concept",
-      "_table_order": 172,
+      "_table_order": 176,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Bestemmingsidentificatie",
       "broaderPartitive": "grondstoffen:bestemming",
@@ -9196,7 +9311,7 @@
     {
       "id": "grondstoffen:bestemmingsidentificatie-none-naam",
       "_type": "skos:Concept",
-      "_table_order": 173,
+      "_table_order": 177,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Firmanaam",
       "broaderPartitive": "grondstoffen:bestemmingsidentificatie-none",
@@ -9208,7 +9323,7 @@
     {
       "id": "grondstoffen:bestemmingsidentificatie-none-adres",
       "_type": "skos:Concept",
-      "_table_order": 174,
+      "_table_order": 178,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Adres",
       "broaderPartitive": "grondstoffen:bestemmingsidentificatie-none",
@@ -9220,7 +9335,7 @@
     {
       "id": "grondstoffen:grondstof_resultaat",
       "_type": "skos:Concept",
-      "_table_order": 155,
+      "_table_order": 159,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Resultaat grondstof",
       "definition": "Het resultaatrecord van de gerapporteerde geproduceerde grondstof.",
@@ -9229,15 +9344,15 @@
       "relation": "sosa:hasResult",
       "isVerplicht": true,
       "isOnzichtbaar": true,
-      "_ui_first": true
+      "_ui_after": "grondstoffen:grondstof_activiteit"
     },
     {
       "id": "grondstoffen:bestemming",
       "_type": "skos:Concept",
-      "_table_order": 161,
+      "_table_order": 165,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Bestemmingen",
-      "definition": "Een of meer bestemmingen van de geproduceerde grondstof, gekoppeld via de materiaalcode.",
+      "definition": "Een of meer bestemmingen van de geproduceerde grondstof, gekoppeld via de combinatie van IEPR-installatie, activiteit en materiaalcode.",
       "broaderPartitive": "grondstoffen:grondstof",
       "relevantClass": "prov:Association",
       "relation": "prov:qualifiedAssociation",
@@ -9248,9 +9363,36 @@
       "_ui_after": "grondstoffen:grondstof_resultaat"
     },
     {
+      "id": "grondstoffen:grondstof_installatie",
+      "_type": "skos:Concept",
+      "_table_order": 157,
+      "inScheme": "conceptscheme:operationeel_grondstoffen",
+      "prefLabel": "IEPR installatie",
+      "definition": "De IEPR-installatie waarvoor de jaarlijks geproduceerde grondstof wordt gerapporteerd.",
+      "broaderPartitive": "grondstoffen:grondstof",
+      "relevantClass": "sosa:FeatureOfInterest",
+      "relation": "sosa:hasFeatureOfInterest",
+      "relevantRiepr": "installatie:gpbv",
+      "isVerplicht": true,
+      "_ui_first": true
+    },
+    {
+      "id": "grondstoffen:grondstof_activiteit",
+      "_type": "skos:Concept",
+      "_table_order": 158,
+      "inScheme": "conceptscheme:operationeel_grondstoffen",
+      "prefLabel": "Activiteit",
+      "definition": "De VLAREM-rubriek (activiteit van de GPBV-installatie) waarvoor de jaarlijks geproduceerde grondstof wordt gerapporteerd.",
+      "broaderPartitive": "grondstoffen:grondstof",
+      "relation": "dcterms:subject",
+      "relevantRiepr": "riepr:Rubriek",
+      "isVerplicht": true,
+      "_ui_after": "grondstoffen:grondstof_installatie"
+    },
+    {
       "id": "grondstoffen:inkomend",
       "_type": "skos:Concept",
-      "_table_order": 175,
+      "_table_order": 179,
       "topConceptOf": "conceptscheme:operationeel_grondstoffen",
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Inkomende grondstoffen",
@@ -9265,7 +9407,7 @@
     {
       "id": "grondstoffen:inkomend_installatie",
       "_type": "skos:Concept",
-      "_table_order": 176,
+      "_table_order": 180,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "IEPR installatie",
       "definition": "De IEPR-installatie waarvoor het jaarlijks binnengekomen gebruikte materiaal wordt gerapporteerd.",
@@ -9279,7 +9421,7 @@
     {
       "id": "grondstoffen:inkomend_activiteit",
       "_type": "skos:Concept",
-      "_table_order": 177,
+      "_table_order": 181,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Activiteit",
       "definition": "De activiteit waarvoor het jaarlijks binnengekomen gebruikte materiaal wordt gerapporteerd. De POC legt nog geen afhankelijk filter op de gekozen IEPR-installatie op.",
@@ -9292,7 +9434,7 @@
     {
       "id": "grondstoffen:inkomend_resultaat",
       "_type": "skos:Concept",
-      "_table_order": 178,
+      "_table_order": 182,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Resultaat inkomende grondstof",
       "broaderPartitive": "grondstoffen:inkomend",
@@ -9305,7 +9447,7 @@
     {
       "id": "grondstoffen:inkomend_aard",
       "_type": "skos:Concept",
-      "_table_order": 179,
+      "_table_order": 183,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Aard",
       "broaderPartitive": "grondstoffen:inkomend_resultaat",
@@ -9317,7 +9459,7 @@
     {
       "id": "grondstoffen:inkomend_hoeveelheid",
       "_type": "skos:Concept",
-      "_table_order": 180,
+      "_table_order": 184,
       "inScheme": "conceptscheme:operationeel_grondstoffen",
       "prefLabel": "Hoeveelheid",
       "definition": "Jaarlijkse hoeveelheid binnengekomen gebruikt materiaal, uitgedrukt in ton.",
