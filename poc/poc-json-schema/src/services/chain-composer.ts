@@ -35,18 +35,6 @@ export class ChainComposer {
       throw new Error(`Section ${sectionId} must identify a top-level reporting record, not a nested field or a structural selector.`)
     }
     const included = selected ? new Set([selected.inScheme!]) : new Set(chain.schemeIds)
-    if (selected) {
-      let changed = true
-      while (changed) {
-        changed = false
-        for (const edge of chain.transitions ?? []) {
-          if (included.has(edge.toSchemeId) && !included.has(edge.fromSchemeId)) {
-            included.add(edge.fromSchemeId)
-            changed = true
-          }
-        }
-      }
-    }
     for (const schemeId of chain.schemeIds.filter(id => included.has(id))) {
       const concepts = [...result.concepts.values()].filter(concept => concept.inScheme === schemeId)
       const filtered = concepts.filter(concept => {

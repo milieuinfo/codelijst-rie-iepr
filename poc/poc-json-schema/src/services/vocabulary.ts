@@ -43,7 +43,6 @@ export const predicateIris: Readonly<Record<string, string>> = {
   broaderPartitive: 'http://purl.org/iso25964/skos-thes#broaderPartitive',
   narrowerPartitive: 'http://purl.org/iso25964/skos-thes#narrowerPartitive',
   hasPart: 'http://purl.org/dc/terms/hasPart',
-  vervolgstap: 'http://purl.org/linked-data/cube#codeList',
   seeAlso: 'http://www.w3.org/2000/01/rdf-schema#seeAlso',
   see_also: 'http://www.w3.org/2000/01/rdf-schema#seeAlso',
   relevantClass: 'http://www.w3.org/ns/shacl#class',

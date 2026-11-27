@@ -6,15 +6,9 @@
  * structural-element picker when the scheme's relevantRiepr points at a
  * type such as `meetpunt:debietmeter`.
  *
- * Multi-step flows: when a concept has `vervolgstap` pointing to another
- * conceptscheme, selecting a value for that concept triggers navigation
- * to the target scheme via `flow-navigate` custom event.
- *
  * Field-level relevantRiepr: when a root field concept has `relevantRiepr`
  * pointing at skos:Concept type nodes (e.g., feature_ep → schoorsteen), it
  * renders as a mock-data structural picker dropdown instead of a text input.
- * These are "structural selection" fields — once selected they may also chain
- * to sub-schemes via vervolgstap.
  *
  * There is no backend and nothing is persisted (per the POC's non-functional
  * requirements), so field values are left uncontrolled - the only UI state
@@ -36,12 +30,10 @@ import { resolveUnitLabel } from '../services/unit-labels.js'
 import { applyUiOrdering } from '../services/ui-sort.js'
 import {
   matchesCondition,
-  hasValueForConcept,
   hasSelection,
   anyStructuralSelected,
 } from '../services/field-state.js'
 import {
-  resolveVervolgstapTargetScheme,
   getFieldStructuralRefs,
   getEmbeddedPickerIds,
   collectAllStructuralConceptIds,
@@ -376,9 +368,6 @@ export class CodelijstOperationeelFields extends LitElement {
     const isRepeatable = field.isMeervoudig === true
     const count = isRepeatable ? this.repeatCounts.get(field.id) ?? 1 : 1
 
-    // Check if this field has a vervolgstap reference to another scheme (multi-step flow trigger)
-    const targetSchemeId = resolveVervolgstapTargetScheme(this.result!, field)
-
     // Render instances and filter out hidden ones (conditionPath/conditionValue)
     const visibleInstances: ReturnType<typeof html>[] = []
     for (let index = 0; index < count; index++) {
@@ -411,20 +400,11 @@ export class CodelijstOperationeelFields extends LitElement {
                 ${uriTooltip(legendId, legendUri)}
                 ${groupPicker}
                  ${applyUiOrdering(children).map(child => html`<div class="codelijst-group__child">${this.renderFieldControl(child, suffix, field.id)}</div>`)}
-                ${targetSchemeId && hasEmbeddedSelection ? html`<p class="seealso-hint">↑ Selecteer een item hierboven om verder te gaan met de gedetailleerde rapportering.</p>` : nothing}
               </vl-fieldset>
             `
         : this.renderFieldControl(field, suffix)
 
-      // For non-composite fields with vervolgstap, add navigation hint after selection
-      const fieldWithHint = !isComposite && targetSchemeId
-        ? html`
-            ${body}
-            ${hasValueForConcept(this._fieldValues, field.id)
-              ? html`<p class="seealso-hint">Een waarde is geselecteerd — de volgende stap wordt automatisch geladen.</p>`
-              : nothing}
-          `
-        : body
+      const fieldWithHint = body
 
       // Skip if body is nothing (all children hidden by conditions)
       if (body === nothing && !isComposite) return nothing
@@ -485,7 +465,6 @@ export class CodelijstOperationeelFields extends LitElement {
 
       if (isMultiSelect) {
         // Multiselect: single <vl-select-rich multiple> combining all instances from all refs.
-        // This enables vervolgstap flow navigation after selection.
         const domId = `${id}__multiselect`
         const selectedValues = (this._fieldValues.get(domId) as string[] | undefined) ?? []
         const allOptions = structuralRefs.flatMap(ref =>
@@ -690,21 +669,10 @@ export class CodelijstOperationeelFields extends LitElement {
       this.requestUpdate()
     }
 
-  /**
-   * Handles vl-input events specifically from structural type pickers that may have vervolgstap targets.
-   * After storing the value, checks if the parent field has vervolgstap pointing to another scheme
-   * and emits flow-navigate event if so.
-   *
-   * Supports both single-select (<vl-select>) and multi-select (<vl-select-rich multiple>) values:
-   * - Single select: string value stored as-is
-   * - Multi-select: string[] array preserved (not coerced to "val1,val2")
-   */
    private _structuralHandlerRunning = false
 
    /**
-    * Handles vl-input events specifically from structural type pickers that may have vervolgstap targets.
-    * After storing the value, checks if the parent field has vervolgstap pointing to another scheme
-    * and emits flow-navigate event if so.
+   * Handles vl-input events from structural type pickers.
     *
     * Supports both single-select (<vl-select>) and multi-select (<vl-select-rich multiple>) values:
     * - Single select: string value stored as-is
@@ -750,56 +718,9 @@ export class CodelijstOperationeelFields extends LitElement {
          }
        }
 
-       // Check if any root-level concept with vervolgstap was satisfied by this picker.
-       // The picker's DOM id may contain the concept id it represents; we look up the
-       // parent field from renderRootFieldContent context via embedded picker tracking.
-       this.checkVervolgstapForPickerDomId(domId, value)
      } finally {
       this.requestUpdate()
       this._structuralHandlerRunning = false
-    }
-  }
-
-  /** When a structural picker gets a value, check if its owning field has vervolgstap → flow-navigate. */
-  private checkVervolgstapForPickerDomId(domId: string, value: unknown): void {
-    if (!this.result) return
-    // Handle both string and array values (from <vl-select-rich multiple>)
-    const hasValue = Array.isArray(value)
-      ? value.some(v => v && v !== '')
-      : !!value && String(value) !== ''
-    if (!hasValue) return
-
-    // Try exact match first
-    const directConcept = this.result.concepts.get(domId)
-    if (directConcept) {
-      const targetSchemeId = resolveVervolgstapTargetScheme(this.result!, directConcept)
-      if (targetSchemeId) {
-        this.dispatchEvent(
-          new CustomEvent('flow-navigate', {
-            bubbles: true,
-            composed: true,
-            detail: { schemeId: targetSchemeId, triggerConceptId: directConcept.id },
-          })
-        )
-        return
-      }
-    }
-
-    // For compound IDs (parent__child), find any concept whose ID is contained in domId
-    for (const [conceptId, concept] of this.result.concepts.entries()) {
-      if (domId.includes(conceptId)) {
-        const targetSchemeId = resolveVervolgstapTargetScheme(this.result!, concept)
-        if (targetSchemeId) {
-          this.dispatchEvent(
-            new CustomEvent('flow-navigate', {
-              bubbles: true,
-              composed: true,
-              detail: { schemeId: targetSchemeId, triggerConceptId: concept.id },
-            })
-          )
-          return
-        }
-      }
     }
   }
 

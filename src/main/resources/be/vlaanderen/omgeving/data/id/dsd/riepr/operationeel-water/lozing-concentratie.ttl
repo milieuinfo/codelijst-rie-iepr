@@ -1,0 +1,223 @@
+@prefix comp-riepr: <https://data.omgeving.vlaanderen.be/id/dsd/riepr/operationeel-water/lozing-concentratie#component-https%3A%2F%2Fdata.riepr.omgeving.vlaanderen.be%2Fns%2Friepr%23>.
+@prefix comp-riepr-vocab: <https://data.omgeving.vlaanderen.be/id/dsd/riepr/operationeel-water/lozing-concentratie#component-https%3A%2F%2Fdata.riepr.omgeving.vlaanderen.be%2Fns%2Fvocab%23>.
+@prefix comp-qudt: <https://data.omgeving.vlaanderen.be/id/dsd/riepr/operationeel-water/lozing-concentratie#component-http%3A%2F%2Fqudt.org%2Fschema%2Fqudt%2F>.
+@prefix codes-riepr-vocab: <https://data.omgeving.vlaanderen.be/id/dsd/riepr/codelijsten/https%3A%2F%2Fdata.riepr.omgeving.vlaanderen.be%2Fns%2Fvocab%23>.
+@prefix codes-qudt: <https://data.omgeving.vlaanderen.be/id/dsd/riepr/codelijsten/http%3A%2F%2Fqudt.org%2Fschema%2Fqudt%2F>.
+@prefix csor_kwantificeerbaaraspect: <https://data.omgeving.vlaanderen.be/id/concept/csor/kwantificeerbaaraspect/>.
+@prefix water: <https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/>.
+@prefix csor_soortwaardebepaling: <https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/>.
+@prefix dsd: <https://data.omgeving.vlaanderen.be/id/dsd/riepr/operationeel-water/>.
+@prefix csor_variabele: <https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/>.
+@prefix csor_eenheid: <https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/>.
+@prefix collectie: <https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/>.
+@prefix csor_drager: <https://data.omgeving.vlaanderen.be/id/concept/csor/drager/>.
+@prefix riepr: <https://data.riepr.omgeving.vlaanderen.be/ns/riepr#>.
+@prefix riepr-vocab: <https://data.riepr.omgeving.vlaanderen.be/ns/vocab#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix qb: <http://purl.org/linked-data/cube#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix qudt: <http://qudt.org/schema/qudt/>.
+@prefix time: <http://www.w3.org/2006/time#>.
+@prefix sosa-2023: <http://www.w3.org/ns/sosa/>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+
+dsd:lozing-concentratie a qb:DataStructureDefinition;
+    dcterms:source water:lozing-concentratie;
+    rdfs:label "Gemiddelde concentratie"@nl;
+    qb:component comp-riepr:bronObservatie,
+        comp-riepr:referentieObject,
+        comp-riepr:verslagjaar,
+        comp-riepr-vocab:drager,
+        comp-riepr-vocab:kwantiteitsAspect,
+        comp-riepr-vocab:soortWaartbepaling,
+        comp-riepr-vocab:variabele,
+        comp-qudt:numericValue,
+        comp-qudt:hasUnit,
+        comp-riepr:meetmoment,
+        comp-riepr:meetperiode.
+
+comp-riepr:bronObservatie a qb:ComponentSpecification;
+    dcterms:source riepr:bronObservatie;
+    rdfs:label "Bronobservatie"@nl;
+    qb:dimension riepr:bronObservatie;
+    qb:order 1.
+
+riepr:bronObservatie a rdf:Property,
+        qb:DimensionProperty;
+    rdfs:range sosa-2023:Observation.
+
+comp-riepr:referentieObject a qb:ComponentSpecification;
+    dcterms:source riepr:referentieObject;
+    rdfs:label "Referentieobject"@nl;
+    qb:dimension riepr:referentieObject;
+    qb:order 2.
+
+riepr:referentieObject a rdf:Property,
+        qb:DimensionProperty;
+    rdfs:range sosa-2023:FeatureOfInterest.
+
+comp-riepr:verslagjaar a qb:ComponentSpecification;
+    dcterms:source riepr:verslagjaar;
+    rdfs:label "Verslagjaar"@nl;
+    qb:dimension riepr:verslagjaar;
+    qb:order 3.
+
+riepr:verslagjaar a rdf:Property,
+        qb:DimensionProperty;
+    rdfs:range xsd:gYear.
+
+comp-riepr-vocab:drager a qb:ComponentSpecification;
+    dcterms:source water:lozing-concentratie;
+    qb:dimension riepr-vocab:drager;
+    qb:order 4.
+
+riepr-vocab:drager a rdf:Property,
+        qb:DimensionProperty,
+        qb:CodedProperty;
+    rdfs:range skos:Concept;
+    qb:codeList codes-riepr-vocab:drager.
+
+codes-riepr-vocab:drager a skos:Collection;
+    skos:member csor_drager:DR_1,
+        csor_drager:DR_8.
+
+comp-riepr-vocab:kwantiteitsAspect a qb:ComponentSpecification;
+    dcterms:source water:lozing-concentratie;
+    qb:dimension riepr-vocab:kwantiteitsAspect;
+    qb:order 5.
+
+riepr-vocab:kwantiteitsAspect a rdf:Property,
+        qb:DimensionProperty,
+        qb:CodedProperty;
+    rdfs:range skos:Concept;
+    qb:codeList codes-riepr-vocab:kwantiteitsAspect.
+
+codes-riepr-vocab:kwantiteitsAspect a skos:Collection;
+    skos:member csor_kwantificeerbaaraspect:KWA_1,
+        csor_kwantificeerbaaraspect:KWA_2,
+        csor_kwantificeerbaaraspect:KWA_7,
+        csor_kwantificeerbaaraspect:KWA_73.
+
+comp-riepr-vocab:soortWaartbepaling a qb:ComponentSpecification;
+    dcterms:source water:lozing-concentratie;
+    qb:dimension riepr-vocab:soortWaartbepaling;
+    qb:order 6.
+
+riepr-vocab:soortWaartbepaling a rdf:Property,
+        qb:DimensionProperty,
+        qb:CodedProperty;
+    rdfs:range skos:Concept;
+    qb:codeList codes-riepr-vocab:soortWaartbepaling.
+
+codes-riepr-vocab:soortWaartbepaling a skos:Collection;
+    skos:member csor_soortwaardebepaling:SWB_1,
+        csor_soortwaardebepaling:SWB_40.
+
+comp-riepr-vocab:variabele a qb:ComponentSpecification;
+    dcterms:source water:lozing-stof;
+    rdfs:label "Verontreinigende stof"@nl;
+    qb:dimension riepr-vocab:variabele;
+    qb:order 7.
+
+riepr-vocab:variabele a rdf:Property,
+        qb:DimensionProperty,
+        qb:CodedProperty;
+    rdfs:range skos:Concept;
+    qb:codeList codes-riepr-vocab:variabele.
+
+codes-riepr-vocab:variabele a skos:Collection;
+    dcterms:source collectie:operationeel_parameters_grondwater,
+        collectie:operationeel_stoffen_lucht,
+        collectie:operationeel_stoffen_water;
+    skos:member csor_variabele:V_1057,
+        csor_variabele:V_1060,
+        csor_variabele:V_1685,
+        csor_variabele:V_1686,
+        csor_variabele:V_1751,
+        csor_variabele:V_1901,
+        csor_variabele:V_1919,
+        csor_variabele:V_231,
+        csor_variabele:V_246,
+        csor_variabele:V_247,
+        csor_variabele:V_251,
+        csor_variabele:V_255,
+        csor_variabele:V_256,
+        csor_variabele:V_316,
+        csor_variabele:V_321,
+        csor_variabele:V_329,
+        csor_variabele:V_333,
+        csor_variabele:V_337,
+        csor_variabele:V_351,
+        csor_variabele:V_424,
+        csor_variabele:V_46.
+
+comp-qudt:numericValue a qb:ComponentSpecification;
+    dcterms:source water:lozing-concentratie;
+    rdfs:label "Gemiddelde concentratie"@nl;
+    qb:measure qudt:numericValue.
+
+qudt:numericValue a rdf:Property,
+        qb:MeasureProperty;
+    rdfs:range xsd:decimal.
+
+comp-qudt:hasUnit a qb:ComponentSpecification;
+    dcterms:source water:lozing-concentratie;
+    qb:attribute qudt:hasUnit;
+    qb:componentAttachment qb:Observation;
+    qb:componentRequired true.
+
+qudt:hasUnit a rdf:Property,
+        qb:CodedProperty,
+        qb:AttributeProperty;
+    rdfs:range skos:Concept;
+    qb:codeList codes-qudt:hasUnit.
+
+codes-qudt:hasUnit a skos:Collection;
+    dcterms:source collectie:operationeel_eenheden_stofhoeveelheid,
+        collectie:operationeel_eenheden_zelfcontrole_lucht_concentratie,
+        collectie:operationeel_eenheden_zelfcontrole_lucht_massastroom,
+        collectie:operationeel_eenheden_zelfcontrole_water_concentratie;
+    skos:member csor_eenheid:E_1,
+        csor_eenheid:E_13,
+        csor_eenheid:E_15,
+        csor_eenheid:E_172,
+        csor_eenheid:E_175,
+        csor_eenheid:E_18,
+        csor_eenheid:E_3,
+        csor_eenheid:E_32,
+        csor_eenheid:E_325,
+        csor_eenheid:E_326,
+        csor_eenheid:E_327,
+        csor_eenheid:E_33,
+        csor_eenheid:E_38,
+        csor_eenheid:E_41,
+        csor_eenheid:E_43,
+        csor_eenheid:E_59,
+        csor_eenheid:E_62,
+        csor_eenheid:E_83,
+        csor_eenheid:E_89,
+        csor_eenheid:E_95.
+
+comp-riepr:meetmoment a qb:ComponentSpecification;
+    dcterms:source riepr:meetmoment;
+    rdfs:label "Meetmoment"@nl;
+    qb:attribute riepr:meetmoment;
+    qb:componentAttachment qb:Observation;
+    qb:componentRequired false.
+
+riepr:meetmoment a rdf:Property,
+        qb:AttributeProperty;
+    rdfs:range rdfs:Literal.
+
+comp-riepr:meetperiode a qb:ComponentSpecification;
+    dcterms:source riepr:meetperiode;
+    rdfs:label "Meetperiode"@nl;
+    qb:attribute riepr:meetperiode;
+    qb:componentAttachment qb:Observation;
+    qb:componentRequired false.
+
+riepr:meetperiode a rdf:Property,
+        qb:AttributeProperty;
+    rdfs:range time:TemporalEntity.

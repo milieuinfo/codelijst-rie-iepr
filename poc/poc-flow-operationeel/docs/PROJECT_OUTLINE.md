@@ -89,7 +89,8 @@ unregistered. See [README.md](../README.md) for setup and checks.
 ## Historical pre-schema refactoring notes (superseded)
 
 The following tasks document the prior RDF-form migration, not remaining tasks
-or the current UI architecture. Published navigation is now `vervolgstap`
+or the current UI architecture. Published reporting sections are now declared
+through explicit reporting entries
 (`qb:codeList`), not the `seeAlso` described in these historical notes.
 
 ---

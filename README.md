@@ -83,6 +83,53 @@ De codelijsten worden gegenereerd in de volgende formaten:
 - Parquet (`.parquet`)
 - Excel (`.xlsx`)
 
+### Aparte RDF Cube-DSD's
+
+`npm run generate_skos` maakt na de SKOS-validatie ook aparte Turtle-bestanden
+onder `src/main/resources/be/vlaanderen/omgeving/data/id/dsd/riepr/`.
+`src/04_dsd_from_codelists.js` leest hiervoor de gegenereerde codelijst en het
+vastgelegde Cube-profiel uit de ontologie, zonder afhankelijkheid van een POC
+of een lijst met actieve thema's.
+Met `npm run generate_dsd` kun je ze opnieuw afleiden uit de bestaande Turtle-publicatie.
+De DSD's worden **niet** toegevoegd aan `rie-iepr.jsonld`, `rie-iepr.json` of
+de andere codelijstbestanden. De Turtle gebruikt de bronprefixen en inspringing;
+gerefereerde concepten zoals CSOR-eenheden krijgen geen extra definitietriples.
+
+Elk expliciet `riepr:Resultaat` en elk impliciet resultaat van een
+`riepr:Observatie` krijgt een eigen DSD. Het relatieve conceptpad bepaalt het
+bestand en de DSD-IRI; `dcterms:source` verwijst naar de bronconcepten.
+`qudt:numericValue` wordt de measure; variabele en aanwezige CSOR-kwalificaties
+worden dimensies. Elke DSD heeft daarnaast `riepr:bronObservatie`,
+`riepr:referentieObject` en `riepr:verslagjaar` als dimensies. De bronobservatie
+onderscheidt afzonderlijke meetgebeurtenissen, ook zonder uniek meettijdstip.
+De eenheid en overige resultaatkenmerken worden attributen. Meetmoment en
+meetperiode zijn optionele contextattributen; ontbrekende tijden worden niet ingevuld.
+
+De QB-rollen, contextpaden, gedeelde observatiecontext en dataset-URI-template
+staan in de canonieke RIE-IEPR-ontologie. `npm run sync:cube-profile -- /pad/naar/riepr.ttl`
+werkt `src/generated/cube-profile.json` bij, inclusief de bronchecksum; zonder
+argument wordt de sibling-checkout `RIE-IEPR` gebruikt. Leg dit profiel samen met
+de ontologiewijziging vast. De publicatie werkt vervolgens zonder sibling-checkout.
+De browser-veilige module `src/utils/cube-profile.js` wordt door zowel de
+DSD-generator als de RDF-exporter gebruikt. Hiervoor zijn geen CSV-wijzigingen nodig.
+
+Selectielijsten en eenheidcollecties worden uit de bron uitgewerkt. Gedeelde
+QB-predicaten krijgen een gezamenlijk waardedomein, zodat de aparte bestanden
+ook samen ingelezen kunnen worden. Als een bestaande broncollectie of conceptschema
+het volledige domein dekt, verwijst `qb:codeList` daar rechtstreeks naar.
+Een predicaat dat elders ook vrije waarden toelaat, krijgt geen globale
+codelijstbeperking. De precieze vaste waarden, voorwaarden en
+selectiebeperkingen per resultaat blijven beschreven door de bronconcepten;
+een DSD vervangt de rapportagevalidatie niet. Ontbrekende metadata veroorzaakt
+een fout in plaats van een onvolledige DSD. Er worden geen fictieve datasets
+of voorbeeldobservaties aangemaakt.
+
+De RDF-exporter maakt een dataset per bronrapportversie, verslagjaar en DSD,
+koppelt `qb:dataSet` en `qb:structure` en projecteert de ontologiecontext op de
+resultaten. De bronrapport-IRI moet expliciet worden opgegeven. Context wordt
+alleen geerfd via homogene SOSA-observatieverzamelingen; conflicten en ontbrekende
+numerieke meetwaarden blokkeren de export. De DSD-generator maakt zelf geen datasets.
+
 ## Projectstructuur
 
 ```mermaid

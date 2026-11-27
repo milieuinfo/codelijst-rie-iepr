@@ -58,6 +58,22 @@ const hierarchy: Definitions = {
 }
 
 describe('Hierarchy-preserving compiler', () => {
+  it('carries source notes independently from descriptions to scalar and repeated schema fields', () => {
+    const schema = compile({
+      'x:amount': { relevantDataType: 'xsd:decimal', relevantUnit: [unit], definition: 'Een hoeveelheid.', note: 'Vul een geldig getal in.' },
+      'x:choices': { relevantDataType: 'xsd:string', isMultiselect: true, isVerplicht: true, note: 'Kies minstens één optie.' },
+      'x:plain': { relevantDataType: 'xsd:string' },
+    })
+    expect(property(schema, 'amount')).toMatchObject({
+      description: 'Een hoeveelheid.', 'x-validation-message': 'Vul een geldig getal in.',
+      'x-value-path': ['numericValue'],
+    })
+    const choices = property(schema, 'choices')
+    expect(choices['x-validation-message']).toBe('Kies minstens één optie.')
+    expect(node(choices.items)['x-validation-message']).toBe('Kies minstens één optie.')
+    expect(property(schema, 'plain')['x-validation-message']).toBeUndefined()
+  })
+
   it('disambiguates root selectors by source identity without discarding either relation', () => {
     const schema = compile({
       'x:feature-one': { relation: 'sosa:hasFeatureOfInterest', relevantRiepr: ['x:system-one'] },

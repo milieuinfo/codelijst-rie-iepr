@@ -10,7 +10,7 @@
 import { Parser, StreamParser, type Quad, type Term } from 'n3'
 import type { CodelistResult, RdfNode, Scheme, Concept } from '../models/index.js'
 import {
-  DCTERMS_HAS_PART, PREFIXES, QB_CODE_LIST, QUDT_RELEVANT_UNIT, RDF_TYPE, SH, SKOS, THES, VOCAB,
+  DCTERMS_HAS_PART, PREFIXES, QUDT_RELEVANT_UNIT, RDF_TYPE, SH, SKOS, THES, VOCAB,
 } from './vocab.js'
 
 /** Compacts IRIs to CURIEs with the longest matching namespace. */
@@ -92,7 +92,6 @@ function toScheme(id: string, node: RdfNode, compact: Compact): Scheme {
     definition: text(node, SKOS.definition),
     note: text(node, SKOS.note),
     relevantRiepr: values(node, VOCAB.relevantRiepr, compact),
-    vervolgstap: values(node, QB_CODE_LIST, compact),
   }
 }
 
@@ -136,7 +135,6 @@ function toConcept(id: string, node: RdfNode, compact: Compact, normalizeBoolean
     drager: value(node, VOCAB.drager, compact),
     soortWaartbepaling: value(node, VOCAB.soortWaartbepaling, compact),
     variabele: value(node, VOCAB.variabele, compact),
-    vervolgstap: values(node, QB_CODE_LIST, compact),
     relevantClass: value(node, SH.class, compact),
     uiAfter: value(node, VOCAB.uiAfter, compact),
   }

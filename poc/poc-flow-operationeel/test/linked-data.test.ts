@@ -28,11 +28,13 @@ const examples = [
   ['Lucht', 'geproduceerde-stof', 'lucht/geproduceerde_stof'],
   ['Lucht', 'afvalproduct', 'lucht/afvalproduct'],
   ['Water', 'lozing', 'water/lozing'],
-  ['Water', 'abnormale-lozing', 'water/abnormale-lozing'],
   ['Water', 'watergebruik', 'water/watergebruik'],
   ['Zelfcontrole lucht', 'meting', 'zelfcontrole-lucht/meting'],
-  ['Zelfcontrole water', 'meting', 'zelfcontrole-water/meting'],
   ['Grondstoffen', 'inkomend', 'grondstoffen/inkomend'],
+] as const
+const rejectedExamples = [
+  ['Water', 'abnormale-lozing', 'water/abnormale-lozing'],
+  ['Zelfcontrole water', 'meting', 'zelfcontrole-water/meting'],
 ] as const
 
 interface Finding {
@@ -197,6 +199,7 @@ describe('Operational Turtle linked-data validation', () => {
       if (!schema) throw new Error(`Missing operational schema: ${theme}/${name}.`)
       const data = JSON.parse(readFileSync(new URL(`../../poc-json-schema/examples/${path}.json`, import.meta.url), 'utf8'))
       const turtle = exportTurtle(schema, data, {
+        report: 'urn:test:aangifte:1',
         year: 2024, created: '2024-01-04T00:00:00Z', issued: '2024-02-05T12:30:00Z',
         processes: demonstrationProcessGraph(),
       })
@@ -214,7 +217,7 @@ describe('Operational Turtle linked-data validation', () => {
   it('covers every active section with an export fixture or an explicit unsupported-export declaration', () => {
     const active = [...compiled].flatMap(([theme, result]) => result.subSchemas.map(section => `${theme}/${section.name}`))
     // The production flag is UI-only; produced-material observations still have no feature mapping.
-    const covered = [...examples.map(([theme, name]) => `${theme}/${name}`), 'Grondstoffen/grondstof']
+    const covered = [...[...examples, ...rejectedExamples].map(([theme, name]) => `${theme}/${name}`), 'Grondstoffen/grondstof']
     expect(covered.sort()).toEqual(active.sort())
   })
 
@@ -222,6 +225,15 @@ describe('Operational Turtle linked-data validation', () => {
     const index = examples.findIndex(example => example[2] === _path)
     const result = reportFile(report, paths[index])
     expect(findings(result).filter(item => item.certainty === 'error'), diagnostic(result)).toEqual([])
+  })
+
+  it.each(rejectedExamples)('rejects %s/%s examples containing results without a numeric measure', (theme, name, path) => {
+    const schema = compiled.get(theme)!.subSchemas.find(item => item.name === name)!.schema
+    const data = JSON.parse(readFileSync(new URL(`../../poc-json-schema/examples/${path}.json`, import.meta.url), 'utf8'))
+    expect(() => exportTurtle(schema, data, {
+      report: 'urn:test:aangifte:1', year: 2024,
+      created: '2024-01-04T00:00:00Z', issued: '2024-02-05T12:30:00Z', processes: demonstrationProcessGraph(),
+    })).toThrow('numerieke meetwaarde; RDF Cube-export is geblokkeerd')
   })
 
   describe('validator regressions', () => {

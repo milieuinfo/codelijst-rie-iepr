@@ -1,7 +1,7 @@
 /**
  * Query helpers over a parsed `CodelistResult`. These operate on the typed
  * `Concept` / `Scheme` views (and, for the ref-resolution helpers, the
- * `relevantRiepr` / `vervolgstap` id arrays already flattened onto them), never on
+ * `relevantRiepr` id arrays already flattened onto them), never on
  * raw JSON-LD nodes. All functions are pure with respect to the result except
  * `getChildrenMerged` / `mergeRelatedGroup`, which register their synthetic
  * merged groups back into `result.concepts` so repeated calls stay consistent.
@@ -21,7 +21,6 @@ const csor = new CsorService()
 export function getSchemes(result: CodelistResult): Scheme[] {
   return Array.from(result.schemes.values())
 }
-
 /**
  * Look up a single scheme by id.
  * @param result - The parsed codelist result.
@@ -353,8 +352,7 @@ export function describeVariabele(result: CodelistResult, concept: Concept, stof
 
 /**
  * Resolves a `relevantRiepr` ref list (on a scheme or a concept) to whatever node they point to.
- * Kept for backward compatibility with older codelist formats where relevantRiepr was used
- * for theme→scheme navigation. New format uses vervolgstap instead.
+ * Kept for resolving structural references in the codelist.
  * @param result - The parsed codelist result containing schemes and concepts for lookup.
  * @param node - The scheme or concept whose relevantRiepr refs to resolve.
  * @returns Array of resolved scheme/concept objects for each valid ref.
@@ -364,43 +362,4 @@ export function getRelevantRieprRefs(result: CodelistResult, node: Scheme | Conc
   return node.relevantRiepr
     .map(id => result.schemes.get(id) ?? result.concepts.get(id))
     .filter((n): n is Scheme | Concept => n !== undefined)
-}
-
-/**
- * Resolves `vervolgstap` references on a concept or scheme to their target nodes.
- * In the updated codelist format, `vervolgstap` is used for:
- * - Theme → operationeel scheme navigation (replacing relevantRiepr for this purpose)
- * - Multi-step flow chaining within operational schemes (e.g., feature_bron → lucht_rapportering)
- *
- * External references (ADMS status URIs, etc.) that don't resolve to local
- * schemes or concepts are silently dropped.
- * @param result - The parsed codelist result containing schemes and concepts for lookup.
- * @param node - The scheme or concept whose vervolgstap refs to resolve.
- * @returns Array of resolved scheme/concept objects for each valid ref.
- */
-export function getVervolgstapRefs(result: CodelistResult, node: Scheme | Concept): (Scheme | Concept)[] {
-  if (!node.vervolgstap) return []
-  return node.vervolgstap
-    .map(id => result.schemes.get(id) ?? result.concepts.get(id))
-    .filter((n): n is Scheme | Concept => n !== undefined)
-}
-
-/**
- * Resolves the operationeel scheme id from a thema concept using `vervolgstap`.
- * Falls back to `relevantRiepr` for backward compatibility with older codelists.
- * @param result - The parsed codelist result.
- * @param themeConcept - The selected thema concept.
- * @returns The operationeel scheme id if found, otherwise undefined.
- */
-export function resolveOperationeelSchemeId(result: CodelistResult, themeConcept: Concept): string | undefined {
-  // Primary: use vervolgstap (new format)
-  const vervolgstapSchemes = getVervolgstapRefs(result, themeConcept).filter(
-    ref => ref.type?.includes('skos:ConceptScheme'),
-  ) as Scheme[]
-  if (vervolgstapSchemes.length > 0) return vervolgstapSchemes[0].id
-
-  // Fallback: use relevantRiepr (old format)
-  const rieprRefs = getRelevantRieprRefs(result, themeConcept)
-  const scheme = rieprRefs.find(ref => ref.type?.includes('skos:ConceptScheme'))
-  return scheme?.id
 }

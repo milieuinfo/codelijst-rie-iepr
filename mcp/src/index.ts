@@ -498,6 +498,7 @@ server.registerTool('get_reporting_preview', {
 const fieldSchema = {
     prefLabel: prefLabel.describe('Label shown in the form (Dutch, capital first letter).'),
     definition: z.string().describe('Help text / definition (Dutch).'),
+    note: z.string().describe('Dutch validation message for this field; replaces the default error message.'),
     parent: z.string().describe('Composite field this is a part of (broaderPartitive); same step.'),
     datatype: z.enum(OPERATIONAL_DATATYPES).describe('relevantDataType: xsd:string (text), xsd:decimal/xsd:integer (number), xsd:boolean (checkbox), xsd:date, xsd:dateTime, xsd:duration, dcterms:temporal (period).'),
     relation: relation.describe('How the value maps onto the observation, e.g. qudt:numericValue, rdfs:label, rdfs:comment, sosa:hasResult, sosa:hasFeatureOfInterest, dcterms:type.'),

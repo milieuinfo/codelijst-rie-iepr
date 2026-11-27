@@ -53,7 +53,7 @@ export function sourceSnapshot(publication = canonicalSource, source, root = rep
     const node = { id: row._id, _type: row._type, _table_order: order }
     for (const [key, value] of Object.entries(row)) {
       if (!value || ['_id', '_type', 'collections'].includes(key)) continue
-      node[key] = /^(true|false)$/.test(value) ? value === 'true'
+      node[key] = key !== 'note' && /^(true|false)$/.test(value) ? value === 'true'
         : !['prefLabel', 'definition', 'note', '_table_workbook', '_table_sheet'].includes(key) && /[,|]/.test(value)
           ? value.split(/[,|]/).map(part => part.trim()) : value
     }

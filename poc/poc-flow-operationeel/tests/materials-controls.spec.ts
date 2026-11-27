@@ -7,6 +7,24 @@ import { readOdf } from '../../poc-json-schema-ods/src/services/odf.js'
 const load = async (name: string) => JSON.parse(await readFile(
   new URL(`../../poc-json-schema/examples/${name}.json`, import.meta.url), 'utf8'))
 
+test('explains and opens a missing required destination instead of showing the RDF predicate', async ({ page }) => {
+  await page.goto('/')
+  await page.locator('select#productie-jaar').selectOption('2024')
+  await page.locator('select#thema').selectOption({ label: 'Grondstoffen' })
+  await page.locator('select#doorsnede').selectOption({ label: 'Geproduceerde grondstoffen' })
+  await page.locator('td[data-instance-path="/geproduceerd"] select').selectOption({ label: 'Ja' })
+  await page.getByRole('button', { name: 'Rij toevoegen', exact: true }).click()
+  await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
+  const errors = page.getByRole('list', { name: 'Validatiefouten' })
+  await expect(errors).toContainText('Geproduceerde grondstoffen › rij 1 › Bestemmingen: Voeg minstens één bestemming toe.')
+  await expect(errors).not.toContainText('qualifiedAssociation')
+  const details = page.locator('tr[data-row-details="/grondstof/0"]')
+  await expect(details.getByRole('alert')).toHaveText('Voeg minstens één bestemming toe.')
+  await details.getByRole('button', { name: 'Rij toevoegen', exact: true }).click()
+  await page.getByRole('button', { name: 'Valideren en JSON tonen', exact: true }).click()
+  await expect(errors).not.toContainText('Voeg minstens één bestemming toe.')
+})
+
 test('creates a produced material and destination from a blank form, retaining false and zero', async ({ page }) => {
   await page.goto('/')
   await page.locator('select#productie-jaar').selectOption('2024')

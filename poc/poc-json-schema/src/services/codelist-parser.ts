@@ -148,7 +148,6 @@ export class CodelistParser {
       note: this.getValue(node, ['note', 'has_note']) as string | undefined,
       relevantRiepr: this.idsOf(this.getValue(node, ['relevantRiepr', 'relevant_riepr']), true),
       seeAlso: this.idsOf(this.getValue(node, ['seeAlso', 'see_also'])),
-      vervolgstap: this.idsOf(this.getValue(node, ['vervolgstap'])),
     }
   }
 
@@ -198,7 +197,6 @@ export class CodelistParser {
     // relevantUnit: expand to full URIs — consumed directly by schema output
     concept.relevantUnit = this.idsOf(this.getValue(node, ['relevantUnit', 'relevant_unit']), true)
     concept.seeAlso = this.idsOf(this.getValue(node, ['seeAlso', 'see_also']))
-    concept.vervolgstap = this.idsOf(this.getValue(node, ['vervolgstap']))
     concept.relevantClass = this.idOf(this.getValue(node, ['relevantClass', 'relevant_class']))
     concept.relevantObservation = this.idsOf(this.getValue(node, ['relevantObservation']))
     concept.observedProperty = this.idOf(this.getValue(node, ['observedProperty']))

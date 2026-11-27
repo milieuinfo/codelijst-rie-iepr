@@ -9,7 +9,7 @@ import {
 
 export type DataPath = (string | number)[]
 export interface EditorColumn { path: string[]; title: string; schema: JsonSchemaObject; required: boolean; presentationOrder?: number }
-export interface EditorDiagnostic { instancePath: string; message: string }
+export interface EditorDiagnostic { instancePath: string; message: string; displayPath?: string }
 interface Location { path: DataPath; schema: JsonSchemaObject; value: unknown }
 export const isObject = (value: unknown): value is Record<string, unknown> =>
   !!value && typeof value === 'object' && !Array.isArray(value)
@@ -225,19 +225,75 @@ export class SchemaEditor {
   validate(): { data: Record<string, unknown>; diagnostics: EditorDiagnostic[] } {
     const data = this.project()
     const structural = new SchemaValidator().validateInstance(this.personalizedSchema, data)
-    this.diagnostics = structural.errors.map(error => ({
+    const diagnostics = structural.errors.map(error => ({
       instancePath: error.property ? `${error.instancePath}/${pointerToken(error.property)}` : error.instancePath,
       message: error.message,
+      keyword: error.keyword,
     }))
-    this.diagnostics.push(...new SemanticValidator().validate(this.schema, data, {
+    diagnostics.push(...new SemanticValidator().validate(this.schema, data, {
       dependencies: this.dependencies, references: this.references, referenceContext: this.referenceContext,
-    }).map(error => ({ instancePath: error.instancePath, message: error.message })))
-    this.diagnostics = this.diagnostics.map(error => {
+    }).map(error => ({ instancePath: error.instancePath, message: error.message, keyword: error.keyword })))
+    this.diagnostics = diagnostics.map(error => {
       const path = error.instancePath ? error.instancePath.slice(1).split('/').map(token =>
         /^(0|[1-9]\d*)$/.test(token) ? Number(token) : token.replace(/~1/g, '/').replace(/~0/g, '~')) : []
-      return { ...error, instancePath: jsonPointer(presentationDataPath(this.schema, data, path)) }
+      const presentationPath = presentationDataPath(this.schema, data, path)
+      const target = this.validationTarget(presentationPath)
+      const message = this.validationMessage(target)
+      const displayPath = message && this.groupDisplayPath(target, error.keyword)
+      return {
+        instancePath: jsonPointer(target),
+        message: message ?? error.message,
+        ...(displayPath ? { displayPath } : {}),
+      }
     })
     return { data, diagnostics: this.diagnostics }
+  }
+
+  private groupDisplayPath(path: DataPath, keyword: string): string | undefined {
+    if (keyword !== 'required' && keyword !== 'minItems') return undefined
+    let node = this.resolve(this.inputSchema)
+    const labels: string[] = []
+    for (const key of path) {
+      const next = typeof key === 'number' ? node.items : node.properties?.[key]
+      if (!next || typeof next !== 'object') return undefined
+      node = this.resolve(schemaObject(next))
+      if (typeof key === 'number') labels.push(`rij ${key + 1}`)
+      else if (node.title && node['x-source-concept'] && !node['x-ui-hidden-container']) labels.push(node.title)
+    }
+    if (node.type !== 'array' || !node.title || !node.items ||
+        this.resolve(schemaObject(node.items)).type !== 'object') return undefined
+    return labels.length ? labels.join(' › ') : node.title
+  }
+
+  private validationTarget(path: DataPath): DataPath {
+    let node = this.resolve(this.inputSchema)
+    for (const key of path) {
+      const next = typeof key === 'number' ? node.items : node.properties?.[key]
+      if (!next || typeof next !== 'object') return path
+      node = this.resolve(schemaObject(next))
+    }
+    const valuePath = node['x-value-path']
+    if (node.type === 'object' && typeof node['x-validation-message'] === 'string' &&
+        Array.isArray(valuePath) && valuePath.every(key => typeof key === 'string')) return [...path, ...valuePath]
+    return path
+  }
+
+  private validationMessage(path: DataPath): string | undefined {
+    let node = this.resolve(this.inputSchema)
+    let message: string | undefined
+    for (let depth = 0; depth <= path.length; depth++) {
+      const remaining = path.slice(depth)
+      const valuePath = node['x-value-path']
+      const matchesValue = Array.isArray(valuePath) && remaining.length === valuePath.length &&
+        valuePath.every((key, index) => key === remaining[index])
+      if ((!remaining.length || matchesValue) && typeof node['x-validation-message'] === 'string' &&
+          node['x-validation-message'].trim()) message = node['x-validation-message']
+      if (!remaining.length) break
+      const next = typeof remaining[0] === 'number' ? node.items : node.properties?.[remaining[0]]
+      if (!next || typeof next !== 'object') break
+      node = this.resolve(schemaObject(next))
+    }
+    return message
   }
 
   private sourceLocations(): Location[] {

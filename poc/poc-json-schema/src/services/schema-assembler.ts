@@ -154,7 +154,6 @@ export class SchemaAssembler {
       'x-theme-slug': chain.slug ?? this.slug(chain.themeConcept.id),
       'x-theme-label': chain.themeConcept.prefLabel ?? title,
       'x-semantic-profile': 'https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/',
-      'x-flow-transitions': chain.transitions ?? [],
     })
     if (isSourceReportingProfile(result.reportingProfile)) this.requireRelations(schema, true)
     return schema
@@ -363,7 +362,7 @@ export class SchemaAssembler {
         'x-array-kind': field.isMultiselect ? 'multiselect' : field.children?.length ? 'records' : 'values',
       }
       if (field.isRequired) wrapper.minItems = 1
-      for (const key of ['x-ui-first', 'x-ui-after-concept', 'x-jsonld-id', 'x-table-workbook', 'x-table-sheet', 'x-table-order', 'x-ui-hidden-container']) {
+      for (const key of ['x-ui-first', 'x-ui-after-concept', 'x-jsonld-id', 'x-table-workbook', 'x-table-sheet', 'x-table-order', 'x-ui-hidden-container', 'x-validation-message']) {
         if (node[key] !== undefined) wrapper[key] = node[key]
       }
       return wrapper

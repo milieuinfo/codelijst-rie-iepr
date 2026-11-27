@@ -93,6 +93,22 @@ test('add_field appends after the last ordered sibling and checks references', (
     assert.throws(() => addField({ ...base, code: 'x5', datatype: 'xsd:string', unit: ['csor_eenheid:E_59'] }), /numeric/);
 });
 
+test('validation notes can be previewed, saved, read and cleared on operational fields', () => {
+    const id = 'grondwater:onttrekking-hoeveelheid';
+    const message = 'Vul een positief volume in.';
+    const before = read('operationeel_grondwater.csv');
+    const preview = updateFlowItem({ id, set: { note: message } });
+    assert.match(JSON.stringify(preview), /added column note/);
+    assert.match(JSON.stringify(preview), /Vul een positief volume in/);
+    assert.equal(read('operationeel_grondwater.csv'), before);
+    updateFlowItem({ id, set: { note: message }, dryRun: false });
+    assert.match(read('operationeel_grondwater.csv').split('\n')[0], /,definition,note,/);
+    assert.match(line('operationeel_grondwater.csv', id)!, /Vul een positief volume in/);
+    assert.equal(getOperationalConcept({ concept: id }).ui?.note, message);
+    updateFlowItem({ id, set: { note: null }, dryRun: false });
+    assert.doesNotMatch(line('operationeel_grondwater.csv', id)!, /Vul een positief volume in/);
+});
+
 test('related variants are kept symmetric', () => {
     addField({
         step: 'operationeel_grondstoffen', code: 'bestemmingsidentificatie-eu', parent: 'grondstoffen:grondstof', prefLabel: 'Bestemmingsidentificatie',

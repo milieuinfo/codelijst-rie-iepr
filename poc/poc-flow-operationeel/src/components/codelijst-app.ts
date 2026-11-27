@@ -8,7 +8,7 @@ import { isObject, SchemaEditor } from '../services/schema-editor.js'
 import { SchemaLookups } from '../services/schema-lookups.js'
 import { uploadOds } from '../services/ods-upload.js'
 import { demonstrationProcessGraph } from '../services/demo-process-graph.js'
-import { exportTurtle } from '../services/turtle-export.js'
+import { demonstrationReportIri, exportTurtle } from '../services/turtle-export.js'
 import './schema-rich-table.js'
 
 const demoExamples = import.meta.glob<Record<string, unknown>>(
@@ -230,6 +230,7 @@ export class CodelijstApp extends LitElement {
         try {
           const now = new Date(Date.now()).toISOString()
           this.validatedTurtle = exportTurtle(this.editor.schema, result.data, {
+            report: demonstrationReportIri(),
             year: this.year, created: now, issued: now,
             processes: demonstrationProcessGraph(), dependencies: [...this.snapshot.schemas.values()],
             reports: this.reportingContext,
@@ -458,7 +459,7 @@ export class CodelijstApp extends LitElement {
       <p>Grijze velden zijn niet van toepassing. Hun conceptwaarden blijven bewaard, maar komen niet in de gevalideerde JSON.</p>
       <vl-button @click=${this.validate}>Valideren en JSON tonen</vl-button>
       ${this.validated && editor.diagnostics.length ? html`<vl-alert type="error" title="Gegevens zijn niet geldig"></vl-alert>
-        <ul aria-label="Validatiefouten">${editor.diagnostics.map(error => html`<li>${error.instancePath || '/'}: ${error.message}</li>`)}</ul>` : nothing}
+        <ul aria-label="Validatiefouten">${editor.diagnostics.map(error => html`<li>${error.displayPath || error.instancePath || '/'}: ${error.message}</li>`)}</ul>` : nothing}
       ${this.turtleError ? html`<vl-alert type="error" title="Turtle kon niet worden gemaakt" message=${this.turtleError}></vl-alert>` : nothing}
       ${this.validatedJson !== undefined ? html`<section>
         <h2>Gevalideerde uitvoer</h2>

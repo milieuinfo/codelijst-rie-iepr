@@ -60,7 +60,7 @@ From one index of subjects (`nodesById`: id → predicate IRI → terms), typed 
 - **concepts** — subjects typed `skos:Concept`
 - **topConcepts** — for each scheme, its `skos:hasTopConcept` values resolved to Concept objects. RDF values are unordered (the Turtle lists them alphabetically); the display order comes from `uiFirst`/`uiAfter` (`ui-sort.ts`).
 
-All relations (broader, narrower, relevantCodeList, relevantRiepr, vervolgstap, etc.) are resolved down to **plain id strings** (`string[]` or single string). Consumers always look up the real entity via `result.concepts.get(id)` / `result.schemes.get(id)`.
+All relations (broader, narrower, relevantCodeList, relevantRiepr, etc.) are resolved down to **plain id strings** (`string[]` or single string). Consumers always look up the real entity via `result.concepts.get(id)` / `result.schemes.get(id)`.
 
 The approach is deliberately **content-agnostic**: no conceptscheme name or property is special-cased. New schemes or new custom RIE-IEPR properties added to the source data need zero code changes here.
 
@@ -75,18 +75,6 @@ getTopLevelConceptsForScheme(result, schemeId).filter(field => !field.broader)
 ```
 
 Any future component that needs to distinguish "top-level questions" from "composite children" must apply this same filter.
-
-### vervolgstap-based navigation model
-
-`vervolgstap` (the column in the source CSVs, published as `qb:codeList`) links a concept to the next step (a conceptscheme). It is used for two purposes:
-
-1. **Theme → operationeel scheme navigation:** Each thema concept has a `vervolgstap` pointing at its corresponding operationeel conceptscheme. Use `CodelistService.resolveOperationeelSchemeId()` which tries `vervolgstap` first, then falls back to `relevantRiepr` for backward compatibility.
-
-2. **Multi-step flow chaining:** Within operational schemes, structural/feature concepts can have a `vervolgstap` pointing to sub-schemes. When the user selects a value for such a concept, the app navigates to the target scheme via a `flow-navigate` custom event. Example: `lucht:feature_bron` has `vervolgstap` `conceptscheme:operationeel_lucht_rapportering`. After selecting bronnen, the app transitions to render the detailed reporting fields from that sub-scheme.
-
-Service methods:
-- `getVervolgstapRefs(result, node)` — resolves `vervolgstap` refs to Scheme or Concept objects (external URIs silently dropped)
-- `resolveOperationeelSchemeId(result, themeConcept)` — primary method for theme→scheme resolution
 
 ## 3. vl-* Component Library Integration
 
@@ -122,23 +110,7 @@ The `SEEDED_INSTANCES` map provides labels keyed by structural-type concept id. 
 
 **To add a new structural type**, just add a key+array entry to `SEEDED_INSTANCES`. No other code changes are needed — the fallback already covers unseeded types.
 
-## 5. Multi-Step Flow Architecture
-
-### Flow stack model
-
-`codelijst-app.ts` maintains a `flowStack: FlowStep[]` where each step is `{ schemeId, triggerConceptId? }`. The base step has no trigger (it comes from theme selection). Subsequent steps are pushed when a structural field with a `vervolgstap` gets a value.
-
-### Navigation events
-
-- **Theme selection** → resets flow stack, resolves base operationeel scheme via `resolveOperationeelSchemeId()`
-- **Structural field value change** → checks if the concept has a `vervolgstap` pointing to a scheme → emits `flow-navigate` event with `{ schemeId, triggerConceptId }`
-- **Back navigation** → pops from flow stack, shows breadcrumb nav when depth > 1
-
-### Rendering
-
-The current scheme being rendered is always `flowStack[flowStack.length - 1].schemeId`. The `<codelijst-operationeel-fields>` component renders fields for that scheme and listens for its own `flow-navigate` events to chain deeper.
-
-## 6. How to Add Support for a New User-Flow Step
+## 5. How to Add Support for a New User-Flow Step
 
 The POC must stay generic so that new flows can be added later per `docs/PROJECT_OUTLINE.md`. To add another step or handle new codelist properties:
 

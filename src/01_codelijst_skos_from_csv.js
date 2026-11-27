@@ -11,6 +11,7 @@ import {
 } from './utils/variables.js';
 import { ConceptVersioning } from './utils/versioning.js';
 import { n3_reasoning } from '@milieuinfo/maven-metadata-generator-npm/src/utils/functions.js';
+import { generateDsds } from './04_dsd_from_codelists.js';
 
 
 // Resolve paths relative to this script's directory (src/)
@@ -485,6 +486,7 @@ async function generate_skos(options, skosSource ) {
     if (hasViolations) {
         process.exit(1);
     }
+    await generateDsds(options.turtlePath, path.resolve(path.dirname(options.turtlePath), '../../dsd'));
 }
 
 generate_skos(skosOptions, skosSource);

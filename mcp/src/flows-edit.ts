@@ -17,7 +17,7 @@ const FIELD_CODE = /^[a-z][a-z0-9_-]*$/;
 
 /** Column order of a new operationeel_*.csv file. */
 const OPERATIONAL_HEADER = [
-    '_id', '_type', 'topConceptOf', 'inScheme', 'prefLabel', 'definition', 'broaderPartitive', 'relevantObservation', 'relevantClass',
+    '_id', '_type', 'topConceptOf', 'inScheme', 'prefLabel', 'definition', 'note', 'broaderPartitive', 'relevantObservation', 'relevantClass',
     'relevantFeatureClass', 'relevantDataType', 'relation', 'vervolgstap', 'relevantRiepr', 'conditionPath', 'conditionValue',
     'relevantCodeList', 'relevantUnit', 'kwantiteitsAspect', 'drager', 'soortWaartbepaling', 'variabele', 'minValue', 'maxValue',
     'isVerplicht', 'isMeervoudig', 'isMultiselect', 'isOnzichtbaar', '_table_workbook', '_table_sheet', '_table_key',
@@ -27,6 +27,7 @@ const OPERATIONAL_HEADER = [
 export interface FieldProperties {
     prefLabel: string;
     definition?: string;
+    note?: string;
     /** Composite field this is a part of (broaderPartitive). */
     parent?: string;
     datatype?: string;
@@ -73,6 +74,7 @@ export interface FieldProperties {
 const COLUMNS: Record<keyof FieldProperties, string> = {
     prefLabel: 'prefLabel',
     definition: 'definition',
+    note: 'note',
     parent: 'broaderPartitive',
     datatype: 'relevantDataType',
     relation: 'relation',

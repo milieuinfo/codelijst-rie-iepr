@@ -196,10 +196,6 @@ const frame_skos_prefixes = {
         "@embed": "@never",
         "@omitDefault": true
     },
-    "vervolgstap":{
-        "@embed": "@never",
-        "@omitDefault": true
-    },
     "relevantProperty": {
         "@embed": "@never",
         "@omitDefault": true
@@ -478,10 +474,6 @@ const frame_skos_no_prefixes = {
         "@embed": "@never",
         "@omitDefault": true
     },
-    "vervolgstap":{
-        "@embed": "@never",
-        "@omitDefault": true
-    }
 }
 
 

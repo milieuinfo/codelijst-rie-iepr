@@ -42,9 +42,6 @@ export const SH = {
   class: 'http://www.w3.org/ns/shacl#class',
 }
 
-/** The next step of a flow (`vervolgstap` in the source CSVs). */
-export const QB_CODE_LIST = 'http://purl.org/linked-data/cube#codeList'
-
 export const QUDT_RELEVANT_UNIT = 'http://qudt.org/schema/qudt/relevantUnit'
 
 export const VOCAB = {

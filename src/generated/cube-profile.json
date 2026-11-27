@@ -1,0 +1,172 @@
+{
+  "ontology": {
+    "source": "RIE-IEPR/src/main/resources/be/vlaanderen/omgeving/riepr/data/ns/riepr/riepr.ttl",
+    "sha256": "c7922f6b984609c715fa35777f05680ed7bf8994c6b424da7733ef194a87fb57"
+  },
+  "properties": [
+    {
+      "predicate": "http://qudt.org/schema/qudt/hasUnit",
+      "role": "attribute"
+    },
+    {
+      "predicate": "http://qudt.org/schema/qudt/numericValue",
+      "role": "measure"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#bronObservatie",
+      "role": "dimension",
+      "range": "http://www.w3.org/ns/sosa/Observation",
+      "path": [
+        {
+          "predicate": "http://www.w3.org/ns/sosa/hasResult",
+          "inverse": true
+        }
+      ],
+      "label": "Bronobservatie"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#meetmoment",
+      "role": "attribute",
+      "range": "http://www.w3.org/2000/01/rdf-schema#Literal",
+      "path": [
+        {
+          "predicate": "http://www.w3.org/ns/sosa/hasResult",
+          "inverse": true
+        },
+        {
+          "predicate": "http://www.w3.org/ns/sosa/resultTime"
+        }
+      ],
+      "label": "Meetmoment"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#meetperiode",
+      "role": "attribute",
+      "range": "http://www.w3.org/2006/time#TemporalEntity",
+      "path": [
+        {
+          "predicate": "http://www.w3.org/ns/sosa/hasResult",
+          "inverse": true
+        },
+        {
+          "predicate": "http://www.w3.org/ns/sosa/phenomenonTime"
+        }
+      ],
+      "label": "Meetperiode"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#referentieObject",
+      "role": "dimension",
+      "range": "http://www.w3.org/ns/sosa/FeatureOfInterest",
+      "path": [
+        {
+          "predicate": "http://www.w3.org/ns/sosa/hasResult",
+          "inverse": true
+        },
+        {
+          "predicate": "http://www.w3.org/ns/sosa/hasFeatureOfInterest"
+        }
+      ],
+      "label": "Referentieobject"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#verslagjaar",
+      "role": "dimension",
+      "range": "http://www.w3.org/2001/XMLSchema#gYear",
+      "path": [
+        {
+          "predicate": "http://purl.org/linked-data/cube#dataSet"
+        },
+        {
+          "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#productiejaar"
+        }
+      ],
+      "label": "Verslagjaar"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#bepalingsgrensindicator",
+      "role": "attribute"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#bronMeetfrequentie",
+      "role": "attribute"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#drager",
+      "role": "dimension",
+      "range": "http://www.w3.org/2004/02/skos/core#Concept"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#duurPompenStil",
+      "role": "attribute"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#grenswaarde",
+      "role": "attribute"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#herkomst",
+      "role": "attribute"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#kwantiteitsAspect",
+      "role": "dimension",
+      "range": "http://www.w3.org/2004/02/skos/core#Concept"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#lozingsduur",
+      "role": "attribute"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#meetfrequentie",
+      "role": "attribute"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#pomptoestand",
+      "role": "attribute"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#referentiepunt",
+      "role": "attribute"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#soortMonster",
+      "role": "attribute"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#soortMonstername",
+      "role": "attribute"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#soortWaartbepaling",
+      "role": "dimension",
+      "range": "http://www.w3.org/2004/02/skos/core#Concept"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#variabele",
+      "role": "dimension",
+      "range": "http://www.w3.org/2004/02/skos/core#Concept"
+    },
+    {
+      "predicate": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#volumeVoorMeting",
+      "role": "attribute"
+    }
+  ],
+  "sharedContext": [
+    "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
+    "http://www.w3.org/ns/sosa/phenomenonTime",
+    "http://www.w3.org/ns/sosa/resultTime",
+    "http://www.w3.org/ns/sosa/usedProcedure"
+  ],
+  "dataset": {
+    "className": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#ResultaatDataset",
+    "template": "https://data.mjv.omgeving.vlaanderen.be/id/resultatendataset/{jaar}/{rapport}/{dsd}/{issued}/{created}",
+    "mappings": {
+      "jaar": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#productiejaar",
+      "rapport": "http://purl.org/dc/terms/source",
+      "dsd": "http://purl.org/linked-data/cube#structure",
+      "issued": "http://purl.org/dc/terms/issued",
+      "created": "http://purl.org/dc/terms/created"
+    }
+  }
+}

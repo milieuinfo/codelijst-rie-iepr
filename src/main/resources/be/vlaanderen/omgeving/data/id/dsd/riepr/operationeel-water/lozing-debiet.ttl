@@ -1,0 +1,128 @@
+@prefix comp-riepr: <https://data.omgeving.vlaanderen.be/id/dsd/riepr/operationeel-water/lozing-debiet#component-https%3A%2F%2Fdata.riepr.omgeving.vlaanderen.be%2Fns%2Friepr%23>.
+@prefix comp-qudt: <https://data.omgeving.vlaanderen.be/id/dsd/riepr/operationeel-water/lozing-debiet#component-http%3A%2F%2Fqudt.org%2Fschema%2Fqudt%2F>.
+@prefix codes-qudt: <https://data.omgeving.vlaanderen.be/id/dsd/riepr/codelijsten/http%3A%2F%2Fqudt.org%2Fschema%2Fqudt%2F>.
+@prefix water: <https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/>.
+@prefix dsd: <https://data.omgeving.vlaanderen.be/id/dsd/riepr/operationeel-water/>.
+@prefix csor_eenheid: <https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/>.
+@prefix collectie: <https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/>.
+@prefix riepr: <https://data.riepr.omgeving.vlaanderen.be/ns/riepr#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix qb: <http://purl.org/linked-data/cube#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix qudt: <http://qudt.org/schema/qudt/>.
+@prefix time: <http://www.w3.org/2006/time#>.
+@prefix sosa-2023: <http://www.w3.org/ns/sosa/>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+
+dsd:lozing-debiet a qb:DataStructureDefinition;
+    dcterms:source water:lozing-debiet;
+    rdfs:label "Jaardebiet"@nl;
+    dcterms:description "De totale hoeveelheid water in kubieke meter die in het rapporteringsjaar via de controleinrichting werd opgenomen, geloosd of afgevoerd."@nl;
+    qb:component comp-riepr:bronObservatie,
+        comp-riepr:referentieObject,
+        comp-riepr:verslagjaar,
+        comp-qudt:numericValue,
+        comp-qudt:hasUnit,
+        comp-riepr:meetmoment,
+        comp-riepr:meetperiode.
+
+comp-riepr:bronObservatie a qb:ComponentSpecification;
+    dcterms:source riepr:bronObservatie;
+    rdfs:label "Bronobservatie"@nl;
+    qb:dimension riepr:bronObservatie;
+    qb:order 1.
+
+riepr:bronObservatie a rdf:Property,
+        qb:DimensionProperty;
+    rdfs:range sosa-2023:Observation.
+
+comp-riepr:referentieObject a qb:ComponentSpecification;
+    dcterms:source riepr:referentieObject;
+    rdfs:label "Referentieobject"@nl;
+    qb:dimension riepr:referentieObject;
+    qb:order 2.
+
+riepr:referentieObject a rdf:Property,
+        qb:DimensionProperty;
+    rdfs:range sosa-2023:FeatureOfInterest.
+
+comp-riepr:verslagjaar a qb:ComponentSpecification;
+    dcterms:source riepr:verslagjaar;
+    rdfs:label "Verslagjaar"@nl;
+    qb:dimension riepr:verslagjaar;
+    qb:order 3.
+
+riepr:verslagjaar a rdf:Property,
+        qb:DimensionProperty;
+    rdfs:range xsd:gYear.
+
+comp-qudt:numericValue a qb:ComponentSpecification;
+    dcterms:source water:lozing-debiet;
+    rdfs:label "Jaardebiet"@nl;
+    qb:measure qudt:numericValue.
+
+qudt:numericValue a rdf:Property,
+        qb:MeasureProperty;
+    rdfs:range xsd:decimal.
+
+comp-qudt:hasUnit a qb:ComponentSpecification;
+    dcterms:source water:lozing-debiet;
+    qb:attribute qudt:hasUnit;
+    qb:componentAttachment qb:Observation;
+    qb:componentRequired true.
+
+qudt:hasUnit a rdf:Property,
+        qb:AttributeProperty,
+        qb:CodedProperty;
+    rdfs:range skos:Concept;
+    qb:codeList codes-qudt:hasUnit.
+
+codes-qudt:hasUnit a skos:Collection;
+    dcterms:source collectie:operationeel_eenheden_stofhoeveelheid,
+        collectie:operationeel_eenheden_zelfcontrole_lucht_concentratie,
+        collectie:operationeel_eenheden_zelfcontrole_lucht_massastroom,
+        collectie:operationeel_eenheden_zelfcontrole_water_concentratie;
+    skos:member csor_eenheid:E_1,
+        csor_eenheid:E_13,
+        csor_eenheid:E_15,
+        csor_eenheid:E_172,
+        csor_eenheid:E_175,
+        csor_eenheid:E_18,
+        csor_eenheid:E_3,
+        csor_eenheid:E_32,
+        csor_eenheid:E_325,
+        csor_eenheid:E_326,
+        csor_eenheid:E_327,
+        csor_eenheid:E_33,
+        csor_eenheid:E_38,
+        csor_eenheid:E_41,
+        csor_eenheid:E_43,
+        csor_eenheid:E_59,
+        csor_eenheid:E_62,
+        csor_eenheid:E_83,
+        csor_eenheid:E_89,
+        csor_eenheid:E_95.
+
+comp-riepr:meetmoment a qb:ComponentSpecification;
+    dcterms:source riepr:meetmoment;
+    rdfs:label "Meetmoment"@nl;
+    qb:attribute riepr:meetmoment;
+    qb:componentAttachment qb:Observation;
+    qb:componentRequired false.
+
+riepr:meetmoment a rdf:Property,
+        qb:AttributeProperty;
+    rdfs:range rdfs:Literal.
+
+comp-riepr:meetperiode a qb:ComponentSpecification;
+    dcterms:source riepr:meetperiode;
+    rdfs:label "Meetperiode"@nl;
+    qb:attribute riepr:meetperiode;
+    qb:componentAttachment qb:Observation;
+    qb:componentRequired false.
+
+riepr:meetperiode a rdf:Property,
+        qb:AttributeProperty;
+    rdfs:range time:TemporalEntity.

@@ -7,21 +7,27 @@ import { DataFactory, Parser, Store } from 'n3'
 import { compileGroundwater, compileTheme } from '../../../poc-json-schema/tests/groundwater-csv-fixture.js'
 import { sourceSnapshot } from '../../../poc-json-schema/scripts/source-snapshot.mjs'
 import { demonstrationProcessGraph } from './demo-process-graph.js'
-import { exportTurtle } from './turtle-export.js'
+import { demonstrationReportIri, exportTurtle } from './turtle-export.js'
 import { isObject, SchemaEditor } from './schema-editor.js'
 import { resolveProcesses } from './process-graph.js'
 import uriTemplates from '../generated/uri-templates.json'
-import { reportingRecords, schemaObject } from 'codelijst-rie-iepr-poc-json-schema/browser'
+import { reportingRecords, schemaObject, SchemaRegistry, selectMemberVariant } from 'codelijst-rie-iepr-poc-json-schema/browser'
+import { resultDsd } from '../../../../src/utils/cube-profile.js'
 
 const { namedNode } = DataFactory
 const rdfType = namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type')
 const riepr = 'https://data.riepr.omgeving.vlaanderen.be/ns/riepr#'
 const sosa = 'http://www.w3.org/ns/sosa/'
+const qb = 'http://purl.org/linked-data/cube#'
 const example = (name: string) => JSON.parse(readFileSync(new URL(`../../../poc-json-schema/examples/grondwater/${name}.json`, import.meta.url), 'utf8'))
 const section = (name: string) => compileGroundwater(JSON.parse(sourceSnapshot())).subSchemas.find(item => item.name === name)!.schema
-const options = () => ({ year: 2024, created: '2024-01-04T00:00:00Z', issued: '2024-02-05T12:30:00Z', processes: demonstrationProcessGraph() })
+const options = () => ({ report: 'urn:test:aangifte:1', year: 2024, created: '2024-01-04T00:00:00Z', issued: '2024-02-05T12:30:00Z', processes: demonstrationProcessGraph() })
 const shapes = fileURLToPath(new URL('../../test/fixtures/riepr-shacl.ttl', import.meta.url))
 
+/**
+ * Validate asserted export data against the generated ontology constraints.
+ * @param turtle - Serialized reporting data.
+ */
 function validateTurtle(turtle: string) {
   const validator = [
     'import sys',
@@ -138,6 +144,7 @@ describe('Turtle export', () => {
 
   it('mints distinct random and key-derived identifiers when LAN HTTP exposes only getRandomValues', () => {
     vi.stubGlobal('crypto', { getRandomValues: globalThis.crypto.getRandomValues.bind(globalThis.crypto) })
+    expect(demonstrationReportIri()).toMatch(/^urn:uuid:[0-9a-f-]{36}$/)
     const graph = new Store(new Parser().parse(exportTurtle(section('kwaliteitsmeting'), example('kwaliteitsmeting'), options())))
     const ids = graph.getObjects(null, namedNode(riepr + 'localId'), null).map(term => term.value)
     expect(ids.length).toBeGreaterThan(1)
@@ -217,6 +224,38 @@ describe('Turtle export', () => {
       .toEqual([namedNode('urn:test:filter:peil:1')])
   })
 
+  it('links results to a versioned dataset and materializes the ontology dimensions without inventing time', () => {
+    const data = example('peilmeting')
+    delete data.peilmeting[0].resultTime
+    const schema = section('peilmeting')
+    const graph = new Store(new Parser().parse(exportTurtle(schema, data, options())))
+    const datasets = graph.getSubjects(rdfType, namedNode(qb + 'DataSet'), null)
+    expect(datasets).toHaveLength(1)
+    expect(graph.getObjects(datasets[0], namedNode(qb + 'structure'), null))
+      .toEqual([namedNode(resultDsd('https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting'))])
+    expect(graph.getObjects(datasets[0], namedNode('http://purl.org/dc/terms/source'), null))
+      .toEqual([namedNode(options().report)])
+    const observations = graph.getSubjects(rdfType, namedNode(riepr + 'Observatie'), null)
+    for (const observation of observations) {
+      const [result] = graph.getObjects(observation, namedNode(sosa + 'hasResult'), null)
+      expect(graph.getObjects(result, namedNode(qb + 'dataSet'), null)).toEqual(datasets)
+      expect(graph.getObjects(result, namedNode(riepr + 'bronObservatie'), null)).toEqual([observation])
+      expect(graph.getObjects(result, namedNode(riepr + 'referentieObject'), null))
+        .toEqual(graph.getObjects(observation, namedNode(sosa + 'hasFeatureOfInterest'), null))
+      expect(graph.getObjects(result, namedNode(riepr + 'verslagjaar'), null))
+        .toEqual([DataFactory.literal('2024', namedNode('http://www.w3.org/2001/XMLSchema#gYear'))])
+      expect(graph.getObjects(result, namedNode(riepr + 'meetmoment'), null))
+        .toEqual(graph.getObjects(observation, namedNode(sosa + 'resultTime'), null))
+    }
+    const repeated = new Store(new Parser().parse(exportTurtle(schema, data, options())))
+    expect(repeated.getSubjects(rdfType, namedNode(qb + 'DataSet'), null)).toEqual(datasets)
+    for (const changed of [{ report: 'urn:test:aangifte:2' }, { issued: '2024-02-06T12:30:00Z' }]) {
+      const other = new Store(new Parser().parse(exportTurtle(schema, data, { ...options(), ...changed })))
+      expect(other.getSubjects(rdfType, namedNode(qb + 'DataSet'), null)).not.toEqual(datasets)
+    }
+    expect(() => exportTurtle(schema, data, { ...options(), report: '' })).toThrow('bronrapport-IRI')
+  })
+
   it('rejects invalid submission timestamps', () => {
     for (const issued of ['2024-02-05', '2024-02-31T12:00:00Z', '2024-02-05T12:00:00+14:30']) {
       expect(() => exportTurtle(section('peilmeting'), example('peilmeting'), { ...options(), issued }))
@@ -271,6 +310,7 @@ describe('Turtle export', () => {
   it('exports the self-control water variable and concentration qualifiers directly on the result', () => {
     const schema = compileTheme(JSON.parse(sourceSnapshot()), 'Zelfcontrole water').subSchemas[0].schema
     const data = JSON.parse(readFileSync(new URL('../../../poc-json-schema/examples/zelfcontrole-water/meting.json', import.meta.url), 'utf8'))
+    data.meting = [data.meting[0]]
     const graph = new Store(new Parser().parse(exportTurtle(schema, data, options())))
     const vocab = 'https://data.riepr.omgeving.vlaanderen.be/ns/vocab#'
     const result = graph.getSubjects(namedNode(vocab + 'variabele'),
@@ -282,6 +322,31 @@ describe('Turtle export', () => {
       namedNode('https://data.omgeving.vlaanderen.be/id/concept/csor/kwantificeerbaaraspect/KWA_1'), null)).toBe(true)
     expect(graph.has(result, namedNode(vocab + 'soortWaartbepaling'),
       namedNode('https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/SWB_1'), null)).toBe(true)
+    expect(graph.getObjects(result, namedNode(riepr + 'meetmoment'), null))
+      .toEqual([DataFactory.literal(data.meting[0].resultTime, namedNode('http://www.w3.org/2001/XMLSchema#dateTime'))])
+    validateTurtle(exportTurtle(schema, data, options()))
+    const registry = new SchemaRegistry(schema)
+    const resolved = (input: unknown) => registry.resolve(schemaObject(input))
+    const members = resolved(resolved(schema.properties!.meting).items)
+    const parameter = selectMemberVariant(resolved(resolved(members.properties!.hasMember).items), data.meting[0].hasMember[0])
+    const observation = selectMemberVariant(resolved(resolved(parameter.properties!.hasMember).items), data.meting[0].hasMember[0].hasMember[0])
+    observation.properties!.resultTime = {
+      type: 'string', 'x-jsonld-id': sosa + 'resultTime',
+      'x-jsonld-type': 'http://www.w3.org/2001/XMLSchema#dateTime',
+    }
+    data.meting[0].hasMember[0].hasMember[0].resultTime = '2024-06-03T10:30:00+02:00'
+    expect(() => exportTurtle(schema, data, options())).not.toThrow()
+    data.meting[0].hasMember[0].hasMember[0].resultTime = '2024-06-03T09:30:00Z'
+    expect(() => exportTurtle(schema, data, options())).toThrow('Conflicterende gedeelde observatiecontext')
+  })
+
+  it.each([
+    ['Water', 'abnormale-lozing', 'water/abnormale-lozing'],
+    ['Zelfcontrole water', 'meting', 'zelfcontrole-water/meting'],
+  ])('blocks %s/%s results without numeric values instead of dropping or filling them', (theme, name, path) => {
+    const schema = compileTheme(JSON.parse(sourceSnapshot()), theme).subSchemas.find(item => item.name === name)!.schema
+    const data = JSON.parse(readFileSync(new URL(`../../../poc-json-schema/examples/${path}.json`, import.meta.url), 'utf8'))
+    expect(() => exportTurtle(schema, data, options())).toThrow('numerieke meetwaarde; RDF Cube-export is geblokkeerd')
   })
 
   it.each([
@@ -330,10 +395,8 @@ describe('Turtle export', () => {
     ['Lucht', 'geproduceerde-stof', 'lucht/geproduceerde_stof'],
     ['Lucht', 'afvalproduct', 'lucht/afvalproduct'],
     ['Water', 'lozing', 'water/lozing'],
-    ['Water', 'abnormale-lozing', 'water/abnormale-lozing'],
     ['Water', 'watergebruik', 'water/watergebruik'],
     ['Zelfcontrole lucht', 'meting', 'zelfcontrole-lucht/meting'],
-    ['Zelfcontrole water', 'meting', 'zelfcontrole-water/meting'],
   ])('validates %s/%s offline against regenerated SHACL', (theme, name, path) => {
     const schema = compileTheme(JSON.parse(sourceSnapshot()), theme).subSchemas.find(item => item.name === name)!.schema
     const data = JSON.parse(readFileSync(new URL(`../../../poc-json-schema/examples/${path}.json`, import.meta.url), 'utf8'))

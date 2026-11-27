@@ -4,6 +4,7 @@ import {
   reportingRecordId, reportingRecords, schemaObject, selectMemberVariant, sourceSelections,
   type JsonSchemaObject, type ReferenceScope, type ReportingDocument,
 } from 'codelijst-rie-iepr-poc-json-schema/browser'
+import { cubeProfile, resultDsd, resultDataset } from '../../../../src/utils/cube-profile.js'
 import { sha256 } from '@noble/hashes/sha256'
 import { resolveProcesses } from './process-graph.js'
 import { PREFIXES } from './vocab.js'
@@ -18,6 +19,7 @@ const dct = 'http://purl.org/dc/terms/'
 const xsd = 'http://www.w3.org/2001/XMLSchema#'
 const time = 'http://www.w3.org/2006/time#'
 const schemaOrg = 'https://schema.org/'
+const qb = 'http://purl.org/linked-data/cube#'
 const implementedBy = 'http://www.w3.org/ns/ssn/implementedBy'
 const turtlePrefixes = {
   ...PREFIXES,
@@ -59,6 +61,8 @@ const randomUuid = (): string => {
   if (!crypto?.getRandomValues) throw new Error('UUID-generatie is niet beschikbaar.')
   return formatUuid(crypto.getRandomValues(new Uint8Array(16)), 4)
 }
+
+export const demonstrationReportIri = (): string => `urn:uuid:${randomUuid()}`
 
 const keyedUuid = (key: string): string => formatUuid(sha256(new TextEncoder().encode(key)).slice(0, 16), 8)
 
@@ -136,6 +140,7 @@ function formatTurtle(turtle: string): string {
 }
 
 export interface TurtleOptions {
+  report: string
   year: number
   processes: Store
   created: string
@@ -183,6 +188,7 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
   const reports = new Map(reportingRecords(options.reports ?? []).map(record => [record.reference.id, record]))
   const reportedSubjects = new Map<string, { subject: Quad['subject']; data: unknown }>()
   const graph = new Store()
+  const resultSources = new Map<string, { subject: Quad['subject']; source: string }>()
   const recordedQualifiers = new Map<string, Map<string, string>>()
   let sequence = 0
   const fresh = () => blankNode(`report${++sequence}`)
@@ -405,7 +411,15 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
           predicate === sosa + 'isResultOf'
         const target = visit(itemSchema, entry, passesFeature ? feature ?? inherited : undefined, childScopes)
         if (className === riepr + 'Observatie' && predicate === sosa + 'hasResult' &&
-            (target.termType === 'NamedNode' || target.termType === 'BlankNode')) addQualifiers(target, node)
+            (target.termType === 'NamedNode' || target.termType === 'BlankNode')) {
+          addQualifiers(target, node)
+          const sourceNode = itemSchema['x-implicit-result'] ? node : itemSchema
+          const source = sourceNode['x-source-concept'] ?? sourceNode['x-derived-from-source']
+          if (typeof source !== 'string') throw new Error('Resultaat zonder bronconcept voor de DSD.')
+          const previous = resultSources.get(target.value)
+          if (previous && previous.source !== source) throw new Error('Resultaat met conflicterende DSD-bronconcepten.')
+          resultSources.set(target.value, { subject: target, source })
+        }
         add(subject, predicate, target)
       }
     }
@@ -451,6 +465,75 @@ export function exportTurtle(schema: JsonSchemaObject, data: unknown, options: T
     if (!Array.isArray(value)) throw new Error(`Ongeldige rapporteringsgroep: ${key}.`)
     const item = schemaObject(definition.items)
     for (const entry of value) visit(item, entry)
+  }
+  const equivalent = (left: Quad['object'], right: Quad['object']) => left.equals(right) ||
+    (left.termType === 'Literal' && right.termType === 'Literal' &&
+      left.datatype.value === xsd + 'dateTime' && right.datatype.value === xsd + 'dateTime' &&
+      Number.isFinite(Date.parse(left.value)) && Date.parse(left.value) === Date.parse(right.value))
+  const contextObjects = (subject: Quad['subject'], predicate: string, seen = new Set<string>()): Quad['object'][] => {
+    if (seen.has(subject.value)) throw new Error('Cyclische gedeelde observatiecontext.')
+    const values = graph.getObjects(subject, namedNode(predicate), null)
+    if (cubeProfile.sharedContext.includes(predicate)) {
+      const next = new Set(seen).add(subject.value)
+      for (const parent of graph.getSubjects(namedNode(sosa + 'hasMember'), subject, null)) {
+        if (graph.has(parent, namedNode(rdf + 'type'), namedNode(sosa + 'ObservationCollection'), null)) {
+          values.push(...contextObjects(parent, predicate, next))
+        }
+      }
+    }
+    const unique = values.filter((value, index) => values.findIndex(other => equivalent(other, value)) === index)
+    if (unique.length > 1 && cubeProfile.sharedContext.includes(predicate)) {
+      throw new Error(`Conflicterende gedeelde observatiecontext voor ${predicate}.`)
+    }
+    return unique
+  }
+  const attach = (subject: Quad['subject'], predicate: string, value: Quad['object']) => {
+    const previous = graph.getObjects(subject, namedNode(predicate), null)
+    if (previous.some(term => !equivalent(term, value))) throw new Error(`Conflicterende Cube-waarde voor ${predicate}.`)
+    if (!previous.length) add(subject, predicate, value)
+  }
+  for (const type of ['Observation', 'ObservationCollection']) {
+    for (const subject of graph.getSubjects(namedNode(rdf + 'type'), namedNode(sosa + type), null)) {
+      for (const predicate of cubeProfile.sharedContext) contextObjects(subject, predicate)
+    }
+  }
+  for (const { subject, source } of resultSources.values()) {
+    for (const property of cubeProfile.properties.filter(property => property.role === 'measure')) {
+      const values = graph.getObjects(subject, namedNode(property.predicate), null)
+      if (values.length !== 1 || values[0].termType !== 'Literal' ||
+          ![xsd + 'decimal', xsd + 'integer', xsd + 'double', xsd + 'float'].includes(values[0].datatype.value) ||
+          !values[0].value.trim() || !Number.isFinite(Number(values[0].value))) {
+        throw new Error(`Resultaat ${source} heeft niet precies één geldige numerieke meetwaarde; RDF Cube-export is geblokkeerd.`)
+      }
+    }
+    const dataset = resultDataset(resultDsd(source), { ...options, created, issued })
+    const datasetNode = iri(dataset.id)
+    typed(datasetNode, dataset.className)
+    typed(datasetNode, qb + 'DataSet')
+    for (const [predicate, value] of Object.entries(dataset.values)) {
+      attach(datasetNode, predicate, value.datatype ? literal(value.value, namedNode(value.datatype)) : iri(value.value))
+    }
+    attach(subject, qb + 'dataSet', datasetNode)
+    for (const property of cubeProfile.properties.filter(property => property.path)) {
+      let values: Quad['object'][] = [subject]
+      for (const step of property.path!) {
+        const projected: Quad['object'][] = []
+        for (const value of values) {
+          if (value.termType !== 'NamedNode' && value.termType !== 'BlankNode') throw new Error('Contextpad loopt door een letterlijke waarde.')
+          projected.push(...(step.inverse
+            ? graph.getSubjects(namedNode(step.predicate), value, null)
+            : contextObjects(value, step.predicate)))
+        }
+        values = projected.filter((value, index) => projected.findIndex(other => other.equals(value)) === index)
+      }
+      if (values.length > 1 || (property.role === 'dimension' && values.length !== 1)) {
+        throw new Error(`Geen eenduidige Cube-context voor ${property.predicate} bij ${source}.`)
+      }
+      for (const value of values) attach(subject, property.predicate, value)
+    }
+  }
+  if (graph.getSubjects(namedNode(rdf + 'type'), namedNode(riepr + 'Resultaat'), null).length !== resultSources.size) {
+    throw new Error('Resultaat zonder bronobservatie of DSD-koppeling.')
   }
   const quads = graph.getQuads(null, null, null, null)
   const terms = quads.flatMap(({ subject, predicate, object }) =>

@@ -40,4 +40,24 @@ describe('Shared reporting entry declaration', () => {
       .toThrow('No reporting entry declared')
     expect(readFileSync(join(root, reportingEntriesPath), 'utf8')).toContain('operationeel_lucht.csv')
   })
+
+  it('preserves note cells as text, including commas and boolean-looking messages', () => {
+    const directory = mkdtempSync(join(tmpdir(), 'codelijst-snapshot-note-'))
+    temporary.push(directory)
+    mkdirSync(join(directory, 'src/source'), { recursive: true })
+    mkdirSync(join(directory, 'poc'))
+    const entry = loadReportingEntries(root)[0]
+    writeFileSync(join(directory, reportingEntriesPath), JSON.stringify([entry]))
+    cpSync(join(root, 'src/source/operationeel_misc.csv'), join(directory, 'src/source/operationeel_misc.csv'))
+    writeFileSync(join(directory, 'src/source', entry.file), [
+      '_id,_type,inScheme,prefLabel,note',
+      `${entry.schemeId},skos:ConceptScheme,,,`,
+      `grondwater:message,skos:Concept,${entry.schemeId},Bericht,"Vul een getal in, niet tekst."`,
+      `grondwater:boolean-message,skos:Concept,${entry.schemeId},Bericht,true`,
+    ].join('\n'))
+    const snapshot = JSON.parse(sourceSnapshot(canonicalSource, undefined, directory))
+    expect(snapshot.graph.find((node: { id: string }) => node.id === 'grondwater:message').note)
+      .toBe('Vul een getal in, niet tekst.')
+    expect(snapshot.graph.find((node: { id: string }) => node.id === 'grondwater:boolean-message').note).toBe('true')
+  })
 })

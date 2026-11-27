@@ -1,5 +1,3 @@
-import { readFileSync } from 'node:fs'
-import { fileURLToPath } from 'node:url'
 import type { JsonSchemaObject } from '../src/models/index.js'
 import type { ReferenceRecord } from '../src/services/semantic-validator.js'
 import { CodelistParser } from '../src/services/codelist-parser.js'
@@ -9,11 +7,22 @@ import { ChainComposer } from '../src/services/chain-composer.js'
 import { CompositeGroupBuilder } from '../src/services/composite-group-builder.js'
 import { SchemaAssembler } from '../src/services/schema-assembler.js'
 import { schemaObject } from '../src/services/schema-registry.js'
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 
 export const operationalSource = readFileSync(fileURLToPath(new URL(
   '../../../src/main/resources/be/vlaanderen/omgeving/data/id/conceptscheme/rie-iepr/rie-iepr.jsonld', import.meta.url,
 )))
 export const operationalResult = new CodelistParser().parseData(JSON.parse(operationalSource.toString()))
+operationalResult.reportingProfile = 'operational-csv-v1'
+operationalResult.reportingEntries = [
+  { schemeId: 'conceptscheme:operationeel_grondwater', slug: 'grondwater', label: 'Grondwater' },
+  { schemeId: 'conceptscheme:operationeel_lucht', slug: 'lucht', label: 'Lucht' },
+  { schemeId: 'conceptscheme:operationeel_water', slug: 'water', label: 'Water' },
+  { schemeId: 'conceptscheme:operationeel_zelfcontrole_lucht', slug: 'zelfcontrole-lucht', label: 'Zelfcontrole lucht' },
+  { schemeId: 'conceptscheme:operationeel_zelfcontrole_water', slug: 'zelfcontrole-water', label: 'Zelfcontrole water' },
+  { schemeId: 'conceptscheme:operationeel_grondstoffen', slug: 'grondstoffen', label: 'Grondstoffen' },
+]
 const themes = new ThemeResolver().resolveAllThemes(operationalResult)
 
 export function reportingSection(theme: string, id: string): JsonSchemaObject {

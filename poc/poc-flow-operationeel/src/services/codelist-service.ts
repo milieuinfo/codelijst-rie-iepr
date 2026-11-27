@@ -6,13 +6,7 @@
  * - `codelist-parse.ts` — parses the Turtle document (properties matched by IRI)
  *   into a canonical id index and typed `Concept` / `Scheme` views (`parseCodelist`).
  * - `concept-query.ts` — pure query helpers over the parsed result (top-level
- *   concepts, children, `related`-group merging, and vervolgstap/relevantRiepr
- *   reference resolution for the multi-step flow).
- *
- * **vervolgstap-based navigation:** The updated codelist format uses `vervolgstap`
- * instead of `relevantRiepr` for theme→scheme navigation and for chaining
- * multi-step flows within operational schemes. Use `getVervolgstapRefs()` /
- * `resolveOperationeelSchemeId()` to resolve these links.
+ *   concepts, children, and `related`-group merging).
  */
 
 import type { CodelistOptions, CodelistResult, Concept, Scheme } from '../models/index.js'
@@ -110,11 +104,4 @@ export class CodelistService {
     return query.getRelevantRieprRefs(result, node)
   }
 
-  getVervolgstapRefs(result: CodelistResult, node: Scheme | Concept): (Scheme | Concept)[] {
-    return query.getVervolgstapRefs(result, node)
-  }
-
-  resolveOperationeelSchemeId(result: CodelistResult, themeConcept: Concept): string | undefined {
-    return query.resolveOperationeelSchemeId(result, themeConcept)
-  }
 }

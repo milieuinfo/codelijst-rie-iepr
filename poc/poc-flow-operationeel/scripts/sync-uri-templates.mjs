@@ -1,10 +1,12 @@
 import { readFile, writeFile } from 'node:fs/promises'
 import { DataFactory, Parser, Store } from 'n3'
+import { syncCubeProfile } from '../../../src/05_sync_cube_profile.js'
 
 const source = new URL('../../../../RIE-IEPR/src/main/resources/be/vlaanderen/omgeving/riepr/data/ns/riepr/riepr.ttl', import.meta.url)
 const target = new URL('../src/generated/uri-templates.json', import.meta.url)
 const { namedNode } = DataFactory
 const graph = new Store(new Parser().parse(await readFile(source, 'utf8')))
+await syncCubeProfile(source)
 const riepr = 'https://data.riepr.omgeving.vlaanderen.be/ns/riepr#'
 const hydra = 'http://www.w3.org/ns/hydra/core#'
 const only = (subject, predicate) => {

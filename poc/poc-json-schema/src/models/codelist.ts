@@ -21,7 +21,6 @@ export interface Scheme {
   note?: string
   relevantRiepr?: string[]
   seeAlso?: string[]
-  vervolgstap?: string[]
 }
 
 export interface Concept {
@@ -63,7 +62,6 @@ export interface Concept {
   minValue?: number
   maxValue?: number
   seeAlso?: string[]
-  vervolgstap?: string[]
   relation?: string
   /** UI ordering annotation: whether this concept renders as the first UI element */
   uiFirst?: boolean

@@ -51,13 +51,13 @@ const concept = (id: string, extra: Record<string, unknown> = {}) => ({
 })
 function synthetic(extra: Record<string, unknown>[] = []) {
   return {
+    'x-source-profile': 'operational-csv-v1',
+    'x-reporting-entries': [{ schemeId: 'x:step', slug: 'theme', label: 'Theme' }],
     '@context': {
       x: 'https://example.test/concept/', conceptscheme: 'https://example.test/scheme/',
       sosa: 'http://www.w3.org/ns/sosa/', xsd: 'http://www.w3.org/2001/XMLSchema#',
     },
     graph: [
-      { id: 'conceptscheme:thematypes', _type: ['skos:ConceptScheme'] },
-      concept('x:theme', { inScheme: 'conceptscheme:thematypes', prefLabel: 'Unrelated', vervolgstap: 'x:step' }),
       { id: 'x:step', _type: ['skos:ConceptScheme'] },
       concept('x:reading', { relevantClass: 'sosa:Observation', relevantDataType: 'xsd:decimal' }),
       concept('x:agent', { relevantClass: 'sosa:Sensor' }),
@@ -188,7 +188,6 @@ describe('Strict and explicitly incomplete schema generation', () => {
   })
 
   it.each([
-    [concept('x:next', { vervolgstap: 'x:missing', relevantDataType: 'xsd:string' }), 'Unresolved vervolgstap'],
     [concept('x:bad-owner', { broaderPartitive: ['x:broken', 'x:agent'] }), 'Ambiguous ownership'],
     [concept('x:orphan', { broaderPartitive: 'x:missing' }), 'Missing parent'],
     [concept('x:cycle', { broaderPartitive: 'x:cycle' }), 'Ownership cycle'],

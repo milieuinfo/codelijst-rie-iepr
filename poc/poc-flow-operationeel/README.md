@@ -99,7 +99,7 @@ explicitly. `pnpm sync:schemas` performs just the schema runtime build and sync.
   Source-authored `referenceParent`/`referenceRelation` dependencies additionally
   filter structural dropdowns against the actual parent selection in that row.
   Connection data comes from the supplied reference snapshot's predicate-keyed
-  `relations`, not from `vervolgstap`. Changing the parent preserves an invalid
+  `relations`, not from navigation metadata. Changing the parent preserves an invalid
   child draft for correction; validation never silently substitutes a choice.
   Conditional source fields respect the complete `_ui_after` chain and follow
   their trigger, rather than being moved to the end of the form.
@@ -167,7 +167,18 @@ explicitly. `pnpm sync:schemas` performs just the schema runtime build and sync.
   validation mints new UUIDs. These URIs and timestamps do not represent real
   submissions or persistent backend records. Directly selected processes retain
   their existing reference URIs. Run `npm run sync:uri-templates` after changing
-  the sibling RIE-IEPR ontology's templates.
+  the sibling RIE-IEPR ontology's templates; this also refreshes the shared Cube profile.
+- Both RDF export and production DSD generation use the ontology-derived profile
+  in `../../src/generated/cube-profile.json` and the browser-safe shared module
+  `../../src/utils/cube-profile.js`. This keeps the production generator independent
+  of the POCs. Results carry their source observation, actual feature and reporting
+  year as dimensions. Available result time and phenomenon time are optional
+  attributes, inherited only through consistent homogeneous observation collections.
+  Export requires an explicit `TurtleOptions.report` IRI and creates a dataset per
+  report version, year and DSD, with `qb:dataSet` and `qb:structure` links.
+  The UI mints a fictional report IRI per validation; production must supply a real,
+  persistent report identity. Missing numeric measures block Turtle export while
+  retaining valid JSON; no CSV requirements are changed and no values are invented.
 - The static ODS download retains the indexed generic schema/transport contract.
   Upload checks that contract first, then rebuilds the personal form schema with
   the imported reference labels. Separately generated personal-schema ODS files
@@ -246,8 +257,12 @@ Without an argument, sync uses the sibling `RIE-IEPR` checkout. It updates the
 ontology, generated shapes and their provenance/checksums together; commit all
 three. Ordinary test runs never read a sibling checkout.
 
-The current coverage is fourteen exportable sections across six themes,
-including water use and incoming raw materials. A coverage assertion detects
+The current coverage includes twelve exportable example sections across six themes,
+including water use and incoming raw materials. Two additional examples
+(`Water/abnormale-lozing` and `Zelfcontrole water/meting`) intentionally demonstrate
+results without numeric measures: JSON remains valid, but RDF Cube export is
+explicitly rejected. Complete self-control water records are also covered positively
+by the exporter tests. A coverage assertion detects
 new active sections without fixtures. Produced raw materials
 (`Grondstoffen/grondstof`) are explicitly not certified: their observations still
 lack a feature mapping. The root-level production flag is UI-only and is omitted
@@ -256,7 +271,8 @@ that are explicitly referenced by schema visibility conditions; it does not
 silently discard arbitrary unmapped fields. This gate concerns operational data,
 not the structural POC.
 
-**Current findings:** all fourteen covered exports pass the blocking checks.
+**Current findings:** the twelve exportable examples pass the blocking checks;
+the two incomplete examples must be rejected before Turtle is produced.
 The previously missing `sosa:observedProperty` values are now declared explicitly
 in the CSVs and included in the canonical examples; the exporter does not invent
 them. Non-blocking diagnostics include

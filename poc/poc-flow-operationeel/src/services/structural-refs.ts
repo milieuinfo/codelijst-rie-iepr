@@ -1,7 +1,7 @@
 /**
  * Pure derivation helpers for the operationeel-fields component that resolve
- * structural / procedural picker concepts, multi-step `vervolgstap` targets, and
- * "selecteer eerst" gate instructions from a parsed `CodelistResult`.
+ * structural / procedural picker concepts and "selecteer eerst" gate instructions
+ * from a parsed `CodelistResult`.
  *
  * Each function is a pure function of the parsed result (plus the concept or
  * scheme it operates on) — no Lit/DOM access — so they can be unit-tested
@@ -11,22 +11,6 @@
 import type { CodelistResult, Concept, Scheme } from '../models/index.js'
 import * as query from './concept-query.js'
 import { getMockInstances } from './mock-data.service.js'
-
-/**
- * Resolve vervolgstap to a target scheme id if present on a concept. Returns
- * undefined for external refs.
- * @param result - The parsed codelist result.
- * @param concept - The concept whose vervolgstap refs to resolve.
- * @returns The target scheme id, or undefined when none resolves locally.
- */
-export function resolveVervolgstapTargetScheme(result: CodelistResult, concept: Concept): string | undefined {
-  if (!concept.vervolgstap) return undefined
-  for (const refId of concept.vervolgstap) {
-    const target = result.schemes.get(refId)
-    if (target) return target.id
-  }
-  return undefined
-}
 
 /**
  * Resolves relevantRiepr refs on a field to structural type concepts that can be used as pickers.

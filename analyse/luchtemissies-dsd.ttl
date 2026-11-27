@@ -1,0 +1,211 @@
+@prefix qb:      <http://purl.org/linked-data/cube#> .
+@prefix qudt:    <http://qudt.org/schema/qudt/> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix vocab:   <https://data.imjv.omgeving.vlaanderen.be/ns/vocab#> .                    # ⚠ controleren
+@prefix kubus:   <https://data.imjv.omgeving.vlaanderen.be/id/kubus/> .
+@prefix dsd:     <https://data.imjv.omgeving.vlaanderen.be/id/dsd/> .
+@prefix comp:    <https://data.imjv.omgeving.vlaanderen.be/id/componentspecificatie/> .
+@prefix cs:      <https://data.omgeving.vlaanderen.be/id/conceptscheme/csor/> .           # ⚠ controleren
+
+#################################################################
+# Data
+#################################################################
+@prefix qb:      <http://purl.org/linked-data/cube#> .
+@prefix sosa:    <http://www.w3.org/ns/sosa/> .
+@prefix qudt:    <http://qudt.org/schema/qudt/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix riepr:   <https://data.omgeving.vlaanderen.be/ns/riepr#> .                      # ⚠
+@prefix vocab:   <https://data.imjv.omgeving.vlaanderen.be/ns/vocab#> .                 # ⚠
+@prefix kubus:   <https://data.imjv.omgeving.vlaanderen.be/id/kubus/> .
+@prefix resultaat: <https://data.imjv.omgeving.vlaanderen.be/id/resultaat/> .
+@prefix csor_variabele:            <https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/> .            # ⚠
+@prefix csor_kwantificeerbaaraspect: <https://data.omgeving.vlaanderen.be/id/concept/csor/kwantificeerbaaraspect/> . # ⚠
+@prefix csor_drager:               <https://data.omgeving.vlaanderen.be/id/concept/csor/drager/> .               # ⚠
+@prefix csor_soortwaardebepaling:  <https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/> .  # ⚠
+@prefix csor_eenheid:              <https://data.omgeving.vlaanderen.be/id/concept/csor/eenheid/> .              # ⚠
+@prefix csor_bepalingsgrens:       <https://data.omgeving.vlaanderen.be/id/concept/csor/bepalingsgrensindicator/> . # ⚠
+
+resultaat:34f346c7-7a1f-43f4-90ee-9e6bbc7d7c64
+    a qb:Observation , sosa:Result , riepr:Resultaat ;
+
+    # koppeling aan de kubus
+    qb:dataSet kubus:luchtemissies ;
+
+    # identificatie en metadata
+    riepr:localId   "34f346c7-7a1f-43f4-90ee-9e6bbc7d7c64" ;
+    dcterms:created "2026-11-27T08:31:24.722Z"^^xsd:dateTime ;
+    dcterms:issued  "2026-11-27T08:31:24.722Z"^^xsd:dateTime ;
+
+    # dimensies (moeten overeenkomen met de DSD)
+    vocab:variabele            csor_variabele:V_247 ;
+    vocab:kwantiteitsAspect    csor_kwantificeerbaaraspect:KWA_1 ;
+    vocab:drager               csor_drager:DR_1 ;
+    vocab:soortWaardebepaling  csor_soortwaardebepaling:SWB_1 ;
+
+    # measure
+    qudt:numericValue "0.1234567890123"^^xsd:double ;
+
+    # attributen
+    qudt:hasUnit                csor_eenheid:E_1 ;
+    vocab:bepalingsgrensindicator csor_bepalingsgrens:boven-bepalingsgrens .
+
+
+#################################################################
+# Dataset
+#################################################################
+
+kubus:luchtemissies
+    a qb:DataSet ;
+    rdfs:label "Luchtemissies"@nl ;
+    dcterms:title "Luchtemissies"@nl ;
+    dcterms:description "Gerapporteerde luchtemissies uit het integraal milieujaarverslag (IMJV)."@nl ;
+    qb:structure dsd:luchtemissies .
+
+#################################################################
+# Data Structure Definition
+#################################################################
+
+dsd:luchtemissies
+    a qb:DataStructureDefinition ;
+    rdfs:label "Datastructuur luchtemissies"@nl ;
+    qb:component
+        comp:luchtemissies-variabele ,
+        comp:luchtemissies-kwantiteitsAspect ,
+        comp:luchtemissies-drager ,
+        comp:luchtemissies-soortWaardebepaling ,
+        comp:luchtemissies-numericValue ,
+        comp:luchtemissies-hasUnit ,
+        comp:luchtemissies-bepalingsgrensindicator .
+
+#################################################################
+# Component specifications
+#################################################################
+
+# --- Dimensies ---
+
+comp:luchtemissies-variabele
+    a qb:ComponentSpecification ;
+    rdfs:label "Component: variabele"@nl ;
+    qb:dimension vocab:variabele ;
+    qb:order 1 .
+
+comp:luchtemissies-kwantiteitsAspect
+    a qb:ComponentSpecification ;
+    rdfs:label "Component: kwantiteitsaspect"@nl ;
+    qb:dimension vocab:kwantiteitsAspect ;
+    qb:order 2 .
+
+comp:luchtemissies-drager
+    a qb:ComponentSpecification ;
+    rdfs:label "Component: drager"@nl ;
+    qb:dimension vocab:drager ;
+    qb:order 3 .
+
+comp:luchtemissies-soortWaardebepaling
+    a qb:ComponentSpecification ;
+    rdfs:label "Component: soort waardebepaling"@nl ;
+    qb:dimension vocab:soortWaardebepaling ;
+    qb:order 4 .
+
+# --- Measure ---
+
+comp:luchtemissies-numericValue
+    a qb:ComponentSpecification ;
+    rdfs:label "Component: numerieke waarde"@nl ;
+    qb:measure qudt:numericValue .
+
+# --- Attributen ---
+
+comp:luchtemissies-hasUnit
+    a qb:ComponentSpecification ;
+    rdfs:label "Component: eenheid"@nl ;
+    qb:attribute qudt:hasUnit ;
+    qb:componentRequired true ;
+    qb:componentAttachment qb:Observation .
+
+comp:luchtemissies-bepalingsgrensindicator
+    a qb:ComponentSpecification ;
+    rdfs:label "Component: bepalingsgrensindicator"@nl ;
+    qb:attribute vocab:bepalingsgrensindicator ;
+    qb:componentRequired false ;
+    qb:componentAttachment qb:Observation .
+
+#################################################################
+# Property definities
+#################################################################
+
+# --- Dimensie-eigenschappen ---
+
+vocab:variabele
+    a rdf:Property , qb:DimensionProperty , qb:CodedProperty ;
+    rdfs:label "variabele"@nl ;
+    rdfs:comment "De gemeten of gerapporteerde stof of parameter."@nl ;
+    rdfs:range skos:Concept ;
+    qb:codeList cs:variabele ;
+    rdfs:isDefinedBy <https://data.imjv.omgeving.vlaanderen.be/ns/vocab> .
+
+vocab:kwantiteitsAspect
+    a rdf:Property , qb:DimensionProperty , qb:CodedProperty ;
+    rdfs:label "kwantiteitsaspect"@nl ;
+    rdfs:comment "Het kwantificeerbare aspect van de variabele, bv. massa of concentratie."@nl ;
+    rdfs:range skos:Concept ;
+    qb:codeList cs:kwantificeerbaaraspect ;
+    rdfs:isDefinedBy <https://data.imjv.omgeving.vlaanderen.be/ns/vocab> .
+
+vocab:drager
+    a rdf:Property , qb:DimensionProperty , qb:CodedProperty ;
+    rdfs:label "drager"@nl ;
+    rdfs:comment "Het medium of compartiment waarin de variabele voorkomt, bv. lucht."@nl ;
+    rdfs:range skos:Concept ;
+    qb:codeList cs:drager ;
+    rdfs:isDefinedBy <https://data.imjv.omgeving.vlaanderen.be/ns/vocab> .
+
+vocab:soortWaardebepaling
+    a rdf:Property , qb:DimensionProperty , qb:CodedProperty ;
+    rdfs:label "soort waardebepaling"@nl ;
+    rdfs:comment "De manier waarop de waarde bepaald werd, bv. gemeten, berekend of geschat."@nl ;
+    rdfs:range skos:Concept ;
+    qb:codeList cs:soortwaardebepaling ;
+    rdfs:isDefinedBy <https://data.imjv.omgeving.vlaanderen.be/ns/vocab> .
+
+# --- Measure-eigenschap ---
+# Externe property (QUDT); hier enkel getypeerd als qb:MeasureProperty.
+
+qudt:numericValue
+    a qb:MeasureProperty ;
+    rdfs:label "numerieke waarde"@nl ;
+    rdfs:range xsd:double .
+
+# --- Attribuut-eigenschappen ---
+
+qudt:hasUnit
+    a qb:AttributeProperty , qb:CodedProperty ;
+    rdfs:label "eenheid"@nl ;
+    rdfs:range skos:Concept ;
+    qb:codeList cs:eenheid .
+
+vocab:bepalingsgrensindicator
+    a rdf:Property , qb:AttributeProperty , qb:CodedProperty ;
+    rdfs:label "bepalingsgrensindicator"@nl ;
+    rdfs:comment "Geeft aan of de waarde onder of boven de bepalingsgrens ligt."@nl ;
+    rdfs:range skos:Concept ;
+    qb:codeList cs:bepalingsgrensindicator ;
+    rdfs:isDefinedBy <https://data.imjv.omgeving.vlaanderen.be/ns/vocab> .
+
+#################################################################
+# Conceptschema's (minimaal, als codeList-doel)
+#################################################################
+
+cs:variabele              a skos:ConceptScheme ; skos:prefLabel "Variabelen"@nl .
+cs:kwantificeerbaaraspect a skos:ConceptScheme ; skos:prefLabel "Kwantificeerbare aspecten"@nl .
+cs:drager                 a skos:ConceptScheme ; skos:prefLabel "Dragers"@nl .
+cs:soortwaardebepaling    a skos:ConceptScheme ; skos:prefLabel "Soorten waardebepaling"@nl .
+cs:eenheid                a skos:ConceptScheme ; skos:prefLabel "Eenheden"@nl .
+cs:bepalingsgrensindicator a skos:ConceptScheme ; skos:prefLabel "Bepalingsgrensindicatoren"@nl .

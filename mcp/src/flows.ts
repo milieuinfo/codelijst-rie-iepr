@@ -195,6 +195,7 @@ export interface UiField {
     id: string;
     label: string;
     definition?: string;
+    note?: string;
     /** How a form renders the field (as in the POC with @domg-wc components). */
     control: Control;
     required?: true;
@@ -258,6 +259,7 @@ export function describeField(repo: Repo, field: Located, all: Located[]): UiFie
         id: r._id,
         label: r.prefLabel,
         definition: r.definition || undefined,
+        note: r.note || undefined,
         control,
         required: r.isVerplicht === 'true' || undefined,
         repeatable: r.isMeervoudig === 'true' || undefined,

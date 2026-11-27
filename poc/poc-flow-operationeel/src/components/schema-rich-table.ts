@@ -39,10 +39,12 @@ export class SchemaRichTable extends LitElement {
     try {
       const schema = this.editor.resolve(this.node)
       const active = !this.disabled && this.editor.isActive(this.path)
+      const error = this.editor.diagnostics.find(error => error.instancePath === jsonPointer(this.path))
       return html`
         <div class="table" id="table"></div>
         ${schema.type === 'array' ? html`<vl-button secondary ?disabled=${!active}
           @click=${() => this.change(() => this.editor.add(this.path, schema))}>Rij toevoegen</vl-button>` : nothing}
+        ${active && error?.displayPath ? html`<span role="alert">${error.message}</span>` : nothing}
       `
     } catch (error) {
       this.reportError(error)
@@ -277,7 +279,10 @@ export class SchemaRichTable extends LitElement {
     const choices = available && this.editor.referenceChoices(path, available)
     const value = this.editor.get(path)
     const controlId = 'field-' + encodeURIComponent(jsonPointer(path))
-    const error = this.editor.diagnostics.find(error => error.instancePath === jsonPointer(path))
+    const pointer = jsonPointer(path)
+    const error = this.editor.diagnostics.find(error => error.instancePath === pointer ||
+      (schema.type === 'array' && error.instancePath.startsWith(pointer + '/') &&
+        /^\d+$/.test(error.instancePath.slice(pointer.length + 1))))
     const onInput = (event: CustomEvent<{ value?: unknown }>) => {
       if (!active) return
       const raw = event.detail.value

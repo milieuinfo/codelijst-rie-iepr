@@ -170,11 +170,6 @@ describe('CodelistService — fixture parsing', () => {
      */
     it('handles grondwater composite hierarchy inside operationeel_grondwater scheme', () => {
       const result = loadFixture()
-      // Grondwater theme now uses vervolgstap for navigation
-      const grondwaterThema = result.concepts.get('thema:grondwater')
-      expect(grondwaterThema).toBeDefined()
-      expect(grondwaterThema!.vervolgstap).toContain('conceptscheme:operationeel_grondwater')
-
       // The composite measurement types are inside the operationeel_grondwater scheme
       const peilmeting = result.concepts.get('grondwater:peilmeting')
       expect(peilmeting).toBeDefined()
@@ -208,73 +203,12 @@ describe('CodelistService — fixture parsing', () => {
       expect(CodelistServiceMock.getCodeListOptions(result, concept!)).toEqual([])
     })
 
-    /**
-     * In the updated codelist format, thema concepts use vervolgstap instead of
-     * relevantRiepr for scheme navigation. This test verifies that getVervolgstapRefs
-     * correctly resolves the link from a thema to its operationeel scheme.
-     */
-    it('getVervolgstapRefs resolves theme → operationeel scheme navigation', () => {
-      const result = loadFixture()
-      // zelfcontrole-water's vervolgstap points at operationeel_zelfcontrole_water scheme
-      const concept = result.concepts.get('thema:zelfcontrole-water')
-      expect(concept).toBeDefined()
-      expect(concept!.vervolgstap).toBeDefined()
-      expect(concept!.vervolgstap!).toContain('conceptscheme:operationeel_zelfcontrole_water')
-
-      const refs = CodelistServiceMock.getVervolgstapRefs(result, concept!)
-      expect(refs.length).toBeGreaterThan(0)
-      // The target should be a conceptscheme
-      const targetScheme = refs.find(r => r.type?.includes('skos:ConceptScheme'))
-      expect(targetScheme).toBeDefined()
-      expect(targetScheme!.id).toBe('conceptscheme:operationeel_zelfcontrole_water')
-    })
-
-    /**
-     * Only flow links are vervolgstap (qb:codeList). Status type concepts keep
-     * their rdfs:seeAlso to ADMS status URIs, which is not a flow step.
-     */
-    it('getVervolgstapRefs returns [] for concepts without a vervolgstap (ADMS status links)', () => {
-      const result = loadFixture()
-      const concept = result.concepts.get('statustype:in_dienst')
-      expect(concept).toBeDefined()
-      expect(concept!.vervolgstap ?? []).toEqual([])
-      expect(CodelistServiceMock.getVervolgstapRefs(result, concept!)).toEqual([])
-    })
-
     it('getCodeListSchemes returns [] when all relevantCodeList refs are unresolvable', () => {
       const result = loadFixture()
       const concept = result.concepts.get('water:lozing-stof')
       expect(concept).toBeDefined()
       const schemes = CodelistServiceMock.getCodeListSchemes(result, concept!)
       expect(schemes).toEqual([])
-    })
-  })
-
-  describe('resolveOperationeelSchemeId()', () => {
-    /**
-     * The new codelist format uses vervolgstap for theme→scheme navigation.
-     * This helper method should resolve the operationeel scheme from a thema concept.
-     */
-    it('resolves operationeel scheme via vervolgstap (new format)', () => {
-      const result = loadFixture()
-      const luchtThema = result.concepts.get('thema:lucht')!
-      const schemeId = svc.resolveOperationeelSchemeId(result, luchtThema)
-      expect(schemeId).toBe('conceptscheme:operationeel_lucht')
-    })
-
-    it('resolves operationeel scheme via vervolgstap for grondstoffen', () => {
-      const result = loadFixture()
-      const grondstoffenThema = result.concepts.get('thema:grondstoffen')!
-      const schemeId = svc.resolveOperationeelSchemeId(result, grondstoffenThema)
-      expect(schemeId).toBe('conceptscheme:operationeel_grondstoffen')
-    })
-
-    it('returns undefined when no vervolgstap or relevantRiepr points to a scheme', () => {
-      const result = loadFixture()
-      // A leaf concept without schema references
-      const leafConcept = result.concepts.get('lucht:afvalproduct_aard')!
-      const schemeId = svc.resolveOperationeelSchemeId(result, leafConcept)
-      expect(schemeId).toBeUndefined()
     })
   })
 
@@ -308,15 +242,12 @@ describe('CodelistService — fixture parsing', () => {
     })
   })
 
-  /**
-   * New properties from updated codelist format: vervolgstap, isMultiselect, relevantClass.
-   */
+  /** New properties from the operational codelist format. */
   describe('new codelist properties', () => {
     it('keeps the air source selector inside the emission instead of navigating to material reporting', () => {
       const result = loadFixture()
       const concept = result.concepts.get('lucht:feature_bron')
       expect(concept).toBeDefined()
-      expect(concept!.vervolgstap).toBeUndefined()
       expect(CodelistServiceMock.getParent(result, concept!)?.id).toBe('lucht:emissie')
     })
 
@@ -423,18 +354,6 @@ function parse(body: string): CodelistResult {
 }
 
 describe('IRI-based parsing', () => {
-  it('reads properties by IRI, whatever prefix the document uses for them', () => {
-    const result = parse(`
-      @prefix other: <http://www.w3.org/2004/02/skos/core#> .
-      @prefix cube: <http://purl.org/linked-data/cube#> .
-      ex:a a other:Concept ; other:prefLabel "A"@nl ; cube:codeList ex:stap .
-    `)
-    const a = result.concepts.get('ex:a')!
-    expect(a.prefLabel).toBe('A')
-    expect(a.type).toEqual(['skos:Concept'])
-    expect(a.vervolgstap).toEqual(['ex:stap'])
-  })
-
   it('compacts the POC namespaces with its own prefixes, not the document\'s', () => {
     const result = parse(`
       @prefix cs: <https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/> .
@@ -627,5 +546,4 @@ const CodelistServiceMock = {
   getCodeListOptions: (r: CodelistResult, c: Concept) => svc.getCodeListOptions(r, c),
   describeVariabele: (r: CodelistResult, c: Concept, stofId?: string) => svc.describeVariabele(r, c, stofId),
   getRelevantRieprRefs: (r: CodelistResult, n: Scheme | Concept) => svc.getRelevantRieprRefs(r, n),
-  getVervolgstapRefs: (r: CodelistResult, n: Scheme | Concept) => svc.getVervolgstapRefs(r, n),
 }

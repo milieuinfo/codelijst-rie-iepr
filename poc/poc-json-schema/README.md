@@ -38,7 +38,7 @@ only when deliberately generating a filtered snapshot; omit `--theme` to keep
 all available in the UI.
 `poc/reporting-entries.json` (relative to the repository root) declares the active
 source files, scheme IDs, slugs and labels. The MCP uses this same declaration to
-distinguish reporting availability from `vervolgstap` navigation reachability.
+distinguish reporting availability from legacy navigation metadata.
 The snapshot requires explicit valid entries; source filenames do not implicitly
 enable other themes. This is consumer profile configuration, not published RDF.
 Ordering, conditions, variable references, shared end-date ownership and the
@@ -67,6 +67,7 @@ publishing an index if all selected sections are blocked.
 |---|---|
 | `_table_workbook`, `_table_sheet` | `x-table-workbook`, `x-table-sheet`; ODS uses the declared filenames/tabs |
 | `prefLabel` | Exact field titles, including inside structural containers |
+| `note` | Optional Dutch field validation message as `x-validation-message`; the operational UI replaces the default diagnostic for that field. One message applies to every validation failure of that field, so it must describe all relevant constraints. `note` remains the description fallback when `definition` is absent. JSON Schema itself does not standardize custom error messages. |
 | `isOnzichtbaar` | Preserve typed objects and their children; suppress structural input/group labels |
 | `relevantObservation` | Observation ownership independent of table/`broaderPartitive` layout; multiple targets allowed |
 | `relevantFeatureClass` | `x-feature-mapping` / `x-relevant-feature-classes`; picker inputs map to one constructed feature (e.g. annual Onttrekking or grouped Emissie), not several shared features; the UI's Turtle exporter constructs it from explicit process references |
@@ -75,6 +76,11 @@ publishing an index if all selected sections are blocked.
 | `relevantUnit` | Fixed unit or expanded unit-collection choices, never a collection URI used as a unit |
 | `referenceParent`, `referenceRelation` | Explicit structural-selection dependency, independent of navigation; `x-reference-dependency` identifies the parent source concept and candidate-to-parent predicate |
 | `_table_key` | Existing child concepts forming the ODS parent key; `x-table-key` preserves their full source URIs without adding a reporting ID |
+
+Set or clear `note` through the operational MCP field tools. When needed they add
+the existing `skos:note` column to the source CSV; preview and approve the change
+before writing, then regenerate the schema snapshot. The annotation does not
+change validation, and other JSON Schema validators do not automatically display it.
 
 Dependency rules use supplied reference `relations: {predicateURI: parentURI[]}`,
 not field names or an assumed point/source direction. Every selected candidate
@@ -331,7 +337,7 @@ excluding them; ODS import continues to reject inactive supplied cells.
 
 | Existing source information | Generated contract |
 |---|---|
-| `vervolgstap` (`qb:codeList`) | Navigation metadata; not the active groundwater entry mechanism |
+| `poc/reporting-entries.json` | Explicit reporting entry metadata for active sections |
 | `broaderPartitive` / `relevantObservation` | Source grouping / explicit semantic ownership; table placement cannot change the owner |
 | `isMeervoudig` / `isMultiselect` | Distinct record arrays / value-reference arrays, at every depth |
 | `relevantClass` / `relation` | `x-jsonld-type` / `x-jsonld-id`; preserve source-declared objects, agents and Sample/Sampling layers |

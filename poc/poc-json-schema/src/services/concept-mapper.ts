@@ -55,6 +55,9 @@ export class ConceptMapper {
       isSimpleResult: relation === vocabularyIri('sosa:hasSimpleResult'),
       extensions: { 'x-source-concept': this.result.expandCurie?.(concept.id) ?? concept.id },
     }
+    if (typeof concept.note === 'string' && concept.note.trim()) {
+      schemaField.extensions!['x-validation-message'] = concept.note
+    }
     if (concept.isOnzichtbaar) {
       schemaField.extensions!['x-ui-hidden-container'] = true
       if (type !== 'object') schemaField.extensions!['x-ui-hidden'] = true

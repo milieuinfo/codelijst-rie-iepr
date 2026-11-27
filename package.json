@@ -10,6 +10,8 @@
     "csv:check": "cd src && node 00_fix_csv_columns.js",
     "csv:fix": "cd src && node 00_fix_csv_columns.js --fix",
     "generate_skos": "cd src && node 01_codelijst_skos_from_csv.js",
+    "generate_dsd": "cd src && node 04_dsd_from_codelists.js",
+    "sync:cube-profile": "node src/05_sync_cube_profile.js",
     "create_metadata": "cd src && node 02_metadata.js",
     "deploy": "cd src && node 99_deploy_latest.js",
     "init_versioning": "cd src && node 03_init_versioning.js"
@@ -33,7 +35,8 @@
     "csvtojson": "^2.0.14",
     "dotenv": "^16.4.5",
     "js-yaml": "^4.1.0",
-    "jsonld": "^8.3.1"
+    "jsonld": "^8.3.1",
+    "n3": "^2.13.9"
   },
   "devDependencies": {
     "vitest": "^1.0.0"

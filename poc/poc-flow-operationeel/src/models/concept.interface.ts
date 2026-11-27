@@ -38,12 +38,6 @@ export interface Concept {
   related?: string[]
   /** Normalized condition values as an array (one per variant). Filled when multiple conditionValue refs exist. */
   conditionValues?: string[]
-  /**
-   * Links to another scheme or concept for multi-step flows. When a structural element is selected,
-   * the app transitions to the target scheme referenced here. Points at a `skos:ConceptScheme` id.
-   * Replaces the old pattern where `relevantRiepr` was used for theme→scheme navigation.
-   */
-  vervolgstap?: string[]
   /** RDF relation predicate (e.g., "rdfs:label") on composite children. Used internally for deduplication keys. */
   relation?: string
   /** Indicates that a structural picker allows multiple selections (e.g., selecting multiple bronnen). */
