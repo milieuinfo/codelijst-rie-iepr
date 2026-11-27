@@ -17,6 +17,7 @@
               "type": "string",
               "minLength": 1,
               "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-feature",
+              "x-validation-message": "Kies minstens één geldige waarde voor Filter(s).",
               "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
               "x-table-sheet": "Monsters",
               "x-table-order": 20,
@@ -56,7 +57,8 @@
             "x-ui-first": true,
             "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
             "x-table-sheet": "Monsters",
-            "x-table-order": 20
+            "x-table-order": 20,
+            "x-validation-message": "Kies minstens één geldige waarde voor Filter(s)."
           },
           "wasAssociatedWith": {
             "type": "object",
@@ -64,6 +66,7 @@
               "label": {
                 "type": "string",
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-labo-naam",
+                "x-validation-message": "Vul een geldige tekst in voor Labo naam.",
                 "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
                 "x-table-sheet": "Monsters",
                 "x-table-order": 27,
@@ -73,7 +76,8 @@
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                 "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#label",
                 "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
-                "title": "Labo naam"
+                "title": "Labo naam",
+                "description": "Vul een geldige tekst in voor Labo naam."
               }
             },
             "additionalProperties": false,
@@ -98,6 +102,7 @@
                 "type": "string",
                 "minLength": 1,
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-monsternummer",
+                "x-validation-message": "Vul een geldige tekst in voor Monsternummer.",
                 "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
                 "x-table-sheet": "Monsters",
                 "x-table-order": 22,
@@ -105,6 +110,7 @@
                 "x-jsonld-id": "http://purl.org/dc/terms/identifier",
                 "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
                 "title": "Monsternummer",
+                "description": "Vul een geldige tekst in voor Monsternummer.",
                 "x-ui-first": true
               },
               "isResultOf": {
@@ -114,6 +120,7 @@
                     "type": "string",
                     "format": "date-time",
                     "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-datum",
+                    "x-validation-message": "Vul een geldige datum en tijd in voor Datum en tijdstip, met tijdzone.",
                     "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
                     "x-table-sheet": "Monsters",
                     "x-table-order": 24,
@@ -121,6 +128,7 @@
                     "x-jsonld-id": "http://www.w3.org/ns/sosa/resultTime",
                     "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#dateTime",
                     "title": "Datum en tijdstip",
+                    "description": "Vul een geldige datum en tijd in voor Datum en tijdstip, met tijdzone.",
                     "x-ui-first": true
                   },
                   "usedProcedure": {
@@ -129,6 +137,7 @@
                       "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-techniekmonstername/aftap"
                     ],
                     "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-techniek",
+                    "x-validation-message": "Kies een geldige waarde voor Techniek monstername.",
                     "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
                     "x-table-sheet": "Monsters",
                     "x-table-order": 25,
@@ -137,7 +146,8 @@
                     ],
                     "x-jsonld-id": "http://www.w3.org/ns/sosa/usedProcedure",
                     "x-jsonld-type": "@id",
-                    "title": "Techniek monstername"
+                    "title": "Techniek monstername",
+                    "description": "Kies een geldige waarde voor Techniek monstername."
                   }
                 },
                 "additionalProperties": false,
@@ -183,6 +193,7 @@
                       "type": "string",
                       "format": "date-time",
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-labo-datum",
+                      "x-validation-message": "Vul een geldige datum en tijd in voor Datum en tijdstip laboanalyse, met tijdzone.",
                       "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
                       "x-table-sheet": "Meetresultaten",
                       "x-table-order": 32,
@@ -193,6 +204,7 @@
                       "x-jsonld-id": "http://www.w3.org/ns/sosa/resultTime",
                       "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#dateTime",
                       "title": "Datum en tijdstip laboanalyse",
+                      "description": "Vul een geldige datum en tijd in voor Datum en tijdstip laboanalyse, met tijdzone.",
                       "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-meetwaarde"
                     },
                     "hasResult": {
@@ -210,6 +222,7 @@
                             "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_329"
                           ],
                           "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-parameter",
+                          "x-validation-message": "Kies een geldige waarde voor Variabele.",
                           "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
                           "x-table-sheet": "Meetresultaten",
                           "x-table-order": 29,
@@ -222,11 +235,13 @@
                           "x-jsonld-id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#variabele",
                           "x-jsonld-type": "@id",
                           "title": "Variabele",
+                          "description": "Kies een geldige waarde voor Variabele.",
                           "x-ui-first": true
                         },
                         "numericValue": {
                           "type": "number",
                           "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-meetwaarde",
+                          "x-validation-message": "Vul een getal in voor Meetwaarde.",
                           "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
                           "x-table-sheet": "Meetresultaten",
                           "x-table-order": 31,
@@ -239,6 +254,7 @@
                           "x-soortwaardebepaling": "https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/SWB_1",
                           "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
                           "title": "Meetwaarde",
+                          "description": "Vul een getal in voor Meetwaarde.",
                           "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-limiet",
                           "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-parameter",
                           "x-ui-after": "bepalingsgrensindicator",
@@ -257,6 +273,7 @@
                             "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-onder"
                           ],
                           "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-limiet",
+                          "x-validation-message": "Kies een geldige waarde voor Bepalingsgrens (LOQ).",
                           "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
                           "x-table-sheet": "Meetresultaten",
                           "x-table-order": 30,
@@ -276,6 +293,7 @@
                         "measurementMethod": {
                           "type": "string",
                           "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-methode",
+                          "x-validation-message": "Vul een geldige tekst in voor Analysemethode.",
                           "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
                           "x-table-sheet": "Meetresultaten",
                           "x-table-order": 33,
@@ -286,11 +304,13 @@
                           "x-jsonld-id": "https://schema.org/measurementMethod",
                           "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
                           "title": "Analysemethode",
+                          "description": "Vul een geldige tekst in voor Analysemethode.",
                           "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-labo-datum"
                         },
                         "type": {
                           "type": "string",
                           "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-bemonsteringsinstrument",
+                          "x-validation-message": "Vul een geldige tekst in voor Veld- of laboanalyse.",
                           "x-table-workbook": "grondwater-kwaliteitsanalyses.ods",
                           "x-table-sheet": "Meetresultaten",
                           "x-table-order": 34,
@@ -301,6 +321,7 @@
                           "x-jsonld-id": "http://purl.org/dc/terms/type",
                           "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
                           "title": "Veld- of laboanalyse",
+                          "description": "Vul een geldige tekst in voor Veld- of laboanalyse.",
                           "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting-resultaten-methode",
                           "x-ui-after": "measurementMethod"
                         },
@@ -452,7 +473,6 @@
   "x-theme-slug": "grondwater",
   "x-theme-label": "Grondwater",
   "x-semantic-profile": "https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/",
-  "x-flow-transitions": [],
   "x-section-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/kwaliteitsmeting",
   "x-table-workbook": "grondwater-kwaliteitsanalyses.ods"
 }

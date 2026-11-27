@@ -17,6 +17,7 @@
                 "type": "string",
                 "minLength": 1,
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct_naam",
+                "x-validation-message": "Vul een geldige tekst in voor Naam.",
                 "x-table-order": 84,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                 "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#label",
@@ -28,6 +29,7 @@
               "comment": {
                 "type": "string",
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct_aard",
+                "x-validation-message": "Vul een geldige tekst in voor Aard en/of samenstelling.",
                 "x-table-order": 85,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                 "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#comment",
@@ -40,6 +42,7 @@
               "numericValue": {
                 "type": "number",
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct_hoeveelheid",
+                "x-validation-message": "Vul een getal in voor Hoeveelheid afvalproduct.",
                 "x-table-order": 86,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
                 "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
@@ -88,6 +91,7 @@
             "type": "string",
             "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct_installatie",
+            "x-validation-message": "Kies een geldige waarde voor Installatie.",
             "x-table-order": 82,
             "x-reference-types": [
               "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
@@ -145,7 +149,6 @@
   "x-theme-slug": "lucht",
   "x-theme-label": "Lucht",
   "x-semantic-profile": "https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/",
-  "x-flow-transitions": [],
   "x-section-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/afvalproduct",
   "x-table-workbook": "lucht-afvalproducten.ods"
 }

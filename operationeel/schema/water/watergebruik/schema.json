@@ -25,6 +25,7 @@
                   "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/herkomst-oppervlaktewater"
                 ],
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-herkomst",
+                "x-validation-message": "Kies een geldige waarde voor Herkomst.",
                 "x-table-order": 113,
                 "x-code-lists": [
                   "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/herkomst_water"
@@ -39,6 +40,7 @@
                 "type": "number",
                 "minimum": 0,
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-hoeveelheid",
+                "x-validation-message": "Vul een getal van minimaal 0 in voor Onttrokken hoeveelheid.",
                 "x-table-order": 114,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
                 "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
@@ -82,6 +84,7 @@
             "type": "string",
             "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik-feature",
+            "x-validation-message": "Kies een geldige waarde voor Installatie.",
             "x-table-order": 111,
             "x-relevant-observations": [
               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik"
@@ -138,7 +141,6 @@
   "x-theme-slug": "water",
   "x-theme-label": "Water",
   "x-semantic-profile": "https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/",
-  "x-flow-transitions": [],
   "x-section-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-water/watergebruik",
   "x-table-workbook": "water-watergebruik.ods"
 }

@@ -14,6 +14,7 @@
             "type": "string",
             "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/feature_ep",
+            "x-validation-message": "Kies een geldige waarde voor Emissiepunt.",
             "x-table-workbook": "lucht-emissies.ods",
             "x-table-sheet": "Emissiegehelen",
             "x-table-order": 36,
@@ -53,6 +54,7 @@
               "type": "string",
               "minLength": 1,
               "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/feature_bron",
+              "x-validation-message": "Kies minstens één geldige waarde voor Bron(nen).",
               "x-table-workbook": "lucht-emissies.ods",
               "x-table-sheet": "Emissiegehelen",
               "x-table-order": 37,
@@ -92,6 +94,7 @@
             "x-table-workbook": "lucht-emissies.ods",
             "x-table-sheet": "Emissiegehelen",
             "x-table-order": 37,
+            "x-validation-message": "Kies minstens één geldige waarde voor Bron(nen).",
             "x-ui-after": "featureEp"
           },
           "type": {
@@ -106,6 +109,7 @@
               "https://data.omgeving.vlaanderen.be/id/concept/riepr/emissietype/niet-geleide-overslagverlies"
             ],
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissietype",
+            "x-validation-message": "Kies een geldige waarde voor Emissietype.",
             "x-table-workbook": "lucht-emissies.ods",
             "x-table-sheet": "Emissiegehelen",
             "x-table-order": 39,
@@ -118,6 +122,7 @@
             "x-jsonld-id": "http://purl.org/dc/terms/type",
             "x-jsonld-type": "@id",
             "title": "Emissietype",
+            "description": "Kies een geldige waarde voor Emissietype.",
             "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_stoffen",
             "x-ui-after": "used"
           },
@@ -127,6 +132,7 @@
             "items": {
               "type": "string",
               "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_stoffen",
+              "x-validation-message": "Kies geldige waarden voor Verwerkte stoffen en brandstoffen passend bij Bron(nen).",
               "x-table-order": 38,
               "x-reference-records": true,
               "x-reference-types": [
@@ -150,6 +156,7 @@
             "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/feature_bron",
             "x-jsonld-id": "http://www.w3.org/ns/prov#used",
             "x-table-order": 38,
+            "x-validation-message": "Kies geldige waarden voor Verwerkte stoffen en brandstoffen passend bij Bron(nen).",
             "x-ui-after": "featureBron",
             "x-reference-dependency": {
               "sourceConcept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/feature_bron",
@@ -174,6 +181,7 @@
                           "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
                           "x-table-order": 42,
                           "title": "Vochtgehalte",
+                          "description": "Vul een getal in voor Vochtgehalte.",
                           "x-ui-first": true
                         },
                         "hasUnit": {
@@ -217,6 +225,7 @@
                   ],
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_vochtgehalte",
+                  "x-validation-message": "Vul een getal in voor Vochtgehalte.",
                   "x-table-workbook": "lucht-emissies.ods",
                   "x-table-sheet": "Emissiegehelen",
                   "x-table-order": 42,
@@ -231,6 +240,7 @@
                   ],
                   "x-scalar-observation": true,
                   "title": "Vochtgehalte",
+                  "description": "Vul een getal in voor Vochtgehalte.",
                   "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissietoestand",
                   "x-ui-after": "emissietoestand"
                 },
@@ -245,6 +255,7 @@
                           "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
                           "x-table-order": 43,
                           "title": "Zuurstofgehalte",
+                          "description": "Vul een getal in voor Zuurstofgehalte.",
                           "x-ui-first": true
                         },
                         "hasUnit": {
@@ -288,6 +299,7 @@
                   ],
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_zuurstofgehalte",
+                  "x-validation-message": "Vul een getal in voor Zuurstofgehalte.",
                   "x-table-workbook": "lucht-emissies.ods",
                   "x-table-sheet": "Emissiegehelen",
                   "x-table-order": 43,
@@ -302,6 +314,7 @@
                   ],
                   "x-scalar-observation": true,
                   "title": "Zuurstofgehalte",
+                  "description": "Vul een getal in voor Zuurstofgehalte.",
                   "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_vochtgehalte",
                   "x-ui-after": "emissieVochtgehalte"
                 },
@@ -316,6 +329,7 @@
                           "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
                           "x-table-order": 44,
                           "title": "Luchtoverschot",
+                          "description": "Vul een getal in voor Luchtoverschot.",
                           "x-ui-first": true
                         },
                         "hasUnit": {
@@ -359,6 +373,7 @@
                   ],
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_luchtoverschot",
+                  "x-validation-message": "Vul een getal in voor Luchtoverschot.",
                   "x-table-workbook": "lucht-emissies.ods",
                   "x-table-sheet": "Emissiegehelen",
                   "x-table-order": 44,
@@ -373,6 +388,7 @@
                   ],
                   "x-scalar-observation": true,
                   "title": "Luchtoverschot",
+                  "description": "Vul een getal in voor Luchtoverschot.",
                   "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_zuurstofgehalte",
                   "x-ui-after": "emissieZuurstofgehalte"
                 },
@@ -387,6 +403,7 @@
                           "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
                           "x-table-order": 48,
                           "title": "Temperatuur",
+                          "description": "Vul een getal in voor Temperatuur.",
                           "x-ui-first": true
                         },
                         "hasUnit": {
@@ -430,6 +447,7 @@
                   ],
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_temperatuur",
+                  "x-validation-message": "Vul een getal in voor Temperatuur.",
                   "x-table-workbook": "lucht-emissies.ods",
                   "x-table-sheet": "Emissiegehelen",
                   "x-table-order": 48,
@@ -444,6 +462,7 @@
                   ],
                   "x-scalar-observation": true,
                   "title": "Temperatuur",
+                  "description": "Vul een getal in voor Temperatuur.",
                   "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieduur",
                   "x-ui-after": "emissieduur"
                 },
@@ -465,6 +484,7 @@
                         "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_256"
                       ],
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_parameter",
+                      "x-validation-message": "Kies een geldige waarde voor Stof.",
                       "x-table-order": 51,
                       "x-code-lists": [
                         "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_lucht"
@@ -472,6 +492,7 @@
                       "x-jsonld-id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#variabele",
                       "x-jsonld-type": "@id",
                       "title": "Stof",
+                      "description": "Kies een geldige waarde voor Stof.",
                       "x-ui-first": true
                     },
                     "accrualPeriodicity": {
@@ -480,6 +501,7 @@
                         "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-meetfrequentie/test"
                       ],
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_meetfrequentie",
+                      "x-validation-message": "Kies een geldige waarde voor Meetfrequentie.",
                       "x-table-order": 54,
                       "x-code-lists": [
                         "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_meetfrequentie"
@@ -487,6 +509,7 @@
                       "x-jsonld-id": "http://purl.org/dc/terms/accrualPeriodicity",
                       "x-jsonld-type": "@id",
                       "title": "Meetfrequentie",
+                      "description": "Kies een geldige waarde voor Meetfrequentie.",
                       "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_controleinstantie",
                       "x-ui-after": "wasAssociatedWith"
                     },
@@ -497,6 +520,7 @@
                           "type": "string",
                           "minLength": 1,
                           "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_controleinstantie_naam",
+                          "x-validation-message": "Vul een geldige tekst in voor Naam controle-instantie.",
                           "x-table-order": 53,
                           "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                           "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#label",
@@ -539,6 +563,7 @@
                                     "type": "number",
                                     "minimum": 0,
                                     "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_massastroom",
+                                    "x-validation-message": "Vul een getal van minimaal 0 in voor Massastroom.",
                                     "x-table-order": 59,
                                     "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
                                     "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
@@ -547,6 +572,7 @@
                                     "x-drager": "https://data.omgeving.vlaanderen.be/id/concept/csor/drager/DR_8",
                                     "x-soortwaardebepaling": "https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/SWB_1",
                                     "title": "Massastroom",
+                                    "description": "Vul een getal van minimaal 0 in voor Massastroom.",
                                     "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_parameter",
                                     "x-variabele": "variabele",
                                     "x-variable-location": {
@@ -667,6 +693,7 @@
                             ],
                             "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_concentratie",
+                            "x-validation-message": "Vul een getal van minimaal 0 in voor Concentratie.",
                             "x-table-order": 55,
                             "x-relevant-observations": [
                               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter"
@@ -758,6 +785,7 @@
                             ],
                             "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_jaaremissie",
+                            "x-validation-message": "Vul een getal van minimaal 0 in voor Jaaremissie.",
                             "x-table-order": 60,
                             "x-relevant-observations": [
                               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter"
@@ -875,6 +903,7 @@
                                 "minimum": 0,
                                 "maximum": 100,
                                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_standaardafwijking",
+                                "x-validation-message": "Vul een geheel getal van minimaal 0 en maximaal 100 in voor Standaardafwijking.",
                                 "x-table-order": 56,
                                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#integer",
                                 "x-jsonld-id": "https://schema.org/value",
@@ -898,6 +927,7 @@
                               "value"
                             ],
                             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_standaardafwijking",
+                            "x-validation-message": "Vul een geheel getal van minimaal 0 en maximaal 100 in voor Standaardafwijking.",
                             "x-table-order": 56,
                             "x-source-datatype": "http://www.w3.org/2001/XMLSchema#integer",
                             "x-jsonld-id": "https://schema.org/additionalProperty",
@@ -905,6 +935,7 @@
                             "x-drager": "https://data.omgeving.vlaanderen.be/id/concept/csor/drager/DR_8",
                             "x-soortwaardebepaling": "https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/SWB_40",
                             "title": "Standaardafwijking",
+                            "description": "Vul een geheel getal van minimaal 0 en maximaal 100 in voor Standaardafwijking.",
                             "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_concentratie",
                             "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_parameter_parameter",
                             "x-ui-after": "emissieParameterConcentratie",
@@ -1044,6 +1075,7 @@
                   ],
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_debiet",
+                  "x-validation-message": "Vul een getal in voor Debiet.",
                   "x-table-workbook": "lucht-emissies.ods",
                   "x-table-sheet": "Emissiegehelen",
                   "x-table-order": 49,
@@ -1204,6 +1236,7 @@
                     "value": {
                       "type": "string",
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieritme",
+                      "x-validation-message": "Vul een geldige tekst in voor Emissieritme.",
                       "x-table-workbook": "lucht-emissies.ods",
                       "x-table-sheet": "Emissiegehelen",
                       "x-table-order": 45,
@@ -1221,6 +1254,7 @@
                     "value"
                   ],
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieritme",
+                  "x-validation-message": "Vul een geldige tekst in voor Emissieritme.",
                   "x-table-workbook": "lucht-emissies.ods",
                   "x-table-sheet": "Emissiegehelen",
                   "x-table-order": 45,
@@ -1252,6 +1286,7 @@
                     "value": {
                       "type": "string",
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieperiode",
+                      "x-validation-message": "Vul een geldige tekst in voor Emissieperiode.",
                       "x-table-workbook": "lucht-emissies.ods",
                       "x-table-sheet": "Emissiegehelen",
                       "x-table-order": 46,
@@ -1269,6 +1304,7 @@
                     "value"
                   ],
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieperiode",
+                  "x-validation-message": "Vul een geldige tekst in voor Emissieperiode.",
                   "x-table-workbook": "lucht-emissies.ods",
                   "x-table-sheet": "Emissiegehelen",
                   "x-table-order": 46,
@@ -1301,6 +1337,7 @@
                     "value": {
                       "type": "integer",
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieduur",
+                      "x-validation-message": "Vul een geheel getal in voor Emissieduur.",
                       "x-table-workbook": "lucht-emissies.ods",
                       "x-table-sheet": "Emissiegehelen",
                       "x-table-order": 47,
@@ -1326,6 +1363,7 @@
                     "value"
                   ],
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissieduur",
+                  "x-validation-message": "Vul een geheel getal in voor Emissieduur.",
                   "x-table-workbook": "lucht-emissies.ods",
                   "x-table-sheet": "Emissiegehelen",
                   "x-table-order": 47,
@@ -1361,6 +1399,7 @@
                         "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toestand-indicator/droog"
                       ],
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissietoestand",
+                      "x-validation-message": "Kies een geldige waarde voor Toestand indicator.",
                       "x-table-workbook": "lucht-emissies.ods",
                       "x-table-sheet": "Emissiegehelen",
                       "x-table-order": 41,
@@ -1380,6 +1419,7 @@
                     "value"
                   ],
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissietoestand",
+                  "x-validation-message": "Kies een geldige waarde voor Toestand indicator.",
                   "x-table-workbook": "lucht-emissies.ods",
                   "x-table-sheet": "Emissiegehelen",
                   "x-table-order": 41,
@@ -1413,6 +1453,7 @@
                     "value": {
                       "type": "string",
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_oorzaak",
+                      "x-validation-message": "Vul een geldige tekst in voor Oorzaak abnormale emissie.",
                       "x-table-workbook": "lucht-emissies.ods",
                       "x-table-sheet": "Emissiegehelen",
                       "x-table-order": 40,
@@ -1430,6 +1471,7 @@
                     "value"
                   ],
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie_oorzaak",
+                  "x-validation-message": "Vul een geldige tekst in voor Oorzaak abnormale emissie.",
                   "x-table-workbook": "lucht-emissies.ods",
                   "x-table-sheet": "Emissiegehelen",
                   "x-table-order": 40,
@@ -1731,7 +1773,6 @@
   "x-theme-slug": "lucht",
   "x-theme-label": "Lucht",
   "x-semantic-profile": "https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/",
-  "x-flow-transitions": [],
   "x-section-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/emissie",
   "x-table-workbook": "lucht-emissies.ods"
 }

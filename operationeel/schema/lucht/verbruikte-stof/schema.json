@@ -14,6 +14,7 @@
             "type": "string",
             "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_naam",
+            "x-validation-message": "Vul een geldige tekst in voor Naam.",
             "x-table-order": 71,
             "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
             "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#label",
@@ -29,6 +30,7 @@
               "comment": {
                 "type": "string",
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_aard",
+                "x-validation-message": "Vul een geldige tekst in voor Aard en/of samenstelling.",
                 "x-table-order": 73,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                 "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#comment",
@@ -40,6 +42,7 @@
               "numericValue": {
                 "type": "number",
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_hoeveelheid",
+                "x-validation-message": "Vul een getal in voor Verbruik.",
                 "x-table-order": 74,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
                 "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
@@ -89,6 +92,7 @@
             "type": "string",
             "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof_installatie",
+            "x-validation-message": "Kies een geldige waarde voor Installatie.",
             "x-table-order": 70,
             "x-reference-types": [
               "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
@@ -147,7 +151,6 @@
   "x-theme-slug": "lucht",
   "x-theme-label": "Lucht",
   "x-semantic-profile": "https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/",
-  "x-flow-transitions": [],
   "x-section-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-lucht/verbruikte_stof",
   "x-table-workbook": "lucht-verbruikte-stoffen.ods"
 }

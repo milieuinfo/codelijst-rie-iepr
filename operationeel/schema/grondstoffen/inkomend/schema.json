@@ -14,6 +14,7 @@
             "type": "string",
             "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_installatie",
+            "x-validation-message": "Kies een geldige waarde voor IEPR installatie.",
             "x-table-order": 180,
             "x-reference-types": [
               "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
@@ -34,6 +35,7 @@
             "type": "string",
             "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_activiteit",
+            "x-validation-message": "Kies een geldige waarde voor Activiteit.",
             "x-table-order": 181,
             "x-reference-types": [
               "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Rubriek"
@@ -52,17 +54,20 @@
                 "type": "string",
                 "minLength": 1,
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_aard",
+                "x-validation-message": "Vul een geldige tekst in voor Aard.",
                 "x-table-order": 183,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                 "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#comment",
                 "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
                 "title": "Aard",
+                "description": "Vul een geldige tekst in voor Aard.",
                 "x-ui-first": true
               },
               "numericValue": {
                 "type": "number",
                 "minimum": 0,
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend_hoeveelheid",
+                "x-validation-message": "Vul een getal van minimaal 0 in voor Hoeveelheid.",
                 "x-table-order": 184,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
                 "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
@@ -140,7 +145,6 @@
   "x-theme-slug": "grondstoffen",
   "x-theme-label": "Grondstoffen",
   "x-semantic-profile": "https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/",
-  "x-flow-transitions": [],
   "x-section-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/inkomend",
   "x-table-workbook": "grondstoffen-inkomend.ods"
 }

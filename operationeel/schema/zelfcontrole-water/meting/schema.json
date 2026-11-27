@@ -14,6 +14,7 @@
             "type": "string",
             "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/feature",
+            "x-validation-message": "Kies een geldige waarde voor Controleinrichting.",
             "x-table-order": 136,
             "x-relevant-observations": [
               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/meting"
@@ -38,6 +39,7 @@
             "minLength": 1,
             "format": "date-time",
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/datum",
+            "x-validation-message": "Vul een geldige datum en tijd in voor Meetmoment, met tijdzone.",
             "x-table-order": 137,
             "x-relevant-observations": [
               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/meting"
@@ -57,6 +59,7 @@
                 "type": "string",
                 "minLength": 1,
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo-naam",
+                "x-validation-message": "Vul een geldige tekst in voor Naam.",
                 "x-table-order": 139,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                 "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#label",
@@ -68,11 +71,13 @@
               "registration": {
                 "type": "string",
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo-id",
+                "x-validation-message": "Vul een geldige tekst in voor KBO nummer of BTW nummer.",
                 "x-table-order": 140,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                 "x-jsonld-id": "http://www.w3.org/ns/regorg#registration",
                 "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
                 "title": "KBO nummer of BTW nummer",
+                "description": "Vul een geldige tekst in voor KBO nummer of BTW nummer.",
                 "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/labo-naam",
                 "x-ui-after": "label"
               }
@@ -114,6 +119,7 @@
                         "https://data.omgeving.vlaanderen.be/id/concept/csor/variabele/V_333"
                       ],
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-parameter",
+                      "x-validation-message": "Kies een geldige waarde voor Variabele.",
                       "x-table-order": 142,
                       "x-code-lists": [
                         "https://data.omgeving.vlaanderen.be/id/collection/rie-iepr/operationeel_stoffen_water"
@@ -121,6 +127,7 @@
                       "x-jsonld-id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#variabele",
                       "x-jsonld-type": "@id",
                       "title": "Variabele",
+                      "description": "Kies een geldige waarde voor Variabele.",
                       "x-ui-first": true
                     },
                     "hasMember": {
@@ -143,6 +150,7 @@
                                     "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
                                     "x-table-order": 151,
                                     "title": "Meetonzekerheid",
+                                    "description": "Vul een geheel getal van minimaal 0 en maximaal 100 in voor Meetonzekerheid.",
                                     "x-ui-first": true,
                                     "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-parameter",
                                     "x-variabele": "variabele",
@@ -194,6 +202,7 @@
                             ],
                             "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-meetonzekerheid",
+                            "x-validation-message": "Vul een geheel getal van minimaal 0 en maximaal 100 in voor Meetonzekerheid.",
                             "x-table-order": 151,
                             "x-source-datatype": "http://www.w3.org/2001/XMLSchema#integer",
                             "x-jsonld-id": "http://www.w3.org/ns/sosa/hasMember",
@@ -206,6 +215,7 @@
                             ],
                             "x-scalar-observation": true,
                             "title": "Meetonzekerheid",
+                            "description": "Vul een geheel getal van minimaal 0 en maximaal 100 in voor Meetonzekerheid.",
                             "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-concentratie-observatie",
                             "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-parameter",
                             "x-ui-after": "parameterConcentratieObservatie",
@@ -231,6 +241,7 @@
                                       "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/debietgebonden_mengmonster"
                                     ],
                                     "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-soort",
+                                    "x-validation-message": "Kies een geldige waarde voor Soort monstername.",
                                     "x-table-order": 145,
                                     "x-code-lists": [
                                       "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_zelfcontrole_soort_monstername"
@@ -238,12 +249,14 @@
                                     "x-jsonld-id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#soortMonstername",
                                     "x-jsonld-type": "@id",
                                     "title": "Soort monstername",
+                                    "description": "Kies een geldige waarde voor Soort monstername.",
                                     "x-ui-first": true
                                   },
                                   "numericValue": {
                                     "type": "number",
                                     "minimum": 0,
                                     "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-concentratie",
+                                    "x-validation-message": "Vul een getal van minimaal 0 in voor Concentratie onder meetomstandigheden.",
                                     "x-table-order": 147,
                                     "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
                                     "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
@@ -252,6 +265,7 @@
                                     "x-drager": "https://data.omgeving.vlaanderen.be/id/concept/csor/drager/DR_1",
                                     "x-soortwaardebepaling": "https://data.omgeving.vlaanderen.be/id/concept/csor/soortwaardebepaling/SWB_1",
                                     "title": "Concentratie onder meetomstandigheden",
+                                    "description": "Vul een getal van minimaal 0 in voor Concentratie onder meetomstandigheden.",
                                     "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-loq",
                                     "x-variable-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-parameter",
                                     "x-ui-after": "bepalingsgrensindicator",
@@ -266,6 +280,7 @@
                                   "meetfrequentie": {
                                     "type": "string",
                                     "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-meetfrequentie",
+                                    "x-validation-message": "Vul een geldige tekst in voor Gehanteerde meetfrequentie.",
                                     "x-table-order": 149,
                                     "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                                     "x-jsonld-id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#meetfrequentie",
@@ -302,6 +317,7 @@
                                       "numericValue"
                                     ],
                                     "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-grenswaarde",
+                                    "x-validation-message": "Vul een getal in voor Grenswaarde.",
                                     "x-table-order": 148,
                                     "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
                                     "x-jsonld-id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#grenswaarde",
@@ -318,6 +334,7 @@
                                       "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-meetfrequentie/bron_aangepaste_meetfrequentie"
                                     ],
                                     "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-bron-meetfrequentie",
+                                    "x-validation-message": "Kies een geldige waarde voor Bron meetfrequentie.",
                                     "x-table-order": 150,
                                     "x-code-lists": [
                                       "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_bron_meetfrequentie"
@@ -336,6 +353,7 @@
                                       "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/detectiegrens-onder"
                                     ],
                                     "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/parameter-loq",
+                                    "x-validation-message": "Kies een geldige waarde voor Bepalingsgrens (LOQ).",
                                     "x-table-order": 146,
                                     "x-code-lists": [
                                       "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_detectiegrensindicator"
@@ -552,7 +570,6 @@
   "x-theme-slug": "zelfcontrole-water",
   "x-theme-label": "Zelfcontrole water",
   "x-semantic-profile": "https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/",
-  "x-flow-transitions": [],
   "x-section-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-zelfcontrole-water/meting",
   "x-table-workbook": "zelfcontrole-water.ods"
 }

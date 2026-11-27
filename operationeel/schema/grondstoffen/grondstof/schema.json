@@ -7,9 +7,11 @@
     "geproduceerd": {
       "type": "boolean",
       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/geproduceerd",
+      "x-validation-message": "Kies ja of nee bij: Heeft u grondstoffen geproduceerd?",
       "x-table-order": 154,
       "x-source-datatype": "http://www.w3.org/2001/XMLSchema#boolean",
       "title": "Heeft u grondstoffen geproduceerd?",
+      "description": "Kies ja of nee bij: Heeft u grondstoffen geproduceerd?",
       "x-ui-first": true
     },
     "grondstof": {
@@ -164,6 +166,7 @@
                   "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/materiaalcode_m08_03"
                 ],
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_materiaalcode",
+                "x-validation-message": "Kies een geldige waarde voor Materiaalcode.",
                 "x-table-order": 160,
                 "x-code-lists": [
                   "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_materiaalcodes"
@@ -171,16 +174,19 @@
                 "x-jsonld-id": "https://schema.org/material",
                 "x-jsonld-type": "@id",
                 "title": "Materiaalcode",
+                "description": "Kies een geldige waarde voor Materiaalcode.",
                 "x-ui-first": true
               },
               "grondstofOmschrijving": {
                 "type": "string",
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_omschrijving",
+                "x-validation-message": "Vul een geldige tekst in voor Omschrijving.",
                 "x-table-order": 161,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                 "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#comment",
                 "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
                 "title": "Omschrijving",
+                "description": "Vul een geldige tekst in voor Omschrijving.",
                 "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_materiaalcode",
                 "x-ui-after": "material"
               },
@@ -188,6 +194,7 @@
                 "type": "number",
                 "minimum": 0,
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_hoeveelheid",
+                "x-validation-message": "Vul een getal van minimaal 0 in voor Hoeveelheid.",
                 "x-table-order": 162,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
                 "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
@@ -206,6 +213,7 @@
                   "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-toepassingswijze/overige"
                 ],
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_toepassingswijze",
+                "x-validation-message": "Kies een geldige waarde voor Toepassingswijze.",
                 "x-table-order": 163,
                 "x-code-lists": [
                   "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_toepassingwijze"
@@ -213,17 +221,20 @@
                 "x-jsonld-id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#toepassingswijze",
                 "x-jsonld-type": "@id",
                 "title": "Toepassingswijze",
+                "description": "Kies een geldige waarde voor Toepassingswijze.",
                 "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_hoeveelheid",
                 "x-ui-after": "numericValue"
               },
               "grondstofOpmerking": {
                 "type": "string",
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_opmerking",
+                "x-validation-message": "Vul een geldige tekst in voor Opmerking.",
                 "x-table-order": 164,
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                 "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#comment",
                 "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
                 "title": "Opmerking",
+                "description": "Vul een geldige tekst in voor Opmerking.",
                 "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_toepassingswijze",
                 "x-ui-after": "toepassingswijze"
               },
@@ -277,6 +288,7 @@
                     "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-bestemmingstype/particulier"
                   ],
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_bestemming_type",
+                  "x-validation-message": "Kies een geldige waarde voor Type bestemming.",
                   "x-table-order": 166,
                   "x-code-lists": [
                     "https://data.omgeving.vlaanderen.be/id/conceptscheme/riepr/operationeel_bestemmingstype"
@@ -284,6 +296,7 @@
                   "x-jsonld-id": "http://purl.org/dc/terms/type",
                   "x-jsonld-type": "@id",
                   "title": "Type bestemming",
+                  "description": "Kies een geldige waarde voor Type bestemming.",
                   "x-ui-first": true
                 },
                 "bestemmingsidentificatieBe": {
@@ -292,22 +305,26 @@
                     "label": {
                       "type": "string",
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be-naam",
+                      "x-validation-message": "Vul een geldige tekst in voor Firmanaam.",
                       "x-table-order": 168,
                       "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                       "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#label",
                       "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
                       "title": "Firmanaam",
+                      "description": "Vul een geldige tekst in voor Firmanaam.",
                       "x-ui-first": true
                     },
                     "registration": {
                       "type": "string",
                       "minLength": 1,
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be-on",
+                      "x-validation-message": "Vul een geldige tekst in voor Ondernemingsnummer.",
                       "x-table-order": 169,
                       "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                       "x-jsonld-id": "http://www.w3.org/ns/regorg#registration",
                       "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
                       "title": "Ondernemingsnummer",
+                      "description": "Vul een geldige tekst in voor Ondernemingsnummer.",
                       "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be-naam",
                       "x-ui-after": "label"
                     },
@@ -315,11 +332,13 @@
                       "type": "string",
                       "minLength": 1,
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be-ve",
+                      "x-validation-message": "Vul een geldige tekst in voor Vestigingseenheidsnummer.",
                       "x-table-order": 170,
                       "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                       "x-jsonld-id": "https://schema.org/identifier",
                       "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
                       "title": "Vestigingseenheidsnummer",
+                      "description": "Vul een geldige tekst in voor Vestigingseenheidsnummer.",
                       "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-be-on",
                       "x-ui-after": "registration"
                     }
@@ -355,22 +374,26 @@
                     "label": {
                       "type": "string",
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-buitenland-naam",
+                      "x-validation-message": "Vul een geldige tekst in voor Firmanaam.",
                       "x-table-order": 172,
                       "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                       "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#label",
                       "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
                       "title": "Firmanaam",
+                      "description": "Vul een geldige tekst in voor Firmanaam.",
                       "x-ui-first": true
                     },
                     "registration": {
                       "type": "string",
                       "minLength": 1,
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-buitenland-btw",
+                      "x-validation-message": "Vul een geldige tekst in voor BTW-nummer.",
                       "x-table-order": 173,
                       "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                       "x-jsonld-id": "http://www.w3.org/ns/regorg#registration",
                       "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
                       "title": "BTW-nummer",
+                      "description": "Vul een geldige tekst in voor BTW-nummer.",
                       "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-buitenland-naam",
                       "x-ui-after": "label"
                     }
@@ -405,11 +428,13 @@
                     "label": {
                       "type": "string",
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-werf-naam",
+                      "x-validation-message": "Vul een geldige tekst in voor Firmanaam.",
                       "x-table-order": 175,
                       "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                       "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#label",
                       "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
                       "title": "Firmanaam",
+                      "description": "Vul een geldige tekst in voor Firmanaam.",
                       "x-ui-first": true
                     }
                   },
@@ -441,22 +466,26 @@
                       "type": "string",
                       "minLength": 1,
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-none-naam",
+                      "x-validation-message": "Vul een geldige tekst in voor Firmanaam.",
                       "x-table-order": 177,
                       "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                       "x-jsonld-id": "http://www.w3.org/2000/01/rdf-schema#label",
                       "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
                       "title": "Firmanaam",
+                      "description": "Vul een geldige tekst in voor Firmanaam.",
                       "x-ui-first": true
                     },
                     "address": {
                       "type": "string",
                       "minLength": 1,
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-none-adres",
+                      "x-validation-message": "Vul een geldige tekst in voor Adres.",
                       "x-table-order": 178,
                       "x-source-datatype": "http://www.w3.org/2001/XMLSchema#string",
                       "x-jsonld-id": "https://schema.org/address",
                       "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#string",
                       "title": "Adres",
+                      "description": "Vul een geldige tekst in voor Adres.",
                       "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemmingsidentificatie-none-naam",
                       "x-ui-after": "label"
                     }
@@ -493,6 +522,7 @@
               ],
               "x-jsonld-type": "http://www.w3.org/ns/prov#Association",
               "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/bestemming",
+              "x-validation-message": "Voeg minstens één bestemming toe.",
               "x-table-workbook": "grondstoffen-geproduceerd.ods",
               "x-table-sheet": "Bestemmingen",
               "x-table-order": 165,
@@ -607,12 +637,14 @@
             "x-table-workbook": "grondstoffen-geproduceerd.ods",
             "x-table-sheet": "Bestemmingen",
             "x-table-order": 165,
+            "x-validation-message": "Voeg minstens één bestemming toe.",
             "x-ui-after": "hasResult"
           },
           "hasFeatureOfInterest": {
             "type": "string",
             "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_installatie",
+            "x-validation-message": "Kies een geldige waarde voor IEPR installatie.",
             "x-table-order": 157,
             "x-reference-types": [
               "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Proces"
@@ -633,6 +665,7 @@
             "type": "string",
             "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof_activiteit",
+            "x-validation-message": "Kies een geldige waarde voor Activiteit.",
             "x-table-order": 158,
             "x-reference-types": [
               "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Rubriek"
@@ -662,6 +695,7 @@
         ],
         "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
         "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
+        "x-validation-message": "Voeg minstens één geproduceerde grondstof toe.",
         "x-table-workbook": "grondstoffen-geproduceerd.ods",
         "x-table-sheet": "Geproduceerde grondstoffen",
         "x-table-key": [
@@ -682,6 +716,7 @@
       "x-table-workbook": "grondstoffen-geproduceerd.ods",
       "x-table-sheet": "Geproduceerde grondstoffen",
       "x-table-order": 156,
+      "x-validation-message": "Voeg minstens één geproduceerde grondstof toe.",
       "x-ui-after": "geproduceerd",
       "x-visible-when": {
         "sourceConcept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/geproduceerd",
@@ -722,7 +757,6 @@
   "x-theme-slug": "grondstoffen",
   "x-theme-label": "Grondstoffen",
   "x-semantic-profile": "https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/",
-  "x-flow-transitions": [],
   "x-section-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondstoffen/grondstof",
   "x-table-workbook": "grondstoffen-geproduceerd.ods"
 }

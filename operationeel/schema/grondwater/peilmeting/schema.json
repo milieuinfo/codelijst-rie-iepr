@@ -14,6 +14,7 @@
             "type": "string",
             "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-feature",
+            "x-validation-message": "Kies een geldige waarde voor Filter.",
             "x-table-workbook": "grondwater-peilmetingen.ods",
             "x-table-sheet": "Peilmetingen",
             "x-table-order": 11,
@@ -40,6 +41,7 @@
             "type": "string",
             "format": "date-time",
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-datum",
+            "x-validation-message": "Vul een geldige datum en tijd in voor Datum en tijdstip, met tijdzone.",
             "x-table-workbook": "grondwater-peilmetingen.ods",
             "x-table-sheet": "Peilmetingen",
             "x-table-order": 16,
@@ -50,6 +52,7 @@
             "x-jsonld-id": "http://www.w3.org/ns/sosa/resultTime",
             "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#dateTime",
             "title": "Datum en tijdstip",
+            "description": "Vul een geldige datum en tijd in voor Datum en tijdstip, met tijdzone.",
             "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-feature",
             "x-ui-after": "hasFeatureOfInterest"
           },
@@ -60,6 +63,7 @@
                 "type": "string",
                 "minLength": 1,
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-referentiepunt",
+                "x-validation-message": "Kies een geldige waarde voor Referentiepunt.",
                 "x-table-workbook": "grondwater-peilmetingen.ods",
                 "x-table-sheet": "Peilmetingen",
                 "x-table-order": 13,
@@ -72,6 +76,7 @@
                 "x-jsonld-id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#referentiepunt",
                 "x-jsonld-type": "@id",
                 "title": "Referentiepunt",
+                "description": "Kies een geldige waarde voor Referentiepunt.",
                 "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-feature"
               },
               "measurementMethod": {
@@ -82,6 +87,7 @@
                   "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-peilmethode/overige"
                 ],
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-peilmethode",
+                "x-validation-message": "Kies een geldige waarde voor Peilmethode.",
                 "x-table-workbook": "grondwater-peilmetingen.ods",
                 "x-table-sheet": "Peilmetingen",
                 "x-table-order": 14,
@@ -94,6 +100,7 @@
                 "x-jsonld-id": "https://schema.org/measurementMethod",
                 "x-jsonld-type": "@id",
                 "title": "Peilmethode",
+                "description": "Kies een geldige waarde voor Peilmethode.",
                 "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-diepte",
                 "x-ui-after": "numericValue"
               },
@@ -104,6 +111,7 @@
                   "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-pomptoestand/werking"
                 ],
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-pomptoestand",
+                "x-validation-message": "Kies een geldige waarde voor Pomptoestand.",
                 "x-table-workbook": "grondwater-peilmetingen.ods",
                 "x-table-sheet": "Peilmetingen",
                 "x-table-order": 15,
@@ -116,12 +124,14 @@
                 "x-jsonld-id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#pomptoestand",
                 "x-jsonld-type": "@id",
                 "title": "Pomptoestand",
+                "description": "Kies een geldige waarde voor Pomptoestand.",
                 "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-peilmethode",
                 "x-ui-after": "measurementMethod"
               },
               "numericValue": {
                 "type": "number",
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-diepte",
+                "x-validation-message": "Vul een getal in voor Diepte/hoogte (TAW) t.o.v. referentiepunt.",
                 "x-table-workbook": "grondwater-peilmetingen.ods",
                 "x-table-sheet": "Peilmetingen",
                 "x-table-order": 12,
@@ -132,12 +142,14 @@
                 "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
                 "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#decimal",
                 "title": "Diepte/hoogte (TAW) t.o.v. referentiepunt",
+                "description": "Vul een getal in voor Diepte/hoogte (TAW) t.o.v. referentiepunt.",
                 "x-ui-first": true
               },
               "duurPompenStil": {
                 "type": "string",
                 "format": "duration",
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-duur-stil",
+                "x-validation-message": "Vul een geldige ISO 8601-duur in voor Duur pompen stil, bijvoorbeeld PT1H.",
                 "x-table-workbook": "grondwater-peilmetingen.ods",
                 "x-table-sheet": "Peilmetingen",
                 "x-table-order": 17,
@@ -148,6 +160,7 @@
                 "x-jsonld-id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#duurPompenStil",
                 "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#duration",
                 "title": "Duur pompen stil",
+                "description": "Vul een geldige ISO 8601-duur in voor Duur pompen stil, bijvoorbeeld PT1H.",
                 "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-pomptoestand",
                 "x-ui-after": "pomptoestand",
                 "x-visible-when": {
@@ -182,6 +195,7 @@
                   "numericValue"
                 ],
                 "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-volume-werking",
+                "x-validation-message": "Vul een getal in voor Volume (1 uur voor meting).",
                 "x-table-workbook": "grondwater-peilmetingen.ods",
                 "x-table-sheet": "Peilmetingen",
                 "x-table-order": 18,
@@ -191,6 +205,7 @@
                 "x-source-datatype": "http://www.w3.org/2001/XMLSchema#decimal",
                 "x-jsonld-id": "https://data.riepr.omgeving.vlaanderen.be/ns/vocab#volumeVoorMeting",
                 "title": "Volume (1 uur voor meting)",
+                "description": "Vul een getal in voor Volume (1 uur voor meting).",
                 "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting-duur-stil",
                 "x-ui-after": "duurPompenStil",
                 "x-visible-when": {
@@ -303,7 +318,6 @@
   "x-theme-slug": "grondwater",
   "x-theme-label": "Grondwater",
   "x-semantic-profile": "https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/",
-  "x-flow-transitions": [],
   "x-section-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/peilmeting",
   "x-table-workbook": "grondwater-peilmetingen.ods"
 }

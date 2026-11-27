@@ -14,6 +14,7 @@
             "type": "string",
             "minLength": 1,
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-feature",
+            "x-validation-message": "Kies een geldige waarde voor Debietmeter.",
             "x-table-workbook": "grondwater-debieten.ods",
             "x-table-sheet": "Debieten",
             "x-table-order": 1,
@@ -56,6 +57,7 @@
               "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-debiettype/spui"
             ],
             "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-type-debiet",
+            "x-validation-message": "Kies een geldige waarde voor Type debiet.",
             "x-table-workbook": "grondwater-debieten.ods",
             "x-table-sheet": "Debieten",
             "x-table-order": 6,
@@ -68,6 +70,7 @@
             "x-jsonld-id": "http://purl.org/dc/terms/type",
             "x-jsonld-type": "@id",
             "title": "Type debiet",
+            "description": "Kies een geldige waarde voor Type debiet.",
             "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-eindmeterstand",
             "x-ui-after": "onttrekkingEindmeterstand"
           },
@@ -85,6 +88,7 @@
                       "type": "string",
                       "format": "date",
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-startdatum",
+                      "x-validation-message": "Vul een geldige datum in voor Startdatum (JJJJ-MM-DD).",
                       "x-table-workbook": "grondwater-debieten.ods",
                       "x-table-sheet": "Debieten",
                       "x-table-order": 2,
@@ -95,6 +99,7 @@
                       "x-jsonld-id": "http://www.w3.org/ns/sosa/resultTime",
                       "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#date",
                       "title": "Startdatum",
+                      "description": "Vul een geldige datum in voor Startdatum (JJJJ-MM-DD).",
                       "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-feature"
                     },
                     "hasResult": {
@@ -106,6 +111,7 @@
                           "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
                           "x-table-order": 3,
                           "title": "Startmeterstand",
+                          "description": "Vul een geheel getal van minimaal 0 in voor Startmeterstand.",
                           "x-ui-first": true
                         },
                         "hasUnit": {
@@ -150,6 +156,7 @@
                   "x-table-sheet": "Debieten",
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-startmeterstand",
+                  "x-validation-message": "Vul een geheel getal van minimaal 0 in voor Startmeterstand.",
                   "x-table-workbook": "grondwater-debieten.ods",
                   "x-table-order": 3,
                   "x-relevant-observations": [
@@ -163,6 +170,7 @@
                   ],
                   "x-scalar-observation": true,
                   "title": "Startmeterstand",
+                  "description": "Vul een geheel getal van minimaal 0 in voor Startmeterstand.",
                   "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-startdatum"
                 },
                 {
@@ -172,6 +180,7 @@
                       "type": "string",
                       "minLength": 1,
                       "format": "date",
+                      "x-validation-message": "Vul een geldige datum in voor Einddatum (JJJJ-MM-DD).",
                       "x-table-workbook": "grondwater-debieten.ods",
                       "x-table-sheet": "Debieten",
                       "x-table-order": 4,
@@ -185,6 +194,7 @@
                       "x-derived-from-source": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-einddatum",
                       "x-ui-hidden": true,
                       "title": "Einddatum",
+                      "description": "Vul een geldige datum in voor Einddatum (JJJJ-MM-DD).",
                       "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-startmeterstand"
                     },
                     "hasResult": {
@@ -196,6 +206,7 @@
                           "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
                           "x-table-order": 5,
                           "title": "Eindmeterstand",
+                          "description": "Vul een geheel getal van minimaal 0 in voor Eindmeterstand.",
                           "x-ui-first": true
                         },
                         "hasUnit": {
@@ -241,6 +252,7 @@
                   "x-table-sheet": "Debieten",
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-eindmeterstand",
+                  "x-validation-message": "Vul een geheel getal van minimaal 0 in voor Eindmeterstand.",
                   "x-table-workbook": "grondwater-debieten.ods",
                   "x-table-order": 5,
                   "x-relevant-observations": [
@@ -254,6 +266,7 @@
                   ],
                   "x-scalar-observation": true,
                   "title": "Eindmeterstand",
+                  "description": "Vul een geheel getal van minimaal 0 in voor Eindmeterstand.",
                   "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-einddatum"
                 },
                 {
@@ -264,6 +277,7 @@
                       "minLength": 1,
                       "format": "date",
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-einddatum",
+                      "x-validation-message": "Vul een geldige datum in voor Einddatum (JJJJ-MM-DD).",
                       "x-table-workbook": "grondwater-debieten.ods",
                       "x-table-sheet": "Debieten",
                       "x-table-order": 4,
@@ -275,6 +289,7 @@
                       "x-jsonld-id": "http://www.w3.org/ns/sosa/resultTime",
                       "x-jsonld-type": "http://www.w3.org/2001/XMLSchema#date",
                       "title": "Einddatum",
+                      "description": "Vul een geldige datum in voor Einddatum (JJJJ-MM-DD).",
                       "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-startmeterstand"
                     },
                     "hasResult": {
@@ -286,6 +301,7 @@
                           "x-jsonld-id": "http://qudt.org/schema/qudt/numericValue",
                           "x-table-order": 7,
                           "title": "Hoeveelheid",
+                          "description": "Vul een geheel getal van minimaal 0 in voor Hoeveelheid.",
                           "x-ui-first": true
                         },
                         "hasUnit": {
@@ -331,6 +347,7 @@
                   "x-table-sheet": "Debieten",
                   "x-jsonld-type": "https://data.riepr.omgeving.vlaanderen.be/ns/riepr#Observatie",
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-hoeveelheid",
+                  "x-validation-message": "Vul een geheel getal van minimaal 0 in voor Hoeveelheid.",
                   "x-table-workbook": "grondwater-debieten.ods",
                   "x-table-order": 7,
                   "x-relevant-observations": [
@@ -344,6 +361,7 @@
                   ],
                   "x-scalar-observation": true,
                   "title": "Hoeveelheid",
+                  "description": "Vul een geheel getal van minimaal 0 in voor Hoeveelheid.",
                   "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-type-debiet",
                   "x-ui-after": "type"
                 }
@@ -434,6 +452,7 @@
                     "value": {
                       "type": "boolean",
                       "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-spui",
+                      "x-validation-message": "Kies ja of nee bij: Spui meegeteld in rondgepompt debiet.",
                       "x-table-workbook": "grondwater-debieten.ods",
                       "x-table-sheet": "Debieten",
                       "x-table-order": 8,
@@ -451,6 +470,7 @@
                     "value"
                   ],
                   "x-source-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-spui",
+                  "x-validation-message": "Kies ja of nee bij: Spui meegeteld in rondgepompt debiet.",
                   "x-table-workbook": "grondwater-debieten.ods",
                   "x-table-sheet": "Debieten",
                   "x-table-order": 8,
@@ -460,6 +480,7 @@
                   "x-source-datatype": "http://www.w3.org/2001/XMLSchema#boolean",
                   "x-jsonld-id": "https://schema.org/additionalProperty",
                   "title": "Spui meegeteld in rondgepompt debiet",
+                  "description": "Kies ja of nee bij: Spui meegeteld in rondgepompt debiet.",
                   "x-ui-after-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking-hoeveelheid",
                   "x-ui-after": "onttrekkingHoeveelheid"
                 }
@@ -544,7 +565,6 @@
   "x-theme-slug": "grondwater",
   "x-theme-label": "Grondwater",
   "x-semantic-profile": "https://www.w3.org/TR/2020/WD-vocab-ssn-ext-20200116/",
-  "x-flow-transitions": [],
   "x-section-concept": "https://data.omgeving.vlaanderen.be/id/concept/riepr/operationeel-grondwater/onttrekking",
   "x-table-workbook": "grondwater-debieten.ods"
 }
